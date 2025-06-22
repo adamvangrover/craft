@@ -135,6 +135,7 @@ The credit approval process formalizes the lending decision within a financial i
 
 Successful underwriting requires a blend of analytical rigor, sound judgment, healthy skepticism, and effective communication. It is both a science (financial analysis, modeling) and an art (assessing character, management, and qualitative factors).
 =======
+=======
 # Module 8: Underwriting New Issuers
 
 ## 8.1. The Underwriting Process from Mandate to Close

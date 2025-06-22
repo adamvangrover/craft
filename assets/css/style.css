@@ -1,0 +1,211 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.container {
+    display: flex;
+    flex: 1; /* Allows container to grow and fill available space */
+    width: 90%;
+    max-width: 1400px;
+    margin: 20px auto;
+    overflow: hidden; /* Clear floats */
+}
+
+#sidebar {
+    background: #eef;
+    width: 25%; /* Adjust as needed */
+    padding: 15px;
+    border-right: 1px solid #ddd;
+    height: calc(100vh - 120px); /* Full height minus header/footer approx */
+    overflow-y: auto;
+}
+
+#sidebar h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+#sidebar ul {
+    list-style: none;
+}
+
+#sidebar ul li {
+    margin-bottom: 8px;
+}
+
+#sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+#sidebar ul li a:hover,
+#sidebar ul li a.active { /* Class to be added by JS for active link */
+    background-color: #ddd;
+    color: #000;
+}
+
+/* Sub-navigation for module parts (e.g., main, learning materials, quiz) */
+#sidebar ul ul {
+    margin-left: 15px;
+    margin-top: 5px;
+    font-size: 0.9em;
+}
+
+#sidebar ul ul li a {
+    padding: 3px 5px;
+    color: #555;
+}
+
+#sidebar ul ul li a:hover,
+#sidebar ul ul li a.active {
+    background-color: #ccc;
+}
+
+
+#content-area {
+    background: #fff;
+    width: 75%; /* Adjust as needed */
+    padding: 20px;
+    height: calc(100vh - 120px); /* Full height minus header/footer approx */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+}
+
+/* Styles for rendered Markdown content */
+#content-area h1, #content-area h2, #content-area h3, #content-area h4 {
+    color: #333;
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.3rem;
+}
+#content-area h1 { font-size: 1.8em; }
+#content-area h2 { font-size: 1.5em; }
+#content-area h3 { font-size: 1.3em; }
+#content-area h4 { font-size: 1.1em; }
+
+#content-area p {
+    margin-bottom: 1rem;
+}
+
+#content-area ul, #content-area ol {
+    margin-left: 20px;
+    margin-bottom: 1rem;
+}
+
+#content-area li {
+    margin-bottom: 0.5rem;
+}
+
+#content-area code {
+    background-color: #f0f0f0;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#content-area pre {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 3px;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+#content-area pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+#content-area table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+#content-area th, #content-area td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#content-area th {
+    background-color: #f7f7f7;
+}
+
+#content-area blockquote {
+    border-left: 4px solid #ccc;
+    padding-left: 10px;
+    margin-left: 0;
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+#content-area a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#content-area a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    background: #333;
+    color: #fff;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+/* Basic responsiveness */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        width: 95%;
+    }
+
+    #sidebar, #content-area {
+        width: 100%;
+        height: auto; /* Adjust height for stacked layout */
+        max-height: 50vh; /* Example, can be adjusted */
+    }
+
+    #sidebar {
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 10px;
+    }
+}

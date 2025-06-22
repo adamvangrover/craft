@@ -168,6 +168,7 @@ Maintaining a high standard of grammar, spelling, punctuation, and style is not 
 
 The goal is to produce documents that are not only analytically sound but also polished, professional, and easy for the reader to understand and act upon.
 =======
+=======
 The culmination of an analyst's work on a new credit or a portfolio review is the credit memorandum (or credit memo/report). This document is the primary vehicle for communicating the analysis and making a formal recommendation to the credit committee or decision-makers. It is not merely a summary of facts; it is a persuasive document designed to lead the reader to a logical, well-supported conclusion.
 
 An effective credit memo is clear, concise, and demonstrates a thorough understanding of the borrower and the associated risks. While templates may vary by institution, a standard credit memo structure generally includes the following components:

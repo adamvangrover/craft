@@ -41,7 +41,6 @@ Underpinning these principles is the **accrual method of accounting**, which is 
 
 This stands in contrast to the **cash method**, where transactions are only recorded when cash changes hands. The accrual method provides a far more accurate picture of a company's economic performance and financial position over a period because it adheres to the **matching principle**: matching revenues with the expenses required to generate them. For an analyst, understanding this is fundamental; it is the reason why a company can report a profit on its income statement yet be running out of cash (e.g., if it makes many sales on credit that customers are slow to pay).
 
-
 ## 1.2. Deconstructing the Three Financial Statements
 The end product of the accounting process is a set of three core financial statements: the Balance Sheet, the Income Statement, and the Statement of Cash Flows. Together, they provide a comprehensive view of a company's financial health.
 
@@ -142,7 +141,6 @@ Key areas to scrutinize include:
 *   Unusual related-party transactions.
 *   Disputes with auditors or qualified audit opinions.
 *   Going concern disclosures.
-
 
 **Table 1.1: The Three Financial Statements - A Comparative Overview**
 

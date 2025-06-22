@@ -3,7 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Credit Risk Analyst Training Course</title>
+                                  
+    <title>CRAFT - Credit Risk Analyst Foundations Training</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>CRAFT – Credit Risk Analyst Foundations Training</h1>
+    </header>
+
+    <div class="container">
+        <nav id="sidebar">
+            <h2>Course Modules</h2>
+            <ul id="module-navigation-list">
+                <!-- Dynamically populated by script.js -->
+                <li><a href="#" data-path="modules/01-foundations/01-accounting-and-financial-statement-analysis.md">Module 1: Accounting & FS Analysis</a></li>
+                <!-- More example links can be added here for testing, will be dynamic -->
+            </ul>
+        </nav>
+
+        <main id="content-area">
+            <p>Welcome to the CRAFT program. Select a module from the left to begin, or view the <a href="#" data-path="README.md">Course Overview (README)</a>.</p>
+            <!-- Markdown content will be rendered here by script.js -->
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> CRAFT Program. Placeholder.</p>
+    </footer>
+
+    <!-- Marked.js for Markdown to HTML conversion -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="assets/js/script.js"></script>
+
+  
+    <title>Interactive Credit Risk Analyst Foundations Training Course</title>
     <!-- Chosen Palette: Warm Neutrals (Cream, Stone, Slate) with a Professional Blue Accent -->
     <!-- Application Structure Plan: A non-linear, dashboard-style single-page application is chosen over a linear format to better reflect a modern learning experience and an analyst's workflow. The information is architected into four core pillars: "Toolkit," "Deal Analysis," "Portfolio Management," and "Future of Risk." This task-oriented structure allows users to either follow a logical progression or jump directly to a specific area of interest (e.g., "Covenants" or "LBO Modeling"). This design prioritizes usability and engagement, transforming a dense text document into an explorable, interactive tool. Key interactions include clickable diagrams, dynamic charts, toggles, and accordions to make complex information digestible and visually appealing. -->
     <!-- Visualization & Content Choices: Static text is converted into interactive elements to enhance learning. Goal: Inform/Compare -> Viz: Clickable diagrams for financial statement links and capital structure (HTML/CSS), dynamic bar charts for credit ratios (Chart.js), interactive toggles for covenant types (JS). Goal: Organize -> Viz: Step-by-step process flow for credit memos (HTML/CSS), accordion panels for detailed explanations. Goal: Analyze -> Viz: Interactive Porter's Five Forces diagram (HTML/CSS/JS), simple slider for sensitivity analysis concept (JS/Chart.js). Justification: These choices break down complex topics into manageable, interactive chunks, fostering active learning over passive reading, directly supporting the designed application structure. -->

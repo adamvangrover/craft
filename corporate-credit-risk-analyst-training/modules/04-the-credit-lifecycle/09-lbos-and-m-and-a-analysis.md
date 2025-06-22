@@ -119,6 +119,7 @@ Analyzing the credit implications of a merger or acquisition (M&A) requires a si
 
 In both LBO and M&A analysis, a creditor's focus remains steadfast: understanding the new risk profile, the capacity for debt repayment under various scenarios, and the adequacy of structural protections.
 =======
+=======
 # Module 9: Leveraged Buyouts (LBOs) & M&A Analysis
 
 ## 9.1. Analyzing Credit Risk in Highly Leveraged Transactions

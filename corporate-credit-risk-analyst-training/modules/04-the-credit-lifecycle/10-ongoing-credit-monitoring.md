@@ -129,6 +129,7 @@ If a credit deteriorates further despite initial watchlist actions, or if a seve
 
 Effective ongoing monitoring and proactive management of deteriorating credits are essential for maintaining a healthy credit portfolio and minimizing losses for financial institutions.
 =======
+=======
 # Module 10: Ongoing Credit Monitoring & Portfolio Review
 
 ## 10.1. The Discipline of Portfolio Management

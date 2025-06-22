@@ -224,6 +224,7 @@ Precision Parts Inc. is a privately-held manufacturer of specialized metal compo
 
 *(This case study provides a framework. An instructor or answer key would offer detailed solutions, expected calculations, and discussion points for each task.)*
 =======
+=======
 # Module 6: Critical Thinking & Forming a Narrative
 
 ## 6.1. The Framework for Critical Thinking in Credit

@@ -80,6 +80,7 @@ A strong credit analyst uses this framework not as a mere checklist, but as a sy
 ## 4.3. Case Study Application: A Five Forces Analysis of the U.S. Airline Industry
 (Content remains largely the same as it's a specific case study illustration)
 ...
+=======
 ## 4.3. Case Study Application: A Five Forces Analysis of the U.S. Airline Industry
 To illustrate the practical application of the framework, consider the U.S. airline industry, which is notoriously cyclical and has a long history of credit challenges. A Five Forces analysis reveals the structural reasons for this.
 
@@ -90,7 +91,6 @@ To illustrate the practical application of the framework, consider the U.S. airl
 *   **Threat of Substitutes (Medium):** For shorter routes, substitutes like cars, buses, and high-speed rail are viable alternatives. For business travel, the increasing quality and decreasing cost of videoconferencing technology pose a long-term substitute threat, reducing the need for some corporate travel.
 
 This analysis demonstrates that four of the five forces are strong to medium, all exerting pressure on the industry's profitability. This structural weakness explains why the airline industry is so susceptible to economic downturns and external shocks, and why airlines historically have had volatile credit ratings and a high incidence of bankruptcy.
-
 
 ## 4.4. Beyond the Five Forces: Other Key Industry Considerations
 
@@ -154,6 +154,4 @@ While Porter's Five Forces is central to understanding competitive dynamics, oth
     *   **Credit Relevance:** While often used for company analysis, applying SWOT at an industry level can summarize key advantages, vulnerabilities, growth avenues, and risks facing all players. This then provides context for assessing how well a specific company is positioned to capitalize on opportunities or mitigate threats.
 
 By combining insights from these frameworks, a credit analyst can develop a more holistic and nuanced understanding of the industry landscape, which is crucial for making informed credit decisions.
-=======
-
 

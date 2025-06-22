@@ -40,5 +40,35 @@ The training program is segmented into distinct modules:
     *   Module 10: Ongoing Credit Monitoring & Portfolio Review
 *   **Part 5: The Future of Risk Management**
     *   Module 11: The Future of Risk Management & AI
+*   **Part 6: Advanced Topics**
+    *   Module 12: Advanced Financial Statement Analysis & Quality of Earnings
+    *   Module 13: Debt Structuring & Restructuring
+    *   Module 14: Legal Aspects of Credit & Loan Documentation
+*   **Part 7: Advanced Communication & Craft**
+    *   Module 15: Advanced Business Writing: Persuasion & Narrative in Credit Memos
+    *   Module 17: Negotiation & Communication Skills for Credit Analysts
+*   **Part 8: Specialized Applications**
+    *   Module 16: Specialized Industry Analysis - Case Studies
+*   **Part 9: Regulatory & Quantitative Landscape**
+    *   Module 18: Regulatory Environment & Compliance in Lending
+    *   Module 19: Data Analytics & Quantitative Tools in Credit Risk (Beyond AI)
+*   **Part 10: Capstone**
+    *   Module 20: Capstone Project: Full Credit Analysis & Presentation
+
+Each module is contained in its respective markdown file within the `/modules/` directory. Supporting materials like quizzes, case studies, answer keys, and learning resources are generally located within subdirectories of each module's primary folder (e.g., `modules/01-foundations/quizzes/`) or within the course-level `solutions/` directory for consolidated answers.
+
+The interactive HTML guide (`index.html` in the course root) provides the primary means of navigating all course content. This README serves as a high-level map.
+
+---
+
+## Course Resources
+
+*   **[Interactive HTML Guide](../index.html)**: The recommended way to navigate the course materials. (Note: This link assumes README.md is in `corporate-credit-risk-analyst-training/` and index.html is one level up. Adjust if co-located).
+*   **[Comprehensive Course Glossary](./GLOSSARY.md)**: A consolidated list of key terms used throughout the CRAFT program.
+*   **[Consolidated Quiz Answers](./solutions/QUIZ_ANSWERS.md)**: Answer keys for all module quizzes.
+*   **[Consolidated Case Study Guidance](./solutions/CASE_STUDY_GUIDANCE.md)**: Guidance and discussion points for all case studies.
+
+---
+=======
 
 Each module is contained in its respective markdown file within the `/modules/` directory. Quizzes and case studies are located in subdirectories within the relevant module sections. Use this README as your central hub to navigate the course content.

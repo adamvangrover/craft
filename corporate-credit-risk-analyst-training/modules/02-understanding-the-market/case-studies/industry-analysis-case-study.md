@@ -71,6 +71,7 @@ Your task is to analyze the premium coffee industry in which GlobalBrew Coffee C
 
 *(Guidance on how to approach this case and key discussion points will be provided separately by your instructor or in an answer key.)*
 =======
+=======
 # Case Study: Industry Analysis
 
 This section will provide a practical case study to apply the concepts learned in Module 4, particularly Porter's Five Forces.
