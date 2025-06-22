@@ -69,3 +69,6 @@ The interactive HTML guide (`index.html` in the course root) provides the primar
 *   **[Consolidated Case Study Guidance](./solutions/CASE_STUDY_GUIDANCE.md)**: Guidance and discussion points for all case studies.
 
 ---
+=======
+
+Each module is contained in its respective markdown file within the `/modules/` directory. Quizzes and case studies are located in subdirectories within the relevant module sections. Use this README as your central hub to navigate the course content.
