@@ -162,3 +162,4 @@ A static, base-case model is insufficient for true risk analysis. The analyst mu
         *   A major liquidity freeze in financial markets.
         *   Loss of a major customer representing 40% of revenue.
     *   While scenario analysis might model a mild recession, a stress test would model a deep and prolonged one. It is a fundamental tool for assessing capital adequacy, understanding the vulnerabilities of a portfolio at the "tail" of the loss distribution, and answering the question: "What happens in a truly bad, but still conceivable, outcome, and can the borrower survive?"
+

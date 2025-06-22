@@ -195,3 +195,4 @@ This trend has profound implications for credit risk analysis and lender protect
         *   "What is the cushion between the estimated enterprise value and the total debt, and at what point does this value erode to impair our debt?"
     *   The analysis becomes less about checking boxes on quarterly compliance certificates and more about a fundamental, ongoing assessment of long-term viability, liquidity adequacy, and the strength of the remaining (negative) covenant protections.
 *   **Increased Importance of Negative Covenants and Definition Scrutiny:** In cov-lite deals, the details of negative covenants and the definitions that underpin them (especially "EBITDA" and permitted "baskets") become even more critical as primary tools for lender protection.
+=======
