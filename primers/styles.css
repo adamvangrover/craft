@@ -1,0 +1,285 @@
+/* === GLOBAL STYLES & RESETS === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.6;
+    background-color: #f8f9fa;
+    color: #343a40;
+    padding: 20px;
+}
+
+/* === PAGE LAYOUT (COMMON) === */
+.page-container { max-width: 1200px; margin: 0 auto; }
+.page-header {
+    display: flex; flex-wrap: wrap; align-items: center;
+    margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #dee2e6;
+}
+.page-header h1 {
+    font-size: 2.2em;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    margin-right: auto;
+}
+.page-footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #dee2e6;
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+/* === MAIN INDEX PAGE (`primers/index.html`) STYLES === */
+#mainIndexSearch {
+    flex-grow: 1; padding: 12px 15px; font-size: 1em;
+    border: 1px solid #ced4da; border-radius: 6px;
+    margin-right: 0;
+    margin-bottom: 10px;
+}
+#mainIndexSearch:focus {
+    border-color: #80bdff; outline: 0; box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.main-index-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.primer-summary-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.primer-summary-card h3 {
+    font-size: 1.3em;
+    color: #3498db;
+    margin-bottom: 10px;
+}
+.primer-summary-card .primer-initial-summary p {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 15px;
+}
+.primer-summary-card .primer-initial-summary p .key-term { /* Key terms in summary on index */
+    font-size: 1em; /* Reset from smaller key-term if needed */
+}
+
+.view-details-link {
+    display: inline-block;
+    background-color: #3498db;
+    color: #ffffff;
+    padding: 10px 15px;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: auto;
+    transition: background-color 0.2s;
+}
+.view-details-link:hover {
+    background-color: #2980b9;
+}
+
+/* === DETAIL PAGE (`primers/html/*.html`) STYLES === */
+.detail-page-header { /* Uses .page-header flex properties */ }
+.detail-page-header h1 { /* Uses .page-header h1 */ }
+
+.detail-page-nav {
+    order: 1; /* Ensure nav appears after H1 if header wraps */
+    width: 100%;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px; /* Space between nav links if they wrap */
+}
+.back-to-index-link, .view-markdown-link {
+    font-size: 0.9em;
+    color: #007bff;
+    text-decoration: none;
+    padding: 5px 0;
+}
+.back-to-index-link:hover, .view-markdown-link:hover {
+    text-decoration: underline;
+}
+
+.detail-page-controls {
+    order: 2; /* Ensure controls appear after nav if header wraps */
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+#detailPageQuickReadBtn {
+    background-color: #6c757d; color: #ffffff; border: none;
+    padding: 10px 15px; border-radius: 4px; cursor: pointer;
+    font-size: 0.9em; transition: background-color 0.2s;
+    flex-grow: 1; /* Allow buttons to grow */
+}
+#detailPageQuickReadBtn:hover { background-color: #5a6268; }
+
+.toggle-all-sections-btn { /* Shared by detail pages, also in .detail-page-controls */
+    background-color: #2980b9; color: #ffffff; border: none;
+    padding: 10px 15px; border-radius: 4px; cursor: pointer; /* Match quick read button */
+    font-size: 0.9em; transition: background-color 0.2s; white-space: nowrap;
+    flex-grow: 1; /* Allow buttons to grow */
+}
+.toggle-all-sections-btn:hover { background-color: #2c3e50; }
+
+.primer-detail-content { } /* No specific styles needed for this wrapper */
+
+.primer-initial-summary-detailed-page {
+    padding: 15px 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+.primer-initial-summary-detailed-page p {
+     font-size: 0.95em; color: #495057; margin-bottom:0;
+}
+.primer-initial-summary-detailed-page p .key-term {
+    font-size: 1em; /* Reset from smaller key-term if used globally */
+}
+
+
+/* === SHARED STYLES FOR PRIMER DETAILS (Accordions, Content) === */
+.primer-content-sections {
+    padding: 0; /* Accordions will have their own padding/margins */
+}
+.primer-section-accordion { border-bottom: 1px solid #e0e0e0; }
+.primer-section-accordion:last-child { border-bottom: none; }
+.primer-section-title {
+    padding: 12px 0;
+    cursor: pointer; font-weight: bold; font-size: 1.1em; color: #2c3e50;
+    list-style: none; display: flex; align-items: center;
+    transition: background-color 0.2s; position: relative;
+}
+.primer-section-title::-webkit-details-marker { display: none; }
+.primer-section-title::marker { display: none; }
+.primer-section-title:hover { background-color: #f0f8ff; }
+.primer-section-title::before {
+    content: '▶'; font-size: 0.8em; margin-right: 10px; display: inline-block;
+    transition: transform 0.2s ease-in-out; color: #3498db;
+}
+.primer-section-accordion[open] > .primer-section-title::before { transform: rotate(90deg); }
+.section-icon { margin-right: 8px; font-size: 1.2em; display: inline-block; width: 20px; text-align: center; }
+.section-icon-default { color: #007bff; }
+.section-icon-trends { color: #28a745; }
+.section-icon-risks { color: #dc3545; }
+.section-icon-tips { color: #ffc107; }
+.section-icon-metrics { color: #6f42c1; }
+
+.primer-section-content {
+    padding: 15px 0 15px 10px;
+    font-size: 0.9em;
+    border-top: 1px dashed #ced4da;
+}
+.section-type-overview > .primer-section-content,
+.section-type-general > .primer-section-content { background-color: #ffffff; border-left: 3px solid #adb5bd; padding-left: calc(10px + 3px); }
+.section-type-risks > .primer-section-content { background-color: #fff6f6; border-left: 3px solid #dc3545; padding-left: calc(10px + 3px); }
+.section-type-tips > .primer-section-content { background-color: #f3fff3; border-left: 3px solid #28a745; padding-left: calc(10px + 3px); }
+.section-type-metrics > .primer-section-content { background-color: #f5f3ff; border-left: 3px solid #6f42c1; padding-left: calc(10px + 3px); }
+.section-type-trends > .primer-section-content { background-color: #f0f8ff; border-left: 3px solid #007bff; padding-left: calc(10px + 3px); }
+
+.primer-section-content h3 { font-size: 1.15em; color: #343a40; margin-top: 1em; margin-bottom: 0.5em; }
+.primer-section-content h3:first-child { margin-top: 0; }
+.primer-section-content h4 { font-size: 1.05em; color: #495057; margin-top: 0.8em; margin-bottom: 0.4em; }
+.primer-section-content p { margin-bottom: 0.8em; }
+.primer-section-content p:last-child { margin-bottom: 0; }
+.primer-section-content ul, .primer-section-content ol { margin-bottom: 0.8em; padding-left: 20px; }
+.primer-section-content ul ul, .primer-section-content ol ol,
+.primer-section-content ul ol, .primer-section-content ol ul { margin-top: 0.3em; margin-bottom: 0.3em; padding-left: 25px; }
+.primer-section-content li { margin-bottom: 0.4em; position: relative; }
+.primer-section-content strong { font-weight: 600; color: #212529; }
+
+.key-term { font-weight: 600; color: #0056b3; background-color: #e7f3ff; padding: 1px 3px; border-radius: 3px; font-size: 0.95em; }
+
+.trend-positive::before, .trend-negative::before, .trend-neutral::before { display: inline-block; margin-right: 0.6em; font-size: 1.1em; }
+li.trend-positive::before, li.trend-negative::before, li.trend-neutral::before { }
+.trend-positive::before { content: '📈'; color: #28a745; }
+.trend-negative::before { content: '📉'; color: #dc3545; }
+.trend-neutral::before { content: '↔️'; color: #6c757d; }
+
+.table-container { overflow-x: auto; margin-top: 0.5em; margin-bottom: 1em; border: 1px solid #dee2e6; border-radius: 4px;}
+.primer-section-content table { width: 100%; border-collapse: collapse; }
+.primer-section-content th, .primer-section-content td { padding: 10px 12px; border: 1px solid #e0e0e0; text-align: left; font-size: 0.95em; vertical-align: top; }
+.primer-section-content th { background-color: #e9ecef; font-weight: 600; color: #495057; }
+.primer-section-content tbody tr:nth-child(even) { background-color: #f8f9fa; }
+.primer-section-content tbody tr:hover { background-color: #e2e6ea; }
+
+/* === QUICK READ MODE (For Detail Pages) === */
+.quick-read-active .primer-initial-summary-detailed-page,
+.quick-read-active .primer-section-content { display: none !important; }
+.quick-read-active .primer-section-accordion { border-bottom: 1px solid #e0e0e0; }
+.quick-read-active .primer-section-accordion[open] > .primer-section-title::before { transform: rotate(0deg); }
+.quick-read-active .toggle-all-sections-btn { display: none !important; }
+
+/* === SIMPLE INDEX LIST (Bottom of main index.html) === */
+.simple-index-list { margin-top: 40px; padding-top: 20px; border-top: 1px solid #dee2e6; }
+.simple-index-list h3 { font-size: 1.5em; color: #2c3e50; margin-bottom: 15px; text-align: center; }
+.simple-index-list ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+.simple-index-list li { margin-bottom: 8px; }
+.simple-index-list li a { text-decoration: none; color: #007bff; padding: 8px 12px; display: block; background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 4px; transition: background-color 0.2s, color 0.2s, border-color 0.2s; }
+.simple-index-list li a:hover { background-color: #e9ecef; color: #0056b3; border-color: #adb5bd; }
+
+
+/* === RESPONSIVE ADJUSTMENTS === */
+@media (max-width: 768px) {
+    body { padding: 10px; }
+    .page-header { flex-direction: column; align-items: stretch; }
+    .page-header h1 { text-align: center; margin-right: 0; font-size: 1.8em; }
+    #mainIndexSearch { margin-right: 0; margin-bottom: 10px; }
+    .detail-page-nav { flex-direction: column; align-items: flex-start; gap: 5px; }
+    .detail-page-controls { flex-direction: column; gap: 5px; align-items: stretch; }
+    .detail-page-controls button { width: 100%; }
+    .main-index-container, .primers-grid { grid-template-columns: 1fr; gap: 20px; } /* .primers-grid not used now */
+    .primer-summary-card h3 { font-size: 1.2em; }
+    .primer-section-title { font-size: 1em; }
+    .primer-section-content { font-size: 0.85em; padding-left: calc(10px + 3px) !important; /* Ensure override */ }
+    .simple-index-list ul {grid-template-columns: 1fr;}
+}
+@media (max-width: 480px) {
+    .page-header h1 { font-size: 1.6em; }
+    #mainIndexSearch, #detailPageQuickReadBtn, .toggle-all-sections-btn { padding: 10px 12px; font-size: 0.9em; }
+    .primer-summary-card h3 { font-size: 1.1em; }
+}
+
+/* === PRINT STYLES === */
+@media print {
+    body { font-size: 10pt; background-color: #ffffff !important; color: #000000 !important; padding: 0; margin: 0.75in; }
+    .page-header, .page-footer, #mainIndexSearch, .toggle-all-sections-btn, #detailPageQuickReadBtn, .detail-page-nav, .detail-page-controls, .view-details-link { display: none !important; }
+    .main-index-container, .primer-detail-content { display: block !important; } /* Ensure content flows */
+    .primer-summary-card, .primer-initial-summary-detailed-page { page-break-inside: avoid !important; box-shadow: none !important; border: 1px solid #ccc !important; margin-bottom:15pt; }
+    .primer-summary-card h3 {color: #000 !important;}
+    .detail-page-header h1 { font-size: 16pt; text-align: left; margin-bottom: 10pt; color: #000 !important;}
+    .primer-section-accordion { page-break-inside: avoid !important; }
+    .primer-section-accordion summary.primer-section-title { background-color: #f0f0f0 !important; padding: 6pt 8pt; border-top: 1px solid #ccc !important; font-weight: bold !important; color: #000 !important;}
+    .primer-section-title::before, .section-icon { display: none !important; }
+    .primer-section-content { display: block !important; padding: 8pt 10pt !important; border-top: 1px dashed #ccc !important; background-color: #ffffff !important; border-left: none !important; }
+    .key-term { font-weight: bold !important; background-color: transparent !important; color: inherit !important; padding: 0 !important; border-radius: 0 !important; }
+    .table-container { overflow-x: visible !important; border: 1px solid #999 !important; }
+    table, th, td { border: 1px solid #666 !important; font-size: 9pt !important; }
+    th { background-color: #e8e8e8 !important; }
+    a { color: #0000ee !important; text-decoration: underline !important; }
+    a[href^="#"] { display: none !important; }
+    .simple-index-list { margin-top: 20pt; border-top: 1px solid #999 !important; }
+    .simple-index-list h3 { font-size: 12pt; text-align: left; color:#000 !important; }
+    .simple-index-list ul { display: block; }
+    .simple-index-list li a { padding: 2pt 0; background-color: transparent !important; border: none !important; display: block; /* Each link on new line for print */ }
+}
+
+/* === ACCESSIBILITY :focus-visible === */
+:focus-visible { outline: 2px solid #007bff; outline-offset: 2px; box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); }
+#mainIndexSearch:focus-visible, #detailPageQuickReadBtn:focus-visible, .toggle-all-sections-btn:focus-visible, .primer-section-title:focus-visible, .view-details-link:focus-visible, .back-to-index-link:focus-visible, .view-markdown-link:focus-visible { /* Covered by general */ }
+.primer-section-title:focus { outline: none; }
+.primer-section-title:focus-visible { background-color: #e6f2ff; }
+
+```
