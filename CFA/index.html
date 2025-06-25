@@ -18,8 +18,8 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
-            color: #343a40;
+            background-color: #f8f9fa; /* Light gray background */
+            color: #343a40; /* Dark gray text */
         }
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         
@@ -28,26 +28,26 @@
             border-left: 3px solid transparent;
         }
         .nav-link.active, .nav-link:hover {
-            background-color: #e9ecef;
-            color: #0d6efd;
-            border-left-color: #0d6efd;
+            background-color: #e9ecef; /* Lighter gray for hover/active */
+            color: #0d6efd; /* Bootstrap blue for active text */
+            border-left-color: #0d6efd; /* Blue accent border */
         }
         .tab-button {
             transition: all 0.2s ease-in-out;
         }
         .tab-button.active {
-            background-color: #0d6efd;
+            background-color: #0d6efd; /* Bootstrap blue */
             color: white;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
         }
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 700px;
+            max-width: 700px; /* Max width for readability */
             margin-left: auto;
             margin-right: auto;
-            height: 350px;
-            max-height: 40vh;
+            height: 350px; /* Default height */
+            max-height: 40vh; /* Responsive height */
         }
         .accordion-content {
             max-height: 0;
@@ -55,7 +55,7 @@
             transition: max-height 0.3s ease-in-out;
         }
         .accordion-item.open .accordion-content {
-            max-height: 2000px; /* Large enough for content */
+            max-height: 2000px; /* Adjust if content is larger */
         }
         .accordion-item .icon::after {
             content: '+';
@@ -71,6 +71,44 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* Styles for the new Materials Library section */
+        .materials-section h3 {
+            font-size: 1.5em; /* Tailwind equiv: text-2xl */
+            font-weight: 600; /* Tailwind equiv: font-semibold */
+            color: #1e3a8a; /* Tailwind equiv: text-blue-800 */
+            margin-top: 1.5rem; /* Tailwind equiv: mt-6 */
+            margin-bottom: 1rem; /* Tailwind equiv: mb-4 */
+            border-bottom: 2px solid #e5e7eb; /* Tailwind equiv: border-b-2 border-gray-200 */
+            padding-bottom: 0.5rem; /* Tailwind equiv: pb-2 */
+        }
+        .materials-section h4 {
+            font-size: 1.25em; /* Tailwind equiv: text-xl */
+            font-weight: 600; /* Tailwind equiv: font-semibold */
+            color: #1d4ed8; /* Tailwind equiv: text-blue-700 */
+            margin-top: 1rem; /* Tailwind equiv: mt-4 */
+            margin-bottom: 0.5rem; /* Tailwind equiv: mb-2 */
+        }
+        .materials-section ul {
+            list-style-type: disc;
+            margin-left: 1.5rem; /* Tailwind equiv: ml-6 */
+            margin-bottom: 1rem; /* Tailwind equiv: mb-4 */
+        }
+        .materials-section li a {
+            color: #2563eb; /* Tailwind equiv: text-blue-600 */
+            text-decoration: none;
+        }
+        .materials-section li a:hover {
+            text-decoration: underline;
+            color: #1e40af; /* Tailwind equiv: text-blue-800 */
+        }
+        .materials-card {
+            background-color: white; /* Tailwind equiv: bg-white */
+            padding: 1.5rem; /* Tailwind equiv: p-6 */
+            border-radius: 0.5rem; /* Tailwind equiv: rounded-lg */
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* Tailwind equiv: shadow-sm */
+            margin-bottom: 2rem; /* Tailwind equiv: mb-8 */
+        }
+
     </style>
 </head>
 <body class="flex bg-gray-100">
@@ -94,6 +132,9 @@
             <a href="#strategy" class="nav-link block py-3 px-6 text-gray-700 font-medium" onclick="showView('strategy', this)">
                 <span class="mr-2">&#128187;</span> Strategy Hub
             </a>
+            <a href="#materials-library" class="nav-link block py-3 px-6 text-gray-700 font-medium" onclick="showView('materials-library', this)">
+                <span class="mr-2">&#128218;</span> Study Materials Library
+            </a>
         </nav>
         <div class="absolute bottom-4 left-4 text-xs text-gray-400">
             <p>An interactive guide. <br> Not affiliated with CFA Institute.</p>
@@ -115,6 +156,7 @@
                 <a href="#journey" class="nav-link block py-3 px-4 text-gray-700 font-medium" onclick="showView('journey', this); closeMobileMenu();">The Journey</a>
                 <a href="#deep-dive" class="nav-link block py-3 px-4 text-gray-700 font-medium" onclick="showView('deep-dive', this); closeMobileMenu();">Exam Deep Dive</a>
                 <a href="#strategy" class="nav-link block py-3 px-4 text-gray-700 font-medium" onclick="showView('strategy', this); closeMobileMenu();">Strategy Hub</a>
+                <a href="#materials-library" class="nav-link block py-3 px-4 text-gray-700 font-medium" onclick="showView('materials-library', this); closeMobileMenu();">Study Materials Library</a>
              </nav>
         </div>
 
@@ -380,6 +422,145 @@
                 </div>
             </div>
         </div>
+        
+        <!-- View: Study Materials Library (NEW CONTENT) -->
+        <div id="view-materials-library" class="view-content hidden fade-in materials-section">
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">Comprehensive Study Materials Library</h2>
+            <p class="mb-8 text-lg text-gray-600">This library provides direct links to all the detailed study materials developed for each CFA Program level. Navigate through the resources to aid your preparation. Note: These materials are supplementary and not a replacement for the official CFA Institute curriculum.</p>
+
+            <!-- Level I Materials -->
+            <div class="materials-card">
+                <h3>Level I Materials</h3>
+                <p><a href="Level_1/README.md" target="_blank">Level I Main Study Guide (Overview)</a></p>
+
+                <h4>Cheat Sheets</h4>
+                <ul>
+                    <li><a href="Level_1/Cheat_Sheets/CS_01_Ethical_and_Professional_Standards.md" target="_blank">Ethical and Professional Standards</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_02_Quantitative_Methods.md" target="_blank">Quantitative Methods</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_03_Economics.md" target="_blank">Economics</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md" target="_blank">Financial Reporting and Analysis</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_05_Corporate_Finance.md" target="_blank">Corporate Issuers (Corporate Finance)</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_06_Equity_Investments.md" target="_blank">Equity Investments</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_07_Fixed_Income.md" target="_blank">Fixed Income</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_08_Derivatives.md" target="_blank">Derivatives</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_09_Alternative_Investments.md" target="_blank">Alternative Investments</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_10_Portfolio_Management.md" target="_blank">Portfolio Management</a></li>
+                </ul>
+
+                <h4>Topic Deep Dives</h4>
+                <ul>
+                    <li><a href="Level_1/Topic_Deep_Dives/Quant_Time_Value_of_Money.md" target="_blank">Quantitative Methods: Time Value of Money</a></li>
+                    <li><a href="Level_1/Topic_Deep_Dives/FRA_Income_Statement_Analysis.md" target="_blank">FRA: Income Statement Analysis</a></li>
+                    <li><a href="Level_1/Topic_Deep_Dives/Equity_Valuation_Models_Intro.md" target="_blank">Equity: Valuation Models Introduction</a></li>
+                    <li><a href="Level_1/Topic_Deep_Dives/Fixed_Income_Basics.md" target="_blank">Fixed Income: Basics</a></li>
+                    <li><a href="Level_1/Topic_Deep_Dives/Derivatives_Introduction.md" target="_blank">Derivatives: Introduction</a></li>
+                </ul>
+
+                <h4>Practice Exams</h4>
+                <ul>
+                    <li><a href="Level_1/Practice_Exams/Practice_Exam_1_Questions.md" target="_blank">Practice Exam 1 - Questions</a></li>
+                    <li><a href="Level_1/Practice_Exams/Practice_Exam_1_Answer_Key.md" target="_blank">Practice Exam 1 - Answer Key</a></li>
+                    <li><a href="Level_1/Practice_Exams/Practice_Exam_2_Questions.md" target="_blank">Practice Exam 2 - Questions</a></li>
+                    <li><a href="Level_1/Practice_Exams/Practice_Exam_2_Answer_Key.md" target="_blank">Practice Exam 2 - Answer Key</a></li>
+                </ul>
+
+                <h4>Case Studies</h4>
+                <ul>
+                    <li><a href="Level_1/Case_Studies/Case_Study_Ethical_Dilemma_Analysis.md" target="_blank">Case Study: Ethical Dilemma Analysis</a></li>
+                    <li><a href="Level_1/Case_Studies/Case_Study_Basic_Company_Valuation.md" target="_blank">Case Study: Basic Company Valuation</a></li>
+                </ul>
+            </div>
+
+            <!-- Level II Materials -->
+            <div class="materials-card">
+                <h3>Level II Materials</h3>
+                <p><a href="Level_2/README.md" target="_blank">Level II Main Study Guide (Overview)</a></p>
+                
+                <h4>Cheat Sheets</h4>
+                <ul>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Ethical_and_Professional_Standards.md" target="_blank">Ethical and Professional Standards (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Quantitative_Methods.md" target="_blank">Quantitative Methods (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Economics.md" target="_blank">Economics (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Financial_Reporting_and_Analysis.md" target="_blank">Financial Reporting and Analysis (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Corporate_Finance.md" target="_blank">Corporate Issuers (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Equity_Valuation.md" target="_blank">Equity Valuation (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Fixed_Income.md" target="_blank">Fixed Income (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Derivatives.md" target="_blank">Derivatives (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Alternative_Investments.md" target="_blank">Alternative Investments (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Portfolio_Management.md" target="_blank">Portfolio Management (L2)</a></li>
+                </ul>
+
+                <h4>Topic Deep Dives</h4>
+                <ul>
+                    <li><a href="Level_2/Topic_Deep_Dives/L2_DD_FCFF_FCFE_Valuation.md" target="_blank">Equity: FCFF/FCFE Valuation</a></li>
+                    <li><a href="Level_2/Topic_Deep_Dives/L2_DD_Intercorporate_Investments.md" target="_blank">FRA: Intercorporate Investments</a></li>
+                    <li><a href="Level_2/Topic_Deep_Dives/L2_DD_Fixed_Income_Term_Structure_Models.md" target="_blank">Fixed Income: Term Structure Models</a></li>
+                    <li><a href="Level_2/Topic_Deep_Dives/L2_DD_Option_Valuation_Binomial_BSM.md" target="_blank">Derivatives: Option Valuation (Binomial & BSM)</a></li>
+                </ul>
+
+                <h4>Practice Exams (Item Sets)</h4>
+                <ul>
+                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_1-3_Questions.md" target="_blank">Practice Exam 1 - Item Sets 1-3 Questions</a></li>
+                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_1-3_Answer_Key.md" target="_blank">Practice Exam 1 - Item Sets 1-3 Answer Key</a></li>
+                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_4-6_Questions.md" target="_blank">Practice Exam 1 - Item Sets 4-6 Questions</a></li>
+                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_4-6_Answer_Key.md" target="_blank">Practice Exam 1 - Item Sets 4-6 Answer Key</a></li>
+                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_7-8_Questions.md" target="_blank">Practice Exam 1 - Item Sets 7-8 Questions</a></li>
+                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_7-8_Answer_Key.md" target="_blank">Practice Exam 1 - Item Sets 7-8 Answer Key</a></li>
+                </ul>
+
+                <h4>Case Studies</h4>
+                <ul>
+                    <li><a href="Level_2/Case_Studies/L2_Case_Complex_Company_Valuation.md" target="_blank">Case Study: Complex Company Valuation</a></li>
+                    <li><a href="Level_2/Case_Studies/L2_Case_Pension_Analysis_Impact.md" target="_blank">Case Study: Pension Analysis Impact</a></li>
+                </ul>
+            </div>
+
+            <!-- Level III Materials -->
+            <div class="materials-card">
+                <h3>Level III Materials</h3>
+                <p><a href="Level_3/README.md" target="_blank">Level III Main Study Guide (Overview)</a></p>
+                
+                <h4>Cheat Sheets</h4>
+                <ul>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Ethical_and_Professional_Standards.md" target="_blank">Ethical and Professional Standards (L3 & GIPS)</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Economics_Capital_Market_Expectations.md" target="_blank">Economics: Capital Market Expectations</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Asset_Allocation.md" target="_blank">Asset Allocation</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Behavioral_Finance.md" target="_blank">Behavioral Finance</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Equity_Portfolio_Management.md" target="_blank">Equity Portfolio Management</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Fixed_Income_Portfolio_Management.md" target="_blank">Fixed Income Portfolio Management</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Alternative_Investments_Portfolio_Management.md" target="_blank">Alternative Investments Portfolio Management</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Derivatives_and_Currency_Management.md" target="_blank">Derivatives and Currency Management</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Risk_Management.md" target="_blank">Risk Management (Portfolio Context)</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Performance_Evaluation_and_Attribution.md" target="_blank">Performance Evaluation and Attribution</a></li>
+                </ul>
+
+                <h4>Topic Deep Dives</h4>
+                <ul>
+                    <li><a href="Level_3/Topic_Deep_Dives/L3_DD_IPS_Construction_Private_Wealth.md" target="_blank">IPS Construction: Private Wealth</a></li>
+                    <li><a href="Level_3/Topic_Deep_Dives/L3_DD_Asset_Allocation_Mean_Variance.md" target="_blank">Asset Allocation: Mean-Variance Optimization</a></li>
+                    <li><a href="Level_3/Topic_Deep_Dives/L3_DD_Fixed_Income_Portfolio_Strategies.md" target="_blank">Fixed Income: Portfolio Strategies</a></li>
+                    <li><a href="Level_3/Topic_Deep_Dives/L3_DD_Performance_Attribution.md" target="_blank">Performance Attribution</a></li>
+                </ul>
+
+                <h4>Practice Exams</h4>
+                <ul>
+                    <li><a href="Level_3/Practice_Exams_Essays/L3_Practice_Essay_Exam_1_Questions.md" target="_blank">Practice Essay Exam 1 - Questions</a></li>
+                    <li><a href="Level_3/Practice_Exams_Essays/L3_Practice_Essay_Exam_1_Guideline_Answers.md" target="_blank">Practice Essay Exam 1 - Guideline Answers</a></li>
+                    <li><a href="Level_3/Practice_Exams_Item_Sets/L3_Practice_Item_Set_Exam_1_Questions_1-3.md" target="_blank">Practice Item Set Exam 1 - Questions (Sets 1-3)</a></li>
+                    <li><a href="Level_3/Practice_Exams_Item_Sets/L3_Practice_Item_Set_Exam_1_Answers_1-3.md" target="_blank">Practice Item Set Exam 1 - Answers (Sets 1-3)</a></li>
+                    <li><a href="Level_3/Practice_Exams_Item_Sets/L3_Practice_Item_Set_Exam_1_Questions_4-5.md" target="_blank">Practice Item Set Exam 1 - Questions (Sets 4-5)</a></li>
+                    <li><a href="Level_3/Practice_Exams_Item_Sets/L3_Practice_Item_Set_Exam_1_Answers_4-5.md" target="_blank">Practice Item Set Exam 1 - Answers (Sets 4-5)</a></li>
+                </ul>
+
+                <h4>Case Studies (IPS Focus)</h4>
+                <ul>
+                    <li><a href="Level_3/Case_Studies_IPS/L3_Case_IPS_Defined_Benefit_Pension.md" target="_blank">Case Study: IPS for Defined Benefit Pension Plan</a></li>
+                    <li><a href="Level_3/Case_Studies_IPS/L3_Case_IPS_Endowment_Foundation.md" target="_blank">Case Study: IPS for Endowment Fund</a></li>
+                </ul>
+            </div>
+            <!-- Consider adding search/filter functionality via JavaScript later for a better UX -->
+        </div>
+
     </main>
 
 <script>
@@ -425,14 +606,14 @@ const AppData = {
         },
         L3: {
             topicWeights: {
-                labels: ['Asset Allocation', 'Portfolio Construction', 'Derivatives & Risk Mgmt', 'Ethics', 'Performance Measurement'],
-                weights: [17.5, 17.5, 12.5, 12.5, 7.5]
+                labels: ['Portfolio Mgmt & Wealth Planning', 'Ethics', 'Fixed Income', 'Equity', 'Economics', 'Derivatives', 'Alternatives'], // More general L3 Core
+                weights: [40, 12.5, 17.5, 12.5, 7.5, 5, 5] // Approximate Core weights, actual varies with pathways
             },
             topics: [
+                { title: 'Portfolio Management (35-40%)', content: 'The dominant topic. Focuses on applying concepts to individuals and institutions, including IPS construction, asset allocation, risk management, and performance evaluation.', formula: 'IPS Components: Objectives (Risk, Return), Constraints (LLTTU)' },
                 { title: 'Asset Allocation (15-20%)', content: 'Focuses on formulating capital market expectations and implementing strategic and tactical asset allocation.', formula: 'Taylor Rule: Policy Rate = Neutral Rate + 0.5(GDP_exp - GDP_trend) + 0.5(I_exp - I_target)' },
-                { title: 'Portfolio Construction (15-20%)', content: 'Involves tailoring strategies for individual vs. institutional investors and understanding the impact of behavioral finance biases.', formula: 'Understand biases like anchoring, loss aversion, and confirmation bias.' },
                 { title: 'Constructed Response Strategy', content: 'Mastery of the essay format is critical. Be direct, use bullet points, and pay close attention to command words like "justify," "calculate," and "discuss".', formula: 'Always show your work for calculation questions to earn partial credit.'},
-                { title: 'Specialized Pathways (30-35%)', content: 'Beginning in 2025, choose one of three paths: Portfolio Management (public markets), Private Markets (PE, private debt), or Private Wealth (HNW individuals).', formula: 'Private Markets TVPI = (DPI + RVPI)'}
+                { title: 'Specialized Pathways (New for 2025 exams)', content: 'Candidates choose one of three paths: Portfolio Management (traditional focus), Private Markets, or Private Wealth.', formula: 'Understand the chosen pathway in depth.'}
             ],
             practice: [
                  { 
@@ -446,29 +627,45 @@ const AppData = {
     }
 };
 
-let charts = {};
+let charts = {}; // Keep track of chart instances
 
 function showView(viewId, element) {
+    // Hide all main views
     document.querySelectorAll('.view-content').forEach(view => view.classList.add('hidden'));
-    document.getElementById(`view-${viewId}`).classList.remove('hidden');
-    document.getElementById(`view-${viewId}`).classList.add('fade-in');
-
-    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
     
-    // For main sidebar
-    const sidebarLinks = document.querySelectorAll('aside .nav-link');
-    sidebarLinks.forEach(link => {
-        if (link.getAttribute('href') === `#${viewId}`) link.classList.add('active');
-    });
+    // Show the target view
+    const targetView = document.getElementById(`view-${viewId}`);
+    if (targetView) {
+        targetView.classList.remove('hidden');
+        targetView.classList.add('fade-in'); // Apply fade-in animation
+    }
 
-    // For mobile menu
-    const mobileLinks = document.querySelectorAll('#mobile-menu .nav-link');
-    mobileLinks.forEach(link => {
-        if (link.getAttribute('href') === `#${viewId}`) link.classList.add('active');
-    });
+    // Update active state for sidebar navigation links
+    document.querySelectorAll('aside .nav-link').forEach(link => link.classList.remove('active'));
+    if (element && element.closest('aside')) { // Check if element is in sidebar
+        element.classList.add('active');
+    } else { // If called from mobile or elsewhere, find corresponding sidebar link
+        document.querySelector(`aside .nav-link[href="#${viewId}"]`)?.classList.add('active');
+    }
+    
+    // Update active state for mobile navigation links
+    document.querySelectorAll('#mobile-menu .nav-link').forEach(link => link.classList.remove('active'));
+    const mobileLinkTarget = document.querySelector(`#mobile-menu .nav-link[href="#${viewId}"]`);
+    if (mobileLinkTarget) {
+        mobileLinkTarget.classList.add('active');
+    }
 
+
+    // Specific actions for views
     if (viewId === 'strategy') {
         renderPassRateChart();
+    }
+    // If deep-dive is selected, ensure a default level tab is active and its chart rendered
+    if (viewId === 'deep-dive' && !document.querySelector('#view-deep-dive .tab-button.active')) {
+        const firstTab = document.querySelector('#view-deep-dive .tab-button');
+        if(firstTab) {
+            showLevel(firstTab.textContent.trim().replace('Level ', 'L'), firstTab);
+        }
     }
 }
 
@@ -483,10 +680,15 @@ function showLevel(levelId, element) {
 }
 
 function createChart(canvasId, type, data, options) {
+    const chartElement = document.getElementById(canvasId);
+    if (!chartElement) {
+        // console.error("Canvas element not found for chart: " + canvasId);
+        return;
+    }
     if (charts[canvasId]) {
         charts[canvasId].destroy();
     }
-    const ctx = document.getElementById(canvasId).getContext('2d');
+    const ctx = chartElement.getContext('2d');
     charts[canvasId] = new Chart(ctx, { type, data, options });
 }
 
@@ -520,115 +722,72 @@ function renderPassRateChart() {
             }
         ]
     };
-
     const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-            title: {
-                display: false,
-                text: 'CFA Exam Pass Rates'
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        let label = context.dataset.label || '';
-                        if (label) {
-                            label += ': ';
-                        }
-                        if (context.parsed.y !== null) {
-                            label += context.parsed.y + '%';
-                        }
-                        return label;
-                    }
-                }
-            }
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'top', }, title: { display: false },
+            tooltip: { callbacks: { label: ctx => `${ctx.dataset.label || ''}: ${ctx.parsed.y !== null ? ctx.parsed.y + '%' : ''}`}}
         },
-        scales: {
-            y: {
-                beginAtZero: true,
-                title: {
-                    display: true,
-                    text: 'Pass Rate (%)'
-                }
-            }
-        }
+        scales: { y: { beginAtZero: true, title: { display: true, text: 'Pass Rate (%)' } } }
     };
-
     createChart('passRateChart', 'line', data, options);
 }
 
 function renderLevelChart(levelId) {
-    const levelData = AppData.levels[levelId].topicWeights;
+    const levelData = AppData.levels[levelId]?.topicWeights; // Add safe navigation
+    if (!levelData) return; 
     const data = {
         labels: levelData.labels,
         datasets: [{
-            label: `Level ${levelId.charAt(1)} Topic Weights`,
-            data: levelData.weights,
+            label: `Level ${levelId.charAt(1)} Topic Weights`, data: levelData.weights,
             backgroundColor: ['#0d6efd', '#6f42c1', '#198754', '#d63384', '#ffc107', '#fd7e14', '#20c997', '#0dcaf0', '#6c757d', '#dc3545'],
             hoverOffset: 4
         }]
     };
     const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                display: false
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return `${context.label}: ${context.raw}%`;
-                    }
-                }
-            }
-        }
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}%`}}}
     };
     createChart(levelId.toLowerCase() + 'Chart', 'doughnut', data, options);
 }
 
 function buildAccordion(levelId) {
     const container = document.getElementById(`${levelId.toLowerCase()}-accordion`);
-    const topics = AppData.levels[levelId].topics;
+    if (!container) return;
+    const topics = AppData.levels[levelId]?.topics; // Add safe navigation
+    if (!topics) return;
     container.innerHTML = '';
     topics.forEach(topic => {
         const item = document.createElement('div');
         item.className = 'accordion-item border rounded-md bg-gray-50';
         item.innerHTML = `
-            <button class="accordion-header w-full text-left p-4 font-semibold text-gray-700 flex justify-between items-center">
+            <button class="accordion-header w-full text-left p-4 font-semibold text-gray-700 flex justify-between items-center hover:bg-gray-100">
                 <span>${topic.title}</span>
                 <span class="icon text-blue-500 font-bold text-lg"></span>
             </button>
             <div class="accordion-content px-4 pb-4">
-                <p class="text-gray-600">${topic.content}</p>
-                <p class="mt-2 text-sm font-mono bg-gray-200 text-gray-800 p-2 rounded">${topic.formula}</p>
-            </div>
-        `;
+                <p class="text-gray-600 text-sm">${topic.content}</p>
+                <p class="mt-2 text-xs font-mono bg-gray-200 text-gray-800 p-2 rounded">${topic.formula}</p>
+            </div>`;
         container.appendChild(item);
     });
 }
 
 function buildPractice(levelId) {
     const container = document.getElementById(`${levelId.toLowerCase()}-practice`);
-    const questions = AppData.levels[levelId].practice;
+    if (!container) return;
+    const questions = AppData.levels[levelId]?.practice; // Add safe navigation
+    if (!questions) return;
     container.innerHTML = '';
     questions.forEach((q, index) => {
         const item = document.createElement('div');
-        item.className = 'p-4 border rounded-md bg-gray-50';
-        
+        item.className = 'p-4 border rounded-md bg-gray-50 mb-3';
         let optionsHtml = q.a.map((ans, ansIndex) => 
-            `<button onclick="checkAnswer('${levelId}', ${index}, ${ansIndex}, this)" class="block w-full text-left p-2 mt-1 rounded hover:bg-gray-200 transition-colors">${String.fromCharCode(65 + ansIndex)}. ${ans}</button>`
+            `<button onclick="checkAnswer('${levelId}', ${index}, ${ansIndex}, this)" class="block w-full text-left p-2 mt-1 rounded hover:bg-gray-200 transition-colors text-sm">${String.fromCharCode(65 + ansIndex)}. ${ans}</button>`
         ).join('');
-
         item.innerHTML = `
-            <p class="font-semibold text-gray-800">${index + 1}. ${q.q}</p>
+            <p class="font-semibold text-gray-800 text-sm">${index + 1}. ${q.q}</p>
             <div class="mt-2">${optionsHtml}</div>
-            <div id="feedback-${levelId}-${index}" class="mt-2 text-sm p-2 rounded hidden"></div>
-        `;
+            <div id="feedback-${levelId}-${index}" class="mt-2 text-xs p-2 rounded hidden"></div>`;
         container.appendChild(item);
     });
 }
@@ -637,34 +796,35 @@ function checkAnswer(levelId, qIndex, ansIndex, element) {
     const question = AppData.levels[levelId].practice[qIndex];
     const feedbackEl = document.getElementById(`feedback-${levelId}-${qIndex}`);
     const parent = element.parentElement;
-    
-    // Disable all buttons for this question
     parent.querySelectorAll('button').forEach(btn => {
         btn.disabled = true;
-        btn.classList.remove('bg-green-200', 'bg-red-200');
+        btn.classList.remove('bg-green-200', 'text-green-800', 'bg-red-200', 'text-red-800', 'font-semibold');
+        btn.classList.add('text-gray-500');
     });
-
     if (ansIndex === question.correct) {
-        element.classList.add('bg-green-200');
-        feedbackEl.className = 'mt-2 text-sm p-2 rounded bg-green-100 text-green-800';
+        element.classList.remove('text-gray-500');
+        element.classList.add('bg-green-200', 'text-green-800', 'font-semibold');
+        feedbackEl.className = 'mt-2 text-xs p-2 rounded bg-green-50 text-green-700';
         feedbackEl.innerHTML = `<span class="font-bold">Correct!</span> ${question.explanation}`;
     } else {
-        element.classList.add('bg-red-200');
-        feedbackEl.className = 'mt-2 text-sm p-2 rounded bg-red-100 text-red-800';
+        element.classList.remove('text-gray-500');
+        element.classList.add('bg-red-200', 'text-red-800', 'font-semibold');
+        feedbackEl.className = 'mt-2 text-xs p-2 rounded bg-red-50 text-red-700';
         feedbackEl.innerHTML = `<span class="font-bold">Incorrect.</span> ${question.explanation}`;
-        // Highlight correct answer
-        parent.children[question.correct].classList.add('bg-green-200');
+        const correctButton = parent.children[question.correct]; // This might be wrong if buttons are not direct children or structure changes
+        if (correctButton && correctButton.tagName === 'BUTTON') {
+             correctButton.classList.remove('text-gray-500');
+             correctButton.classList.add('bg-green-200', 'text-green-800', 'font-semibold');
+        }
     }
     feedbackEl.classList.remove('hidden');
 }
-
 
 function setupAccordions() {
     document.body.addEventListener('click', function(e) {
         const header = e.target.closest('.accordion-header');
         if (header) {
-            const item = header.parentElement;
-            item.classList.toggle('open');
+            header.parentElement.classList.toggle('open');
         }
     });
 }
@@ -672,32 +832,45 @@ function setupAccordions() {
 function setupMobileMenu() {
     const btn = document.getElementById('mobile-menu-button');
     const menu = document.getElementById('mobile-menu');
-    btn.addEventListener('click', () => {
-        menu.classList.toggle('hidden');
-    });
+    if(btn && menu) {
+        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+    }
 }
 
 function closeMobileMenu() {
-    document.getElementById('mobile-menu').classList.add('hidden');
+    const menu = document.getElementById('mobile-menu');
+    if(menu) menu.classList.add('hidden');
 }
 
-window.onload = () => {
-    // Initial setup
-    showView('overview', document.querySelector('.nav-link'));
-    showLevel('L1', document.querySelector('.tab-button'));
+document.addEventListener('DOMContentLoaded', () => {
+    // Ensure a default view is shown
+    const initialView = window.location.hash ? window.location.hash.substring(1) : 'overview';
+    const initialLink = document.querySelector(`aside .nav-link[href="#${initialView}"]`) || document.querySelector('aside .nav-link');
+    if (initialLink) {
+       showView(initialView, initialLink);
+    }
+
+    // Ensure a default level tab is shown for deep-dive view
+    if (initialView === 'deep-dive' || document.getElementById('view-deep-dive')) {
+        const activeTabButton = document.querySelector('#view-deep-dive .tab-button.active');
+        if (!activeTabButton) {
+            const firstTabButton = document.querySelector('#view-deep-dive .tab-button');
+            if (firstTabButton) {
+                 showLevel(firstTabButton.textContent.trim().replace('Level ', 'L'), firstTabButton);
+            }
+        } else {
+            // If a tab is already active (e.g. from HTML), ensure its chart is rendered
+            renderLevelChart(activeTabButton.textContent.trim().replace('Level ', 'L'));
+        }
+    }
     
-    // Build dynamic content
-    buildAccordion('L1');
-    buildPractice('L1');
-    buildAccordion('L2');
-    buildPractice('L2');
-    buildAccordion('L3');
-    buildPractice('L3');
+    buildAccordion('L1'); buildPractice('L1');
+    buildAccordion('L2'); buildPractice('L2');
+    buildAccordion('L3'); buildPractice('L3');
     
-    // Setup event listeners
     setupAccordions();
     setupMobileMenu();
-};
+});
 
 </script>
 </body>
