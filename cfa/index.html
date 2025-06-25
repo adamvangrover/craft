@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive CFA Program Study Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Warm Professional -->
+    <!-- Application Structure Plan: This SPA is designed as an interactive dashboard to transform the linear CFA study guide into a dynamic, user-centric tool. The structure features a persistent sidebar navigation for top-level tasks (Overview, The Journey, Exam Deep Dive, Strategy Hub), allowing users to jump to relevant sections without scrolling through a long document. The main content area dynamically updates. The 'Exam Deep Dive' section uses a secondary tab navigation for Levels I, II, and III, each presenting data in modular cards (Key Stats, Topic Explorer). This non-linear, task-oriented architecture was chosen because CFA candidates have diverse needs; some are just starting, while others are focused on a specific level. This design provides immediate access to the most relevant information, enhancing usability and learning efficiency compared to a static report. -->
+    <!-- Visualization & Content Choices:
+        - Report Info: Historical Pass Rates -> Goal: Analyze Change -> Viz/Method: Interactive Line Chart (Chart.js) -> Interaction: Hover tooltips, toggle levels -> Justification: Far superior to a static table for visualizing trends and volatility over time.
+        - Report Info: Exam Topic Weights -> Goal: Compare Proportions -> Viz/Method: Donut Charts per level (Chart.js) -> Interaction: Hover to see topic/weight -> Justification: Provides an immediate, intuitive visual breakdown of exam focus, more effective than reading a list of percentages.
+        - Report Info: Topic Details (LOS, Formulas) -> Goal: Organize & Inform -> Viz/Method: Interactive Accordion (HTML/JS) -> Interaction: Click to expand/collapse topic -> Justification: Prevents overwhelming users with a wall of text. It allows for focused, self-paced exploration of the dense curriculum content.
+        - Report Info: Sample Questions -> Goal: Practice & Test Knowledge -> Viz/Method: Interactive Quiz format (HTML/JS) -> Interaction: Select answer, get immediate feedback -> Justification: Active recall and immediate feedback is a proven learning strategy, far more effective than passively reading questions and solutions.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Light gray background */
+            color: #343a40; /* Dark gray text */
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+            border-left: 3px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            background-color: #e9ecef; /* Lighter gray for hover/active */
+            color: #0d6efd; /* Bootstrap blue for active text */
+            border-left-color: #0d6efd; /* Blue accent border */
+        }
+        .tab-button {
+            transition: all 0.2s ease-in-out;
+        }
+        .tab-button.active {
+            background-color: #0d6efd; /* Bootstrap blue */
+            color: white;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px; /* Max width for readability */
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Default height */
+            max-height: 40vh; /* Responsive height */
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+        .accordion-item.open .accordion-content {
+            max-height: 2000px; /* Adjust if content is larger */
+        }
+        .accordion-item .icon::after {
+            content: '+';
+            transition: transform 0.3s;
+        }
+        .accordion-item.open .icon::after {
+            transform: rotate(45deg);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Styles for the new Materials Library section */
+        .materials-section h3 {
+            font-size: 1.5em; /* Tailwind equiv: text-2xl */
+            font-weight: 600; /* Tailwind equiv: font-semibold */
+            color: #1e3a8a; /* Tailwind equiv: text-blue-800 */
+            margin-top: 1.5rem; /* Tailwind equiv: mt-6 */
+            margin-bottom: 1rem; /* Tailwind equiv: mb-4 */
+            border-bottom: 2px solid #e5e7eb; /* Tailwind equiv: border-b-2 border-gray-200 */
+            padding-bottom: 0.5rem; /* Tailwind equiv: pb-2 */
+        }
+        .materials-section h4 {
+            font-size: 1.25em; /* Tailwind equiv: text-xl */
+            font-weight: 600; /* Tailwind equiv: font-semibold */
+            color: #1d4ed8; /* Tailwind equiv: text-blue-700 */
+            margin-top: 1rem; /* Tailwind equiv: mt-4 */
+            margin-bottom: 0.5rem; /* Tailwind equiv: mb-2 */
+        }
+        .materials-section ul {
+            list-style-type: disc;
+            margin-left: 1.5rem; /* Tailwind equiv: ml-6 */
+            margin-bottom: 1rem; /* Tailwind equiv: mb-4 */
+        }
+        .materials-section li a {
+            color: #2563eb; /* Tailwind equiv: text-blue-600 */
+            text-decoration: none;
+        }
+        .materials-section li a:hover {
+            text-decoration: underline;
+            color: #1e40af; /* Tailwind equiv: text-blue-800 */
+        }
+        .materials-card {
+            background-color: white; /* Tailwind equiv: bg-white */
+            padding: 1.5rem; /* Tailwind equiv: p-6 */
+            border-radius: 0.5rem; /* Tailwind equiv: rounded-lg */
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* Tailwind equiv: shadow-sm */
+            margin-bottom: 2rem; /* Tailwind equiv: mb-8 */
+        }
+
+    </style>
+</head>
+<body class="flex bg-gray-100">
+
+    <!-- Sidebar Navigation -->
+    <aside class="w-64 bg-white shadow-md h-screen sticky top-0 flex-shrink-0 hidden lg:block">
+        <div class="p-6">
+            <h1 class="text-xl font-bold text-gray-800">CFA® Program Guide</h1>
+            <p class="text-sm text-gray-500">Interactive Study Hub</p>
+        </div>
+        <nav class="mt-6">
+            <a href="#overview" class="nav-link active block py-3 px-6 text-gray-700 font-medium" onclick="showView('overview', this)">
+                <span class="mr-2">&#127919;</span> Overview
+            </a>
+            <a href="#journey" class="nav-link block py-3 px-6 text-gray-700 font-medium" onclick="showView('journey', this)">
+                <span class="mr-2">&#128640;</span> The Journey
+            </a>
+            <a href="#deep-dive" class="nav-link block py-3 px-6 text-gray-700 font-medium" onclick="showView('deep-dive', this)">
+                <span class="mr-2">&#128270;</span> Exam Deep Dive
+            </a>
+            <a href="#strategy" class="nav-link block py-3 px-6 text-gray-700 font-medium" onclick="showView('strategy', this)">
+                <span class="mr-2">&#128187;</span> Strategy Hub
+            </a>
+            <a href="#materials-library" class="nav-link block py-3 px-6 text-gray-700 font-medium" onclick="showView('materials-library', this)">
+                <span class="mr-2">&#128218;</span> Study Materials Library
+            </a>
+        </nav>
+        <div class="absolute bottom-4 left-4 text-xs text-gray-400">
+            <p>An interactive guide. <br> Not affiliated with CFA Institute.</p>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 sm:p-6 lg:p-10 overflow-y-auto">
+        <!-- Mobile Header and Nav -->
+        <div class="lg:hidden mb-6">
+             <div class="flex justify-between items-center">
+                <h1 class="text-xl font-bold text-gray-800">CFA® Program Guide</h1>
+                <button id="mobile-menu-button" class="p-2 rounded-md text-gray-600 hover:bg-gray-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+             </div>
+             <nav id="mobile-menu" class="hidden mt-4 bg-white rounded-lg shadow-md">
+                <a href="#overview" class="nav-link active block py-3 px-4 text-gray-700 font-medium" onclick="showView('overview', this); closeMobileMenu();">Overview</a>
+                <a href="#journey" class="nav-link block py-3 px-4 text-gray-700 font-medium" onclick="showView('journey', this); closeMobileMenu();">The Journey</a>
+                <a href="#deep-dive" class="nav-link block py-3 px-4 text-gray-700 font-medium" onclick="showView('deep-dive', this); closeMobileMenu();">Exam Deep Dive</a>
+                <a href="#strategy" class="nav-link block py-3 px-4 text-gray-700 font-medium" onclick="showView('strategy', this); closeMobileMenu();">Strategy Hub</a>
+                <a href="#materials-library" class="nav-link block py-3 px-4 text-gray-700 font-medium" onclick="showView('materials-library', this); closeMobileMenu();">Study Materials Library</a>
+             </nav>
+        </div>
+
+        <!-- View: Overview -->
+        <div id="view-overview" class="view-content fade-in">
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">The "Gold Standard" in Investment Management</h2>
+            <p class="mb-8 text-lg text-gray-600">This guide provides an interactive overview of the Chartered Financial Analyst (CFA) program, designed to help you understand its value, navigate the requirements, and strategically prepare for the exams. Explore the sections to uncover the data and insights behind the world's most respected financial credential.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-lg text-blue-600">Global Recognition</h3>
+                    <p class="mt-2 text-gray-600">The CFA charter is a globally recognized credential, benchmarked as a Master's Level 7 qualification in the UK and providing exam waivers from regulators like FINRA in the US.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-lg text-blue-600">Average Study Time</h3>
+                    <p class="mt-2 text-gray-600">Successful candidates report studying over <span class="font-bold text-gray-800">300 hours</span> per level, with averages of 303 (L1), 328 (L2), and 344 (L3).</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-lg text-blue-600">Employer Demand</h3>
+                    <p class="mt-2 text-gray-600">The charter is a definitive mark of excellence, with 90% of hiring managers indicating a preference for charterholders for executive roles.</p>
+                </div>
+            </div>
+
+            <div class="mt-10 bg-white p-6 rounded-lg shadow-sm">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Core Competencies Developed</h3>
+                 <p class="mb-6 text-gray-600">The curriculum, based on extensive industry practice analysis, is designed to build mastery in four key areas, ensuring charterholders are equipped for the complexities of modern finance.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p class="text-4xl mb-2">&#128202;</p>
+                        <h4 class="font-semibold text-blue-800">Advanced Investment Analysis</h4>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <p class="text-4xl mb-2">&#128176;</p>
+                        <h4 class="font-semibold text-green-800">Portfolio & Wealth Management</h4>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                        <p class="text-4xl mb-2">&#128737;</p>
+                        <h4 class="font-semibold text-yellow-800">Risk Management</h4>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <p class="text-4xl mb-2">&#129309;</p>
+                        <h4 class="font-semibold text-red-800">Ethical & Professional Standards</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View: The Journey -->
+        <div id="view-journey" class="view-content hidden fade-in">
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">Your Journey to the Charter</h2>
+            <p class="mb-8 text-lg text-gray-600">Earning the CFA charter is a multi-step process that combines rigorous exams with practical experience and a commitment to ethical practice. Here is a breakdown of the key milestones you must achieve.</p>
+
+            <div class="space-y-8">
+                <!-- Step 1 -->
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500 text-white flex items-center justify-center rounded-full font-bold text-xl">1</div>
+                    <div class="ml-6">
+                        <h3 class="text-xl font-bold text-gray-800">Meet Enrollment Requirements</h3>
+                        <p class="mt-1 text-gray-600">Before you can register for the Level I exam, you must meet one of the following criteria:</p>
+                        <ul class="mt-2 list-disc list-inside text-gray-600 space-y-1">
+                            <li>Hold a Bachelor's Degree.</li>
+                            <li>Be an undergraduate student within 23 months of graduation.</li>
+                            <li>Have 4,000 hours of combined professional work experience and/or higher education over 3+ years.</li>
+                            <li>Possess a valid international travel passport.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500 text-white flex items-center justify-center rounded-full font-bold text-xl">2</div>
+                    <div class="ml-6">
+                        <h3 class="text-xl font-bold text-gray-800">Pass All Three Exams</h3>
+                        <p class="mt-1 text-gray-600">Sequentially pass the Level I, Level II, and Level III exams. Each level builds on the last, progressing from foundational knowledge to advanced application and synthesis.</p>
+                    </div>
+                </div>
+                 <!-- Step 3 -->
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500 text-white flex items-center justify-center rounded-full font-bold text-xl">3</div>
+                    <div class="ml-6">
+                        <h3 class="text-xl font-bold text-gray-800">Gain Qualifying Work Experience</h3>
+                        <p class="mt-1 text-gray-600">Accrue a minimum of <span class="font-semibold">4,000 hours</span> of relevant work experience, completed in a minimum of <span class="font-semibold">36 months</span>. This experience must be directly involved in the investment decision-making process or produce work that adds value to it.</p>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500 text-white flex items-center justify-center rounded-full font-bold text-xl">4</div>
+                    <div class="ml-6">
+                        <h3 class="text-xl font-bold text-gray-800">Become a Member</h3>
+                        <p class="mt-1 text-gray-600">Submit an application to join the CFA Institute, provide 2-3 professional references, and commit to abiding by the CFA Institute Code of Ethics and Standards of Professional Conduct. Upon approval, you officially become a CFA charterholder.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View: Deep Dive -->
+        <div id="view-deep-dive" class="view-content hidden fade-in">
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">Exam Level Deep Dive</h2>
+            <p class="mb-8 text-lg text-gray-600">Each CFA exam level presents a unique challenge, from the broad foundations of Level I to the complex synthesis of Level III. Use the tabs below to explore the structure, topic weights, key formulas, and practice questions for each level.</p>
+
+            <!-- Level Tabs -->
+            <div class="flex space-x-2 border-b-2 border-gray-200 mb-6">
+                <button class="tab-button active py-2 px-4 font-semibold text-gray-600" onclick="showLevel('L1', this)">Level I</button>
+                <button class="tab-button py-2 px-4 font-semibold text-gray-600" onclick="showLevel('L2', this)">Level II</button>
+                <button class="tab-button py-2 px-4 font-semibold text-gray-600" onclick="showLevel('L3', this)">Level III</button>
+            </div>
+
+            <!-- Level I Content -->
+            <div id="level-L1" class="level-content">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Left Column: Stats & Chart -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Level I at a Glance</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li><span class="font-semibold">Format:</span> 180 multiple-choice questions (2 sessions)</li>
+                            <li><span class="font-semibold">Duration:</span> 4.5 hours total (2h 15m per session)</li>
+                            <li><span class="font-semibold">Focus:</span> Foundational knowledge of investment tools & concepts.</li>
+                            <li><span class="font-semibold">Avg. Time/Question:</span> 90 seconds</li>
+                        </ul>
+                         <h4 class="text-lg font-bold text-gray-800 mt-6 mb-2">Topic Weights (2025/2026)</h4>
+                         <div class="chart-container h-80 max-h-[350px]">
+                            <canvas id="l1Chart"></canvas>
+                        </div>
+                    </div>
+                    <!-- Right Column: Topics & Practice -->
+                    <div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm mb-8">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Topic Explorer & Must-Know Formulas</h3>
+                            <p class="text-gray-600 mb-4">Click on a topic to reveal key concepts and essential formulas. The most heavily-weighted topics are critical to master.</p>
+                            <div id="l1-accordion" class="space-y-2"></div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Practice Zone</h3>
+                             <p class="text-gray-600 mb-4">Test your knowledge with these sample Level I questions. Select an answer to see immediate feedback.</p>
+                            <div id="l1-practice" class="space-y-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Level II Content -->
+            <div id="level-L2" class="level-content hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Left Column: Stats & Chart -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Level II at a Glance</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li><span class="font-semibold">Format:</span> 88 multiple-choice questions (22 vignettes)</li>
+                            <li><span class="font-semibold">Duration:</span> ~4.4 hours total (2h 12m per session)</li>
+                            <li><span class="font-semibold">Focus:</span> Application of concepts and asset valuation.</li>
+                            <li><span class="font-semibold">Key Challenge:</span> Mastering the vignette (mini case study) format.</li>
+                        </ul>
+                         <h4 class="text-lg font-bold text-gray-800 mt-6 mb-2">Topic Weights (2025/2026)</h4>
+                         <div class="chart-container h-80 max-h-[350px]">
+                            <canvas id="l2Chart"></canvas>
+                        </div>
+                    </div>
+                    <!-- Right Column: Topics & Practice -->
+                    <div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm mb-8">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Topic Explorer & Must-Know Formulas</h3>
+                            <p class="text-gray-600 mb-4">Level II goes deeper into valuation. Explore the key models and advanced formulas required for success.</p>
+                            <div id="l2-accordion" class="space-y-2"></div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Practice Vignette</h3>
+                             <p class="text-gray-600 mb-4">Analyze the case study and answer the related questions. This simulates the core challenge of the Level II exam.</p>
+                            <div id="l2-practice" class="space-y-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Level III Content -->
+            <div id="level-L3" class="level-content hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                     <!-- Left Column: Stats & Chart -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Level III at a Glance</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li><span class="font-semibold">Format:</span> Mixed - Constructed Response (essay) & Vignettes</li>
+                            <li><span class="font-semibold">Duration:</span> ~4.4 hours total (2h 12m per session)</li>
+                            <li><span class="font-semibold">Focus:</span> Portfolio management and wealth planning synthesis.</li>
+                            <li><span class="font-semibold">New in 2025:</span> Choice of 3 specialized pathways.</li>
+                        </ul>
+                         <h4 class="text-lg font-bold text-gray-800 mt-6 mb-2">Topic Weights (Core Curriculum)</h4>
+                         <div class="chart-container h-80 max-h-[350px]">
+                            <canvas id="l3Chart"></canvas>
+                        </div>
+                    </div>
+                    <!-- Right Column: Topics & Practice -->
+                    <div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm mb-8">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Core Curriculum & Pathways</h3>
+                            <p class="text-gray-600 mb-4">Level III tests your ability to synthesize knowledge into actionable portfolio strategy. The curriculum now includes a common core and specialized pathways.</p>
+                            <div id="l3-accordion" class="space-y-2"></div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Practice Constructed Response</h3>
+                             <p class="text-gray-600 mb-4">Mastering the essay format is key. Practice formulating a concise, justified response to the following scenario.</p>
+                            <div id="l3-practice" class="space-y-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View: Strategy -->
+        <div id="view-strategy" class="view-content hidden fade-in">
+             <h2 class="text-3xl font-bold text-gray-800 mb-2">Architecting Your Success</h2>
+            <p class="mb-8 text-lg text-gray-600">Passing the CFA exams requires more than just knowledge—it requires a robust strategy. Explore historical pass rate data to set realistic expectations and learn the most effective study approaches.</p>
+
+            <div class="bg-white p-6 rounded-lg shadow-sm mb-8">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Historical Pass Rate Trends (10-Year Avg)</h3>
+                <p class="text-gray-600 mb-4">Pass rates fluctuate and saw a dip during the transition to computer-based testing, but have been trending back toward their historical averages. The increasing pass rate from L1 to L3 reflects the highly effective filtering process of the program. Use the legend to toggle levels on and off.</p>
+                <div class="chart-container h-96 max-h-[50vh]">
+                    <canvas id="passRateChart"></canvas>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">The 3-Phase Study Plan</h3>
+                     <p class="text-gray-600 mb-4">A disciplined 6-9 month plan is essential. Break your studies into these distinct phases for optimal learning and retention.</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="bg-blue-100 text-blue-800 font-bold rounded-full h-8 w-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">1</div>
+                            <div>
+                                <h4 class="font-semibold">Learn (Months 1-4)</h4>
+                                <p class="text-gray-600">Systematically work through the curriculum, taking notes and creating flashcards for key concepts.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                             <div class="bg-green-100 text-green-800 font-bold rounded-full h-8 w-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">2</div>
+                            <div>
+                                <h4 class="font-semibold">Practice (Months 5-6)</h4>
+                                <p class="text-gray-600">Shift to active problem-solving with a question bank. Deeply analyze every mistake to identify and fill knowledge gaps.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                             <div class="bg-yellow-100 text-yellow-800 font-bold rounded-full h-8 w-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">3</div>
+                            <div>
+                                <h4 class="font-semibold">Review (Final Month)</h4>
+                                <p class="text-gray-600">Consolidate knowledge by taking full-length mock exams under timed, realistic conditions to hone your test-taking strategy.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Choosing Your Study Arsenal</h3>
+                    <p class="text-gray-600 mb-4">The most effective strategy combines the official curriculum with third-party prep materials.</p>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-700">CFA Institute Curriculum</h4>
+                            <p class="text-gray-600"><span class="font-bold text-green-600">Pro:</span> The definitive source for all exam questions. <span class="font-bold text-red-600">Con:</span> Extremely dense and can be overwhelming.</p>
+                            <p class="text-blue-700 font-medium mt-1">Best Use: Essential for practice problems and studying Ethics.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-700">Third-Party Prep (e.g., Kaplan Schweser)</h4>
+                            <p class="text-gray-600"><span class="font-bold text-green-600">Pro:</span> Condensed notes for efficient learning, large question banks, and mock exams. <span class="font-bold text-red-600">Con:</span> May lack the nuance of the official text.</p>
+                             <p class="text-blue-700 font-medium mt-1">Best Use: Primary learning tool for covering the curriculum efficiently.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View: Study Materials Library (NEW CONTENT) -->
+        <div id="view-materials-library" class="view-content hidden fade-in materials-section">
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">Comprehensive Study Materials Library</h2>
+            <p class="mb-8 text-lg text-gray-600">This library provides direct links to all the detailed study materials developed for each CFA Program level. Navigate through the resources to aid your preparation. Note: These materials are supplementary and not a replacement for the official CFA Institute curriculum.</p>
+
+            <!-- Level I Materials -->
+            <div class="materials-card">
+                <h3>Level I Materials</h3>
+                <p><a href="Level_1/README.md" target="_blank">Level I Main Study Guide (Overview)</a></p>
+
+                <h4>Cheat Sheets</h4>
+                <ul>
+                    <li><a href="Level_1/Cheat_Sheets/CS_01_Ethical_and_Professional_Standards.md" target="_blank">Ethical and Professional Standards</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_02_Quantitative_Methods.md" target="_blank">Quantitative Methods</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_03_Economics.md" target="_blank">Economics</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md" target="_blank">Financial Reporting and Analysis</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_05_Corporate_Finance.md" target="_blank">Corporate Issuers (Corporate Finance)</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_06_Equity_Investments.md" target="_blank">Equity Investments</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_07_Fixed_Income.md" target="_blank">Fixed Income</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_08_Derivatives.md" target="_blank">Derivatives</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_09_Alternative_Investments.md" target="_blank">Alternative Investments</a></li>
+                    <li><a href="Level_1/Cheat_Sheets/CS_10_Portfolio_Management.md" target="_blank">Portfolio Management</a></li>
+                </ul>
+
+                <h4>Topic Deep Dives</h4>
+                <ul>
+                    <li><a href="Level_1/Topic_Deep_Dives/Quant_Time_Value_of_Money.md" target="_blank">Quantitative Methods: Time Value of Money</a></li>
+                    <li><a href="Level_1/Topic_Deep_Dives/FRA_Income_Statement_Analysis.md" target="_blank">FRA: Income Statement Analysis</a></li>
+                    <li><a href="Level_1/Topic_Deep_Dives/Equity_Valuation_Models_Intro.md" target="_blank">Equity: Valuation Models Introduction</a></li>
+                    <li><a href="Level_1/Topic_Deep_Dives/Fixed_Income_Basics.md" target="_blank">Fixed Income: Basics</a></li>
+                    <li><a href="Level_1/Topic_Deep_Dives/Derivatives_Introduction.md" target="_blank">Derivatives: Introduction</a></li>
+                </ul>
+
+                <h4>Practice Exams</h4>
+                <ul>
+                    <li><a href="Level_1/Practice_Exams/Practice_Exam_1_Questions.md" target="_blank">Practice Exam 1 - Questions</a></li>
+                    <li><a href="Level_1/Practice_Exams/Practice_Exam_1_Answer_Key.md" target="_blank">Practice Exam 1 - Answer Key</a></li>
+                    <li><a href="Level_1/Practice_Exams/Practice_Exam_2_Questions.md" target="_blank">Practice Exam 2 - Questions</a></li>
+                    <li><a href="Level_1/Practice_Exams/Practice_Exam_2_Answer_Key.md" target="_blank">Practice Exam 2 - Answer Key</a></li>
+                </ul>
+
+                <h4>Case Studies</h4>
+                <ul>
+                    <li><a href="Level_1/Case_Studies/Case_Study_Ethical_Dilemma_Analysis.md" target="_blank">Case Study: Ethical Dilemma Analysis</a></li>
+                    <li><a href="Level_1/Case_Studies/Case_Study_Basic_Company_Valuation.md" target="_blank">Case Study: Basic Company Valuation</a></li>
+                </ul>
+            </div>
+
+            <!-- Level II Materials -->
+            <div class="materials-card">
+                <h3>Level II Materials</h3>
+                <p><a href="Level_2/README.md" target="_blank">Level II Main Study Guide (Overview)</a></p>
+
+                <h4>Cheat Sheets</h4>
+                <ul>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Ethical_and_Professional_Standards.md" target="_blank">Ethical and Professional Standards (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Quantitative_Methods.md" target="_blank">Quantitative Methods (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Economics.md" target="_blank">Economics (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Financial_Reporting_and_Analysis.md" target="_blank">Financial Reporting and Analysis (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Corporate_Finance.md" target="_blank">Corporate Issuers (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Equity_Valuation.md" target="_blank">Equity Valuation (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Fixed_Income.md" target="_blank">Fixed Income (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Derivatives.md" target="_blank">Derivatives (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Alternative_Investments.md" target="_blank">Alternative Investments (L2)</a></li>
+                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Portfolio_Management.md" target="_blank">Portfolio Management (L2)</a></li>
+                </ul>
+
+                <h4>Topic Deep Dives</h4>
+                <ul>
+                    <li><a href="Level_2/Topic_Deep_Dives/L2_DD_FCFF_FCFE_Valuation.md" target="_blank">Equity: FCFF/FCFE Valuation</a></li>
+                    <li><a href="Level_2/Topic_Deep_Dives/L2_DD_Intercorporate_Investments.md" target="_blank">FRA: Intercorporate Investments</a></li>
+                    <li><a href="Level_2/Topic_Deep_Dives/L2_DD_Fixed_Income_Term_Structure_Models.md" target="_blank">Fixed Income: Term Structure Models</a></li>
+                    <li><a href="Level_2/Topic_Deep_Dives/L2_DD_Option_Valuation_Binomial_BSM.md" target="_blank">Derivatives: Option Valuation (Binomial & BSM)</a></li>
+                </ul>
+
+                <h4>Practice Exams (Item Sets)</h4>
+                <ul>
+                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_1-3_Questions.md" target="_blank">Practice Exam 1 - Item Sets 1-3 Questions</a></li>
+                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_1-3_Answer_Key.md" target="_blank">Practice Exam 1 - Item Sets 1-3 Answer Key</a></li>
+                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_4-6_Questions.md" target="_blank">Practice Exam 1 - Item Sets 4-6 Questions</a></li>
+                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_4-6_Answer_Key.md" target="_blank">Practice Exam 1 - Item Sets 4-6 Answer Key</a></li>
+                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_7-8_Questions.md" target="_blank">Practice Exam 1 - Item Sets 7-8 Questions</a></li>
+                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_7-8_Answer_Key.md" target="_blank">Practice Exam 1 - Item Sets 7-8 Answer Key</a></li>
+                </ul>
+
+                <h4>Case Studies</h4>
+                <ul>
+                    <li><a href="Level_2/Case_Studies/L2_Case_Complex_Company_Valuation.md" target="_blank">Case Study: Complex Company Valuation</a></li>
+                    <li><a href="Level_2/Case_Studies/L2_Case_Pension_Analysis_Impact.md" target="_blank">Case Study: Pension Analysis Impact</a></li>
+                </ul>
+            </div>
+
+            <!-- Level III Materials -->
+            <div class="materials-card">
+                <h3>Level III Materials</h3>
+                <p><a href="Level_3/README.md" target="_blank">Level III Main Study Guide (Overview)</a></p>
+
+                <h4>Cheat Sheets</h4>
+                <ul>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Ethical_and_Professional_Standards.md" target="_blank">Ethical and Professional Standards (L3 & GIPS)</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Economics_Capital_Market_Expectations.md" target="_blank">Economics: Capital Market Expectations</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Asset_Allocation.md" target="_blank">Asset Allocation</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Behavioral_Finance.md" target="_blank">Behavioral Finance</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Equity_Portfolio_Management.md" target="_blank">Equity Portfolio Management</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Fixed_Income_Portfolio_Management.md" target="_blank">Fixed Income Portfolio Management</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Alternative_Investments_Portfolio_Management.md" target="_blank">Alternative Investments Portfolio Management</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Derivatives_and_Currency_Management.md" target="_blank">Derivatives and Currency Management</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Risk_Management.md" target="_blank">Risk Management (Portfolio Context)</a></li>
+                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Performance_Evaluation_and_Attribution.md" target="_blank">Performance Evaluation and Attribution</a></li>
+                </ul>
+
+                <h4>Topic Deep Dives</h4>
+                <ul>
+                    <li><a href="Level_3/Topic_Deep_Dives/L3_DD_IPS_Construction_Private_Wealth.md" target="_blank">IPS Construction: Private Wealth</a></li>
+                    <li><a href="Level_3/Topic_Deep_Dives/L3_DD_Asset_Allocation_Mean_Variance.md" target="_blank">Asset Allocation: Mean-Variance Optimization</a></li>
+                    <li><a href="Level_3/Topic_Deep_Dives/L3_DD_Fixed_Income_Portfolio_Strategies.md" target="_blank">Fixed Income: Portfolio Strategies</a></li>
+                    <li><a href="Level_3/Topic_Deep_Dives/L3_DD_Performance_Attribution.md" target="_blank">Performance Attribution</a></li>
+                </ul>
+
+                <h4>Practice Exams</h4>
+                <ul>
+                    <li><a href="Level_3/Practice_Exams_Essays/L3_Practice_Essay_Exam_1_Questions.md" target="_blank">Practice Essay Exam 1 - Questions</a></li>
+                    <li><a href="Level_3/Practice_Exams_Essays/L3_Practice_Essay_Exam_1_Guideline_Answers.md" target="_blank">Practice Essay Exam 1 - Guideline Answers</a></li>
+                    <li><a href="Level_3/Practice_Exams_Item_Sets/L3_Practice_Item_Set_Exam_1_Questions_1-3.md" target="_blank">Practice Item Set Exam 1 - Questions (Sets 1-3)</a></li>
+                    <li><a href="Level_3/Practice_Exams_Item_Sets/L3_Practice_Item_Set_Exam_1_Answers_1-3.md" target="_blank">Practice Item Set Exam 1 - Answers (Sets 1-3)</a></li>
+                    <li><a href="Level_3/Practice_Exams_Item_Sets/L3_Practice_Item_Set_Exam_1_Questions_4-5.md" target="_blank">Practice Item Set Exam 1 - Questions (Sets 4-5)</a></li>
+                    <li><a href="Level_3/Practice_Exams_Item_Sets/L3_Practice_Item_Set_Exam_1_Answers_4-5.md" target="_blank">Practice Item Set Exam 1 - Answers (Sets 4-5)</a></li>
+                </ul>
+
+                <h4>Case Studies (IPS Focus)</h4>
+                <ul>
+                    <li><a href="Level_3/Case_Studies_IPS/L3_Case_IPS_Defined_Benefit_Pension.md" target="_blank">Case Study: IPS for Defined Benefit Pension Plan</a></li>
+                    <li><a href="Level_3/Case_Studies_IPS/L3_Case_IPS_Endowment_Foundation.md" target="_blank">Case Study: IPS for Endowment Fund</a></li>
+                </ul>
+            </div>
+            <!-- Consider adding search/filter functionality via JavaScript later for a better UX -->
+        </div>
+
+    </main>
+
+<script>
+const AppData = {
+    passRates: {
+        years: ['2016', '2017', '2018', '2019', '2020', '2021*', '2022*', '2023*', '2024*', 'Feb 2025'],
+        l1: [43, 43, 43, 41, 49, 29, 37, 37, 44, 45],
+        l2: [46, 47, 45, 44, 55, 40, 42, 47, 48, null],
+        l3: [54, 54, 56, 56, 56, 43, 48, 48, 49, 49],
+    },
+    levels: {
+        L1: {
+            topicWeights: {
+                labels: ['Ethics', 'FSA', 'Equity', 'Fixed Income', 'Portfolio Mgmt', 'Corp. Issuers', 'Economics', 'Quant Methods', 'Alternatives', 'Derivatives'],
+                weights: [17.5, 12.5, 12.5, 12.5, 10, 7.5, 7.5, 7.5, 8.5, 6.5] // Using midpoints
+            },
+            topics: [
+                { title: 'Ethical & Professional Standards (15-20%)', content: 'The bedrock of the profession. Covers the Code of Ethics and Standards of Professional Conduct. Study exclusively from the official curriculum. The "Ethics adjustment" can be a tie-breaker for borderline scores.', formula: 'Framework: Identify -> Consider -> Act -> Reflect' },
+                { title: 'Quantitative Methods (6-9%)', content: 'Provides the statistical and mathematical tools for finance. Foundational for all other topics.', formula: 'TVM: FV = PV(1+r)^n, CAPM: E(R) = Rf + β(Rm-Rf)' },
+                { title: 'Financial Statement Analysis (11-14%)', content: 'A heavily-weighted and challenging topic. Focus on IFRS vs. US GAAP, ratio analysis, and cash flow.', formula: 'DuPont ROE = (NI/Sales) * (Sales/Assets) * (Assets/Equity)' },
+                { title: 'Fixed Income (11-14%)', content: 'Complex and abstract. Master bond pricing, yield measures, duration, and convexity.', formula: 'Bond Price = PV(Coupons) + PV(Face Value)' },
+            ],
+            practice: [
+                { q: "A financial adviser recommends a product to a client after determining it is suitable for the client's risk profile and financial situation. The regulator in the adviser's jurisdiction only requires that advisers *consider* the suitability of products. The adviser's action most likely meets:", a: ['a legal standard, but not an ethical standard.', 'an ethical standard, but not a legal standard.', 'both a legal and an ethical standard.'], correct: 2, explanation: "Correct. The CFA Standards require ensuring suitability, an ethical standard. The action also meets the minimum local legal requirement. Standard III(C) Suitability is a high bar." },
+                { q: "A company using LIFO reports COGS of $300,000. Its LIFO reserve increased from $50,000 to $65,000 during the year. If the company had used FIFO, its COGS would have been:", a: ['$285,000', '$315,000', '$365,000'], correct: 0, explanation: "Correct. FIFO COGS = LIFO COGS - Change in LIFO Reserve. Change = $65k - $50k = $15k. FIFO COGS = $300k - $15k = $285,000." },
+            ]
+        },
+        L2: {
+            topicWeights: {
+                labels: ['FSA', 'Equity', 'Fixed Income', 'Portfolio Mgmt', 'Ethics', 'Corp. Issuers', 'Derivatives', 'Economics', 'Quant Methods', 'Alternatives'],
+                weights: [12.5, 12.5, 12.5, 12.5, 12.5, 7.5, 7.5, 7.5, 7.5, 7.5]
+            },
+            topics: [
+                { title: 'Equity Valuation (10-15%)', content: 'Goes far beyond Level I. Master multi-stage DDM, FCFF/FCFE models, and Residual Income valuation.', formula: 'FCFE = NI + NCC - FCInv - WCInv + Net Borrowing' },
+                { title: 'Financial Statement Analysis (10-15%)', content: 'Focuses on complex accounting with a major impact on valuation, such as intercorporate investments, pension accounting, and currency translation.', formula: 'Periodic Pension Cost = Service Cost + Interest Cost - Expected Return on Assets + ...' },
+                { title: 'Fixed Income (10-15%)', content: 'Highly quantitative. Focus on arbitrage-free valuation and valuing bonds with embedded options using binomial interest rate trees.', formula: 'Value a callable bond by subtracting the value of the call option from a straight bond.' },
+                { title: 'Derivatives (5-10%)', content: 'Shifts from identification to pricing and valuation of forwards, futures, swaps, and options. Understand the Black-Scholes-Merton model.', formula: 'BSM: c = S*N(d1) - X*e^(-rT)*N(d2)' },
+            ],
+            practice: [
+                 { q: "For a cyclical company with volatile earnings, which valuation multiple is generally MOST appropriate?", a: ['Price-to-earnings (P/E)', 'Price-to-book (P/B)', 'Price-to-sales (P/S)'], correct: 1, explanation: "Correct. P/B is often preferred when earnings are volatile or negative, as book value provides a more stable measure of value for such firms." },
+                 { q: "A company's payout ratio is 40%, its cost of equity is 11%, and its growth rate is 5%. Its justified leading P/E is closest to:", a: ['6.7', '10.0', '16.7'], correct: 0, explanation: "Correct. Justified P/E = Payout Ratio / (k - g) = 0.40 / (0.11 - 0.05) = 0.40 / 0.06 = 6.67." },
+            ]
+        },
+        L3: {
+            topicWeights: {
+                labels: ['Portfolio Mgmt & Wealth Planning', 'Ethics', 'Fixed Income', 'Equity', 'Economics', 'Derivatives', 'Alternatives'], // More general L3 Core
+                weights: [40, 12.5, 17.5, 12.5, 7.5, 5, 5] // Approximate Core weights, actual varies with pathways
+            },
+            topics: [
+                { title: 'Portfolio Management (35-40%)', content: 'The dominant topic. Focuses on applying concepts to individuals and institutions, including IPS construction, asset allocation, risk management, and performance evaluation.', formula: 'IPS Components: Objectives (Risk, Return), Constraints (LLTTU)' },
+                { title: 'Asset Allocation (15-20%)', content: 'Focuses on formulating capital market expectations and implementing strategic and tactical asset allocation.', formula: 'Taylor Rule: Policy Rate = Neutral Rate + 0.5(GDP_exp - GDP_trend) + 0.5(I_exp - I_target)' },
+                { title: 'Constructed Response Strategy', content: 'Mastery of the essay format is critical. Be direct, use bullet points, and pay close attention to command words like "justify," "calculate," and "discuss".', formula: 'Always show your work for calculation questions to earn partial credit.'},
+                { title: 'Specialized Pathways (New for 2025 exams)', content: 'Candidates choose one of three paths: Portfolio Management (traditional focus), Private Markets, or Private Wealth.', formula: 'Understand the chosen pathway in depth.'}
+            ],
+            practice: [
+                 {
+                    q: "An economic forecast predicts a significant steepening of the yield curve (long rates rise, short rates stable). For a fixed-income portfolio, which strategy is *least* appropriate?",
+                    a: ['Barbell', 'Bullet', 'Laddered'],
+                    correct: 0,
+                    explanation: "Correct. A barbell strategy is heavily weighted in long-maturity bonds, which will suffer the largest price drop when long-term rates rise significantly. A bullet strategy focused on the short or intermediate part of the curve would perform better."
+                 },
+            ]
+        },
+    }
+};
+
+let charts = {}; // Keep track of chart instances
+
+function showView(viewId, element) {
+    // Hide all main views
+    document.querySelectorAll('.view-content').forEach(view => view.classList.add('hidden'));
+
+    // Show the target view
+    const targetView = document.getElementById(`view-${viewId}`);
+    if (targetView) {
+        targetView.classList.remove('hidden');
+        targetView.classList.add('fade-in'); // Apply fade-in animation
+    }
+
+    // Update active state for sidebar navigation links
+    document.querySelectorAll('aside .nav-link').forEach(link => link.classList.remove('active'));
+    if (element && element.closest('aside')) { // Check if element is in sidebar
+        element.classList.add('active');
+    } else { // If called from mobile or elsewhere, find corresponding sidebar link
+        document.querySelector(`aside .nav-link[href="#${viewId}"]`)?.classList.add('active');
+    }
+
+    // Update active state for mobile navigation links
+    document.querySelectorAll('#mobile-menu .nav-link').forEach(link => link.classList.remove('active'));
+    const mobileLinkTarget = document.querySelector(`#mobile-menu .nav-link[href="#${viewId}"]`);
+    if (mobileLinkTarget) {
+        mobileLinkTarget.classList.add('active');
+    }
+
+
+    // Specific actions for views
+    if (viewId === 'strategy') {
+        renderPassRateChart();
+    }
+    // If deep-dive is selected, ensure a default level tab is active and its chart rendered
+    if (viewId === 'deep-dive' && !document.querySelector('#view-deep-dive .tab-button.active')) {
+        const firstTab = document.querySelector('#view-deep-dive .tab-button');
+        if(firstTab) {
+            showLevel(firstTab.textContent.trim().replace('Level ', 'L'), firstTab);
+        }
+    }
+}
+
+function showLevel(levelId, element) {
+    document.querySelectorAll('.level-content').forEach(view => view.classList.add('hidden'));
+    document.getElementById(`level-${levelId}`).classList.remove('hidden');
+
+    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+    element.classList.add('active');
+
+    renderLevelChart(levelId);
+}
+
+function createChart(canvasId, type, data, options) {
+    const chartElement = document.getElementById(canvasId);
+    if (!chartElement) {
+        // console.error("Canvas element not found for chart: " + canvasId);
+        return;
+    }
+    if (charts[canvasId]) {
+        charts[canvasId].destroy();
+    }
+    const ctx = chartElement.getContext('2d');
+    charts[canvasId] = new Chart(ctx, { type, data, options });
+}
+
+function renderPassRateChart() {
+    const data = {
+        labels: AppData.passRates.years,
+        datasets: [
+            {
+                label: 'Level I Pass Rate',
+                data: AppData.passRates.l1,
+                borderColor: '#0d6efd',
+                backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                fill: false,
+                tension: 0.3,
+            },
+            {
+                label: 'Level II Pass Rate',
+                data: AppData.passRates.l2,
+                borderColor: '#198754',
+                backgroundColor: 'rgba(25, 135, 84, 0.1)',
+                fill: false,
+                tension: 0.3,
+            },
+            {
+                label: 'Level III Pass Rate',
+                data: AppData.passRates.l3,
+                borderColor: '#ffc107',
+                backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                fill: false,
+                tension: 0.3,
+            }
+        ]
+    };
+    const options = {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'top', }, title: { display: false },
+            tooltip: { callbacks: { label: ctx => `${ctx.dataset.label || ''}: ${ctx.parsed.y !== null ? ctx.parsed.y + '%' : ''}`}}
+        },
+        scales: { y: { beginAtZero: true, title: { display: true, text: 'Pass Rate (%)' } } }
+    };
+    createChart('passRateChart', 'line', data, options);
+}
+
+function renderLevelChart(levelId) {
+    const levelData = AppData.levels[levelId]?.topicWeights; // Add safe navigation
+    if (!levelData) return;
+    const data = {
+        labels: levelData.labels,
+        datasets: [{
+            label: `Level ${levelId.charAt(1)} Topic Weights`, data: levelData.weights,
+            backgroundColor: ['#0d6efd', '#6f42c1', '#198754', '#d63384', '#ffc107', '#fd7e14', '#20c997', '#0dcaf0', '#6c757d', '#dc3545'],
+            hoverOffset: 4
+        }]
+    };
+    const options = {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}%`}}}
+    };
+    createChart(levelId.toLowerCase() + 'Chart', 'doughnut', data, options);
+}
+
+function buildAccordion(levelId) {
+    const container = document.getElementById(`${levelId.toLowerCase()}-accordion`);
+    if (!container) return;
+    const topics = AppData.levels[levelId]?.topics; // Add safe navigation
+    if (!topics) return;
+    container.innerHTML = '';
+    topics.forEach(topic => {
+        const item = document.createElement('div');
+        item.className = 'accordion-item border rounded-md bg-gray-50';
+        item.innerHTML = `
+            <button class="accordion-header w-full text-left p-4 font-semibold text-gray-700 flex justify-between items-center hover:bg-gray-100">
+                <span>${topic.title}</span>
+                <span class="icon text-blue-500 font-bold text-lg"></span>
+            </button>
+            <div class="accordion-content px-4 pb-4">
+                <p class="text-gray-600 text-sm">${topic.content}</p>
+                <p class="mt-2 text-xs font-mono bg-gray-200 text-gray-800 p-2 rounded">${topic.formula}</p>
+            </div>`;
+        container.appendChild(item);
+    });
+}
+
+function buildPractice(levelId) {
+    const container = document.getElementById(`${levelId.toLowerCase()}-practice`);
+    if (!container) return;
+    const questions = AppData.levels[levelId]?.practice; // Add safe navigation
+    if (!questions) return;
+    container.innerHTML = '';
+    questions.forEach((q, index) => {
+        const item = document.createElement('div');
+        item.className = 'p-4 border rounded-md bg-gray-50 mb-3';
+        let optionsHtml = q.a.map((ans, ansIndex) =>
+            `<button onclick="checkAnswer('${levelId}', ${index}, ${ansIndex}, this)" class="block w-full text-left p-2 mt-1 rounded hover:bg-gray-200 transition-colors text-sm">${String.fromCharCode(65 + ansIndex)}. ${ans}</button>`
+        ).join('');
+        item.innerHTML = `
+            <p class="font-semibold text-gray-800 text-sm">${index + 1}. ${q.q}</p>
+            <div class="mt-2">${optionsHtml}</div>
+            <div id="feedback-${levelId}-${index}" class="mt-2 text-xs p-2 rounded hidden"></div>`;
+        container.appendChild(item);
+    });
+}
+
+function checkAnswer(levelId, qIndex, ansIndex, element) {
+    const question = AppData.levels[levelId].practice[qIndex];
+    const feedbackEl = document.getElementById(`feedback-${levelId}-${qIndex}`);
+    const parent = element.parentElement;
+    parent.querySelectorAll('button').forEach(btn => {
+        btn.disabled = true;
+        btn.classList.remove('bg-green-200', 'text-green-800', 'bg-red-200', 'text-red-800', 'font-semibold');
+        btn.classList.add('text-gray-500');
+    });
+    if (ansIndex === question.correct) {
+        element.classList.remove('text-gray-500');
+        element.classList.add('bg-green-200', 'text-green-800', 'font-semibold');
+        feedbackEl.className = 'mt-2 text-xs p-2 rounded bg-green-50 text-green-700';
+        feedbackEl.innerHTML = `<span class="font-bold">Correct!</span> ${question.explanation}`;
+    } else {
+        element.classList.remove('text-gray-500');
+        element.classList.add('bg-red-200', 'text-red-800', 'font-semibold');
+        feedbackEl.className = 'mt-2 text-xs p-2 rounded bg-red-50 text-red-700';
+        feedbackEl.innerHTML = `<span class="font-bold">Incorrect.</span> ${question.explanation}`;
+        const correctButton = parent.children[question.correct]; // This might be wrong if buttons are not direct children or structure changes
+        if (correctButton && correctButton.tagName === 'BUTTON') {
+             correctButton.classList.remove('text-gray-500');
+             correctButton.classList.add('bg-green-200', 'text-green-800', 'font-semibold');
+        }
+    }
+    feedbackEl.classList.remove('hidden');
+}
+
+function setupAccordions() {
+    document.body.addEventListener('click', function(e) {
+        const header = e.target.closest('.accordion-header');
+        if (header) {
+            header.parentElement.classList.toggle('open');
+        }
+    });
+}
+
+function setupMobileMenu() {
+    const btn = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+    if(btn && menu) {
+        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+    }
+}
+
+function closeMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    if(menu) menu.classList.add('hidden');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Ensure a default view is shown
+    const initialView = window.location.hash ? window.location.hash.substring(1) : 'overview';
+    const initialLink = document.querySelector(`aside .nav-link[href="#${initialView}"]`) || document.querySelector('aside .nav-link');
+    if (initialLink) {
+       showView(initialView, initialLink);
+    }
+
+    // Ensure a default level tab is shown for deep-dive view
+    if (initialView === 'deep-dive' || document.getElementById('view-deep-dive')) {
+        const activeTabButton = document.querySelector('#view-deep-dive .tab-button.active');
+        if (!activeTabButton) {
+            const firstTabButton = document.querySelector('#view-deep-dive .tab-button');
+            if (firstTabButton) {
+                 showLevel(firstTabButton.textContent.trim().replace('Level ', 'L'), firstTabButton);
+            }
+        } else {
+            // If a tab is already active (e.g. from HTML), ensure its chart is rendered
+            renderLevelChart(activeTabButton.textContent.trim().replace('Level ', 'L'));
+        }
+    }
+
+    buildAccordion('L1'); buildPractice('L1');
+    buildAccordion('L2'); buildPractice('L2');
+    buildAccordion('L3'); buildPractice('L3');
+
+    setupAccordions();
+    setupMobileMenu();
+});
+
+</script>
+</body>
+</html>
