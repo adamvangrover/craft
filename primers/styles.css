@@ -1,0 +1,76 @@
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+#searchBar {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.primer-entry {
+    background-color: #ecf0f1;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 0; /* Remove padding here, will be on title/summary */
+    overflow: hidden; /* Contains the floated elements if any, and ensures borders wrap correctly */
+}
+
+.primer-title {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 15px;
+    margin: 0;
+    cursor: pointer;
+    font-size: 1.2em;
+    border-bottom: 1px solid #2980b9; /* Separator line */
+}
+
+.primer-title a {
+    color: white;
+    text-decoration: none;
+    display: block; /* Makes the whole title area clickable for the link */
+}
+
+.primer-title a:hover {
+    text-decoration: underline;
+}
+
+.primer-summary {
+    padding: 10px 15px;
+    display: none; /* Hidden by default */
+    background-color: #fff; /* White background for summary */
+    border-top: 1px solid #bdc3c7; /* Separator from title if needed, but title has bottom border */
+}
+
+.primer-summary p {
+    margin-top: 0;
+}
+
+.primer-summary.active {
+    display: block;
+}
