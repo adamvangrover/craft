@@ -1,3 +1,34 @@
+/* Global Styles & Resets */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.6;
+    background-color: #f8f9fa;
+    color: #343a40;
+    padding: 20px;
+}
+
+/* Page Layout */
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.page-header h1 {
+    font-size: 2.5em;
+    color: #2c3e50;
+    text-align: center;
 body {
     font-family: sans-serif;
     line-height: 1.6;
@@ -24,6 +55,327 @@ h1 {
 
 #searchBar {
     width: 100%;
+    padding: 12px 15px;
+    font-size: 1em;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+#searchBar:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.primers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Responsive grid, wider min for cards */
+    gap: 25px;
+}
+
+/* Primer Card */
+.primer-card {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.primer-card-header {
+    background-color: #3498db;
+    color: #ffffff;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.primer-card-header h2 {
+    font-size: 1.4em;
+    margin: 0;
+}
+
+.primer-card-header h2 a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.primer-card-header h2 a:hover {
+    text-decoration: underline;
+}
+
+.toggle-all-sections-btn {
+    background-color: #2980b9;
+    color: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.toggle-all-sections-btn:hover {
+    background-color: #2c3e50;
+}
+
+.primer-initial-summary {
+    padding: 15px 20px;
+    background-color: #f1f3f5;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.primer-initial-summary p {
+    font-size: 0.95em;
+    color: #495057;
+    margin-bottom: 0; /* Remove default p margin if it's the only element */
+}
+.primer-initial-summary p:last-child {
+    margin-bottom: 0;
+}
+
+
+.primer-content-sections {
+    padding: 0 20px 20px 20px;
+}
+
+/* Accordion Sections */
+.primer-section-accordion {
+    border-bottom: 1px solid #e0e0e0;
+    margin-top: 0; /* Remove margin-top if first element */
+}
+.primer-section-accordion:first-child {
+     /* No top border for the first accordion if desired, or handled by parent padding */
+}
+.primer-section-accordion:last-child {
+    border-bottom: none;
+}
+
+.primer-section-title {
+    padding: 12px 0;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #2c3e50;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s;
+    position: relative; /* For custom marker */
+}
+
+.primer-section-title::-webkit-details-marker { display: none; }
+.primer-section-title::marker { display: none; }
+
+
+.primer-section-title:hover {
+    background-color: #f0f8ff;
+}
+
+/* Custom open/close marker for summary */
+.primer-section-title::before {
+    content: '▶'; /* Collapsed state */
+    font-size: 0.8em;
+    margin-right: 10px;
+    display: inline-block;
+    transition: transform 0.2s ease-in-out;
+    color: #3498db;
+}
+
+.primer-section-accordion[open] > .primer-section-title::before {
+    transform: rotate(90deg); /* Expanded state */
+}
+
+
+.section-icon {
+    margin-right: 8px; /* Space between custom marker and icon */
+    font-size: 1.2em;
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+}
+
+/* Specific Icon Colors */
+.section-icon-default { color: #007bff; } /* Blue */
+.section-icon-trends { color: #28a745; } /* Green */
+.section-icon-risks { color: #dc3545; } /* Red */
+.section-icon-tips { color: #ffc107; } /* Yellow, ensure good contrast or use darker text */
+.section-icon-metrics { color: #6f42c1; } /* Purple */
+
+
+.primer-section-content {
+    padding: 15px 0 15px 25px; /* Indent content slightly from the left of summary text */
+    font-size: 0.9em;
+    border-top: 1px dashed #ced4da;
+    background-color: #fff;
+}
+
+/* Content Styling within Accordions */
+.primer-section-content h3 {
+    font-size: 1.15em;
+    color: #343a40;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+.primer-section-content h3:first-child {
+    margin-top: 0;
+}
+
+.primer-section-content h4 {
+    font-size: 1.05em;
+    color: #495057;
+    margin-top: 0.8em;
+    margin-bottom: 0.4em;
+}
+
+.primer-section-content p {
+    margin-bottom: 0.8em;
+}
+.primer-section-content p:last-child {
+    margin-bottom: 0;
+}
+
+
+.primer-section-content ul, .primer-section-content ol {
+    margin-bottom: 0.8em;
+    padding-left: 20px;
+}
+.primer-section-content ul ul, .primer-section-content ol ol,
+.primer-section-content ul ol, .primer-section-content ol ul {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+    padding-left: 25px; /* Deeper indent for nested lists */
+}
+
+.primer-section-content li {
+    margin-bottom: 0.4em;
+}
+
+.primer-section-content strong {
+    font-weight: 600;
+    color: #212529;
+}
+
+/* Table Styling */
+.table-container {
+    overflow-x: auto;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
+
+.primer-section-content table {
+    width: 100%;
+    border-collapse: collapse; /* Important for borders to look right */
+}
+
+.primer-section-content th, .primer-section-content td {
+    padding: 10px 12px;
+    border: 1px solid #e0e0e0;
+    text-align: left;
+    font-size: 0.95em; /* Slightly larger for table readability */
+    vertical-align: top; /* Align content to top of cell */
+}
+
+.primer-section-content th {
+    background-color: #e9ecef; /* Lighter header for tables */
+    font-weight: 600;
+    color: #495057;
+}
+
+.primer-section-content tbody tr:nth-child(even) { /* Zebra striping */
+    background-color: #f8f9fa;
+}
+.primer-section-content tbody tr:hover {
+    background-color: #e2e6ea;
+}
+
+
+/* Footer */
+.page-footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #dee2e6;
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    .page-header h1 {
+        font-size: 2em;
+    }
+    .primers-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .primer-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .primer-card-header h2 {
+        font-size: 1.3em;
+        margin-bottom: 10px;
+    }
+    .toggle-all-sections-btn {
+        font-size: 0.9em;
+        align-self: flex-start; /* Align button to start if header flexes to column */
+    }
+    .primer-section-title {
+        font-size: 1em;
+    }
+    .primer-section-content {
+        font-size: 0.85em;
+        padding-left: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header h1 {
+        font-size: 1.8em;
+    }
+    #searchBar {
+        padding: 10px 12px;
+        font-size: 0.95em;
+    }
+     .primer-card-header h2 {
+        font-size: 1.2em;
+    }
+}
+
+/* Focus visible styles for accessibility */
+:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+.primer-card-header h2 a:focus-visible,
+#searchBar:focus-visible, /* Already has focus, but good to ensure it's covered */
+.toggle-all-sections-btn:focus-visible,
+.primer-section-title:focus-visible {
+    /* Specific focus for elements within cards if needed, or rely on general */
+}
+
+/* Ensure summary focus is clear */
+.primer-section-title:focus {
+    outline: none; /* Remove default outline if using custom focus-visible */
+}
+.primer-section-title:focus-visible {
+    background-color: #e6f2ff; /* Light blue background on focus */
+    /* Or a more prominent box shadow / outline */
+}
+
+```
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ddd;
@@ -74,3 +426,4 @@ h1 {
 .primer-summary.active {
     display: block;
 }
+
