@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Chosen Palette: Warm Professional -->
     <!-- Application Structure Plan: This SPA is designed as an interactive dashboard to transform the linear CFA study guide into a dynamic, user-centric tool. The structure features a persistent sidebar navigation for top-level tasks (Overview, The Journey, Exam Deep Dive, Strategy Hub), allowing users to jump to relevant sections without scrolling through a long document. The main content area dynamically updates. The 'Exam Deep Dive' section uses a secondary tab navigation for Levels I, II, and III, each presenting data in modular cards (Key Stats, Topic Explorer). This non-linear, task-oriented architecture was chosen because CFA candidates have diverse needs; some are just starting, while others are focused on a specific level. This design provides immediate access to the most relevant information, enhancing usability and learning efficiency compared to a static report. -->
-    <!-- Visualization & Content Choices: 
+    <!-- Visualization & Content Choices:
         - Report Info: Historical Pass Rates -> Goal: Analyze Change -> Viz/Method: Interactive Line Chart (Chart.js) -> Interaction: Hover tooltips, toggle levels -> Justification: Far superior to a static table for visualizing trends and volatility over time.
         - Report Info: Exam Topic Weights -> Goal: Compare Proportions -> Viz/Method: Donut Charts per level (Chart.js) -> Interaction: Hover to see topic/weight -> Justification: Provides an immediate, intuitive visual breakdown of exam focus, more effective than reading a list of percentages.
         - Report Info: Topic Details (LOS, Formulas) -> Goal: Organize & Inform -> Viz/Method: Interactive Accordion (HTML/JS) -> Interaction: Click to expand/collapse topic -> Justification: Prevents overwhelming users with a wall of text. It allows for focused, self-paced exploration of the dense curriculum content.
@@ -22,7 +22,7 @@
             color: #343a40; /* Dark gray text */
         }
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        
+
         .nav-link {
             transition: all 0.2s ease-in-out;
             border-left: 3px solid transparent;
@@ -164,7 +164,7 @@
         <div id="view-overview" class="view-content fade-in">
             <h2 class="text-3xl font-bold text-gray-800 mb-2">The "Gold Standard" in Investment Management</h2>
             <p class="mb-8 text-lg text-gray-600">This guide provides an interactive overview of the Chartered Financial Analyst (CFA) program, designed to help you understand its value, navigate the requirements, and strategically prepare for the exams. Explore the sections to uncover the data and insights behind the world's most respected financial credential.</p>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="bg-white p-6 rounded-lg shadow-sm">
                     <h3 class="font-bold text-lg text-blue-600">Global Recognition</h3>
@@ -208,7 +208,7 @@
         <div id="view-journey" class="view-content hidden fade-in">
             <h2 class="text-3xl font-bold text-gray-800 mb-2">Your Journey to the Charter</h2>
             <p class="mb-8 text-lg text-gray-600">Earning the CFA charter is a multi-step process that combines rigorous exams with practical experience and a commitment to ethical practice. Here is a breakdown of the key milestones you must achieve.</p>
-            
+
             <div class="space-y-8">
                 <!-- Step 1 -->
                 <div class="flex items-start">
@@ -255,7 +255,7 @@
         <div id="view-deep-dive" class="view-content hidden fade-in">
             <h2 class="text-3xl font-bold text-gray-800 mb-2">Exam Level Deep Dive</h2>
             <p class="mb-8 text-lg text-gray-600">Each CFA exam level presents a unique challenge, from the broad foundations of Level I to the complex synthesis of Level III. Use the tabs below to explore the structure, topic weights, key formulas, and practice questions for each level.</p>
-            
+
             <!-- Level Tabs -->
             <div class="flex space-x-2 border-b-2 border-gray-200 mb-6">
                 <button class="tab-button active py-2 px-4 font-semibold text-gray-600" onclick="showLevel('L1', this)">Level I</button>
@@ -367,7 +367,7 @@
         <div id="view-strategy" class="view-content hidden fade-in">
              <h2 class="text-3xl font-bold text-gray-800 mb-2">Architecting Your Success</h2>
             <p class="mb-8 text-lg text-gray-600">Passing the CFA exams requires more than just knowledge—it requires a robust strategy. Explore historical pass rate data to set realistic expectations and learn the most effective study approaches.</p>
-            
+
             <div class="bg-white p-6 rounded-lg shadow-sm mb-8">
                 <h3 class="text-xl font-bold text-gray-800 mb-4">Historical Pass Rate Trends (10-Year Avg)</h3>
                 <p class="text-gray-600 mb-4">Pass rates fluctuate and saw a dip during the transition to computer-based testing, but have been trending back toward their historical averages. The increasing pass rate from L1 to L3 reflects the highly effective filtering process of the program. Use the legend to toggle levels on and off.</p>
@@ -422,7 +422,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- View: Study Materials Library (NEW CONTENT) -->
         <div id="view-materials-library" class="view-content hidden fade-in materials-section">
             <h2 class="text-3xl font-bold text-gray-800 mb-2">Comprehensive Study Materials Library</h2>
@@ -475,7 +475,7 @@
             <div class="materials-card">
                 <h3>Level II Materials</h3>
                 <p><a href="Level_2/README.md" target="_blank">Level II Main Study Guide (Overview)</a></p>
-                
+
                 <h4>Cheat Sheets</h4>
                 <ul>
                     <li><a href="Level_2/Cheat_Sheets/L2_CS_Ethical_and_Professional_Standards.md" target="_blank">Ethical and Professional Standards (L2)</a></li>
@@ -519,7 +519,7 @@
             <div class="materials-card">
                 <h3>Level III Materials</h3>
                 <p><a href="Level_3/README.md" target="_blank">Level III Main Study Guide (Overview)</a></p>
-                
+
                 <h4>Cheat Sheets</h4>
                 <ul>
                     <li><a href="Level_3/Cheat_Sheets/L3_CS_Ethical_and_Professional_Standards.md" target="_blank">Ethical and Professional Standards (L3 & GIPS)</a></li>
@@ -616,10 +616,10 @@ const AppData = {
                 { title: 'Specialized Pathways (New for 2025 exams)', content: 'Candidates choose one of three paths: Portfolio Management (traditional focus), Private Markets, or Private Wealth.', formula: 'Understand the chosen pathway in depth.'}
             ],
             practice: [
-                 { 
-                    q: "An economic forecast predicts a significant steepening of the yield curve (long rates rise, short rates stable). For a fixed-income portfolio, which strategy is *least* appropriate?", 
-                    a: ['Barbell', 'Bullet', 'Laddered'], 
-                    correct: 0, 
+                 {
+                    q: "An economic forecast predicts a significant steepening of the yield curve (long rates rise, short rates stable). For a fixed-income portfolio, which strategy is *least* appropriate?",
+                    a: ['Barbell', 'Bullet', 'Laddered'],
+                    correct: 0,
                     explanation: "Correct. A barbell strategy is heavily weighted in long-maturity bonds, which will suffer the largest price drop when long-term rates rise significantly. A bullet strategy focused on the short or intermediate part of the curve would perform better."
                  },
             ]
@@ -632,7 +632,7 @@ let charts = {}; // Keep track of chart instances
 function showView(viewId, element) {
     // Hide all main views
     document.querySelectorAll('.view-content').forEach(view => view.classList.add('hidden'));
-    
+
     // Show the target view
     const targetView = document.getElementById(`view-${viewId}`);
     if (targetView) {
@@ -647,7 +647,7 @@ function showView(viewId, element) {
     } else { // If called from mobile or elsewhere, find corresponding sidebar link
         document.querySelector(`aside .nav-link[href="#${viewId}"]`)?.classList.add('active');
     }
-    
+
     // Update active state for mobile navigation links
     document.querySelectorAll('#mobile-menu .nav-link').forEach(link => link.classList.remove('active'));
     const mobileLinkTarget = document.querySelector(`#mobile-menu .nav-link[href="#${viewId}"]`);
@@ -734,7 +734,7 @@ function renderPassRateChart() {
 
 function renderLevelChart(levelId) {
     const levelData = AppData.levels[levelId]?.topicWeights; // Add safe navigation
-    if (!levelData) return; 
+    if (!levelData) return;
     const data = {
         labels: levelData.labels,
         datasets: [{
@@ -781,7 +781,7 @@ function buildPractice(levelId) {
     questions.forEach((q, index) => {
         const item = document.createElement('div');
         item.className = 'p-4 border rounded-md bg-gray-50 mb-3';
-        let optionsHtml = q.a.map((ans, ansIndex) => 
+        let optionsHtml = q.a.map((ans, ansIndex) =>
             `<button onclick="checkAnswer('${levelId}', ${index}, ${ansIndex}, this)" class="block w-full text-left p-2 mt-1 rounded hover:bg-gray-200 transition-colors text-sm">${String.fromCharCode(65 + ansIndex)}. ${ans}</button>`
         ).join('');
         item.innerHTML = `
@@ -863,11 +863,11 @@ document.addEventListener('DOMContentLoaded', () => {
             renderLevelChart(activeTabButton.textContent.trim().replace('Level ', 'L'));
         }
     }
-    
+
     buildAccordion('L1'); buildPractice('L1');
     buildAccordion('L2'); buildPractice('L2');
     buildAccordion('L3'); buildPractice('L3');
-    
+
     setupAccordions();
     setupMobileMenu();
 });
