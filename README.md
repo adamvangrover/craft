@@ -1,5 +1,8 @@
 # craft
 CRAFT – (Credit Risk Analyst Foundations Training)
+https://adamvangrover.github.io/craft/
+https://adamvangrover.github.io/craft/primers/index.html
+https://adamvangrover.github.io/craft/CFA/index.html
 
 ## Crafting the Modern Corporate Credit Risk Analyst: A Modular Training Course
 
