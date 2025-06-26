@@ -1,5 +1,5 @@
-#CRAFT
-#CRAFT – (Credit Risk Analyst Foundations Training) 
+## CRAFT
+# CRAFT – (Credit Risk Analyst Foundations Training) 
 https://adamvangrover.github.io/craft/ 
 https://adamvangrover.github.io/craft/primers/index.html 
 https://adamvangrover.github.io/craft/CFA/index.html
