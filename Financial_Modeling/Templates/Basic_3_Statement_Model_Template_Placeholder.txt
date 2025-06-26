@@ -1,0 +1,107 @@
+# Basic 3-Statement Financial Model Template Placeholder
+
+## Purpose
+This placeholder file indicates where a downloadable Excel template for a basic 3-statement (Income Statement, Balance Sheet, Cash Flow Statement) financial model would reside.
+
+## Intended Content of the Excel Template:
+
+The Excel file (`Basic_3_Statement_Model.xlsx` - if it were here) would typically include the following structure:
+
+### Worksheet 1: Inputs & Assumptions
+*   **Global Assumptions:**
+    *   Currency (e.g., USD)
+    *   Units (e.g., Thousands, Millions)
+    *   Projection Start Date / End Date
+*   **Historical Data Input Area:** (Typically 2-3 years)
+    *   Income Statement line items
+    *   Balance Sheet line items
+*   **Projection Drivers/Assumptions:**
+    *   Revenue Growth Rates (%)
+    *   COGS as % of Revenue
+    *   SG&A as % of Revenue (or fixed + variable components)
+    *   Depreciation as % of Average PP&E or based on useful life
+    *   Interest Rate on Debt (%)
+    *   Tax Rate (%)
+    *   Working Capital Assumptions (e.g., DSO, DIO, DPO)
+    *   Capital Expenditures (as % of revenue, or specific amounts)
+    *   Debt Issuance / Repayment Schedule
+    *   Equity Issuance / Repurchase Schedule
+    *   Dividend Payout Ratio or Fixed Dividend per Share
+
+### Worksheet 2: Income Statement (IS)
+*   **Structure:**
+    *   Revenue
+    *   COGS
+    *   Gross Profit
+    *   SG&A Expense
+    *   Depreciation & Amortization Expense
+    *   EBIT (Operating Income)
+    *   Interest Expense
+    *   EBT (Earnings Before Tax)
+    *   Taxes
+    *   Net Income
+*   **Format:** Columns for Historical Years (e.g., 2021A, 2022A, 2023A) and Projected Years (e.g., 2024E, 2025E, 2026E, 2027E, 2028E).
+*   Formulas in projected years link to Input sheet assumptions and other relevant parts of the model.
+
+### Worksheet 3: Balance Sheet (BS)
+*   **Structure:**
+    *   **Assets:**
+        *   Current Assets (Cash & Cash Equivalents, Accounts Receivable, Inventory, Prepaid Expenses)
+        *   Non-Current Assets (Property, Plant & Equipment (Net), Goodwill, Intangibles)
+    *   **Liabilities:**
+        *   Current Liabilities (Accounts Payable, Accrued Expenses, Short-Term Debt)
+        *   Non-Current Liabilities (Long-Term Debt)
+    *   **Equity:**
+        *   Common Stock & APIC
+        *   Retained Earnings
+        *   Other Comprehensive Income (Optional for basic model)
+*   **Format:** Columns for Historical Years and Projected Years.
+*   Key items like Cash (from CFS), Retained Earnings (links to Net Income), PP&E (from PPE schedule), Debt (from Debt schedule) are linked.
+*   **Balance Check:** Row at the bottom: Total Assets - (Total Liabilities + Total Equity) -- *MUST ALWAYS BE ZERO*.
+
+### Worksheet 4: Cash Flow Statement (CFS)
+*   **Structure (Indirect Method):**
+    *   **Cash Flow from Operating Activities (CFO):**
+        *   Net Income
+        *   Adjustments (Depreciation & Amortization, Changes in Working Capital items like AR, Inventory, AP, etc.)
+    *   **Cash Flow from Investing Activities (CFI):**
+        *   Capital Expenditures (Purchase of PP&E)
+        *   Proceeds from Sale of PP&E (Optional for basic)
+    *   **Cash Flow from Financing Activities (CFF):**
+        *   Net Borrowings (Debt Issued - Debt Repaid)
+        *   Equity Issued / Repurchased
+        *   Dividends Paid
+    *   Net Change in Cash
+    *   Beginning Cash Balance
+    *   Ending Cash Balance (This links to Cash on the Balance Sheet)
+*   **Format:** Columns for Historical Years and Projected Years.
+
+### Worksheet 5: Supporting Schedules (Examples)
+*   **Property, Plant & Equipment (PP&E) Schedule:**
+    *   Beginning Gross PP&E
+    *   + Capital Expenditures
+    *   - Asset Disposals (Cost)
+    *   Ending Gross PP&E
+    *   Beginning Accumulated Depreciation
+    *   + Depreciation Expense (for the period)
+    *   - Accumulated Depreciation on Disposals
+    *   Ending Accumulated Depreciation
+    *   Net PP&E (Ending Gross PP&E - Ending Acc. Depr.) -> Links to BS
+*   **Debt Schedule:**
+    *   Beginning Debt Balance
+    *   + New Debt Issuances
+    *   - Debt Repayments
+    *   Ending Debt Balance -> Links to BS
+    *   Calculation of Interest Expense (based on average debt balance and interest rate) -> Links to IS
+*   **Working Capital Schedule (Optional - can be built into BS/CFS directly for basic models):**
+    *   Detailed calculation of AR, Inventory, AP based on DSO, DIO, DPO assumptions.
+
+## Best Practices Incorporated (would be visible in the Excel file):
+*   Clear separation of inputs, calculations, outputs.
+*   Color coding for inputs (e.g., blue font), formulas (black font).
+*   Error checks (e.g., Balance Sheet balance check).
+*   Logical flow of worksheets.
+*   Formulas linking to input sheet or other calculation cells, avoiding hard-coding.
+
+This placeholder serves as a reminder to create and upload the actual Excel file.
+---
