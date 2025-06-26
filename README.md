@@ -1,67 +1,53 @@
-# craft
-CRAFT – (Credit Risk Analyst Foundations Training)
-https://adamvangrover.github.io/craft/
-https://adamvangrover.github.io/craft/primers/index.html
-https://adamvangrover.github.io/craft/CFA/index.html
+# Financial Learning Repository
 
-## Crafting the Modern Corporate Credit Risk Analyst: A Modular Training Course
+Welcome to this comprehensive repository dedicated to various aspects of finance, credit risk analysis, and investment management. This collection of resources aims to provide foundational knowledge, practical insights, and learning materials for students, analysts, and finance professionals.
 
-**New York, NY –** In response to the evolving landscape of corporate credit risk, a comprehensive, modular training course has been designed to equip new analysts with the essential skills and knowledge for a successful career. This portable program, structured for deployment in a Git repository, provides a holistic overview of accounting, financial analysis, capital markets, and the critical thinking skills necessary to navigate the complexities of modern credit risk management.
+## Repository Contents
+
+This repository is organized into several key sections:
+
+*   **[CFA Program Study Materials](./CFA/index.html):** Notes, cheat sheets, practice questions, and deep dives for all three levels of the CFA Program. Includes materials for Ethics, Quantitative Methods, Economics, Financial Reporting and Analysis, Corporate Finance, Equity, Fixed Income, Derivatives, Alternative Investments, and Portfolio Management.
+*   **[Corporate Credit Risk Analyst Training (CRAFT)](./corporate-credit-risk-analyst-training/README.md):** A modular training course designed to equip analysts with essential skills in accounting, financial analysis, capital markets, and critical thinking for credit risk management.
+*   **[Financial Modeling](./Financial_Modeling/README.md):** Resources on best practices, templates (e.g., 3-statement models), and techniques for building robust financial models.
+*   **[Behavioral Finance](./Behavioral_Finance/README.md):** Exploration of how psychological influences and cognitive biases affect financial decision-making.
+*   **[Fintech](./Fintech/README.md):** Insights into financial technology innovations, including Blockchain, AI in Finance, and Robo-Advisors.
+    *   **[Market Analysis Quick Start](./Market_Analysis_Quick_Start/README.md):** A rapid introduction to common market jargon, capital market products, trading levels, valuation rules of thumb, and peer comparison benchmarks.
+*   **[Industry Primers](./primers/index.html):** Overviews and key considerations for analyzing various industries.
+
+Please navigate to the respective sections to explore the content.
+
+## Detailed Overview: Corporate Credit Risk Analyst Training (CRAFT)
+
+*(This section provides more detail on the CRAFT program, which is one of the core components of this repository)*
+
+The CRAFT program offers a comprehensive, modular training course designed to equip new analysts with the essential skills and knowledge for a successful career in corporate credit risk. This program provides a holistic overview of accounting, financial analysis, capital markets, and the critical thinking skills necessary to navigate the complexities of modern credit risk management.
 
 The curriculum is meticulously organized into a hierarchical structure of markdown files, ensuring a user-friendly and intuitive learning experience. The course is designed to be self-paced, allowing analysts to delve into specific modules as needed, with integrated quizzes and case studies to reinforce learning and development.
 
-### The A-to-Z of a Credit Analyst's Toolkit
+### CRAFT: The A-to-Z of a Credit Analyst's Toolkit
 
-The training program is segmented into distinct modules, each addressing a core competency required for a corporate credit risk analyst.
+The CRAFT training program is segmented into distinct modules, each addressing a core competency required for a corporate credit risk analyst.
 
-**Part 1: The Foundations** lays the groundwork, beginning with **Module 1: Accounting & Financial Statement Analysis**. This section demystifies the three core financial statements, guiding analysts through the nuances of revenue recognition, expense analysis, and the intricacies of balance sheet and cash flow statement interpretation. **Module 2: Financial Analysis & Modeling** builds upon this foundation, teaching analysts how to construct robust financial models, perform sensitivity and scenario analysis, and calculate key credit metrics.
+*(The detailed module breakdown previously listed here is now primarily available within the [CRAFT program's own README.md](./corporate-credit-risk-analyst-training/README.md). Below is a high-level summary of its parts.)*
 
-**Part 2: Understanding the Market** broadens the analyst's perspective. **Module 3: Capital Markets & Leveraged Loans** provides a comprehensive overview of the various debt instruments, the functioning of primary and secondary markets, and a deep dive into the specifics of leveraged loan structures and credit agreements. **Module 4: Industry Analysis** equips analysts with frameworks like Porter's Five Forces to assess industry-specific risks and opportunities, a crucial step in understanding a borrower's operating environment.
+*   **Part 1: The Foundations:** Covers Accounting, Financial Statement Analysis, Financial Analysis & Modeling.
+*   **Part 2: Understanding the Market:** Includes Capital Markets, Leveraged Loans, and Industry Analysis.
+*   **Part 3: The Analyst's Craft:** Focuses on Business Writing, Grammar, Critical Thinking & Forming a Narrative.
+*   **Part 4: The Credit Lifecycle:** Details SNC, Underwriting, LBOs & M&A Analysis, and Ongoing Credit Monitoring.
+*   **Part 5: The Future of Risk Management:** Explores the Future of Risk Management & AI.
+*   **Additional Advanced Topics:** Modules covering advanced analysis, debt structuring, legal aspects, communication skills, specialized industries, regulatory/ethics, quantitative skills, and a capstone project have also been developed.
 
-**Part 3: The Analyst's Craft** focuses on the essential soft skills and analytical frameworks. **Module 5: Business Writing & Grammar** emphasizes the importance of clear, concise, and professional communication in credit memorandums and reports. **Module 6: Critical Thinking & Forming a Narrative** hones the analyst's ability to synthesize vast amounts of information, identify key risks and mitigants, and construct a compelling and persuasive credit story.
+Each markdown file within the CRAFT program is structured with clear headings, bullet points, and relevant examples. The inclusion of quizzes and case studies allows for practical application of the learned concepts. This modular and portable program can be easily hosted on platforms like GitHub or GitLab, providing a collaborative and accessible learning environment.
 
-**Part 4: The Credit Lifecycle** delves into the practical application of credit risk analysis. This section covers **Module 7: Shared National Credit (SNC) Overview & Criteria**, **Module 8: Underwriting New Issuers**, including an in-depth look at due diligence and credit approval processes. **Module 9: Leveraged Buyouts (LBOs) & M\&A Analysis** provides the tools to assess the credit implications of these complex transactions. Finally, **Module 10: Ongoing Credit Monitoring & Portfolio Review** outlines best practices for monitoring borrower performance, identifying early warning signs, and managing watchlists.
+Further details on the CRAFT program structure and content can be found in its [dedicated README file](./corporate-credit-risk-analyst-training/README.md).
 
-**Part 5: The Future of Risk Management** looks ahead, with **Module 11: The Future of Risk Management & AI**. This forward-looking section explores the growing role of artificial intelligence and machine learning in credit risk assessment, portfolio management, and identifying emerging risks.
+---
+*The following content is an excerpt demonstrating the style of the CRAFT program material, originally part of this main README.*
 
-### A User-Centric Learning Environment
+**Excerpt from CRAFT - Part 1: The Foundations of Credit Analysis**
+**Module 1: Accounting & Financial Statement Analysis**
 
-The training course is designed for a seamless and interactive user experience. The proposed repository structure is as follows:
-
-```
-/corporate-credit-risk-analyst-training/
-├── README.md  // Course overview, learning objectives, and navigation guide
-├── LICENSE
-└── /modules/
-    ├── /01-foundations/
-    │   ├── 01-accounting-and-financial-statement-analysis.md
-    │   ├── 02-financial-analysis-and-modeling.md
-    │   └── /quizzes/
-    │       ├── accounting-quiz.md
-    │       └── modeling-quiz.md
-    ├── /02-understanding-the-market/
-    │   ├── 03-capital-markets-and-leveraged-loans.md
-    │   ├── 04-industry-analysis.md
-    │   └── /case-studies/
-    │       └── industry-analysis-case-study.md
-    ├── /03-the-analysts-craft/
-    │   ├── 05-business-writing-and-grammar.md
-    │   └── 06-critical-thinking-and-forming-a-narrative.md
-    ├── /04-the-credit-lifecycle/
-    │   ├── 07-shared-national-credit-overview.md
-    │   ├── 08-underwriting-new-issuers.md
-    │   ├── 09-lbos-and-m-and-a-analysis.md
-    │   └── 10-ongoing-credit-monitoring.md
-    └── /05-future-of-risk-management/
-        └── 11-future-of-risk-and-ai.md
-```
-
-Each markdown file will be structured with clear headings, bullet points, and code blocks for financial formulas and model snippets. The "README.md" at the root will serve as the central hub, providing a clear roadmap for the analysts. The inclusion of quizzes and case studies within each section will allow for practical application of the learned concepts, ensuring a deeper understanding and retention of the material. This modular and portable repository can be easily hosted on platforms like GitHub or GitLab, providing a collaborative and accessible learning environment for the next generation of corporate credit risk analysts.
-
-Crafting the Modern Corporate Credit Risk Analyst: A Modular Training Course
-Part 1: The Foundations of Credit Analysis
-Module 1: Accounting & Financial Statement Analysis
-1.1. The Language of Business: Core Accounting Principles
+**1.1. The Language of Business: Core Accounting Principles**
 A thorough understanding of corporate credit risk begins with fluency in the language of business: accounting. Financial statements are the primary source of information for any credit analyst, and their structure, content, and integrity are governed by a set of foundational rules. In the United States, these rules are known as Generally Accepted Accounting Principles (GAAP), while most of the rest of the world adheres to International Financial Reporting Standards (IFRS). The core purpose of these standards is to ensure that financial reporting is transparent, consistent, and comparable across different companies and time periods, providing a common language for all stakeholders, from investors to creditors.
 The development of GAAP was not an academic exercise; it was a direct and necessary response to a period of catastrophic economic loss. The principles were largely established in the aftermath of the 1929 Stock Market Crash and the Great Depression, which were significantly worsened by opaque, inconsistent, and sometimes fraudulent financial reporting by public companies. Legislation like the Securities Act of 1933 and the Securities Exchange Act of 1934 began the process of standardizing corporate accounting, working with professional accounting bodies to build a framework that would restore trust in financial markets. For a credit analyst, this historical context is vital. It reframes accounting from a mere set of technical rules into a fundamental risk management framework. GAAP exists to mitigate information asymmetry—the risk that a company knows more about its financial health than its lenders and investors. An analyst who grasps this will approach financial statements not just as a record of performance, but as a document to be interrogated with a healthy and necessary degree of professional skepticism.
 The ten core principles of GAAP provide the ethical and operational bedrock for financial reporting :
