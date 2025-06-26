@@ -1,7 +1,9 @@
 ## CRAFT
 # CRAFT – (Credit Risk Analyst Foundations Training) 
 https://adamvangrover.github.io/craft/ 
+
 https://adamvangrover.github.io/craft/primers/index.html 
+
 https://adamvangrover.github.io/craft/CFA/index.html
 
 # Financial Learning Repository
@@ -16,7 +18,7 @@ This repository is organized into several key sections:
 *   **[Corporate Credit Risk Analyst Training (CRAFT)](./corporate-credit-risk-analyst-training/README.md):** A modular training course designed to equip analysts with essential skills in accounting, financial analysis, capital markets, and critical thinking for credit risk management.
 *   **[Financial Modeling](./Financial_Modeling/README.md):** Resources on best practices, templates (e.g., 3-statement models), and techniques for building robust financial models.
 *   **[Behavioral Finance](./Behavioral_Finance/README.md):** Exploration of how psychological influences and cognitive biases affect financial decision-making.
-*   **[Fintech](./Fintech/README.md):** Insights into financial technology innovations, including Blockchain, AI in Finance, and Robo-Advisors.    
+*   **[Fintech](./Fintech/README.md):** Insights into financial technology innovations, including Blockchain, AI in Finance, and Robo-Advisors.
 *   **[Market Analysis Quick Start](./Market_Analysis_Quick_Start/README.md):** A rapid introduction to common market jargon, capital market products, trading levels, valuation rules of thumb, and peer comparison benchmarks.
 *   **[Industry Primers](./primers/index.html):** Overviews and key considerations for analyzing various industries.
 
