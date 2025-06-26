@@ -1,4 +1,403 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Financial Training Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Warm Harmony -->
+    <!-- Application Structure Plan: A role-based, single-page dashboard application. The core information architecture is driven by user goals, not the linear structure of the source report. A primary top navigation allows users to select a "view" (e.g., Credit Analyst, CFA Candidate, Generalist). The main content area dynamically updates to show a curated set of interactive components—like clickable curriculum diagrams and filterable resource lists—tailored to that user's needs. This structure was chosen because it's highly user-centric, immediately answering "What's in it for me?" and facilitating active exploration rather than passive reading. It transforms a static report into a usable tool for career planning. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Credit Risk Program Structure (11 modules) -> Goal: Organize/Explore -> Viz: Interactive grid of clickable cards -> Interaction: Click reveals module details -> Justification: More engaging than a list; shows curriculum structure visually -> Library: HTML/CSS/JS.
+        - Report Info: CFA Resource Types -> Goal: Compare/Inform -> Viz: Filter buttons with a dynamic card display -> Interaction: Click filter to show relevant resources -> Justification: Allows users to quickly grasp the types of support available -> Library: HTML/CSS/JS.
+        - Report Info: CFA Ethics Exam Weight (10-15%) -> Goal: Emphasize -> Viz: Donut Chart -> Interaction: Hover for tooltip -> Justification: Visual data is more impactful for emphasis -> Library: Chart.js.
+        - Report Info: Main Repository Categories -> Goal: Organize/Inform -> Viz: Grid of topic cards with icons -> Interaction: Hover for description, click to navigate -> Justification: Provides a quick, scannable overview of the repository's breadth -> Library: HTML/CSS/JS.
+        - Report Info: Learning Paths -> Goal: Guide -> Viz: Top-level navigation buttons -> Interaction: Click to change the entire view -> Justification: Core of the personalized, role-based experience -> Library: HTML/CSS/JS.
+        - Report Info: Behavioral Finance Concepts -> Goal: Inform -> Viz: Expandable/collapsible content sections -> Interaction: Click to reveal details -> Justification: Interactive and encourages active learning -> Library: HTML/CSS/JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            background-color: #FDFBF7; /* A very light, warm beige */
+            font-family: 'Inter', sans-serif;
+            color: #3D352E; /* Dark brown for text */
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        .nav-button {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-button.active {
+            border-bottom-color: #4A90E2; /* Muted blue for accent */
+            color: #4A90E2;
+        }
+        .nav-button:hover {
+            border-bottom-color: #7DAEE6;
+            color: #3D352E;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #EAE5DD; /* Light beige border */
+            border-radius: 0.75rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .module-card {
+            cursor: pointer;
+            border-left-width: 4px;
+        }
+        .module-card-active {
+            border-color: #4A90E2;
+            background-color: #F0F5FA;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .tag {
+            background-color: #EAE5DD;
+            color: #8C7D6B; /* Muted brown */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="app" class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Explore your CRAFT, the Financial Knowledge Hub</h1>
+            <p class="text-lg text-gray-600">An interactive guide to your career acceleration platform.</p>
+        </header>
+
+        <nav class="flex justify-center border-b border-gray-200 mb-12">
+            <div class="flex flex-wrap justify-center space-x-4 sm:space-x-8">
+                <button data-view="dashboard" class="nav-button active py-4 px-2 text-base md:text-lg font-medium text-gray-500">Dashboard</button>
+                <button data-view="creditAnalyst" class="nav-button py-4 px-2 text-base md:text-lg font-medium text-gray-500">Credit Analyst Path</button>
+                <button data-view="cfaCandidate" class="nav-button py-4 px-2 text-base md:text-lg font-medium text-gray-500">CFA Candidate Path</button>
+                <button data-view="generalist" class="nav-button py-4 px-2 text-base md:text-lg font-medium text-gray-500">Generalist Path</button>
+            </div>
+        </nav>
+
+        <main id="mainContent">
+
+            <!-- Dashboard View -->
+            <section id="view-dashboard" class="content-section active fade-in">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-2xl font-semibold mb-4 text-gray-700">A Dynamic Platform for Perpetual Professional Development</h2>
+                    <p class="text-gray-600">Success in modern finance is intrinsically linked to continuous, self-directed learning. This repository is not a static archive but an integrated learning ecosystem, designed to empower you to adapt, innovate, and lead in a state of constant change. Discover how distinct knowledge areas converge here to build a holistic, practical, and future-proof skillset.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card p-6 col-span-1 md:col-span-2 lg:col-span-3">
+                        <h3 class="font-semibold text-xl mb-4 text-gray-800">What's Inside? A High-Level Overview</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
+                            <div class="p-2"><span class="text-4xl">🛡️</span><p class="mt-2 text-sm font-medium">Credit Risk</p></div>
+                            <div class="p-2"><span class="text-4xl">🏆</span><p class="mt-2 text-sm font-medium">CFA® Prep</p></div>
+                            <div class="p-2"><span class="text-4xl">📊</span><p class="mt-2 text-sm font-medium">Financial Modeling</p></div>
+                            <div class="p-2"><span class="text-4xl">🧠</span><p class="mt-2 text-sm font-medium">Behavioral Finance</p></div>
+                            <div class="p-2"><span class="text-4xl">🚀</span><p class="mt-2 text-sm font-medium">Market Analysis</p></div>
+                            <div class="p-2"><span class="text-4xl">🏭</span><p class="mt-2 text-sm font-medium">Industry Primers</p></div>
+                        </div>
+                    </div>
+
+                    <div class="card p-6">
+                        <h3 class="font-semibold text-lg text-gray-800">Complete Credit Curriculum</h3>
+                        <p class="text-5xl font-bold text-blue-600 my-3">11</p>
+                        <p class="text-gray-600">Structured modules covering foundations to future-focused skills like AI in risk.</p>
+                    </div>
+                    <div class="card p-6">
+                         <h3 class="font-semibold text-lg text-gray-800">CFA® Level Support</h3>
+                        <p class="text-5xl font-bold text-blue-600 my-3">3</p>
+                        <p class="text-gray-600">Comprehensive resources including cheat sheets, practice exams, and case studies for all levels.</p>
+                    </div>
+                    <div class="card p-6">
+                         <h3 class="font-semibold text-lg text-gray-800">Industry Primers</h3>
+                        <p class="text-5xl font-bold text-blue-600 my-3">15+</p>
+                        <p class="text-gray-600">Deep dives into key business drivers and risks across various sectors like Technology and Healthcare.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Credit Analyst Path View -->
+            <section id="view-creditAnalyst" class="content-section fade-in">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-2xl font-semibold mb-4 text-gray-700">Mastering Corporate Credit Risk Analysis</h2>
+                    <p class="text-gray-600">This structured, 11-module program is your complete A-to-Z curriculum for becoming a top-tier credit analyst. From foundational accounting to advanced debt structuring and the future of AI in risk, this path is designed to build expert-level competence. Click on any module below to explore its contents and strategic importance.</p>
+                </div>
+                <div class="lg:flex gap-8">
+                    <div class="lg:w-2/5 mb-8 lg:mb-0">
+                         <h3 class="font-semibold text-xl mb-4 text-gray-800">Program Modules</h3>
+                        <div id="creditRiskModules" class="space-y-3"></div>
+                    </div>
+                    <div class="lg:w-3/5">
+                        <div id="creditRiskModuleDetail" class="card p-6 sticky top-8">
+                            <h3 class="font-semibold text-xl mb-2" id="moduleDetailTitle">Select a Module</h3>
+                            <p class="text-gray-600" id="moduleDetailContent">Click on a module to the left to see its detailed description and how it fits into your learning journey.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CFA Candidate Path View -->
+            <section id="view-cfaCandidate" class="content-section fade-in">
+                 <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-2xl font-semibold mb-4 text-gray-700">Your Comprehensive CFA® Program Study Hub</h2>
+                    <p class="text-gray-600">Navigate your CFA journey with a multi-faceted toolkit designed for success at all three levels. From high-efficiency cheat sheets for final revision to deep dives into core topics and practical case studies, these resources are structured to support every stage of your study process.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="card p-6 lg:col-span-2">
+                        <h3 class="font-semibold text-xl mb-4 text-gray-800">Resource Toolkit</h3>
+                        <div class="mb-6">
+                            <p class="text-gray-600 mb-4">Select a resource type to learn more about how it can help you prepare for the exam.</p>
+                            <div id="cfaResourceFilters" class="flex flex-wrap gap-3">
+                                <button data-filter="deepDives" class="px-4 py-2 bg-blue-100 text-blue-800 rounded-full font-medium">Topic Deep Dives</button>
+                                <button data-filter="cheatSheets" class="px-4 py-2 bg-gray-100 text-gray-800 rounded-full font-medium">Cheat Sheets</button>
+                                <button data-filter="practiceExams" class="px-4 py-2 bg-gray-100 text-gray-800 rounded-full font-medium">Practice Exams</button>
+                                <button data-filter="caseStudies" class="px-4 py-2 bg-gray-100 text-gray-800 rounded-full font-medium">Case Studies</button>
+                            </div>
+                        </div>
+                        <div id="cfaResourceContent"></div>
+                    </div>
+                    <div class="card p-6">
+                        <h3 class="font-semibold text-xl mb-4 text-center text-gray-800">The Centrality of Ethics</h3>
+                        <p class="text-gray-600 text-center mb-4">Ethical conduct is the foundation of the profession and holds a significant weight on all three exam levels.</p>
+                        <div class="chart-container">
+                            <canvas id="ethicsChart"></canvas>
+                        </div>
+                         <p class="text-center text-sm text-gray-500 mt-2">Typical CFA Exam Weighting</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Generalist / Newcomer Path View -->
+            <section id="view-generalist" class="content-section fade-in">
+                 <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-2xl font-semibold mb-4 text-gray-700">Build Your Financial Fluency, Fast</h2>
+                    <p class="text-gray-600">Whether you're new to finance or a professional in a related field, this learning path is designed for rapid onboarding. Start with the fundamentals to understand market language, explore the psychology of financial decisions, and then dive into specific industries that matter most to you.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="card p-6 text-center">
+                        <div class="text-5xl mb-4">🚀</div>
+                        <h3 class="font-semibold text-xl mb-2 text-gray-800">Step 1: Quick Start</h3>
+                        <p class="text-gray-600">Begin with the `Market Analysis Quick Start` to learn essential capital market terms, key products, and valuation rules of thumb. Build a solid foundation efficiently.</p>
+                    </div>
+                     <div class="card p-6 text-center">
+                        <div class="text-5xl mb-4">🧠</div>
+                        <h3 class="font-semibold text-xl mb-2 text-gray-800">Step 2: Behavioral Insights</h3>
+                        <p class="text-gray-600">Explore `Behavioral Finance` to understand how psychological factors like Loss Aversion and Herd Mentality influence markets. A powerful risk management tool.</p>
+                    </div>
+                     <div class="card p-6 text-center">
+                        <div class="text-5xl mb-4">🏭</div>
+                        <h3 class="font-semibold text-xl mb-2 text-gray-800">Step 3: Specialize</h3>
+                        <p class="text-gray-600">Dive into the `Industry Primers` to gain specialized knowledge on sectors like Technology, Healthcare, and Energy. Gain a competitive edge with targeted insights.</p>
+                    </div>
+                </div>
+
+                <div class="card p-6 mt-8">
+                     <h3 class="font-semibold text-xl mb-4 text-gray-800">Essential Support Tools</h3>
+                     <p class="text-gray-600 mb-4">Throughout your journey, leverage these tools to enhance your learning, check your understanding, and demystify complex topics.</p>
+                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-semibold">GLOSSARY.md</h4>
+                            <p class="text-sm text-gray-600">Your centralized, curated dictionary for financial jargon.</p>
+                        </div>
+                         <div class="p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-semibold">CASE_STUDY_GUIDANCE.md</h4>
+                            <p class="text-sm text-gray-600">Learn a structured process for analyzing complex cases.</p>
+                        </div>
+                         <div class="p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-semibold">QUIZ_ANSWERS.md</h4>
+                            <p class="text-sm text-gray-600">Get immediate feedback to reinforce correct knowledge.</p>
+                        </div>
+                     </div>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const appData = {
+            creditRisk: {
+                modules: [
+                    { id: 'm1', title: '01: Foundations', content: 'Covers the non-negotiable basics of accounting and financial modeling. This is supplemented by the resources in the dedicated Financial Modeling section.' },
+                    { id: 'm2', title: '02: Understanding the Market', content: 'Contextualizes technical skills by exploring capital markets and industry analysis frameworks. Learn the "why" behind the "how".' },
+                    { id: 'm3', title: '03: The Analyst\'s Craft', content: 'Focuses on developing crucial soft skills like professional business writing and structured critical thinking.' },
+                    { id: 'm4', title: '04: The Credit Lifecycle', content: 'Covers the core functions of a credit analyst, including underwriting new deals, analyzing M&A transactions, and ongoing credit monitoring.' },
+                    { id: 'm5', title: '05: Future of Risk Management', content: 'A forward-looking module on the impact of AI in risk management, covering how technology is revolutionizing credit analysis and forecasting.' },
+                    { id: 'm6', title: '06: Advanced Topics', content: 'Dives into senior-level subject matter, including Quality of Earnings (QoE) analysis and complex debt structuring.' },
+                    { id: 'm7', title: '07: Communication Skills', content: 'Builds on the Analyst\'s Craft with advanced writing techniques and negotiation strategies, crucial for communicating complex analyses effectively.' },
+                    { id: 'm8', title: '08: Specialized Industries', content: 'Provides frameworks for analyzing industries with unique characteristics. This module is best used in conjunction with the Industry Primers.' },
+                    { id: 'm9', title: '09: Regulatory & Ethics', content: 'Covers the critical regulatory frameworks and ethical considerations that govern the practice of credit analysis.' },
+                    { id: 'm10', title: '10: Quantitative Skills', content: 'Focuses on the practical application of data analytics and quantitative methods in risk assessment.' },
+                    { id: 'm11', title: '11: Capstone Project', content: 'An integrative project requiring you to apply skills from all previous modules to a comprehensive, real-world credit analysis case.' },
+                ]
+            },
+            cfaResources: {
+                deepDives: { title: 'Topic Deep Dives', content: 'This is your core content library. These files (e.g., `L2_Advanced_Equity_Valuation_Models.md`) offer detailed, thorough explanations of the curriculum\'s most complex and heavily weighted topics. Use these for your primary learning and to build a robust understanding.' },
+                cheatSheets: { title: 'Concise Cheat Sheets', content: 'Designed for high-efficiency revision of core concepts. Files like `CS_01_Ethical_and_Professional_Standards.md` provide concise summaries of high-yield topics, ideal for final review sessions and memorizing key formulas.' },
+                practiceExams: { title: 'Practice Exams', content: 'Crucial for testing your knowledge under pressure. The included practice questions and answer keys allow you to simulate the exam experience, manage your time effectively, and diagnose areas of weakness for further study.' },
+                caseStudies: { title: 'Practical Case Studies', content: 'These resources are the vital bridge between abstract theory and professional practice. They provide the opportunity to apply concepts like valuation and portfolio management to realistic investment scenarios, solidifying your understanding for exam-style vignettes.' },
+            }
+        };
+
+        const mainContent = document.getElementById('mainContent');
+        const navButtons = document.querySelectorAll('.nav-button');
+
+        function switchView(viewId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(`view-${viewId}`).classList.add('active');
+            
+            navButtons.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.view === viewId);
+            });
+            mainContent.classList.remove('fade-in');
+            void mainContent.offsetWidth; 
+            mainContent.classList.add('fade-in');
+        }
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                switchView(button.dataset.view);
+            });
+        });
+
+        function initCreditAnalystView() {
+            const modulesContainer = document.getElementById('creditRiskModules');
+            const detailTitle = document.getElementById('moduleDetailTitle');
+            const detailContent = document.getElementById('moduleDetailContent');
+            
+            if (!modulesContainer) return;
+
+            modulesContainer.innerHTML = appData.creditRisk.modules.map(module => `
+                <div class="card module-card border-l-gray-300 p-4" data-id="${module.id}">
+                    <h4 class="font-semibold text-gray-800">${module.title}</h4>
+                </div>
+            `).join('');
+
+            modulesContainer.addEventListener('click', (e) => {
+                const card = e.target.closest('.module-card');
+                if (card) {
+                    const moduleId = card.dataset.id;
+                    const moduleData = appData.creditRisk.modules.find(m => m.id === moduleId);
+
+                    document.querySelectorAll('.module-card').forEach(c => c.classList.remove('module-card-active'));
+                    card.classList.add('module-card-active');
+
+                    detailTitle.textContent = moduleData.title;
+                    detailContent.textContent = moduleData.content;
+                }
+            });
+        }
+
+        function initCfaCandidateView() {
+            const filtersContainer = document.getElementById('cfaResourceFilters');
+            const contentContainer = document.getElementById('cfaResourceContent');
+            if(!filtersContainer) return;
+
+            function renderCfaContent(filter) {
+                const resource = appData.cfaResources[filter];
+                contentContainer.innerHTML = `
+                    <div class="p-4 bg-gray-50 rounded-lg fade-in">
+                        <h4 class="font-semibold text-lg text-blue-800 mb-2">${resource.title}</h4>
+                        <p class="text-gray-700">${resource.content}</p>
+                    </div>
+                `;
+            }
+            
+            filtersContainer.addEventListener('click', (e) => {
+                if(e.target.tagName === 'BUTTON') {
+                    const filter = e.target.dataset.filter;
+                    filtersContainer.querySelectorAll('button').forEach(btn => {
+                        btn.classList.remove('bg-blue-100', 'text-blue-800');
+                        btn.classList.add('bg-gray-100', 'text-gray-800');
+                    });
+                    e.target.classList.add('bg-blue-100', 'text-blue-800');
+                    e.target.classList.remove('bg-gray-100', 'text-gray-800');
+                    renderCfaContent(filter);
+                }
+            });
+
+            renderCfaContent('deepDives');
+
+            const ctx = document.getElementById('ethicsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Ethical & Professional Standards', 'Other Topics'],
+                    datasets: [{
+                        data: [12.5, 87.5], 
+                        backgroundColor: ['#4A90E2', '#EAE5DD'],
+                        borderColor: ['#FFFFFF', '#FFFFFF'],
+                        borderWidth: 2,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if(context.dataset.label === 'Ethical & Professional Standards') {
+                                       label += '10-15% of Exam Score';
+                                    } else {
+                                        label += '85-90% of Exam Score';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        initCreditAnalystView();
+        initCfaCandidateView();
+        switchView('dashboard');
+    });
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
