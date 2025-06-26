@@ -445,3 +445,324 @@
     </script>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Training Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .slide.active {
+            display: block;
+            opacity: 1;
+        }
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            height: 100%;
+        }
+        .slide-title {
+            font-family: 'Roboto Slab', serif;
+            font-weight: 700;
+        }
+         .slide-subtitle, .slide-point {
+            font-family: 'Inter', sans-serif;
+        }
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 800px;
+        }
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .icon-item i {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-4xl bg-white rounded-lg shadow-2xl aspect-video overflow-hidden relative" id="presentation-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active" data-slide="1">
+            <div class="slide-content bg-slate-800 text-white h-full">
+                <div class="w-full">
+                    <h1 class="slide-title text-4xl md:text-6xl mb-4">Comprehensive Financial Training Resources</h1>
+                    <p class="slide-subtitle text-xl md:text-2xl opacity-80">Exploring a Rich Repository of Learning Materials</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Introduction -->
+        <div class="slide" data-slide="2">
+            <div class="slide-content h-full">
+                 <i class="fas fa-book-open text-6xl text-blue-500 mb-6"></i>
+                <h2 class="slide-title text-3xl md:text-5xl mb-4">Welcome</h2>
+                <p class="slide-subtitle text-lg md:text-xl max-w-3xl">This presentation will serve as a guided tour of our comprehensive financial training repository. We'll highlight the breadth and depth of resources available for your self-paced learning and professional development.</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Repository at a Glance -->
+        <div class="slide" data-slide="3">
+            <div class="slide-content h-full">
+                <h2 class="slide-title text-3xl md:text-5xl mb-8">What's Inside? A High-Level Overview</h2>
+                <div class="icon-grid">
+                    <div class="icon-item">
+                        <i class="fas fa-certificate text-4xl text-green-500"></i>
+                        <p class="font-semibold mt-2">CFA® Prep</p>
+                    </div>
+                    <div class="icon-item">
+                        <i class="fas fa-shield-halved text-4xl text-red-500"></i>
+                        <p class="font-semibold mt-2">Corporate Credit Risk</p>
+                    </div>
+                    <div class="icon-item">
+                        <i class="fas fa-table-cells text-4xl text-sky-500"></i>
+                        <p class="font-semibold mt-2">Financial Modeling</p>
+                    </div>
+                    <div class="icon-item">
+                        <i class="fas fa-chart-line text-4xl text-purple-500"></i>
+                        <p class="font-semibold mt-2">Market Analysis</p>
+                    </div>
+                    <div class="icon-item">
+                        <i class="fas fa-brain text-4xl text-orange-500"></i>
+                        <p class="font-semibold mt-2">Behavioral Finance</p>
+                    </div>
+                     <div class="icon-item">
+                        <i class="fas fa-industry text-4xl text-gray-500"></i>
+                        <p class="font-semibold mt-2">Industry Primers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Deep Dive: CFA Program Preparation -->
+        <div class="slide" data-slide="4">
+            <div class="slide-content h-full">
+                <i class="fas fa-graduation-cap text-6xl text-blue-500 mb-6"></i>
+                <h2 class="slide-title text-3xl md:text-5xl mb-4">Aspiring CFAs: Your Comprehensive Study Hub</h2>
+                <p class="slide-subtitle text-lg md:text-xl mb-6">Materials for CFA Levels 1, 2, and 3.</p>
+                <div class="flex space-x-8 text-lg">
+                    <span class="font-medium"><i class="fas fa-copy mr-2 text-gray-600"></i>Cheat Sheets</span>
+                    <span class="font-medium"><i class="fas fa-file-alt mr-2 text-gray-600"></i>Practice Exams</span>
+                    <span class="font-medium"><i class="fas fa-book mr-2 text-gray-600"></i>Topic Deep Dives</span>
+                     <span class="font-medium"><i class="fas fa-folder-open mr-2 text-gray-600"></i>Case Studies</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 5: CFA Prep - Level 1 Example -->
+        <div class="slide" data-slide="5">
+             <div class="slide-content h-full">
+                <i class="fas fa-gavel text-6xl text-amber-600 mb-6"></i>
+                <h2 class="slide-title text-3xl md:text-5xl mb-4">Example: CFA L1 - Ethical & Professional Standards</h2>
+                <p class="slide-subtitle text-lg md:text-xl max-w-3xl">Briefly state the importance of this topic. Includes concise cheat sheets covering core principles and practice questions to reinforce learning.</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Deep Dive: Corporate Credit Risk -->
+        <div class="slide" data-slide="6">
+            <div class="slide-content h-full">
+                 <i class="fas fa-magnifying-glass-chart text-6xl text-red-500 mb-6"></i>
+                <h2 class="slide-title text-3xl md:text-5xl mb-4">Mastering Corporate Credit Risk Analysis</h2>
+                 <p class="slide-subtitle text-lg md:text-xl max-w-3xl mb-6">Ideal for aspiring and current credit analysts, this is a modular program covering the A-to-Z of credit risk.</p>
+                <div class="text-left space-y-2 text-lg">
+                    <p><i class="fas fa-cogs mr-2 text-gray-600"></i><b>Key Areas:</b> Foundations, The Credit Lifecycle, Advanced Topics, Communication Skills.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Corporate Credit Risk - Modules & Practical Application -->
+        <div class="slide" data-slide="7">
+            <div class="slide-content h-full">
+                <h2 class="slide-title text-3xl md:text-5xl mb-8">From Theory to Practice in Credit Risk</h2>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div>
+                        <i class="fas fa-tasks text-4xl text-blue-500 mb-3"></i>
+                        <h3 class="font-bold text-xl mb-2">Key Modules</h3>
+                        <p class="text-base">Financial Statement Analysis, Underwriting, LBOs and M&A Analysis.</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-file-signature text-4xl text-green-500 mb-3"></i>
+                        <h3 class="font-bold text-xl mb-2">Practical Learning</h3>
+                        <p class="text-base">Emphasizes Case Studies, Quizzes, and a Capstone Project.</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-book-reader text-4xl text-purple-500 mb-3"></i>
+                        <h3 class="font-bold text-xl mb-2">Supporting Resources</h3>
+                        <p class="text-base">Includes supporting resources like a comprehensive `GLOSSARY.md`.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 8: Financial Modeling -->
+        <div class="slide" data-slide="8">
+             <div class="slide-content h-full">
+                <i class="fas fa-chart-pie text-6xl text-sky-500 mb-6"></i>
+                <h2 class="slide-title text-3xl md:text-5xl mb-4">Building Skills in Financial Modeling</h2>
+                <p class="slide-subtitle text-lg md:text-xl max-w-3xl">Access best practices in `FM_Best_Practices.md` and utilize templates like the `Basic_3_Statement_Model_Template` to start building your own models.</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Behavioral Finance -->
+        <div class="slide" data-slide="9">
+            <div class="slide-content h-full">
+                <i class="fas fa-users-gear text-6xl text-orange-500 mb-6"></i>
+                <h2 class="slide-title text-3xl md:text-5xl mb-4">The Human Side of Finance: Behavioral Insights</h2>
+                <p class="slide-subtitle text-lg md:text-xl max-w-3xl">Explore how psychological factors influence financial decisions. Delve into `Key_Concepts.md` and real-world `Case_Studies.md`.</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Market Analysis -->
+        <div class="slide" data-slide="10">
+            <div class="slide-content h-full">
+                <i class="fas fa-rocket text-6xl text-purple-500 mb-6"></i>
+                <h2 class="slide-title text-3xl md:text-5xl mb-4">Get Up to Speed: Market Analysis Quick Start</h2>
+                <p class="slide-subtitle text-lg md:text-xl max-w-3xl">Designed for a rapid understanding of market fundamentals. Covers Capital Market Terms, Key Market Products, and more.</p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Industry Primers -->
+        <div class="slide" data-slide="11">
+            <div class="slide-content h-full">
+                <h2 class="slide-title text-3xl md:text-5xl mb-8">Sector Insights: Industry Primers</h2>
+                <div class="icon-grid">
+                    <div class="icon-item"><i class="fas fa-plane-departure text-4xl text-cyan-500"></i><p>Aerospace & Defense</p></div>
+                    <div class="icon-item"><i class="fas fa-microchip text-4xl text-gray-600"></i><p>Technology</p></div>
+                    <div class="icon-item"><i class="fas fa-heart-pulse text-4xl text-red-500"></i><p>Healthcare</p></div>
+                    <div class="icon-item"><i class="fas fa-gas-pump text-4xl text-orange-400"></i><p>Energy</p></div>
+                    <div class="icon-item"><i class="fas fa-car text-4xl text-blue-800"></i><p>Automotive</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Other Resources -->
+        <div class="slide" data-slide="12">
+            <div class="slide-content h-full">
+                <i class="fas fa-plus-circle text-6xl text-green-500 mb-6"></i>
+                <h2 class="slide-title text-3xl md:text-5xl mb-4">And There's More...</h2>
+                <ul class="space-y-4 text-lg md:text-xl text-left max-w-2xl">
+                    <li><i class="fas fa-cogs mr-2 text-gray-500"></i><b>Emerging Area:</b> Foundational resources on Fintech are available.</li>
+                    <li><i class="fas fa-file-code mr-2 text-gray-500"></i><b>Alternative Formats:</b> Industry primers available in HTML for easy web viewing.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 13: Making the Most of This Repository -->
+        <div class="slide" data-slide="13">
+             <div class="slide-content h-full">
+                <i class="fas fa-map-signs text-6xl text-yellow-500 mb-6"></i>
+                <h2 class="slide-title text-3xl md:text-5xl mb-4">Your Learning Journey</h2>
+                <p class="slide-subtitle text-lg md:text-xl max-w-3xl mb-6">Tips for making the most of the repository:</p>
+                <ul class="list-disc list-inside text-lg space-y-2">
+                    <li>Navigate by interest area.</li>
+                    <li>Use cheat sheets for quick reviews.</li>
+                    <li>Test your knowledge with practice exams and quizzes.</li>
+                    <li>Apply concepts with case studies.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Slide 14: Conclusion -->
+        <div class="slide" data-slide="14">
+             <div class="slide-content h-full">
+                 <i class="fas fa-flag-checkered text-6xl text-blue-600 mb-6"></i>
+                <h2 class="slide-title text-3xl md:text-5xl mb-4">Start Your Financial Learning Adventure!</h2>
+                <p class="slide-subtitle text-lg md:text-xl max-w-3xl mb-4">This repository offers a rich collection of materials for enhancing your financial knowledge and skills.</p>
+                <a href="#" class="text-blue-500 hover:underline">Dive in and explore the resources!</a>
+            </div>
+        </div>
+
+        <!-- Slide 15: Q&A -->
+        <div class="slide" data-slide="15">
+            <div class="slide-content h-full bg-slate-800 text-white">
+                <h2 class="slide-title text-5xl md:text-7xl">Questions?</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="flex items-center space-x-4 mt-4">
+        <button id="prevBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l disabled:opacity-50 disabled:cursor-not-allowed">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <div id="slide-counter" class="text-lg font-semibold">1 / 15</div>
+        <button id="nextBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+            <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    if (i === index) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                });
+                slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+                prevBtn.disabled = index === 0;
+                nextBtn.disabled = index === totalSlides - 1;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    showSlide(currentSlide);
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    showSlide(currentSlide);
+                }
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    nextBtn.click();
+                } else if (e.key === 'ArrowLeft') {
+                    prevBtn.click();
+                }
+            });
+
+            showSlide(currentSlide);
+        });
+    </script>
+
+</body>
+</html>
