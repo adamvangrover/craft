@@ -15,7 +15,8 @@ This document captures potential ideas for future development and expansion of t
 ## II. New Module Content & Expansions:
 
 *   **Additional Specialized Industry Case Studies (Module 16):**
-    *   Retail (Brick & Mortar vs. E-commerce)
+    *   Retail (Brick & Mortar vs. E-commerce) - *See also CS_Distressed_RetailCo_Analysis.md (Module 4)*
+    *   Pharmaceuticals/Biotech - *See CS_PharmaCo_Pipeline_Risk_Analysis.md (Module 8)*
     *   Manufacturing (e.g., Automotive, Industrial)
     *   Real Estate (e.g., Commercial REITs - Office, Retail, Industrial)
     *   Healthcare (e.g., Hospitals, Pharma/Biotech)
@@ -57,12 +58,20 @@ This document captures potential ideas for future development and expansion of t
 *   **Regulatory Landscape Updates (Module 18):**
     *   More jurisdictional comparisons (e.g., EU, major Asian markets).
     *   Role of RegTech (Regulatory Technology).
+*   **Module on ESG Integration in Credit Risk:** Detailed framework for assessing Environmental, Social, and Governance factors as part of credit analysis, including sector-specific ESG risks.
+*   **Behavioral Economics in Credit Decisions:** Exploring common cognitive biases that can affect credit analysts and committee decisions, and how to mitigate them.
 
 ## III. Interactive Exercises & Multimedia:
 
 *   **Interactive Quizzes/Exercises:** Beyond multiple choice/short answer, develop:
+    *   *Existing Quizzes (Examples):*
+        *   Quiz_M01_Accounting_Financial_Statement_Analysis.md (Module 1)
+        *   Quiz_M02_Industry_Analysis.md (Module 2)
+        *   Quiz_M05_Future_of_Risk_AI.md (Module 5)
     *   Drag-and-drop classification exercises (e.g., for accounts, covenant types).
     *   "Spot the Red Flag" or "Spot the Shenanigan" interactive scenarios.
+    *   Scenario-Based Financial Modeling Exercises: Users input drivers into a web-based model to see impacts on financial statements and credit ratios for different scenarios (e.g., base case, upside, downside).
+    *   Interactive Covenant Negotiation Simulation: A simple text-based simulation where users choose covenant terms and see potential outcomes or pushback from a 'borrower' persona.
     *   Simple model input widgets to see immediate output changes.
 *   **Video Content:**
     *   Short video tutorials explaining complex concepts (e.g., 3-statement model linkages, LBO structure, a specific legal clause).
@@ -86,6 +95,7 @@ This document captures potential ideas for future development and expansion of t
 *   **Community Features (if hosted on a suitable platform):**
     *   Discussion forums per module.
     *   Ability for users to ask questions.
+    *   Peer Review System for Case Study Submissions: If a platform allows, users could submit their case study analyses (like the Distressed RetailCo one) and receive feedback from peers or instructors.
 *   **Certification/Assessment:** More formal final assessment or certification process if desired.
 
 This list provides a rich backlog of potential improvements to continuously enhance the CRAFT program. Prioritization would depend on user feedback, available resources, and learning objectives.
