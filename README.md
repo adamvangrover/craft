@@ -1,3 +1,9 @@
+#CRAFT
+#CRAFT – (Credit Risk Analyst Foundations Training) 
+https://adamvangrover.github.io/craft/ 
+https://adamvangrover.github.io/craft/primers/index.html 
+https://adamvangrover.github.io/craft/CFA/index.html
+
 # Financial Learning Repository
 
 Welcome to this comprehensive repository dedicated to various aspects of finance, credit risk analysis, and investment management. This collection of resources aims to provide foundational knowledge, practical insights, and learning materials for students, analysts, and finance professionals.
