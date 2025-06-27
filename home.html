@@ -13,6 +13,7 @@
          The primary version (Role-based SPA dashboard) is active.
          The secondary version (slide-based presentation) is commented out at the end of this file.
          This page is intended as the main landing page for the entire financial learning repository.
+         Navigation links updated in Phase 4, Step 4.
     -->
     <style>
         body {
@@ -93,7 +94,7 @@
              background: linear-gradient(135deg, #fdfbf7 0%, #f0f5fa 100%);
         }
         .path-link {
-            display: block;
+            display: inline-block; /* Changed from block to inline-block for side-by-side */
             padding: 0.75rem 1.25rem;
             background-color: #4A90E2;
             color: white;
@@ -101,6 +102,7 @@
             text-align: center;
             font-weight: 500;
             transition: background-color 0.2s;
+            margin: 0.25rem; /* Add some margin for spacing if they wrap */
         }
         .path-link:hover {
             background-color: #3B73C4;
@@ -121,7 +123,7 @@
                 <button data-view="dashboard" class="nav-button active text-base md:text-lg font-medium text-gray-600 hover:text-gray-800">Dashboard</button>
                 <button data-view="creditAnalyst" class="nav-button text-base md:text-lg font-medium text-gray-600 hover:text-gray-800">Credit Analyst Path</button>
                 <button data-view="cfaCandidate" class="nav-button text-base md:text-lg font-medium text-gray-600 hover:text-gray-800">CFA® Candidate Path</button>
-                <button data-view="generalist" class="nav-button text-base md:text-lg font-medium text-gray-600 hover:text-gray-800">Explorer Path</button>
+                <button data-view="explorer" class="nav-button text-base md:text-lg font-medium text-gray-600 hover:text-gray-800">Explorer Path</button> <!-- Changed generalist to explorer for consistency -->
             </div>
         </nav>
 
@@ -135,13 +137,13 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <a href="./corporate-credit-risk-analyst-training/README.md" class="card p-6 col-span-1 md:col-span-2 lg:col-span-3 block hover:no-underline">
+                    <a href="./corporate-credit-risk-analyst-training/index.html" class="card p-6 col-span-1 md:col-span-2 lg:col-span-3 block hover:no-underline"> <!-- Updated Link -->
                         <h3 class="font-semibold text-xl mb-4 text-gray-800 flex items-center">
                             <span class="text-3xl mr-3">🛡️</span> Corporate Credit Risk Analyst Training (CRAFT)
                         </h3>
-                        <p class="text-gray-600 mb-2">A complete, 11-module curriculum designed to take you from foundational principles to advanced topics like AI in risk, debt structuring, and specialized industry analysis. Click to view the CRAFT Program README and navigate to its interactive hub.</p>
+                        <p class="text-gray-600 mb-2">A complete, 11-module curriculum designed to take you from foundational principles to advanced topics like AI in risk, debt structuring, and specialized industry analysis. Click to access the interactive CRAFT Program Hub.</p>
                         <div class="mt-3">
-                            <span class="tag">11 Modules</span> <span class="tag">Interactive Learning</span> <span class="tag">Capstone Project</span>
+                            <span class="tag">11 Modules</span> <span class="tag">Interactive Hub</span> <span class="tag">Capstone Project</span>
                         </div>
                     </a>
 
@@ -158,9 +160,9 @@
                         <h3 class="font-semibold text-xl mb-2 text-gray-800 flex items-center">
                             <span class="text-3xl mr-3">📊</span> Financial Modeling
                         </h3>
-                        <p class="text-gray-600 mb-2">Master the art and science of financial modeling with best practice guides, structural templates for 3-statement models, and more.</p>
+                        <p class="text-gray-600 mb-2">Master the art and science of financial modeling with best practice guides, structural templates for 3-statement models, DCF overviews, and forecasting techniques.</p>
                          <div class="mt-3">
-                             <span class="tag">Best Practices</span> <span class="tag">Templates</span> <span class="tag">Valuation Prep</span>
+                             <span class="tag">Best Practices</span> <span class="tag">Templates</span> <span class="tag">Valuation</span>
                         </div>
                     </a>
                     <a href="./primers/index.html" class="card p-6 block hover:no-underline">
@@ -185,7 +187,7 @@
                         <h3 class="font-semibold text-xl mb-2 text-gray-800 flex items-center">
                            <span class="text-3xl mr-3">🧠</span> Behavioral Finance
                         </h3>
-                        <p class="text-gray-600 mb-2">Understand the psychological influences and cognitive biases that affect financial decision-making and market behavior.</p>
+                        <p class="text-gray-600 mb-2">Understand the psychological influences and cognitive biases that affect financial decision-making and market behavior. Includes key concepts and case studies.</p>
                         <div class="mt-3">
                              <span class="tag">Cognitive Biases</span> <span class="tag">Case Studies</span> <span class="tag">Decision Making</span>
                         </div>
@@ -194,9 +196,36 @@
                         <h3 class="font-semibold text-xl mb-2 text-gray-800 flex items-center">
                            <span class="text-3xl mr-3">💡</span> Fintech Innovations
                         </h3>
-                        <p class="text-gray-600 mb-2">Explore the impact of technology on financial services, covering AI, Blockchain, Open Banking, Regtech, and Cybersecurity.</p>
+                        <p class="text-gray-600 mb-2">Explore the impact of technology on financial services, covering AI, Blockchain, Open Banking, Regtech, Insurtech, Payment Systems, and Cybersecurity.</p>
                         <div class="mt-3">
                              <span class="tag">AI & Blockchain</span> <span class="tag">Open Banking</span> <span class="tag">Cybersecurity</span>
+                        </div>
+                    </a>
+                     <a href="./Risk_Management/README.md" class="card p-6 block hover:no-underline">
+                        <h3 class="font-semibold text-xl mb-2 text-gray-800 flex items-center">
+                           <span class="text-3xl mr-3">📈</span> Risk Management
+                        </h3>
+                        <p class="text-gray-600 mb-2">A comprehensive framework covering risk identification, assessment, credit risk, market risk, operational risk, governance, and reporting.</p>
+                        <div class="mt-3">
+                             <span class="tag">Frameworks</span> <span class="tag">Credit/Market/Op Risk</span> <span class="tag">Governance</span>
+                        </div>
+                    </a>
+                     <a href="./Toolkits_and_Checklists/README.md" class="card p-6 block hover:no-underline"> <!-- Assuming a README for this new dir -->
+                        <h3 class="font-semibold text-xl mb-2 text-gray-800 flex items-center">
+                           <span class="text-3xl mr-3">🛠️</span> Toolkits & Checklists
+                        </h3>
+                        <p class="text-gray-600 mb-2">Practical job aids, including a comprehensive Due Diligence Checklist and a guide to building a basic financial ratios calculator.</p>
+                        <div class="mt-3">
+                             <span class="tag">Due Diligence</span> <span class="tag">Ratio Calculators</span> <span class="tag">Practical Aids</span>
+                        </div>
+                    </a>
+                     <a href="./Professional_Development/README.md" class="card p-6 block hover:no-underline"> <!-- Assuming a README for this new dir -->
+                        <h3 class="font-semibold text-xl mb-2 text-gray-800 flex items-center">
+                           <span class="text-3xl mr-3">🧑‍🏫</span> Professional Development
+                        </h3>
+                        <p class="text-gray-600 mb-2">Guides on essential soft skills for analysts, focusing on effective communication and critical thinking in financial analysis.</p>
+                        <div class="mt-3">
+                             <span class="tag">Communication</span> <span class="tag">Critical Thinking</span> <span class="tag">Analyst Skills</span>
                         </div>
                     </a>
                 </div>
@@ -205,21 +234,22 @@
             <!-- Credit Analyst Path View -->
             <section id="view-creditAnalyst" class="content-section fade-in">
                 <div class="text-center max-w-3xl mx-auto mb-12">
-                    <h2 class="text-3xl font-semibold mb-4 text-gray-700">Mastering Corporate Credit Risk Analysis</h2>
-                    <p class="text-gray-600 text-lg">This structured, 11-module program is your complete A-to-Z curriculum for becoming a top-tier credit analyst. From foundational accounting to advanced debt structuring and the future of AI in risk, this path is designed to build expert-level competence. The main interactive experience for this path is available through the <a href='./corporate-credit-risk-analyst-training/README.md' class='text-blue-600 hover:underline font-medium'>CRAFT Program Hub</a>.</p>
-                     <div class="mt-6">
-                        <a href="./corporate-credit-risk-analyst-training/README.md" class="path-link">Go to CRAFT Program Hub</a>
+                    <h2 class="text-3xl font-semibold mb-4 text-gray-700">Credit Analyst Learning Path</h2>
+                    <p class="text-gray-600 text-lg">This curated path guides you through the essential resources to build comprehensive skills in corporate credit risk analysis. Start with the CRAFT Program Hub for an interactive curriculum, then explore supplementary materials.</p>
+                     <div class="mt-6 flex flex-wrap justify-center gap-4">
+                        <a href="./corporate-credit-risk-analyst-training/index.html" class="path-link">Go to CRAFT Interactive Hub</a>
+                        <a href="./Learning_Paths/Credit_Analyst_Foundational_Path.md" class="path-link bg-green-600 hover:bg-green-700">View Detailed Learning Path (.md)</a>
                     </div>
                 </div>
                 <div class="lg:flex gap-8">
                     <div class="lg:w-2/5 mb-8 lg:mb-0">
-                         <h3 class="font-semibold text-xl mb-4 text-gray-800">Program Modules Overview</h3>
+                         <h3 class="font-semibold text-xl mb-4 text-gray-800">CRAFT Program Modules Overview</h3>
                         <div id="creditRiskModules" class="space-y-3"></div>
                     </div>
                     <div class="lg:w-3/5">
                         <div id="creditRiskModuleDetail" class="card p-6 sticky top-24">
-                            <h3 class="font-semibold text-2xl mb-3" id="moduleDetailTitle">Select a Module</h3>
-                            <p class="text-gray-600 text-base" id="moduleDetailContent">Click on a module to the left to see its detailed description and how it fits into your learning journey as a credit analyst.</p>
+                            <h3 class="font-semibold text-2xl mb-3" id="moduleDetailTitle">Select a CRAFT Module</h3>
+                            <p class="text-gray-600 text-base" id="moduleDetailContent">Click on a module from the CRAFT program list to see its detailed description and a direct link to its content.</p>
                         </div>
                     </div>
                 </div>
@@ -228,10 +258,12 @@
             <!-- CFA Candidate Path View -->
             <section id="view-cfaCandidate" class="content-section fade-in">
                  <div class="text-center max-w-3xl mx-auto mb-12">
-                    <h2 class="text-3xl font-semibold mb-4 text-gray-700">Your Comprehensive CFA® Program Study Hub</h2>
-                    <p class="text-gray-600 text-lg">Navigate your CFA journey with a multi-faceted toolkit designed for success at all three levels. The primary resource is our <a href='./CFA/index.html' class='text-blue-600 hover:underline font-medium'>Interactive CFA Study Hub</a>, complemented by direct access to specific material types below.</p>
-                     <div class="mt-6">
+                    <h2 class="text-3xl font-semibold mb-4 text-gray-700">CFA® Candidate Learning Path</h2>
+                    <p class="text-gray-600 text-lg">Navigate your CFA journey with a multi-faceted toolkit designed for success at all three levels. The primary resource is our <a href='./CFA/index.html' class='text-blue-600 hover:underline font-medium'>Interactive CFA Study Hub</a>. You can also explore focused learning paths and resource types below.</p>
+                     <div class="mt-6 flex flex-wrap justify-center gap-4">
                         <a href="./CFA/index.html" class="path-link">Go to Interactive CFA Study Hub</a>
+                        <a href="./Learning_Paths/CFA_Level_1_Prep_Focus_Areas.md" class="path-link bg-green-600 hover:bg-green-700">View L1 Focus Areas Path (.md)</a>
+                        <!-- Add links to L2/L3 paths when created -->
                     </div>
                 </div>
 
@@ -241,7 +273,7 @@
                         <div class="mb-6">
                             <p class="text-gray-600 mb-4">Select a resource type to learn more about how it can help you prepare for the CFA exams.</p>
                             <div id="cfaResourceFilters" class="flex flex-wrap gap-3">
-                                <button data-filter="deepDives" class="px-4 py-2 bg-blue-100 text-blue-800 rounded-full font-medium text-sm">Topic Deep Dives</button>
+                                <button data-filter="deepDives" class="px-4 py-2 bg-blue-100 text-blue-800 rounded-full font-medium text-sm ring-2 ring-blue-300">Topic Deep Dives</button>
                                 <button data-filter="cheatSheets" class="px-4 py-2 bg-gray-100 text-gray-800 rounded-full font-medium text-sm">Cheat Sheets</button>
                                 <button data-filter="practiceExams" class="px-4 py-2 bg-gray-100 text-gray-800 rounded-full font-medium text-sm">Practice Exams</button>
                                 <button data-filter="caseStudies" class="px-4 py-2 bg-gray-100 text-gray-800 rounded-full font-medium text-sm">Case Studies</button>
@@ -260,11 +292,14 @@
                 </div>
             </section>
 
-            <!-- Generalist / Explorer Path View -->
-            <section id="view-generalist" class="content-section fade-in">
+            <!-- Explorer Path View -->
+            <section id="view-explorer" class="content-section fade-in">
                  <div class="text-center max-w-3xl mx-auto mb-12">
                     <h2 class="text-3xl font-semibold mb-4 text-gray-700">Build Your Financial Fluency: The Explorer Path</h2>
                     <p class="text-gray-600 text-lg">Perfect for newcomers to finance, professionals in related fields seeking broader understanding, or anyone curious about specific financial topics. This path allows you to pick and choose, starting with market fundamentals and then diving into areas of interest like behavioral finance or specific industry analyses.</p>
+                     <div class="mt-6">
+                         <a href="./Learning_Paths/README.md" class="path-link bg-green-600 hover:bg-green-700">View All Learning Path Options</a>
+                     </div>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -286,23 +321,31 @@
                 </div>
 
                 <div class="card p-8 mt-12">
-                     <h3 class="font-semibold text-2xl mb-6 text-center text-gray-800">Additional Essential Resources</h3>
-                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                     <h3 class="font-semibold text-2xl mb-6 text-center text-gray-800">Explore Additional Key Resource Areas</h3>
+                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         <a href="./Financial_Modeling/README.md" class="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors block">
-                            <h4 class="font-semibold text-blue-700">Financial Modeling</h4>
-                            <p class="text-sm text-gray-600">Best practices and templates.</p>
+                            <h4 class="font-semibold text-blue-700">Financial Modeling Techniques</h4>
+                            <p class="text-sm text-gray-600">Best practices, 3-statement models, DCF, forecasting.</p>
                         </a>
                          <a href="./Fintech/README.md" class="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors block">
-                            <h4 class="font-semibold text-blue-700">Fintech Overview</h4>
-                            <p class="text-sm text-gray-600">Intro to AI, Blockchain, etc.</p>
+                            <h4 class="font-semibold text-blue-700">Fintech Landscape</h4>
+                            <p class="text-sm text-gray-600">AI, Blockchain, Open Banking, Cybersecurity, and more.</p>
                         </a>
-                         <a href="./corporate-credit-risk-analyst-training/GLOSSARY.md" class="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors block">
+                         <a href="./Risk_Management/README.md" class="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors block">
+                            <h4 class="font-semibold text-blue-700">Risk Management Frameworks</h4>
+                            <p class="text-sm text-gray-600">Credit, Market, Operational Risk, Governance.</p>
+                        </a>
+                        <a href="./Professional_Development/README.md" class="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors block">
+                            <h4 class="font-semibold text-blue-700">Professional Development</h4>
+                            <p class="text-sm text-gray-600">Communication & Critical Thinking for Analysts.</p>
+                        </a>
+                         <a href="./Toolkits_and_Checklists/README.md" class="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors block">
+                            <h4 class="font-semibold text-blue-700">Toolkits & Checklists</h4>
+                            <p class="text-sm text-gray-600">Due diligence checklists, ratio guides.</p>
+                        </a>
+                         <a href="./Global_Financial_Glossary.md" class="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors block">
                             <h4 class="font-semibold text-blue-700">Comprehensive Glossary</h4>
-                            <p class="text-sm text-gray-600">Your go-to for financial jargon.</p>
-                        </a>
-                         <a href="./corporate-credit-risk-analyst-training/solutions/CASE_STUDY_GUIDANCE.md" class="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors block">
-                            <h4 class="font-semibold text-blue-700">Case Study Guidance</h4>
-                            <p class="text-sm text-gray-600">Learn to analyze complex cases.</p>
+                            <p class="text-sm text-gray-600">Your go-to for all financial jargon.</p>
                         </a>
                      </div>
                 </div>
@@ -314,28 +357,29 @@
     </div>
 
     <script>
+    // <!-- DEVELOPER NOTE: Links updated in Phase 4, Step 4 for navigation. -->
     document.addEventListener('DOMContentLoaded', function () {
         const appData = {
             creditRisk: {
                 modules: [
-                    { id: 'm1', title: '01: Foundations', content: 'Covers the non-negotiable basics of accounting and financial modeling. This is supplemented by the resources in the dedicated Financial Modeling section.', link: './corporate-credit-risk-analyst-training/modules/01-foundations/README.md' },
-                    { id: 'm2', title: '02: Understanding the Market', content: 'Contextualizes technical skills by exploring capital markets and industry analysis frameworks. Learn the "why" behind the "how".', link: './corporate-credit-risk-analyst-training/modules/02-understanding-the-market/README.md' },
-                    { id: 'm3', title: '03: The Analyst\'s Craft', content: 'Focuses on developing crucial soft skills like professional business writing and structured critical thinking.', link: './corporate-credit-risk-analyst-training/modules/03-the-analysts-craft/README.md' },
-                    { id: 'm4', title: '04: The Credit Lifecycle', content: 'Covers the core functions of a credit analyst, including underwriting new deals, analyzing M&A transactions, and ongoing credit monitoring.', link: './corporate-credit-risk-analyst-training/modules/04-the-credit-lifecycle/README.md' },
-                    { id: 'm5', title: '05: Future of Risk Management', content: 'A forward-looking module on the impact of AI in risk management, covering how technology is revolutionizing credit analysis and forecasting.', link: './corporate-credit-risk-analyst-training/modules/05-future-of-risk-management/README.md' },
-                    { id: 'm6', title: '06: Advanced Topics', content: 'Dives into senior-level subject matter, including Quality of Earnings (QoE) analysis and complex debt structuring.', link: './corporate-credit-risk-analyst-training/modules/06-advanced-topics/README.md' },
-                    { id: 'm7', title: '07: Communication Skills', content: 'Builds on the Analyst\'s Craft with advanced writing techniques and negotiation strategies, crucial for communicating complex analyses effectively.', link: './corporate-credit-risk-analyst-training/modules/07-communication-skills/README.md' },
-                    { id: 'm8', title: '08: Specialized Industries', content: 'Provides frameworks for analyzing industries with unique characteristics. This module is best used in conjunction with the Industry Primers.', link: './corporate-credit-risk-analyst-training/modules/08-specialized-industries/README.md' },
-                    { id: 'm9', title: '09: Regulatory & Ethics', content: 'Covers the critical regulatory frameworks and ethical considerations that govern the practice of credit analysis.', link: './corporate-credit-risk-analyst-training/modules/09-regulatory-ethics/README.md' },
-                    { id: 'm10', title: '10: Quantitative Skills', content: 'Focuses on the practical application of data analytics and quantitative methods in risk assessment.', link: './corporate-credit-risk-analyst-training/modules/10-quantitative-skills/README.md' },
-                    { id: 'm11', title: '11: Capstone Project', content: 'An integrative project requiring you to apply skills from all previous modules to a comprehensive, real-world credit analysis case.', link: './corporate-credit-risk-analyst-training/modules/11-capstone/README.md' },
+                    { id: 'm1', title: '01: Foundations', content: 'Covers accounting and financial modeling basics. Essential for understanding company financials.', link: './corporate-credit-risk-analyst-training/modules/01-foundations/README.md' },
+                    { id: 'm2', title: '02: Understanding the Market', content: 'Explores capital markets, leveraged loans, and industry analysis frameworks (e.g., Porter\'s Five Forces).', link: './corporate-credit-risk-analyst-training/modules/02-understanding-the-market/README.md' },
+                    { id: 'm3', title: '03: The Analyst\'s Craft', content: 'Develops crucial soft skills: business writing, grammar, critical thinking, and forming a credit narrative.', link: './corporate-credit-risk-analyst-training/modules/03-the-analysts-craft/README.md' },
+                    { id: 'm4', title: '04: The Credit Lifecycle', content: 'Covers core functions: SNC, underwriting new issuers, LBO & M&A analysis, and ongoing credit monitoring.', link: './corporate-credit-risk-analyst-training/modules/04-the-credit-lifecycle/README.md' },
+                    { id: 'm5', title: '05: Future of Risk Management', content: 'Forward-looking module on AI in risk management and its impact on credit analysis.', link: './corporate-credit-risk-analyst-training/modules/05-future-of-risk-management/README.md' },
+                    { id: 'm6', title: '06: Advanced Topics', content: 'Deep dives into Quality of Earnings (QoE), debt structuring/restructuring, and legal aspects of credit.', link: './corporate-credit-risk-analyst-training/modules/06-advanced-topics/README.md' },
+                    { id: 'm7', title: '07: Communication Skills', content: 'Advanced business writing, persuasion, and negotiation skills for credit professionals.', link: './corporate-credit-risk-analyst-training/modules/07-communication-skills/README.md' },
+                    { id: 'm8', title: '08: Specialized Industries', content: 'Frameworks for analyzing industries with unique characteristics, complementing the Industry Primers.', link: './corporate-credit-risk-analyst-training/modules/08-specialized-industries/README.md' },
+                    { id: 'm9', title: '09: Regulatory & Ethics', content: 'Covers regulatory environments, compliance in lending, and ethical considerations for analysts.', link: './corporate-credit-risk-analyst-training/modules/09-regulatory-ethics/README.md' },
+                    { id: 'm10', title: '10: Quantitative Skills', content: 'Practical application of data analytics and quantitative tools in credit risk assessment (beyond AI).', link: './corporate-credit-risk-analyst-training/modules/10-quantitative-skills/README.md' },
+                    { id: 'm11', title: '11: Capstone Project', content: 'Integrative project applying skills from all modules to a comprehensive credit analysis case.', link: './corporate-credit-risk-analyst-training/modules/11-capstone/README.md' },
                 ]
             },
             cfaResources: {
-                deepDives: { title: 'Topic Deep Dives', content: 'These files offer detailed, thorough explanations of the curriculum\'s most complex and heavily weighted topics. Use these for your primary learning and to build a robust understanding. Examples: `L2_Advanced_Equity_Valuation_Models.md`, `L1_Fixed_Income_Basics.md`.', link: './CFA/README.md#topic-deep-dives' },
-                cheatSheets: { title: 'Concise Cheat Sheets', content: 'Designed for high-efficiency revision of core concepts. Files like `CS_01_Ethical_and_Professional_Standards.md` provide concise summaries of high-yield topics, ideal for final review sessions and memorizing key formulas.', link: './CFA/README.md#cheat-sheets' },
-                practiceExams: { title: 'Practice Exams', content: 'Crucial for testing your knowledge under pressure. The included practice questions and answer keys allow you to simulate the exam experience, manage your time effectively, and diagnose areas of weakness for further study.', link: './CFA/README.md#practice-exams' },
-                caseStudies: { title: 'Practical Case Studies', content: 'These resources are the vital bridge between abstract theory and professional practice. They provide the opportunity to apply concepts like valuation and portfolio management to realistic investment scenarios, solidifying your understanding for exam-style vignettes.', link: './CFA/README.md#case-studies' },
+                deepDives: { title: 'Topic Deep Dives', content: 'In-depth explorations of complex CFA curriculum areas, such as FSA for Creditors or Advanced Equity Valuation. Ideal for building robust understanding.', link: './CFA/README.md#topic-deep-dives' }, // Updated link to point to a section in CFA README
+                cheatSheets: { title: 'Concise Cheat Sheets', content: 'Quick summaries of key formulas, definitions, and concepts for efficient revision across all CFA topics.', link: './CFA/README.md#cheat-sheets' },
+                practiceExams: { title: 'Practice Exams', content: 'Simulate exam conditions with Level I, II, and III style questions, including item sets and constructed response examples.', link: './CFA/README.md#practice-exams' },
+                caseStudies: { title: 'Practical Case Studies', content: 'Apply theoretical knowledge to realistic scenarios, bridging concepts to practical application, crucial for Levels II and III.', link: './CFA/README.md#case-studies' },
             }
         };
 
@@ -355,8 +399,9 @@
             navButtons.forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.view === viewId);
             });
+            // Ensure fade-in animation is re-triggered
             mainContent.classList.remove('fade-in');
-            void mainContent.offsetWidth; 
+            void mainContent.offsetWidth; // Trigger reflow
             mainContent.classList.add('fade-in');
         }
 
@@ -379,15 +424,13 @@
                 </div>
             `).join('');
 
-            // Set initial detail content for the first module
             if (appData.creditRisk.modules.length > 0) {
                 const firstModule = appData.creditRisk.modules[0];
                 detailTitle.textContent = firstModule.title;
-                detailContent.innerHTML = `${firstModule.content} <p class="mt-3"><a href="${firstModule.link}" class="text-blue-600 hover:underline text-sm">Learn more...</a></p>`;
+                detailContent.innerHTML = `${firstModule.content} <p class="mt-3"><a href="${firstModule.link}" target="_blank" class="text-blue-600 hover:underline text-sm">Learn more in Module README...</a></p>`;
                 const firstModuleCard = modulesContainer.querySelector('.module-card');
                 if (firstModuleCard) firstModuleCard.classList.add('module-card-active');
             }
-
 
             modulesContainer.addEventListener('click', (e) => {
                 const card = e.target.closest('.module-card');
@@ -399,7 +442,7 @@
                     card.classList.add('module-card-active');
 
                     detailTitle.textContent = moduleData.title;
-                    detailContent.innerHTML = `${moduleData.content} <p class="mt-3"><a href="${moduleData.link}" class="text-blue-600 hover:underline text-sm">Learn more...</a></p>`;
+                    detailContent.innerHTML = `${moduleData.content} <p class="mt-3"><a href="${moduleData.link}" target="_blank" class="text-blue-600 hover:underline text-sm">Learn more in Module README...</a></p>`;
                 }
             });
         }
@@ -415,7 +458,7 @@
                     <div class="p-4 bg-gray-50 rounded-lg fade-in border border-gray-200">
                         <h4 class="font-semibold text-lg text-blue-800 mb-2">${resource.title}</h4>
                         <p class="text-gray-700">${resource.content}</p>
-                        <p class="mt-3"><a href="${resource.link}" class="text-blue-600 hover:underline text-sm">Explore these resources...</a></p>
+                        <p class="mt-3"><a href="${resource.link}" target="_blank" class="text-blue-600 hover:underline text-sm">Explore these resources in CFA Section...</a></p>
                     </div>
                 `;
             }
@@ -433,7 +476,6 @@
                 }
             });
 
-            // Initial content display
             const initialActiveFilterButton = filtersContainer.querySelector('button[data-filter="deepDives"]');
             if(initialActiveFilterButton){
                 initialActiveFilterButton.classList.add('bg-blue-100', 'text-blue-800', 'ring-2', 'ring-blue-300');
@@ -441,14 +483,13 @@
                 renderCfaContent('deepDives');
             }
 
-
             const ethicsCtx = document.getElementById('ethicsChart').getContext('2d');
             new Chart(ethicsCtx, {
                 type: 'doughnut',
                 data: {
                     labels: ['Ethical & Professional Standards', 'Other Topics'],
                     datasets: [{
-                        data: [12.5, 87.5], // Approximate average, can vary slightly
+                        data: [12.5, 87.5],
                         backgroundColor: ['#4A90E2', '#EAE5DD'],
                         borderColor: ['#FFFFFF', '#FFFFFF'],
                         borderWidth: 3,
@@ -478,7 +519,7 @@
         
         initCreditAnalystView();
         initCfaCandidateView();
-        switchView('dashboard'); // Default view
+        switchView('dashboard');
     });
     </script>
 </body>
@@ -933,3 +974,5 @@
 </body>
 </html>
 -->
+
+[end of home.html]
