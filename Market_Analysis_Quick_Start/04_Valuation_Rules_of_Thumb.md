@@ -77,3 +77,6 @@ Enterprise Value (EV) is a measure of a company's total value, often seen as a m
 
 **Important Caveat:**
 These rules of thumb are generalizations and should be applied with caution and critical thinking. They are useful for quick assessments and context but must always be supplemented by detailed, company-specific analysis. Market conditions, industry specifics, and individual company strengths/weaknesses can lead to significant deviations from these general heuristics.
+
+---
+*Interactive Exploration:* To see some of these multiples and valuation concepts in action, explore the [Interactive Equity Valuation Notebook Guide](../../Interactive_Notebooks/Financial_Modeling/README.md) and its [accompanying Jupyter Notebook](../../Interactive_Notebooks/Financial_Modeling/EquityValuationNotebook.ipynb).

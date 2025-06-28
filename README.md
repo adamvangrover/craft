@@ -25,7 +25,12 @@ This repository is organized into several key learning pillars:
 *   **[🚀 Market Analysis Quick Start](./Market_Analysis_Quick_Start/README.md):**
     *   A rapid introduction to common market jargon, capital market products, trading levels, valuation rules of thumb, and peer comparison benchmarks.
 *   **[🏭 Industry Primers](./primers/index.html):**
-    *   Overviews, key credit considerations, risk factors, and analytical tips for over 15 diverse industries.
+    *   Interactive viewer for overviews, key credit considerations, risk factors, and analytical tips for over 15 diverse industries.
+*   **[Paths to Knowledge: Learning Paths](./Learning_Paths/index.html):**
+    *   Curated learning paths to guide you through the repository's content based on your goals (e.g., Credit Analyst Foundations, Understanding Fintech). Now with an interactive viewer!
+*   **[🛠️ Interactive Notebooks & Tools](./Interactive_Notebooks/README.md):**
+    *   Hands-on Jupyter Notebooks for concepts like DCF valuation, WACC calculation, and credit agreement analysis. Download and run for an interactive experience.
+
 
 ## Navigating This Repository
 

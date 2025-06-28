@@ -96,3 +96,6 @@ Market benchmarks provide a broader context for assessing performance and market
 **Conclusion:**
 
 Effective peer comparison and benchmarking require careful peer selection, consistent data usage, and thoughtful analysis of differences. By placing a company's performance and credit profile within the context of its industry peers and broader market benchmarks, credit analysts can develop a more nuanced and robust assessment of its creditworthiness. This relative perspective is critical for identifying risks, opportunities, and making sound credit judgments.
+
+---
+*Interactive Exploration:* For a hands-on example of visualizing trading comparables, see the [Interactive Equity Valuation Notebook Guide](../../Interactive_Notebooks/Financial_Modeling/README.md) and its [accompanying Jupyter Notebook](../../Interactive_Notebooks/Financial_Modeling/EquityValuationNotebook.ipynb).

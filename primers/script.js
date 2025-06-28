@@ -3,6 +3,8 @@
 // 1. Search functionality on `primers/index.html` (for `mainIndexSearch` and `primer-summary-card`s).
 // 2. "Quick Read" and "Toggle All Sections" functionality on separate detail pages (`primers/html/*.html`).
 // 3. Print preparation for detail pages.
+// MODIFIED: Added logic for dynamic Markdown loading on `primers/index.html`.
+=======
 // The conflicting secondary JavaScript block (which handled different element IDs and logic for embedded accordions on the index page)
 // has been commented out at the end of this file to preserve it.
 
@@ -17,42 +19,118 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- MAIN INDEX PAGE (`primers/index.html`) SPECIFIC LOGIC ---
     // Handles search functionality for the primer navigator page.
     const mainIndexSearch = document.getElementById('mainIndexSearch');
-    const primerSummaryCards = document.querySelectorAll('.main-index-container .primer-summary-card'); // More specific selector
+    const primerSummaryCards = document.querySelectorAll('.primers-list-container .primer-summary-card'); // Updated selector
+    const primerContentDisplay = document.getElementById('primer-content-display');
 
-    if (mainIndexSearch && primerSummaryCards.length > 0) {
+
+    if (mainIndexSearch && primerSummaryCards.length > 0 && primerContentDisplay) {
+        // Search functionality for the primer navigator page.
         mainIndexSearch.addEventListener('input', () => {
             const searchTerm = mainIndexSearch.value.toLowerCase().trim();
             primerSummaryCards.forEach(card => {
                 const title = card.dataset.title ? card.dataset.title.toLowerCase() : '';
                 const keywords = card.dataset.keywords ? card.dataset.keywords.toLowerCase() : '';
-                const summaryTextElement = card.querySelector('.primer-initial-summary'); // Target the div
+                const summaryTextElement = card.querySelector('.primer-initial-summary');
+
                 const summaryText = summaryTextElement ? summaryTextElement.textContent.toLowerCase() : '';
 
 
                 if (title.includes(searchTerm) || keywords.includes(searchTerm) || summaryText.includes(searchTerm)) {
-                    card.style.display = 'flex'; // Assuming cards are flex containers
+                    card.style.display = 'flex'; // Assuming cards are flex containers, or adjust as per your CSS
+
                 } else {
                     card.style.display = 'none';
                 }
             });
         });
+
+        // Function to load and display Markdown content
+        async function loadAndDisplayMarkdown(mdSrcFile, displayElement, clickedCard) {
+            if (!mdSrcFile || !displayElement) {
+                console.error("Markdown source file or display element not provided.");
+                if(displayElement) displayElement.innerHTML = "<p>Error: Content source not specified.</p>";
+                return;
+            }
+
+            displayElement.innerHTML = "<p>Loading primer content...</p>";
+
+            primerSummaryCards.forEach(card => card.classList.remove('active-primer'));
+            if(clickedCard) clickedCard.classList.add('active-primer');
+
+            try {
+                // Construct the path relative to the `primers` directory
+                // This assumes `script.js` is in `primers/` and `.md` files are also in `primers/`
+                const response = await fetch(mdSrcFile);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch ${mdSrcFile}: ${response.status} ${response.statusText}`);
+                }
+                const markdownText = await response.text();
+                if (typeof marked !== 'undefined') {
+                    displayElement.innerHTML = marked.parse(markdownText);
+                } else {
+                    console.error("marked.js library not found. Displaying raw Markdown.");
+                    displayElement.innerHTML = `<pre>${markdownText.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>`; // Basic escaping for raw display
+                    // displayElement.innerHTML = "<p>Error: Markdown renderer not available. Cannot display content.</p>";
+                }
+            } catch (error) {
+                console.error("Error loading or parsing Markdown:", error);
+                displayElement.innerHTML = `<p>Error loading content for ${mdSrcFile}. Please ensure the file exists at the correct path relative to the 'primers' directory.</p><p><small>${error.message}</small></p>`;
+            }
+        }
+
+        // Add event listeners to primer cards/links
+        primerSummaryCards.forEach(card => {
+            const link = card.querySelector('.view-details-link'); // The <a> tag
+            const mdSrc = card.dataset.mdSrc; // e.g., "aerospace_defense.md"
+
+            if (link && mdSrc) {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    loadAndDisplayMarkdown(mdSrc, primerContentDisplay, card);
+                });
+            } else if (mdSrc) {
+                 // Fallback: if no specific link, make the card itself clickable
+                 card.addEventListener('click', function(event) {
+                    // Prevent default if card itself is an anchor or part of one
+                    if (event.target.tagName === 'A' && event.target.classList.contains('view-details-link')) {
+                        // Already handled by the specific link listener
+                        return;
+                    }
+                    event.preventDefault();
+                    loadAndDisplayMarkdown(mdSrc, primerContentDisplay, card);
+                });
+            }
+        });
+
+        // Optionally load the first primer by default or a welcome message
+        if (primerContentDisplay) {
+             if (primerCards.length > 0 && primerCards[0].dataset.mdSrc) {
+                // loadAndDisplayMarkdown(primerCards[0].dataset.mdSrc, primerContentDisplay, primerCards[0]); // Uncomment to load first primer
+                primerContentDisplay.innerHTML = "<p>Select a primer from the list to view its content.</p>"; // Default message
+             } else {
+                primerContentDisplay.innerHTML = "<p>No primers available or an error occurred.</p>";
+             }
+        }
+
     }
+
 
     // --- DETAIL PAGE (`primers/html/*.html`) SPECIFIC LOGIC ---
     // This logic should only run if elements specific to detail pages are present.
     const detailPageQuickReadBtn = document.getElementById('detailPageQuickReadBtn');
-    // Check if we are on a detail page by looking for a unique element, like the quick read button or specific header structure.
-    // For example, we can check if '.detail-page-header' exists.
     const isDetailPage = document.querySelector('.detail-page-header') !== null;
 
+=======
+    // Check if we are on a detail page by looking for a unique element, like the quick read button or specific header structure.
+    // For example, we can check if '.detail-page-header' exists.
 
     if (isDetailPage) {
         const pageContainerForQuickRead = document.querySelector('.detail-page-container') || document.body;
         const detailPageToggleAllBtn = document.querySelector('.detail-page-controls .toggle-all-sections-btn');
         const detailPageSections = document.querySelectorAll('.primer-detail-content .primer-section-accordion'); // These are <details> elements
 
-        // "Toggle All Sections" Button functionality for detail page
         if (detailPageToggleAllBtn && detailPageSections.length > 0) {
+
             // Initial state setup
             let allInitiallyOpen = Array.from(detailPageSections).every(section => section.hasAttribute('open'));
             detailPageToggleAllBtn.textContent = allInitiallyOpen ? 'Collapse All Sections' : 'Expand All Sections';
@@ -68,6 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 detailPageToggleAllBtn.setAttribute('aria-expanded', shouldOpenAll.toString());
             });
 
+
             // Update button if individual sections are toggled
             detailPageSections.forEach(section => {
                 section.addEventListener('toggle', () => {
@@ -78,9 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // "Quick Read" Mode Toggle Functionality for detail page
         if (detailPageQuickReadBtn && pageContainerForQuickRead) {
-            // Initial state setup
+
             detailPageQuickReadBtn.textContent = 'Enable Quick Read';
             detailPageQuickReadBtn.setAttribute('aria-pressed', 'false');
 
@@ -103,14 +181,18 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+
         // Print Preparation for detail page: Open all accordions before printing
+
         if (typeof window.matchMedia === 'function' && detailPageSections.length > 0) {
             let wasQuickReadActiveBeforePrint = false;
             const mediaQueryList = window.matchMedia('print');
 
             mediaQueryList.addListener((mql) => {
+
                 if (mql.matches) { // Before print
                     // Temporarily disable quick read mode if active
+
                     if (pageContainerForQuickRead) {
                         wasQuickReadActiveBeforePrint = pageContainerForQuickRead.classList.contains('quick-read-active');
                         if (wasQuickReadActiveBeforePrint) {
@@ -121,6 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     detailPageSections.forEach(detailsEl => {
                         detailsEl.setAttribute('open', '');
                     });
+
                 } else { // After print
                     // Restore quick read mode if it was active
                     if (pageContainerForQuickRead && wasQuickReadActiveBeforePrint) {
@@ -173,6 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //            }
 //        });
 //    }
+
 
 //    // 2. "Toggle All Sections" Button per Primer Card
 //    primerCards.forEach(card => {
