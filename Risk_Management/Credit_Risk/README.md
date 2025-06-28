@@ -68,5 +68,4 @@ This "Credit Risk" area will be built out with the following core documents, and
 *   **Link to Other Resources:** This section will often refer to and build upon content in the `CFA/`, `Financial_Modeling/`, and `Toolkits_and_Checklists/` sections. For example, detailed ratio calculations are found in the FSA materials, while modeling best practices are in Financial Modeling.
 *   **Interactive Legal Document Analysis:** For a hands-on guide to understanding key clauses in credit agreements (like definitions, covenants, and Events of Default), explore the [Interactive Guide to Analyzing Credit Agreements README](../../Interactive_Notebooks/Legal_Analysis/README.md) and its [accompanying Jupyter Notebook](../../Interactive_Notebooks/Legal_Analysis/CreditAgreementAnalysisNotebook.ipynb). This is particularly relevant for understanding loan documentation aspects of credit risk mitigation.
 
-
 This Credit Risk Management sub-section aims to be a cornerstone of the repository, providing both theoretical knowledge and practical guidance for developing skilled credit professionals. Your contributions to expand these topics are highly encouraged.

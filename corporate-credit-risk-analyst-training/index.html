@@ -10,13 +10,21 @@
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> <!-- ADDED MARKED.JS -->
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8f7f4; color: #4a4a4a; }
         .nav-button { transition: all 0.3s ease; }
         .nav-button.active { background-color: #3b82f6; color: white; }
-        .content-section { display: none; animation: fadeInContent 0.5s ease-in-out forwards; }
-        .content-section.active { display: block; }
+        .content-section, #craft-module-content-viewer { /* Combined for initial state */
+            display: none;
+            animation: fadeInContent 0.5s ease-in-out forwards;
+        }
+        .content-section.active, #craft-module-content-viewer.active { /* Combined for active state */
+            display: block;
+        }
+
         @keyframes fadeInContent {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -31,13 +39,46 @@
         .statement-btn:hover, .porter-btn:hover, .warning-btn:hover, .covenant-btn:hover { opacity:0.85; }
         .capital-item:hover { background-color: #f0f0f0; }
 
-        /* Custom styles for the CRAFT SPA, potentially overriding general styles if this were in a shared CSS */
-        .craft-header { background-color: #2c3e50; /* Darker blue-gray for CRAFT header */ color: white; }
-        .craft-nav-button { color: #d1d5db; /* Lighter gray for inactive nav text */ }
-        .craft-nav-button.active { background-color: #1d4ed8; /* Darker blue for active CRAFT nav */ color: white; }
-        .craft-nav-button:hover:not(.active) { background-color: #374151; /* Slightly lighter dark gray for hover */ }
+        /* Custom styles for the CRAFT SPA */
+        .craft-header { background-color: #2c3e50; color: white; }
+        .craft-nav-button { color: #d1d5db; }
+        .craft-nav-button.active { background-color: #1d4ed8; color: white; }
+        .craft-nav-button:hover:not(.active) { background-color: #374151; }
         .craft-card { background-color: #fff; border: 1px solid #d1d5db; }
         .craft-container { max-width: 1280px; /* Equivalent to Tailwind's max-w-7xl */ }
+
+        /* Styles for new module navigation and content viewer */
+        .craft-body-layout { display: flex; flex-direction: row; gap: 1rem; }
+        #craft-module-nav { flex: 0 0 280px; /* Width of the sidebar */ background-color: #e9ecef; padding: 1rem; border-radius: 0.5rem; max-height: calc(100vh - 5rem); /* Adjust based on header height */ overflow-y: auto; position: sticky; top: 5rem; /* Adjust based on header height */}
+        #craft-module-nav h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #2c3e50; }
+        #craft-module-nav ul { list-style: none; padding: 0; }
+        #craft-module-nav li a { display: block; padding: 0.5rem 0.75rem; margin-bottom: 0.25rem; border-radius: 0.375rem; text-decoration: none; color: #374151; transition: background-color 0.2s, color 0.2s; font-size: 0.9rem;}
+        #craft-module-nav li a:hover { background-color: #d1d5db; color: #1f2937; }
+        #craft-module-nav li a.active-module { background-color: #3b82f6; color: white; font-weight: 500; }
+
+        .main-content-area { flex: 1; } /* Container for existing sections and new MD viewer */
+        #craft-module-content-viewer { background-color: #fff; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        /* Basic styling for rendered Markdown in CRAFT viewer */
+        #craft-module-content-viewer h1,
+        #craft-module-content-viewer h2,
+        #craft-module-content-viewer h3 { color: #2c3e50; margin-top: 1em; margin-bottom: 0.5em; padding-bottom: 0.25em; border-bottom: 1px solid #e5e7eb;}
+        #craft-module-content-viewer h1 { font-size: 2em; }
+        #craft-module-content-viewer h2 { font-size: 1.75em; }
+        #craft-module-content-viewer h3 { font-size: 1.5em; }
+        #craft-module-content-viewer p { margin-bottom: 1em; line-height: 1.7; color: #4a4a4a; }
+        #craft-module-content-viewer ul,
+        #craft-module-content-viewer ol { margin-left: 20px; margin-bottom: 1em; }
+        #craft-module-content-viewer li { margin-bottom: 0.5em; }
+        #craft-module-content-viewer table { border-collapse: collapse; width: auto; margin-bottom: 1em; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        #craft-module-content-viewer th,
+        #craft-module-content-viewer td { border: 1px solid #d1d5db; padding: 0.75rem; text-align: left; }
+        #craft-module-content-viewer th { background-color: #f3f4f6; font-weight: 600; }
+        #craft-module-content-viewer code { background-color: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; color: #c0392b; }
+        #craft-module-content-viewer pre { background-color: #f3f4f6; padding: 1rem; border-radius: 0.375rem; overflow-x: auto; margin-bottom: 1em;}
+        #craft-module-content-viewer pre code { background-color: transparent; padding: 0; color: inherit; }
+        #craft-module-content-viewer blockquote { border-left: 4px solid #d1d5db; padding-left: 1rem; margin-left: 0; margin-bottom: 1em; color: #6b7280; font-style: italic;}
+        #craft-module-content-viewer img { max-width: 100%; height: auto; border-radius: 0.375rem; margin-top:0.5em; margin-bottom:0.5em;}
+
     </style>
 </head>
 <body class="antialiased">
@@ -51,21 +92,31 @@
                     </div>
                     <nav class="hidden md:block">
                         <div class="ml-10 flex items-baseline space-x-4">
-                            <button onclick="showSection('toolkit')" class="craft-nav-button active px-3 py-2 rounded-md text-sm font-medium">Toolkit</button>
-                            <button onclick="showSection('deal-analysis')" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Deal Analysis</button>
-                            <button onclick="showSection('portfolio')" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Portfolio & Monitoring</button>
-                            <button onclick="showSection('future')" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Future of Risk</button>
-                            <a href="README.md" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Course README</a>
+                            <button onclick="showInteractiveSection('toolkit', this)" class="craft-nav-button active px-3 py-2 rounded-md text-sm font-medium">Toolkit</button>
+                            <button onclick="showInteractiveSection('deal-analysis', this)" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Deal Analysis</button>
+                            <button onclick="showInteractiveSection('portfolio', this)" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Portfolio & Monitoring</button>
+                            <button onclick="showInteractiveSection('future', this)" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Future of Risk</button>
+                            <a href="README.md" target="_blank" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Course README</a>
                         </div>
                     </nav>
                 </div>
             </div>
         </header>
 
-        <main class="craft-container mx-auto p-4 sm:p-6 lg:p-8">
-            <!-- Analyst's Toolkit Section -->
-            <section id="toolkit" class="content-section active">
-                <h2 class="text-3xl font-bold text-gray-800 mb-2">The Analyst's Toolkit</h2>
+        <div class="craft-container mx-auto p-4 sm:p-6 lg:p-8 craft-body-layout">
+            <nav id="craft-module-nav">
+                <h3>CRAFT Modules</h3>
+                <ul id="craft-module-list">
+                    <!-- Module list will be populated by JavaScript -->
+                    <li><p class="text-xs text-gray-500">Loading modules...</p></li>
+                </ul>
+            </nav>
+
+            <main class="main-content-area">
+                <!-- Existing Interactive HTML Sections -->
+                <section id="toolkit" class="content-section active">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">The Analyst's Toolkit</h2>
+
                 <p class="text-lg text-gray-600 mb-8">This section covers the foundational concepts every credit analyst must master, from interpreting financial statements to building robust models and performing rigorous analysis. Refer to <a href="./modules/01-foundations/README.md" class="text-blue-600 hover:underline">Module 1: Foundations</a> and <a href="./modules/02-understanding-the-market/README.md" class="text-blue-600 hover:underline">Module 2: Understanding the Market</a> for detailed readings.</p>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -355,21 +406,117 @@
     const ratioSelector = document.getElementById('ratio-selector');
     let ratioChart;
     let sensitivityChart;
+    const craftModuleViewer = document.getElementById('craft-module-content-viewer');
+    const craftModuleListUl = document.getElementById('craft-module-list'); // Target the UL element
+    const topNavButtons = document.querySelectorAll('.craft-header .craft-nav-button[onclick*="showInteractiveSection"]'); // Select only interactive section buttons
 
-    function showSection(sectionId) {
-        navButtons.forEach(btn => {
-            btn.classList.remove('active');
-            // Check the onclick attribute string to find the matching button
-            if(btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(`showSection('${sectionId}')`)) {
-                btn.classList.add('active');
-            }
+    // Data for CRAFT Modules - ensure links point to the main content MD file
+    const craftModulesData = [
+        // Part 1: Foundations
+        { id: 'm1a', title: 'Mod 1: Accounting & FSA', markdownFilePath: './modules/01-foundations/01-accounting-and-financial-statement-analysis.md' },
+        { id: 'm1b', title: 'Mod 2: Financial Analysis & Modeling', markdownFilePath: './modules/01-foundations/02-financial-analysis-and-modeling.md' },
+        // Part 2: Understanding the Market
+        { id: 'm2a', title: 'Mod 3: Capital Markets & LevFin', markdownFilePath: './modules/02-understanding-the-market/03-capital-markets-and-leveraged-loans.md' },
+        { id: 'm2b', title: 'Mod 4: Industry Analysis', markdownFilePath: './modules/02-understanding-the-market/04-industry-analysis.md' },
+        // Part 3: The Analyst's Craft
+        { id: 'm3a', title: 'Mod 5: Business Writing & Grammar', markdownFilePath: './modules/03-the-analysts-craft/05-business-writing-and-grammar.md' },
+        { id: 'm3b', title: 'Mod 6: Critical Thinking & Narrative', markdownFilePath: './modules/03-the-analysts-craft/06-critical-thinking-and-forming-a-narrative.md' },
+        // Part 4: The Credit Lifecycle
+        { id: 'm4a', title: 'Mod 7: SNC Overview', markdownFilePath: './modules/04-the-credit-lifecycle/07-shared-national-credit-overview.md' },
+        { id: 'm4b', title: 'Mod 8: Underwriting New Issuers', markdownFilePath: './modules/04-the-credit-lifecycle/08-underwriting-new-issuers.md' },
+        { id: 'm4c', title: 'Mod 9: LBOs & M&A Analysis', markdownFilePath: './modules/04-the-credit-lifecycle/09-lbos-and-m-and-a-analysis.md' },
+        { id: 'm4d', title: 'Mod 10: Ongoing Credit Monitoring', markdownFilePath: './modules/04-the-credit-lifecycle/10-ongoing-credit-monitoring.md' },
+        // Part 5: Future of Risk Management
+        { id: 'm5a', title: 'Mod 11: Future of Risk & AI', markdownFilePath: './modules/05-future-of-risk-management/11-future-of-risk-and-ai.md' },
+        // Part 6: Advanced Topics
+        { id: 'm6a', title: 'Mod 12: Advanced FSA & QoE', markdownFilePath: './modules/06-advanced-topics/12-advanced-financial-statement-analysis-qoe.md' },
+        { id: 'm6b', title: 'Mod 13: Debt Structuring', markdownFilePath: './modules/06-advanced-topics/13-debt-structuring-restructuring.md' },
+        { id: 'm6c', title: 'Mod 14: Legal Aspects & Loan Docs', markdownFilePath: './modules/06-advanced-topics/14-legal-aspects-loan-docs.md' },
+        // Part 7: Advanced Communication
+        { id: 'm7a', title: 'Mod 15: Advanced Business Writing', markdownFilePath: './modules/07-communication-skills/15-advanced-business-writing.md' },
+        { id: 'm7b', title: 'Mod 17: Negotiation Skills', markdownFilePath: './modules/07-communication-skills/17-negotiation-communication-skills.md' },
+        // Part 8: Specialized Applications
+        { id: 'm8a', title: 'Mod 16: Specialized Industry Cases', markdownFilePath: './modules/08-specialized-industries/16-specialized-industry-case-studies.md' },
+        // Part 9: Regulatory & Quantitative
+        { id: 'm9a', title: 'Mod 18: Regulatory & Compliance', markdownFilePath: './modules/09-regulatory-ethics/18-regulatory-compliance.md' },
+        { id: 'm9b', title: 'Mod 19: Data Analytics & Quant Tools', markdownFilePath: './modules/10-quantitative-skills/19-data-analytics-quant-tools.md' },
+        // Part 10: Capstone
+        { id: 'm10a', title: 'Mod 20: Capstone Project', markdownFilePath: './modules/11-capstone/20-capstone-project.md' }
+    ];
+
+    function populateModuleNav() {
+        if (!craftModuleListUl) return;
+        craftModuleListUl.innerHTML = ''; // Clear loading message
+        craftModulesData.forEach(module => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = '#'; // Prevent page jump
+            a.textContent = module.title;
+            a.dataset.mdSrc = module.markdownFilePath;
+            a.classList.add('craft-module-link'); // Added class for styling/selection
+            a.onclick = (e) => {
+                e.preventDefault();
+                loadCraftModuleMarkdown(module.markdownFilePath, a);
+            };
+            li.appendChild(a);
+            craftModuleListUl.appendChild(li);
         });
+    }
+
+    async function loadCraftModuleMarkdown(mdSrcFile, clickedLinkElement) {
+        if (!mdSrcFile || !craftModuleViewer) {
+            console.error("Markdown source or viewer element missing for CRAFT module.");
+            if(craftModuleViewer) craftModuleViewer.innerHTML = "<p>Error: Could not load module content. Source or viewer missing.</p>";
+            return;
+        }
+
+        // Hide all interactive <section> elements and show the Markdown viewer
+        contentSections.forEach(section => section.classList.remove('active'));
+        craftModuleViewer.innerHTML = "<p>Loading module content...</p>";
+        craftModuleViewer.classList.add('active');
+
+        // Update active states for navigation
+        document.querySelectorAll('#craft-module-nav li a.craft-module-link').forEach(link => link.classList.remove('active-module'));
+        if(clickedLinkElement) clickedLinkElement.classList.add('active-module');
+        topNavButtons.forEach(btn => btn.classList.remove('active')); // Deactivate top nav buttons
+
+        try {
+            const response = await fetch(mdSrcFile);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status} while fetching ${mdSrcFile}`);
+            }
+            const markdownText = await response.text();
+            if (typeof marked !== 'undefined') {
+                craftModuleViewer.innerHTML = marked.parse(markdownText);
+            } else {
+                console.error("marked.js library not found.");
+                craftModuleViewer.innerHTML = `<pre>${markdownText.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>`;
+            }
+        } catch (error) {
+            console.error("Error loading or parsing CRAFT module Markdown:", error);
+            craftModuleViewer.innerHTML = `<p>Error loading content for ${mdSrcFile}. Please check the file path and ensure the file exists.</p><p><small>${error.message}</small></p>`;
+        }
+    }
+
+    // Renamed original showSection to avoid conflict
+    window.showInteractiveSection = function(sectionId, clickedButton) {
+        // Hide Markdown viewer and show the selected interactive <section>
+        if(craftModuleViewer) craftModuleViewer.classList.remove('active');
+
         contentSections.forEach(section => {
-            section.classList.remove('active'); // Remove active from all
-            if(section.id === sectionId) {
-                section.classList.add('active'); // Add active to the target
-            }
+            section.classList.toggle('active', section.id === sectionId);
         });
+
+        // Update active states for navigation
+        topNavButtons.forEach(btn => btn.classList.remove('active'));
+        if(clickedButton) clickedButton.classList.add('active');
+        document.querySelectorAll('#craft-module-nav li a.craft-module-link').forEach(link => link.classList.remove('active-module'));
+
+        // If navigating back to an interactive section, clear the content viewer's placeholder message
+        if (craftModuleViewer && !craftModuleViewer.classList.contains('active')) {
+             // craftModuleViewer.innerHTML = '<p>Select a module from the sidebar to view its detailed content.</p>'; // Optional: reset message
+        }
+
     }
 
     // Financial Statement Info Logic
@@ -586,8 +733,13 @@
         ratioSelector.addEventListener('change', (e) => updateRatioChart(e.target.value));
     }
 
-    showSection('toolkit'); // Default section
-    if (covenantInfoBox) showCovenant('maintenance'); // Default covenant display
+    populateModuleNav(); // Populate the module navigation sidebar
+    // Set initial view: show 'toolkit' interactive section, no specific module markdown loaded
+    const initialTopNavButton = document.querySelector('.craft-header .craft-nav-button[onclick*="showInteractiveSection(\'toolkit\')"]');
+    showInteractiveSection('toolkit', initialTopNavButton);
+
+    if (covenantInfoBox) showCovenant('maintenance'); // Default covenant display for the interactive section
+
 
 </script>
 </body>
