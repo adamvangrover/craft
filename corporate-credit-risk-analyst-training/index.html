@@ -11,12 +11,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> <!-- ADDED MARKED.JS -->
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8f7f4; color: #4a4a4a; }
         .nav-button { transition: all 0.3s ease; }
         .nav-button.active { background-color: #3b82f6; color: white; }
-
         .content-section, #craft-module-content-viewer { /* Combined for initial state */
             display: none;
             animation: fadeInContent 0.5s ease-in-out forwards;
@@ -116,6 +116,7 @@
                 <!-- Existing Interactive HTML Sections -->
                 <section id="toolkit" class="content-section active">
                     <h2 class="text-3xl font-bold text-gray-800 mb-2">The Analyst's Toolkit</h2>
+
                 <p class="text-lg text-gray-600 mb-8">This section covers the foundational concepts every credit analyst must master, from interpreting financial statements to building robust models and performing rigorous analysis. Refer to <a href="./modules/01-foundations/README.md" class="text-blue-600 hover:underline">Module 1: Foundations</a> and <a href="./modules/02-understanding-the-market/README.md" class="text-blue-600 hover:underline">Module 2: Understanding the Market</a> for detailed readings.</p>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -515,6 +516,7 @@
         if (craftModuleViewer && !craftModuleViewer.classList.contains('active')) {
              // craftModuleViewer.innerHTML = '<p>Select a module from the sidebar to view its detailed content.</p>'; // Optional: reset message
         }
+
     }
 
     // Financial Statement Info Logic
@@ -737,6 +739,7 @@
     showInteractiveSection('toolkit', initialTopNavButton);
 
     if (covenantInfoBox) showCovenant('maintenance'); // Default covenant display for the interactive section
+
 
 </script>
 </body>

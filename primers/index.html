@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Comprehensive Industry Primers</title>
+
+    <!-- DEVELOPER NOTE: Merge conflict resolved by choosing the first version (navigator view) as primary.
+         The second version (detailed embedded content) is commented out starting further down.
+         The active version uses 'html/primer_name.html' for detailed views and relies on 'primers/styles.css' and 'primers/script.js' (first/primary versions).
+    -->
+    <title>Industry Primers Navigator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -375,6 +381,133 @@
         <footer class="page-footer">
             <p>&copy; <span id="currentYear"></span> Primer Analysis Tool</p>
         </footer>
+
+            <!-- Student Note: This page serves as a central hub to quickly find and access detailed industry primers. Use the search bar to filter by keywords or industry names. -->
+            <h1>Industry Primers Navigator</h1>
+            <input type="text" id="mainIndexSearch" placeholder="Search primers by title or summary keywords...">
+        </header>
+
+        <main class="main-index-container">
+            <!-- Teacher Note: Each card provides a high-level summary. Encourage students to click "View Full Primer" for in-depth analysis including key credit metrics, risk factors, and rating considerations for each industry. -->
+            <article class="primer-summary-card" data-title="Aerospace & Defense" data-keywords="aviation aircraft military space oem mro c4isr r&d gdp covid supply chain geopolitical fms cyclical roic defense spending government contracts Boeing Airbus Lockheed Martin RTX General Dynamics commercial aerospace suppliers">
+                <h3>Aerospace & Defense</h3>
+                <div class="primer-initial-summary">
+                    <p>The <span class="key-term">Aerospace & Defense</span> (A&D) sector comprises companies that research, design, manufacture, and support aircraft, spacecraft, defense systems, and related components and services. It's characterized by long product cycles, high technological complexity, significant <span class="key-term">R&D</span> investment, strong government influence (especially in defense), and stringent safety and performance standards. Key subsectors include commercial aerospace (OEMs like Boeing, Airbus; suppliers) and defense (prime contractors like Lockheed Martin, Northrop Grumman; subcontractors).</p>
+                    <p><em>Tip: Focus on backlog quality, program execution, and government budget trends for defense; for commercial, watch air traffic demand and airline profitability.</em></p>
+                </div>
+                <a href="html/aerospace_defense.html" class="view-details-link">View Full Primer &raquo;</a>
+            </article>
+            <article class="primer-summary-card" data-title="Automotive" data-keywords="cars EVs autonomous vehicles OEMs cyclical electrification ADAS COGS FCF Ford GM Toyota VW Stellantis Tesla electric vehicles supply chain semiconductors">
+                <h3>Automotive</h3>
+                <div class="primer-initial-summary">
+                    <p>The automotive industry encompasses the design, development, manufacturing, marketing, and selling of motor vehicles. It is one of the world's largest economic sectors by revenue, characterized by high <span class="key-term">capital</span> intensity, significant <span class="key-term">R&D</span> investment (especially in <span class="key-term">EVs</span> and <span class="key-term">autonomous driving</span>), complex global <span class="key-term">supply chains</span>, strong branding, and extensive regulation. Highly cyclical and undergoing a major transition towards electrification.</p>
+                    <p><em>Rule of Thumb: Unit sales, inventory levels, and regional market share are critical metrics. High fixed costs mean profitability is sensitive to volume.</em></p>
+                </div>
+                <a href="html/automotive.html" class="view-details-link">View Full Primer &raquo;</a>
+            </article>
+            <article class="primer-summary-card" data-title="Consumer Products" data-keywords="retail staples discretionary brands CPG e-commerce DTC FCF Procter & Gamble Unilever Nestle Coca-Cola PepsiCo consumer packaged goods branding supply chain inflation">
+                <h3>Consumer Products</h3>
+                <div class="primer-initial-summary">
+                    <p>The consumer products sector encompasses companies that manufacture and/or sell goods directly to consumers. It's a vast industry, broadly categorized into <span class="key-term">Consumer Staples</span> (food, beverages, household items - less cyclical) and <span class="key-term">Consumer Discretionary</span> (apparel, appliances, luxury goods - more cyclical). Key drivers include brand strength, distribution networks, <span class="key-term">e-commerce</span> penetration, and input cost management.</p>
+                    <p><em>Historical Analysis: Track shifts in consumer preferences (e.g., health & wellness, sustainability) and the impact of private labels.</em></p>
+                </div>
+                <a href="html/consumer_products.html" class="view-details-link">View Full Primer &raquo;</a>
+            </article>
+            <article class="primer-summary-card" data-title="Corporate Credit Rating Fundamentals" data-keywords="ratings S&P Moody's Fitch investment grade speculative bonds FFO EBITDA leverage coverage default risk creditworthiness financial ratios methodology bond ratings">
+                <h3>Corporate Credit Rating Fundamentals</h3>
+                <div class="primer-initial-summary">
+                    <p>Credit <span class="key-term">ratings</span> are opinions from agencies like <span class="key-term">S&P</span>, <span class="key-term">Moody's</span>, and <span class="key-term">Fitch</span> about the creditworthiness of an issuer or a specific debt obligation. They assess default probability and are crucial for market access and borrowing costs. Understanding the methodologies (qualitative and quantitative factors) is key for analysts.</p>
+                    <p><em>Teacher Note: Emphasize the difference between issuer credit ratings and issue-specific ratings, and the impact of ratings on bond yields and investor mandates.</em></p>
+                </div>
+                <a href="html/corporate_credit_rating_fundamentals.html" class="view-details-link">View Full Primer &raquo;</a>
+            </article>
+            <article class="primer-summary-card" data-title="Energy Oil Gas" data-keywords="oil gas E&P midstream downstream drilling WTI Brent LNG FCF EBITDAX reserves commodity prices OPEC ExxonMobil Chevron Shell BP exploration production refining pipelines">
+                <h3>Energy Oil & Gas</h3>
+                <div class="primer-initial-summary">
+                    <p>The oil and gas industry is involved in exploration & production (<span class="key-term">E&P</span> - upstream), transportation (<span class="key-term">midstream</span>), and refining & marketing (<span class="key-term">downstream</span>). Highly sensitive to volatile <span class="key-term">commodity prices</span> (e.g., <span class="key-term">WTI</span>, <span class="key-term">Brent</span>), geopolitical events, and increasing focus on energy transition. Key metrics include reserve life, production costs, and refining margins.</p>
+                    <p><em>Guided Learning: Analyze how different oil price scenarios impact the FCF and leverage of E&P companies versus more fee-based midstream operators.</em></p>
+                </div>
+                <a href="html/energy_oil_gas.html" class="view-details-link">View Full Primer &raquo;</a>
+            </article>
+            <article class="primer-summary-card" data-title="Financial Institutions" data-keywords="banks insurance asset management fintech regulation NPLs NIM CET1 LCR interest rates capital adequacy JPMorgan Chase Bank of America Citigroup Wells Fargo non-performing loans net interest margin">
+                <h3>Financial Institutions</h3>
+                <div class="primer-initial-summary">
+                    <p><span class="key-term">Financial institutions</span> (FIs) include banks, insurance companies, and asset managers. Highly <span class="key-term">regulated</span> and sensitive to <span class="key-term">interest rates</span>, credit cycles, and market volatility. Key areas for banks include <span class="key-term">Net Interest Margin (NIM)</span>, asset quality (<span class="key-term">NPLs</span>), and <span class="key-term">capital adequacy (CET1)</span>. Insurance focuses on underwriting profit and investment returns.</p>
+                    <p><em>Case Study: Compare the balance sheet structure and key risks of a commercial bank versus a property & casualty insurer.</em></p>
+                </div>
+                <a href="html/financial_institutions.html" class="view-details-link">View Full Primer &raquo;</a>
+            </article>
+            <article class="primer-summary-card" data-title="Healthcare" data-keywords="pharma biotech medical devices hospitals insurers FDA MLR R&D patent drug pipeline reimbursement Johnson & Johnson Pfizer Merck AbbVie pharmaceuticals biotechnology healthcare providers managed care">
+                <h3>Healthcare</h3>
+                <div class="primer-initial-summary">
+                    <p>The healthcare industry encompasses pharmaceuticals (<span class="key-term">pharma</span>), <span class="key-term">biotechnology</span>, medical devices, healthcare providers (hospitals), and insurers. Driven by innovation (<span class="key-term">R&D</span>, <span class="key-term">drug pipelines</span>), demographic trends (aging population), and complex <span class="key-term">reimbursement</span> systems. <span class="key-term">Patent</span> cliffs are a major risk for pharma.</p>
+                    <p><em>Peer Comparison: Analyze R&D productivity and pipeline diversification across major pharmaceutical companies.</em></p>
+                </div>
+                <a href="html/healthcare.html" class="view-details-link">View Full Primer &raquo;</a>
+            </article>
+            <article class="primer-summary-card" data-title="Industrials" data-keywords="manufacturing machinery construction logistics aerospace cyclical capex ROIC GDP PMI General Electric Honeywell Caterpillar Siemens industrial production capital expenditures">
+                <h3>Industrials</h3>
+                <div class="primer-initial-summary">
+                    <p>The industrials sector is broad, covering machinery, construction, aerospace components (distinct from A&D primes), transportation, and business services. Generally <span class="key-term">cyclical</span> and tied to <span class="key-term">GDP</span> growth and <span class="key-term">capital expenditures (capex)</span>. Key metrics include order backlogs, capacity utilization, and <span class="key-term">Return on Invested Capital (ROIC)</span>.</p>
+                    <p><em>Trends Overview: Monitor purchasing managers' indexes (PMI) as leading indicators for industrial activity.</em></p>
+                </div>
+                <a href="html/industrials.html" class="view-details-link">View Full Primer &raquo;</a>
+            </article>
+            <article class="primer-summary-card" data-title="Media" data-keywords="broadcasting publishing streaming advertising gaming SVOD ARPU DTC FCF content creation intellectual property Disney Netflix Comcast Warner Bros Discovery traditional media digital media subscription video on demand average revenue per user">
+                <h3>Media</h3>
+                <div class="primer-initial-summary">
+                    <p>The media industry includes traditional broadcasters, publishers, and film studios, as well as newer digital players in <span class="key-term">streaming</span> (e.g., Netflix, Disney+), gaming, and social media. Business models are shifting from <span class="key-term">advertising</span>-based to subscription (<span class="key-term">SVOD</span>) and direct-to-consumer (<span class="key-term">DTC</span>). Content is king, but costly.</p>
+                    <p><em>Developer Note: The definition of "Media" can overlap with "Technology" (for streaming platforms) and "Telecommunications" (for cable distributors). This primer focuses on content creation and traditional/digital media business models.</em></p>
+                </div>
+                <a href="html/media.html" class="view-details-link">View Full Primer &raquo;</a>
+            </article>
+            <article class="primer-summary-card" data-title="Real Estate" data-keywords="REITs property development commercial residential office retail industrial NOI FFO WALE LTV cap rates interest rates property types Simon Property Group Prologis CBRE Real Estate Investment Trusts Net Operating Income Funds From Operations">
+                <h3>Real Estate</h3>
+                <div class="primer-initial-summary">
+                    <p>The real estate sector includes <span class="key-term">REITs</span>, developers, and operators of commercial (office, retail, industrial), residential, and specialized properties. Sensitive to <span class="key-term">interest rates</span>, economic growth, and local market dynamics. Key metrics include <span class="key-term">Net Operating Income (NOI)</span>, <span class="key-term">Funds From Operations (FFO)</span>, occupancy rates, and <span class="key-term">cap rates</span>.</p>
+                    <p><em>Student Note: Understand the different types of REITs (e.g., equity vs. mortgage) and how their risk profiles differ.</em></p>
+                </div>
+                <a href="html/real_estate.html" class="view-details-link">View Full Primer &raquo;</a>
+            </article>
+            <article class="primer-summary-card" data-title="Technology" data-keywords="software hardware IT services internet cloud AI cybersecurity SaaS IoT FCF R&D innovation disruption Apple Microsoft Alphabet Amazon Meta Nvidia Software as a Service Internet of Things artificial intelligence">
+                <h3>Technology</h3>
+                <div class="primer-initial-summary">
+                    <p>The <span class="key-term">technology</span> sector is characterized by rapid <span class="key-term">innovation</span>, short product lifecycles, and intense competition. Includes <span class="key-term">software</span> (<span class="key-term">SaaS</span>), <span class="key-term">hardware</span>, semiconductors, IT services, internet platforms, <span class="key-term">cloud computing</span>, <span class="key-term">AI</span>, and <span class="key-term">cybersecurity</span>. High <span class="key-term">R&D</span> spending and focus on growth, often with high valuations.</p>
+                    <p><em>Tips & Tricks: For SaaS companies, focus on metrics like Annual Recurring Revenue (ARR), customer acquisition cost (CAC), lifetime value (LTV), and churn rate.</em></p>
+                </div>
+                <a href="html/technology.html" class="view-details-link">View Full Primer &raquo;</a>
+            </article>
+            <article class="primer-summary-card" data-title="Telecommunications" data-keywords="telecom wireless wireline 5G broadband towers ARPU spectrum FCF capex regulation Verizon AT&T T-Mobile Comcast fixed line mobile infrastructure Average Revenue Per User capital intensity">
+                <h3>Telecommunications</h3>
+                <div class="primer-initial-summary">
+                    <p>The telecommunications (<span class="key-term">telecom</span>) industry provides wireless and wireline voice/data services, <span class="key-term">broadband</span> internet, and owns infrastructure like <span class="key-term">towers</span> and <span class="key-term">fiber networks</span>. Characterized by high <span class="key-term">capex</span> (especially for <span class="key-term">5G</span> buildout), competition, and regulation. Key metrics: <span class="key-term">Average Revenue Per User (ARPU)</span>, churn, subscriber growth.</p>
+                    <p><em>Teacher Note: Discuss the impact of spectrum auctions and regulatory policies on telecom investment and competition.</em></p>
+                </div>
+                <a href="html/telecommunications.html" class="view-details-link">View Full Primer &raquo;</a>
+            </article>
+            <article class="primer-summary-card" data-title="Utilities" data-keywords="electricity gas water power generation T&D regulated ROE FFO rate base capex renewable energy NextEra Energy Duke Energy Southern Company Exelon regulated utilities independent power producers (IPPs) energy transition">
+                <h3>Utilities</h3>
+                <div class="primer-initial-summary">
+                    <p>The utilities sector comprises companies providing essential services like <span class="key-term">electricity</span>, natural <span class="key-term">gas</span>, and <span class="key-term">water</span>. Often <span class="key-term">regulated</span>, offering stable, predictable returns (<span class="key-term">Return on Equity - ROE</span> set by regulators on <span class="key-term">rate base</span>). Significant <span class="key-term">capex</span> for infrastructure maintenance and modernization (e.g., grid hardening, <span class="key-term">renewable energy</span> integration).</p>
+                    <p><em>Guided Learning: Examine a utility's rate case filings to understand how tariffs are set and how capital investment is recovered.</em></p>
+                </div>
+                <a href="html/utilities.html" class="view-details-link">View Full Primer &raquo;</a>
+            </article>
+        </main>
+
+        <footer class="page-footer">
+            <p>&copy; <span id="currentYear"></span> Primer Analysis Tool - Credit Risk Development Program</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+<!--
+    DEVELOPER NOTE: The following HTML block was part of a merge conflict.
+    It represents an alternative structure for this page where all primer content is embedded with accordions.
+    It has been commented out to preserve the code, as per user request, while the version above is active.
+    This commented-out version appears to be more of a single-page application for all primer details,
+    rather than a navigator to separate HTML files. It also had a different, simpler list at the very end.
 
 =======
 
