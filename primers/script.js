@@ -4,6 +4,9 @@
 // 2. "Quick Read" and "Toggle All Sections" functionality on separate detail pages (`primers/html/*.html`).
 // 3. Print preparation for detail pages.
 // MODIFIED: Added logic for dynamic Markdown loading on `primers/index.html`.
+=======
+// The conflicting secondary JavaScript block (which handled different element IDs and logic for embedded accordions on the index page)
+// has been commented out at the end of this file to preserve it.
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -14,9 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- MAIN INDEX PAGE (`primers/index.html`) SPECIFIC LOGIC ---
+    // Handles search functionality for the primer navigator page.
     const mainIndexSearch = document.getElementById('mainIndexSearch');
     const primerSummaryCards = document.querySelectorAll('.primers-list-container .primer-summary-card'); // Updated selector
     const primerContentDisplay = document.getElementById('primer-content-display');
+
 
     if (mainIndexSearch && primerSummaryCards.length > 0 && primerContentDisplay) {
         // Search functionality for the primer navigator page.
@@ -26,10 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const title = card.dataset.title ? card.dataset.title.toLowerCase() : '';
                 const keywords = card.dataset.keywords ? card.dataset.keywords.toLowerCase() : '';
                 const summaryTextElement = card.querySelector('.primer-initial-summary');
+
                 const summaryText = summaryTextElement ? summaryTextElement.textContent.toLowerCase() : '';
+
 
                 if (title.includes(searchTerm) || keywords.includes(searchTerm) || summaryText.includes(searchTerm)) {
                     card.style.display = 'flex'; // Assuming cards are flex containers, or adjust as per your CSS
+
                 } else {
                     card.style.display = 'none';
                 }
@@ -112,17 +120,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const detailPageQuickReadBtn = document.getElementById('detailPageQuickReadBtn');
     const isDetailPage = document.querySelector('.detail-page-header') !== null;
 
+=======
+    // Check if we are on a detail page by looking for a unique element, like the quick read button or specific header structure.
+    // For example, we can check if '.detail-page-header' exists.
+
     if (isDetailPage) {
         const pageContainerForQuickRead = document.querySelector('.detail-page-container') || document.body;
         const detailPageToggleAllBtn = document.querySelector('.detail-page-controls .toggle-all-sections-btn');
-        const detailPageSections = document.querySelectorAll('.primer-detail-content .primer-section-accordion');
+        const detailPageSections = document.querySelectorAll('.primer-detail-content .primer-section-accordion'); // These are <details> elements
 
         if (detailPageToggleAllBtn && detailPageSections.length > 0) {
+
+            // Initial state setup
             let allInitiallyOpen = Array.from(detailPageSections).every(section => section.hasAttribute('open'));
             detailPageToggleAllBtn.textContent = allInitiallyOpen ? 'Collapse All Sections' : 'Expand All Sections';
             detailPageToggleAllBtn.setAttribute('aria-expanded', allInitiallyOpen.toString());
 
             detailPageToggleAllBtn.addEventListener('click', () => {
+                // Check current state: if any are closed, open all. Otherwise, close all.
                 let shouldOpenAll = Array.from(detailPageSections).some(section => !section.hasAttribute('open'));
                 detailPageSections.forEach(section => {
                     shouldOpenAll ? section.setAttribute('open', '') : section.removeAttribute('open');
@@ -131,6 +146,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 detailPageToggleAllBtn.setAttribute('aria-expanded', shouldOpenAll.toString());
             });
 
+
+            // Update button if individual sections are toggled
             detailPageSections.forEach(section => {
                 section.addEventListener('toggle', () => {
                     const allAreOpen = Array.from(detailPageSections).every(s => s.hasAttribute('open'));
@@ -141,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (detailPageQuickReadBtn && pageContainerForQuickRead) {
+
             detailPageQuickReadBtn.textContent = 'Enable Quick Read';
             detailPageQuickReadBtn.setAttribute('aria-pressed', 'false');
 
@@ -150,10 +168,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 detailPageQuickReadBtn.textContent = isActive ? 'Disable Quick Read' : 'Enable Quick Read';
                 detailPageQuickReadBtn.setAttribute('aria-pressed', isActive.toString());
 
-                if (isActive) {
+                if (isActive) { // When Quick Read is activated
                     detailPageSections.forEach(section => {
-                        section.removeAttribute('open');
+                        section.removeAttribute('open'); // Close all sections
                     });
+                    // Ensure the "Toggle All" button reflects this state if it exists
                     if (detailPageToggleAllBtn) {
                         detailPageToggleAllBtn.textContent = 'Expand All Sections';
                         detailPageToggleAllBtn.setAttribute('aria-expanded', 'false');
@@ -162,29 +181,40 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+
+        // Print Preparation for detail page: Open all accordions before printing
+
         if (typeof window.matchMedia === 'function' && detailPageSections.length > 0) {
             let wasQuickReadActiveBeforePrint = false;
             const mediaQueryList = window.matchMedia('print');
 
             mediaQueryList.addListener((mql) => {
-                if (mql.matches) {
+
+                if (mql.matches) { // Before print
+                    // Temporarily disable quick read mode if active
+
                     if (pageContainerForQuickRead) {
                         wasQuickReadActiveBeforePrint = pageContainerForQuickRead.classList.contains('quick-read-active');
                         if (wasQuickReadActiveBeforePrint) {
                             pageContainerForQuickRead.classList.remove('quick-read-active');
                         }
                     }
+                    // Open all <details> elements
                     detailPageSections.forEach(detailsEl => {
                         detailsEl.setAttribute('open', '');
                     });
-                } else {
+
+                } else { // After print
+                    // Restore quick read mode if it was active
                     if (pageContainerForQuickRead && wasQuickReadActiveBeforePrint) {
                         pageContainerForQuickRead.classList.add('quick-read-active');
-                        if(detailPageQuickReadBtn) {
+                        if(detailPageQuickReadBtn) { // Also restore button text
                              detailPageQuickReadBtn.textContent = 'Disable Quick Read';
                              detailPageQuickReadBtn.setAttribute('aria-pressed', 'true');
                         }
                     }
+                    // Optional: Restore "Toggle All" button state if needed, though opening all for print is usually fine.
+                    // Current behavior: after print, all sections remain open, and toggle button says "Collapse All". This is acceptable.
                     if (detailPageToggleAllBtn) {
                        const allAreOpen = Array.from(detailPageSections).every(s => s.hasAttribute('open'));
                        detailPageToggleAllBtn.textContent = allAreOpen ? 'Collapse All Sections' : 'Expand All Sections';
@@ -226,6 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //            }
 //        });
 //    }
+
 
 //    // 2. "Toggle All Sections" Button per Primer Card
 //    primerCards.forEach(card => {

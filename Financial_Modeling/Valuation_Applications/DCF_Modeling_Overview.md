@@ -63,6 +63,7 @@ WACC is the average rate of return a company needs to earn to satisfy all its in
     *   It's the *pre-tax* cost of debt because interest expense is tax-deductible, which is accounted for by the `(1 - Tax Rate)` term in the WACC formula.
     *   *Interactive Exploration:* For a hands-on calculation of WACC and to see how these components interact, refer to the [Interactive WACC Calculator Guide](../../Interactive_Notebooks/Valuation_Components/README.md) and its [accompanying Jupyter Notebook](../../Interactive_Notebooks/Valuation_Components/InteractiveWACCCalculatorNotebook.ipynb).
 
+
 ### 2.3. Terminal Value (TV)
 Since it's impractical to forecast cash flows indefinitely, a Terminal Value is calculated to represent the value of all cash flows beyond the explicit projection period.
 
