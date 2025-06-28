@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Modeling Hub</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/style.css"> <!-- Assuming a shared style -->
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
+        .fm-container { max-width: 960px; margin: auto; overflow: auto; padding: 20px; background: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        /* Basic styling for rendered Markdown content */
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: #333; margin-top: 1em; margin-bottom: 0.5em; padding-bottom: 0.2em; border-bottom: 1px solid #eee;}
+        .markdown-body h1 { font-size: 2em; }
+        .markdown-body h2 { font-size: 1.75em; }
+        .markdown-body h3 { font-size: 1.5em; }
+        .markdown-body p { margin-bottom: 1em; }
+        .markdown-body ul, .markdown-body ol { margin-left: 20px; margin-bottom: 1em; }
+        .markdown-body li { margin-bottom: 0.5em; }
+        .markdown-body table { border-collapse: collapse; width: auto; margin-bottom: 1em; }
+        .markdown-body th, .markdown-body td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        .markdown-body th { background-color: #f0f0f0; }
+        .markdown-body code { background-color: #eee; padding: 2px 4px; border-radius: 3px; font-family: monospace; }
+        .markdown-body pre code { display: block; padding: 10px; background-color: #eee; white-space: pre-wrap;}
+        .back-link-container { margin-bottom: 20px; padding: 10px; background-color: #e9ecef; border-radius: 5px; text-align: center;}
+        .back-link-container a { text-decoration: none; color: #007bff; font-weight: bold;}
+    </style>
+</head>
+<body>
+    <div class="fm-container">
+        <div class="back-link-container">
+            <a href="../home.html">&laquo; Back to Main Hub</a>
+        </div>
+        <div id="markdown-content" class="markdown-body">
+            <p>Loading content...</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const contentDisplay = document.getElementById('markdown-content');
+            const readmePath = 'README.md'; // Path to the README.md in the same directory
+
+            if (!contentDisplay) {
+                console.error("Content display element not found.");
+                return;
+            }
+            if (typeof marked === 'undefined') {
+                console.error("Marked.js library not found.");
+                contentDisplay.innerHTML = "<p>Error: Markdown renderer not available.</p>";
+                return;
+            }
+
+            try {
+                const response = await fetch(readmePath);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch ${readmePath}: ${response.status} ${response.statusText}`);
+                }
+                const markdownText = await response.text();
+                contentDisplay.innerHTML = marked.parse(markdownText);
+            } catch (error) {
+                console.error("Error loading or parsing Markdown:", error);
+                contentDisplay.innerHTML = `<p>Error loading content for ${readmePath}.</p><p><small>${error.message}</small></p>`;
+            }
+        });
+    </script>
+</body>
+</html>

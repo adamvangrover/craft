@@ -24,6 +24,8 @@ This section will be organized into sub-directories covering:
 *   **Templates:** Placeholder or actual downloadable templates for various financial models (e.g., 3-statement models, DCF models, LBO models).
 *   **Forecasting_Techniques:** Discussions on methods for forecasting revenues, expenses, balance sheet items, and cash flows.
 *   **Valuation_Applications:** How financial models are used in different valuation contexts (e.g., DCF valuation, comparable company analysis support).
+    *   Explore an [Interactive WACC Calculator Guide](../Interactive_Notebooks/Valuation_Components/README.md) and its [Jupyter Notebook](../Interactive_Notebooks/Valuation_Components/InteractiveWACCCalculatorNotebook.ipynb) to understand a key input for DCF models.
+    *   See also the [Interactive Equity Valuation Notebook Guide](../Interactive_Notebooks/Financial_Modeling/README.md) for DCF, Comps, and Bond Pricing examples.
 *   **Industry_Specific_Models:** Examples or considerations for models tailored to specific industries (e.g., banking, real estate, natural resources). *(Future Addition)*
 *   **Model_Auditing_and_Testing:** Techniques for checking model accuracy and robustness. *(Future Addition)*
 

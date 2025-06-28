@@ -1,0 +1,116 @@
+{
+  "metadata": {
+    "document_type": "Illustrative Credit Agreement Excerpts",
+    "version": "1.0",
+    "disclaimer": "These are generic, illustrative examples for educational purposes only and do not represent any actual credit agreement. Always consult with legal professionals for actual legal document interpretation."
+  },
+  "definitions": [
+    {
+      "term": "Adjusted EBITDA",
+      "definition": "Means, for any period, the sum of (a) Consolidated Net Income for such period, plus (b) to the extent deducted in calculating Consolidated Net Income, the sum of (i) interest expense, (ii) income tax expense, (iii) depreciation and amortization expense, (iv) extraordinary, non-recurring or unusual losses or expenses (including restructuring charges), (v) transaction expenses related to any Permitted Acquisition or Disposition, and (vi) other non-cash charges acceptable to the Administrative Agent, all determined on a consolidated basis in accordance with GAAP. Specific add-backs and caps for certain items may apply as further detailed in the full agreement.",
+      "notes": "Crucial for financial covenant calculations. The permissiveness of add-backs is a key negotiation point."
+    },
+    {
+      "term": "Change of Control",
+      "definition": "Shall be deemed to have occurred if (a) any 'person' or 'group' (within the meaning of Sections 13(d) and 14(d) of the Exchange Act) becomes the 'beneficial owner' (as defined in Rules 13d-3 and 13d-5 under the Exchange Act), directly or indirectly, of more than 50% of the total voting power of the then outstanding voting stock of the Borrower; or (b) during any period of 12 consecutive months, a majority of the members of the board of directors or other equivalent governing body of the Borrower cease to be composed of individuals (i) who were members of that board or equivalent governing body on the first day of such period, (ii) whose election or nomination to that board or equivalent governing body was approved by individuals referred to in clause (i) above constituting at the time of such election or nomination at least a majority of that board or equivalent governing body or (iii) whose election or nomination to that board or other equivalent governing body was approved by investors constituting the Permitted Holders.",
+      "notes": "A Change of Control is typically an Event of Default, or may trigger mandatory prepayment obligations or put rights for lenders."
+    },
+    {
+      "term": "Permitted Indebtedness",
+      "definition": "A defined list of types and amounts of debt that the Borrower and its Subsidiaries are allowed to incur. This typically includes existing debt at closing, capital leases, intercompany debt, and a general basket for other debt up to a specified amount or leverage ratio test.",
+      "notes": "Restricts the company from over-leveraging itself with new debt that could subordinate or dilute existing lenders."
+    }
+  ],
+  "affirmative_covenants": [
+    {
+      "clause_name": "Financial Statements",
+      "description": "Borrower shall furnish to the Administrative Agent (for distribution to Lenders): (a) within 90 days after the end of each fiscal year, audited consolidated financial statements; (b) within 45 days after the end of each of the first three fiscal quarters, unaudited consolidated financial statements; (c) concurrently with delivery of financial statements, a Compliance Certificate.",
+      "analyst_focus": "Timeliness and completeness of reporting. Any qualifications in auditor's opinion."
+    },
+    {
+      "clause_name": "Payment of Obligations",
+      "description": "Borrower will, and will cause each of its Subsidiaries to, pay and discharge all Taxes, assessments, and governmental charges or levies imposed upon it or upon its income or profits or in respect of its property, before the same shall become delinquent or in default; provided, however, that such payment and discharge shall not be required with respect to any such Tax, assessment, charge, or levy so long as the validity or amount thereof shall be contested in good faith by appropriate proceedings and the Borrower shall have set aside on its books adequate reserves with respect thereto in accordance with GAAP.",
+      "analyst_focus": "Ensures company meets its statutory obligations, preventing liens that could prime lenders."
+    }
+  ],
+  "negative_covenants": [
+    {
+      "clause_name": "Limitation on Liens (Negative Pledge)",
+      "description": "Borrower will not, and will not permit any Subsidiary to, create, incur, assume or suffer to exist any Lien upon any of its property, assets or revenues, whether now owned or hereafter acquired, other than Permitted Liens.",
+      "analyst_focus": "Critical for secured lenders to maintain priority. 'Permitted Liens' section needs careful review."
+    },
+    {
+      "clause_name": "Limitation on Indebtedness",
+      "description": "Borrower will not, and will not permit any Subsidiary to, create, incur, assume or suffer to exist any Indebtedness, other than Permitted Indebtedness.",
+      "analyst_focus": "Prevents excessive leverage. Definition of 'Indebtedness' and 'Permitted Indebtedness' are key."
+    },
+    {
+      "clause_name": "Limitation on Restricted Payments",
+      "description": "Borrower will not, and will not permit any Subsidiary to, declare or make, directly or indirectly, any Restricted Payment, or incur any obligation (contingent or otherwise) to do so, except that: (a) [specific exceptions for tax distributions, etc.] (b) so long as no Default or Event of Default shall have occurred and be continuing or would result therefrom, the Borrower may make other Restricted Payments if, after giving effect thereto, the [Consolidated Leverage Ratio / Fixed Charge Coverage Ratio] is less than/greater than [X.Xx] on a Pro Forma Basis, and/or subject to an available amount basket built from Net Income or other measures.",
+      "analyst_focus": "Protects cash from being 'leaked' to equity holders. Tests and baskets determine flexibility."
+    }
+  ],
+  "financial_covenants": [
+    {
+      "covenant_name": "Consolidated Leverage Ratio",
+      "test": "Consolidated Total Debt to Consolidated Adjusted EBITDA not to exceed [X.Xx] as of the last day of any fiscal quarter.",
+      "frequency": "Quarterly",
+      "type": "Maintenance",
+      "notes": "Primary measure of leverage. Definition of Adjusted EBITDA is critical."
+    },
+    {
+      "covenant_name": "Consolidated Fixed Charge Coverage Ratio (FCCR)",
+      "test": "Consolidated Adjusted EBITDA less Unfinanced Capital Expenditures to Consolidated Fixed Charges to be not less than [Y.Yx] for any period of four consecutive fiscal quarters.",
+      "frequency": "Quarterly (tested on LTM basis)",
+      "type": "Maintenance",
+      "notes": "Measures ability to cover all fixed charges (interest, scheduled principal, capex, taxes, sometimes leases/dividends)."
+    }
+  ],
+  "events_of_default": [
+    {
+      "event": "Non-Payment",
+      "description": "Borrower fails to pay (a) any principal of any Loan when and as the same shall become due and payable, whether at the due date thereof or at a date fixed for prepayment thereof or otherwise; (b) any interest on any Loan or any fee or any other amount payable under this Agreement when due, and such failure under this clause (b) shall continue unremedied for a period of [3-5] Business Days.",
+      "notes": "The most fundamental default. Grace period for interest/fees is common."
+    },
+    {
+      "event": "Breach of Covenants",
+      "description": "Any representation or warranty made by any Loan Party herein shall prove to have been incorrect in any material respect when made; or any Loan Party shall fail to observe or perform any covenant, condition or agreement contained in [Section X - Negative Covenants] or [Section Y - Financial Covenants].",
+      "notes": "Breach of negative or financial covenants often has no grace period, or a very short one for affirmative covenants."
+    },
+    {
+      "event": "Cross-Default",
+      "description": "Any Loan Party or any Subsidiary (A) fails to make any payment when due (whether by scheduled maturity, required prepayment, acceleration, demand, or otherwise) in respect of any Material Indebtedness (other than Indebtedness hereunder); or (B) fails to observe or perform any other agreement or condition relating to any such Material Indebtedness or contained in any instrument or agreement evidencing, securing or relating thereto, or any other event occurs, the effect of which default or other event is to cause, or to permit the holder or holders of such Material Indebtedness to cause, with the giving of notice if required, such Material Indebtedness to be demanded or to become due or to be repurchased, prepaid, defeased or redeemed (automatically or otherwise), prior to its stated maturity. 'Material Indebtedness' typically defined as debt exceeding a certain dollar threshold.",
+      "notes": "A default on other significant debt can trigger a default under this agreement."
+    },
+    {
+      "event": "Bankruptcy / Insolvency",
+      "description": "Any Loan Party or any Material Subsidiary institutes or consents to the institution of any proceeding under any Debtor Relief Law, or makes an assignment for the benefit of creditors; or applies for or consents to the appointment of any receiver, trustee, custodian, conservator, liquidator, rehabilitator or similar officer for it or for all or any material part of its property.",
+      "notes": "Automatic default upon bankruptcy filing."
+    }
+  ],
+  "remedies": [
+    {
+      "remedy_name": "Acceleration",
+      "description": "Upon an Event of Default (other than bankruptcy, which is automatic), the Administrative Agent may, and at the request of the Required Lenders shall, declare the principal of all Loans then outstanding, together with accrued interest thereon and all fees and other obligations of the Borrower accrued hereunder, to be immediately due and payable.",
+      "notes": "Allows lenders to demand immediate repayment of the entire loan."
+    },
+    {
+      "remedy_name": "Exercise Rights to Collateral (for Secured Loans)",
+      "description": "If any Event of Default shall have occurred and be continuing, the Collateral Agent may exercise in respect of the Collateral, in addition to other rights and remedies provided for herein or otherwise available to it, all the rights and remedies of a secured party under the Uniform Commercial Code (UCC) or any other applicable law.",
+      "notes": "For secured loans, lenders can seize and sell collateral to recover amounts owed."
+    }
+  ],
+  "waterfall_concept": {
+    "name": "Illustrative Payment Waterfall (Simplified)",
+    "description": "In many structured financings or upon enforcement, proceeds are distributed according to a pre-defined priority. This is a conceptual example for cash flow distribution:",
+    "priority": [
+      "1. Administrative Agent fees and expenses.",
+      "2. Pro rata payment of accrued interest to Lenders.",
+      "3. Pro rata payment of outstanding principal to Lenders.",
+      "4. Payment of any other secured obligations.",
+      "5. Payment of unsecured obligations.",
+      "6. Distribution to equity holders (if any funds remain)."
+    ],
+    "notes": "Actual waterfalls are highly complex and specific to each deal. Collateral proceeds waterfalls in secured deals dictate priority among different tranches of secured debt based on lien priority."
+  }
+}
