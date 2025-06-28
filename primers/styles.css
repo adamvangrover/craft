@@ -1,12 +1,11 @@
+/* DEVELOPER NOTE: Merge conflict resolved.
+   The CSS rules below are the primary version, supporting the navigator-style primers/index.html
+   and its linked detail pages (primers/html/*.html).
+   The conflicting secondary CSS block has been commented out at the end of this file to preserve it.
+*/
+
 /* === GLOBAL STYLES & RESETS === */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-/* Global Styles & Resets */
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -77,6 +76,14 @@ body {
 .primer-summary-card .primer-initial-summary p .key-term { /* Key terms in summary on index */
     font-size: 1em; /* Reset from smaller key-term if needed */
 }
+.primer-summary-card .primer-initial-summary p em { /* Style for tips/notes */
+    font-style: italic;
+    color: #6c757d;
+    font-size: 0.95em;
+    display: block;
+    margin-top: 5px;
+}
+
 
 .view-details-link {
     display: inline-block;
@@ -87,7 +94,7 @@ body {
     border-radius: 4px;
     text-decoration: none;
     font-weight: 500;
-    margin-top: auto;
+    margin-top: auto; /* Pushes button to bottom of card */
     transition: background-color 0.2s;
 }
 .view-details-link:hover {
@@ -95,6 +102,7 @@ body {
 }
 
 /* === DETAIL PAGE (`primers/html/*.html`) STYLES === */
+/* These styles apply to the individual primer detail pages that are linked from index.html */
 .detail-page-header { /* Uses .page-header flex properties */ }
 .detail-page-header h1 { /* Uses .page-header h1 */ }
 
@@ -141,61 +149,66 @@ body {
 }
 .toggle-all-sections-btn:hover { background-color: #2c3e50; }
 
-.primer-detail-content { } /* No specific styles needed for this wrapper */
+.primer-detail-content { /* Wrapper for the detailed content sections */ }
 
-.primer-initial-summary-detailed-page {
+.primer-initial-summary-detailed-page { /* Summary box at top of detail page */
     padding: 15px 20px;
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
+    background-color: #f0f4f8; /* Slightly different background for emphasis */
+    border: 1px solid #d6e0ea;
     border-radius: 6px;
     margin-bottom: 20px;
 }
 .primer-initial-summary-detailed-page p {
-     font-size: 0.95em; color: #495057; margin-bottom:0;
+     font-size: 0.95em; color: #333; margin-bottom:0;
 }
 .primer-initial-summary-detailed-page p .key-term {
-    font-size: 1em; /* Reset from smaller key-term if used globally */
+    font-size: 1em;
 }
 
 
-/* === SHARED STYLES FOR PRIMER DETAILS (Accordions, Content) === */
-.primer-content-sections {
-    padding: 0; /* Accordions will have their own padding/margins */
+/* === SHARED STYLES FOR PRIMER DETAILS (Accordions, Content on detail pages) === */
+.primer-content-sections { /* Container for all <details> accordions */
+    padding: 0;
 }
 .primer-section-accordion { border-bottom: 1px solid #e0e0e0; }
 .primer-section-accordion:last-child { border-bottom: none; }
-.primer-section-title {
-    padding: 12px 0;
+
+.primer-section-title { /* This is the <summary> tag */
+    padding: 12px 0; /* More vertical padding */
     cursor: pointer; font-weight: bold; font-size: 1.1em; color: #2c3e50;
     list-style: none; display: flex; align-items: center;
     transition: background-color 0.2s; position: relative;
 }
-.primer-section-title::-webkit-details-marker { display: none; }
-.primer-section-title::marker { display: none; }
-.primer-section-title:hover { background-color: #f0f8ff; }
-.primer-section-title::before {
+.primer-section-title::-webkit-details-marker { display: none; } /* Hide default marker */
+.primer-section-title::marker { display: none; } /* Hide default marker FF */
+.primer-section-title:hover { background-color: #f0f8ff; } /* Light blue hover */
+
+.primer-section-title::before { /* Custom accordion marker */
     content: '▶'; font-size: 0.8em; margin-right: 10px; display: inline-block;
     transition: transform 0.2s ease-in-out; color: #3498db;
 }
 .primer-section-accordion[open] > .primer-section-title::before { transform: rotate(90deg); }
-.section-icon { margin-right: 8px; font-size: 1.2em; display: inline-block; width: 20px; text-align: center; }
-.section-icon-default { color: #007bff; }
-.section-icon-trends { color: #28a745; }
-.section-icon-risks { color: #dc3545; }
-.section-icon-tips { color: #ffc107; }
-.section-icon-metrics { color: #6f42c1; }
 
-.primer-section-content {
-    padding: 15px 0 15px 10px;
+.section-icon { margin-right: 8px; font-size: 1.2em; display: inline-block; width: 20px; text-align: center; }
+.section-icon-default { color: #007bff; } /* Blue */
+.section-icon-trends { color: #28a745; } /* Green */
+.section-icon-risks { color: #dc3545; } /* Red */
+.section-icon-tips { color: #ffc107; } /* Yellow */
+.section-icon-metrics { color: #6f42c1; } /* Purple */
+
+.primer-section-content { /* Content inside the <details> tag */
+    padding: 15px 0 15px 10px; /* Add some left padding to indent from title */
     font-size: 0.9em;
-    border-top: 1px dashed #ced4da;
+    border-top: 1px dashed #ced4da; /* Separator line from summary */
 }
+/* Themed backgrounds and borders for different section types for visual distinction */
 .section-type-overview > .primer-section-content,
 .section-type-general > .primer-section-content { background-color: #ffffff; border-left: 3px solid #adb5bd; padding-left: calc(10px + 3px); }
 .section-type-risks > .primer-section-content { background-color: #fff6f6; border-left: 3px solid #dc3545; padding-left: calc(10px + 3px); }
 .section-type-tips > .primer-section-content { background-color: #f3fff3; border-left: 3px solid #28a745; padding-left: calc(10px + 3px); }
 .section-type-metrics > .primer-section-content { background-color: #f5f3ff; border-left: 3px solid #6f42c1; padding-left: calc(10px + 3px); }
 .section-type-trends > .primer-section-content { background-color: #f0f8ff; border-left: 3px solid #007bff; padding-left: calc(10px + 3px); }
+
 
 .primer-section-content h3 { font-size: 1.15em; color: #343a40; margin-top: 1em; margin-bottom: 0.5em; }
 .primer-section-content h3:first-child { margin-top: 0; }
@@ -210,8 +223,9 @@ body {
 
 .key-term { font-weight: 600; color: #0056b3; background-color: #e7f3ff; padding: 1px 3px; border-radius: 3px; font-size: 0.95em; }
 
+/* Trend indicators for list items */
 .trend-positive::before, .trend-negative::before, .trend-neutral::before { display: inline-block; margin-right: 0.6em; font-size: 1.1em; }
-li.trend-positive::before, li.trend-negative::before, li.trend-neutral::before { }
+li.trend-positive::before, li.trend-negative::before, li.trend-neutral::before { /* If applied directly to LI */ }
 .trend-positive::before { content: '📈'; color: #28a745; }
 .trend-negative::before { content: '📉'; color: #dc3545; }
 .trend-neutral::before { content: '↔️'; color: #6c757d; }
@@ -226,11 +240,11 @@ li.trend-positive::before, li.trend-negative::before, li.trend-neutral::before {
 /* === QUICK READ MODE (For Detail Pages) === */
 .quick-read-active .primer-initial-summary-detailed-page,
 .quick-read-active .primer-section-content { display: none !important; }
-.quick-read-active .primer-section-accordion { border-bottom: 1px solid #e0e0e0; }
-.quick-read-active .primer-section-accordion[open] > .primer-section-title::before { transform: rotate(0deg); }
-.quick-read-active .toggle-all-sections-btn { display: none !important; }
+.quick-read-active .primer-section-accordion { border-bottom: 1px solid #e0e0e0; } /* Keep border for visual separation of summaries */
+.quick-read-active .primer-section-accordion[open] > .primer-section-title::before { transform: rotate(0deg); } /* Reset marker if any section was open */
+.quick-read-active .toggle-all-sections-btn { display: none !important; } /* Hide toggle all when quick read is active */
 
-/* === SIMPLE INDEX LIST (Bottom of main index.html) === */
+/* === SIMPLE INDEX LIST (Fallback or alternative navigation, if used at bottom of main index.html) === */
 .simple-index-list { margin-top: 40px; padding-top: 20px; border-top: 1px solid #dee2e6; }
 .simple-index-list h3 { font-size: 1.5em; color: #2c3e50; margin-bottom: 15px; text-align: center; }
 .simple-index-list ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
@@ -245,13 +259,15 @@ li.trend-positive::before, li.trend-negative::before, li.trend-neutral::before {
     .page-header { flex-direction: column; align-items: stretch; }
     .page-header h1 { text-align: center; margin-right: 0; font-size: 1.8em; }
     #mainIndexSearch { margin-right: 0; margin-bottom: 10px; }
+
     .detail-page-nav { flex-direction: column; align-items: flex-start; gap: 5px; }
     .detail-page-controls { flex-direction: column; gap: 5px; align-items: stretch; }
     .detail-page-controls button { width: 100%; }
-    .main-index-container, .primers-grid { grid-template-columns: 1fr; gap: 20px; } /* .primers-grid not used now */
+
+    .main-index-container, .primers-grid { grid-template-columns: 1fr; gap: 20px; } /* .primers-grid not used by active HTML */
     .primer-summary-card h3 { font-size: 1.2em; }
     .primer-section-title { font-size: 1em; }
-    .primer-section-content { font-size: 0.85em; padding-left: calc(10px + 3px) !important; /* Ensure override */ }
+    .primer-section-content { font-size: 0.85em; padding-left: calc(10px + 3px) !important; /* Ensure override for themed backgrounds */ }
     .simple-index-list ul {grid-template-columns: 1fr;}
 }
 @media (max-width: 480px) {
@@ -270,14 +286,14 @@ li.trend-positive::before, li.trend-negative::before, li.trend-neutral::before {
     .detail-page-header h1 { font-size: 16pt; text-align: left; margin-bottom: 10pt; color: #000 !important;}
     .primer-section-accordion { page-break-inside: avoid !important; }
     .primer-section-accordion summary.primer-section-title { background-color: #f0f0f0 !important; padding: 6pt 8pt; border-top: 1px solid #ccc !important; font-weight: bold !important; color: #000 !important;}
-    .primer-section-title::before, .section-icon { display: none !important; }
-    .primer-section-content { display: block !important; padding: 8pt 10pt !important; border-top: 1px dashed #ccc !important; background-color: #ffffff !important; border-left: none !important; }
+    .primer-section-title::before, .section-icon { display: none !important; } /* Hide accordion markers and icons */
+    .primer-section-content { display: block !important; padding: 8pt 10pt !important; border-top: 1px dashed #ccc !important; background-color: #ffffff !important; border-left: none !important; } /* Ensure content is visible */
     .key-term { font-weight: bold !important; background-color: transparent !important; color: inherit !important; padding: 0 !important; border-radius: 0 !important; }
     .table-container { overflow-x: visible !important; border: 1px solid #999 !important; }
     table, th, td { border: 1px solid #666 !important; font-size: 9pt !important; }
     th { background-color: #e8e8e8 !important; }
     a { color: #0000ee !important; text-decoration: underline !important; }
-    a[href^="#"] { display: none !important; }
+    a[href^="#"] { display: none !important; } /* Hide internal page links */
     .simple-index-list { margin-top: 20pt; border-top: 1px solid #999 !important; }
     .simple-index-list h3 { font-size: 12pt; text-align: left; color:#000 !important; }
     .simple-index-list ul { display: block; }
@@ -287,9 +303,10 @@ li.trend-positive::before, li.trend-negative::before, li.trend-neutral::before {
 /* === ACCESSIBILITY :focus-visible === */
 :focus-visible { outline: 2px solid #007bff; outline-offset: 2px; box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); }
 #mainIndexSearch:focus-visible, #detailPageQuickReadBtn:focus-visible, .toggle-all-sections-btn:focus-visible, .primer-section-title:focus-visible, .view-details-link:focus-visible, .back-to-index-link:focus-visible, .view-markdown-link:focus-visible { /* Covered by general */ }
-.primer-section-title:focus { outline: none; }
-.primer-section-title:focus-visible { background-color: #e6f2ff; }
+.primer-section-title:focus { outline: none; } /* Remove default outline on <summary> when using custom :focus-visible */
+.primer-section-title:focus-visible { background-color: #e6f2ff; } /* Light blue background on focus for summary */
 
+/*
 ```
 =======
 /* Page Layout */
@@ -705,3 +722,6 @@ h1 {
 .primer-summary.active {
     display: block;
 }
+*/
+
+/* --- End of Commented Out Conflicting CSS --- */
