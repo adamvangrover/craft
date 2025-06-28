@@ -1,30 +1,41 @@
-## CRAFT
-# CRAFT – (Credit Risk Analyst Foundations Training) 
-https://adamvangrover.github.io/craft/ 
+# Financial Learning Hub & Credit Risk Analyst Development Program
 
-https://adamvangrover.github.io/craft/home
+**Welcome to your central hub for comprehensive financial learning and professional development!**
 
-https://adamvangrover.github.io/craft/primers/index.html 
+This repository is designed to be an integrated ecosystem of resources for students, aspiring analysts, and seasoned finance professionals. Our goal is to provide foundational knowledge, practical insights, advanced techniques, and continuous learning materials, with a special focus on developing top-tier credit risk analysts.
 
-https://adamvangrover.github.io/craft/CFA/index.html
+**🚀 Quick Start: [Explore the Interactive Dashboard (home.html)](./home.html) 🚀**
 
-# Financial Learning Repository
+The `home.html` page provides a role-based guide to navigate the extensive resources available. Whether you're on the Credit Analyst Path, preparing for the CFA® exams, or exploring specific financial topics, the dashboard will direct you to the most relevant content.
 
-Welcome to this comprehensive repository dedicated to various aspects of finance, credit risk analysis, and investment management. This collection of resources aims to provide foundational knowledge, practical insights, and learning materials for students, analysts, and finance professionals.
+## Key Learning Areas:
 
-## Repository Contents
+This repository is organized into several key learning pillars:
 
-This repository is organized into several key sections:
+*   **[🏆 CFA® Program Study Materials](./CFA/index.html):**
+    *   Interactive study hub, notes, cheat sheets, practice questions, and deep dives for all three levels of the CFA Program. Covers Ethics, Quantitative Methods, Economics, Financial Reporting and Analysis, Corporate Issuers, Equity, Fixed Income, Derivatives, Alternative Investments, and Portfolio Management.
+*   **[🛡️ Corporate Credit Risk Analyst Training (CRAFT)](./corporate-credit-risk-analyst-training/index.html):**
+    *   Access the interactive CRAFT Program Hub for a modular training course designed to equip analysts with essential skills in accounting, financial analysis, capital markets, credit lifecycle management, and critical thinking. (See also the [CRAFT Program README](./corporate-credit-risk-analyst-training/README.md) for a detailed curriculum overview).
+*   **[📊 Financial Modeling](./Financial_Modeling/README.md):**
+    *   Resources on best practices, structural guides for 3-statement models, Excel tips, and techniques for building robust financial models for analysis and valuation.
+*   **[🧠 Behavioral Finance](./Behavioral_Finance/README.md):**
+    *   Exploration of how psychological influences and cognitive biases affect financial decision-making, with key concepts and case studies.
+*   **[💡 Fintech Innovations](./Fintech/README.md):**
+    *   Insights into financial technology, including Blockchain, AI in Finance, Robo-Advisors, Open Banking, Regtech, Insurtech, Payment Systems, and Cybersecurity.
+*   **[🚀 Market Analysis Quick Start](./Market_Analysis_Quick_Start/README.md):**
+    *   A rapid introduction to common market jargon, capital market products, trading levels, valuation rules of thumb, and peer comparison benchmarks.
+*   **[🏭 Industry Primers](./primers/index.html):**
+    *   Interactive viewer for overviews, key credit considerations, risk factors, and analytical tips for over 15 diverse industries.
+*   **[Paths to Knowledge: Learning Paths](./Learning_Paths/index.html):**
+    *   Curated learning paths to guide you through the repository's content based on your goals (e.g., Credit Analyst Foundations, Understanding Fintech). Now with an interactive viewer!
+*   **[🛠️ Interactive Notebooks & Tools](./Interactive_Notebooks/README.md):**
+    *   Hands-on Jupyter Notebooks for concepts like DCF valuation, WACC calculation, and credit agreement analysis. Download and run for an interactive experience.
 
-*   **[CFA Program Study Materials](./CFA/index.html):** Notes, cheat sheets, practice questions, and deep dives for all three levels of the CFA Program. Includes materials for Ethics, Quantitative Methods, Economics, Financial Reporting and Analysis, Corporate Finance, Equity, Fixed Income, Derivatives, Alternative Investments, and Portfolio Management.
-*   **[Corporate Credit Risk Analyst Training (CRAFT)](./corporate-credit-risk-analyst-training/README.md):** A modular training course designed to equip analysts with essential skills in accounting, financial analysis, capital markets, and critical thinking for credit risk management.
-*   **[Financial Modeling](./Financial_Modeling/README.md):** Resources on best practices, templates (e.g., 3-statement models), and techniques for building robust financial models.
-*   **[Behavioral Finance](./Behavioral_Finance/README.md):** Exploration of how psychological influences and cognitive biases affect financial decision-making.
-*   **[Fintech](./Fintech/README.md):** Insights into financial technology innovations, including Blockchain, AI in Finance, and Robo-Advisors.
-*   **[Market Analysis Quick Start](./Market_Analysis_Quick_Start/README.md):** A rapid introduction to common market jargon, capital market products, trading levels, valuation rules of thumb, and peer comparison benchmarks.
-*   **[Industry Primers](./primers/index.html):** Overviews and key considerations for analyzing various industries.
+## Navigating This Repository
 
-Please navigate to the respective sections to explore the content.
+*   **Primary Entry Point:** We recommend starting with [**home.html**](./home.html) for a guided experience.
+*   **Direct Section Access:** Use the links above to jump directly to a specific area of interest. Each main section has its own `README.md` or `index.html` to guide you further.
+*   **GitHub Pages:** This repository is likely deployed via GitHub Pages. The `home.html` file is designed to be the most user-friendly starting point in that environment. The top-level `README.md` (this file) serves as the initial overview if browsing the file structure directly on GitHub.
 
 ## Detailed Overview: Corporate Credit Risk Analyst Training (CRAFT)
 
@@ -49,7 +60,7 @@ The CRAFT training program is segmented into distinct modules, each addressing a
 
 Each markdown file within the CRAFT program is structured with clear headings, bullet points, and relevant examples. The inclusion of quizzes and case studies allows for practical application of the learned concepts. This modular and portable program can be easily hosted on platforms like GitHub or GitLab, providing a collaborative and accessible learning environment.
 
-Further details on the CRAFT program structure and content can be found in its [dedicated README file](./corporate-credit-risk-analyst-training/README.md).
+Further details on the CRAFT program structure and content can be found in its [dedicated README file](./corporate-credit-risk-analyst-training/README.md) and the [interactive CRAFT Program Hub](./corporate-credit-risk-analyst-training/index.html).
 
 ---
 *The following content is an excerpt demonstrating the style of the CRAFT program material, originally part of this main README.*

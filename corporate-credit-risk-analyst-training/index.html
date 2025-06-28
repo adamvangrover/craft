@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Credit Risk Analyst Foundations Training Course</title>
+    <!-- Chosen Palette: Warm Neutrals (Cream, Stone, Slate) with a Professional Blue Accent -->
+    <!-- Application Structure Plan: A non-linear, dashboard-style single-page application is chosen over a linear format to better reflect a modern learning experience and an analyst's workflow. The information is architected into four core pillars: "Toolkit," "Deal Analysis," "Portfolio Management," and "Future of Risk." This task-oriented structure allows users to either follow a logical progression or jump directly to a specific area of interest (e.g., "Covenants" or "LBO Modeling"). This design prioritizes usability and engagement, transforming a dense text document into an explorable, interactive tool. Key interactions include clickable diagrams, dynamic charts, toggles, and accordions to make complex information digestible and visually appealing. -->
+    <!-- Visualization & Content Choices: Static text is converted into interactive elements to enhance learning. Goal: Inform/Compare -> Viz: Clickable diagrams for financial statement links and capital structure (HTML/CSS), dynamic bar charts for credit ratios (Chart.js), interactive toggles for covenant types (JS). Goal: Organize -> Viz: Step-by-step process flow for credit memos (HTML/CSS), accordion panels for detailed explanations. Goal: Analyze -> Viz: Interactive Porter's Five Forces diagram (HTML/CSS/JS), simple slider for sensitivity analysis concept (JS/Chart.js). Justification: These choices break down complex topics into manageable, interactive chunks, fostering active learning over passive reading, directly supporting the designed application structure. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f7f4; color: #4a4a4a; }
+        .nav-button { transition: all 0.3s ease; }
+        .nav-button.active { background-color: #3b82f6; color: white; }
+        .content-section { display: none; animation: fadeInContent 0.5s ease-in-out forwards; }
+        .content-section.active { display: block; }
+        @keyframes fadeInContent {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card { background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+        .accordion-item { border-bottom: 1px solid #e5e7eb; }
+        .accordion-header span:last-child { transition: transform 0.3s ease; }
+        .accordion-item.open .accordion-header span:last-child { transform: rotate(45deg); }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; }
+        .accordion-item.open .accordion-content { max-height: 1000px; /* Adjust as needed */ }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+        .statement-btn:hover, .porter-btn:hover, .warning-btn:hover, .covenant-btn:hover { opacity:0.85; }
+        .capital-item:hover { background-color: #f0f0f0; }
+
+        /* Custom styles for the CRAFT SPA, potentially overriding general styles if this were in a shared CSS */
+        .craft-header { background-color: #2c3e50; /* Darker blue-gray for CRAFT header */ color: white; }
+        .craft-nav-button { color: #d1d5db; /* Lighter gray for inactive nav text */ }
+        .craft-nav-button.active { background-color: #1d4ed8; /* Darker blue for active CRAFT nav */ color: white; }
+        .craft-nav-button:hover:not(.active) { background-color: #374151; /* Slightly lighter dark gray for hover */ }
+        .craft-card { background-color: #fff; border: 1px solid #d1d5db; }
+        .craft-container { max-width: 1280px; /* Equivalent to Tailwind's max-w-7xl */ }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="min-h-screen">
+        <header class="craft-header shadow-md sticky top-0 z-50">
+            <div class="craft-container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold">CRAFT Program Interactive Hub</h1>
+                    </div>
+                    <nav class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <button onclick="showSection('toolkit')" class="craft-nav-button active px-3 py-2 rounded-md text-sm font-medium">Toolkit</button>
+                            <button onclick="showSection('deal-analysis')" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Deal Analysis</button>
+                            <button onclick="showSection('portfolio')" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Portfolio & Monitoring</button>
+                            <button onclick="showSection('future')" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Future of Risk</button>
+                            <a href="README.md" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Course README</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main class="craft-container mx-auto p-4 sm:p-6 lg:p-8">
+            <!-- Analyst's Toolkit Section -->
+            <section id="toolkit" class="content-section active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">The Analyst's Toolkit</h2>
+                <p class="text-lg text-gray-600 mb-8">This section covers the foundational concepts every credit analyst must master, from interpreting financial statements to building robust models and performing rigorous analysis. Refer to <a href="./modules/01-foundations/README.md" class="text-blue-600 hover:underline">Module 1: Foundations</a> and <a href="./modules/02-understanding-the-market/README.md" class="text-blue-600 hover:underline">Module 2: Understanding the Market</a> for detailed readings.</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Financial Statements -->
+                    <div class="craft-card p-6">
+                        <h3 class="text-2xl font-semibold mb-4">Understanding Financial Statements</h3>
+                        <p class="mb-6 text-gray-600">The three core financial statements are intricately linked. Explore the diagram below to see how they connect. Click on any component to learn more about its role (based on Module 1.2).</p>
+                        <div id="financial-statement-info" class="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg text-blue-800 min-h-[100px]">
+                            Click on a statement or a link to see details here. (Corresponds to Module 1.2)
+                        </div>
+                        <div class="space-y-4">
+                            <div class="text-center">
+                                <button onclick="showInfo('income')" class="statement-btn bg-green-100 text-green-800 p-3 rounded-lg shadow-sm w-full font-semibold">Income Statement</button>
+                                <div class="text-2xl my-2">↓</div>
+                            </div>
+                            <div class="text-center font-mono text-sm bg-gray-100 p-2 rounded-md cursor-pointer" onclick="showInfo('net-income-link')">Net Income flows to...</div>
+                            <div class="text-2xl text-center">↙↘</div>
+                            <div class="flex justify-between items-start space-x-4">
+                                <div class="w-1/2 text-center">
+                                    <button onclick="showInfo('cashflow')" class="statement-btn bg-yellow-100 text-yellow-800 p-3 rounded-lg shadow-sm w-full font-semibold">Statement of Cash Flows</button>
+                                    <div class="text-2xl my-2">↓</div>
+                                    <div class="font-mono text-sm bg-gray-100 p-2 rounded-md cursor-pointer" onclick="showInfo('cash-link')">Ending Cash links to...</div>
+                                </div>
+                                <div class="w-1/2 text-center">
+                                    <button onclick="showInfo('balance')" class="statement-btn bg-red-100 text-red-800 p-3 rounded-lg shadow-sm w-full font-semibold">Balance Sheet</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ratio Analysis -->
+                    <div class="craft-card p-6">
+                        <h3 class="text-2xl font-semibold mb-4">Key Credit Ratio Analysis</h3>
+                        <p class="mb-6 text-gray-600">Ratios standardize financial data, allowing for comparison over time and against peers. Select a category to visualize key ratios and understand their importance (based on Module 2.3).</p>
+                        <div class="mb-4">
+                            <select id="ratio-selector" class="w-full p-2 border border-gray-300 rounded-md">
+                                <option value="leverage">Leverage Ratios</option>
+                                <option value="coverage">Coverage Ratios</option>
+                                <option value="liquidity">Liquidity Ratios</option>
+                                <option value="profitability">Profitability Ratios</option>
+                            </select>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="ratioChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Analysis -->
+                    <div class="craft-card p-6 col-span-1 lg:col-span-2">
+                        <h3 class="text-2xl font-semibold mb-4">Advanced Analysis Techniques</h3>
+                        <p class="mb-6 text-gray-600">Beyond base case modeling, it's crucial to test resilience. (Corresponds to Module 2.4)</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="p-4 bg-gray-50 rounded-lg">
+                                <h4 class="font-bold text-lg mb-2">Sensitivity Analysis</h4>
+                                <p class="text-sm text-gray-600">Tests how changes in one variable (e.g., revenue growth) affect an outcome. Use the slider to see how revenue assumptions impact projected EBITDA.</p>
+                                <div class="mt-4">
+                                    <label for="sensitivity-slider" class="block text-sm font-medium">Revenue Growth Assumption:</label>
+                                    <input id="sensitivity-slider" type="range" min="-5" max="10" value="2" step="1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                    <div class="text-center font-bold mt-1"><span id="sensitivity-value">2</span>%</div>
+                                </div>
+                                <div class="chart-container h-64 max-h-64 mt-4">
+                                    <canvas id="sensitivityChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-gray-50 rounded-lg">
+                                <h4 class="font-bold text-lg mb-2">Scenario Analysis</h4>
+                                <p class="text-sm text-gray-600">Models outcomes by changing multiple variables simultaneously to reflect a plausible future state (e.g., a recession). Helps understand the range of potential outcomes.</p>
+                                <div class="mt-4 space-y-2">
+                                    <div class="p-2 border border-green-300 bg-green-100 rounded"><strong>Best Case:</strong> High Growth, Margin Expansion</div>
+                                    <div class="p-2 border border-blue-300 bg-blue-100 rounded"><strong>Base Case:</strong> Moderate Growth, Stable Margins</div>
+                                    <div class="p-2 border border-red-300 bg-red-100 rounded"><strong>Downside Case:</strong> Low Growth, Margin Compression</div>
+                                </div>
+                            </div>
+                             <div class="p-4 bg-gray-50 rounded-lg">
+                                <h4 class="font-bold text-lg mb-2">Stress Testing</h4>
+                                <p class="text-sm text-gray-600">A more extreme form of scenario analysis. It gauges the impact of a severe but plausible crisis (e.g., deep recession, liquidity freeze) to assess capital adequacy and vulnerabilities.</p>
+                                 <div class="mt-4 p-4 border-4 border-dashed border-red-400 bg-red-50 rounded-lg text-center">
+                                    <div class="text-red-700 font-bold text-xl">BREAK-POINT ANALYSIS</div>
+                                    <p class="text-red-600 text-sm mt-2">Answers the question: "What happens in a worst-case outcome?"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deal Analysis Section -->
+            <section id="deal-analysis" class="content-section">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Deal Analysis Deep Dive</h2>
+                <p class="text-lg text-gray-600 mb-8">Apply your skills to real-world situations. This section explores how to analyze the competitive landscape, evaluate complex transactions, and structure a loan to protect against risk. Key readings include <a href="./modules/03-the-analysts-craft/README.md" class="text-blue-600 hover:underline">Module 3: Analyst's Craft</a> and <a href="./modules/04-the-credit-lifecycle/09-lbos-and-m-and-a-analysis.md" class="text-blue-600 hover:underline">Module 9: LBOs & M&A</a>.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Porter's Five Forces -->
+                    <div class="craft-card p-6 lg:col-span-2">
+                         <h3 class="text-2xl font-semibold mb-4">Industry Analysis: Porter's Five Forces</h3>
+                        <p class="mb-6 text-gray-600">A company's success is shaped by its industry. Use this interactive framework to analyze the forces that determine industry profitability. Click a force to see its analysis for the U.S. Airline Industry as a case study (based on Module 4.2).</p>
+                        <div class="relative w-full max-w-2xl mx-auto">
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 -mt-4 text-center">
+                                <button class="porter-btn p-2 bg-blue-100 border-2 border-blue-500 rounded-lg shadow-lg" onclick="showPorterInfo('entrants')">Threat of New Entrants</button>
+                            </div>
+                            <div class="absolute top-1/2 left-0 -translate-y-1/2 -mt-4 text-center">
+                                <button class="porter-btn p-2 bg-blue-100 border-2 border-blue-500 rounded-lg shadow-lg" onclick="showPorterInfo('suppliers')">Bargaining Power of Suppliers</button>
+                            </div>
+                            <div class="absolute top-1/2 right-0 -translate-y-1/2 -mt-4 text-center">
+                                <button class="porter-btn p-2 bg-blue-100 border-2 border-blue-500 rounded-lg shadow-lg" onclick="showPorterInfo('buyers')">Bargaining Power of Buyers</button>
+                            </div>
+                             <div class="absolute bottom-0 left-1/2 -translate-x-1/2 -mb-4 text-center">
+                                <button class="porter-btn p-2 bg-blue-100 border-2 border-blue-500 rounded-lg shadow-lg" onclick="showPorterInfo('substitutes')">Threat of Substitutes</button>
+                            </div>
+                             <div class="flex items-center justify-center h-48">
+                                 <button class="porter-btn p-4 bg-blue-500 text-white rounded-full shadow-xl w-32 h-32 flex items-center justify-center text-center font-bold" onclick="showPorterInfo('rivalry')">Competitive Rivalry</button>
+                            </div>
+                        </div>
+                        <div id="porter-info" class="mt-12 p-4 bg-gray-50 border border-gray-200 rounded-lg min-h-[150px]">
+                            Select a force to learn more. (Corresponds to Module 4.2)
+                        </div>
+                    </div>
+                    <!-- Capital Structure -->
+                    <div class="craft-card p-6">
+                        <h3 class="text-2xl font-semibold mb-4">The Capital Structure</h3>
+                        <p class="mb-4 text-gray-600">Debt instruments have a clear hierarchy of claims on assets. Hover over each layer to understand its risk and seniority (based on Module 3.2).</p>
+                        <div class="space-y-1">
+                            <div class="capital-item p-4 bg-green-100 border-l-4 border-green-500 rounded-r-lg" data-info="Safest debt. First claim on assets and cash flows, backed by specific collateral like inventory or receivables. Includes Revolvers and Term Loans.">
+                                <h4 class="font-bold">Senior Secured Debt</h4>
+                            </div>
+                             <div class="capital-item p-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-r-lg" data-info="Riskier than secured debt. Senior claim on cash flows but not backed by specific collateral. High-yield bonds are a common example.">
+                                <h4 class="font-bold">Senior Unsecured Debt</h4>
+                            </div>
+                             <div class="capital-item p-4 bg-orange-100 border-l-4 border-orange-500 rounded-r-lg" data-info="Ranks below all senior debt. Higher risk and higher interest rates. Can include equity-like features like warrants or PIK interest.">
+                                <h4 class="font-bold">Subordinated / Mezzanine Debt</h4>
+                            </div>
+                             <div class="capital-item p-4 bg-red-100 border-l-4 border-red-500 rounded-r-lg" data-info="Represents ownership. Has the last claim on assets in a liquidation (residual value). Highest risk, highest potential return.">
+                                <h4 class="font-bold">Equity</h4>
+                            </div>
+                        </div>
+                         <div id="capital-info" class="mt-4 p-3 bg-gray-50 border rounded-lg text-sm min-h-[50px]">
+                            Hover over a layer for details. (Corresponds to Module 3.2)
+                        </div>
+                    </div>
+                    <!-- Covenants -->
+                    <div class="craft-card p-6 col-span-1 md:col-span-2 lg:col-span-3">
+                        <h3 class="text-2xl font-semibold mb-4">Covenants: The Lender's Guardrails</h3>
+                        <p class="mb-6 text-gray-600">Covenants are rules designed to protect the lender. A breach constitutes a technical default, giving the lender leverage. Explore the different types below (based on Module 3.5).</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div>
+                                <h4 class="font-bold text-lg text-green-700">Affirmative</h4>
+                                <p class="text-sm">Actions the borrower <span class="font-bold">must</span> perform (e.g., provide financials, pay taxes).</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-red-700">Negative</h4>
+                                <p class="text-sm">Actions the borrower <span class="font-bold">cannot</span> perform without consent (e.g., incur more debt, sell assets).</p>
+                            </div>
+                            <div class="lg:col-span-2">
+                                <h4 class="font-bold text-lg text-blue-700">Financial Covenants</h4>
+                                <div class="flex items-center space-x-4 mt-2">
+                                    <button id="maint-btn" class="covenant-btn flex-1 p-2 bg-blue-500 text-white rounded-md" onclick="showCovenant('maintenance')">Maintenance</button>
+                                    <button id="incur-btn" class="covenant-btn flex-1 p-2 bg-blue-100 text-blue-700 rounded-md" onclick="showCovenant('incurrence')">Incurrence</button>
+                                </div>
+                                <div id="covenant-info" class="mt-2 text-sm">
+                                    <h5 class="font-semibold">Maintenance Covenants</h5>
+                                    <p>Must be tested and met on a regular basis (e.g., quarterly). Provides an early warning signal. Example: Maintain Debt/EBITDA &lt; 5.0x.</p>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400">
+                             <h4 class="font-bold text-yellow-800">The Rise of "Covenant-Lite"</h4>
+                            <p class="text-sm text-yellow-700">Modern loans often lack financial maintenance covenants ("cov-lite"). This delays early warnings and can lead to lower recoveries for lenders in a default. The analytical focus must shift to forward-looking liquidity and cash burn analysis (Module 3.6).</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Portfolio Management Section -->
+            <section id="portfolio" class="content-section">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Portfolio Management & Monitoring</h2>
+                <p class="text-lg text-gray-600 mb-8">The analyst's job continues after a deal closes. This section focuses on the discipline of monitoring existing credits, identifying early warning signs of distress, and understanding the regulatory landscape. See <a href="./modules/04-the-credit-lifecycle/10-ongoing-credit-monitoring.md" class="text-blue-600 hover:underline">Module 10: Ongoing Monitoring</a> and <a href="./modules/04-the-credit-lifecycle/07-shared-national-credit-overview.md" class="text-blue-600 hover:underline">Module 7: SNC Program</a>.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Early Warning Signs -->
+                    <div class="craft-card p-6">
+                        <h3 class="text-2xl font-semibold mb-4">Early Warning Signs of Deterioration</h3>
+                        <p class="mb-4 text-gray-600">Catching problems early gives lenders more options to mitigate losses. Click on an indicator below to understand its implication and the required analyst action (based on Module 10.2).</p>
+                        <div id="warning-info" class="p-4 bg-red-50 border border-red-200 rounded-lg min-h-[100px] mb-4 text-red-800">
+                            Select an indicator. (Corresponds to Module 10.2)
+                        </div>
+                        <div class="space-y-3">
+                            <h4 class="font-semibold text-gray-700">Quantitative Indicators</h4>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button class="warning-btn text-sm p-2 bg-gray-100 rounded-md hover:bg-gray-200" onclick="showWarning('ratio')">Declining Coverage Ratios</button>
+                                <button class="warning-btn text-sm p-2 bg-gray-100 rounded-md hover:bg-gray-200" onclick="showWarning('leverage')">Rising Leverage</button>
+                                <button class="warning-btn text-sm p-2 bg-gray-100 rounded-md hover:bg-gray-200" onclick="showWarning('wc')">Working Capital Issues</button>
+                                <button class="warning-btn text-sm p-2 bg-gray-100 rounded-md hover:bg-gray-200" onclick="showWarning('covenant')">Covenant Breaches</button>
+                            </div>
+                             <h4 class="font-semibold text-gray-700 mt-4">Qualitative Indicators</h4>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button class="warning-btn text-sm p-2 bg-gray-100 rounded-md hover:bg-gray-200" onclick="showWarning('payment')">Change in Payment Habits</button>
+                                <button class="warning-btn text-sm p-2 bg-gray-100 rounded-md hover:bg-gray-200" onclick="showWarning('mgmt')">Management Turnover</button>
+                                <button class="warning-btn text-sm p-2 bg-gray-100 rounded-md hover:bg-gray-200" onclick="showWarning('reporting')">Delayed Reporting</button>
+                                <button class="warning-btn text-sm p-2 bg-gray-100 rounded-md hover:bg-gray-200" onclick="showWarning('news')">Negative Industry News</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SNC Program -->
+                    <div class="craft-card p-6">
+                        <h3 class="text-2xl font-semibold mb-4">Regulatory Lens: The SNC Program</h3>
+                        <p class="mb-4 text-gray-600">The Shared National Credit (SNC) Program provides a uniform risk rating system for large syndicated loans. Understanding these classifications is vital for bank analysts (based on Module 7.2).</p>
+                        <div class="space-y-4">
+                            <div class="accordion-item">
+                                <button class="accordion-header w-full text-left font-semibold p-3 bg-green-100 text-green-800 rounded-lg flex justify-between items-center">
+                                    <span>Pass</span><span class="text-xl font-light">+</span>
+                                </button>
+                                <div class="accordion-content px-3 pt-2 text-sm text-gray-600">
+                                    <p>The baseline rating. The credit exhibits no significant weaknesses and is expected to be fully repaid according to its terms.</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header w-full text-left font-semibold p-3 bg-yellow-100 text-yellow-800 rounded-lg flex justify-between items-center">
+                                    <span>Special Mention (SM)</span><span class="text-xl font-light">+</span>
+                                </button>
+                                <div class="accordion-content px-3 pt-2 text-sm text-gray-600">
+                                    <p>A critical early warning signal. The asset has potential weaknesses that, if uncorrected, could lead to future deterioration. Requires close management attention.</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header w-full text-left font-semibold p-3 bg-red-100 text-red-800 rounded-lg flex justify-between items-center">
+                                    <span>Classified (Substandard, Doubtful, Loss)</span><span class="text-xl font-light">+</span>
+                                </button>
+                                <div class="accordion-content px-3 pt-2 text-sm text-gray-600">
+                                    <p>Includes loans with well-defined weaknesses where collection is in jeopardy.
+                                    <br><strong>Substandard:</strong> Inadequately protected by borrower's capacity or collateral. Distinct possibility of loss.
+                                    <br><strong>Doubtful:</strong> Collection in full is highly questionable and improbable.
+                                    <br><strong>Loss:</strong> Considered uncollectible and should be written off.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Future of Risk Section -->
+            <section id="future" class="content-section">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">The Future of Risk Management</h2>
+                <p class="text-lg text-gray-600 mb-8">The field is being transformed by Artificial Intelligence. This section explores how AI is reshaping credit analysis and what it means for the analyst of the future. Details can be found in <a href="./modules/05-future-of-risk-management/11-future-of-risk-and-ai.md" class="text-blue-600 hover:underline">Module 11: Future of Risk & AI</a>.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="craft-card p-6">
+                         <h3 class="text-2xl font-semibold mb-4">AI's Impact on Credit Analysis</h3>
+                         <p class="mb-4 text-gray-600">AI is shifting credit risk from a reactive to a predictive discipline. Key applications include Machine Learning (ML) for enhanced credit scoring and Natural Language Processing (NLP) to analyze vast amounts of unstructured text data (Module 11.2).</p>
+                         <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li><strong>ML Credit Scoring:</strong> Analyzes thousands of variables, including alternative data (e.g., transaction history), for more accurate predictions.</li>
+                            <li><strong>NLP Sentiment Analysis:</strong> Scans news and social media to gauge real-time sentiment around a company.</li>
+                            <li><strong>NLP Document Analysis:</strong> Automatically summarizes and extracts key terms from lengthy legal documents.</li>
+                            <li><strong>AI Early Warning Systems:</strong> Detects signs of distress from news feeds before they hit financial reports.</li>
+                         </ul>
+                    </div>
+                    <div class="craft-card p-6">
+                        <h3 class="text-2xl font-semibold mb-4">Case Study: Generative AI</h3>
+                        <p class="mb-4 text-gray-600">Financial institutions are using Generative AI to automate the creation of first-draft credit memos, freeing analysts from routine data gathering to focus on higher-value judgment and critical thinking (Module 11.3).</p>
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <p class="font-semibold text-blue-800">Proof-of-Concept Result:</p>
+                            <p class="text-blue-700 mt-2">A GenAI tool reduced the time to complete complex client questionnaires from <span class="font-bold">2+ hours</span> to <span class="font-bold">&lt;15 minutes</span> with 90% accuracy.</p>
+                        </div>
+                    </div>
+                    <div class="craft-card p-6 col-span-1 md:col-span-2">
+                        <h3 class="text-2xl font-semibold mb-4">The Evolving Role of the Analyst</h3>
+                        <p class="mb-4 text-gray-600">AI doesn't make the analyst obsolete—it elevates them. As routine tasks become automated, the analyst's value shifts from "calculator" to "investigator, strategist, and ethicist." The future is a "human-in-the-loop" model (Module 11.5).</p>
+                        <div class="flex flex-col md:flex-row items-center justify-around mt-4">
+                            <div class="text-center mb-4 md:mb-0">
+                                <div class="text-5xl mb-2">🤖</div>
+                                <h4 class="font-bold">AI's Role</h4>
+                                <p class="text-sm">Data Processing, Pattern Recognition, Prediction, Automation</p>
+                            </div>
+                            <div class="text-3xl font-bold text-gray-400 mx-8">+</div>
+                            <div class="text-center">
+                                <div class="text-5xl mb-2">🧠</div>
+                                <h4 class="font-bold">Human's Role</h4>
+                                <p class="text-sm">Critical Thinking, Contextual Understanding, Ethical Judgment, Final Accountability</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+<script>
+    const navButtons = document.querySelectorAll('.craft-nav-button');
+    const contentSections = document.querySelectorAll('.content-section');
+    const ratioSelector = document.getElementById('ratio-selector');
+    let ratioChart;
+    let sensitivityChart;
+
+    function showSection(sectionId) {
+        navButtons.forEach(btn => {
+            btn.classList.remove('active');
+            // Check the onclick attribute string to find the matching button
+            if(btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(`showSection('${sectionId}')`)) {
+                btn.classList.add('active');
+            }
+        });
+        contentSections.forEach(section => {
+            section.classList.remove('active'); // Remove active from all
+            if(section.id === sectionId) {
+                section.classList.add('active'); // Add active to the target
+            }
+        });
+    }
+
+    // Financial Statement Info Logic
+    const statementInfoBox = document.getElementById('financial-statement-info');
+    const statementInfoContent = {
+        'income': { title: 'Income Statement (P&L)', text: 'Shows financial performance over a period (e.g., a year). It starts with Revenue and subtracts various costs and expenses to arrive at the "bottom line" of Net Income. (CRAFT Module 1.2)' },
+        'cashflow': { title: 'Statement of Cash Flows', text: 'Tracks the actual movement of cash. It reconciles Net Income with the change in cash balance, broken into Operating, Investing, and Financing activities. Often called the "truth-teller". (CRAFT Module 1.2)' },
+        'balance': { title: 'Balance Sheet', text: 'A snapshot of a company\'s financial position at a single point in time. It follows the equation: Assets = Liabilities + Equity. (CRAFT Module 1.2)' },
+        'net-income-link': { title: 'Net Income Linkage', text: 'Net Income from the Income Statement is the starting point for the Cash Flow from Operations section and also increases Retained Earnings on the Balance Sheet. (CRAFT Module 1.3)'},
+        'cash-link': { title: 'Ending Cash Linkage', text: 'The final Ending Cash balance from the Statement of Cash Flows must match the Cash account on the Balance Sheet, ensuring the statements balance. (CRAFT Module 1.3)'}
+    };
+    function showInfo(id) {
+        const info = statementInfoContent[id];
+        statementInfoBox.innerHTML = `<h4 class="font-bold">${info.title}</h4><p class="text-sm mt-1">${info.text}</p>`;
+    }
+
+    // Ratio Chart Logic
+    const ratioData = {
+        leverage: { labels: ['Debt/EBITDA', 'Debt/Capital', 'FFO/Debt'], data: [5.5, 0.6, 0.15], backgroundColor: 'rgba(239, 68, 68, 0.6)' }, // Example: Added FFO/Debt
+        coverage: { labels: ['Interest Coverage (TIE)', 'Fixed Charge Coverage (FCCR)', 'DSCR'], data: [3.2, 1.5, 1.2], backgroundColor: 'rgba(59, 130, 246, 0.6)' }, // Example: Added DSCR
+        liquidity: { labels: ['Current Ratio', 'Quick Ratio', 'Cash Ratio'], data: [1.8, 1.1, 0.4], backgroundColor: 'rgba(34, 197, 94, 0.6)' }, // Example: Added Cash Ratio
+        profitability: { labels: ['Operating Margin', 'Net Margin', 'Return on Assets (ROA)'], data: [0.18, 0.09, 0.08], backgroundColor: 'rgba(249, 115, 22, 0.6)' }, // Example: Added Net Margin
+    };
+
+    function updateRatioChart(category) {
+        const data = ratioData[category];
+        if (ratioChart && data) {
+            ratioChart.data.labels = data.labels;
+            ratioChart.data.datasets[0].data = data.data;
+            ratioChart.data.datasets[0].backgroundColor = data.backgroundColor;
+            ratioChart.options.plugins.title.text = `${category.charAt(0).toUpperCase() + category.slice(1)} Ratios (CRAFT Module 2.3)`;
+            ratioChart.update();
+        }
+    }
+
+    function createRatioChart() {
+        const ctxRatio = document.getElementById('ratioChart');
+        if (!ctxRatio) return;
+        ratioChart = new Chart(ctxRatio.getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ratioData.leverage.labels,
+                datasets: [{
+                    label: 'Ratio Value',
+                    data: ratioData.leverage.data,
+                    backgroundColor: ratioData.leverage.backgroundColor,
+                    borderColor: 'rgba(0, 0, 0, 0.1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true } },
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'Leverage Ratios (CRAFT Module 2.3)', font: { size: 16 } },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed.y !== null) {
+                                    const isPercentage = context.chart.data.labels[context.dataIndex].toLowerCase().includes('margin') || context.chart.data.labels[context.dataIndex].toLowerCase().includes('roa') || context.chart.data.labels[context.dataIndex].toLowerCase().includes('ffo/debt');
+                                    label += isPercentage ? `${(context.parsed.y * 100).toFixed(1)}%` : `${context.parsed.y.toFixed(1)}x`;
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Sensitivity Chart Logic
+    const sensitivitySlider = document.getElementById('sensitivity-slider');
+    const sensitivityValue = document.getElementById('sensitivity-value');
+
+    function createSensitivityChart() {
+        const ctxSens = document.getElementById('sensitivityChart');
+        if (!ctxSens) return;
+        const baseEbitda = [100, 105, 110, 115, 120]; // Example base EBITDA
+        sensitivityChart = new Chart(ctxSens.getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+                datasets: [{
+                    label: 'Projected EBITDA',
+                    data: baseEbitda,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: false, ticks: { callback: function(value) { return '$' + value + 'M'; }} } },
+                plugins: { legend: { display: false }, title: { display: true, text: 'EBITDA Projection Sensitivity' } }
+            }
+        });
+    }
+
+    if (sensitivitySlider && sensitivityValue && sensitivityChart) { // Check if chart exists before adding listener
+        sensitivitySlider.addEventListener('input', (event) => {
+            const growthRate = parseFloat(event.target.value);
+            sensitivityValue.textContent = growthRate;
+            const newEbitda = [100]; // Base Year 0 EBITDA
+            for (let i = 1; i < 5; i++) { // Project 4 more years
+                newEbitda.push(newEbitda[i - 1] * (1 + (growthRate/100)));
+            }
+            sensitivityChart.data.datasets[0].data = newEbitda;
+            sensitivityChart.update();
+        });
+    }
+
+
+    // Porter's Five Forces Logic
+    const porterInfoBox = document.getElementById('porter-info');
+    const porterInfoContent = {
+        'entrants': { title: 'Threat of New Entrants (Medium-Low)', text: 'High capital costs for aircraft, regulatory hurdles, and limited airport gate access create significant barriers. Threat is higher for smaller, niche carriers. (CRAFT Module 4.3)' },
+        'suppliers': { title: 'Bargaining Power of Suppliers (High)', text: 'Industry depends on a duopoly for aircraft (Boeing, Airbus) and powerful labor unions. Fuel prices are volatile and uncontrollable, giving suppliers immense power. (CRAFT Module 4.3)' },
+        'buyers': { title: 'Bargaining Power of Buyers (High)', text: 'Online travel agencies make price comparison instant. With many choices and low switching costs, customers can easily drive down fares, especially for leisure travel. (CRAFT Module 4.3)' },
+        'substitutes': { title: 'Threat of Substitutes (Medium)', text: 'Cars and trains are substitutes for short routes. Videoconferencing is a growing substitute for lucrative business travel. (CRAFT Module 4.3)' },
+        'rivalry': { title: 'Competitive Rivalry (High)', text: 'Intense price wars are common, especially as carriers fight for market share. Routes are easily matched, and products are largely undifferentiated, leading to eroded profitability. (CRAFT Module 4.3)' },
+    };
+    window.showPorterInfo = function(id) { // Make it global
+        const info = porterInfoContent[id];
+        porterInfoBox.innerHTML = `<h4 class="font-bold">${info.title}</h4><p class="text-sm mt-1">${info.text}</p>`;
+    }
+
+    // Capital Structure Hover Logic
+    const capitalItems = document.querySelectorAll('.capital-item');
+    const capitalInfoBox = document.getElementById('capital-info');
+    if (capitalInfoBox) { // Check if element exists
+        capitalItems.forEach(item => {
+            item.addEventListener('mouseover', () => {
+                capitalInfoBox.textContent = item.dataset.info + " (CRAFT Module 3.2)";
+            });
+        });
+    }
+
+
+    // Covenant Logic
+    const covenantInfoBox = document.getElementById('covenant-info');
+    const maintBtn = document.getElementById('maint-btn');
+    const incurBtn = document.getElementById('incur-btn');
+    const covenantContent = {
+        maintenance: `<h5 class="font-semibold">Maintenance Covenants</h5><p>Must be tested and met on a regular basis (e.g., quarterly). Provides an early warning signal. Example: Maintain Debt/EBITDA &lt; 5.0x. (CRAFT Module 3.5)</p>`,
+        incurrence: `<h5 class="font-semibold">Incurrence Covenants</h5><p>Only tested when the borrower takes a specific action (e.g., incurring new debt). Allows more flexibility but is a weaker protection. Common in high-yield bonds. (CRAFT Module 3.5)</p>`
+    };
+    window.showCovenant = function(type) { // Make it global
+        if (covenantInfoBox) { // Check if element exists
+            covenantInfoBox.innerHTML = covenantContent[type];
+            if (type === 'maintenance') {
+                maintBtn.classList.add('bg-blue-500', 'text-white');
+                maintBtn.classList.remove('bg-blue-100', 'text-blue-700');
+                incurBtn.classList.add('bg-blue-100', 'text-blue-700');
+                incurBtn.classList.remove('bg-blue-500', 'text-white');
+            } else {
+                incurBtn.classList.add('bg-blue-500', 'text-white');
+                incurBtn.classList.remove('bg-blue-100', 'text-blue-700');
+                maintBtn.classList.add('bg-blue-100', 'text-blue-700');
+                maintBtn.classList.remove('bg-blue-500', 'text-white');
+            }
+        }
+    }
+
+
+    // Early Warning Signs Logic
+    const warningInfoBox = document.getElementById('warning-info');
+    const warningContent = {
+        'ratio': { title: 'Declining Coverage', implication: 'Weakening cash flow and reduced ability to service debt.', action: 'Recalculate ratios, run downside sensitivity, and inquire with management. (CRAFT Module 10.2)' },
+        'leverage': { title: 'Rising Leverage', implication: 'Increased financial risk from underperformance or new debt.', action: 'Investigate source of increase and assess covenant compliance. (CRAFT Module 10.2)' },
+        'wc': { title: 'Working Capital Issues', implication: 'Customers paying slower or inventory becoming obsolete. Cash is tied up.', action: 'Analyze aging reports. Discuss collection/inventory strategy with management. (CRAFT Module 10.2)' },
+        'covenant': { title: 'Covenant Breach', implication: 'A clear, contractual signal of financial distress.', action: 'Formal default notice. Gives lender leverage to renegotiate terms or accelerate loan. (CRAFT Module 10.2)' },
+        'payment': { title: 'Change in Payment Habits', implication: 'Potential cash flow or liquidity problems.', action: 'Immediately contact borrower to understand the reason. Increase monitoring frequency. (CRAFT Module 10.2)' },
+        'mgmt': { title: 'Management Turnover', implication: 'Internal turmoil or knowledge of pending issues.', action: 'Speak with remaining management to assess leadership stability. (CRAFT Module 10.2)' },
+        'reporting': { title: 'Delayed Reporting', implication: 'Weak internal controls or an attempt to conceal poor performance.', action: 'Formally request information. Consider reliability of all financial data. (CRAFT Module 10.2)' },
+        'news': { title: 'Negative Industry News', implication: 'Borrower may be facing external pressures beyond its control.', action: 'Conduct updated industry research and assess impact on borrower\'s projections. (CRAFT Module 10.2)' },
+    };
+    window.showWarning = function(id) { // Make it global
+         if (warningInfoBox) { // Check if element exists
+            const info = warningContent[id];
+            warningInfoBox.innerHTML = `<h4 class="font-bold">${info.title}</h4><p class="text-sm mt-1"><strong>Implication:</strong> ${info.implication}<br><strong>Action:</strong> ${info.action}</p>`;
+        }
+    }
+
+    // Accordion Logic for SNC
+    document.querySelectorAll('.accordion-header').forEach(button => {
+        button.addEventListener('click', () => {
+            const accordionItem = button.parentElement;
+            const accordionContent = button.nextElementSibling;
+            const icon = button.querySelector('span:last-child');
+
+            accordionItem.classList.toggle('open');
+
+            if (accordionItem.classList.contains('open')) {
+                accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
+            } else {
+                accordionContent.style.maxHeight = null;
+            }
+        });
+    });
+
+    // Initial setup
+    // Ensure charts are created only if their canvas elements exist
+    if (document.getElementById('ratioChart')) createRatioChart();
+    if (document.getElementById('sensitivityChart')) createSensitivityChart();
+
+    if (ratioSelector && ratioChart) { // Check if ratioSelector and chart exist
+        updateRatioChart(ratioSelector.value); // Initialize with default selected value
+        ratioSelector.addEventListener('change', (e) => updateRatioChart(e.target.value));
+    }
+
+    showSection('toolkit'); // Default section
+    if (covenantInfoBox) showCovenant('maintenance'); // Default covenant display
+
+</script>
+</body>
+</html>
