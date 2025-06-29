@@ -44,6 +44,11 @@ The notebooks primarily use common Python libraries like `pandas`, `numpy`, `mat
     *   **Notebook File:** [CreditAgreementAnalysisNotebook.ipynb](./Legal_Analysis/CreditAgreementAnalysisNotebook.ipynb)
     *   *Description:* An interactive guide to understanding key sections and clauses in credit agreements, using illustrative examples. Includes an interactive definitions explorer and scenario Q&A.
 
+*   **Fixed Income:**
+    *   **Guide & Overview:** [./Fixed_Income/Bond_Math_Notebook_Guide.md](./Fixed_Income/Bond_Math_Notebook_Guide.md)
+    *   **Notebook File:** *(Planned: [Bond_Math.ipynb](./Fixed_Income/Bond_Math.ipynb))*
+    *   *Description:* An interactive guide to core bond mathematics, including pricing, yield calculations, and duration/convexity concepts.
+
 *(More interactive notebooks will be added here as they are developed.)*
 
 ## Contributing New Notebooks
