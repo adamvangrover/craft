@@ -1,6 +1,32 @@
 // Assuming navData is globally available from nav_data.js, loaded before this script.
 // If not, we would need to fetch it or ensure proper script loading order.
 
+// Function to determine the base path for link construction.
+// Handles GitHub Pages deployment in a subdirectory (e.g., username.github.io/repo-name/).
+function getBasePath() {
+    // For a site at 'https://username.github.io/repo-name/', pathname is '/repo-name/path/to/page.html'
+    // We want to extract '/repo-name/'
+    const pathname = window.location.pathname;
+    const parts = pathname.split('/');
+    if (parts.length > 1 && parts[1] !== "") {
+        // Check if the first significant part of the path might be a repo name.
+        // This is a heuristic. For more complex scenarios, a config variable might be better.
+        // It assumes that if there's a segment like '/craft/' or '/repo-name/', it's the base.
+        // This might need adjustment if the repo name itself has multiple segments or other deployment structures.
+        // For now, assuming a simple "username.github.io/repo-name/" structure.
+        // If hosted at root (e.g. custom domain), this will effectively return "/" or "".
+        const potentialRepoName = parts[1];
+        // A simple check: if the repoName is "craft", use it.
+        // This could be made more robust, e.g. by a global variable set by the build process or a config file.
+        if (potentialRepoName === "craft") { // Hardcoding 'craft' as per example URL
+            return `/${potentialRepoName}/`;
+        }
+    }
+    return "/"; // Fallback for root deployment or if repo name can't be determined
+}
+
+const SITE_BASE_PATH = getBasePath(); // Initialize once
+
 /**
  * Creates an HTML element with specified attributes and children.
  * @param {string} tag - The HTML tag name.
@@ -40,41 +66,37 @@ function buildNavMenu(items, level = 0) {
         const li = createElement('li');
         let linkHref = item.href || '#';
         let target = null;
+        let finalHref = '#'; // Default for categories or unlinked items
 
-        // Adjust href based on type
-        if (item.type === 'markdown_viewer' && item.viewer === 'global') {
-            linkHref = `global_markdown_viewer.html?mdfile=${encodeURIComponent(item.href)}`;
-        } else if (item.type === 'section_viewer_item' && item.href) {
-            // Assuming href is already formatted correctly for section viewers (e.g., primers/index.html?load=file.md)
-            linkHref = item.href;
-        } else if (item.type === 'jupyter_guide') {
-            // Links directly to the README.md, which users will view on GitHub or locally.
-            // Or, if a jupyter_guide_viewer.html is developed later, this can be updated.
-            linkHref = item.href;
-            target = "_blank"; // Open Jupyter guides (READMEs on GitHub) in new tab
-        } else if (item.type === 'html_hub_section' && item.href) {
-            linkHref = item.href; // These links might have #anchors
-        } else if (item.type === 'craft_module_viewer' && item.href) {
-            // For now, direct link. Integration with CRAFT hub's iframe needs specific handling.
-            // This might be handled by CRAFT hub itself if global nav is inside it,
-            // or global nav might need to message the CRAFT hub.
-            // For a standalone link, it would go to the module's own page.
-            linkHref = item.href;
+        if (item.href) { // Only process href if it exists
+            let rawHref = item.href;
+
+            // Adjust href based on type FIRST
+            if (item.type === 'markdown_viewer' && item.viewer === 'global') {
+                // global_markdown_viewer.html is at root. mdfile param must be root-relative.
+                finalHref = `${SITE_BASE_PATH}global_markdown_viewer.html?mdfile=${encodeURIComponent(rawHref)}`;
+            } else if (item.type === 'section_viewer_item') {
+                 // These are complex, e.g., "primers/index.html?load=file.md"
+                 // The base (primers/index.html) needs to be root-relative.
+                 const parts = rawHref.split('?');
+                 finalHref = `${SITE_BASE_PATH}${parts[0]}` + (parts.length > 1 ? `?${parts[1]}` : '');
+            } else if (item.type === 'jupyter_guide') {
+                finalHref = `${SITE_BASE_PATH}${rawHref}`;
+                target = "_blank";
+            } else if (item.type === 'html_hub_section') { // e.g. CFA/index.html#materials-library
+                const parts = rawHref.split('#');
+                finalHref = `${SITE_BASE_PATH}${parts[0]}` + (parts.length > 1 ? `#${parts[1]}` : '');
+            } else if (item.type === 'html' || item.type === 'html_hub' || item.type === 'craft_module_viewer' || item.type === 'section_viewer' || item.type === 'learning_path_definition') {
+                 finalHref = `${SITE_BASE_PATH}${rawHref}`;
+            } else {
+                // Default for types not explicitly handled above, or if item.href is just an anchor
+                if (rawHref.startsWith('#')) {
+                    finalHref = rawHref;
+                } else {
+                    finalHref = `${SITE_BASE_PATH}${rawHref}`;
+                }
+            }
         }
-
-
-        // Ensure all paths are relative to the root if they don't start with http/https or #
-        // This logic assumes that if a link starts with 'http' or '#', it's either external or an anchor.
-        // Otherwise, it's treated as a relative path from the root.
-        // The `nav_data.js` should use paths relative from root e.g. "CFA/index.html" not "./CFA/index.html" from current dir
-        if (linkHref && !linkHref.startsWith('http') && !linkHref.startsWith('#') && !linkHref.startsWith('/')) {
-            // Assuming paths in nav_data.js are from repo root.
-            // For GitHub pages, if the site is at username.github.io/repo/, paths like 'CFA/index.html' work.
-            // If the site is at username.github.io/, then paths might need to be '/repo/CFA/index.html'.
-            // For now, assuming paths are correct for deployment context.
-            // No change needed if nav_data.js provides paths like "CFA/index.html"
-        }
-
 
         const hasChildren = item.children && item.children.length > 0;
 
