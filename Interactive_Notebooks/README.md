@@ -30,9 +30,15 @@ The notebooks primarily use common Python libraries like `pandas`, `numpy`, `mat
 ## Available Interactive Notebook Guides:
 
 *   **Financial Modeling & Valuation:**
-    *   **Guide & Overview:** [./Financial_Modeling/README.md](./Financial_Modeling/README.md)
-    *   **Notebook File:** [EquityValuationNotebook.ipynb](./Financial_Modeling/EquityValuationNotebook.ipynb)
-    *   *Description:* Explore DCF valuation, trading comparables, and basic bond pricing with interactive inputs using a sample dataset of mega-cap companies.
+    *   **Guide & Overview:** [./Financial_Modeling/README.md](./Financial_Modeling/README.md) (General Financial Modeling Notebooks Overview)
+    *   **Specific Notebook - Equity Valuation:**
+        *   **Guide:** [./Financial_Modeling/EquityValuationNotebook_Guide.md](./Financial_Modeling/EquityValuationNotebook_Guide.md) (If you create a separate guide per notebook) or see details in the main FM README.
+        *   **File:** [./Financial_Modeling/EquityValuationNotebook.ipynb](./Financial_Modeling/EquityValuationNotebook.ipynb)
+        *   *Description:* Explore DCF valuation, trading comparables, and basic bond pricing with interactive inputs using a sample dataset of mega-cap companies.
+    *   **Specific Notebook - LBO Model Basics:**
+        *   **Guide:** [./Financial_Modeling/LBO_Model_Basics/README.md](./Financial_Modeling/LBO_Model_Basics/README.md)
+        *   **File:** [./Financial_Modeling/LBO_Model_Basics/LBO_Model_Basics_Notebook.ipynb](./Financial_Modeling/LBO_Model_Basics/LBO_Model_Basics_Notebook.ipynb)
+        *   *Description:* An interactive introduction to the fundamental concepts and mechanics of a Leveraged Buyout (LBO) model, allowing users to see how key assumptions impact returns (IRR, MOIC).
 
 *   **Valuation Components:**
     *   **Guide & Overview:** [./Valuation_Components/README.md](./Valuation_Components/README.md)

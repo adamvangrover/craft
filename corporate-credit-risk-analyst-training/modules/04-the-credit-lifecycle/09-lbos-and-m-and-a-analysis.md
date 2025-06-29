@@ -68,6 +68,9 @@ While the private equity sponsor builds an LBO model primarily to solve for its 
     *   **Downside Scenarios:** What happens if revenue growth is lower, margins compress, or a recession hits? Can the company still service its debt and meet covenants? This is where creditors really test the resilience of the credit.
     *   **Sensitivity to Key Assumptions:** How do changes in exit multiples, interest rates, or operating assumptions impact key credit metrics and the sponsor's ability to achieve a successful exit (which might be a source of refinancing for the debt)?
 
+*   **Interactive LBO Model Example:**
+    *   To gain a hands-on understanding of basic LBO model mechanics, including sources and uses, simplified projections, debt paydown, and returns calculation, explore the [Interactive LBO Model Basics Notebook Guide](../../../../Interactive_Notebooks/Financial_Modeling/LBO_Model_Basics/README.md). This tool can help visualize the concepts discussed here.
+
 ## 9.3. M&A Credit Analysis: Assessing the Impact of Mergers and Acquisitions
 Analyzing the credit implications of a merger or acquisition (M&A) requires a similar forward-looking, pro forma approach. The analyst must evaluate the credit profile of the **combined entity** and determine whether the transaction strengthens or weakens overall credit risk from the perspective of existing and/or new lenders to the acquirer or the combined company.
 
