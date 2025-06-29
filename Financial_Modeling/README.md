@@ -26,7 +26,7 @@ This section will be organized into sub-directories covering:
 *   **Valuation_Applications:** How financial models are used in different valuation contexts (e.g., DCF valuation, comparable company analysis support).
     *   Explore an [Interactive WACC Calculator Guide](../Interactive_Notebooks/Valuation_Components/README.md) and its [Jupyter Notebook](../Interactive_Notebooks/Valuation_Components/InteractiveWACCCalculatorNotebook.ipynb) to understand a key input for DCF models.
     *   See also the [Interactive Equity Valuation Notebook Guide](../Interactive_Notebooks/Financial_Modeling/README.md) for DCF, Comps, and Bond Pricing examples.
-*   **Industry_Specific_Models:** Examples or considerations for models tailored to specific industries (e.g., banking, real estate, natural resources). *(Future Addition)*
+*   **Industry-Specific_Modeling_Considerations:** While core modeling principles apply broadly, certain industries have unique characteristics that require specialized modeling approaches. This can include specific revenue drivers, cost structures, regulatory impacts, or key performance indicators (KPIs). For example, modeling a bank differs significantly from modeling a manufacturing company or a SaaS business. Understanding these nuances is crucial for building relevant and accurate industry-specific models. For detailed insights into various sectors, refer to our [Industry Primers](../primers/index.html). *(Further detailed examples for specific industries like banking, real estate, and natural resources will be future additions to this section.)*
 *   **Model_Auditing_and_Testing:** Techniques for checking model accuracy and robustness. *(Future Addition)*
 
 ## How to Use This Section

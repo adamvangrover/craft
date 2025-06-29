@@ -57,22 +57,22 @@
         const moduleIframe = document.getElementById('module-content-frame');
         const fileListDisplay = document.getElementById('file-list');
         const pageTitle = document.querySelector('title');
-
-        const directoryName = "Risk_Management";
+        
+        const directoryName = "Risk_Management"; 
         // Files directly in Risk_Management/
         const localFiles = ["README.md", "01_Introduction_to_Risk_Management.md", "02_Risk_Identification_and_Assessment_Frameworks.md", "03_Risk_Reporting_and_Dashboards.md", "04_Risk_Governance_and_Culture.md", "AGENTS.MD"];
         // Sub-directories that have their own index.html
         const subDirectoryModules = [
-            {"name": "Credit_Risk", "indexPath": "Credit_Risk/index.html"},
-            {"name": "Market_Risk", "indexPath": "Market_Risk/index.html"},
+            {"name": "Credit_Risk", "indexPath": "Credit_Risk/index.html"}, 
+            {"name": "Market_Risk", "indexPath": "Market_Risk/index.html"}, 
             {"name": "Operational_Risk", "indexPath": "Operational_Risk/index.html"}
-        ];
+        ]; 
 
         document.addEventListener('DOMContentLoaded', async function() {
             pageTitle.textContent = `Viewer - ${directoryName}`;
-
+            
             let fileLinksHtml = '';
-
+            
             // Sort and add local files
             const sortedLocalFiles = localFiles.sort((a, b) => {
                 if (a.toLowerCase() === 'readme.md') return -1;
@@ -110,7 +110,7 @@
                     }
                 });
             });
-
+            
             // Load initial README.md directly
             const initialReadmeLink = fileListDisplay.querySelector('a[data-md-src="README.md"]');
             if (initialReadmeLink) {
@@ -154,7 +154,7 @@
                 if (!response.ok) throw new Error(`Failed to fetch ${mdPath}: ${response.status}`);
                 const markdownText = await response.text();
                 directContentDisplay.innerHTML = marked.parse(markdownText);
-                directContentDisplay.scrollTop = 0;
+                directContentDisplay.scrollTop = 0; 
             } catch (error) {
                 console.error("Error loading direct Markdown:", error);
                 directContentDisplay.innerHTML = `<p>Error loading content for ${mdPath}.</p><p><small>${error.message}</small></p>`;

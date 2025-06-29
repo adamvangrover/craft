@@ -25,18 +25,18 @@
         const contentDisplay = document.getElementById('content-area');
         const fileListDisplay = document.getElementById('file-list');
         const pageTitle = document.querySelector('title');
-
-        const directoryName = "Toolkits_and_Checklists";
+        
+        const directoryName = "Toolkits_and_Checklists"; 
         const filesInDir = ["AGENTS.MD", "Basic_Financial_Ratios_Calculator_Guide.md", "Credit_Analysis_Due_Diligence_Checklist.md", "README.md"];
-        const subDirsInfo = [];
-        const relativePathToRoot = "../";
+        const subDirsInfo = []; 
+        const relativePathToRoot = "../"; 
         const parentIndexExists = true;
 
         document.addEventListener('DOMContentLoaded', async function() {
             pageTitle.textContent = `Viewer - ${directoryName}`;
-
+            
             let fileLinksHtml = `<li><a href="#" data-md-src="README.md" class="nav-link active">README.md (Main)</a></li>`;
-
+            
             const sortedFiles = filesInDir.sort((a, b) => {
                 if (a.toLowerCase() === 'readme.md') return -1;
                 if (b.toLowerCase() === 'readme.md') return 1;
@@ -50,7 +50,7 @@
             });
 
             subDirsInfo.forEach(subdir => {
-                if (subdir.readmePath) {
+                if (subdir.readmePath) { 
                      fileLinksHtml += `<li class="subdirectory-group"><h4>${subdir.name}/</h4></li>`;
                      fileLinksHtml += `<li><a href="#" data-md-src="${subdir.readmePath}" class="nav-link">&nbsp;&nbsp;&nbsp;README.md</a></li>`;
                 }
@@ -59,11 +59,11 @@
 
             const upLinkContainer = document.getElementById('up-link-container');
             let upLink = '';
-            if (relativePathToRoot === "../") {
+            if (relativePathToRoot === "../") { 
                 upLink = `<a href="${relativePathToRoot}home.html">&laquo; Back to Main Hub</a>`;
             } else if (parentIndexExists) {
                  upLink = `<a href="${relativePathToRoot}index.html">&laquo; Up to Parent Directory</a>`;
-            } else {
+            } else { 
                 upLink = `<a href="${relativePathToRoot}home.html">&laquo; Back to Main Hub (Fallback)</a>`;
             }
             upLinkContainer.innerHTML = upLink;
@@ -77,7 +77,7 @@
                     loadMarkdown(mdSrc);
                 });
             });
-
+            
             if (filesInDir.includes('README.md')) {
                 await loadMarkdown('README.md');
             } else {
@@ -109,7 +109,7 @@
                 }
                 const markdownText = await response.text();
                 contentDisplay.innerHTML = marked.parse(markdownText);
-                contentDisplay.scrollTop = 0;
+                contentDisplay.scrollTop = 0; 
             } catch (error) {
                 console.error("Error loading or parsing Markdown:", error);
                 contentDisplay.innerHTML = `<p>Error loading content for ${mdPath}.</p><p><small>${error.message}</small></p>`;

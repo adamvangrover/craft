@@ -2,7 +2,7 @@
 
 ## Overview
 
-Artificial Intelligence (AI) and its subfield Machine Learning (ML) are rapidly transforming the financial services industry. AI encompasses the broad capability of machines to perform tasks that typically require human intelligence (e.g., learning, problem-solving, decision-making). ML, a core component of AI, involves algorithms that enable computer systems to learn from and make predictions or decisions based on data, without being explicitly programmed for every scenario. Deep Learning, a subset of ML, utilizes complex neural networks with many layers to model intricate patterns in large datasets.
+[Artificial Intelligence (AI)](../Global_Financial_Glossary.md#artificial-intelligence-ai) and its subfield [Machine Learning (ML)](../Global_Financial_Glossary.md#machine-learning-ml) are rapidly transforming the financial services industry. AI encompasses the broad capability of machines to perform tasks that typically require human intelligence (e.g., learning, problem-solving, decision-making). ML, a core component of AI, involves algorithms that enable computer systems to learn from and make predictions or decisions based on data, without being explicitly programmed for every scenario. [Deep Learning (DL)](../Global_Financial_Glossary.md#deep-learning-dl), a subset of ML, utilizes complex neural networks with many layers to model intricate patterns in large datasets.
 
 In finance, AI/ML applications are extensive, ranging from automating routine processes and enhancing customer experiences to sophisticated risk management, fraud detection, algorithmic trading, and personalized financial advice. These technologies empower financial institutions to analyze vast and diverse datasets (Big Data), identify complex patterns and correlations, and generate data-driven insights for more informed decision-making.
 
@@ -27,7 +27,7 @@ Understanding these foundational concepts is key to grasping AI's role in financ
     *   **Reinforcement Learning:** The model learns by interacting with an environment, receiving rewards or penalties for its actions (trial and error). Used in areas like algorithmic trading or dynamic portfolio optimization.
 
 *   **1.3. Natural Language Processing (NLP):**
-    *   A branch of AI focused on enabling computers to understand, interpret, generate, and interact with human language (text and speech).
+    *   A branch of AI focused on enabling computers to understand, interpret, generate, and interact with human language (text and speech). See also [Natural Language Processing (NLP)](../Global_Financial_Glossary.md#natural-language-processing-nlp).
     *   **Applications in Finance:**
         *   *Sentiment Analysis:* Determining the emotional tone (positive, negative, neutral) of text from news articles, social media, earnings call transcripts to gauge market or company sentiment.
         *   *Chatbots & Virtual Assistants:* Providing automated customer service.
@@ -93,7 +93,7 @@ Despite the benefits, significant challenges exist:
 
 *   **4.1. Data Quality and Bias:**
     *   ML models are highly dependent on the quality, quantity, and representativeness of the data they are trained on.
-    *   Biased training data (e.g., historical lending data reflecting past societal biases) can lead to AI models that perpetuate or even amplify these biases, resulting in unfair or discriminatory outcomes (e.g., in loan approvals).
+    *   [Algorithmic Bias](../Global_Financial_Glossary.md#algorithmic-bias), often stemming from biased training data (e.g., historical lending data reflecting past societal biases), can lead to AI models that perpetuate or even amplify these biases, resulting in unfair or discriminatory outcomes (e.g., in loan approvals).
     *   *Credit Analyst Note:* Always question the source, quality, and potential biases in data used by AI models.
 *   **4.2. Explainability and Interpretability (The "Black Box" Problem):**
     *   Many advanced ML models, especially deep learning neural networks, are complex "black boxes," making it difficult to understand precisely how they arrive at a particular decision or prediction.
@@ -127,11 +127,12 @@ Despite the benefits, significant challenges exist:
 
 ## 6. Relevance to Credit Risk / Financial Analysis (Expanded)
 
-AI and ML are profoundly reshaping credit risk assessment and financial analysis:
+AI and ML are profoundly reshaping credit risk assessment and financial analysis. For a detailed exploration of how AI is specifically addressed within a structured credit training program, see the [CRAFT Program module on the Future of Risk & AI](../corporate-credit-risk-analyst-training/modules/05-future-of-risk-management/11-future-of-risk-and-ai.md).
 
 *   **6.1. Enhanced Credit Scoring & Underwriting:**
     *   ML models can incorporate a vast array of traditional and alternative data (e.g., bank transaction data, utility payments, online behavior – with privacy safeguards) to generate more predictive credit scores. This can lead to more accurate risk differentiation, potentially reducing default rates and enabling more inclusive lending to individuals and SMEs with "thin" credit files.
     *   Automation of data gathering and initial risk assessment significantly speeds up the underwriting process.
+    *   These concepts are further elaborated in the context of traditional and AI-driven approaches in [Credit Scoring and Rating Models](../Risk_Management/Credit_Risk/CRM_03_Credit_Scoring_and_Rating_Models.md).
     *   *Student Note:* While powerful, understand that alternative data usage raises ethical questions about fairness and potential proxies for protected characteristics.
 *   **6.2. Early Warning Systems & Predictive Analytics:**
     *   AI can continuously monitor a wide range of data sources (financial statements, market prices, news sentiment via NLP, macroeconomic indicators, supply chain information) to detect subtle patterns that may precede credit deterioration in a company or sector.

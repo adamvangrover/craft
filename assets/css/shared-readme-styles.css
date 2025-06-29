@@ -1,0 +1,297 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.6;
+    background-color: #f8f9fa; /* Light gray background */
+    color: #212529; /* Dark text for readability */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header Styling */
+.viewer-header {
+    background-color: #343a40; /* Dark header background */
+    color: #ffffff; /* White text */
+    padding: 1rem 1.5rem;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #007bff; /* Accent color */
+}
+
+.viewer-header h1 {
+    font-size: 1.8em;
+    margin: 0;
+}
+
+.viewer-header .back-to-home {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9em;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.viewer-header .back-to-home:hover {
+    background-color: #ffffff;
+    color: #343a40;
+}
+
+/* Main Container for Two-Pane Layout */
+.viewer-container {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1400px; /* Max width for larger screens */
+    margin: 15px auto; /* Centering and space from header */
+    padding: 0 15px; /* Padding on the sides */
+    gap: 20px; /* Space between nav and content panes */
+}
+
+/* Navigation Pane (Left) */
+.viewer-nav {
+    flex: 0 0 280px; /* Fixed width for nav, adjust as needed */
+    background-color: #ffffff; /* White background for nav */
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow-y: auto; /* Scroll if content exceeds height */
+    max-height: calc(100vh - 120px); /* Adjust based on header/footer */
+}
+
+.viewer-nav h2 {
+    font-size: 1.4em;
+    color: #007bff; /* Accent color for heading */
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #dee2e6; /* Light border */
+}
+
+.viewer-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.viewer-nav ul li a {
+    display: block;
+    text-decoration: none;
+    color: #343a40; /* Dark link color */
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 0.3rem;
+    border-radius: 5px;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 0.95em;
+}
+
+.viewer-nav ul li a:hover {
+    background-color: #e9ecef; /* Light hover background */
+    color: #0056b3; /* Darker blue on hover */
+}
+
+.viewer-nav ul li a.active {
+    background-color: #007bff; /* Blue background for active link */
+    color: #ffffff; /* White text for active link */
+    font-weight: bold;
+}
+
+/* Content Pane (Right) */
+.viewer-content {
+    flex-grow: 1; /* Takes remaining space */
+    background-color: #ffffff; /* White background for content */
+    padding: 1.5rem 2rem; /* More padding for content */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow-y: auto; /* Scroll if content exceeds height */
+    max-height: calc(100vh - 120px); /* Adjust based on header/footer */
+}
+
+/* Basic Styling for Rendered Markdown in .viewer-content */
+.viewer-content h1, .viewer-content h2, .viewer-content h3, .viewer-content h4, .viewer-content h5, .viewer-content h6 {
+    color: #343a40;
+    margin-top: 1.8rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+.viewer-content h1:first-child, .viewer-content h2:first-child, .viewer-content h3:first-child {
+    margin-top: 0.2rem;
+}
+.viewer-content h1 { font-size: 2em; }
+.viewer-content h2 { font-size: 1.7em; }
+.viewer-content h3 { font-size: 1.4em; }
+.viewer-content h4 { font-size: 1.2em; border-bottom: none; }
+.viewer-content h5 { font-size: 1.1em; border-bottom: none; }
+.viewer-content h6 { font-size: 1em; border-bottom: none; color: #6c757d; }
+
+.viewer-content p {
+    margin-bottom: 1.2rem;
+    line-height: 1.7;
+}
+
+.viewer-content ul, .viewer-content ol {
+    margin-left: 25px;
+    margin-bottom: 1.2rem;
+    padding-left: 10px;
+}
+
+.viewer-content li {
+    margin-bottom: 0.6rem;
+}
+
+.viewer-content code {
+    background-color: #e9ecef; /* Light background for inline code */
+    color: #c7254e; /* Bootstrap-like color for code */
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+}
+
+.viewer-content pre {
+    background-color: #282c34; /* Dark background for code blocks */
+    color: #abb2bf; /* Light text for dark background */
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin-bottom: 1.2rem;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+.viewer-content pre code {
+    background-color: transparent; /* Reset for code inside pre */
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+}
+
+.viewer-content table {
+    width: auto; /* Let table size itself, or 100% if preferred */
+    max-width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    font-size: 0.9em;
+}
+
+.viewer-content th, .viewer-content td {
+    border: 1px solid #dee2e6; /* Lighter border for tables */
+    padding: 0.8rem 1rem;
+    text-align: left;
+}
+
+.viewer-content th {
+    background-color: #f8f9fa; /* Very light gray for table headers */
+    font-weight: 600;
+}
+
+.viewer-content blockquote {
+    border-left: 5px solid #007bff; /* Blue accent for blockquotes */
+    padding: 0.8rem 1.2rem;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 1.2rem;
+    background-color: #f0f8ff; /* Light blue background */
+    color: #334155;
+    font-style: italic;
+}
+.viewer-content blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+.viewer-content a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.viewer-content a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+.viewer-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin: 0.5em 0 1em 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .viewer-container {
+        flex-direction: column;
+        margin-top: 10px;
+        padding: 0 10px;
+    }
+    .viewer-nav, .viewer-content {
+        flex: 1 1 auto; /* Allow them to grow and shrink */
+        max-height: none; /* Remove fixed height for stacked layout */
+        width: 100%;
+    }
+    .viewer-nav {
+        margin-bottom: 15px; /* Space between nav and content when stacked */
+        max-height: 40vh; /* Limit height when stacked */
+    }
+    .viewer-header {
+        padding: 0.8rem 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .viewer-header h1 {
+        font-size: 1.5em;
+    }
+}
+
+/* Print styles */
+@media print {
+    body {
+        background-color: #fff;
+        padding: 0;
+        margin: 0.5in;
+        font-size: 10pt;
+    }
+    .viewer-header, .viewer-nav {
+        display: none !important;
+    }
+    .viewer-container {
+        flex-direction: column !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        gap: 0 !important;
+    }
+    .viewer-content {
+        flex: 1 !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+    .viewer-content h1, .viewer-content h2, .viewer-content h3, .viewer-content h4, .viewer-content h5, .viewer-content h6 {
+        page-break-after: avoid;
+    }
+    .viewer-content table, .viewer-content blockquote, .viewer-content pre {
+        page-break-inside: avoid;
+    }
+    .viewer-content a {
+        color: #000 !important; /* Black links for print */
+        text-decoration: underline !important;
+    }
+    .viewer-content a[href^="http"]:after, .viewer-content a[href^="//"]:after {
+        content: " (" attr(href) ")"; /* Show full URLs for external links */
+        font-size: 0.9em;
+    }
+}

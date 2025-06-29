@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Directory Viewer - Interactive_Notebooks</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="../assets/css/simple_viewer.css">
@@ -36,6 +37,7 @@
              <a href="../home.html">&laquo; Back to Main Hub</a>
         </div>
         <h3>Interactive Notebooks Navigation</h3>
+
         <ul id="file-list">
             <!-- File list will be populated by JavaScript -->
         </ul>
@@ -55,6 +57,7 @@
         const directContentDisplay = document.getElementById('content-area');
         const iframeContainer = document.getElementById('iframe-container');
         const moduleIframe = document.getElementById('module-content-frame');
+
         const fileListDisplay = document.getElementById('file-list');
         const pageTitle = document.querySelector('title');
 
@@ -66,12 +69,14 @@
             {"name": "Valuation_Components", "indexPath": "Valuation_Components/index.html"}
         ];
 
+
         document.addEventListener('DOMContentLoaded', async function() {
             pageTitle.textContent = `Viewer - ${directoryName}`;
 
             let fileLinksHtml = '';
 
             const sortedLocalFiles = localFiles.sort((a, b) => {
+
                 if (a.toLowerCase() === 'readme.md') return -1;
                 if (b.toLowerCase() === 'readme.md') return 1;
                 return a.localeCompare(b);
@@ -89,6 +94,7 @@
                 fileLinksHtml += `<li><a href="#" data-iframe-src="${subdir.indexPath}" class="nav-link iframe-link">&nbsp;&nbsp;&nbsp;Explore ${subdir.name} Notebooks</a></li>`;
             });
             fileListDisplay.innerHTML = fileLinksHtml;
+
 
             fileListDisplay.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(event) {
@@ -159,6 +165,7 @@
             showIframeArea();
             moduleIframe.src = indexPath;
         }
+
     </script>
 </body>
 </html>

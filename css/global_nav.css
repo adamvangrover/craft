@@ -1,0 +1,197 @@
+/* Global Navigation Styles */
+
+/* Placeholder for where the navigation will be injected.
+   This can be a sidebar or a top bar.
+   For now, basic block styling.
+*/
+#global-nav-placeholder {
+    font-family: 'Inter', sans-serif; /* Match font from home.html */
+    background-color: #f8f9fa; /* Light gray, similar to CFA hub */
+    padding: 10px;
+    border-right: 1px solid #e0e0e0; /* Example for a sidebar */
+    min-height: 100vh; /* Example for a full-height sidebar */
+    width: 280px; /* Example width for a sidebar */
+    box-sizing: border-box;
+}
+
+/* General UL styling - remove default list styles */
+#global-nav-placeholder ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+/* Styling for each navigation level */
+#global-nav-placeholder ul.nav-level-0 {
+    /* Top level menu */
+}
+
+#global-nav-placeholder ul[class^="nav-level-"] ul {
+    padding-left: 20px; /* Indentation for sub-menus */
+    border-left: 2px solid #e0e0e0; /* Visual cue for nesting */
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* List item styling */
+#global-nav-placeholder li {
+    margin-bottom: 5px; /* Space between items */
+}
+
+/* Link styling */
+#global-nav-placeholder a {
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #3D352E; /* Dark brown from home.html */
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-size: 0.95rem;
+}
+
+#global-nav-placeholder a:hover {
+    background-color: #e9ecef; /* Lighter gray from CFA hub for hover */
+    color: #0056b3; /* Darker blue for hover text */
+}
+
+/* Active link styling - JS will need to add this class */
+#global-nav-placeholder a.active-nav-link {
+    background-color: #4A90E2; /* Muted blue from home.html for active */
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Category title styling (non-linkable spans) */
+#global-nav-placeholder span.nav-category-title {
+    display: block;
+    padding: 10px 12px;
+    color: #8C7D6B; /* Muted brown from home.html tags */
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    /* Common styles for button-like category titles */
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit; /* Inherit font from placeholder */
+}
+
+/* Styling for the toggler icon within category titles */
+#global-nav-placeholder .nav-category-title .toggler-icon {
+    float: right; /* Position icon to the right */
+    font-size: 0.8em; /* Smaller icon */
+    margin-left: 5px;
+    transition: transform 0.2s ease-in-out;
+}
+
+#global-nav-placeholder .nav-category-title[aria-expanded="true"] .toggler-icon {
+    transform: rotate(45deg); /* Rotated '+' to look like 'x' or part of '-' */
+}
+
+
+#global-nav-placeholder ul.nav-level-0 > li > .nav-category-title {
+    /* More prominent styling for top-level categories if needed */
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 5px;
+}
+
+#global-nav-placeholder .nav-category-title:hover {
+    background-color: #e9ecef; /* Consistent hover with links */
+}
+
+
+/* Specific styling for learning path definition links */
+#global-nav-placeholder a.learning-path-definition-link {
+    /* Could add an icon or slightly different styling */
+    /* Example: border-left: 3px solid #28a745; */
+}
+
+/* Responsive considerations (very basic for now) */
+@media (max-width: 768px) {
+    #global-nav-placeholder {
+        width: 100%; /* Full width on smaller screens if it's a top bar */
+        min-height: auto; /* Adjust height */
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0; /* Border for a top bar */
+    }
+
+    /* Future: Add styles for a hamburger menu toggle, etc. */
+}
+
+/* Initial thoughts for a collapsible sidebar (JS would be needed to toggle 'collapsed' class) */
+/*
+#global-nav-placeholder.collapsed {
+    width: 60px;
+    overflow: hidden;
+}
+#global-nav-placeholder.collapsed .nav-category-title,
+#global-nav-placeholder.collapsed ul ul {
+    display: none;
+}
+#global-nav-placeholder.collapsed a span.link-text {
+    display: none;
+}
+#global-nav-placeholder.collapsed a i.icon { // Assuming icons are added
+    font-size: 1.5rem;
+    padding: 10px;
+}
+*/
+
+/* Styling for a more sophisticated top menu with dropdowns (JS would control dropdown visibility) */
+/*
+#global-nav-placeholder.top-menu {
+    width: 100%;
+    min-height: auto;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0;
+}
+#global-nav-placeholder.top-menu > ul.nav-level-0 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; // Or center, space-around
+}
+#global-nav-placeholder.top-menu > ul.nav-level-0 > li {
+    position: relative; // For dropdown positioning
+    margin-bottom: 0;
+}
+#global-nav-placeholder.top-menu > ul.nav-level-0 > li > a,
+#global-nav-placeholder.top-menu > ul.nav-level-0 > li > span.nav-category-title {
+    border-bottom: none;
+    padding: 15px 20px;
+}
+#global-nav-placeholder.top-menu ul[class^="nav-level-"] ul { // Submenus as dropdowns
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    min-width: 200px;
+    z-index: 1000;
+    display: none; // JS toggles this
+    padding-left: 0;
+    border-left: none;
+}
+#global-nav-placeholder.top-menu li:hover > ul[class^="nav-level-"] ul {
+    display: block; // Simple hover effect, JS better for click/focus
+}
+*/
+
+/* Styling for sub-menus that are hidden/shown by JS */
+#global-nav-placeholder ul[class^="nav-level-"] ul { /* This selector was already here, good */
+    /* display: none; -- JS now handles this directly on the element's style property */
+    /* Other styles for submenus are fine */
+}
+
+
+/* Ensure css directory exists, create if not */
+/* This comment is for the agent, not part of the CSS file */
+/* The tool will handle directory creation if needed. */
+
+/* Make sure to link this CSS file in the HTML pages where the global nav will be used. */
+/* Example: <link rel="stylesheet" href="css/global_nav.css"> */

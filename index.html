@@ -9,6 +9,7 @@
          The complex CRAFT SPA that was previously part of a conflict in this file will be moved to `corporate-credit-risk-analyst-training/index.html`.
          The original simpler CRAFT loader (sidebar + markdown viewer) is kept here as a basic fallback,
          but its primary purpose is now to redirect to home.html.
+         The large commented-out CRAFT SPA block has been removed as of [current date/change] as it now resides in corporate-credit-risk-analyst-training/index.html.
     -->
     <title>Financial Learning Repository - Welcome</title>
     <link rel="stylesheet" href="assets/css/style.css">
@@ -50,10 +51,11 @@
             <ul id="module-navigation-list">
                 <!-- Dynamically populated by script.js if this part becomes active -->
                 <li><a href="#" data-path="corporate-credit-risk-analyst-training/README.md">Course Overview (CRAFT README)</a></li>
+                 <li><a href="corporate-credit-risk-analyst-training/index.html">Go to Interactive CRAFT Hub</a></li>
             </ul>
         </nav>
         <main id="content-area">
-            <p>Please use the <a href="home.html">Main Dashboard</a> for full site access. If you intended to view the CRAFT program, its interactive hub will be at `corporate-credit-risk-analyst-training/index.html` once fully set up.</p>
+            <p>Please use the <a href="home.html">Main Dashboard</a> for full site access. If you intended to view the CRAFT program, its interactive hub is at <a href="corporate-credit-risk-analyst-training/index.html">corporate-credit-risk-analyst-training/index.html</a>.</p>
         </main>
         <footer>
             <p>&copy; <span id="current-year"></span> Financial Learning Hub. Placeholder.</p>
@@ -64,348 +66,7 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <!-- Custom JavaScript (for fallback) -->
     <script src="assets/js/script.js"></script>
-
-</body>
-</html>
-
-<!--
-    DEVELOPER NOTE: The following HTML block was part of a merge conflict.
-    It represents an interactive SPA for the CRAFT program.
-    This content will be moved to `corporate-credit-risk-analyst-training/index.html`.
-    It has been commented out here to preserve the code, as per user request, while the simple redirect version above is active for root `index.html`.
-
-=======
-
-    <title>Interactive Credit Risk Analyst Foundations Training Course</title>
-    <!-- Chosen Palette: Warm Neutrals (Cream, Stone, Slate) with a Professional Blue Accent -->
-    <!-- Application Structure Plan: A non-linear, dashboard-style single-page application is chosen over a linear format to better reflect a modern learning experience and an analyst's workflow. The information is architected into four core pillars: "Toolkit," "Deal Analysis," "Portfolio Management," and "Future of Risk." This task-oriented structure allows users to either follow a logical progression or jump directly to a specific area of interest (e.g., "Covenants" or "LBO Modeling"). This design prioritizes usability and engagement, transforming a dense text document into an explorable, interactive tool. Key interactions include clickable diagrams, dynamic charts, toggles, and accordions to make complex information digestible and visually appealing. -->
-    <!-- Visualization & Content Choices: Static text is converted into interactive elements to enhance learning. Goal: Inform/Compare -> Viz: Clickable diagrams for financial statement links and capital structure (HTML/CSS), dynamic bar charts for credit ratios (Chart.js), interactive toggles for covenant types (JS). Goal: Organize -> Viz: Step-by-step process flow for credit memos (HTML/CSS), accordion panels for detailed explanations. Goal: Analyze -> Viz: Interactive Porter's Five Forces diagram (HTML/CSS/JS), simple slider for sensitivity analysis concept (JS/Chart.js). Justification: These choices break down complex topics into manageable, interactive chunks, fostering active learning over passive reading, directly supporting the designed application structure. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8f7f4; color: #4a4a4a; }
-        .nav-button { transition: all 0.3s ease; }
-        .nav-button.active { background-color: #3b82f6; color: white; }
-        .content-section { display: none; }
-        .content-section.active { display: block; }
-        .card { background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; }
-        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
-    </style>
-</head>
-<body class="antialiased">
-
-    <div class="min-h-screen">
-        <header class="bg-white shadow-md sticky top-0 z-50">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-16">
-                    <div class="flex-shrink-0">
-                        <h1 class="text-2xl font-bold text-gray-800">Credit Risk Analyst Course</h1>
-                    </div>
-                    <nav class="hidden md:block">
-                        <div class="ml-10 flex items-baseline space-x-4">
-                            <button onclick="showSection('toolkit')" class="nav-button active text-gray-700 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium">Toolkit</button>
-                            <button onclick="showSection('deal-analysis')" class="nav-button text-gray-700 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium">Deal Analysis</button>
-                            <button onclick="showSection('portfolio')" class="nav-button text-gray-700 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium">Portfolio Management</button>
-                            <button onclick="showSection('future')" class="nav-button text-gray-700 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium">Future of Risk</button>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </header>
-
-        <main class="container mx-auto p-4 sm:p-6 lg:p-8">
-            <!-- Analyst's Toolkit Section -->
-            <section id="toolkit" class="content-section active">
-                <h2 class="text-3xl font-bold text-gray-800 mb-2">The Analyst's Toolkit</h2>
-                <p class="text-lg text-gray-600 mb-8">This section covers the foundational concepts every credit analyst must master, from interpreting financial statements to building robust models and performing rigorous analysis.</p>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <!-- Financial Statements -->
-                    <div class="card p-6">
-                        <h3 class="text-2xl font-semibold mb-4">Understanding Financial Statements</h3>
-                        <p class="mb-6 text-gray-600">The three core financial statements are intricately linked. Explore the diagram below to see how they connect. Click on any component to learn more about its role.</p>
-                        <div id="financial-statement-info" class="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg text-blue-800 min-h-[100px]">
-                            Click on a statement or a link to see details here.
-                        </div>
-                        <div class="space-y-4">
-                            <div class="text-center">
-                                <button onclick="showInfo('income')" class="statement-btn bg-green-100 text-green-800 p-3 rounded-lg shadow-sm w-full font-semibold">Income Statement</button>
-                                <div class="text-2xl my-2">↓</div>
-                            </div>
-                            <div class="text-center font-mono text-sm bg-gray-100 p-2 rounded-md cursor-pointer" onclick="showInfo('net-income-link')">Net Income flows to...</div>
-                            <div class="text-2xl text-center">↙↘</div>
-                            <div class="flex justify-between items-start space-x-4">
-                                <div class="w-1/2 text-center">
-                                    <button onclick="showInfo('cashflow')" class="statement-btn bg-yellow-100 text-yellow-800 p-3 rounded-lg shadow-sm w-full font-semibold">Statement of Cash Flows</button>
-                                    <div class="text-2xl my-2">↓</div>
-                                    <div class="font-mono text-sm bg-gray-100 p-2 rounded-md cursor-pointer" onclick="showInfo('cash-link')">Ending Cash links to...</div>
-                                </div>
-                                <div class="w-1/2 text-center">
-                                    <button onclick="showInfo('balance')" class="statement-btn bg-red-100 text-red-800 p-3 rounded-lg shadow-sm w-full font-semibold">Balance Sheet</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Ratio Analysis -->
-                    <div class="card p-6">
-                        <h3 class="text-2xl font-semibold mb-4">Key Credit Ratio Analysis</h3>
-                        <p class="mb-6 text-gray-600">Ratios standardize financial data, allowing for comparison over time and against peers. Select a category to visualize key ratios and understand their importance.</p>
-                        <div class="mb-4">
-                            <select id="ratio-selector" class="w-full p-2 border border-gray-300 rounded-md">
-                                <option value="leverage">Leverage Ratios</option>
-                                <option value="coverage">Coverage Ratios</option>
-                                <option value="liquidity">Liquidity Ratios</option>
-                                <option value="profitability">Profitability Ratios</option>
-                            </select>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="ratioChart"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Advanced Analysis -->
-                    <div class="card p-6 col-span-1 lg:col-span-2">
-                        <h3 class="text-2xl font-semibold mb-4">Advanced Analysis Techniques</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="p-4 bg-gray-50 rounded-lg">
-                                <h4 class="font-bold text-lg mb-2">Sensitivity Analysis</h4>
-                                <p class="text-sm text-gray-600">Tests how changes in one variable (e.g., revenue growth) affect an outcome. Use the slider to see how revenue assumptions impact projected EBITDA.</p>
-                                <div class="mt-4">
-                                    <label for="sensitivity-slider" class="block text-sm font-medium">Revenue Growth Assumption:</label>
-                                    <input id="sensitivity-slider" type="range" min="-5" max="10" value="2" step="1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                                    <div class="text-center font-bold mt-1"><span id="sensitivity-value">2</span>%</div>
-                                </div>
-                                <div class="chart-container h-64 max-h-64 mt-4">
-                                    <canvas id="sensitivityChart"></canvas>
-                                </div>
-                            </div>
-                            <div class="p-4 bg-gray-50 rounded-lg">
-                                <h4 class="font-bold text-lg mb-2">Scenario Analysis</h4>
-                                <p class="text-sm text-gray-600">Models outcomes by changing multiple variables simultaneously to reflect a plausible future state (e.g., a recession). Helps understand the range of potential outcomes.</p>
-                                <div class="mt-4 space-y-2">
-                                    <div class="p-2 border border-green-300 bg-green-100 rounded"><strong>Best Case:</strong> High Growth, Margin Expansion</div>
-                                    <div class="p-2 border border-blue-300 bg-blue-100 rounded"><strong>Base Case:</strong> Moderate Growth, Stable Margins</div>
-                                    <div class="p-2 border border-red-300 bg-red-100 rounded"><strong>Downside Case:</strong> Low Growth, Margin Compression</div>
-                                </div>
-                            </div>
-                             <div class="p-4 bg-gray-50 rounded-lg">
-                                <h4 class="font-bold text-lg mb-2">Stress Testing</h4>
-                                <p class="text-sm text-gray-600">A more extreme form of scenario analysis. It gauges the impact of a severe but plausible crisis (e.g., deep recession, liquidity freeze) to assess capital adequacy and vulnerabilities.</p>
-                                 <div class="mt-4 p-4 border-4 border-dashed border-red-400 bg-red-50 rounded-lg text-center">
-                                    <div class="text-red-700 font-bold text-xl">BREAK-POINT ANALYSIS</div>
-                                    <p class="text-red-600 text-sm mt-2">Answers the question: "What happens in a worst-case outcome?"</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Deal Analysis Section -->
-            <section id="deal-analysis" class="content-section">
-                <h2 class="text-3xl font-bold text-gray-800 mb-2">Deal Analysis Deep Dive</h2>
-                <p class="text-lg text-gray-600 mb-8">Apply your skills to real-world situations. This section explores how to analyze the competitive landscape, evaluate complex transactions, and structure a loan to protect against risk.</p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Porter's Five Forces -->
-                    <div class="card p-6 lg:col-span-2">
-                         <h3 class="text-2xl font-semibold mb-4">Industry Analysis: Porter's Five Forces</h3>
-                        <p class="mb-6 text-gray-600">A company's success is shaped by its industry. Use this interactive framework to analyze the forces that determine industry profitability. Click a force to see its analysis for the U.S. Airline Industry as a case study.</p>
-                        <div class="relative w-full max-w-2xl mx-auto">
-                            <div class="absolute top-0 left-1/2 -translate-x-1/2 -mt-4 text-center">
-                                <button class="porter-btn p-2 bg-blue-100 border-2 border-blue-500 rounded-lg shadow-lg" onclick="showPorterInfo('entrants')">Threat of New Entrants</button>
-                            </div>
-                            <div class="absolute top-1/2 left-0 -translate-y-1/2 -mt-4 text-center">
-                                <button class="porter-btn p-2 bg-blue-100 border-2 border-blue-500 rounded-lg shadow-lg" onclick="showPorterInfo('suppliers')">Bargaining Power of Suppliers</button>
-                            </div>
-                            <div class="absolute top-1/2 right-0 -translate-y-1/2 -mt-4 text-center">
-                                <button class="porter-btn p-2 bg-blue-100 border-2 border-blue-500 rounded-lg shadow-lg" onclick="showPorterInfo('buyers')">Bargaining Power of Buyers</button>
-                            </div>
-                             <div class="absolute bottom-0 left-1/2 -translate-x-1/2 -mb-4 text-center">
-                                <button class="porter-btn p-2 bg-blue-100 border-2 border-blue-500 rounded-lg shadow-lg" onclick="showPorterInfo('substitutes')">Threat of Substitutes</button>
-                            </div>
-                             <div class="flex items-center justify-center h-48">
-                                 <button class="porter-btn p-4 bg-blue-500 text-white rounded-full shadow-xl w-32 h-32 flex items-center justify-center text-center font-bold" onclick="showPorterInfo('rivalry')">Competitive Rivalry</button>
-                            </div>
-                        </div>
-                        <div id="porter-info" class="mt-12 p-4 bg-gray-50 border border-gray-200 rounded-lg min-h-[150px]">
-                            Select a force to learn more.
-                        </div>
-                    </div>
-                    <!-- Capital Structure -->
-                    <div class="card p-6">
-                        <h3 class="text-2xl font-semibold mb-4">The Capital Structure</h3>
-                        <p class="mb-4 text-gray-600">Debt instruments have a clear hierarchy of claims on assets. Hover over each layer to understand its risk and seniority.</p>
-                        <div class="space-y-1">
-                            <div class="capital-item p-4 bg-green-100 border-l-4 border-green-500 rounded-r-lg" data-info="Safest debt. First claim on assets and cash flows, backed by specific collateral like inventory or receivables. Includes Revolvers and Term Loans.">
-                                <h4 class="font-bold">Senior Secured Debt</h4>
-                            </div>
-                             <div class="capital-item p-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-r-lg" data-info="Riskier than secured debt. Senior claim on cash flows but not backed by specific collateral. High-yield bonds are a common example.">
-                                <h4 class="font-bold">Senior Unsecured Debt</h4>
-                            </div>
-                             <div class="capital-item p-4 bg-orange-100 border-l-4 border-orange-500 rounded-r-lg" data-info="Ranks below all senior debt. Higher risk and higher interest rates. Can include equity-like features like warrants or PIK interest.">
-                                <h4 class="font-bold">Subordinated / Mezzanine Debt</h4>
-                            </div>
-                             <div class="capital-item p-4 bg-red-100 border-l-4 border-red-500 rounded-r-lg" data-info="Represents ownership. Has the last claim on assets in a liquidation (residual value). Highest risk, highest potential return.">
-                                <h4 class="font-bold">Equity</h4>
-                            </div>
-                        </div>
-                         <div id="capital-info" class="mt-4 p-3 bg-gray-50 border rounded-lg text-sm min-h-[50px]">
-                            Hover over a layer for details.
-                        </div>
-                    </div>
-                    <!-- Covenants -->
-                    <div class="card p-6 col-span-1 md:col-span-2 lg:col-span-3">
-                        <h3 class="text-2xl font-semibold mb-4">Covenants: The Lender's Guardrails</h3>
-                        <p class="mb-6 text-gray-600">Covenants are rules designed to protect the lender. A breach constitutes a technical default, giving the lender leverage. Explore the different types below.</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div>
-                                <h4 class="font-bold text-lg text-green-700">Affirmative</h4>
-                                <p class="text-sm">Actions the borrower <span class="font-bold">must</span> perform (e.g., provide financials, pay taxes).</p>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg text-red-700">Negative</h4>
-                                <p class="text-sm">Actions the borrower <span class="font-bold">cannot</span> perform without consent (e.g., incur more debt, sell assets).</p>
-                            </div>
-                            <div class="lg:col-span-2">
-                                <h4 class="font-bold text-lg text-blue-700">Financial Covenants</h4>
-                                <div class="flex items-center space-x-4 mt-2">
-                                    <button id="maint-btn" class="covenant-btn flex-1 p-2 bg-blue-500 text-white rounded-md" onclick="showCovenant('maintenance')">Maintenance</button>
-                                    <button id="incur-btn" class="covenant-btn flex-1 p-2 bg-blue-100 text-blue-700 rounded-md" onclick="showCovenant('incurrence')">Incurrence</button>
-                                </div>
-                                <div id="covenant-info" class="mt-2 text-sm">
-                                    <h5 class="font-semibold">Maintenance Covenants</h5>
-                                    <p>Must be tested and met on a regular basis (e.g., quarterly). Provides an early warning signal. Example: Maintain Debt/EBITDA &lt; 5.0x.</p>
-                                </div>
-                            </div>
-                        </div>
-                         <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400">
-                             <h4 class="font-bold text-yellow-800">The Rise of "Covenant-Lite"</h4>
-                            <p class="text-sm text-yellow-700">Modern loans often lack financial maintenance covenants ("cov-lite"). This delays early warnings and can lead to lower recoveries for lenders in a default. The analytical focus must shift to forward-looking liquidity and cash burn analysis.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Portfolio Management Section -->
-            <section id="portfolio" class="content-section">
-                <h2 class="text-3xl font-bold text-gray-800 mb-2">Portfolio Management & Monitoring</h2>
-                <p class="text-lg text-gray-600 mb-8">The analyst's job continues after a deal closes. This section focuses on the discipline of monitoring existing credits, identifying early warning signs of distress, and understanding the regulatory landscape.</p>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <!-- Early Warning Signs -->
-                    <div class="card p-6">
-                        <h3 class="text-2xl font-semibold mb-4">Early Warning Signs of Deterioration</h3>
-                        <p class="mb-4 text-gray-600">Catching problems early gives lenders more options to mitigate losses. Click on an indicator below to understand its implication and the required analyst action.</p>
-                        <div id="warning-info" class="p-4 bg-red-50 border border-red-200 rounded-lg min-h-[100px] mb-4 text-red-800">
-                            Select an indicator.
-                        </div>
-                        <div class="space-y-3">
-                            <h4 class="font-semibold text-gray-700">Quantitative Indicators</h4>
-                            <div class="grid grid-cols-2 gap-2">
-                                <button class="warning-btn text-sm p-2 bg-gray-100 rounded-md hover:bg-gray-200" onclick="showWarning('ratio')">Declining Coverage Ratios</button>
-                                <button class="warning-btn text-sm p-2 bg-gray-100 rounded-md hover:bg-gray-200" onclick="showWarning('leverage')">Rising Leverage</button>
-                                <button class="warning-btn text-sm p-2 bg-gray-100 rounded-md hover:bg-gray-200" onclick="showWarning('wc')">Working Capital Issues</button>
-                                <button class="warning-btn text-sm p-2 bg-gray-100 rounded-md hover:bg-gray-200" onclick="showWarning('covenant')">Covenant Breaches</button>
-                            </div>
-                             <h4 class="font-semibold text-gray-700 mt-4">Qualitative Indicators</h4>
-                            <div class="grid grid-cols-2 gap-2">
-                                <button class="warning-btn text-sm p-2 bg-gray-100 rounded-md hover:bg-gray-200" onclick="showWarning('payment')">Change in Payment Habits</button>
-                                <button class="warning-btn text-sm p-2 bg-gray-100 rounded-md hover:bg-gray-200" onclick="showWarning('mgmt')">Management Turnover</button>
-                                <button class="warning-btn text-sm p-2 bg-gray-100 rounded-md hover:bg-gray-200" onclick="showWarning('reporting')">Delayed Reporting</button>
-                                <button class="warning-btn text-sm p-2 bg-gray-100 rounded-md hover:bg-gray-200" onclick="showWarning('news')">Negative Industry News</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- SNC Program -->
-                    <div class="card p-6">
-                        <h3 class="text-2xl font-semibold mb-4">Regulatory Lens: The SNC Program</h3>
-                        <p class="mb-4 text-gray-600">The Shared National Credit (SNC) Program provides a uniform risk rating system for large syndicated loans. Understanding these classifications is vital for bank analysts.</p>
-                        <div class="space-y-4">
-                            <div class="accordion-item">
-                                <button class="accordion-header w-full text-left font-semibold p-3 bg-green-100 text-green-800 rounded-lg flex justify-between items-center">
-                                    <span>Pass</span><span>+</span>
-                                </button>
-                                <div class="accordion-content px-3 pt-2 text-sm text-gray-600">
-                                    <p>The baseline rating. The credit exhibits no significant weaknesses and is expected to be fully repaid according to its terms.</p>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <button class="accordion-header w-full text-left font-semibold p-3 bg-yellow-100 text-yellow-800 rounded-lg flex justify-between items-center">
-                                    <span>Special Mention (SM)</span><span>+</span>
-                                </button>
-                                <div class="accordion-content px-3 pt-2 text-sm text-gray-600">
-                                    <p>A critical early warning signal. The asset has potential weaknesses that, if uncorrected, could lead to future deterioration. Requires close management attention.</p>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <button class="accordion-header w-full text-left font-semibold p-3 bg-red-100 text-red-800 rounded-lg flex justify-between items-center">
-                                    <span>Classified (Substandard, Doubtful, Loss)</span><span>+</span>
-                                </button>
-                                <div class="accordion-content px-3 pt-2 text-sm text-gray-600">
-                                    <p>Includes loans with well-defined weaknesses where collection is in jeopardy.
-                                    <br><strong>Substandard:</strong> Inadequately protected by borrower's capacity or collateral. Distinct possibility of loss.
-                                    <br><strong>Doubtful:</strong> Collection in full is highly questionable and improbable.
-                                    <br><strong>Loss:</strong> Considered uncollectible and should be written off.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Future of Risk Section -->
-            <section id="future" class="content-section">
-                <h2 class="text-3xl font-bold text-gray-800 mb-2">The Future of Risk Management</h2>
-                <p class="text-lg text-gray-600 mb-8">The field is being transformed by Artificial Intelligence. This section explores how AI is reshaping credit analysis and what it means for the analyst of the future.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="card p-6">
-                         <h3 class="text-2xl font-semibold mb-4">AI's Impact on Credit Analysis</h3>
-                         <p class="mb-4 text-gray-600">AI is shifting credit risk from a reactive to a predictive discipline. Key applications include Machine Learning (ML) for enhanced credit scoring and Natural Language Processing (NLP) to analyze vast amounts of unstructured text data.</p>
-                         <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li><strong>ML Credit Scoring:</strong> Analyzes thousands of variables, including alternative data (e.g., transaction history), for more accurate predictions.</li>
-                            <li><strong>NLP Sentiment Analysis:</strong> Scans news and social media to gauge real-time sentiment around a company.</li>
-                            <li><strong>NLP Document Analysis:</strong> Automatically summarizes and extracts key terms from lengthy legal documents.</li>
-                            <li><strong>AI Early Warning Systems:</strong> Detects signs of distress from news feeds before they hit financial reports.</li>
-                         </ul>
-                    </div>
-                    <div class="card p-6">
-                        <h3 class="text-2xl font-semibold mb-4">Case Study: Generative AI</h3>
-                        <p class="mb-4 text-gray-600">Financial institutions are using Generative AI to automate the creation of first-draft credit memos, freeing analysts from routine data gathering to focus on higher-value judgment and critical thinking.</p>
-                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                            <p class="font-semibold text-blue-800">Proof-of-Concept Result:</p>
-                            <p class="text-blue-700 mt-2">A GenAI tool reduced the time to complete complex client questionnaires from <span class="font-bold">2+ hours</span> to <span class="font-bold">&lt;15 minutes</span> with 90% accuracy.</p>
-                        </div>
-                    </div>
-                    <div class="card p-6 col-span-1 md:col-span-2">
-                        <h3 class="text-2xl font-semibold mb-4">The Evolving Role of the Analyst</h3>
-                        <p class="mb-4 text-gray-600">AI doesn't make the analyst obsolete—it elevates them. As routine tasks become automated, the analyst's value shifts from "calculator" to "investigator, strategist, and ethicist." The future is a "human-in-the-loop" model.</p>
-                        <div class="flex flex-col md:flex-row items-center justify-around mt-4">
-                            <div class="text-center mb-4 md:mb-0">
-                                <div class="text-5xl mb-2">🤖</div>
-                                <h4 class="font-bold">AI's Role</h4>
-                                <p class="text-sm">Data Processing, Pattern Recognition, Prediction, Automation</p>
-                            </div>
-                            <div class="text-3xl font-bold text-gray-400 mx-8">+</div>
-                            <div class="text-center">
-                                <div class="text-5xl mb-2">🧠</div>
-                                <h4 class="font-bold">Human's Role</h4>
-                                <p class="text-sm">Critical Thinking, Contextual Understanding, Ethical Judgment, Final Accountability</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
-
     <script>
-        // Content for the script block of the second version (Interactive CRAFT SPA) was here in the original conflict.
-        // That JavaScript will be moved to `corporate-credit-risk-analyst-training/index.html`.
-        // For this root index.html (simple redirect/fallback), the script.js from assets/js/script.js would apply if not hidden.
         // Adding a simple current year for the fallback footer.
         const currentYearSpan = document.getElementById('current-year');
         if (currentYearSpan) {
@@ -413,15 +74,11 @@
         }
         // Auto-redirect to home.html after a short delay
         setTimeout(function() {
-            // Check if user is already on home.html to prevent loop, though this file is index.html
             if (window.location.pathname.endsWith('/') || window.location.pathname.endsWith('index.html')) {
-                 // window.location.href = 'home.html';
-                 // Developer Note: Automatic redirect disabled for now to allow review of this fallback page.
-                 // To enable, uncomment the line above.
-                 console.log("Automatic redirect to home.html is currently disabled for review purposes.");
+                 // window.location.href = 'home.html'; // Automatic redirect can be enabled here
+                 console.log("Automatic redirect to home.html is currently disabled for review purposes of index.html.");
             }
-        }, 100); // Short delay to allow page to render message first.
+        }, 100);
     </script>
 </body>
 </html>
--->

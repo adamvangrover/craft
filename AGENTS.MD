@@ -150,3 +150,104 @@ To improve the readability of linked Markdown documents directly within HTML pag
 *   **ALWAYS** read the relevant `AGENTS.MD` files before starting significant work in a new section or with a new type of interactive content.
 
 By following these guidelines, we can ensure this repository remains a valuable, coherent, and maintainable resource for all users and future developers (AI or human).
+
+## 10. Global Navigation System
+
+A global navigation system has been implemented to provide a consistent and comprehensive way to explore the learning hub. This system is data-driven and dynamically generated.
+
+**Key Components:**
+
+*   **`js/nav_data.js`**: This file contains the JavaScript array of objects that defines the entire navigation structure. **This is the primary file to update when adding or modifying navigation links.**
+    *   Each object in the array represents a navigation item and can have properties like `text` (display text), `href` (URL), `type` (see below), and `children` (for nested sub-menus).
+    *   Paths in `href` should be relative to the repository root (e.g., `CFA/index.html`, `primers/aerospace_defense.md`).
+*   **`js/global_nav.js`**: This script reads the `navData` from `nav_data.js` and dynamically generates the HTML for the navigation menu. It handles different link types and constructs appropriate URLs.
+*   **`css/global_nav.css`**: This file contains the styles for the global navigation menu. The navigation is currently styled as a left sidebar.
+*   **`global_markdown_viewer.html`**: A generic HTML page designed to render Markdown files. It uses `marked.js` and takes a `mdfile` URL parameter (e.g., `global_markdown_viewer.html?mdfile=path/to/your_document.md`).
+
+**Integrating Global Navigation into HTML Pages:**
+
+To display the global navigation on an HTML page:
+1.  Include the navigation CSS in the `<head>`:
+    ```html
+    <link rel="stylesheet" href="css/global_nav.css">
+    ```
+2.  Add the placeholder `div` where the navigation should appear (typically as the first element inside `<body>` if it's a sidebar):
+    ```html
+    <div id="global-nav-placeholder"></div>
+    ```
+    Your page layout might need adjustments (e.g., using flexbox) to accommodate the sidebar. See `home.html` for an example.
+3.  Include the JavaScript files at the end of your `<body>`, ensuring `nav_data.js` comes before `global_nav.js`:
+    ```html
+    <script src="js/nav_data.js" defer></script>
+    <script src="js/global_nav.js" defer></script>
+    ```
+
+**Adding Content to the Global Navigation:**
+
+To add a new link or section to the global navigation, you primarily need to edit `js/nav_data.js`.
+
+**Navigation Item Types in `js/nav_data.js`:**
+
+When adding an item to `navData`, specify its `type`. Common types include:
+
+*   `type: "html"`: For a standard standalone HTML page.
+    *   Example: `{ text: "Home", href: "home.html", type: "html" }`
+*   `type: "html_hub"`: For main interactive HTML hub pages (e.g., `CFA/index.html`).
+    *   Example: `{ text: "CFA Study Hub", href: "CFA/index.html", type: "html_hub" }`
+*   `type: "html_hub_section"`: For linking to a specific section (using a URL anchor) within an `html_hub`.
+    *   Example: `{ text: "Level I Materials", href: "CFA/index.html#materials-library", type: "html_hub_section" }`
+*   `type: "category"`: For creating a collapsible section or dropdown menu. It must have a `children` array containing other navigation items.
+    *   Example:
+        ```javascript
+        {
+          text: "Financial Modeling",
+          type: "category",
+          children: [
+            { text: "FM Hub", href: "Financial_Modeling/index.html", type: "html_hub" },
+            // ... more items
+          ]
+        }
+        ```
+*   `type: "markdown_viewer"`: For Markdown files that should be rendered using a dedicated viewer.
+    *   `viewer: "global"`: Use this property if the Markdown file should be opened with `global_markdown_viewer.html`. The `href` should be the path to the `.md` file.
+        *   Example: `{ text: "FM Best Practices", href: "Financial_Modeling/Best_Practices/FM_Best_Practices.md", type: "markdown_viewer", viewer: "global" }`
+    *   `viewer: "path/to/section_viewer.html"`: (Future/Advanced) If a Markdown file is best viewed by a specific existing section viewer (like `primers/index.html`), you can specify the viewer's path here. The `href` in `nav_data.js` should then be constructed with the appropriate URL parameters for that viewer.
+        *   Example (conceptual for primers): `{ text: "Aerospace Primer", href: "primers/index.html?load=aerospace_defense.md", type: "markdown_viewer", viewer: "primers/index.html" }` (Note: `global_nav.js` might need adjustment for this pattern if it differs from simple `mdfile` param).
+*   `type: "section_viewer"`: For HTML pages that are themselves viewers for a collection of content (e.g., `primers/index.html` which loads various Markdown files).
+    *   Example: `{ text: "Industry Primers", href: "primers/index.html", type: "section_viewer" }`
+*   `type: "jupyter_guide"`: For linking to `README.md` files that serve as guides for Jupyter Notebooks. These links typically open in a new tab.
+    *   Example: `{ text: "Equity Valuation Notebook Guide", href: "Interactive_Notebooks/Financial_Modeling/README.md", type: "jupyter_guide" }`
+*   `type: "craft_module_viewer"`: Specifically for CRAFT program modules that are typically loaded within the CRAFT hub's iframe.
+    *   Example: `{ text: "Module 1: Foundations", href: "corporate-credit-risk-analyst-training/modules/01-foundations/index.html", type: "craft_module_viewer" }`
+*   `type: "learning_path_definition"`: For Markdown files that define a specific learning path.
+    *   `path_id`: A unique machine-readable ID for the path.
+    *   Example: `{ text: "Credit Analyst Foundational Path", href: "Learning_Paths/Credit_Analyst_Foundational_Path.md", type: "learning_path_definition", path_id: "credit_analyst_foundational" }`
+
+**Linking Markdown Files:**
+
+*   **For general Markdown files:** Add an entry to `js/nav_data.js` with `type: "markdown_viewer"` and `viewer: "global"`. Set `href` to the path of your `.md` file from the repository root.
+    ```javascript
+    {
+      text: "My New Document",
+      href: "path/to/my_new_document.md",
+      type: "markdown_viewer",
+      viewer: "global"
+    }
+    ```
+*   **For Markdown files within a section viewer (e.g., a new Primer):**
+    1.  Add the `.md` file to the appropriate directory (e.g., `primers/`).
+    2.  Update the section viewer's HTML/JS to include a link to your new `.md` file (e.g., add a card in `primers/index.html`).
+    3.  If you want a direct link from the global navigation to this specific primer *within the primer viewer*, you'd add an item to `js/nav_data.js` like:
+        ```javascript
+        // Inside a 'Primers' category or similar
+        {
+          text: "My New Primer",
+          href: "primers/index.html?load=my_new_primer.md", // URL param tells primer viewer what to load
+          type: "section_viewer_item" // Or markdown_viewer with viewer: "primers/index.html"
+        }
+        ```
+        The main link to the `primers/index.html` itself would be of `type: "section_viewer"`.
+
+Always test your changes by opening an HTML page that includes the global navigation (e.g., `home.html`) locally.
+Refer to the existing entries in `js/nav_data.js` for more examples.
+The global navigation system is designed to be expandable. Future enhancements may include different visual styles (e.g., top menu), improved active link highlighting, and more advanced learning path integration.
