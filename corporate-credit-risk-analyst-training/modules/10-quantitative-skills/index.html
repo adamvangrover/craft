@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Directory Viewer - Interactive_Notebooks</title>
+    <title>Module Viewer - 10-quantitative-skills</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/simple_viewer.css">
+    <link rel="stylesheet" href="../../../assets/css/simple_viewer.css">
 </head>
 <body>
     <div id="sidebar">
         <div id="up-link-container">
             <!-- Up link will be dynamically generated -->
         </div>
-        <h3>Navigation</h3>
+        <h3>Module Navigation</h3>
         <ul id="file-list">
             <!-- File list will be populated by JavaScript -->
         </ul>
@@ -27,16 +26,15 @@
         const fileListDisplay = document.getElementById('file-list');
         const pageTitle = document.querySelector('title');
 
-        const directoryName = "Interactive_Notebooks";
-        const filesInDir = ["AGENTS.MD", "README.md"];
-        const subDirsInfo = [{"name": "Financial_Modeling", "readmePath": "Financial_Modeling/README.md"}, {"name": "Legal_Analysis", "readmePath": "Legal_Analysis/README.md"}, {"name": "Valuation_Components", "readmePath": "Valuation_Components/README.md"}];
-        const relativePathToRoot = "../";
-        const parentIndexExists = true;
+        const directoryName = "10-quantitative-skills";
+        const filesInDir = ["README.md", "19-data-analytics-developer-notes.md", "19-data-analytics-learning-materials.md", "19-data-analytics-quant-tools.md", "19-data-analytics-teacher-notes.md"];
+        const subDirsInfo = [{"name": "quizzes", "files": ["19-data-analytics-quiz-answers.md", "19-data-analytics-quiz.md"]}];
+        const relativePathToRoot = "../../../";
 
         document.addEventListener('DOMContentLoaded', async function() {
-            pageTitle.textContent = `Viewer - ${directoryName}`;
+            pageTitle.textContent = `Module Viewer - ${directoryName}`;
 
-            let fileLinksHtml = `<li><a href="#" data-md-src="README.md" class="nav-link active">README.md (Main)</a></li>`;
+            let fileLinksHtml = `<li><a href="#" data-md-src="README.md" class="nav-link active">README.md (Intro)</a></li>`;
 
             const sortedFiles = filesInDir.sort((a, b) => {
                 if (a.toLowerCase() === 'readme.md') return -1;
@@ -51,23 +49,17 @@
             });
 
             subDirsInfo.forEach(subdir => {
-                if (subdir.readmePath) {
+                if (subdir.files && subdir.files.length > 0) {
                      fileLinksHtml += `<li class="subdirectory-group"><h4>${subdir.name}/</h4></li>`;
-                     fileLinksHtml += `<li><a href="#" data-md-src="${subdir.readmePath}" class="nav-link">&nbsp;&nbsp;&nbsp;README.md</a></li>`;
+                     subdir.files.forEach(file => {
+                        fileLinksHtml += `<li><a href="#" data-md-src="${subdir.name}/${file}" class="nav-link">&nbsp;&nbsp;&nbsp;${file}</a></li>`;
+                     });
                 }
             });
             fileListDisplay.innerHTML = fileLinksHtml;
 
             const upLinkContainer = document.getElementById('up-link-container');
-            let upLink = '';
-            if (relativePathToRoot === "../") {
-                upLink = `<a href="${relativePathToRoot}home.html">&laquo; Back to Main Hub</a>`;
-            } else if (parentIndexExists) {
-                 upLink = `<a href="${relativePathToRoot}index.html">&laquo; Up to Parent Directory</a>`;
-            } else {
-                upLink = `<a href="${relativePathToRoot}home.html">&laquo; Back to Main Hub (Fallback)</a>`;
-            }
-            upLinkContainer.innerHTML = upLink;
+            upLinkContainer.innerHTML = `<a href="../../index.html">&laquo; Back to CRAFT Program Hub</a>`;
 
             fileListDisplay.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(event) {
@@ -87,7 +79,7 @@
                     firstLink.classList.add('active');
                     await loadMarkdown(firstLink.getAttribute('data-md-src'));
                 } else {
-                    contentDisplay.innerHTML = "<p>No Markdown files found to display.</p>";
+                    contentDisplay.innerHTML = "<p>No Markdown files found to display in this module.</p>";
                 }
             }
         });

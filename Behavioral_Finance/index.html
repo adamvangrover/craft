@@ -3,69 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Behavioral Finance Insights</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/viewer_style.css">
-</head>
-<body>
-    <header class="viewer-header">
-        <h1>Behavioral Finance Insights</h1>
-        <a href="../home.html" class="back-to-home">&laquo; Back to Main Hub</a>
-    </header>
-    <div class="viewer-container">
-        <nav class="viewer-nav">
-            <h2>Topics</h2>
-            <ul id="bf-navigation-list">
-                <li><a href="#" data-md-src="README.md">Overview</a></li>
-                <li><a href="#" data-md-src="Key_Concepts.md">Key Concepts</a></li>
-                <li><a href="#" data-md-src="Case_Studies.md">Case Studies</a></li>
-            </ul>
-        </nav>
-        <main id="markdown-display-area" class="viewer-content">
-            <p>Select a topic from the list to view its content.</p>
-        </main>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const navList = document.getElementById('bf-navigation-list');
-            const contentDisplay = document.getElementById('markdown-display-area');
-            const defaultPath = 'README.md';
-
-            if (!navList || !contentDisplay) return;
-            if (typeof marked === 'undefined') {
-                contentDisplay.innerHTML = "<p>Error: Markdown renderer not available.</p>";
-                return;
-            }
-
-            async function loadAndDisplayMarkdown(mdPath, clickedLink) {
-                contentDisplay.innerHTML = "<p>Loading content...</p>";
-                document.querySelectorAll('#bf-navigation-list a').forEach(link => link.classList.remove('active'));
-                if (clickedLink) clickedLink.classList.add('active');
-
-                try {
-                    const response = await fetch(mdPath);
-                    if (!response.ok) throw new Error(`Failed to fetch ${mdPath}: ${response.status}`);
-                    const markdownText = await response.text();
-                    contentDisplay.innerHTML = marked.parse(markdownText);
-                } catch (error) {
-                    console.error("Error loading Markdown:", error);
-                    contentDisplay.innerHTML = `<p>Error loading: ${mdPath}. ${error.message}</p>`;
-                }
-            }
-
-            navList.addEventListener('click', function(event) {
-                const targetLink = event.target.closest('a[data-md-src]');
-                if (targetLink) {
-                    event.preventDefault();
-                    loadAndDisplayMarkdown(targetLink.dataset.mdSrc, targetLink);
-                }
-            });
-
-            const defaultLink = navList.querySelector(`a[data-md-src="${defaultPath}"]`);
-            if (defaultLink) loadAndDisplayMarkdown(defaultPath, defaultLink);
-        });
-=======
     <title>Directory Viewer - Behavioral_Finance</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="../assets/css/simple_viewer.css">
