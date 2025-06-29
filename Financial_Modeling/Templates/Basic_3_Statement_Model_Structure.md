@@ -199,3 +199,5 @@ A well-built 3-statement model allows a credit analyst to:
 *   **Inform Credit Decisions:** Provide a quantitative basis for loan approvals, pricing, and structuring (e.g., covenant setting).
 
 Continuous practice and attention to detail are key to mastering 3-statement modeling. This guide provides the structure; the quality of the model depends on the thoughtfulness of the assumptions and the rigor of the analysis.
+
+Once proficient with the 3-statement model, this foundation can be extended to more specialized analyses, such as Leveraged Buyout (LBO) models. To explore the basics of LBO modeling, see the [Interactive LBO Model Basics Notebook Guide](../../Interactive_Notebooks/Financial_Modeling/LBO_Model_Basics/README.md).

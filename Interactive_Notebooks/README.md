@@ -41,6 +41,7 @@ This section acts as a catalog for all interactive Jupyter Notebook modules. Eac
     *   *Description:* Explore DCF valuation, trading comparables, and basic bond pricing with interactive inputs using a sample dataset of mega-cap companies.
     *   **LBO Model Guide (Text-based):** [LBO_Model_Notebook_Guide.md](./Financial_Modeling/LBO_Model_Notebook_Guide.md) *(This is a guide for a potential LBO notebook, not a notebook itself)*
 
+
 *   **Fixed Income:**
     *   **Guide & Overview:** [./Fixed_Income/Bond_Math_Notebook_Guide.md](./Fixed_Income/Bond_Math_Notebook_Guide.md)
     *   **Notebook File:** *(Planned: [Bond_Math.ipynb](./Fixed_Income/Bond_Math.ipynb))*

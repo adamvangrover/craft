@@ -36,6 +36,8 @@ This section is organized into sub-directories, each focusing on a specific aspe
     *   [`Real_Estate_Waterfall_Models.md`](./Advanced_Topics/Real_Estate_Waterfall_Models.md): An introduction to distribution waterfalls in real estate finance.
 *   **Industry-Specific Modeling Considerations:** While core modeling principles apply broadly, certain industries have unique characteristics. For detailed insights into various sectors which would influence model drivers, refer to our [Industry Primers](../primers/index.html). *(Specific industry model examples, e.g., for banking, SaaS, or natural resources, are planned future additions here.)*
 *   **Model Auditing and Testing:** Techniques for checking model accuracy and robustness. *(Future Addition)*
+*   **Quizzes:** Test your understanding of financial modeling concepts.
+    *   [Financial Modeling Best Practices Quiz](./Quizzes/FM_Best_Practices_Quiz.md) ([View in Quiz Viewer](../quiz_viewer.html?quiz=Financial_Modeling/Quizzes/FM_Best_Practices_Quiz.md)) - Check your knowledge of key principles in model building.
 
 <!-- Machine-readable indexing comment -->
 <!-- Index: Financial Modeling; Topics: Best Practices, Templates, 3-Statement Model, Excel, Forecasting, Valuation, DCF, WACC, Real Estate Waterfall, Industry Modeling -->
