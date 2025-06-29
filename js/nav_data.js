@@ -5,6 +5,11 @@ const navData = [
     type: "html",
   },
   {
+    text: "Site Overview Presentation",
+    href: "presentation.html",
+    type: "html",
+  },
+  {
     text: "CFA Program",
     type: "category",
     children: [
@@ -99,12 +104,12 @@ const navData = [
     type: "category",
     children: [
       { text: "Notebooks Overview", href: "Interactive_Notebooks/index.html", type: "html_hub" }, // Main page for notebooks
-      { text: "Equity Valuation Notebook Guide", href: "Interactive_Notebooks/Financial_Modeling/README.md", type: "jupyter_guide" }, # This might need to point to a more specific guide if LBO is also under Financial_Modeling
+      { text: "Equity Valuation Notebook Guide", href: "Interactive_Notebooks/Financial_Modeling/README.md", type: "jupyter_guide" }, // # This might need to point to a more specific guide if LBO is also under Financial_Modeling
       { text: "LBO Model Basics Guide", href: "Interactive_Notebooks/Financial_Modeling/LBO_Model_Basics/README.md", type: "jupyter_guide" },
       { text: "Credit Agreement Analysis Guide", href: "Interactive_Notebooks/Legal_Analysis/README.md", type: "jupyter_guide" },
       { text: "WACC Calculator Guide", href: "Interactive_Notebooks/Valuation_Components/README.md", type: "jupyter_guide" },
-      { text: "Interactive VaR Calculator Guide", href: "Interactive_Notebooks/Risk_Management/README.md", type: "jupyter_guide" }, # Assuming this exists or is planned
-      { text: "Interactive TVM Solver Guide", href: "Interactive_Notebooks/CFA_Quant_Methods/README.md", type: "jupyter_guide" }, # Assuming this exists or is planned
+      { text: "Interactive VaR Calculator Guide", href: "Interactive_Notebooks/Risk_Management/README.md", type: "jupyter_guide" }, // # Assuming this exists or is planned
+      { text: "Interactive TVM Solver Guide", href: "Interactive_Notebooks/CFA_Quant_Methods/README.md", type: "jupyter_guide" }, // # Assuming this exists or is planned
     ],
   },
   {
