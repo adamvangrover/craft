@@ -168,3 +168,11 @@ While a detailed knowledge of GIPS is more heavily tested at later CFA levels, L
 
 This overview provides a foundational understanding. Each standard has nuances and is often tested through situational ethics questions. Consistent review and application of these principles are key to success.
 Remember to consult the `Global_Financial_Glossary.md` for definitions of key terms.
+
+---
+
+## Test Your Knowledge!
+
+Ready to check your understanding of these Ethical and Professional Standards?
+
+*   **[Take the Interactive Ethics Quiz!](../../../quiz_viewer.html?quizfile=CFA/Level_1/Quizzes/Ethics_Deep_Dive_Quiz.md&answerfile=CFA/Level_1/Quizzes/Ethics_Deep_Dive_Quiz_Answers.md)]** (Opens in a new interactive viewer).

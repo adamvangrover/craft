@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Viewer</title>
+    <link rel="stylesheet" href="assets/css/style.css"> <!-- General site styles -->
+    <link rel="stylesheet" href="assets/css/quiz_viewer.css"> <!-- Quiz-specific styles -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <header>
+        <!-- Placeholder for global navigation or a link back to home -->
+        <nav>
+            <a href="home.html" class="nav-logo">Financial Learning Hub</a>
+            <!-- More navigation links if needed -->
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1 id="quiz-title">Quiz</h1>
+        <div id="quiz-container">
+            <!-- Quiz questions will be loaded here by JavaScript -->
+            <p>Loading quiz...</p>
+        </div>
+        <button id="submit-quiz-button" style="display: none;">Submit Answers</button>
+        <div id="quiz-results-container" style="display: none;">
+            <h2>Results</h2>
+            <p id="quiz-score"></p>,
+            <div id="quiz-feedback"></div>
+            <button id="retry-quiz-button">Retry Quiz</button>
+            <button id="show-answers-button" style="display: none;">Show Answers</button>
+            <div id="quiz-answers-display" style="display: none;">
+                <!-- Answers will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Financial Learning Hub. All rights reserved.</p>
+        <script>document.getElementById('current-year').textContent = new Date().getFullYear();</script>
+    </footer>
+
+    <script src="assets/js/quiz_loader.js"></script>
+</body>
+</html>

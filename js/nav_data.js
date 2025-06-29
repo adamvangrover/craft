@@ -69,6 +69,7 @@ const navData = [
       { text: "Forecasting Techniques", href: "Financial_Modeling/Forecasting_Techniques/Revenue_Forecasting_Approaches.md", type: "markdown_viewer", viewer: "global" },
       { text: "Templates", href: "Financial_Modeling/Templates/Basic_3_Statement_Model_Structure.md", type: "markdown_viewer", viewer: "global" },
       { text: "Valuation Applications", href: "Financial_Modeling/Valuation_Applications/DCF_Modeling_Overview.md", type: "markdown_viewer", viewer: "global" },
+      { text: "Advanced: Real Estate Waterfall Models", href: "Financial_Modeling/Advanced_Topics/Real_Estate_Waterfall_Models.md", type: "markdown_viewer", viewer: "global" }
     ],
   },
   {
@@ -100,6 +101,9 @@ const navData = [
       { text: "Equity Valuation Notebook Guide", href: "Interactive_Notebooks/Financial_Modeling/README.md", type: "jupyter_guide" },
       { text: "Credit Agreement Analysis Guide", href: "Interactive_Notebooks/Legal_Analysis/README.md", type: "jupyter_guide" },
       { text: "WACC Calculator Guide", href: "Interactive_Notebooks/Valuation_Components/README.md", type: "jupyter_guide" },
+      { text: "Interactive VaR Calculator Guide", href: "Interactive_Notebooks/Risk_Management/README.md", type: "jupyter_guide" },
+      { text: "Interactive TVM Solver Guide", href: "Interactive_Notebooks/CFA_Quant_Methods/README.md", type: "jupyter_guide" },
+      { text: "Interactive LBO Model Guide", href: "Interactive_Notebooks/Financial_Modeling/LBO_Model_Notebook_Guide.md", type: "jupyter_guide" },
     ],
   },
   {
@@ -138,8 +142,15 @@ const navData = [
         children: [
           { text: "Introduction to Operational Risk", href: "Risk_Management/Operational_Risk/ORM_01_Introduction_to_Operational_Risk.md", type: "markdown_viewer", viewer: "global"}
         ]
+      },
+      {
+        text: "Liquidity Risk",
+        href: "Risk_Management/Liquidity_Risk/index.html", // Or README.md if it's the main lander
+        type: "section_viewer", // Assuming index.html or README.md acts as a mini-hub for this sub-topic
+        children: [
+          { text: "Introduction to Liquidity Risk", href: "Risk_Management/Liquidity_Risk/LRM_01_Introduction_to_Liquidity_Risk.md", type: "markdown_viewer", viewer: "global"}
+        ]
       }
-      // Liquidity Risk could be added similarly if content exists
     ],
   },
   {
@@ -156,6 +167,7 @@ const navData = [
       { text: "Insurtech", href: "Fintech/Insurtech.md", type: "markdown_viewer", viewer: "global" },
       { text: "Regtech", href: "Fintech/Regtech.md", type: "markdown_viewer", viewer: "global" },
       { text: "Open Banking & APIs", href: "Fintech/Open_Banking_and_APIs.md", type: "markdown_viewer", viewer: "global" },
+      { text: "Advanced: DAOs", href: "Fintech/Advanced_Topics/Decentralized_Autonomous_Organizations.md", type: "markdown_viewer", viewer: "global"}
     ],
   },
   {
@@ -188,11 +200,23 @@ const navData = [
     text: "Additional Resources", // Renamed from "Other Resources" for clarity
     type: "category",
     children: [
-        { text: "Market Analysis Quick Start", href: "Market_Analysis_Quick_Start/index.html", type: "section_viewer"}, // Links to Market_Analysis_Quick_Start/index.html
-        { text: "Behavioral Finance", href: "Behavioral_Finance/index.html", type: "section_viewer"}, // Links to Behavioral_Finance/index.html
-        { text: "Toolkits & Checklists", href: "Toolkits_and_Checklists/index.html", type: "section_viewer"}, // Links to Toolkits_and_Checklists/index.html
-        { text: "Professional Development", href: "Professional_Development/index.html", type: "section_viewer"}, // Links to Professional_Development/index.html
-        { text: "Global Financial Glossary", href: "Global_Financial_Glossary.md", type: "markdown_viewer", viewer: "global"}, // Changed to use global viewer
+        { text: "Market Analysis Quick Start", href: "Market_Analysis_Quick_Start/index.html", type: "section_viewer"},
+        { text: "Behavioral Finance", href: "Behavioral_Finance/index.html", type: "section_viewer"},
+        { text: "Toolkits & Checklists", href: "Toolkits_and_Checklists/index.html", type: "section_viewer"},
+        {
+          text: "Professional Development",
+          href: "Professional_Development/index.html",
+          type: "section_viewer",
+          children: [ // Adding direct links to new articles
+              {text: "Overview", href: "Professional_Development/README.md", type: "markdown_viewer", viewer: "global"}, // Assuming README is the overview
+              {text: "Effective Communication", href: "Professional_Development/Effective_Communication_for_Analysts.md", type: "markdown_viewer", viewer: "global"},
+              {text: "Critical Thinking", href: "Professional_Development/Critical_Thinking_in_Financial_Analysis.md", type: "markdown_viewer", viewer: "global"},
+              {text: "Negotiation Skills", href: "Professional_Development/Negotiation_Skills_for_Analysts.md", type: "markdown_viewer", viewer: "global"},
+              {text: "Presentation Skills", href: "Professional_Development/Presentation_Skills_for_Financial_Information.md", type: "markdown_viewer", viewer: "global"},
+              {text: "Ethical Decision Making", href: "Professional_Development/Ethical_Decision_Making_in_Practice.md", type: "markdown_viewer", viewer: "global"}
+          ]
+        },
+        { text: "Global Financial Glossary", href: "Global_Financial_Glossary.md", type: "markdown_viewer", viewer: "global"},
     ]
   }
 ];
@@ -219,8 +243,8 @@ const navData = [
  * - html_hub_section: A link to a specific part/anchor within an html_hub.
  * - category: A non-linkable item that groups other items in its `children` array.
  * - markdown_viewer: A Markdown file that should be opened using a dedicated viewer.
- *   - viewer: "global" (use `global_markdown_viewer.html`) or "section_specific_viewer_url" (e.g. primers/index.html)
- * - section_viewer: An HTML page that is itself a viewer for a collection of content (e.g., primers/index.html).
+ *   - viewer: "global" (use `global_markdown_viewer.html`) or "section_specific_viewer_url" (e.g. primers/index.html). The `href` for a `markdown_viewer` type should be the path to the .md file itself if using the `global_markdown_viewer.html`, or the path to the specific viewer with appropriate query params.
+ * - section_viewer: An HTML page that is itself a viewer for a collection of content (e.g., primers/index.html). If it has children, they are specific items viewable by this section_viewer or direct markdown files related to it.
  * - section_viewer_item: A link that loads specific content into a section_viewer, often using URL parameters.
  * - jupyter_guide: A link to a README.md file that explains a Jupyter notebook.
  * - craft_module_viewer: A link to the index.html of a CRAFT module, intended to be loaded by the CRAFT hub.

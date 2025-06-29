@@ -141,7 +141,12 @@
                     <p class="text-gray-600 text-lg">This repository is more than a collection of files; it's an integrated learning environment designed to empower you to adapt, innovate, and lead in the ever-evolving world of finance. Discover how diverse knowledge areas converge here to build a holistic, practical, and future-proof skillset. Click on any section to navigate directly.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Search Bar for Dashboard -->
+                <div class="mb-8 max-w-xl mx-auto">
+                    <input type="text" id="dashboard-search" placeholder="Search dashboard content..." class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg">
+                </div>
+
+                <div id="dashboard-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <a href="./corporate-credit-risk-analyst-training/index.html" class="card p-6 col-span-1 md:col-span-2 lg:col-span-3 block hover:no-underline"> <!-- Updated Link -->
                         <h3 class="font-semibold text-xl mb-4 text-gray-800 flex items-center">
                             <span class="text-3xl mr-3">🛡️</span> Corporate Credit Risk Analyst Training (CRAFT)
@@ -525,9 +530,38 @@
                 }
             });
         }
+
+        function initDashboardSearch() {
+            const searchInput = document.getElementById('dashboard-search');
+            const dashboardGrid = document.getElementById('dashboard-grid');
+            if (!searchInput || !dashboardGrid) return;
+
+            const cards = dashboardGrid.querySelectorAll('a.card');
+
+            searchInput.addEventListener('keyup', function(event) {
+                const searchTerm = event.target.value.toLowerCase();
+                cards.forEach(card => {
+                    let cardText = '';
+                    const titleElement = card.querySelector('h3');
+                    const paragraphElement = card.querySelector('p');
+                    const tags = card.querySelectorAll('.tag');
+
+                    if (titleElement) cardText += titleElement.textContent.toLowerCase();
+                    if (paragraphElement) cardText += ' ' + paragraphElement.textContent.toLowerCase();
+                    tags.forEach(tag => cardText += ' ' + tag.textContent.toLowerCase());
+
+                    if (cardText.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
         
         initCreditAnalystView();
         initCfaCandidateView();
+        initDashboardSearch(); // Initialize the search functionality
         switchView('dashboard');
     });
     </script>
