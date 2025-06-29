@@ -1,54 +1,77 @@
-# AGENTS.MD - Primers Section
+# Agent Instructions
 
-## Inherits From
+This document provides instructions for AI agents working with the content in this directory and its subdirectories.
+
+## General Guidelines:
+
+*   **Consistency:** Maintain consistency with the overall repository structure and the established format for industry primers.
+*   **Clarity and Conciseness:** Primers should be informative yet digestible. Balance depth with brevity.
+*   **Markdown Best Practices:** For the source `.md` files of the primers.
+*   **HTML Structure (for `index.html` and `html/*.html`):** When adding new primers, ensure the card structure in `primers/index.html` is replicated correctly. Ensure generated HTML files in `primers/html/` are clean and link to appropriate CSS.
+*   **Accuracy:** Industry information, KPIs, trends, and risk factors should be accurate and relevant.
+*   **File Naming:** Use descriptive names for primer `.md` files (e.g., `Aerospace_Defense.md`) and corresponding `.html` files in the `html/` subdirectory.
+*   **Links:** Use relative links. Link key terms to `Global_Financial_Glossary.md`.
+*   **Updating Navigation:**
+    *   Adding a new primer requires creating its `.md` file, generating its `.html` version in `primers/html/`, AND adding a new `<article class="primer-summary-card" ...>` to `primers/index.html`.
+    *   Ensure `data-keywords` in the `index.html` card are relevant for searchability.
+*   **Review:** Adhere to guidelines and task requirements.
+
+## Directory-Specific Instructions: Industry Primers
+
+### Inherits From
 This document inherits general principles from the root `AGENTS.MD` file. Please review that first.
 
-## 1. Purpose and Scope of this Directory
-The `/primers/` directory contains detailed industry-specific analysis guides. Each primer aims to provide a comprehensive overview of an industry, including its structure, long-term trends, business cycles, key credit metrics, rating considerations, specific risk factors, and monitoring/underwriting tips.
+### 1. Purpose and Scope of this Directory
+The `/primers/` directory contains concise overview documents (primers) for various industries. The goal of each primer is to provide a foundational understanding of an industry's key characteristics, drivers, risks, and credit considerations for financial analysts.
 
-The primary interactive entry point for this section is `primers/index.html`.
+The main entry point and interactive navigation for these primers is `primers/index.html`.
+Source content for primers is in `.md` files in this directory.
+Rendered HTML versions for individual primers are in the `primers/html/` subdirectory.
 
-## 2. Content Structure and Types
-*   **Main Navigator:** `primers/index.html` serves as the main navigation page for all primers.
-    *   It currently uses a "card" based layout, where each card links to a full HTML version of the primer (e.g., `primers/html/aerospace_defense.html`).
-    *   It also includes search functionality.
-    *   *Developer Note:* `primers/index.html` had a merge conflict noted in its source. The active version links to separate HTML files for each primer's details. An alternative, commented-out version suggested embedding all primer content with accordions directly within `primers/index.html` or linking to the raw `.md` files. For now, the active version (linking to `primers/html/*.html`) is the standard to follow.
-*   **Individual Primer Markdown Files:** Each industry primer is originally authored as a Markdown file (e.g., `primers/aerospace_defense.md`). These are the source files.
-*   **Individual Primer HTML Files:** Corresponding HTML versions of each primer are located in `primers/html/` (e.g., `primers/html/aerospace_defense.html`). These are typically generated from the Markdown files and are what `primers/index.html` links to for the full view.
+### 2. Hierarchy and Development Notes
+*   **`primers/index.html` (Main Hub):** This is the primary user interface. It uses JavaScript (`primers/script.js`) to:
+    *   Display primer summary cards.
+    *   Filter/search primers based on keywords in `data-keywords` attributes.
+    *   Dynamically load and render the content of selected `.md` primer files into a `div#primer-content-display` using `marked.js`.
+    *   Provide links to standalone HTML versions of primers located in `primers/html/`.
+*   **Primer Content (`.md` files):** Each industry primer is a single Markdown file in the `primers/` root (e.g., `Aerospace_Defense.md`).
+*   **Rendered HTML Primers (`html/*.html`):** These are static HTML files, typically generated from the Markdown sources. They are linked from the cards in `index.html` as "View Enhanced HTML".
+*   **Styling:** `primers/styles.css` is used by `primers/index.html`. Individual HTML primers in `primers/html/` should also link to this or a shared CSS file for consistency.
 
-## 3. Specific Guidelines for Primers Content
-*   **Standard Sections:** Each primer `.md` file should ideally follow a consistent structure, including sections like:
-    1.  Industry Overview (History and Background, Key Segments)
-    2.  Long-Term Trends
-    3.  Business Cycles
-    4.  Key Credit Metrics (differentiated by sub-sector if applicable)
-    5.  Rating Criteria & Methodology Highlights
-    6.  Specific Risk Factors
-    7.  Monitoring & Underwriting Tips
-*   **Keywords:** When adding a new primer, ensure relevant keywords are added to its card in `primers/index.html` (in the `data-keywords` attribute) to aid searchability.
-*   **Clarity and Depth:** Primers should be detailed enough to be valuable for credit analysts and other finance professionals looking to understand an industry quickly.
-*   **Updating `primers/index.html`:**
-    *   When a new primer `.md` file is created:
-        1.  An HTML version (e.g., `primers/html/new_primer.html`) needs to be generated (currently a manual step, or if an agent can convert Markdown to HTML, that would be the process).
-        2.  A new "primer card" needs to be added to `primers/index.html` linking to this new HTML file and including a summary and keywords.
-        3.  The `primers/script.js` might need updates if the search or filter logic is complex and relies on specific structures.
-*   **Styling:** Individual primer HTML pages (`primers/html/*.html`) should ideally share a common stylesheet (perhaps `primers/styles.css` or a global one from `assets/css/`) for consistency.
+### 3. Specific Content Guidelines for Primer `.md` Files
+*   **Standard Primer Structure (Recommended):**
+    1.  Industry Overview (History, Key Segments)
+    2.  Business Model / How Companies Make Money
+    3.  Key Performance Indicators (KPIs) / Metrics
+    4.  Competitive Landscape & Major Players
+    5.  Key Drivers (Growth, Demand)
+    6.  Key Risks (Operational, Financial, Regulatory, Cyclicality)
+    7.  Credit Considerations / Analyst Focus Points
+    8.  Recent Trends / Outlook (general terms if specific dates are hard to maintain)
+    9.  Glossary of Industry-Specific Terms (or integrate into main text and link to global glossary).
+*   **Credit Focus:** Maintain a credit analysis perspective throughout.
+*   **Keywords:** For each new primer, identify relevant keywords to be added to its card in `primers/index.html`.
 
-## 4. Linking
-*   Link key terms within primers to the `Global_Financial_Glossary.md`.
-*   Cross-reference primers if industries are closely related (e.g., Automotive and Industrials).
+### 4. Workflow for Adding a New Primer
+1.  **Create `New_Industry.md`** in the `primers/` directory with comprehensive content.
+2.  **(Manual/Separate Process for now) Generate `primers/html/New_Industry.html`** from `New_Industry.md`. Ensure it's styled consistently.
+3.  **Update `primers/index.html`:**
+    *   Add a new `<article class="primer-summary-card" ...>` block.
+    *   Set `data-title="New Industry"`.
+    *   Set `data-keywords="..."` with relevant search terms.
+    *   Set `data-md-src="New_Industry.md"`.
+    *   Update the link for "View original Markdown file" to point to `New_Industry.md`.
+    *   Update the link for "Read Primer" to have `data-md-src-override="New_Industry.md"`.
+    *   Update the link for "View Enhanced HTML" to point to `html/New_Industry.html`.
+4.  Test the search and display functionality in `primers/index.html`.
 
-## 5. Generating HTML from Markdown (Agent Workflow)
-If an agent is tasked with creating a new primer:
-1.  Create the main content in a `new_primer.md` file in the `primers/` directory.
-2.  If the agent possesses a reliable Markdown-to-HTML conversion tool (e.g., using `pandoc` or a library via `run_in_bash_session` if available, or an internal tool):
-    *   Convert `new_primer.md` to `primers/html/new_primer.html`.
-    *   Ensure the generated HTML is clean and well-formatted, ideally linking to shared CSS.
-3.  If direct conversion is not reliably available to the agent:
-    *   The agent should clearly note that the `primers/html/new_primer.html` file needs to be created/updated from the `new_primer.md` source, potentially by a human user or a separate process.
-4.  Update `primers/index.html` to include a card for the new primer, linking to `primers/html/new_primer.html`.
+### 5. Linking Strategy
+*   Link industry-specific terms to the `Global_Financial_Glossary.md` or define them within the primer.
+*   If a primer discusses financial modeling aspects unique to that industry, link to relevant concepts in `/Financial_Modeling/`.
+*   If specific risks are highlighted, link to broader discussions in `/Risk_Management/`.
 
-Refer to the root `AGENTS.MD` for general guidelines.
+Refer to the root `AGENTS.MD` for general guidelines on Markdown, HTML, JS modifications.
+The `primers/script.js` handles the dynamic loading and search; modifications to it should be done cautiously.
 
 =======
 

@@ -27,8 +27,11 @@
         const pageTitle = document.querySelector('title');
 
         const directoryName = "05-future-of-risk-management";
-        const filesInDir = ["README.md", "11-ai-risk-learning-materials.md", "11-future-of-risk-and-ai.md"];
-        const subDirsInfo = [{"name": "quizzes", "files": ["Quiz_M05_Future_of_Risk_AI.md"]}];
+        const filesInDir = ["README.md", "11-ai-risk-learning-materials.md", "11-future-of-risk-and-ai.md", "copilot.html"];
+        const subDirsInfo = [
+            {"name": "quizzes", "files": ["Quiz_M05_Future_of_Risk_AI.md"]},
+            {"name": "case-studies", "files": ["CaseStudy_EarlyAdopterBank.md", "Framework_Analyst_Skill_Evolution_Matrix.md", "Glossary_GenAI_Credit_Terms.md"]}
+        ];
         const relativePathToRoot = "../../../";
 
         document.addEventListener('DOMContentLoaded', async function() {
@@ -43,16 +46,28 @@
             });
 
             sortedFiles.forEach(file => {
-                if (file.toLowerCase() !== 'readme.md' && file.toLowerCase() !== 'agents.md' && file.endsWith('.md')) {
-                    fileLinksHtml += `<li><a href="#" data-md-src="${file}" class="nav-link">${file}</a></li>`;
+                if (file.toLowerCase() !== 'readme.md' && file.toLowerCase() !== 'agents.md') {
+                    if (file.endsWith('.md')) {
+                        fileLinksHtml += `<li><a href="#" data-md-src="${file}" class="nav-link">${file.replace('.md','')}</a></li>`;
+                    } else if (file.endsWith('.html')) {
+                         // Link directly to other HTML files, don't try to load them with marked.js
+                        fileLinksHtml += `<li><a href="${file}" target="_blank" class="nav-link">${file.replace('.html','')} (Interactive)</a></li>`;
+                    }
                 }
             });
 
             subDirsInfo.forEach(subdir => {
                 if (subdir.files && subdir.files.length > 0) {
-                     fileLinksHtml += `<li class="subdirectory-group"><h4>${subdir.name}/</h4></li>`;
-                     subdir.files.forEach(file => {
-                        fileLinksHtml += `<li><a href="#" data-md-src="${subdir.name}/${file}" class="nav-link">&nbsp;&nbsp;&nbsp;${file}</a></li>`;
+                     fileLinksHtml += `<li class="subdirectory-group"><h4>${subdir.name.replace(/_/g, ' ')}/</h4></li>`;
+                     // Sort files within subdir, README.md or similar first if exists
+                     const sortedSubFiles = subdir.files.sort((a,b) => {
+                        if (a.toLowerCase().includes('readme')) return -1;
+                        if (b.toLowerCase().includes('readme')) return 1;
+                        return a.localeCompare(b);
+                     });
+                     sortedSubFiles.forEach(file => {
+                        let displayName = file.replace('.md','').replace(/_/g, ' ');
+                        fileLinksHtml += `<li><a href="#" data-md-src="${subdir.name}/${file}" class="nav-link">&nbsp;&nbsp;&nbsp;${displayName}</a></li>`;
                      });
                 }
             });

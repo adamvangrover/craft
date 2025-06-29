@@ -58,3 +58,36 @@ This "Market Risk" area will be developed with the following core documents, wit
 *   **Broader Risk Perspective:** For those in treasury, asset management, or broader risk roles, the subsequent modules on measurement and management will be key.
 
 This section aims to provide a clear and practical understanding of market risk. Contributions are welcome, especially practical examples and case studies.
+
+<!-- Machine-readable indexing comment -->
+<!-- Index: Market Risk Management; Topics: Interest Rate Risk, Equity Price Risk, FX Risk, Commodity Risk, VaR, Stress Testing, Hedging, ALM -->
+
+## Developer Notes & Areas for Impact
+
+*   **Populate Future Content:** The highest priority is developing the planned `MRM_02`, `MRM_03`, and `MRM_04` documents covering VaR, Stress Testing, Hedging, ALM, and deeper dives into specific market risks.
+*   **Quantitative Examples:** Market risk is often quantitative. Include clear numerical examples for concepts like duration, VaR calculations (simplified initially), and hedging effectiveness.
+*   **Interactive Notebook Integration:** This area is ripe for linking to or developing interactive notebooks in `Interactive_Notebooks/Risk_Management/` or `Interactive_Notebooks/Market_Analysis/` for concepts like:
+    *   VaR calculation (as planned in `Interactive_Notebooks/Risk_Management/README.md`).
+    *   Visualizing interest rate risk impacts.
+    *   Simulating simple hedging strategies.
+*   **Real-World Illustrations:** Brief examples of how market events (e.g., sudden interest rate changes, FX volatility) have impacted companies or financial institutions.
+
+## Student & Teacher Notes
+
+*   **Students:**
+    *   Focus on understanding the *sources* of each type of market risk first.
+    *   For measures like duration and VaR, understand not just the calculation but also the *interpretation and limitations*.
+    *   Connect market risk concepts to the news; try to identify how current events might be creating market risks for different entities.
+    *   Credit analysts should focus on how a company's exposure to market risks (and its strategies for managing them) can affect its cash flows, profitability, and overall creditworthiness.
+*   **Teachers:**
+    *   Use current market events as case studies to discuss different types of market risk.
+    *   Emphasize the assumptions behind different risk measures (e.g., normality assumption in parametric VaR).
+    *   Discuss the evolution of market risk management practices, particularly post-GFC.
+
+## Possible Avenues for Exploration and Further Development
+
+*   **Advanced Market Risk Models:** Beyond basic VaR, conceptual introductions to Expected Shortfall (ES), advanced stress testing techniques, and different types of Monte Carlo simulations.
+*   **Specific Derivative Hedging Strategies:** Detailed examples of using forwards, futures, options, and swaps to hedge specific market exposures.
+*   **Asset-Liability Management (ALM) Case Studies:** For banks or insurance companies.
+*   **Regulatory Capital for Market Risk:** Overview of Basel framework requirements for market risk (e.g., Fundamental Review of the Trading Book - FRTB concepts, simplified).
+*   **Market Risk in Non-Financial Corporations:** How industrial companies manage FX and commodity risks.

@@ -27,7 +27,7 @@
         const pageTitle = document.querySelector('title');
 
         const directoryName = "Cheat_Sheets";
-        const filesInDir = ["README.md", "CS_01_Ethical_and_Professional_Standards.md", "CS_02_Quantitative_Methods.md", "CS_03_Economics.md", "CS_04_Financial_Reporting_and_Analysis.md", "CS_05_Corporate_Finance.md", "CS_06_Equity_Investments.md", "CS_07_Derivatives.md", "CS_08_Alternative_Investments.md", "CS_09_Portfolio_Management.md", "CS_FSA_Key_Ratios_for_Credit_Analysts.md"];
+        const filesInDir = ["README.md", "CS_01_Ethical_and_Professional_Standards.md", "CS_02_Quantitative_Methods.md", "CS_03_Economics.md", "CS_04_Financial_Reporting_and_Analysis.md", "CS_05_Corporate_Finance.md", "CS_06_Equity_Investments.md", "CS_07_Derivatives.md", "CS_07_Fixed_Income.md", "CS_08_Alternative_Investments.md", "CS_09_Portfolio_Management.md", "CS_FSA_Key_Ratios_for_Credit_Analysts.md"];
         const subDirsInfo = [];
         const relativePathToRoot = "../../../../";
 
@@ -59,7 +59,7 @@
             fileListDisplay.innerHTML = fileLinksHtml;
 
             const upLinkContainer = document.getElementById('up-link-container');
-            upLinkContainer.innerHTML = `<a href="../index.html">&laquo; Up to Level 1 Hub</a>`;
+            upLinkContainer.innerHTML = `<a href="../README.md">&laquo; Up to Level 1 Study Guide</a>`;
 
             fileListDisplay.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(event) {

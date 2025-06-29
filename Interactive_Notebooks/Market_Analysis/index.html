@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viewer - Market Analysis Notebooks</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="../../../assets/css/simple_viewer.css">
+</head>
+<body>
+    <div id="sidebar">
+        <div id="up-link-container">
+            <!-- Up link will be dynamically generated -->
+        </div>
+        <h3>Market Analysis Notebooks</h3>
+        <ul id="file-list">
+            <!-- File list will be populated by JavaScript -->
+        </ul>
+    </div>
+    <div id="content-area" class="markdown-body">
+        <p>Loading content...</p>
+    </div>
+
+    <script>
+        const contentDisplay = document.getElementById('content-area');
+        const fileListDisplay = document.getElementById('file-list');
+        const pageTitle = document.querySelector('title');
+
+        const directoryName = "Market_Analysis_Notebooks";
+        const filesInDir = [
+            "README.md",
+            "YieldCurveAndSpreadVisualizerNotebook.ipynb"
+        ];
+        const subDirsInfo = [];
+        const relativePathToRoot = "../../../";
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            pageTitle.textContent = `Viewer - Interactive ${directoryName.replace(/_/g, ' ')}`;
+
+            let fileLinksHtml = ``;
+            let defaultMdToLoad = "";
+
+            const sortedFiles = filesInDir.sort((a, b) => {
+                if (a.toLowerCase() === 'readme.md') return -1;
+                if (b.toLowerCase() === 'readme.md') return 1;
+                if (a.endsWith(".md") && b.endsWith(".ipynb")) return -1;
+                if (a.endsWith(".ipynb") && b.endsWith(".md")) return 1;
+                return a.localeCompare(b);
+            });
+
+            sortedFiles.forEach(file => {
+                let displayName = file.replace('.md','').replace('.ipynb','').replace(/_/g, ' ');
+                if (file.toLowerCase() === 'readme.md') {
+                    displayName = "Market Analysis Notebooks Overview (README)";
+                    defaultMdToLoad = file;
+                    fileLinksHtml += `<li><a href="#" data-md-src="${file}" class="nav-link active">${displayName}</a></li>`;
+                } else if (file.endsWith(".ipynb")) {
+                    displayName += " (Notebook)";
+                    fileLinksHtml += `<li><a href="${file}" target="_blank" class="nav-link ipynb-link">${displayName}</a></li>`;
+                } else if (file.endsWith(".md")) {
+                    fileLinksHtml += `<li><a href="#" data-md-src="${file}" class="nav-link">${displayName}</a></li>`;
+                }
+            });
+
+            fileListDisplay.innerHTML = fileLinksHtml;
+
+            const upLinkContainer = document.getElementById('up-link-container');
+            upLinkContainer.innerHTML = `<a href="${relativePathToRoot}Interactive_Notebooks/index.html">&laquo; Up to Interactive Notebooks Hub</a>`;
+
+            fileListDisplay.querySelectorAll('a[data-md-src]').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    document.querySelectorAll('#file-list .nav-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    const mdSrc = this.getAttribute('data-md-src');
+                    loadMarkdown(mdSrc, this);
+                });
+            });
+
+            if (defaultMdToLoad) {
+                 loadMarkdown(defaultMdToLoad, fileListDisplay.querySelector(`a[data-md-src="${defaultMdToLoad}"]`));
+            } else if (filesInDir.length > 0) {
+                 const firstMdFile = filesInDir.find(f => f.endsWith('.md') && f.toLowerCase() !== 'agents.md');
+                 if(firstMdFile) {
+                    const firstMdLink = fileListDisplay.querySelector(`a[data-md-src="${firstMdFile}"]`);
+                    if (firstMdLink) loadMarkdown(firstMdFile, firstMdLink);
+                 } else {
+                    contentDisplay.innerHTML = "<p>No guide files found to display. Notebooks can be downloaded directly if listed.</p>";
+                 }
+            } else {
+                contentDisplay.innerHTML = "<p>No files found to display.</p>";
+            }
+        });
+
+        async function loadMarkdown(mdPath, clickedLink) {
+            if (!contentDisplay) return;
+            if (typeof marked === 'undefined') {
+                contentDisplay.innerHTML = "<p>Error: Markdown renderer not available.</p>";
+                return;
+            }
+            if (clickedLink) {
+                document.querySelectorAll('#file-list .nav-link').forEach(l => l.classList.remove('active'));
+                clickedLink.classList.add('active');
+            }
+            contentDisplay.innerHTML = "<p>Loading content...</p>";
+            try {
+                const response = await fetch(mdPath);
+                if (!response.ok) throw new Error(`Failed to fetch ${mdPath}: ${response.status}`);
+                const markdownText = await response.text();
+                contentDisplay.innerHTML = marked.parse(markdownText);
+                contentDisplay.scrollTop = 0;
+            } catch (error) {
+                console.error("Error loading Markdown:", error);
+                contentDisplay.innerHTML = `<p>Error loading content for ${mdPath}.</p><p><small>${error.message}</small></p>`;
+            }
+        }
+    </script>
+</body>
+</html>
