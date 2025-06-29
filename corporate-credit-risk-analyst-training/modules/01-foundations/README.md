@@ -35,6 +35,7 @@ Once you understand the financial statements, the next step is to analyze them e
 Test your understanding of these foundational concepts by attempting the quizzes available in the `quizzes/` subdirectory (accessible via the sidebar when using the module viewer). These include:
 *   `Quiz_M01_Accounting_Financial_Statement_Analysis.md` (a consolidated quiz)
 *   Individual quizzes: `accounting-quiz.md` and `modeling-quiz.md` (along with their answer keys).
+*   **New Interactive Quiz:** [Test Your Knowledge with the Interactive Accounting Quiz!](../../../quiz_viewer.html?quizfile=corporate-credit-risk-analyst-training/modules/01-foundations/quizzes/temp_accounting_quiz_for_parser.md&answerfile=corporate-credit-risk-analyst-training/modules/01-foundations/quizzes/accounting-quiz-answers.md) (Opens in a new interactive viewer).
 
 ---
 This module provides the critical groundwork for all subsequent modules in the CRAFT program. A strong grasp of accounting, financial statement analysis, and basic modeling techniques will enable you to perform more robust and insightful credit risk assessments.
