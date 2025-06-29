@@ -3,76 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market Analysis Quick Start</title>
+    <title>Directory Viewer - Market_Risk</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/viewer_style.css">
-</head>
-<body>
-    <header class="viewer-header">
-        <h1>Market Analysis Quick Start</h1>
-        <a href="../home.html" class="back-to-home">&laquo; Back to Main Hub</a>
-    </header>
-    <div class="viewer-container">
-        <nav class="viewer-nav">
-            <h2>Topics</h2>
-            <ul id="maqs-navigation-list">
-                <li><a href="#" data-md-src="README.md">Overview</a></li>
-                <li><a href="#" data-md-src="01_Capital_Market_Terms.md">1. Capital Market Terms</a></li>
-                <li><a href="#" data-md-src="02_Key_Market_Products.md">2. Key Market Products</a></li>
-                <li><a href="#" data-md-src="03_Understanding_Trading_Levels_and_Spreads.md">3. Trading Levels & Spreads</a></li>
-                <li><a href="#" data-md-src="04_Valuation_Rules_of_Thumb.md">4. Valuation Rules of Thumb</a></li>
-                <li><a href="#" data-md-src="05_Peer_Comparison_and_Benchmarking.md">5. Peer Comparison</a></li>
-            </ul>
-        </nav>
-        <main id="markdown-display-area" class="viewer-content">
-            <p>Select a topic from the list to view its content.</p>
-        </main>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const navList = document.getElementById('maqs-navigation-list');
-            const contentDisplay = document.getElementById('markdown-display-area');
-            const defaultPath = 'README.md';
-
-            if (!navList || !contentDisplay) return;
-            if (typeof marked === 'undefined') {
-                contentDisplay.innerHTML = "<p>Error: Markdown renderer not available.</p>";
-                return;
-            }
-
-            async function loadAndDisplayMarkdown(mdPath, clickedLink) {
-                contentDisplay.innerHTML = "<p>Loading content...</p>";
-                document.querySelectorAll('#maqs-navigation-list a').forEach(link => link.classList.remove('active'));
-                if (clickedLink) clickedLink.classList.add('active');
-
-                try {
-                    const response = await fetch(mdPath);
-                    if (!response.ok) throw new Error(`Failed to fetch ${mdPath}: ${response.status}`);
-                    const markdownText = await response.text();
-                    contentDisplay.innerHTML = marked.parse(markdownText);
-                } catch (error) {
-                    console.error("Error loading Markdown:", error);
-                    contentDisplay.innerHTML = `<p>Error loading: ${mdPath}. ${error.message}</p>`;
-                }
-            }
-
-            navList.addEventListener('click', function(event) {
-                const targetLink = event.target.closest('a[data-md-src]');
-                if (targetLink) {
-                    event.preventDefault();
-                    loadAndDisplayMarkdown(targetLink.dataset.mdSrc, targetLink);
-                }
-            });
-
-            const defaultLink = navList.querySelector(`a[data-md-src="${defaultPath}"]`);
-            if (defaultLink) loadAndDisplayMarkdown(defaultPath, defaultLink);
-        });
-    </script></body>
-=======
-    <title>Directory Viewer - Market_Analysis_Quick_Start</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/simple_viewer.css">
+    <link rel="stylesheet" href="../../assets/css/simple_viewer.css">
 </head>
 <body>
     <div id="sidebar">
@@ -93,10 +26,10 @@
         const fileListDisplay = document.getElementById('file-list');
         const pageTitle = document.querySelector('title');
 
-        const directoryName = "Market_Analysis_Quick_Start";
-        const filesInDir = ["01_Capital_Market_Terms.md", "02_Key_Market_Products.md", "03_Understanding_Trading_Levels_and_Spreads.md", "04_Valuation_Rules_of_Thumb.md", "05_Peer_Comparison_and_Benchmarking.md", "AGENTS.MD", "README.md"];
+        const directoryName = "Market_Risk";
+        const filesInDir = ["MRM_01_Introduction_to_Market_Risk.md", "README.md"];
         const subDirsInfo = [];
-        const relativePathToRoot = "../";
+        const relativePathToRoot = "../../";
         const parentIndexExists = true;
 
         document.addEventListener('DOMContentLoaded', async function() {
