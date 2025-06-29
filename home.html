@@ -149,6 +149,7 @@
                             <ul class="list-disc list-inside text-gray-600 space-y-1 text-left">
                                 <li>**Explore Key Areas:** Use the dashboard cards below or the global navigation sidebar (on the left) to jump into main topics like CFA Prep, Credit Risk (CRAFT), Primers, or Interactive Notebooks.</li>
                                 <li class="mt-2">**Follow a Path:** For structured learning, select a top navigation tab (Credit Analyst, CFA Candidate, Explorer) or <a href="./Learning_Paths/index.html" class="path-link !py-1 !px-2 !text-sm !inline-block">visit the Learning Paths section</a>.</li>
+
                                 <li>**Global Navigation:** The sidebar on the left provides direct links to almost every piece of content. Use it to quickly find specific documents or sections.</li>
                                 <li>**Interactive Hubs:** Sections like CRAFT and CFA have their own interactive hubs for a focused experience.</li>
                             </ul>
@@ -176,6 +177,7 @@
                 <!-- End of New Sections -->
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
                     <a href="./corporate-credit-risk-analyst-training/index.html" class="card p-6 col-span-1 md:col-span-2 lg:col-span-3 block hover:no-underline"> <!-- Updated Link -->
                         <h3 class="font-semibold text-xl mb-4 text-gray-800 flex items-center">
                             <span class="text-3xl mr-3">🛡️</span> Corporate Credit Risk Analyst Training (CRAFT)
@@ -559,9 +561,38 @@
                 }
             });
         }
+
+        function initDashboardSearch() {
+            const searchInput = document.getElementById('dashboard-search');
+            const dashboardGrid = document.getElementById('dashboard-grid');
+            if (!searchInput || !dashboardGrid) return;
+
+            const cards = dashboardGrid.querySelectorAll('a.card');
+
+            searchInput.addEventListener('keyup', function(event) {
+                const searchTerm = event.target.value.toLowerCase();
+                cards.forEach(card => {
+                    let cardText = '';
+                    const titleElement = card.querySelector('h3');
+                    const paragraphElement = card.querySelector('p');
+                    const tags = card.querySelectorAll('.tag');
+
+                    if (titleElement) cardText += titleElement.textContent.toLowerCase();
+                    if (paragraphElement) cardText += ' ' + paragraphElement.textContent.toLowerCase();
+                    tags.forEach(tag => cardText += ' ' + tag.textContent.toLowerCase());
+
+                    if (cardText.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
         
         initCreditAnalystView();
         initCfaCandidateView();
+        initDashboardSearch(); // Initialize the search functionality
         switchView('dashboard');
     });
     </script>

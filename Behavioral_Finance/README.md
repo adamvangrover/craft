@@ -6,6 +6,10 @@ Welcome to the Behavioral Finance section of our learning repository. This area 
 
 Traditional finance theory often assumes that market participants are perfectly rational and make decisions to maximize their utility based on all available information (the "homo economicus" model). However, behavioral finance, pioneered by figures like Daniel Kahneman and Amos Tversky, recognizes that human psychology plays a significant and often predictable role, leading to decisions that can deviate systematically from pure rationality.
 
+### Quick Links
+*   **[Key Concepts](./Key_Concepts.md)**: Core theories and bias classifications.
+*   **[Case Studies](./Case_Studies.md)**: Examples of biases in action.
+
 ## Purpose of this Section
 
 The goals of this section are to:

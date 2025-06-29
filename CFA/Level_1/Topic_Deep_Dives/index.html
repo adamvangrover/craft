@@ -27,7 +27,18 @@
         const pageTitle = document.querySelector('title');
 
         const directoryName = "Topic_Deep_Dives";
-        const filesInDir = ["README.md", "Ethics_Professional_Standards.md", "FSA_Balance_Sheet_Analysis_for_Creditors.md", "FSA_Cash_Flow_Statement_Analysis_for_Creditors.md", "Fixed_Income_Basics.md", "Introduction_to_Derivatives.md", "Understanding_Financial_Statement_Analysis.md"];
+        const filesInDir = [
+            "README.md",
+            "Equity_Valuation_Models_Intro.md",
+            "Ethics_Professional_Standards.md",
+            "FRA_Income_Statement_Analysis.md",
+            "FSA_Balance_Sheet_Analysis_for_Creditors.md",
+            "FSA_Cash_Flow_Statement_Analysis_for_Creditors.md",
+            "Fixed_Income_Basics.md",
+            "Introduction_to_Derivatives.md",
+            "Quant_Time_Value_of_Money.md",
+            "Understanding_Financial_Statement_Analysis.md"
+        ];
         const subDirsInfo = [];
         const relativePathToRoot = "../../../../";
 
@@ -51,7 +62,7 @@
             fileListDisplay.innerHTML = fileLinksHtml;
 
             const upLinkContainer = document.getElementById('up-link-container');
-            upLinkContainer.innerHTML = `<a href="../index.html">&laquo; Up to Level 1 Hub</a>`;
+            upLinkContainer.innerHTML = `<a href="../README.md">&laquo; Up to Level 1 Study Guide</a>`;
 
             fileListDisplay.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(event) {

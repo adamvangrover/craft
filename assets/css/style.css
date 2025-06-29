@@ -6,52 +6,55 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* Modern system font stack */
     line-height: 1.6;
-    color: #333;
-    background-color: #f4f4f4;
+    color: #212529; /* Darker text for better readability */
+    background-color: #f8f9fa; /* Lighter gray background */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
 header {
-    background: #333;
-    color: #fff;
-    padding: 1rem 0;
+    background: #343a40; /* Consistent dark header */
+    color: #ffffff;
+    padding: 1rem 1.5rem; /* Adjusted padding */
     text-align: center;
+    border-bottom: 3px solid #007bff; /* Accent color */
 }
 
 header h1 {
     margin: 0;
-    font-size: 1.8rem;
+    font-size: 1.8rem; /* Kept original size, can be adjusted */
 }
 
-.container {
+.container { /* This class might be used by older hub pages */
     display: flex;
-    flex: 1; /* Allows container to grow and fill available space */
+    flex: 1;
     width: 90%;
     max-width: 1400px;
     margin: 20px auto;
-    overflow: hidden; /* Clear floats */
+    overflow: hidden;
+    gap: 20px; /* Added gap for consistency with shared-readme-styles */
 }
 
-#sidebar {
-    background: #eef;
-    width: 25%; /* Adjust as needed */
-    padding: 15px;
-    border-right: 1px solid #ddd;
-    height: calc(100vh - 120px); /* Full height minus header/footer approx */
+#sidebar { /* Styles for a potential older sidebar structure */
+    background: #ffffff; /* Cleaner white background */
+    width: 25%;
+    padding: 1.5rem;
+    border-right: 1px solid #dee2e6; /* Lighter border */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Subtle shadow */
     overflow-y: auto;
+     /* max-height: calc(100vh - 120px); /* Consider if header/footer always present */
 }
 
 #sidebar h2 {
     margin-top: 0;
-    font-size: 1.2rem;
-    color: #333;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+    font-size: 1.4em; /* Consistent with .viewer-nav h2 */
+    color: #007bff; /* Accent color */
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 #sidebar ul {
@@ -59,118 +62,156 @@ header h1 {
 }
 
 #sidebar ul li {
-    margin-bottom: 8px;
+    margin-bottom: 0.3rem; /* Consistent with .viewer-nav */
 }
 
 #sidebar ul li a {
     text-decoration: none;
-    color: #333;
+    color: #343a40; /* Dark link color */
     display: block;
-    padding: 5px;
-    border-radius: 3px;
+    padding: 0.6rem 0.8rem; /* Consistent padding */
+    border-radius: 5px;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 0.95em;
 }
 
 #sidebar ul li a:hover,
-#sidebar ul li a.active { /* Class to be added by JS for active link */
-    background-color: #ddd;
-    color: #000;
+#sidebar ul li a.active {
+    background-color: #e9ecef; /* Light hover background */
+    color: #0056b3; /* Darker blue on hover */
+}
+#sidebar ul li a.active {
+    background-color: #007bff;
+    color: #ffffff;
+    font-weight: bold;
 }
 
-/* Sub-navigation for module parts (e.g., main, learning materials, quiz) */
+
+/* Sub-navigation for module parts */
 #sidebar ul ul {
-    margin-left: 15px;
+    margin-left: 15px; /* Keep indentation */
     margin-top: 5px;
-    font-size: 0.9em;
+    font-size: 0.9em; /* Relative to parent */
 }
 
 #sidebar ul ul li a {
-    padding: 3px 5px;
-    color: #555;
+    padding: 0.4rem 0.6rem; /* Slightly smaller padding for sub-items */
+    color: #495057; /* Slightly lighter than main links */
 }
 
 #sidebar ul ul li a:hover,
 #sidebar ul ul li a.active {
-    background-color: #ccc;
+    background-color: #dee2e6; /* Slightly darker hover for sub-items */
+}
+#sidebar ul ul li a.active {
+    background-color: #007bff; /* Keep active consistent */
+    color: #ffffff;
 }
 
 
-#content-area {
-    background: #fff;
-    width: 75%; /* Adjust as needed */
-    padding: 20px;
-    height: calc(100vh - 120px); /* Full height minus header/footer approx */
+#content-area { /* Styles for a potential older content area */
+    background: #ffffff; /* Cleaner white background */
+    width: 75%;
+    padding: 1.5rem 2rem; /* Consistent padding */
     overflow-y: auto;
-    border: 1px solid #ddd;
+    border-radius: 8px; /* Added for consistency */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Subtle shadow */
+    /* max-height: calc(100vh - 120px); */
 }
 
-/* Styles for rendered Markdown content */
-#content-area h1, #content-area h2, #content-area h3, #content-area h4 {
-    color: #333;
-    margin-top: 1.5rem;
-    margin-bottom: 0.8rem;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 0.3rem;
+/* Styles for rendered Markdown content in #content-area, aligned with shared-readme-styles.css */
+#content-area h1, #content-area h2, #content-area h3, #content-area h4, #content-area h5, #content-area h6 {
+    color: #343a40;
+    margin-top: 1.8rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #e0e0e0;
 }
-#content-area h1 { font-size: 1.8em; }
-#content-area h2 { font-size: 1.5em; }
-#content-area h3 { font-size: 1.3em; }
-#content-area h4 { font-size: 1.1em; }
+#content-area h1:first-child, #content-area h2:first-child, #content-area h3:first-child {
+    margin-top: 0.2rem;
+}
+#content-area h1 { font-size: 2em; }
+#content-area h2 { font-size: 1.7em; }
+#content-area h3 { font-size: 1.4em; }
+#content-area h4 { font-size: 1.2em; border-bottom: none; }
+#content-area h5 { font-size: 1.1em; border-bottom: none; }
+#content-area h6 { font-size: 1em; border-bottom: none; color: #6c757d; }
 
 #content-area p {
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.7;
 }
 
 #content-area ul, #content-area ol {
-    margin-left: 20px;
-    margin-bottom: 1rem;
+    margin-left: 25px;
+    margin-bottom: 1.2rem;
+    padding-left: 10px;
 }
 
 #content-area li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
 }
 
-#content-area code {
-    background-color: #f0f0f0;
-    padding: 2px 5px;
+#content-area code { /* Inline code */
+    background-color: #e9ecef;
+    color: #c7254e;
+    padding: 0.2em 0.4em;
     border-radius: 3px;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
 }
 
-#content-area pre {
-    background-color: #f0f0f0;
-    padding: 10px;
-    border-radius: 3px;
+#content-area pre { /* Code blocks */
+    background-color: #282c34;
+    color: #abb2bf;
+    padding: 1em;
+    border-radius: 5px;
     overflow-x: auto;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+    line-height: 1.5;
 }
 
 #content-area pre code {
     background-color: transparent;
+    color: inherit;
     padding: 0;
+    font-size: inherit;
 }
 
 #content-area table {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
     border-collapse: collapse;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    font-size: 0.9em;
 }
 
 #content-area th, #content-area td {
-    border: 1px solid #ddd;
-    padding: 8px;
+    border: 1px solid #dee2e6;
+    padding: 0.8rem 1rem;
     text-align: left;
 }
 
 #content-area th {
-    background-color: #f7f7f7;
+    background-color: #f8f9fa;
+    font-weight: 600;
 }
 
 #content-area blockquote {
-    border-left: 4px solid #ccc;
-    padding-left: 10px;
+    border-left: 5px solid #007bff;
+    padding: 0.8rem 1.2rem;
     margin-left: 0;
-    margin-bottom: 1rem;
-    color: #555;
+    margin-right: 0;
+    margin-bottom: 1.2rem;
+    background-color: #f0f8ff;
+    color: #334155;
+    font-style: italic;
+}
+#content-area blockquote p:last-child {
+    margin-bottom: 0;
 }
 
 #content-area a {
@@ -180,14 +221,15 @@ header h1 {
 
 #content-area a:hover {
     text-decoration: underline;
+    color: #0056b3;
 }
 
 footer {
     text-align: center;
-    padding: 1rem 0;
-    background: #333;
-    color: #fff;
-    margin-top: auto; /* Pushes footer to the bottom */
+    padding: 1rem 1.5rem; /* Consistent padding */
+    background: #343a40; /* Consistent dark footer */
+    color: #ffffff;
+    margin-top: auto;
 }
 
 /* Basic responsiveness */

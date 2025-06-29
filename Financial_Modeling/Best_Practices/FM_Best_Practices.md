@@ -135,6 +135,12 @@ Building effective and reliable financial models is a crucial skill in finance. 
 *   **Lack of Flexibility:** Model is difficult to update or use for sensitivity analysis.
 *   **Poor Documentation:** Making the model hard for others (or your future self) to understand.
 
-By following these best practices, you can build financial models that are not only powerful analytical tools but also reliable and credible.The `FM_Best_Practices.md` file is created.
+By following these best practices, you can build financial models that are not only powerful analytical tools but also reliable and credible.
 
-Next, I'll create the placeholder template file `Basic_3_Statement_Model_Template_Placeholder.txt` in `Financial_Modeling/Templates/`.
+---
+
+## Test Your Understanding
+
+Want to check your comprehension of these best practices?
+
+*   Take the [Financial Modeling Best Practices Quiz](../Quizzes/FM_Best_Practices_Quiz.md) ([View in Quiz Viewer](../../quiz_viewer.html?quiz=Financial_Modeling/Quizzes/FM_Best_Practices_Quiz.md)).

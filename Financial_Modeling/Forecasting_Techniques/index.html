@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viewer - Forecasting Techniques</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="../../../assets/css/simple_viewer.css">
+</head>
+<body>
+    <div id="sidebar">
+        <div id="up-link-container">
+            <!-- Up link will be dynamically generated -->
+        </div>
+        <h3>Forecasting Techniques</h3>
+        <ul id="file-list">
+            <!-- File list will be populated by JavaScript -->
+        </ul>
+    </div>
+    <div id="content-area" class="markdown-body">
+        <p>Loading content...</p>
+    </div>
+
+    <script>
+        const contentDisplay = document.getElementById('content-area');
+        const fileListDisplay = document.getElementById('file-list');
+        const pageTitle = document.querySelector('title');
+
+        const directoryName = "Forecasting_Techniques";
+        const filesInDir = [
+            "README.md",
+            "Revenue_Forecasting_Approaches.md"
+        ];
+        const subDirsInfo = [];
+        const relativePathToRoot = "../../../";
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            pageTitle.textContent = `Viewer - Financial Modeling ${directoryName.replace('_', ' ')}`;
+
+            let fileLinksHtml = `<li><a href="#" data-md-src="README.md" class="nav-link active">README.md (Introduction)</a></li>`;
+            fileLinksHtml += `<li><a href="#" data-md-src="Revenue_Forecasting_Approaches.md" class="nav-link">Revenue Forecasting Approaches</a></li>`;
+
+            fileListDisplay.innerHTML = fileLinksHtml;
+
+            const upLinkContainer = document.getElementById('up-link-container');
+            upLinkContainer.innerHTML = `<a href="../index.html">&laquo; Up to Financial Modeling Overview</a>`;
+
+            fileListDisplay.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    document.querySelectorAll('#file-list .nav-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    const mdSrc = this.getAttribute('data-md-src');
+                    loadMarkdown(mdSrc);
+                });
+            });
+
+            const defaultLink = fileListDisplay.querySelector('a[data-md-src="README.md"]');
+            if (defaultLink) {
+                 loadMarkdown("README.md", defaultLink);
+            } else if (filesInDir.length > 0) {
+                 const firstFileLink = fileListDisplay.querySelector('.nav-link');
+                 if(firstFileLink) {
+                    await loadMarkdown(firstFileLink.getAttribute('data-md-src'),firstFileLink);
+                 }
+            } else {
+                contentDisplay.innerHTML = "<p>No Markdown files found to display.</p>";
+            }
+        });
+
+        async function loadMarkdown(mdPath, clickedLink) {
+            if (!contentDisplay) {
+                console.error("Content display element not found.");
+                return;
+            }
+            if (typeof marked === 'undefined') {
+                console.error("Marked.js library not found.");
+                contentDisplay.innerHTML = "<p>Error: Markdown renderer not available.</p>";
+                return;
+            }
+            if (clickedLink) {
+                document.querySelectorAll('#file-list .nav-link').forEach(l => l.classList.remove('active'));
+                clickedLink.classList.add('active');
+            }
+
+            try {
+                const response = await fetch(mdPath);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch ${mdPath}: ${response.status} ${response.statusText}`);
+                }
+                const markdownText = await response.text();
+                contentDisplay.innerHTML = marked.parse(markdownText);
+                contentDisplay.scrollTop = 0;
+            } catch (error) {
+                console.error("Error loading or parsing Markdown:", error);
+                contentDisplay.innerHTML = `<p>Error loading content for ${mdPath}.</p><p><small>${error.message}</small></p>`;
+            }
+        }
+    </script>
+</body>
+</html>

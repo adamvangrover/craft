@@ -31,8 +31,22 @@
         const pageTitle = document.querySelector('title');
 
         const directoryName = "Fintech";
-        const filesInDir = ["AGENTS.MD", "AI_in_Finance.md", "Blockchain_in_Finance.md", "Cybersecurity_in_Fintech.md", "Insurtech.md", "Introduction_to_Fintech.md", "Open_Banking_and_APIs.md", "Payment_Systems_and_Digital_Currencies.md", "README.md", "Regtech.md", "Robo_Advisors.md"];
-        const subDirsInfo = [];
+        const filesInDir = [ // Files directly in Fintech/
+            "AGENTS.MD",
+            "AI_in_Finance.md",
+            "Blockchain_in_Finance.md",
+            "Cybersecurity_in_Fintech.md",
+            "Insurtech.md",
+            "Introduction_to_Fintech.md",
+            "Open_Banking_and_APIs.md",
+            "Payment_Systems_and_Digital_Currencies.md",
+            "README.md",
+            "Regtech.md",
+            "Robo_Advisors.md"
+        ];
+        const subDirsInfo = [
+            { name: "Advanced_Topics", readmePath: "Advanced_Topics/README.md", indexPath: "Advanced_Topics/index.html" }
+        ];
         const relativePathToRoot = "../";
         const parentIndexExists = true;
 
@@ -74,7 +88,9 @@
                                         <a href="#" data-md-src="${subdir.readmePath}" class="nav-link view-formatted-link" title="View formatted content in pane">&nbsp;&nbsp;&nbsp;(View Formatted)</a>
                                      </li>`;
                 }
+
             });
+
             fileListDisplay.innerHTML = fileLinksHtml;
 
             const upLinkContainer = document.getElementById('up-link-container');

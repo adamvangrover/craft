@@ -1,14 +1,45 @@
-# Interactive Notebook Guide: Bond Mathematics
+# Interactive Notebooks: Fixed Income Analysis
 
-## 1. Purpose of This Guide and the Accompanying Notebook
+## Overview
 
-This guide accompanies the (planned) `Bond_Math.ipynb` Jupyter Notebook. The primary purpose of the notebook and this guide is to provide an interactive, hands-on learning experience for understanding and applying core bond mathematics concepts.
+This section of the Interactive Notebooks hub is dedicated to providing hands-on tools for understanding fixed income securities, including their valuation, risk characteristics, and portfolio management applications. Interactive exploration of bond math and analytics can greatly clarify these often complex topics.
+
+## Purpose of this Section
+
+The primary goals of this section are to:
+
+*   Illustrate core fixed income concepts (e.g., bond pricing, yield measures, duration, convexity) through interactive calculations and visualizations.
+*   Provide practical tools for analyzing bond characteristics and sensitivities.
+*   Help users understand the relationship between bond features, market conditions, and bond performance.
+*   Offer a platform for experimenting with fixed income analytics.
+
+## Contents & Materials
+
+This section currently plans for or includes the following notebook(s):
+
+*   **Interactive Bond Mathematics Notebook:**
+    *   **Guide & Overview:** Detailed below. This guide describes the planned `Bond_Math.ipynb`.
+    *   **Notebook File:** [Bond_Math.ipynb](./Bond_Math.ipynb) *(Currently a planned notebook - file does not exist yet)*
+    *   **Description:** An interactive guide to core bond mathematics, including pricing, yield calculations, and duration/convexity concepts.
+
+*(This list will be updated as more notebooks for Fixed Income are developed.)*
+
+<!-- Machine-readable indexing comment -->
+<!-- Index: Interactive Notebooks Fixed Income; Topics: Bond Math, Bond Pricing, Yield to Maturity, Duration, Convexity -->
+
+---
+
+## Notebook Guide: Interactive Bond Mathematics (`Bond_Math.ipynb`)
+
+### 1. Purpose of This Notebook
+
+The (planned) `Bond_Math.ipynb` Jupyter Notebook, accompanied by this guide, aims to provide an interactive, hands-on learning experience for understanding and applying core bond mathematics concepts.
 
 Fixed income securities are a cornerstone of financial markets, and a solid grasp of how to value them and assess their risks is crucial for various finance professionals, including portfolio managers, risk analysts, and credit analysts. This interactive tool aims to demystify bond math by allowing users to experiment with calculations and visualize relationships.
 
-> **Future Content:** Develop the `Bond_Math.ipynb` notebook to accompany this guide. This notebook will contain Python code cells for calculations and visualizations, along with explanatory Markdown cells.
+> **Development Note:** The `Bond_Math.ipynb` notebook needs to be created to accompany this guide. It will contain Python code cells for calculations and visualizations, along with explanatory Markdown cells as outlined below.
 
-## 2. Learning Objectives
+### 2. Learning Objectives for this Notebook
 
 Upon completing this guide and working through the associated Jupyter Notebook, you should be able to:
 
@@ -114,4 +145,32 @@ The `Bond_Math.ipynb` notebook will likely be structured as follows:
 *   [Fixed Income Basics Deep Dive](../../CFA/Level_1/Topic_Deep_Dives/Fixed_Income_Basics.md) (for foundational concepts).
 
 ---
-We hope this interactive notebook and guide will be a valuable tool in your journey to mastering bond mathematics!
+
+## How to Use This Section (Student & Teacher Notes - General for Fixed Income Notebooks)
+
+**For Students & Learners:**
+*   **Interactive Exploration:** The key benefit is interactivity. Adjust inputs in the (future) notebook to see how bond prices, yields, and risk measures change.
+*   **Formula to Code:** Pay attention to how mathematical bond formulas are translated into Python code.
+*   **Visualize Relationships:** Use the planned visualizations to intuitively grasp concepts like the price-yield curve or the effect of duration.
+
+**For Teachers & Instructors:**
+*   **Classroom Demonstrations:** Use the (future) notebook to dynamically illustrate bond math concepts.
+*   **Problem Solving:** Adapt notebook examples for assignments or in-class problem-solving.
+*   **"What-If" Analysis:** Encourage students to perform "what-if" analysis using the interactive tools.
+
+## Developer Notes & Areas for Impact (for this Fixed Income Notebook Section)
+
+*   **Develop `Bond_Math.ipynb`:** This is the highest priority for this section. It should follow the outline provided above.
+*   **Data for Examples:** While many bond math concepts can be illustrated with user inputs, consider if a small, simple dataset of sample bonds (in `data/.placeholder` or a new CSV) could be useful for batch calculations or comparisons.
+*   **Advanced Topics:** Once the core `Bond_Math.ipynb` is complete, consider notebooks for:
+    *   Valuation of bonds with embedded options (using binomial trees).
+    *   Term structure of interest rates modeling (visualizing different yield curve shapes).
+    *   Credit spread analysis.
+
+## Possible Avenues for Exploration and Further Development
+
+*   **Portfolio Context:** Notebooks demonstrating fixed income portfolio construction or risk management techniques (e.g., immunization, duration matching).
+*   **Connection to Real Market Data:** (Advanced) Conceptual guides or notebooks on how to potentially source and analyze real bond market data (with appropriate disclaimers about data access and cost).
+*   **Stochastic Interest Rate Models:** (Very Advanced) Introduction to concepts like Vasicek or CIR models, if appropriate for the repository's scope.
+
+We hope this guide and the future `Bond_Math.ipynb` notebook will be valuable tools in your journey to mastering bond mathematics!

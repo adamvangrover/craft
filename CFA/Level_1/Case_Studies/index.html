@@ -53,8 +53,8 @@
             fileListDisplay.innerHTML = fileLinksHtml;
 
             const upLinkContainer = document.getElementById('up-link-container');
-            // Link from sub-content viewer up to its parent Level's index.html
-            upLinkContainer.innerHTML = `<a href="../index.html">&laquo; Up to Level 1 Hub</a>`;
+            // Link from sub-content viewer up to its parent Level's README.md
+            upLinkContainer.innerHTML = `<a href="../README.md">&laquo; Up to Level 1 Study Guide</a>`;
 
             fileListDisplay.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(event) {

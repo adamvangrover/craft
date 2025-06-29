@@ -65,12 +65,20 @@
         const directoryName = "Risk_Management"; 
         // Files directly in Risk_Management/
         const localFiles = ["README.md", "01_Introduction_to_Risk_Management.md", "02_Risk_Identification_and_Assessment_Frameworks.md", "03_Risk_Reporting_and_Dashboards.md", "04_Risk_Governance_and_Culture.md", "AGENTS.MD"];
-        // Sub-directories that have their own index.html
-        const subDirectoryModules = [
+        // Sub-directories that have their own index.html (to be iframed)
+        const subDirectoryModulesToIframe = [
             {"name": "Credit_Risk", "indexPath": "Credit_Risk/index.html"}, 
             {"name": "Market_Risk", "indexPath": "Market_Risk/index.html"}, 
             {"name": "Operational_Risk", "indexPath": "Operational_Risk/index.html"}
         ]; 
+        // Sub-directories that contain markdown files to be loaded directly
+        const subDirectoryMarkdownModules = [
+            {
+                "name": "Liquidity_Risk",
+                "path": "Liquidity_Risk/",
+                "files": ["README.md", "LRM_01_Introduction_to_Liquidity_Risk.md"]
+            }
+        ];
 
         document.addEventListener('DOMContentLoaded', async function() {
             pageTitle.textContent = `Viewer - ${directoryName}`;
@@ -97,8 +105,9 @@
 
             // Handle sub-directory modules (iframe links)
             subDirectoryModules.forEach(subdir => {
+
                 fileLinksHtml += `<li class="subdirectory-group"><h4>${subdir.name}/</h4></li>`;
-                fileLinksHtml += `<li><a href="#" data-iframe-src="${subdir.indexPath}" class="nav-link iframe-link">&nbsp;&nbsp;&nbsp;Explore ${subdir.name} Module</a></li>`;
+                fileLinksHtml += `<li><a href="#" data-iframe-src="${subdir.indexPath}" class="nav-link iframe-link">&nbsp;&nbsp;&nbsp;Explore ${subdir.name} Module (Interactive Hub)</a></li>`;
             });
             fileListDisplay.innerHTML = fileLinksHtml;
 
