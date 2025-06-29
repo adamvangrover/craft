@@ -3,46 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Modeling Hub</title>
+    <title>Financial Modeling Resources</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/style.css"> <!-- Assuming a shared style -->
-    <style>
-        body { font-family: sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
-        .fm-container { max-width: 960px; margin: auto; overflow: auto; padding: 20px; background: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        /* Basic styling for rendered Markdown content */
-        .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: #333; margin-top: 1em; margin-bottom: 0.5em; padding-bottom: 0.2em; border-bottom: 1px solid #eee;}
-        .markdown-body h1 { font-size: 2em; }
-        .markdown-body h2 { font-size: 1.75em; }
-        .markdown-body h3 { font-size: 1.5em; }
-        .markdown-body p { margin-bottom: 1em; }
-        .markdown-body ul, .markdown-body ol { margin-left: 20px; margin-bottom: 1em; }
-        .markdown-body li { margin-bottom: 0.5em; }
-        .markdown-body table { border-collapse: collapse; width: auto; margin-bottom: 1em; }
-        .markdown-body th, .markdown-body td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        .markdown-body th { background-color: #f0f0f0; }
-        .markdown-body code { background-color: #eee; padding: 2px 4px; border-radius: 3px; font-family: monospace; }
-        .markdown-body pre code { display: block; padding: 10px; background-color: #eee; white-space: pre-wrap;}
-        .back-link-container { margin-bottom: 20px; padding: 10px; background-color: #e9ecef; border-radius: 5px; text-align: center;}
-        .back-link-container a { text-decoration: none; color: #007bff; font-weight: bold;}
-    </style>
+    <link rel="stylesheet" href="../assets/css/viewer_style.css"> <!-- Using a common viewer style -->
 </head>
 <body>
-    <div class="fm-container">
-        <div class="back-link-container">
-            <a href="../home.html">&laquo; Back to Main Hub</a>
-        </div>
-        <div id="markdown-content" class="markdown-body">
-            <p>Loading content...</p>
-        </div>
+    <header class="viewer-header">
+        <h1>Financial Modeling Resources</h1>
+        <a href="../home.html" class="back-to-home">&laquo; Back to Main Hub</a>
+    </header>
+    <div class="viewer-container">
+        <nav class="viewer-nav">
+            <h2>Topics</h2>
+            <ul id="fm-navigation-list">
+                <li><a href="#" data-md-src="README.md">Financial Modeling Overview</a></li>
+                <li><a href="#" data-md-src="Best_Practices/FM_Best_Practices.md">Best Practices</a></li>
+                <li><a href="#" data-md-src="Forecasting_Techniques/Revenue_Forecasting_Approaches.md">Revenue Forecasting</a></li>
+                <li><a href="#" data-md-src="Templates/Basic_3_Statement_Model_Structure.md">3 Statement Model Structure</a></li>
+                <li><a href="#" data-md-src="Templates/Excel_Financial_Model_Best_Practices.md">Excel Best Practices</a></li>
+                <li><a href="#" data-md-src="Valuation_Applications/DCF_Modeling_Overview.md">DCF Modeling Overview</a></li>
+            </ul>
+        </nav>
+        <main id="markdown-display-area" class="viewer-content">
+            <p>Select a topic from the list to view its content.</p>
+        </main>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', async function() {
-            const contentDisplay = document.getElementById('markdown-content');
-            const readmePath = 'README.md'; // Path to the README.md in the same directory
+        document.addEventListener('DOMContentLoaded', function() {
+            const navList = document.getElementById('fm-navigation-list');
+            const contentDisplay = document.getElementById('markdown-display-area');
+            const defaultPath = 'README.md'; // Default file to load
 
-            if (!contentDisplay) {
-                console.error("Content display element not found.");
+            if (!navList || !contentDisplay) {
+                console.error("Navigation list or content display area not found.");
                 return;
             }
             if (typeof marked === 'undefined') {
@@ -51,16 +45,46 @@
                 return;
             }
 
-            try {
-                const response = await fetch(readmePath);
-                if (!response.ok) {
-                    throw new Error(`Failed to fetch ${readmePath}: ${response.status} ${response.statusText}`);
+            async function loadAndDisplayMarkdown(mdPath, clickedLink) {
+                contentDisplay.innerHTML = "<p>Loading content...</p>";
+                document.querySelectorAll('#fm-navigation-list a').forEach(link => link.classList.remove('active'));
+                if (clickedLink) {
+                    clickedLink.classList.add('active');
                 }
-                const markdownText = await response.text();
-                contentDisplay.innerHTML = marked.parse(markdownText);
-            } catch (error) {
-                console.error("Error loading or parsing Markdown:", error);
-                contentDisplay.innerHTML = `<p>Error loading content for ${readmePath}.</p><p><small>${error.message}</small></p>`;
+
+                try {
+                    // Paths are relative to this Financial_Modeling/index.html file
+                    const response = await fetch(mdPath);
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch ${mdPath}: ${response.status} ${response.statusText}`);
+                    }
+                    const markdownText = await response.text();
+                    contentDisplay.innerHTML = marked.parse(markdownText);
+                } catch (error) {
+                    console.error("Error loading or parsing Markdown:", error);
+                    contentDisplay.innerHTML = `<p>Error loading content for ${mdPath}.</p><p><small>${error.message}</small></p>`;
+                }
+            }
+
+            navList.addEventListener('click', function(event) {
+                const targetLink = event.target.closest('a[data-md-src]');
+                if (targetLink) {
+                    event.preventDefault();
+                    const mdSrc = targetLink.dataset.mdSrc;
+                    if (mdSrc) {
+                        loadAndDisplayMarkdown(mdSrc, targetLink);
+                    }
+                }
+            });
+
+            // Load the default content (README.md)
+            const defaultLink = navList.querySelector(`a[data-md-src="${defaultPath}"]`);
+            if (defaultLink) {
+                 loadAndDisplayMarkdown(defaultPath, defaultLink);
+            } else if (navList.querySelector('a[data-md-src]')) {
+                // Fallback to the first available link if default isn't found
+                const firstLink = navList.querySelector('a[data-md-src]');
+                loadAndDisplayMarkdown(firstLink.dataset.mdSrc, firstLink);
             }
         });
     </script>
