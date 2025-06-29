@@ -1,0 +1,302 @@
+/* === SHARED README STYLES === */
+
+/* === GLOBAL STYLES & RESETS === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.6;
+    background-color: #f8f9fa;
+    color: #343a40;
+    padding: 0; /* Remove body padding, control with container */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* === HEADER & FOOTER === */
+.readme-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #343a40; /* Dark header */
+    color: #f8f9fa; /* Light text */
+    border-bottom: 1px solid #495057;
+}
+
+.repo-back-link, .view-raw-readme-link {
+    color: #adb5bd; /* Lighter link color for header */
+    text-decoration: none;
+    font-size: 0.9em;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+}
+.repo-back-link:hover, .view-raw-readme-link:hover {
+    color: #ffffff;
+    background-color: #495057;
+}
+
+.readme-title-display {
+    font-size: 1.2em;
+    font-weight: 500;
+    text-align: center;
+    flex-grow: 1; /* Allows title to take space */
+}
+
+.readme-footer {
+    text-align: center;
+    padding: 15px 20px;
+    border-top: 1px solid #dee2e6;
+    font-size: 0.85em;
+    color: #6c757d;
+    background-color: #f8f9fa;
+}
+.readme-footer p { margin: 0; }
+.readme-footer a { color: #007bff; text-decoration: none; }
+.readme-footer a:hover { text-decoration: underline; }
+
+
+/* === MAIN CONTENT CONTAINER === */
+.readme-container {
+    max-width: 900px; /* Optimal width for reading text */
+    margin: 20px auto; /* Centered with top/bottom margin */
+    padding: 25px 30px;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    flex-grow: 1; /* Takes available space */
+    width: calc(100% - 40px); /* Responsive width with padding */
+}
+
+#markdown-content { /* The div where Markdown is rendered */
+    /* Typography will be handled by direct element styling below */
+}
+
+/* === STYLING FOR RENDERED MARKDOWN ELEMENTS === */
+#markdown-content h1,
+#markdown-content h2,
+#markdown-content h3,
+#markdown-content h4,
+#markdown-content h5,
+#markdown-content h6 {
+    color: #2c3e50; /* Dark blue-grey for headings */
+    margin-top: 1.4em;
+    margin-bottom: 0.7em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #e9ecef;
+    font-weight: 600; /* Slightly bolder */
+}
+#markdown-content h1:first-child,
+#markdown-content h2:first-child,
+#markdown-content h3:first-child { margin-top: 0; }
+
+#markdown-content h1 { font-size: 2em; }      /* Larger for main titles if any in README */
+#markdown-content h2 { font-size: 1.6em; }
+#markdown-content h3 { font-size: 1.35em; }
+#markdown-content h4 { font-size: 1.15em; border-bottom: none; font-weight: 500; }
+#markdown-content h5 { font-size: 1em; font-weight: 500; color: #495057; }
+#markdown-content h6 { font-size: 0.9em; font-weight: 500; color: #6c757d; }
+
+#markdown-content p {
+    margin-bottom: 1.1em;
+    line-height: 1.75;
+    color: #343a40; /* Main text color */
+}
+
+#markdown-content a {
+    color: #007bff; /* Standard blue link */
+    text-decoration: none;
+}
+#markdown-content a:hover {
+    text-decoration: underline;
+    color: #0056b3; /* Darker blue on hover */
+}
+
+#markdown-content ul,
+#markdown-content ol {
+    margin-left: 20px; /* Keep some left margin */
+    margin-bottom: 1.1em;
+    padding-left: 20px; /* Standard padding for list markers */
+}
+#markdown-content ul li,
+#markdown-content ol li {
+    margin-bottom: 0.6em;
+}
+#markdown-content ul ul,
+#markdown-content ol ol,
+#markdown-content ul ol,
+#markdown-content ol ul {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+
+#markdown-content blockquote {
+    border-left: 5px solid #007bff; /* Blue quote bar */
+    padding: 10px 15px;
+    margin: 1.5em 0; /* More vertical space */
+    color: #55575a; /* Slightly darker text for quote */
+    background-color: #f1f8ff; /* Very light blue background */
+    border-radius: 0 4px 4px 0;
+}
+#markdown-content blockquote p {
+    margin-bottom: 0.5em;
+}
+#markdown-content blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+#markdown-content code { /* Inline code */
+    background-color: #eef1f3; /* Lighter, less obtrusive background */
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 0.88em; /* Slightly smaller for better fit */
+    color: #c82121; /* Softer red for inline code */
+    border: 1px solid #d6dbe0;
+}
+
+#markdown-content pre { /* Code blocks */
+    background-color: #2b303b; /* Darker, sophisticated background */
+    color: #c0c5ce; /* Light grey text for contrast */
+    padding: 1em; /* More padding */
+    border-radius: 5px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 0.9em; /* Consistent font size for blocks */
+    line-height: 1.5;
+    border: 1px solid #3e4451;
+}
+#markdown-content pre code { /* Reset inline styles for code within pre */
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+    border: none;
+}
+
+#markdown-content table {
+    width: auto; /* Allow table to define its width, up to 100% */
+    max-width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    border: 1px solid #d0d7de; /* GitHub-like border color */
+    font-size: 0.95em;
+}
+#markdown-content th,
+#markdown-content td {
+    border: 1px solid #d0d7de;
+    padding: 10px 14px; /* Slightly more padding */
+    text-align: left;
+}
+#markdown-content th {
+    background-color: #f6f8fa; /* GitHub-like table header */
+    font-weight: 600;
+    color: #24292f;
+}
+#markdown-content tr:nth-child(even) {
+    background-color: #ffffff; /* Keep even rows white for clarity */
+}
+#markdown-content tr:nth-child(odd) {
+    background-color: #f6f8fa; /* Odd rows slightly off-white like GitHub */
+}
+
+
+#markdown-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin: 1em 0; /* More vertical space around images */
+    display: block; /* Center if parent has text-align: center */
+    border: 1px solid #e0e0e0; /* Subtle border */
+}
+
+#markdown-content hr {
+    height: 1px;
+    background-color: #d0d7de;
+    border: 0;
+    margin: 2em 0; /* More space around horizontal rules */
+}
+
+/* === RESPONSIVE ADJUSTMENTS === */
+@media (max-width: 960px) { /* Adjust breakpoint for readme container */
+    .readme-container {
+        margin: 15px; /* Smaller margin on tablets */
+        padding: 20px 25px;
+        width: auto; /* Allow it to shrink */
+    }
+}
+
+@media (max-width: 768px) {
+    .readme-header {
+        flex-direction: column;
+        padding: 10px 15px;
+    }
+    .repo-back-link { margin-bottom: 8px; align-self: flex-start;}
+    .view-raw-readme-link { margin-top: 8px; align-self: flex-end;}
+    .readme-title-display { font-size: 1.1em; margin: 5px 0; }
+
+    .readme-container {
+        margin: 10px;
+        padding: 15px 20px;
+    }
+    #markdown-content h1 { font-size: 1.7em; }
+    #markdown-content h2 { font-size: 1.4em; }
+    #markdown-content h3 { font-size: 1.2em; }
+}
+
+@media (max-width: 480px) {
+    .readme-container {
+        padding: 12px 15px;
+        margin: 10px 5px;
+    }
+    #markdown-content h1 { font-size: 1.5em; }
+    #markdown-content h2 { font-size: 1.25em; }
+    #markdown-content h3 { font-size: 1.1em; }
+    #markdown-content pre { font-size: 0.85em; padding: 0.8em; }
+    #markdown-content code { font-size: 0.82em; }
+    #markdown-content th, #markdown-content td { padding: 8px 10px; }
+}
+
+/* === PRINT STYLES === */
+@media print {
+    body { font-size: 10pt; background-color: #fff !important; color: #000 !important; padding: 0; margin: 0.5in; }
+    .readme-header, .readme-footer { display: none !important; }
+    .readme-container {
+        width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important;
+        border: none !important; box-shadow: none !important;
+    }
+    #markdown-content h1, #markdown-content h2, #markdown-content h3,
+    #markdown-content h4, #markdown-content h5, #markdown-content h6 {
+        color: #000 !important; border-bottom: 1px solid #ccc !important; page-break-after: avoid !important;
+    }
+    #markdown-content h1 { font-size: 16pt; }
+    #markdown-content h2 { font-size: 14pt; }
+    #markdown-content h3 { font-size: 12pt; }
+    #markdown-content table { page-break-inside: avoid !important; font-size: 9pt !important; }
+    #markdown-content th, #markdown-content td { border: 1px solid #666 !important; }
+    #markdown-content th { background-color: #e8e8e8 !important; }
+    #markdown-content blockquote, #markdown-content pre { page-break-inside: avoid !important; }
+    #markdown-content code, #markdown-content pre code {
+        background-color: transparent !important; color: #000 !important;
+        font-size: 9pt !important; border: none !important; padding: 0 !important;
+    }
+    #markdown-content pre {
+        background-color: #f0f0f0 !important; border: 1px solid #ccc !important;
+        padding: 5pt !important; white-space: pre-wrap !important; word-wrap: break-word !important;
+    }
+    #markdown-content a { color: #0000ee !important; text-decoration: underline !important; }
+    #markdown-content a[href^="#"] { display: none !important; }
+}
+
+/* === ACCESSIBILITY :focus-visible === */
+:focus-visible { outline: 2px solid #007bff; outline-offset: 2px; box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); }
+a:focus-visible, button:focus-visible { /* Ensure links and buttons get clear focus */
+    /* General style is good, specific overrides if needed */
+}

@@ -148,6 +148,9 @@ The Uniform Commercial Code (UCC) is a comprehensive set of laws governing comme
 A foundational understanding of these legal aspects allows credit analysts to better assess structural risks, understand lender protections, and contribute more effectively to the structuring and monitoring of credit facilities.
 
 ---
+**Interactive Exploration:**
+For a hands-on look at some of these concepts, including definitions, covenant examples, and Event of Default scenarios, explore the [Interactive Guide to Analyzing Credit Agreements README](../../../../Interactive_Notebooks/Legal_Analysis/README.md) and its [accompanying Jupyter Notebook](../../../../Interactive_Notebooks/Legal_Analysis/CreditAgreementAnalysisNotebook.ipynb).
+---
 
 ## 14.7. Student Notes & Reflections
 

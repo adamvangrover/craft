@@ -63,7 +63,7 @@ The interactive HTML guide (`index.html` in the course root) provides the primar
 
 ## Course Resources
 
-*   **[Interactive HTML Guide](../index.html)**: The recommended way to navigate the course materials. (Note: This link assumes README.md is in `corporate-credit-risk-analyst-training/` and index.html is one level up. Adjust if co-located).
+*   **[Interactive HTML Guide](./index.html)**: The recommended way to navigate the course materials.
 *   **[Comprehensive Course Glossary](./GLOSSARY.md)**: A consolidated list of key terms used throughout the CRAFT program.
 *   **[Consolidated Quiz Answers](./solutions/QUIZ_ANSWERS.md)**: Answer keys for all module quizzes.
 *   **[Consolidated Case Study Guidance](./solutions/CASE_STUDY_GUIDANCE.md)**: Guidance and discussion points for all case studies.

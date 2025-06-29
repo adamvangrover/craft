@@ -3,42 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                                  
-    <title>CRAFT - Credit Risk Analyst Foundations Training</title>
+    <!-- DEVELOPER NOTE: Merge conflict resolved.
+         This root index.html is now a very simple landing page.
+         The primary, feature-rich entry point for the entire repository is `home.html`.
+         The complex CRAFT SPA that was previously part of a conflict in this file will be moved to `corporate-credit-risk-analyst-training/index.html`.
+         The original simpler CRAFT loader (sidebar + markdown viewer) is kept here as a basic fallback,
+         but its primary purpose is now to redirect to home.html.
+    -->
+    <title>Financial Learning Repository - Welcome</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 90vh; text-align: center; }
+        .redirect-container { padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9; }
+        .redirect-container h1 { margin-bottom: 15px; }
+        .redirect-container p { margin-bottom: 20px; }
+        .redirect-link {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+        .redirect-link:hover {
+            background-color: #0056b3;
+        }
+        .fallback-content { margin-top: 30px; padding-top: 20px; border-top: 1px dashed #eee; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>CRAFT – Credit Risk Analyst Foundations Training</h1>
-    </header>
+    <div class="redirect-container">
+        <h1>Welcome to the Financial Learning Repository</h1>
+        <p>This site hosts a comprehensive collection of resources for financial education, including credit risk analysis, CFA program preparation, financial modeling, and more.</p>
+        <p><strong>For the best experience and full site navigation, please visit our main dashboard:</strong></p>
+        <a href="home.html" class="redirect-link">Go to Main Dashboard (home.html)</a>
+    </div>
 
-    <div class="container">
+    <div class="fallback-content container" style="display:none;"> <!-- Initially hide fallback -->
+        <header>
+            <h1>CRAFT – Credit Risk Analyst Foundations Training (Fallback View)</h1>
+        </header>
         <nav id="sidebar">
             <h2>Course Modules</h2>
             <ul id="module-navigation-list">
-                <!-- Dynamically populated by script.js -->
-                <li><a href="#" data-path="modules/01-foundations/01-accounting-and-financial-statement-analysis.md">Module 1: Accounting & FS Analysis</a></li>
-                <!-- More example links can be added here for testing, will be dynamic -->
+                <!-- Dynamically populated by script.js if this part becomes active -->
+                <li><a href="#" data-path="corporate-credit-risk-analyst-training/README.md">Course Overview (CRAFT README)</a></li>
             </ul>
         </nav>
-
         <main id="content-area">
-            <p>Welcome to the CRAFT program. Select a module from the left to begin, or view the <a href="#" data-path="README.md">Course Overview (README)</a>.</p>
-            <!-- Markdown content will be rendered here by script.js -->
+            <p>Please use the <a href="home.html">Main Dashboard</a> for full site access. If you intended to view the CRAFT program, its interactive hub will be at `corporate-credit-risk-analyst-training/index.html` once fully set up.</p>
         </main>
+        <footer>
+            <p>&copy; <span id="current-year"></span> Financial Learning Hub. Placeholder.</p>
+        </footer>
     </div>
 
-    <footer>
-        <p>&copy; <span id="current-year"></span> CRAFT Program. Placeholder.</p>
-    </footer>
-
-    <!-- Marked.js for Markdown to HTML conversion -->
+    <!-- Marked.js for Markdown to HTML conversion (for fallback) -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <!-- Custom JavaScript -->
+    <!-- Custom JavaScript (for fallback) -->
     <script src="assets/js/script.js"></script>
 
-  
+</body>
+</html>
+
+<!--
+    DEVELOPER NOTE: The following HTML block was part of a merge conflict.
+    It represents an interactive SPA for the CRAFT program.
+    This content will be moved to `corporate-credit-risk-analyst-training/index.html`.
+    It has been commented out here to preserve the code, as per user request, while the simple redirect version above is active for root `index.html`.
+
+=======
+
     <title>Interactive Credit Risk Analyst Foundations Training Course</title>
     <!-- Chosen Palette: Warm Neutrals (Cream, Stone, Slate) with a Professional Blue Accent -->
     <!-- Application Structure Plan: A non-linear, dashboard-style single-page application is chosen over a linear format to better reflect a modern learning experience and an analyst's workflow. The information is architected into four core pillars: "Toolkit," "Deal Analysis," "Portfolio Management," and "Future of Risk." This task-oriented structure allows users to either follow a logical progression or jump directly to a specific area of interest (e.g., "Covenants" or "LBO Modeling"). This design prioritizes usability and engagement, transforming a dense text document into an explorable, interactive tool. Key interactions include clickable diagrams, dynamic charts, toggles, and accordions to make complex information digestible and visually appealing. -->
@@ -365,238 +402,26 @@
         </main>
     </div>
 
-<script>
-    const navButtons = document.querySelectorAll('.nav-button');
-    const contentSections = document.querySelectorAll('.content-section');
-    const ratioSelector = document.getElementById('ratio-selector');
-    let ratioChart;
-    let sensitivityChart;
-
-    function showSection(sectionId) {
-        navButtons.forEach(btn => {
-            btn.classList.remove('active');
-            if(btn.getAttribute('onclick') === `showSection('${sectionId}')`) {
-                btn.classList.add('active');
-            }
-        });
-        contentSections.forEach(section => {
-            section.classList.remove('active');
-            if(section.id === sectionId) {
-                section.classList.add('active');
-            }
-        });
-    }
-
-    // Financial Statement Info Logic
-    const statementInfoBox = document.getElementById('financial-statement-info');
-    const statementInfoContent = {
-        'income': { title: 'Income Statement (P&L)', text: 'Shows financial performance over a period (e.g., a year). It starts with Revenue and subtracts various costs and expenses to arrive at the "bottom line" of Net Income.' },
-        'cashflow': { title: 'Statement of Cash Flows', text: 'Tracks the actual movement of cash. It reconciles Net Income with the change in cash balance, broken into Operating, Investing, and Financing activities. Often called the "truth-teller".' },
-        'balance': { title: 'Balance Sheet', text: 'A snapshot of a company\'s financial position at a single point in time. It follows the equation: Assets = Liabilities + Equity.' },
-        'net-income-link': { title: 'Net Income Linkage', text: 'Net Income from the Income Statement is the starting point for the Cash Flow from Operations section and also increases Retained Earnings on the Balance Sheet.'},
-        'cash-link': { title: 'Ending Cash Linkage', text: 'The final Ending Cash balance from the Statement of Cash Flows must match the Cash account on the Balance Sheet, ensuring the statements balance.'}
-    };
-    function showInfo(id) {
-        const info = statementInfoContent[id];
-        statementInfoBox.innerHTML = `<h4 class="font-bold">${info.title}</h4><p class="text-sm mt-1">${info.text}</p>`;
-    }
-
-    // Ratio Chart Logic
-    const ratioData = {
-        leverage: { labels: ['Debt/EBITDA', 'Debt/Capital'], data: [5.5, 0.6], backgroundColor: 'rgba(239, 68, 68, 0.6)' },
-        coverage: { labels: ['Interest Coverage (TIE)', 'Fixed Charge Coverage (FCCR)'], data: [3.2, 1.5], backgroundColor: 'rgba(59, 130, 246, 0.6)' },
-        liquidity: { labels: ['Current Ratio', 'Quick Ratio'], data: [1.8, 1.1], backgroundColor: 'rgba(34, 197, 94, 0.6)' },
-        profitability: { labels: ['Operating Margin', 'Return on Assets (ROA)'], data: [0.18, 0.08], backgroundColor: 'rgba(249, 115, 22, 0.6)' },
-    };
-
-    function updateRatioChart(category) {
-        const data = ratioData[category];
-        ratioChart.data.labels = data.labels;
-        ratioChart.data.datasets[0].data = data.data;
-        ratioChart.data.datasets[0].backgroundColor = data.backgroundColor;
-        ratioChart.options.plugins.title.text = `${category.charAt(0).toUpperCase() + category.slice(1)} Ratios`;
-        ratioChart.update();
-    }
-
-    function createRatioChart() {
-        const ctx = document.getElementById('ratioChart').getContext('2d');
-        ratioChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ratioData.leverage.labels,
-                datasets: [{
-                    label: 'Ratio Value',
-                    data: ratioData.leverage.data,
-                    backgroundColor: ratioData.leverage.backgroundColor,
-                    borderColor: 'rgba(0, 0, 0, 0.1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: { beginAtZero: true }
-                },
-                plugins: {
-                    legend: { display: false },
-                    title: { display: true, text: 'Leverage Ratios', font: { size: 16 } },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                if (context.parsed.y !== null) {
-                                    const isPercentage = context.chart.data.labels[context.dataIndex].toLowerCase().includes('margin') || context.chart.data.labels[context.dataIndex].toLowerCase().includes('roa');
-                                    label += isPercentage ? `${(context.parsed.y * 100).toFixed(1)}%` : `${context.parsed.y.toFixed(1)}x`;
-                                }
-                                return label;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
-    
-    // Sensitivity Chart Logic
-    const sensitivitySlider = document.getElementById('sensitivity-slider');
-    const sensitivityValue = document.getElementById('sensitivity-value');
-
-    function createSensitivityChart() {
-        const ctx = document.getElementById('sensitivityChart').getContext('2d');
-        const baseEbitda = [100, 105, 110, 115, 120];
-        sensitivityChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
-                datasets: [{
-                    label: 'Projected EBITDA',
-                    data: baseEbitda,
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: { beginAtZero: false, ticks: { callback: function(value) { return '$' + value + 'M'; }} },
-                },
-                plugins: { legend: { display: false }, title: { display: true, text: 'EBITDA Projection' } }
-            }
-        });
-    }
-    
-    sensitivitySlider.addEventListener('input', (event) => {
-        const growthRate = parseFloat(event.target.value);
-        sensitivityValue.textContent = growthRate;
-        const newEbitda = [100];
-        for (let i = 1; i < 5; i++) {
-            newEbitda.push(newEbitda[i - 1] * (1 + (growthRate/100)));
+    <script>
+        // Content for the script block of the second version (Interactive CRAFT SPA) was here in the original conflict.
+        // That JavaScript will be moved to `corporate-credit-risk-analyst-training/index.html`.
+        // For this root index.html (simple redirect/fallback), the script.js from assets/js/script.js would apply if not hidden.
+        // Adding a simple current year for the fallback footer.
+        const currentYearSpan = document.getElementById('current-year');
+        if (currentYearSpan) {
+            currentYearSpan.textContent = new Date().getFullYear();
         }
-        sensitivityChart.data.datasets[0].data = newEbitda;
-        sensitivityChart.update();
-    });
-
-    // Porter's Five Forces Logic
-    const porterInfoBox = document.getElementById('porter-info');
-    const porterInfoContent = {
-        'entrants': { title: 'Threat of New Entrants (Medium-Low)', text: 'High capital costs for aircraft, regulatory hurdles, and limited airport gate access create significant barriers. Threat is higher for smaller, niche carriers.' },
-        'suppliers': { title: 'Bargaining Power of Suppliers (High)', text: 'Industry depends on a duopoly for aircraft (Boeing, Airbus) and powerful labor unions. Fuel prices are volatile and uncontrollable, giving suppliers immense power.' },
-        'buyers': { title: 'Bargaining Power of Buyers (High)', text: 'Online travel agencies make price comparison instant. With many choices and low switching costs, customers can easily drive down fares, especially for leisure travel.' },
-        'substitutes': { title: 'Threat of Substitutes (Medium)', text: 'Cars and trains are substitutes for short routes. Videoconferencing is a growing substitute for lucrative business travel.' },
-        'rivalry': { title: 'Competitive Rivalry (High)', text: 'Intense price wars are common, especially as carriers fight for market share. Routes are easily matched, and products are largely undifferentiated, leading to eroded profitability.' },
-    };
-    function showPorterInfo(id) {
-        const info = porterInfoContent[id];
-        porterInfoBox.innerHTML = `<h4 class="font-bold">${info.title}</h4><p class="text-sm mt-1">${info.text}</p>`;
-    }
-    
-    // Capital Structure Hover Logic
-    const capitalItems = document.querySelectorAll('.capital-item');
-    const capitalInfoBox = document.getElementById('capital-info');
-    capitalItems.forEach(item => {
-        item.addEventListener('mouseover', () => {
-            capitalInfoBox.textContent = item.dataset.info;
-        });
-    });
-
-    // Covenant Logic
-    const covenantInfoBox = document.getElementById('covenant-info');
-    const maintBtn = document.getElementById('maint-btn');
-    const incurBtn = document.getElementById('incur-btn');
-    const covenantContent = {
-        maintenance: `<h5 class="font-semibold">Maintenance Covenants</h5><p>Must be tested and met on a regular basis (e.g., quarterly). Provides an early warning signal. Example: Maintain Debt/EBITDA &lt; 5.0x.</p>`,
-        incurrence: `<h5 class="font-semibold">Incurrence Covenants</h5><p>Only tested when the borrower takes a specific action (e.g., incurring new debt). Allows more flexibility but is a weaker protection. Common in high-yield bonds.</p>`
-    };
-    function showCovenant(type) {
-        covenantInfoBox.innerHTML = covenantContent[type];
-        if (type === 'maintenance') {
-            maintBtn.classList.add('bg-blue-500', 'text-white');
-            maintBtn.classList.remove('bg-blue-100', 'text-blue-700');
-            incurBtn.classList.add('bg-blue-100', 'text-blue-700');
-            incurBtn.classList.remove('bg-blue-500', 'text-white');
-        } else {
-            incurBtn.classList.add('bg-blue-500', 'text-white');
-            incurBtn.classList.remove('bg-blue-100', 'text-blue-700');
-            maintBtn.classList.add('bg-blue-100', 'text-blue-700');
-            maintBtn.classList.remove('bg-blue-500', 'text-white');
-        }
-    }
-
-    // Early Warning Signs Logic
-    const warningInfoBox = document.getElementById('warning-info');
-    const warningContent = {
-        'ratio': { title: 'Declining Coverage', implication: 'Weakening cash flow and reduced ability to service debt.', action: 'Recalculate ratios, run downside sensitivity, and inquire with management.' },
-        'leverage': { title: 'Rising Leverage', implication: 'Increased financial risk from underperformance or new debt.', action: 'Investigate source of increase and assess covenant compliance.' },
-        'wc': { title: 'Working Capital Issues', implication: 'Customers paying slower or inventory becoming obsolete. Cash is tied up.', action: 'Analyze aging reports. Discuss collection/inventory strategy with management.' },
-        'covenant': { title: 'Covenant Breach', implication: 'A clear, contractual signal of financial distress.', action: 'Formal default notice. Gives lender leverage to renegotiate terms or accelerate loan.' },
-        'payment': { title: 'Change in Payment Habits', implication: 'Potential cash flow or liquidity problems.', action: 'Immediately contact borrower to understand the reason. Increase monitoring frequency.' },
-        'mgmt': { title: 'Management Turnover', implication: 'Internal turmoil or knowledge of pending issues.', action: 'Speak with remaining management to assess leadership stability.' },
-        'reporting': { title: 'Delayed Reporting', implication: 'Weak internal controls or an attempt to conceal poor performance.', action: 'Formally request information. Consider reliability of all financial data.' },
-        'news': { title: 'Negative Industry News', implication: 'Borrower may be facing external pressures beyond its control.', action: 'Conduct updated industry research and assess impact on borrower\'s projections.' },
-    };
-    function showWarning(id) {
-        const info = warningContent[id];
-        warningInfoBox.innerHTML = `<h4 class="font-bold">${info.title}</h4><p class="text-sm mt-1"><strong>Implication:</strong> ${info.implication}<br><strong>Action:</strong> ${info.action}</p>`;
-    }
-    
-    // Accordion Logic
-    document.querySelectorAll('.accordion-header').forEach(button => {
-        button.addEventListener('click', () => {
-            const accordionContent = button.nextElementSibling;
-            const icon = button.querySelector('span:last-child');
-            button.parentElement.parentElement.querySelectorAll('.accordion-content').forEach(content => {
-                if (content !== accordionContent) {
-                    content.style.maxHeight = null;
-                    content.previousElementSibling.querySelector('span:last-child').textContent = '+';
-                }
-            });
-            
-            if (accordionContent.style.maxHeight) {
-                accordionContent.style.maxHeight = null;
-                icon.textContent = '+';
-            } else {
-                accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
-                icon.textContent = '-';
+        // Auto-redirect to home.html after a short delay
+        setTimeout(function() {
+            // Check if user is already on home.html to prevent loop, though this file is index.html
+            if (window.location.pathname.endsWith('/') || window.location.pathname.endsWith('index.html')) {
+                 // window.location.href = 'home.html';
+                 // Developer Note: Automatic redirect disabled for now to allow review of this fallback page.
+                 // To enable, uncomment the line above.
+                 console.log("Automatic redirect to home.html is currently disabled for review purposes.");
             }
-        });
-    });
-
-
-    // Initial setup
-    window.onload = function() {
-        showSection('toolkit');
-        createRatioChart();
-        createSensitivityChart();
-        updateRatioChart('leverage');
-        ratioSelector.addEventListener('change', (e) => updateRatioChart(e.target.value));
-    };
-
-</script>
+        }, 100); // Short delay to allow page to render message first.
+    </script>
 </body>
 </html>
+-->

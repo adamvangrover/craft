@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>README Viewer</title>
+    <link id="shared-styles-link" rel="stylesheet" href=""> <!-- Path set by script -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <header class="readme-header">
+        <a href="home.html" class="repo-back-link">&laquo; Back to Repository Home</a>
+        <span class="readme-title-display"></span> <!-- Title display -->
+        <a href="README.md" class="view-raw-readme-link" target="_blank">View Raw README.md</a>
+    </header>
+    <main class="readme-container">
+        <div id="markdown-content">
+            <p>Loading README content...</p>
+        </div>
+    </main>
+    <footer class="readme-footer">
+        <p>Displaying content from <a href="README.md" target="_blank">README.md</a> for this section.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const markdownContentDiv = document.getElementById('markdown-content');
+            const readmePath = 'README.md'; // Assumes README.md is in the same directory
+            const pageTitleBase = 'README Viewer';
+
+            // For readme_viewer.html at the root, depth is 0.
+            const depth = 0;
+            let relativePathPrefix = ''; // No prefix needed for root.
+
+            // Set StyleSheet Path
+            const stylesLink = document.getElementById('shared-styles-link');
+            stylesLink.setAttribute('href', relativePathPrefix + 'assets/css/shared-readme-styles.css');
+
+            // Set Page Title and Header Title
+            let dirName = 'Repository Root';
+            document.title = `${dirName} - README`;
+            const headerTitleDisplay = document.querySelector('.readme-title-display');
+            if (headerTitleDisplay) {
+                headerTitleDisplay.textContent = `${dirName} README`;
+            }
+
+            // Adjust "Back to Repository Home" Link
+            const backLink = document.querySelector('.repo-back-link');
+            if (backLink) {
+                // This page (readme_viewer.html) is specifically for the root README,
+                // so it always links back to home.html at the root.
+                backLink.setAttribute('href', 'home.html');
+            }
+
+            fetch(readmePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok: ${response.statusText} (fetching ${readmePath})`);
+                    }
+                    return response.text();
+                })
+                .then(markdown => {
+                    if (typeof marked !== 'undefined') {
+                        markdownContentDiv.innerHTML = marked.parse(markdown);
+                    } else {
+                        markdownContentDiv.textContent = 'Error: marked.js library not loaded.';
+                        console.error('marked.js library not found.');
+                    }
+                })
+                .catch(error => {
+                    markdownContentDiv.innerHTML = `<p>Error loading README.md: ${error.message}.</p>`;
+                    console.error('Error fetching or parsing README.md:', error);
+                });
+        });
+    </script>
+</body>
+</html>

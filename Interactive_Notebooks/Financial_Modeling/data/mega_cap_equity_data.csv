@@ -1,0 +1,26 @@
+Ticker,CompanyName,Industry,RevenueUSD_M,EBITDA_USD_M,NetDebtUSD_M,MarketCapUSD_M,StockPriceUSD,SharesOutstanding_M
+AAPL,Apple Inc.,Technology,383285,125820,108000,2700000,170,15882
+MSFT,Microsoft Corp.,Technology,211915,102069,47000,2500000,335,7463
+GOOGL,Alphabet Inc. (Google),Technology,282836,90765,13000,1700000,130,13077
+AMZN,Amazon.com Inc.,Consumer Discretionary,513983,63781,142000,1300000,128,10156
+NVDA,NVIDIA Corporation,Technology,26974,12031,-8000,1100000,450,2444
+TSLA,Tesla Inc.,Consumer Discretionary,81462,16987,-2000,800000,250,3200
+BRK-A,Berkshire Hathaway Inc.,Financials,302089,89794,116000,750000,500000,1.5
+JPM,JPMorgan Chase & Co.,Financials,129598,59644,290000,420000,145,2897
+V,Visa Inc.,Financials,32653,22070,-11000,480000,230,2087
+JNJ,Johnson & Johnson,Health Care,94944,34770,31000,430000,165,2606
+XOM,Exxon Mobil Corporation,Energy,413680,78640,39000,450000,110,4091
+WMT,Walmart Inc.,Consumer Staples,611289,36081,49000,400000,150,2667
+PG,Procter & Gamble Co.,Consumer Staples,82006,22979,23000,360000,150,2400
+MA,Mastercard Incorporated,Financials,22237,14501,-7000,340000,360,944
+CVX,Chevron Corporation,Energy,246252,50110,24000,320000,160,2000
+LLY,Eli Lilly and Company,Health Care,28541,10301,12000,500000,530,943
+HD,Home Depot Inc.,Consumer Discretionary,157403,29080,43000,310000,300,1033
+BAC,Bank of America Corp,Financials,94950,39730,240000,250000,30,8333
+PFE,Pfizer Inc.,Health Care,100330,36700,33000,230000,40,5750
+KO,Coca-Cola Company,Consumer Staples,43004,12980,33000,260000,60,4333
+MRK,Merck & Co. Inc.,Health Care,59283,20512,28000,280000,110,2545
+PEP,PepsiCo Inc.,Consumer Staples,86392,16210,38000,240000,175,1371
+ORCL,Oracle Corporation,Technology,50000,20000,75000,300000,110,2727
+CSCO,Cisco Systems Inc.,Technology,51557,17500,10000,200000,50,4000
+ADBE,Adobe Inc.,Technology,17606,7000,3000,220000,480,458

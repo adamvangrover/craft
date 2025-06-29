@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Directory - Financial Learning Hub</title>
+    <link id="shared-styles-link" rel="stylesheet" href="assets/css/shared-readme-styles.css"> <!-- Use shared for base -->
+    <style>
+        /* Additional styles specific to dir.html */
+        body {
+            background-color: #f8f9fa; /* Consistent background */
+        }
+        .dir-container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .dir-header {
+            padding: 15px 20px;
+            background-color: #343a40;
+            color: #f8f9fa;
+            border-bottom: 1px solid #495057;
+            text-align: center; /* Center header content */
+            border-radius: 6px 6px 0 0; /* Match container */
+        }
+        .dir-header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+        .dir-header .repo-back-link { /* Copied from shared-readme-styles.css for consistency */
+            color: #adb5bd;
+            text-decoration: none;
+            font-size: 0.9em;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.2s, color 0.2s;
+            display: block; /* Make it a block for centering or specific placement */
+            margin: 0 auto 10px auto; /* Center it above title */
+            width: fit-content;
+        }
+        .dir-header .repo-back-link:hover {
+            color: #ffffff;
+            background-color: #495057;
+        }
+
+        .dir-intro {
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .dir-category {
+            margin-bottom: 25px;
+        }
+        .dir-category h2 {
+            font-size: 1.5em;
+            color: #2c3e50;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+        .dir-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .dir-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .dir-list li:hover {
+            background-color: #e9ecef;
+        }
+        .dir-list li a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 500;
+            display: block; /* Make the whole li area clickable if desired, or just the text */
+        }
+        .dir-list li a:hover {
+            color: #0056b3;
+        }
+        .dir-list li .link-description {
+            font-size: 0.85em;
+            color: #6c757d;
+            margin-top: 4px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header class="dir-header">
+        <a href="home.html" class="repo-back-link">&laquo; Back to Repository Home</a>
+        <h1>Site Directory</h1>
+    </header>
+    <main class="dir-container">
+        <div class="dir-intro">
+            <p>This page provides a quick overview and direct links to the main sections and landing pages within the Financial Learning Hub.</p>
+        </div>
+
+        <div id="directory-links-container">
+            <section class="dir-category">
+                <h2>Core Programs &amp; Interactive Hubs</h2>
+                <ul class="dir-list">
+                    <li>
+                        <a href="corporate-credit-risk-analyst-training/index.html">CRAFT Program Interactive Hub</a>
+                        <span class="link-description">Main dashboard for the Corporate Credit Risk Analyst Training program.</span>
+                    </li>
+                    <li>
+                        <a href="CFA/index.html">CFA Program Interactive Study Hub</a>
+                        <span class="link-description">Central hub for CFA Level I, II, and III study materials and tools.</span>
+                    </li>
+                    <li>
+                        <a href="primers/index.html">Industry Primers Viewer</a>
+                        <span class="link-description">Interactive viewer for detailed industry sector analysis primers.</span>
+                    </li>
+                    <li>
+                        <a href="Learning_Paths/index.html">Learning Paths Viewer</a>
+                        <span class="link-description">View curated learning paths for different financial roles and objectives.</span>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="dir-category">
+                <h2>Main Section Overviews (Rendered READMEs)</h2>
+                <ul class="dir-list">
+                    <li>
+                        <a href="readme_viewer.html">Repository Root Overview</a>
+                        <span class="link-description">General introduction and overview of the entire learning hub.</span>
+                    </li>
+                    <li>
+                        <a href="corporate-credit-risk-analyst-training/readme_viewer.html">CRAFT Program Overview (README)</a>
+                        <span class="link-description">Introduction to the Corporate Credit Risk Analyst Training program.</span>
+                    </li>
+                    <li>
+                        <a href="CFA/readme_viewer.html">CFA Section Overview (README)</a>
+                        <span class="link-description">Overview of the CFA Program preparation materials and structure.</span>
+                    </li>
+                    <li>
+                        <a href="Financial_Modeling/index.html">Financial Modeling Overview (README)</a>
+                        <span class="link-description">Best practices, templates, and techniques for financial modeling.</span>
+                    </li>
+                     <li>
+                        <a href="Interactive_Notebooks/index.html">Interactive Notebooks Catalog (README)</a>
+                        <span class="link-description">Index of available Jupyter Notebooks for hands-on learning.</span>
+                    </li>
+                    <li>
+                        <a href="Fintech/index.html">Fintech Overview (README)</a>
+                        <span class="link-description">Exploration of financial technology topics.</span>
+                    </li>
+                    <li>
+                        <a href="Market_Analysis_Quick_Start/index.html">Market Analysis Quick Start Overview (README)</a>
+                        <span class="link-description">Rapid onboarding for market concepts, terms, and valuation.</span>
+                    </li>
+                    <li>
+                        <a href="Behavioral_Finance/index.html">Behavioral Finance Overview (README)</a>
+                        <span class="link-description">Psychological influences on financial decision-making.</span>
+                    </li>
+                    <li>
+                        <a href="Risk_Management/index.html">Risk Management Overview (README)</a>
+                        <span class="link-description">Frameworks and deep dives into various risk categories.</span>
+                    </li>
+                    <li>
+                        <a href="Toolkits_and_Checklists/index.html">Toolkits &amp; Checklists Overview (README)</a>
+                        <span class="link-description">Practical job aids, due diligence checklists, and calculator guides.</span>
+                    </li>
+                    <li>
+                        <a href="Professional_Development/index.html">Professional Development Overview (README)</a>
+                        <span class="link-description">Soft skills, critical thinking, and communication for analysts.</span>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="dir-category">
+                <h2>Key Learning Path Documents</h2>
+                <ul class="dir-list">
+                    <li>
+                        <a href="Learning_Paths/Credit_Analyst_Foundational_Path.md" target="_blank">Credit Analyst Foundational Path (.md)</a>
+                        <span class="link-description">Detailed Markdown guide for aspiring credit analysts.</span>
+                    </li>
+                    <li>
+                        <a href="Learning_Paths/CFA_Level_1_Prep_Focus_Areas.md" target="_blank">CFA Level 1 Prep Focus Areas (.md)</a>
+                        <span class="link-description">Key areas to concentrate on for the CFA Level 1 exam.</span>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="dir-category">
+                <h2>Global Resources</h2>
+                <ul class="dir-list">
+                    <li>
+                        <a href="Global_Financial_Glossary.md" target="_blank">Global Financial Glossary (.md)</a>
+                        <span class="link-description">A comprehensive glossary of financial terms used throughout the repository.</span>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </main>
+    <footer class="readme-footer" style="background-color: #f8f9fa; margin-top:0; border-top: 1px solid #dee2e6;"> <!-- Match body bg -->
+        <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentYearSpan = document.getElementById('currentYear');
+            if(currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+# This folder can store any sample data relevant to valuation component notebooks.
+# For the WACC calculator, data might be less critical as inputs are direct,
+# but this structure is maintained for consistency.
