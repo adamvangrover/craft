@@ -114,7 +114,7 @@ It curates resources from across this repository to provide a structured learnin
 
 *   **Apply Knowledge:** Use the `Global_Financial_Glossary.md` as a constant reference.
 *   **Practice:** Work through case studies available in `CFA/Level_1/Case_Studies/` and `corporate-credit-risk-analyst-training/` (various modules).
-*   **Deeper Dives:** Explore more advanced topics in Financial Modeling (e.g., DCF), Risk Management (Operational Risk, advanced Credit Risk topics), and specialized CRAFT modules as your foundational knowledge grows.
+*   **Deeper Dives:** Explore more advanced topics in Financial Modeling (e.g., DCF, [LBO Model Basics](../../Interactive_Notebooks/Financial_Modeling/LBO_Model_Basics/README.md)), Risk Management (Operational Risk, advanced Credit Risk topics), and specialized CRAFT modules as your foundational knowledge grows.
 *   **CFA Program:** Consider pursuing the CFA charter for a globally recognized, comprehensive financial education. This learning path provides a strong start for many Level 1 topics.
 
 This path is a suggestion. Feel free to adjust it based on your prior knowledge and specific learning objectives. The key is consistent effort and application of concepts. Good luck!

@@ -69,7 +69,8 @@ const navData = [
       { text: "Forecasting Techniques", href: "Financial_Modeling/Forecasting_Techniques/Revenue_Forecasting_Approaches.md", type: "markdown_viewer", viewer: "global" },
       { text: "Templates", href: "Financial_Modeling/Templates/Basic_3_Statement_Model_Structure.md", type: "markdown_viewer", viewer: "global" },
       { text: "Valuation Applications", href: "Financial_Modeling/Valuation_Applications/DCF_Modeling_Overview.md", type: "markdown_viewer", viewer: "global" },
-      { text: "Advanced: Real Estate Waterfall Models", href: "Financial_Modeling/Advanced_Topics/Real_Estate_Waterfall_Models.md", type: "markdown_viewer", viewer: "global" }
+      { text: "Advanced: Real Estate Waterfall Models", href: "Financial_Modeling/Advanced_Topics/Real_Estate_Waterfall_Models.md", type: "markdown_viewer", viewer: "global" },
+      { text: "Quiz: FM Best Practices", href: "quiz_viewer.html?quiz=Financial_Modeling/Quizzes/FM_Best_Practices_Quiz.md", type: "quiz" }
     ],
   },
   {
@@ -98,12 +99,12 @@ const navData = [
     type: "category",
     children: [
       { text: "Notebooks Overview", href: "Interactive_Notebooks/index.html", type: "html_hub" }, // Main page for notebooks
-      { text: "Equity Valuation Notebook Guide", href: "Interactive_Notebooks/Financial_Modeling/README.md", type: "jupyter_guide" },
+      { text: "Equity Valuation Notebook Guide", href: "Interactive_Notebooks/Financial_Modeling/README.md", type: "jupyter_guide" }, # This might need to point to a more specific guide if LBO is also under Financial_Modeling
+      { text: "LBO Model Basics Guide", href: "Interactive_Notebooks/Financial_Modeling/LBO_Model_Basics/README.md", type: "jupyter_guide" },
       { text: "Credit Agreement Analysis Guide", href: "Interactive_Notebooks/Legal_Analysis/README.md", type: "jupyter_guide" },
       { text: "WACC Calculator Guide", href: "Interactive_Notebooks/Valuation_Components/README.md", type: "jupyter_guide" },
-      { text: "Interactive VaR Calculator Guide", href: "Interactive_Notebooks/Risk_Management/README.md", type: "jupyter_guide" },
-      { text: "Interactive TVM Solver Guide", href: "Interactive_Notebooks/CFA_Quant_Methods/README.md", type: "jupyter_guide" },
-      { text: "Interactive LBO Model Guide", href: "Interactive_Notebooks/Financial_Modeling/LBO_Model_Notebook_Guide.md", type: "jupyter_guide" },
+      { text: "Interactive VaR Calculator Guide", href: "Interactive_Notebooks/Risk_Management/README.md", type: "jupyter_guide" }, # Assuming this exists or is planned
+      { text: "Interactive TVM Solver Guide", href: "Interactive_Notebooks/CFA_Quant_Methods/README.md", type: "jupyter_guide" }, # Assuming this exists or is planned
     ],
   },
   {

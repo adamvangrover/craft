@@ -139,6 +139,17 @@ While DCF is often seen as an equity valuation tool, it offers significant insig
 *   **Focus on Drivers:** Understand which assumptions have the biggest impact on the valuation.
 *   **Clarity and Transparency:** Make your model easy to understand and audit.
 
+## 7. Beyond DCF: Other Cash-Flow Based Valuation Contexts
+
+While DCF analysis for enterprise or equity value is a cornerstone, financial modeling also supports other valuation and investment analysis contexts:
+
+*   **Leveraged Buyout (LBO) Analysis:** Used primarily by private equity firms to determine potential returns from acquiring a company using significant debt. LBO models focus on:
+    *   Forecasting cash flows available for debt repayment.
+    *   Modeling the debt structure (tranches, interest, repayments).
+    *   Calculating an exit value (often using an EBITDA multiple).
+    *   Determining the Internal Rate of Return (IRR) and Multiple on Invested Capital (MOIC) for the equity sponsor.
+    *   *Interactive Exploration:* To understand the basic mechanics of an LBO, see the [Interactive LBO Model Basics Notebook Guide](../../Interactive_Notebooks/Financial_Modeling/LBO_Model_Basics/README.md).
+
 ---
 
 **Conclusion for Credit Analysts:**
