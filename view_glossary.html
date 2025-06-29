@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Financial Glossary</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="assets/css/viewer_style.css"> <!-- Using common viewer style -->
+    <style>
+        /* Styles specific to glossary page if needed */
+        .viewer-container-single-pane {
+            max-width: 900px; /* Adjust for comfortable reading width */
+            margin: 15px auto;
+        }
+        .viewer-content h1, .viewer-content h2 {
+            margin-top: 0.5em; /* Less top margin for glossary terms */
+        }
+    </style>
+</head>
+<body>
+    <header class="viewer-header">
+        <h1>Global Financial Glossary</h1>
+        <a href="home.html" class="back-to-home">&laquo; Back to Main Hub</a>
+    </header>
+    <div class="viewer-container-single-pane">
+        <main id="markdown-display-area" class="viewer-content">
+            <p>Loading glossary...</p>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contentDisplay = document.getElementById('markdown-display-area');
+            const glossaryPath = 'Global_Financial_Glossary.md';
+
+            if (!contentDisplay) {
+                console.error("Content display area not found.");
+                return;
+            }
+            if (typeof marked === 'undefined') {
+                console.error("Marked.js library not found.");
+                contentDisplay.innerHTML = "<p>Error: Markdown renderer not available.</p>";
+                return;
+            }
+
+            async function loadGlossary() {
+                contentDisplay.innerHTML = "<p>Loading glossary...</p>";
+                try {
+                    const response = await fetch(glossaryPath);
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch ${glossaryPath}: ${response.status} ${response.statusText}`);
+                    }
+                    const markdownText = await response.text();
+                    // Ensure h1, h2, h3 from markdown are styled correctly by viewer_style.css
+                    // For glossary, we might want to make sure H2s (terms) are distinct.
+                    // marked.js by default will create id attributes for headers, which is good for linking.
+                    contentDisplay.innerHTML = marked.parse(markdownText);
+                } catch (error) {
+                    console.error("Error loading or parsing Markdown:", error);
+                    contentDisplay.innerHTML = `<p>Error loading glossary.</p><p><small>${error.message}</small></p>`;
+                }
+            }
+            loadGlossary();
+        });
+    </script>
+</body>
+</html>
