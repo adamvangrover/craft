@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directory Viewer - Interactive_Notebooks</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/simple_viewer.css">
+</head>
+<body>
+    <style>
+        /* Additional styles for iframe container if simple_viewer.css is not enough */
+        #iframe-container {
+            flex-grow: 1;
+            height: 100%; /* Ensure it takes full height of flex container */
+            overflow: hidden; /* Hide scrollbars if iframe content fits */
+            display: none; /* Initially hidden */
+        }
+        #iframe-container.active {
+            display: block;
+        }
+        #module-content-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        /* Ensure #content-area (for direct MD) and #iframe-container are mutually exclusive */
+        #content-area.hidden-by-iframe {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <div id="up-link-container">
+             <a href="../home.html">&laquo; Back to Main Hub</a>
+        </div>
+        <h3>Interactive Notebooks Navigation</h3>
+        <ul id="file-list">
+            <!-- File list will be populated by JavaScript -->
+        </ul>
+    </div>
+
+    <!-- Area for direct Markdown rendering -->
+    <div id="content-area" class="markdown-body active">
+        <p>Loading content...</p>
+    </div>
+
+    <!-- Area for iframe -->
+    <div id="iframe-container">
+        <iframe id="module-content-frame" title="Sub-module Content"></iframe>
+    </div>
+
+    <script>
+        const directContentDisplay = document.getElementById('content-area');
+        const iframeContainer = document.getElementById('iframe-container');
+        const moduleIframe = document.getElementById('module-content-frame');
+        const fileListDisplay = document.getElementById('file-list');
+        const pageTitle = document.querySelector('title');
+
+        const directoryName = "Interactive_Notebooks";
+        const localFiles = ["README.md", "AGENTS.MD"]; // Files directly in Interactive_Notebooks/
+        const subDirectoryModules = [
+            {"name": "Financial_Modeling", "indexPath": "Financial_Modeling/index.html"},
+            {"name": "Legal_Analysis", "indexPath": "Legal_Analysis/index.html"},
+            {"name": "Valuation_Components", "indexPath": "Valuation_Components/index.html"}
+        ];
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            pageTitle.textContent = `Viewer - ${directoryName}`;
+
+            let fileLinksHtml = '';
+
+            const sortedLocalFiles = localFiles.sort((a, b) => {
+                if (a.toLowerCase() === 'readme.md') return -1;
+                if (b.toLowerCase() === 'readme.md') return 1;
+                return a.localeCompare(b);
+            });
+
+            sortedLocalFiles.forEach(file => {
+                if (file.toLowerCase() !== 'agents.md' && file.endsWith('.md')) {
+                    const linkText = file.toLowerCase() === 'readme.md' ? `${file} (Overview)` : file;
+                    fileLinksHtml += `<li><a href="#" data-md-src="${file}" class="nav-link direct-md-link">${linkText}</a></li>`;
+                }
+            });
+
+            subDirectoryModules.forEach(subdir => {
+                fileLinksHtml += `<li class="subdirectory-group"><h4>${subdir.name}/</h4></li>`;
+                fileLinksHtml += `<li><a href="#" data-iframe-src="${subdir.indexPath}" class="nav-link iframe-link">&nbsp;&nbsp;&nbsp;Explore ${subdir.name} Notebooks</a></li>`;
+            });
+            fileListDisplay.innerHTML = fileLinksHtml;
+
+            fileListDisplay.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    document.querySelectorAll('#file-list .nav-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+
+                    if (this.classList.contains('direct-md-link')) {
+                        const mdSrc = this.getAttribute('data-md-src');
+                        loadMdDirectly(mdSrc);
+                    } else if (this.classList.contains('iframe-link')) {
+                        const iframeSrc = this.getAttribute('data-iframe-src');
+                        loadSubdirectoryInIframe(iframeSrc);
+                    }
+                });
+            });
+
+            const initialReadmeLink = fileListDisplay.querySelector('a[data-md-src="README.md"]');
+            if (initialReadmeLink) {
+                initialReadmeLink.classList.add('active');
+                await loadMdDirectly('README.md');
+            } else if (localFiles.length > 0) {
+                 const firstLocalFile = localFiles.find(f => f.toLowerCase() !== 'agents.md' && f.endsWith('.md'));
+                 if(firstLocalFile) {
+                    const firstLink = fileListDisplay.querySelector(`a[data-md-src="${firstLocalFile}"]`);
+                    if(firstLink) firstLink.classList.add('active');
+                    await loadMdDirectly(firstLocalFile);
+                 }
+            } else {
+                directContentDisplay.innerHTML = "<p>No local Markdown files found. Select a notebook category from the subdirectories.</p>";
+            }
+        });
+
+        function showDirectContentArea() {
+            directContentDisplay.classList.add('active');
+            directContentDisplay.classList.remove('hidden-by-iframe');
+            iframeContainer.classList.remove('active');
+            moduleIframe.src = 'about:blank';
+        }
+
+        function showIframeArea() {
+            directContentDisplay.classList.remove('active');
+            directContentDisplay.classList.add('hidden-by-iframe');
+            iframeContainer.classList.add('active');
+        }
+
+        async function loadMdDirectly(mdPath) {
+            showDirectContentArea();
+            if (!directContentDisplay) return;
+            if (typeof marked === 'undefined') {
+                directContentDisplay.innerHTML = "<p>Error: Markdown renderer not available.</p>";
+                return;
+            }
+            directContentDisplay.innerHTML = "<p>Loading content...</p>";
+            try {
+                const response = await fetch(mdPath);
+                if (!response.ok) throw new Error(`Failed to fetch ${mdPath}: ${response.status}`);
+                const markdownText = await response.text();
+                directContentDisplay.innerHTML = marked.parse(markdownText);
+                directContentDisplay.scrollTop = 0;
+            } catch (error) {
+                console.error("Error loading direct Markdown:", error);
+                directContentDisplay.innerHTML = `<p>Error loading content for ${mdPath}.</p><p><small>${error.message}</small></p>`;
+            }
+        }
+
+        function loadSubdirectoryInIframe(indexPath) {
+            showIframeArea();
+            moduleIframe.src = indexPath;
+        }
+    </script>
+</body>
+</html>
