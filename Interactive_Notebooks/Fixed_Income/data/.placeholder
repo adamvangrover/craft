@@ -1,0 +1,6 @@
+This directory is intended to store data files for Jupyter notebooks related to Fixed Income.
+If a notebook uses external datasets (e.g., CSV, Excel, JSON), they should be placed here to ensure portability and ease of use when users download the notebook.
+
+For example, a notebook demonstrating bond pricing with historical yield curve data might load a CSV file from this directory.
+
+If a notebook generates its own data or uses very small, embedded datasets, this directory might remain empty or contain only this placeholder.

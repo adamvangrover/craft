@@ -95,7 +95,7 @@ The Sterlings require a return to cover their annual spending of $200,000. Assum
 This section is for tracking planned improvements and content additions to this Level 3 study guide.
 
 *   **[ ] Add at least 3-5 full essay questions with guideline answers covering different parts of the curriculum (e.g., PWM, Institutional, Asset Allocation, Risk Management).**
-    *   > **Future Content:** Plan to develop CFA Level 3 Practice Essay Exam 1 Questions.
+    *   Practice Essay Exam 1 Questions have been created. More can be added.
 *   **[ ] Include several item sets focused on Level 3 topics.**
 *   **[ ] Develop a detailed guide on "Command Words" used in essay questions (e.g., "Formulate," "Justify," "Calculate," "Compare").**
 *   **[ ] Create a summary of GIPS standards and key compliance areas.**
