@@ -108,10 +108,15 @@
             background-color: #3B73C4;
         }
     </style>
+    <link rel="stylesheet" href="css/global_nav.css">
 </head>
-<body class="antialiased">
+<body class="antialiased" style="display: flex; min-height: 100vh;">
 
-    <div id="app" class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div id="global-nav-placeholder">
+        <!-- Global navigation will be injected here -->
+    </div>
+
+    <div id="app" class="container mx-auto px-4 sm:px-6 lg:px-8 py-8" style="flex-grow: 1; overflow-y: auto;">
         
         <header class="text-center mb-10 pt-8 pb-12 hero-gradient rounded-xl shadow-sm">
             <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-3">Welcome to the Financial Learning Hub</h1>
@@ -526,6 +531,8 @@
         switchView('dashboard');
     });
     </script>
+    <script src="js/nav_data.js" defer></script>
+    <script src="js/global_nav.js" defer></script>
 </body>
 </html>
 

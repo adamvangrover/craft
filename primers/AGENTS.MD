@@ -50,6 +50,8 @@ If an agent is tasked with creating a new primer:
 
 Refer to the root `AGENTS.MD` for general guidelines.
 
+=======
+
 
 # AGENTS.MD - Industry Primers Section
 

@@ -97,6 +97,28 @@ GMR = [1.20175]^(1/3) - 1
 GMR = 1.06318 - 1
 GMR = 0.06318 or 6.32%
 
+**(Example Question 3 - Ethical and Professional Standards)**
+
+**Question:** Sarah, a CFA candidate, is part of a research team. The team issues a buy recommendation for a stock, but Sarah disagrees with the team's conclusion. According to CFA Standards, Sarah should *most appropriately*:
+    A) Refuse to have her name associated with the report.
+    B) Include her dissenting opinion in the report.
+    C) Leave the firm immediately.
+
+**Answer:** A) Refuse to have her name associated with the report.
+
+**Explanation:** Standard V(A) Diligence and Reasonable Basis allows members to dissociate from group research if they disagree with its conclusions. While including a dissenting opinion might be possible in some firms, refusing to be associated with the report is a direct way to dissociate. Leaving the firm is too extreme unless other serious violations are ongoing.
+
+**(Example Question 4 - Ethical and Professional Standards)**
+
+**Question:** John, CFA, learns from a non-client friend at a golf game that a company is about to announce unexpectedly high earnings. This information is not yet public. John should *most likely*:
+    A) Trade on the information for his personal account.
+    B) Advise his clients to buy the stock immediately.
+    C) Not trade or cause others to trade on this information.
+
+**Answer:** C) Not trade or cause others to trade on this information.
+
+**Explanation:** This is material nonpublic information. Standard II(A) Material Nonpublic Information prohibits members from acting or causing others to act on such information until it is made public. John should make reasonable efforts to encourage his friend to publicly disseminate the information if appropriate, but John himself cannot trade or tip others.
+
 **(More questions and answers will be added here covering various topics.)**
 
 ## 4. Development Notes

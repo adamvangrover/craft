@@ -3,70 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-=======
-    <title>Toolkits & Checklists</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/viewer_style.css">
-</head>
-<body>
-    <header class="viewer-header">
-        <h1>Toolkits & Checklists</h1>
-        <a href="../home.html" class="back-to-home">&laquo; Back to Main Hub</a>
-    </header>
-    <div class="viewer-container">
-        <nav class="viewer-nav">
-            <h2>Available Tools</h2>
-            <ul id="tools-navigation-list">
-                <li><a href="#" data-md-src="README.md">Overview</a></li>
-                <li><a href="#" data-md-src="Credit_Analysis_Due_Diligence_Checklist.md">Credit Analysis DD Checklist</a></li>
-                <li><a href="#" data-md-src="Basic_Financial_Ratios_Calculator_Guide.md">Financial Ratios Calculator Guide</a></li>
-            </ul>
-        </nav>
-        <main id="markdown-display-area" class="viewer-content">
-            <p>Select a toolkit or checklist from the list to view its content.</p>
-        </main>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const navList = document.getElementById('tools-navigation-list');
-            const contentDisplay = document.getElementById('markdown-display-area');
-            const defaultPath = 'README.md';
-
-            if (!navList || !contentDisplay) return;
-            if (typeof marked === 'undefined') {
-                contentDisplay.innerHTML = "<p>Error: Markdown renderer not available.</p>";
-                return;
-            }
-
-            async function loadAndDisplayMarkdown(mdPath, clickedLink) {
-                contentDisplay.innerHTML = "<p>Loading content...</p>";
-                document.querySelectorAll('#tools-navigation-list a').forEach(link => link.classList.remove('active'));
-                if (clickedLink) clickedLink.classList.add('active');
-
-                try {
-                    const response = await fetch(mdPath);
-                    if (!response.ok) throw new Error(`Failed to fetch ${mdPath}: ${response.status}`);
-                    const markdownText = await response.text();
-                    contentDisplay.innerHTML = marked.parse(markdownText);
-                } catch (error) {
-                    console.error("Error loading Markdown:", error);
-                    contentDisplay.innerHTML = `<p>Error loading: ${mdPath}. ${error.message}</p>`;
-                }
-            }
-
-            navList.addEventListener('click', function(event) {
-                const targetLink = event.target.closest('a[data-md-src]');
-                if (targetLink) {
-                    event.preventDefault();
-                    loadAndDisplayMarkdown(targetLink.dataset.mdSrc, targetLink);
-                }
-            });
-
-            const defaultLink = navList.querySelector(`a[data-md-src="${defaultPath}"]`);
-            if (defaultLink) loadAndDisplayMarkdown(defaultPath, defaultLink);
-        });
-
     <title>Directory Viewer - Toolkits_and_Checklists</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="../assets/css/simple_viewer.css">
@@ -89,18 +25,18 @@
         const contentDisplay = document.getElementById('content-area');
         const fileListDisplay = document.getElementById('file-list');
         const pageTitle = document.querySelector('title');
-
-        const directoryName = "Toolkits_and_Checklists";
+        
+        const directoryName = "Toolkits_and_Checklists"; 
         const filesInDir = ["AGENTS.MD", "Basic_Financial_Ratios_Calculator_Guide.md", "Credit_Analysis_Due_Diligence_Checklist.md", "README.md"];
-        const subDirsInfo = [];
-        const relativePathToRoot = "../";
+        const subDirsInfo = []; 
+        const relativePathToRoot = "../"; 
         const parentIndexExists = true;
 
         document.addEventListener('DOMContentLoaded', async function() {
             pageTitle.textContent = `Viewer - ${directoryName}`;
-
+            
             let fileLinksHtml = `<li><a href="#" data-md-src="README.md" class="nav-link active">README.md (Main)</a></li>`;
-
+            
             const sortedFiles = filesInDir.sort((a, b) => {
                 if (a.toLowerCase() === 'readme.md') return -1;
                 if (b.toLowerCase() === 'readme.md') return 1;
@@ -114,7 +50,7 @@
             });
 
             subDirsInfo.forEach(subdir => {
-                if (subdir.readmePath) {
+                if (subdir.readmePath) { 
                      fileLinksHtml += `<li class="subdirectory-group"><h4>${subdir.name}/</h4></li>`;
                      fileLinksHtml += `<li><a href="#" data-md-src="${subdir.readmePath}" class="nav-link">&nbsp;&nbsp;&nbsp;README.md</a></li>`;
                 }
@@ -123,11 +59,11 @@
 
             const upLinkContainer = document.getElementById('up-link-container');
             let upLink = '';
-            if (relativePathToRoot === "../") {
+            if (relativePathToRoot === "../") { 
                 upLink = `<a href="${relativePathToRoot}home.html">&laquo; Back to Main Hub</a>`;
             } else if (parentIndexExists) {
                  upLink = `<a href="${relativePathToRoot}index.html">&laquo; Up to Parent Directory</a>`;
-            } else {
+            } else { 
                 upLink = `<a href="${relativePathToRoot}home.html">&laquo; Back to Main Hub (Fallback)</a>`;
             }
             upLinkContainer.innerHTML = upLink;
@@ -141,7 +77,7 @@
                     loadMarkdown(mdSrc);
                 });
             });
-
+            
             if (filesInDir.includes('README.md')) {
                 await loadMarkdown('README.md');
             } else {
@@ -173,7 +109,7 @@
                 }
                 const markdownText = await response.text();
                 contentDisplay.innerHTML = marked.parse(markdownText);
-                contentDisplay.scrollTop = 0;
+                contentDisplay.scrollTop = 0; 
             } catch (error) {
                 console.error("Error loading or parsing Markdown:", error);
                 contentDisplay.innerHTML = `<p>Error loading content for ${mdPath}.</p><p><small>${error.message}</small></p>`;
