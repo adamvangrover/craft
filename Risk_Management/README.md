@@ -40,8 +40,9 @@ This Risk Management section is organized into several key modules:
 *   **[Operational_Risk/](./Operational_Risk/README.md):** (Dedicated Sub-section)
     *   `ORM_01_Introduction_to_Operational_Risk.md`: Definitions (people, process, systems, external events), examples, KRIs, internal controls.
     *   *(Future additions: Operational Risk Management Frameworks, Business Continuity Planning).*
-*   **[Liquidity_Risk/](./Liquidity_Risk/README.md):** *(Future Sub-section)*
-    *   Introduction to Liquidity Risk, measurement, and management.
+*   **[Liquidity_Risk/](./Liquidity_Risk/README.md):** (Dedicated Sub-section)
+    *   `LRM_01_Introduction_to_Liquidity_Risk.md` (Placeholder - content is in `Liquidity_Risk/README.md` for now): Definitions, types (funding and market), causes, and basic management strategies.
+    *   *(Future additions: Liquidity risk measurement (LCR, NSFR, CFaR), Stress Testing, Contingency Funding Plans).*
 *   **[03_Risk_Reporting_and_Dashboards.md](./03_Risk_Reporting_and_Dashboards.md):**
     *   Purpose, key elements of effective risk reports, conceptual examples of dashboards.
 *   **[04_Risk_Governance_and_Culture.md](./04_Risk_Governance_and_Culture.md):**
