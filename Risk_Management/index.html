@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Management Framework</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/viewer_style.css">
+    <style>
+        .viewer-nav ul ul { margin-left: 15px; font-size: 0.95em;}
+        .viewer-nav ul li.section-title { font-weight: bold; margin-top: 10px; color: #555; }
+    </style>
+</head>
+<body>
+    <header class="viewer-header">
+        <h1>Risk Management Framework</h1>
+        <a href="../home.html" class="back-to-home">&laquo; Back to Main Hub</a>
+    </header>
+    <div class="viewer-container">
+        <nav class="viewer-nav">
+            <h2>Topics</h2>
+            <ul id="rm-navigation-list">
+                <li><a href="#" data-md-src="README.md">Overall Framework</a></li>
+                <li class="section-title">General Risk Management</li>
+                <li><a href="#" data-md-src="01_Introduction_to_Risk_Management.md">1. Introduction</a></li>
+                <li><a href="#" data-md-src="02_Risk_Identification_and_Assessment_Frameworks.md">2. Identification & Assessment</a></li>
+                <li><a href="#" data-md-src="03_Risk_Reporting_and_Dashboards.md">3. Reporting & Dashboards</a></li>
+                <li><a href="#" data-md-src="04_Risk_Governance_and_Culture.md">4. Governance & Culture</a></li>
+
+                <li class="section-title">Credit Risk</li>
+                <li><a href="#" data-md-src="Credit_Risk/README.md">Credit Risk Overview</a></li>
+                <li><a href="#" data-md-src="Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md">CRM1: Fundamentals</a></li>
+                <li><a href="#" data-md-src="Credit_Risk/CRM_02_Credit_Analysis_Process_and_Tools.md">CRM2: Analysis Process</a></li>
+                <li><a href="#" data-md-src="Credit_Risk/CRM_03_Credit_Scoring_and_Rating_Models.md">CRM3: Scoring & Models</a></li>
+
+                <li class="section-title">Market Risk</li>
+                <li><a href="#" data-md-src="Market_Risk/README.md">Market Risk Overview</a></li>
+                <li><a href="#" data-md-src="Market_Risk/MRM_01_Introduction_to_Market_Risk.md">MRM1: Introduction</a></li>
+
+                <li class="section-title">Operational Risk</li>
+                <li><a href="#" data-md-src="Operational_Risk/README.md">Operational Risk Overview</a></li>
+                <li><a href="#" data-md-src="Operational_Risk/ORM_01_Introduction_to_Operational_Risk.md">ORM1: Introduction</a></li>
+            </ul>
+        </nav>
+        <main id="markdown-display-area" class="viewer-content">
+            <p>Select a topic from the list to view its content.</p>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navList = document.getElementById('rm-navigation-list');
+            const contentDisplay = document.getElementById('markdown-display-area');
+            const defaultPath = 'README.md';
+
+            if (!navList || !contentDisplay) return;
+            if (typeof marked === 'undefined') {
+                contentDisplay.innerHTML = "<p>Error: Markdown renderer not available.</p>";
+                return;
+            }
+
+            async function loadAndDisplayMarkdown(mdPath, clickedLink) {
+                contentDisplay.innerHTML = "<p>Loading content...</p>";
+                document.querySelectorAll('#rm-navigation-list a').forEach(link => link.classList.remove('active'));
+                if (clickedLink) clickedLink.classList.add('active');
+
+                try {
+                    const response = await fetch(mdPath);
+                    if (!response.ok) throw new Error(`Failed to fetch ${mdPath}: ${response.status}`);
+                    const markdownText = await response.text();
+                    contentDisplay.innerHTML = marked.parse(markdownText);
+                } catch (error) {
+                    console.error("Error loading Markdown:", error);
+                    contentDisplay.innerHTML = `<p>Error loading: ${mdPath}. ${error.message}</p>`;
+                }
+            }
+
+            navList.addEventListener('click', function(event) {
+                const targetLink = event.target.closest('a[data-md-src]');
+                if (targetLink) {
+                    event.preventDefault();
+                    loadAndDisplayMarkdown(targetLink.dataset.mdSrc, targetLink);
+                }
+            });
+
+            const defaultLink = navList.querySelector(`a[data-md-src="${defaultPath}"]`);
+            if (defaultLink) loadAndDisplayMarkdown(defaultPath, defaultLink);
+        });
+    </script>
+</body>
+</html>

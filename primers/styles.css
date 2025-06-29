@@ -27,6 +27,106 @@ body {
     margin-bottom: 10px;
     margin-right: auto;
 }
+
+/* === PRIMERS INDEX - TWO-PANE LAYOUT === */
+.primers-two-pane-layout {
+    display: flex;
+    flex-direction: column; /* Stack header, then panes row, then footer */
+}
+
+.primers-two-pane-layout .page-header {
+    /* Header styles are already defined */
+}
+
+/* Container for nav and content panes */
+.primers-two-pane-main-content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px; /* Space between nav and content */
+    flex-grow: 1; /* Allow this area to take up available vertical space */
+}
+
+.primers-nav-pane {
+    flex: 0 0 320px; /* Fixed width for nav pane */
+    background-color: #f8f9fa; /* Light background for distinction */
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    max-height: calc(100vh - 180px); /* Adjust based on header/footer height, make it scrollable */
+    overflow-y: auto;
+}
+
+.primers-list-container {
+    /* This div is inside primers-nav-pane, can remove main-index-container grid styles if not needed */
+}
+
+/* Adjust primer-summary-card for nav pane */
+.primers-nav-pane .primer-summary-card {
+    margin-bottom: 15px; /* Space between cards in nav */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.primers-nav-pane .primer-summary-card h3 {
+    font-size: 1.15em; /* Slightly smaller for nav */
+}
+.primers-nav-pane .primer-summary-card .primer-initial-summary p {
+    font-size: 0.85em;
+    margin-bottom: 10px;
+}
+.primers-nav-pane .view-details-link {
+    padding: 8px 12px;
+    font-size: 0.9em;
+}
+.primers-nav-pane .primer-summary-card.active-primer {
+    border-left: 4px solid #007bff;
+    background-color: #e7f3ff;
+}
+.view-markdown-link-alt { /* For links to raw MD in nav cards */
+    color: inherit;
+    text-decoration: none;
+}
+.view-markdown-link-alt:hover {
+    text-decoration: underline;
+}
+
+
+.primers-content-pane { /* This is #primer-content-display */
+    flex-grow: 1; /* Takes remaining space */
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    max-height: calc(100vh - 180px); /* Match nav pane height */
+    overflow-y: auto;
+}
+
+/* Styles for rendered Markdown content in #primer-content-display */
+.primers-content-pane h1, .primers-content-pane h2, .primers-content-pane h3, .primers-content-pane h4 {
+    color: #2c3e50;
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.3rem;
+}
+.primers-content-pane h1 { font-size: 1.8em; }
+.primers-content-pane h2 { font-size: 1.5em; }
+.primers-content-pane h3 { font-size: 1.3em; }
+.primers-content-pane h4 { font-size: 1.1em; }
+
+.primers-content-pane p { margin-bottom: 1rem; line-height: 1.7; }
+.primers-content-pane ul, .primers-content-pane ol { margin-left: 25px; margin-bottom: 1rem; }
+.primers-content-pane li { margin-bottom: 0.5rem; }
+.primers-content-pane code { background-color: #eef; padding: 2px 5px; border-radius: 3px; font-family: 'Courier New', Courier, monospace; }
+.primers-content-pane pre { background-color: #eef; padding: 10px; border-radius: 3px; overflow-x: auto; margin-bottom: 1rem; }
+.primers-content-pane pre code { background-color: transparent; padding: 0; }
+.primers-content-pane table { width: auto; border-collapse: collapse; margin-bottom: 1rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+.primers-content-pane th, .primers-content-pane td { border: 1px solid #d1d5db; padding: 0.75rem; text-align: left; }
+.primers-content-pane th { background-color: #f3f4f6; font-weight: 600; }
+.primers-content-pane blockquote { border-left: 4px solid #ccc; padding-left: 15px; margin-left: 0; margin-bottom: 1rem; color: #555; font-style: italic; }
+.primers-content-pane a { color: #007bff; text-decoration: none; }
+.primers-content-pane a:hover { text-decoration: underline; }
+.primers-content-pane img { max-width: 100%; height: auto; border-radius: 4px; margin: 0.5em 0; }
+
+
 .page-footer {
     text-align: center;
     margin-top: 40px;
