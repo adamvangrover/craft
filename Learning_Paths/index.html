@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Paths for Financial Professionals</title>
+    <link rel="stylesheet" href="../css/global_nav.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="../assets/css/shared-readme-styles.css">
 </head>
-<body>
-    <header class="viewer-header">
-        <h1>Learning Paths</h1>
-        <a href="../home.html" class="back-to-home">&laquo; Back to Main Hub</a>
-    </header>
-    <div class="viewer-container">
-        <nav class="viewer-nav">
-            <h2>Available Learning Paths</h2>
-            <!-- <p>Select a path to view its details and recommended resources.</p> -->
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div style="flex-grow: 1; overflow-y: auto;"> <!-- Wrapper for existing content -->
+        <header class="viewer-header">
+            <h1>Learning Paths</h1>
+            <a href="../home.html" class="back-to-home">&laquo; Back to Main Hub</a>
+        </header>
+        <div class="viewer-container">
+            <nav class="viewer-nav" style="flex-shrink: 0;"> <!-- ensure nav doesn't shrink too much -->
+                <h2>Available Learning Paths</h2>
+                <!-- <p>Select a path to view its details and recommended resources.</p> -->
             <ul id="learning-path-nav-list">
                 <li>
                     <a href="#" class="path-link" data-md-src="Credit_Analyst_Foundational_Path.md">Credit Analyst Foundational Path</a>
@@ -54,10 +57,12 @@
             <p>Select a learning path from the list to view its content here.</p>
         </main>
     </div>
-
+    </div> <!-- End of wrapper -->
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const pathLinks = document.querySelectorAll('.paths-list-container a.path-link');
+            const pathLinks = document.querySelectorAll('#learning-path-nav-list a.path-link'); // Corrected selector
             const contentDisplay = document.getElementById('learning-path-content-display');
 
             async function loadAndDisplayPath(mdSrcFile, clickedLink) {

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive CFA Program Study Guide</title>
+    <link rel="stylesheet" href="../css/global_nav.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Chosen Palette: Warm Professional -->
@@ -111,10 +112,12 @@
 
     </style>
 </head>
-<body class="flex bg-gray-100">
+<body style="display: flex; min-height: 100vh;">
+
+    <div id="global-nav-placeholder"></div>
 
     <!-- Sidebar Navigation -->
-    <aside class="w-64 bg-white shadow-md h-screen sticky top-0 flex-shrink-0 hidden lg:block">
+    <aside class="w-64 bg-white shadow-md h-screen sticky top-0 flex-shrink-0 hidden lg:block" style="flex-shrink: 0;">
         <div class="p-6">
             <h1 class="text-xl font-bold text-gray-800">CFA® Program Guide</h1>
             <p class="text-sm text-gray-500">Interactive Study Hub</p>
@@ -142,7 +145,7 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 p-4 sm:p-6 lg:p-10 overflow-y-auto">
+    <main class="flex-1 p-4 sm:p-6 lg:p-10 overflow-y-auto" style="flex-grow: 1; overflow-y: auto;">
         <div class="mb-4">
             <a href="../home.html" class="text-blue-600 hover:text-blue-800 hover:underline transition-colors duration-150 ease-in-out text-sm">
                 &larr; Back to Main Financial Learning Hub
@@ -894,5 +897,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 </script>
+<script src="../js/nav_data.js" defer></script>
+<script src="../js/global_nav.js" defer></script>
 </body>
 </html>

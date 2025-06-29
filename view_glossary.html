@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Financial Glossary</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="assets/css/viewer_style.css"> <!-- Using common viewer style -->
+    <link rel="stylesheet" href="assets/css/shared-readme-styles.css">
     <style>
-        /* Styles specific to glossary page if needed */
-        .viewer-container-single-pane {
-            max-width: 900px; /* Adjust for comfortable reading width */
-            margin: 15px auto;
+        /* Ensure single pane centers if shared-readme-styles uses flex on viewer-container */
+        .viewer-container {
+            justify-content: center;
         }
-        .viewer-content h1, .viewer-content h2 {
-            margin-top: 0.5em; /* Less top margin for glossary terms */
+        .viewer-content {
+            flex-grow: 0; /* Prevent it from taking full width if not desired */
+            max-width: 900px; /* Maintain readability */
         }
     </style>
 </head>
@@ -22,7 +22,7 @@
         <h1>Global Financial Glossary</h1>
         <a href="home.html" class="back-to-home">&laquo; Back to Main Hub</a>
     </header>
-    <div class="viewer-container-single-pane">
+    <div class="viewer-container"> <!-- Changed class for shared styles -->
         <main id="markdown-display-area" class="viewer-content">
             <p>Loading glossary...</p>
         </main>

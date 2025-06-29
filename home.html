@@ -141,12 +141,42 @@
                     <p class="text-gray-600 text-lg">This repository is more than a collection of files; it's an integrated learning environment designed to empower you to adapt, innovate, and lead in the ever-evolving world of finance. Discover how diverse knowledge areas converge here to build a holistic, practical, and future-proof skillset. Click on any section to navigate directly.</p>
                 </div>
 
-                <!-- Search Bar for Dashboard -->
-                <div class="mb-8 max-w-xl mx-auto">
-                    <input type="text" id="dashboard-search" placeholder="Search dashboard content..." class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg">
+                <!-- How to Use, Learning Strategies, Contributing Sections -->
+                <div class="my-12 p-8 bg-white rounded-xl shadow-lg border border-gray-200">
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="md:col-span-1">
+                            <h3 class="text-2xl font-semibold text-gray-700 mb-3">How to Use This Repository</h3>
+                            <ul class="list-disc list-inside text-gray-600 space-y-1 text-left">
+                                <li>**Explore Key Areas:** Use the dashboard cards below or the global navigation sidebar (on the left) to jump into main topics like CFA Prep, Credit Risk (CRAFT), Primers, or Interactive Notebooks.</li>
+                                <li>**Follow a Path:** For structured learning, select a learning path (e.g., Credit Analyst, CFA Candidate) from the top navigation tabs or visit the <a href="./Learning_Paths/index.html" class="text-blue-600 hover:underline">Learning Paths section</a>.</li>
+                                <li>**Global Navigation:** The sidebar on the left provides direct links to almost every piece of content. Use it to quickly find specific documents or sections.</li>
+                                <li>**Interactive Hubs:** Sections like CRAFT and CFA have their own interactive hubs for a focused experience.</li>
+                            </ul>
+                        </div>
+                        <div class="md:col-span-1">
+                            <h3 class="text-2xl font-semibold text-gray-700 mb-3">Learning Strategies</h3>
+                            <ul class="list-disc list-inside text-gray-600 space-y-1 text-left">
+                                <li>**Start Foundational:** If new to a topic, begin with overview documents or introductory modules.</li>
+                                <li>**Use Cheat Sheets:** Ideal for quick reviews of formulas and key concepts, especially for CFA prep.</li>
+                                <li>**Practice Actively:** Engage with interactive Jupyter notebooks and practice exam questions to solidify understanding.</li>
+                                <li>**Apply with Cases:** Work through case studies to see how concepts are applied in real-world scenarios.</li>
+                                <li>**Consult the Glossary:** Refer to the <a href="./view_glossary.html" class="text-blue-600 hover:underline">Global Financial Glossary</a> for definitions of key terms.</li>
+                            </ul>
+                        </div>
+                        <div class="md:col-span-1">
+                            <h3 class="text-2xl font-semibold text-gray-700 mb-3">Contributing & Improving</h3>
+                            <ul class="list-disc list-inside text-gray-600 space-y-1 text-left">
+                                <li>**An Evolving Resource:** This repository is designed to be a continuously improving learning hub.</li>
+                                <li>**Content Guidelines:** If you plan to contribute or suggest major changes, please review the <a href="./AGENTS.MD" class="text-blue-600 hover:underline">AGENTS.MD</a> file for guidelines on structure, linking, and content creation.</li>
+                                <li>**Feedback Welcome:** Suggestions for new topics, improvements to existing content, or new interactive elements are encouraged.</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
+                <!-- End of New Sections -->
 
-                <div id="dashboard-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
                     <a href="./corporate-credit-risk-analyst-training/index.html" class="card p-6 col-span-1 md:col-span-2 lg:col-span-3 block hover:no-underline"> <!-- Updated Link -->
                         <h3 class="font-semibold text-xl mb-4 text-gray-800 flex items-center">
                             <span class="text-3xl mr-3">🛡️</span> Corporate Credit Risk Analyst Training (CRAFT)
@@ -248,7 +278,7 @@
                     <p class="text-gray-600 text-lg">This curated path guides you through the essential resources to build comprehensive skills in corporate credit risk analysis. Start with the CRAFT Program Hub for an interactive curriculum, then explore supplementary materials.</p>
                      <div class="mt-6 flex flex-wrap justify-center gap-4">
                         <a href="./corporate-credit-risk-analyst-training/index.html" class="path-link">Go to CRAFT Interactive Hub</a>
-                        <a href="./Learning_Paths/Credit_Analyst_Foundational_Path.md" class="path-link bg-green-600 hover:bg-green-700">View Detailed Learning Path (.md)</a>
+                        <a href="global_markdown_viewer.html?mdfile=Learning_Paths/Credit_Analyst_Foundational_Path.md" class="path-link bg-green-600 hover:bg-green-700">View Detailed Learning Path</a>
                     </div>
                 </div>
                 <div class="lg:flex gap-8">
@@ -272,7 +302,7 @@
                     <p class="text-gray-600 text-lg">Navigate your CFA journey with a multi-faceted toolkit designed for success at all three levels. The primary resource is our <a href='./CFA/index.html' class='text-blue-600 hover:underline font-medium'>Interactive CFA Study Hub</a>. You can also explore focused learning paths and resource types below.</p>
                      <div class="mt-6 flex flex-wrap justify-center gap-4">
                         <a href="./CFA/index.html" class="path-link">Go to Interactive CFA Study Hub</a>
-                        <a href="./Learning_Paths/CFA_Level_1_Prep_Focus_Areas.md" class="path-link bg-green-600 hover:bg-green-700">View L1 Focus Areas Path (.md)</a>
+                        <a href="global_markdown_viewer.html?mdfile=Learning_Paths/CFA_Level_1_Prep_Focus_Areas.md" class="path-link bg-green-600 hover:bg-green-700">View L1 Focus Areas Path</a>
                         <!-- Add links to L2/L3 paths when created -->
                     </div>
                 </div>
@@ -376,24 +406,24 @@
         const appData = {
             creditRisk: {
                 modules: [
-                    { id: 'm1', title: '01: Foundations', content: 'Covers accounting and financial modeling basics. Essential for understanding company financials.', link: './corporate-credit-risk-analyst-training/modules/01-foundations/README.md' },
-                    { id: 'm2', title: '02: Understanding the Market', content: 'Explores capital markets, leveraged loans, and industry analysis frameworks (e.g., Porter\'s Five Forces).', link: './corporate-credit-risk-analyst-training/modules/02-understanding-the-market/README.md' },
-                    { id: 'm3', title: '03: The Analyst\'s Craft', content: 'Develops crucial soft skills: business writing, grammar, critical thinking, and forming a credit narrative.', link: './corporate-credit-risk-analyst-training/modules/03-the-analysts-craft/README.md' },
-                    { id: 'm4', title: '04: The Credit Lifecycle', content: 'Covers core functions: SNC, underwriting new issuers, LBO & M&A analysis, and ongoing credit monitoring.', link: './corporate-credit-risk-analyst-training/modules/04-the-credit-lifecycle/README.md' },
-                    { id: 'm5', title: '05: Future of Risk Management', content: 'Forward-looking module on AI in risk management and its impact on credit analysis.', link: './corporate-credit-risk-analyst-training/modules/05-future-of-risk-management/README.md' },
-                    { id: 'm6', title: '06: Advanced Topics', content: 'Deep dives into Quality of Earnings (QoE), debt structuring/restructuring, and legal aspects of credit.', link: './corporate-credit-risk-analyst-training/modules/06-advanced-topics/README.md' },
-                    { id: 'm7', title: '07: Communication Skills', content: 'Advanced business writing, persuasion, and negotiation skills for credit professionals.', link: './corporate-credit-risk-analyst-training/modules/07-communication-skills/README.md' },
-                    { id: 'm8', title: '08: Specialized Industries', content: 'Frameworks for analyzing industries with unique characteristics, complementing the Industry Primers.', link: './corporate-credit-risk-analyst-training/modules/08-specialized-industries/README.md' },
-                    { id: 'm9', title: '09: Regulatory & Ethics', content: 'Covers regulatory environments, compliance in lending, and ethical considerations for analysts.', link: './corporate-credit-risk-analyst-training/modules/09-regulatory-ethics/README.md' },
-                    { id: 'm10', title: '10: Quantitative Skills', content: 'Practical application of data analytics and quantitative tools in credit risk assessment (beyond AI).', link: './corporate-credit-risk-analyst-training/modules/10-quantitative-skills/README.md' },
-                    { id: 'm11', title: '11: Capstone Project', content: 'Integrative project applying skills from all modules to a comprehensive credit analysis case.', link: './corporate-credit-risk-analyst-training/modules/11-capstone/README.md' },
+                    { id: 'm1', title: '01: Foundations', content: 'Covers accounting and financial modeling basics. Essential for understanding company financials.', link: './corporate-credit-risk-analyst-training/modules/01-foundations/index.html' },
+                    { id: 'm2', title: '02: Understanding the Market', content: 'Explores capital markets, leveraged loans, and industry analysis frameworks (e.g., Porter\'s Five Forces).', link: './corporate-credit-risk-analyst-training/modules/02-understanding-the-market/index.html' },
+                    { id: 'm3', title: '03: The Analyst\'s Craft', content: 'Develops crucial soft skills: business writing, grammar, critical thinking, and forming a credit narrative.', link: './corporate-credit-risk-analyst-training/modules/03-the-analysts-craft/index.html' },
+                    { id: 'm4', title: '04: The Credit Lifecycle', content: 'Covers core functions: SNC, underwriting new issuers, LBO & M&A analysis, and ongoing credit monitoring.', link: './corporate-credit-risk-analyst-training/modules/04-the-credit-lifecycle/index.html' },
+                    { id: 'm5', title: '05: Future of Risk Management', content: 'Forward-looking module on AI in risk management and its impact on credit analysis.', link: './corporate-credit-risk-analyst-training/modules/05-future-of-risk-management/index.html' },
+                    { id: 'm6', title: '06: Advanced Topics', content: 'Deep dives into Quality of Earnings (QoE), debt structuring/restructuring, and legal aspects of credit.', link: './corporate-credit-risk-analyst-training/modules/06-advanced-topics/index.html' },
+                    { id: 'm7', title: '07: Communication Skills', content: 'Advanced business writing, persuasion, and negotiation skills for credit professionals.', link: './corporate-credit-risk-analyst-training/modules/07-communication-skills/index.html' },
+                    { id: 'm8', title: '08: Specialized Industries', content: 'Frameworks for analyzing industries with unique characteristics, complementing the Industry Primers.', link: './corporate-credit-risk-analyst-training/modules/08-specialized-industries/index.html' },
+                    { id: 'm9', title: '09: Regulatory & Ethics', content: 'Covers regulatory environments, compliance in lending, and ethical considerations for analysts.', link: './corporate-credit-risk-analyst-training/modules/09-regulatory-ethics/index.html' },
+                    { id: 'm10', title: '10: Quantitative Skills', content: 'Practical application of data analytics and quantitative tools in credit risk assessment (beyond AI).', link: './corporate-credit-risk-analyst-training/modules/10-quantitative-skills/index.html' },
+                    { id: 'm11', title: '11: Capstone Project', content: 'Integrative project applying skills from all modules to a comprehensive credit analysis case.', link: './corporate-credit-risk-analyst-training/modules/11-capstone/index.html' },
                 ]
             },
             cfaResources: {
-                deepDives: { title: 'Topic Deep Dives', content: 'In-depth explorations of complex CFA curriculum areas, such as FSA for Creditors or Advanced Equity Valuation. Ideal for building robust understanding.', link: './CFA/README.md#topic-deep-dives' }, // Updated link to point to a section in CFA README
-                cheatSheets: { title: 'Concise Cheat Sheets', content: 'Quick summaries of key formulas, definitions, and concepts for efficient revision across all CFA topics.', link: './CFA/README.md#cheat-sheets' },
-                practiceExams: { title: 'Practice Exams', content: 'Simulate exam conditions with Level I, II, and III style questions, including item sets and constructed response examples.', link: './CFA/README.md#practice-exams' },
-                caseStudies: { title: 'Practical Case Studies', content: 'Apply theoretical knowledge to realistic scenarios, bridging concepts to practical application, crucial for Levels II and III.', link: './CFA/README.md#case-studies' },
+                deepDives: { title: 'Topic Deep Dives', content: 'In-depth explorations of complex CFA curriculum areas, such as FSA for Creditors or Advanced Equity Valuation. Ideal for building robust understanding.', link: './CFA/index.html#materials-library' },
+                cheatSheets: { title: 'Concise Cheat Sheets', content: 'Quick summaries of key formulas, definitions, and concepts for efficient revision across all CFA topics.', link: './CFA/index.html#materials-library' },
+                practiceExams: { title: 'Practice Exams', content: 'Simulate exam conditions with Level I, II, and III style questions, including item sets and constructed response examples.', link: './CFA/index.html#materials-library' },
+                caseStudies: { title: 'Practical Case Studies', content: 'Apply theoretical knowledge to realistic scenarios, bridging concepts to practical application, crucial for Levels II and III.', link: './CFA/index.html#materials-library' },
             }
         };
 

@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Modeling Resources</title>
+    <link rel="stylesheet" href="../css/global_nav.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="../assets/css/shared-readme-styles.css"> <!-- Using a common viewer style -->
 </head>
-<body>
-    <header class="viewer-header">
-        <h1>Financial Modeling Resources</h1>
-        <a href="../home.html" class="back-to-home">&laquo; Back to Main Hub</a>
-    </header>
-    <div class="viewer-container">
-        <nav class="viewer-nav">
-            <h2>Topics</h2>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div style="flex-grow: 1; overflow-y: auto;"> <!-- Wrapper for existing content -->
+        <header class="viewer-header">
+            <h1>Financial Modeling Resources</h1>
+            <a href="../home.html" class="back-to-home">&laquo; Back to Main Hub</a>
+        </header>
+        <div class="viewer-container">
+            <nav class="viewer-nav">
+                <h2>Topics</h2>
             <ul id="fm-navigation-list">
                 <li><a href="#" data-md-src="README.md">Financial Modeling Overview</a></li>
                 <li><a href="#" data-md-src="Best_Practices/FM_Best_Practices.md">Best Practices</a></li>
@@ -29,7 +32,9 @@
             <p>Select a topic from the list to view its content.</p>
         </main>
     </div>
-
+    </div> <!-- End of wrapper div -->
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const navList = document.getElementById('fm-navigation-list');
