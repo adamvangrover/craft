@@ -5,92 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Paths for Financial Professionals</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <style>
-        body { font-family: sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
-        .container { max-width: 1100px; margin: auto; overflow: auto; padding: 0 20px; }
-        .page-header { background: #333; color: #fff; padding: 1rem 0; text-align: center; margin-bottom: 20px; }
-        .page-header h1 { margin: 0; }
-        .learning-paths-layout { display: flex; flex-direction: column; gap: 20px; }
-        .paths-list-container { background: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        .paths-list-container h2, .paths-list-container h3 { color: #333; }
-        .paths-list-container ul { list-style: none; padding: 0; }
-        .paths-list-container li { margin-bottom: 10px; }
-        .paths-list-container a.path-link { text-decoration: none; color: #3498db; font-weight: bold; }
-        .paths-list-container a.path-link:hover,
-        .paths-list-container a.path-link.active-path { color: #2980b9; text-decoration: underline; }
-        #learning-path-content-display { background: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); min-height: 200px; }
-        /* Basic styling for rendered Markdown content */
-        #learning-path-content-display h1,
-        #learning-path-content-display h2,
-        #learning-path-content-display h3 { color: #333; margin-top: 1em; margin-bottom: 0.5em; }
-        #learning-path-content-display h1 { font-size: 1.8em; border-bottom: 1px solid #eee; }
-        #learning-path-content-display h2 { font-size: 1.5em; }
-        #learning-path-content-display h3 { font-size: 1.2em; }
-        #learning-path-content-display p { margin-bottom: 1em; }
-        #learning-path-content-display ul,
-        #learning-path-content-display ol { margin-left: 20px; margin-bottom: 1em; }
-        #learning-path-content-display li { margin-bottom: 0.5em; }
-        #learning-path-content-display table { border-collapse: collapse; width: auto; margin-bottom: 1em; }
-        #learning-path-content-display th,
-        #learning-path-content-display td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        #learning-path-content-display th { background-color: #f0f0f0; }
-        #learning-path-content-display code { background-color: #eee; padding: 2px 4px; border-radius: 3px; font-family: monospace; }
-        #learning-path-content-display pre code { display: block; padding: 10px; background-color: #eee; white-space: pre-wrap; }
-
-        @media (min-width: 768px) {
-            .learning-paths-layout { flex-direction: row; }
-            .paths-list-container { flex: 0 0 300px; }
-            #learning-path-content-display { flex: 1; }
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/shared-readme-styles.css">
 </head>
 <body>
-    <header class="page-header">
-        <h1>Learning Paths for Financial Professionals</h1>
+    <header class="viewer-header">
+        <h1>Learning Paths</h1>
+        <a href="../home.html" class="back-to-home">&laquo; Back to Main Hub</a>
     </header>
-    <div class="container">
-        <div class="learning-paths-layout">
-            <nav class="paths-list-container">
-                <h2>Available Learning Paths</h2>
-                <p>Select a path to view its details and recommended resources.</p>
-                <ul>
-                    <li>
-                        <a href="#" class="path-link" data-md-src="Credit_Analyst_Foundational_Path.md">Credit Analyst Foundational Path</a>
-                        <p style="font-size:0.9em; color:#555;">For individuals new to credit analysis or seeking to build a solid foundational understanding.</p>
-                    </li>
-                    <li>
-                        <a href="#" class="path-link" data-md-src="Understanding_Fintech_for_Analysts.md">Understanding Fintech for Analysts</a>
-                        <p style="font-size:0.9em; color:#555;">For professionals looking to gain a foundational understanding of the Fintech landscape.</p>
-                    </li>
-                    <li>
-                        <a href="#" class="path-link" data-md-src="CFA_Level_1_Prep_Focus_Areas.md">CFA Level 1 Prep Focus Areas</a>
-                        <p style="font-size:0.9em; color:#555;">To guide CFA Level 1 candidates in using repository resources for key topic areas.</p>
-                    </li>
-                </ul>
-                <hr>
-                <h3>Future Learning Paths (Potential Additions)</h3>
-                <ul>
-                    <li>Advanced Credit Risk Analysis Path</li>
-                    <li>CFA Level 2 Prep Focus Areas Path</li>
-                    <li>CFA Level 3 Prep Focus Areas Path</li>
-                    <li>Financial Modeling Mastery Path</li>
-                    <li>Risk Management Professional Path</li>
-                    <li>Introduction to Capital Markets Path</li>
-                </ul>
-                 <hr>
-                <h3>How to Use This Section</h3>
-                <ol>
-                    <li><strong>Identify Your Goal:</strong> Determine what you want to achieve.</li>
-                    <li><strong>Select a Path:</strong> Choose the learning path that most closely aligns with your objective.</li>
-                    <li><strong>Follow the Sequence:</strong> The resources within each path are generally structured to build knowledge progressively.</li>
-                    <li><strong>Engage Actively:</strong> Don't just read; take notes, work through examples.</li>
-                    <li><strong>Supplement as Needed:</strong> These paths guide you through repository resources.</li>
-                </ol>
-            </nav>
-            <main id="learning-path-content-display">
-                <p>Select a learning path from the list to view its content here.</p>
-            </main>
-        </div>
+    <div class="viewer-container">
+        <nav class="viewer-nav">
+            <h2>Available Learning Paths</h2>
+            <!-- <p>Select a path to view its details and recommended resources.</p> -->
+            <ul id="learning-path-nav-list">
+                <li>
+                    <a href="#" class="path-link" data-md-src="Credit_Analyst_Foundational_Path.md">Credit Analyst Foundational Path</a>
+                    <!-- <p style="font-size:0.9em; color:#555;">For individuals new to credit analysis or seeking to build a solid foundational understanding.</p> -->
+                </li>
+                <li>
+                    <a href="#" class="path-link" data-md-src="Understanding_Fintech_for_Analysts.md">Understanding Fintech for Analysts</a>
+                    <!-- <p style="font-size:0.9em; color:#555;">For professionals looking to gain a foundational understanding of the Fintech landscape.</p> -->
+                </li>
+                <li>
+                    <a href="#" class="path-link" data-md-src="CFA_Level_1_Prep_Focus_Areas.md">CFA Level 1 Prep Focus Areas</a>
+                    <!-- <p style="font-size:0.9em; color:#555;">To guide CFA Level 1 candidates in using repository resources for key topic areas.</p> -->
+                </li>
+            </ul>
+            <hr style="margin: 1rem 0;">
+            <h3>Future Learning Paths</h3>
+            <ul id="future-learning-path-list" style="opacity: 0.6;">
+                <li><a href="#">Advanced Credit Risk Analysis</a></li>
+                <li><a href="#">CFA Level 2 Prep Focus</a></li>
+                <li><a href="#">CFA Level 3 Prep Focus</a></li>
+                <li><a href="#">Financial Modeling Mastery</a></li>
+                <li><a href="#">Risk Management Professional</a></li>
+                <li><a href="#">Intro to Capital Markets</a></li>
+            </ul>
+            <hr style="margin: 1rem 0;">
+            <h3>How to Use</h3>
+             <ol style="font-size: 0.85em; padding-left: 1.2em;">
+                <li><strong>Identify Goal:</strong> What do you want to achieve?</li>
+                <li><strong>Select Path:</strong> Choose a path that aligns.</li>
+                <li><strong>Follow Sequence:</strong> Resources are structured progressively.</li>
+                <li><strong>Engage Actively:</strong> Take notes, work examples.</li>
+                <li><strong>Supplement:</strong> These paths guide you through repository content.</li>
+            </ol>
+        </nav>
+        <main id="learning-path-content-display" class="viewer-content">
+            <p>Select a learning path from the list to view its content here.</p>
+        </main>
     </div>
 
     <script>

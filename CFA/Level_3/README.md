@@ -58,9 +58,19 @@ This section lists recommended study materials for Level 3, with a strong emphas
 *   **CFA Institute Mock Exams:** Provides both essay and item set practice.
 *   **Prep Provider Mock Exams:** Essential for practicing both formats under timed conditions. Seek out providers that offer essay grading.
 
-## 3. Practice Questions and Answers
+## 3. Detailed Study Resources & Practice
 
-Level 3 requires mastery of both essay (constructed response) and item set questions.
+This repository offers focused resources to deepen your understanding and test your knowledge for Level 3:
+
+*   **[Level 3 Topic Deep Dives](./Topic_Deep_Dives/README.md):** Explore detailed explanations of key Level 3 topics, focusing on portfolio management, wealth planning, and application frameworks.
+*   **[Level 3 Practice Exams - Essays](./Practice_Exams_Essays/README.md):** Practice with constructed response (essay) questions and review detailed guideline answers.
+*   **[Level 3 Practice Exams - Item Sets](./Practice_Exams_Item_Sets/README.md):** Test your knowledge with vignette-based item sets similar to the afternoon session.
+*   **[Level 3 Cheat Sheets](./Cheat_Sheets/README.md):** Access concise summaries of key concepts and formulas. (Also available via the [CFA Interactive Study Hub](../../index.html#materials-library))
+*   **[Level 3 Case Studies (IPS Focus)](./Case_Studies_IPS/README.md):** Apply your learning to practical Investment Policy Statement construction scenarios. (Also available via the [CFA Interactive Study Hub](../../index.html#materials-library))
+
+### Sample Practice Question (Essay Snippet)
+
+Level 3 requires mastery of both essay (constructed response) and item set questions. Below is a brief example. For more comprehensive exams, please see the dedicated practice exam sections linked above.
 
 **(Example Essay Question Snippet - Private Wealth Management)**
 
@@ -85,6 +95,7 @@ The Sterlings require a return to cover their annual spending of $200,000. Assum
 This section is for tracking planned improvements and content additions to this Level 3 study guide.
 
 *   **[ ] Add at least 3-5 full essay questions with guideline answers covering different parts of the curriculum (e.g., PWM, Institutional, Asset Allocation, Risk Management).**
+    *   > **Future Content:** Plan to develop CFA Level 3 Practice Essay Exam 1 Questions.
 *   **[ ] Include several item sets focused on Level 3 topics.**
 *   **[ ] Develop a detailed guide on "Command Words" used in essay questions (e.g., "Formulate," "Justify," "Calculate," "Compare").**
 *   **[ ] Create a summary of GIPS standards and key compliance areas.**

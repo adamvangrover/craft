@@ -54,9 +54,19 @@ This section provides a list of recommended study materials. It's advisable to u
 *   **CFA Institute Mock Exams:** Available on the CFA Institute website closer to the exam date. These are crucial for gauging your preparedness.
 *   **Prep Provider Mock Exams:** Most third-party providers offer mock exams that simulate the actual test conditions.
 
-## 3. Practice Questions and Answers
+## 3. Detailed Study Resources & Practice
 
-Consistent practice is key to success. This section will contain sample questions with detailed explanations.
+This repository offers focused resources to deepen your understanding and test your knowledge for Level 1:
+
+*   **[Level 1 Topic Deep Dives](./Topic_Deep_Dives/README.md):** Explore detailed explanations of specific curriculum areas, particularly those that are complex or heavily weighted.
+*   **[Level 1 Practice Exams](./Practice_Exams/README.md):** Test your knowledge with full practice exams and review detailed answer keys to identify areas for improvement.
+*   **[Level 1 Cheat Sheets](./Cheat_Sheets/README.md):** Access concise summaries of key concepts and formulas for quick review across all topic areas. (Also available via the [CFA Interactive Study Hub](../index.html#materials-library))
+*   **[Level 1 Case Studies](./Case_Studies/README.md):** Apply your learning to practical scenarios. (Also available via the [CFA Interactive Study Hub](../index.html#materials-library))
+
+
+### Sample Practice Questions and Answers
+
+Consistent practice is key to success. Below are a few examples. For more comprehensive exams, please see the [Level 1 Practice Exams section](./Practice_Exams/README.md).
 
 **(Example Question 1 - Ethical and Professional Standards)**
 

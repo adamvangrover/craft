@@ -18,11 +18,13 @@ This directory currently includes the following detailed explorations:
 *   **[Fixed Income Basics](./Fixed_Income_Basics.md)**
 *   **[Introduction to Derivatives](./Introduction_to_Derivatives.md)** (also listed as `Derivatives_Introduction.md` in `CFA/index.html`)
 *   **[Understanding Financial Statement Analysis](./Understanding_Financial_Statement_Analysis.md)** (Newer, as per `CFA/index.html`)
-*   **[Quantitative Methods: Time Value of Money](./Quant_Time_Value_of_Money.md)** (Linked in `CFA/index.html`)
-*   **[FRA: Income Statement Analysis](./FRA_Income_Statement_Analysis.md)** (Linked in `CFA/index.html`)
-*   **[Equity: Valuation Models Introduction](./Equity_Valuation_Models_Intro.md)** (Linked in `CFA/index.html`)
+*   **[Quantitative Methods: Time Value of Money](./Quant_Time_Value_of_Money.md)**
+*   **[FRA: Income Statement Analysis](./FRA_Income_Statement_Analysis.md)**
+*   **[FRA: Balance Sheet Analysis for Creditors](./FSA_Balance_Sheet_Analysis_for_Creditors.md)**
+*   **[FRA: Cash Flow Statement Analysis for Creditors](./FSA_Cash_Flow_Statement_Analysis_for_Creditors.md)**
+*   **[Equity: Valuation Models Introduction](./Equity_Valuation_Models_Intro.md)**
 
-*(Developer Note: Ensure consistency in naming and linking for "Introduction to Derivatives" across the `CFA/index.html` and file system. Consolidate if they are duplicates or clarify if they are different.)*
+*(Developer Note: The file `Introduction_to_Derivatives.md` is linked from `CFA/index.html` as "Derivatives: Introduction to Derivatives". The file `Understanding_Financial_Statement_Analysis.md` is linked as "FRA: Understanding Financial Statement Analysis". The file `Quant_Time_Value_of_Money.md` is linked as "Quantitative Methods: Time Value of Money". The file `FRA_Income_Statement_Analysis.md` is linked as "FRA: Income Statement Analysis". The file `Equity_Valuation_Models_Intro.md` is linked as "Equity: Valuation Models Introduction". Ensure consistency if these files are renamed or if `CFA/index.html` needs updates.)*
 
 ## Suggested Structure for a Topic Deep Dive Document
 
