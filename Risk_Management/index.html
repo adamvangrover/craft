@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Directory Viewer - Risk_Management</title>
+    <link rel="stylesheet" href="../css/global_nav.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="../assets/css/simple_viewer.css">
 </head>
-<body>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <!-- Wrapper for existing page content to live alongside global nav -->
+    <div class="page-content-wrapper" style="display: flex; flex-grow: 1; min-height: 100vh; overflow-y: hidden;">
     <style>
         /* Additional styles for iframe container if simple_viewer.css is not enough */
         #iframe-container {
@@ -29,9 +33,7 @@
             display: none;
         }
     </style>
-</head>
-<body>
-    <div id="sidebar">
+    <div id="sidebar" style="flex-shrink: 0;">
         <div id="up-link-container">
              <a href="../home.html">&laquo; Back to Main Hub</a>
         </div>
@@ -42,15 +44,17 @@
     </div>
 
     <!-- Area for direct Markdown rendering -->
-    <div id="content-area" class="markdown-body active">
+    <div id="content-area" class="markdown-body active" style="flex-grow: 1; overflow-y: auto; padding: 20px;">
         <p>Loading content...</p>
     </div>
 
     <!-- Area for iframe -->
-    <div id="iframe-container">
+    <div id="iframe-container" style="flex-grow: 1; overflow-y: auto;">
         <iframe id="module-content-frame" title="Sub-module Content"></iframe>
     </div>
-
+    </div> <!-- End of page-content-wrapper -->
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
     <script>
         const directContentDisplay = document.getElementById('content-area');
         const iframeContainer = document.getElementById('iframe-container');

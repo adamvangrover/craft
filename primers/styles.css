@@ -405,9 +405,6 @@ li.trend-positive::before, li.trend-negative::before, li.trend-neutral::before {
 #mainIndexSearch:focus-visible, #detailPageQuickReadBtn:focus-visible, .toggle-all-sections-btn:focus-visible, .primer-section-title:focus-visible, .view-details-link:focus-visible, .back-to-index-link:focus-visible, .view-markdown-link:focus-visible { /* Covered by general */ }
 .primer-section-title:focus { outline: none; } /* Remove default outline on <summary> when using custom :focus-visible */
 .primer-section-title:focus-visible { background-color: #e6f2ff; } /* Light blue background on focus for summary */
-
-/*
-```
 =======
 /* Page Layout */
 .page-container {
