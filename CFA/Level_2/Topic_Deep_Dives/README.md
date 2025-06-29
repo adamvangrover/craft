@@ -14,20 +14,23 @@ Welcome to the "Topic Deep Dives" for CFA Level 2. This level of the CFA Program
 
 ## Existing Level 2 Deep Dive Documents
 
-This directory currently includes (or will soon include) the following in-depth explorations, which are also linked from the "Study Materials Library" in the main [CFA Interactive Study Hub](../../index.html):
+This directory contains detailed explorations of specific Level 2 topics. These are also linked from the "Study Materials Library" in the main [CFA Interactive Study Hub](../../index.html).
 
 *   **Equity Valuation:**
-    *   [Advanced Equity Valuation Models](./L2_Advanced_Equity_Valuation_Models.md)
-    *   [FCFF/FCFE Valuation](./L2_DD_FCFF_FCFE_Valuation.md)
+    *   [`L2_Advanced_Equity_Valuation_Models.md`](./L2_Advanced_Equity_Valuation_Models.md): Covers advanced models beyond basic DDM.
+    *   [`L2_DD_FCFF_FCFE_Valuation.md`](./L2_DD_FCFF_FCFE_Valuation.md): Focuses on free cash flow valuation methods.
 *   **Financial Statement Analysis (FSA/FRA):**
-    *   [Intercorporate Investments](./L2_DD_Intercorporate_Investments.md)
+    *   [`L2_DD_Intercorporate_Investments.md`](./L2_DD_Intercorporate_Investments.md): Analysis of investments in associates, joint ventures, and subsidiaries.
 *   **Fixed Income:**
-    *   [Term Structure Models](./L2_DD_Fixed_Income_Term_Structure_Models.md)
-    *   [Fixed Income Analysis - Credit Risk](./L2_Fixed_Income_Analysis_Credit_Risk.md) *(Newer, as per `CFA/index.html`)*
+    *   [`L2_DD_Fixed_Income_Term_Structure_Models.md`](./L2_DD_Fixed_Income_Term_Structure_Models.md): Explores models of the yield curve.
+    *   [`L2_Fixed_Income_Analysis_Credit_Risk.md`](./L2_Fixed_Income_Analysis_Credit_Risk.md): Deep dive into credit risk aspects of fixed income.
 *   **Derivatives:**
-    *   [Option Valuation (Binomial & BSM)](./L2_DD_Option_Valuation_Binomial_BSM.md)
+    *   [`L2_DD_Option_Valuation_Binomial_BSM.md`](./L2_DD_Option_Valuation_Binomial_BSM.md): Covers option valuation using Binomial trees and Black-Scholes-Merton.
 
-*(Developer Note: Ensure these files exist and offer substantial detail beyond what a cheat sheet would provide. The naming `L2_DD_` seems like a good convention for "Level 2 Deep Dive".)*
+*(Developer Note: The `L2_DD_` prefix is a good convention for "Level 2 Deep Dive". Ensure all listed files exist and offer substantial detail. New deep dives should be added to this list and reflected in parent navigation files.)*
+
+<!-- Machine-readable indexing comment (example) -->
+<!-- Index: CFA L2 Deep Dives; Topics: Equity Valuation, FCFF, FCFE, Intercorporate Investments, Term Structure, Credit Risk, Option Valuation, Binomial Trees, Black-Scholes-Merton -->
 
 ## Recommended Structure for a Level 2 Topic Deep Dive
 
@@ -55,10 +58,18 @@ A comprehensive Level 2 deep dive should aim for clarity and practical applicabi
 7.  **Credit Analyst's Takeaway:**
     *   **Relevance to Credit Risk:** How does a deep understanding of this topic aid a credit analyst? For instance, a deep dive on equity valuation models can help a credit analyst understand the cushion available to debt holders or the market's perception of risk. An FSA deep dive (e.g., on leases or pensions) can uncover hidden leverage or claims on cash flow.
     *   **Application in Credit Models:** Can any of these techniques be adapted for credit modeling or assessing repayment capacity?
-8.  **Further Practice Questions (Optional):**
+8.  **Further Practice Questions (Optional but Recommended):**
     *   A few complex questions that require a thorough understanding of the deep dive material.
+    *   Detailed explanations for the answers.
+9.  **Summary / Key Takeaways:**
+    *   Conclude with a brief recap of the most important points.
+10. **Developer Notes Specific to this Deep Dive:**
+    *   *(E.g., "This model was built assuming X, further work could explore Y." or "Data sources for examples need annual review." This section is for notes within individual deep dive files, not this README).*
+11. **Student & Teacher Notes Specific to this Deep Dive:**
+    *   *(E.g., Student: "Focus on assumption sensitivity." Teacher: "Use this to bridge to discussion of model risk." This section is for notes within individual deep dive files, not this README).*
 
 ## Potential Future Deep Dive Topics for Level 2
+### Avenues for Exploration and Further Development
 
 Level 2 offers many areas ripe for deep exploration:
 

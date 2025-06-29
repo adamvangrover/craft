@@ -27,7 +27,7 @@
         const pageTitle = document.querySelector('title');
 
         const directoryName = "Practice_Exams";
-        const filesInDir = ["README.md", "Practice_Exam_1_Answer_Key.md", "Practice_Exam_1_Questions.md", "Practice_Exam_2_Answer_Key.md", "Practice_Exam_3_Answer_Key.md", "Practice_Exam_3_Questions.md"];
+        const filesInDir = ["README.md", "Practice_Exam_1_Answer_Key.md", "Practice_Exam_1_Questions.md", "Practice_Exam_2_Answer_Key.md", "Practice_Exam_2_Questions.md", "Practice_Exam_3_Answer_Key.md", "Practice_Exam_3_Questions.md"];
         const subDirsInfo = [];
         const relativePathToRoot = "../../../../";
 
@@ -51,7 +51,7 @@
             fileListDisplay.innerHTML = fileLinksHtml;
 
             const upLinkContainer = document.getElementById('up-link-container');
-            upLinkContainer.innerHTML = `<a href="../index.html">&laquo; Up to Level 1 Hub</a>`;
+            upLinkContainer.innerHTML = `<a href="../README.md">&laquo; Up to Level 1 Study Guide</a>`;
 
             fileListDisplay.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(event) {

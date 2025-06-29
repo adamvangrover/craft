@@ -26,55 +26,56 @@
         const fileListDisplay = document.getElementById('file-list');
         const pageTitle = document.querySelector('title');
 
-        const directoryName = "Legal_Analysis";
-        const filesInDir = ["README.md"];
-        const subDirsInfo = [];
+        const directoryName = "Legal_Analysis_Notebooks"; // Changed for clarity
+        const filesInDir = [
+            "README.md", // Guide for CreditAgreementAnalysisNotebook.ipynb
+            "CreditAgreementAnalysisNotebook.ipynb"
+        ];
+        const subDirsInfo = []; // No further subdirectories expected here
         const relativePathToRoot = "../../";
-        const parentIndexExists = true;
+        const parentIndexExists = true; // Assumes Interactive_Notebooks/index.html exists
 
         document.addEventListener('DOMContentLoaded', async function() {
-            pageTitle.textContent = `Viewer - ${directoryName}`;
+            pageTitle.textContent = `Viewer - Interactive ${directoryName.replace(/_/g, ' ')}`;
 
-            let fileLinksHtml = `<li><a href="#" data-md-src="README.md" class="nav-link active">README.md (Main)</a></li>`;
+            let fileLinksHtml = ``;
+            let defaultMdToLoad = "";
 
             const sortedFiles = filesInDir.sort((a, b) => {
                 if (a.toLowerCase() === 'readme.md') return -1;
                 if (b.toLowerCase() === 'readme.md') return 1;
+                if (a.endsWith(".md") && b.endsWith(".ipynb")) return -1;
+                if (a.endsWith(".ipynb") && b.endsWith(".md")) return 1;
                 return a.localeCompare(b);
             });
 
             sortedFiles.forEach(file => {
-                if (file.toLowerCase() !== 'readme.md' && file.toLowerCase() !== 'agents.md' && file.endsWith('.md')) {
-                    fileLinksHtml += `<li><a href="#" data-md-src="${file}" class="nav-link">${file}</a></li>`;
+                let displayName = file.replace('.md','').replace('.ipynb','').replace(/_/g, ' ');
+                if (file.toLowerCase() === 'readme.md') {
+                    displayName = "Credit Agreement Analysis Guide (README)";
+                    defaultMdToLoad = file;
+                    fileLinksHtml += `<li><a href="#" data-md-src="${file}" class="nav-link active">${displayName}</a></li>`;
+                } else if (file.endsWith(".ipynb")) {
+                    displayName += " (Notebook)";
+                    fileLinksHtml += `<li><a href="${file}" target="_blank" class="nav-link ipynb-link">${displayName}</a></li>`;
+                } else if (file.endsWith(".md")) {
+                    fileLinksHtml += `<li><a href="#" data-md-src="${file}" class="nav-link">${displayName}</a></li>`;
                 }
             });
 
-            subDirsInfo.forEach(subdir => {
-                if (subdir.readmePath) {
-                     fileLinksHtml += `<li class="subdirectory-group"><h4>${subdir.name}/</h4></li>`;
-                     fileLinksHtml += `<li><a href="#" data-md-src="${subdir.readmePath}" class="nav-link">&nbsp;&nbsp;&nbsp;README.md</a></li>`;
-                }
-            });
             fileListDisplay.innerHTML = fileLinksHtml;
 
             const upLinkContainer = document.getElementById('up-link-container');
-            let upLink = '';
-            if (relativePathToRoot === "../") {
-                upLink = `<a href="${relativePathToRoot}home.html">&laquo; Back to Main Hub</a>`;
-            } else if (parentIndexExists) {
-                 upLink = `<a href="${relativePathToRoot}index.html">&laquo; Up to Parent Directory</a>`;
-            } else {
-                upLink = `<a href="${relativePathToRoot}home.html">&laquo; Back to Main Hub (Fallback)</a>`;
-            }
-            upLinkContainer.innerHTML = upLink;
+            upLinkContainer.innerHTML = `<a href="${relativePathToRoot}index.html">&laquo; Up to Interactive Notebooks Hub</a>`;
 
-            fileListDisplay.querySelectorAll('.nav-link').forEach(link => {
+
+            fileListDisplay.querySelectorAll('a[data-md-src]').forEach(link => {
                 link.addEventListener('click', function(event) {
                     event.preventDefault();
                     document.querySelectorAll('#file-list .nav-link').forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
                     const mdSrc = this.getAttribute('data-md-src');
-                    loadMarkdown(mdSrc);
+                    loadMarkdown(mdSrc, this);
                 });
             });
 

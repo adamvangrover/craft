@@ -39,3 +39,37 @@ Test your understanding of these foundational concepts by attempting the quizzes
 
 ---
 This module provides the critical groundwork for all subsequent modules in the CRAFT program. A strong grasp of accounting, financial statement analysis, and basic modeling techniques will enable you to perform more robust and insightful credit risk assessments.
+
+<!-- Machine-readable indexing comment -->
+<!-- Index: CRAFT Module 01; Topics: Accounting Principles, Financial Statement Analysis, 3-Statement Model, Financial Ratios, Forecasting Basics -->
+
+## Student & Teacher Notes
+
+**For Students:**
+*   **Master the Linkages:** Pay very close attention to how the three financial statements connect. This is fundamental.
+*   **Practice Ratios:** Don't just memorize ratio formulas; understand what each ratio tells you about a company's performance and risk.
+*   **Focus on Cash Flow:** Understand why Cash Flow from Operations can differ from Net Income and why it's often considered a more reliable indicator of financial health for credit purposes.
+*   **Build a Simple Model:** Try to build a basic 3-statement model for a hypothetical company as you go through this module.
+
+**For Teachers:**
+*   **Use Real Company Examples:** Illustrate accounting concepts and financial statement analysis using the public filings of real companies.
+*   **Emphasize "Why":** Explain the "why" behind accounting rules and modeling conventions, not just the "what."
+*   **Hands-on Modeling Session:** If possible, include a hands-on session where students start building a 3-statement model.
+*   **Connect to Credit Decisions:** Continuously link the concepts back to how they inform credit risk assessment.
+
+## Developer Notes & Areas for Impact
+
+*   **Interactive Examples:** Consider creating small, interactive Jupyter Notebooks (linked from here, hosted in `Interactive_Notebooks/`) to demonstrate:
+    *   How changes in one statement affect others in a simplified linked model.
+    *   Calculation of key ratios with sample data.
+    *   Basic sensitivity analysis on a simple forecast.
+*   **Visual Aids:** More diagrams illustrating statement linkages or model structures could be beneficial.
+*   **Quiz Expansion:** Ensure quizzes thoroughly cover all key learning objectives. The interactive quiz viewer is a good step; ensure content for it is robust.
+*   **Consistency with Global Glossary:** Ensure all key terms introduced here are also in the `Global_Financial_Glossary.md` and linked appropriately.
+
+## Possible Avenues for Exploration and Further Development
+
+*   **Deeper Dive into Specific Accounting Standards:** (e.g., Leases, Pensions, Business Combinations) - though some of this is covered in Module 12 (Advanced FSA).
+*   **More Advanced Forecasting Techniques:** Beyond the basics introduced here (could link to `/Financial_Modeling/Forecasting_Techniques/`).
+*   **Quality of Earnings Analysis Introduction:** A brief intro here, with a deeper dive in Module 12.
+*   **Introduction to Financial Statement Footnote Analysis:** More structured guidance on what to look for in key footnotes.

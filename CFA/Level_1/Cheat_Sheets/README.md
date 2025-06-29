@@ -15,19 +15,21 @@ This directory houses a collection of "cheat sheets" for the CFA Level 1 exam. T
 
 ## Existing Cheat Sheets
 
-This directory already contains several valuable cheat sheets, including:
+This directory contains the following cheat sheets:
 
-*   `CS_01_Ethical_and_Professional_Standards.md`
-*   `CS_02_Quantitative_Methods.md`
-*   `CS_03_Economics.md`
-*   `CS_04_Financial_Reporting_and_Analysis.md`
-*   `CS_05_Corporate_Finance.md` (Corporate Issuers)
-*   `CS_06_Equity_Investments.md`
-*   `CS_07_Derivatives.md` (Note: There is also a `CS_07_Fixed_Income.md` referenced in the interactive guide, which implies a naming conflict or a missing file that needs to be addressed. For now, we acknowledge the existing files.)
-*   `CS_08_Alternative_Investments.md`
-*   `CS_09_Portfolio_Management.md`
+*   [`CS_01_Ethical_and_Professional_Standards.md`](./CS_01_Ethical_and_Professional_Standards.md)
+*   [`CS_02_Quantitative_Methods.md`](./CS_02_Quantitative_Methods.md)
+*   [`CS_03_Economics.md`](./CS_03_Economics.md)
+*   [`CS_04_Financial_Reporting_and_Analysis.md`](./CS_04_Financial_Reporting_and_Analysis.md)
+*   [`CS_05_Corporate_Finance.md`](./CS_05_Corporate_Finance.md) (Corporate Issuers)
+*   [`CS_06_Equity_Investments.md`](./CS_06_Equity_Investments.md)
+*   [`CS_07_Derivatives.md`](./CS_07_Derivatives.md)
+*   [`CS_07_Fixed_Income.md`](./CS_07_Fixed_Income.md)
+*   [`CS_08_Alternative_Investments.md`](./CS_08_Alternative_Investments.md)
+*   [`CS_09_Portfolio_Management.md`](./CS_09_Portfolio_Management.md)
+*   [`CS_FSA_Key_Ratios_for_Credit_Analysts.md`](./CS_FSA_Key_Ratios_for_Credit_Analysts.md)
 
-*(Developer Note: The file listing indicates `CS_07_Derivatives.md` and `CS_07_Fixed_Income.md`. The `CFA/index.html` materials library section also shows this. We should ensure the content of these is distinct and correctly named/linked. For example, if Fixed Income is CS_07, Derivatives might be CS_08, Alternatives CS_09, and Portfolio Management CS_10, which seems to be a common sequence. This needs verification against curriculum structure if possible, or a logical re-ordering if not.)*
+*(Developer Note: The presence of two files named `CS_07_...` (Derivatives and Fixed Income) suggests a potential numbering inconsistency if a strict sequential topic order (e.g., matching CFA curriculum topic order) was intended. The `CFA/index.html` materials library also reflects these names. For now, all existing files are listed. Future cleanup might involve re-numbering for strict sequence if desired, ensuring all links are updated accordingly.)*
 
 ## How to Best Use These Cheat Sheets
 

@@ -1,9 +1,26 @@
-# AGENTS.MD - Corporate Credit Risk Analyst Training (CRAFT) Section
+# Agent Instructions
 
-## Inherits From
+This document provides instructions for AI agents working with the content in this directory and its subdirectories.
+
+## General Guidelines:
+
+*   **Consistency:** Maintain consistency with the overall repository structure, CRAFT program's established style, and formatting of existing modules.
+*   **Clarity and Detail:** CRAFT modules should be comprehensive and detailed enough for self-study by aspiring analysts. Explain concepts from fundamentals.
+*   **Markdown Best Practices:** Utilize Markdown effectively for structure, readability, tables, and code blocks (for examples if any).
+*   **Accuracy:** All financial concepts, accounting rules, analytical techniques, and market descriptions must be accurate and current where possible.
+*   **File Naming:** Follow existing conventions (e.g., `01-foundations/`, `01-accounting-and-financial-statement-analysis.md`).
+*   **Links:** Use relative links. Verify functionality. Link extensively to the local `GLOSSARY.md` and the `Global_Financial_Glossary.md`.
+*   **Updating Navigation:**
+    *   The primary navigation is `corporate-credit-risk-analyst-training/index.html`. Its `craftModulesData` JavaScript array **must** be updated if modules are added, reordered, or their main `index.html` (or `README.md`) path changes.
+    *   The main `corporate-credit-risk-analyst-training/README.md` module list should also be kept in sync.
+*   **Review:** Adhere to guidelines and task requirements.
+
+## Directory-Specific Instructions: Corporate Credit Risk Analyst Training (CRAFT) Program
+
+### Inherits From
 This document inherits general principles from the root `AGENTS.MD` file. Please review that first.
 
-## 1. Purpose and Scope of this Directory
+### 1. Purpose and Scope of this Directory
 The `/corporate-credit-risk-analyst-training/` (CRAFT) directory contains a comprehensive, modular training program designed to equip new and aspiring analysts with the essential skills and knowledge for a career in corporate credit risk. It covers accounting, financial analysis, capital markets, the credit lifecycle, and critical thinking.
 
 The primary interactive entry point for this section is `corporate-credit-risk-analyst-training/index.html` (the CRAFT Program Hub). The main textual overview is `corporate-credit-risk-analyst-training/README.md`.
