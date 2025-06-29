@@ -13,6 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> <!-- ADDED MARKED.JS -->
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/global_nav.css">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8f7f4; color: #4a4a4a; }
         .nav-button { transition: all 0.3s ease; }
@@ -71,9 +72,11 @@
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased" style="display: flex; min-height: 100vh;">
 
-    <div class="min-h-screen">
+    <div id="global-nav-placeholder"></div>
+
+    <div class="min-h-screen" style="flex-grow: 1; overflow-y: auto;">
         <header class="craft-header shadow-md sticky top-0 z-50">
             <div class="craft-container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-16">
@@ -87,7 +90,7 @@
                             <button onclick="showInteractiveSection('deal-analysis', this)" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Deal Analysis</button>
                             <button onclick="showInteractiveSection('portfolio', this)" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Portfolio & Monitoring</button>
                             <button onclick="showInteractiveSection('future', this)" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Future of Risk</button>
-                            <a href="README.md" target="_blank" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Course README</a>
+                            <a href="../global_markdown_viewer.html?mdfile=corporate-credit-risk-analyst-training/README.md" class="craft-nav-button px-3 py-2 rounded-md text-sm font-medium">Course README</a>
                         </div>
                     </nav>
                 </div>
@@ -717,5 +720,7 @@
     if (covenantInfoBox) showCovenant('maintenance');
 
 </script>
+<script src="../js/nav_data.js" defer></script>
+<script src="../js/global_nav.js" defer></script>
 </body>
 </html>

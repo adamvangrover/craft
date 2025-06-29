@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive CFA Program Study Guide</title>
+    <link rel="stylesheet" href="../css/global_nav.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Chosen Palette: Warm Professional -->
@@ -111,10 +112,12 @@
 
     </style>
 </head>
-<body class="flex bg-gray-100">
+<body style="display: flex; min-height: 100vh;">
+
+    <div id="global-nav-placeholder"></div>
 
     <!-- Sidebar Navigation -->
-    <aside class="w-64 bg-white shadow-md h-screen sticky top-0 flex-shrink-0 hidden lg:block">
+    <aside class="w-64 bg-white shadow-md h-screen sticky top-0 flex-shrink-0 hidden lg:block" style="flex-shrink: 0;">
         <div class="p-6">
             <h1 class="text-xl font-bold text-gray-800">CFA® Program Guide</h1>
             <p class="text-sm text-gray-500">Interactive Study Hub</p>
@@ -142,7 +145,7 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 p-4 sm:p-6 lg:p-10 overflow-y-auto">
+    <main class="flex-1 p-4 sm:p-6 lg:p-10 overflow-y-auto" style="flex-grow: 1; overflow-y: auto;">
         <div class="mb-4">
             <a href="../home.html" class="text-blue-600 hover:text-blue-800 hover:underline transition-colors duration-150 ease-in-out text-sm">
                 &larr; Back to Main Financial Learning Hub
@@ -436,145 +439,145 @@
             <!-- Level I Materials -->
             <div class="materials-card">
                 <h3>Level I Materials</h3>
-                <p><a href="Level_1/README.md" target="_blank">Level I Main Study Guide (Overview)</a></p>
+                <p><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/README.md">Level I Main Study Guide (Overview)</a></p>
 
                 <h4>Cheat Sheets</h4>
                 <ul>
-                    <li><a href="Level_1/Cheat_Sheets/CS_01_Ethical_and_Professional_Standards.md" target="_blank">Ethical and Professional Standards</a></li>
-                    <li><a href="Level_1/Cheat_Sheets/CS_02_Quantitative_Methods.md" target="_blank">Quantitative Methods</a></li>
-                    <li><a href="Level_1/Cheat_Sheets/CS_03_Economics.md" target="_blank">Economics</a></li>
-                    <li><a href="Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md" target="_blank">Financial Reporting and Analysis</a></li>
-                    <li><a href="Level_1/Cheat_Sheets/CS_05_Corporate_Finance.md" target="_blank">Corporate Finance</a></li>
-                    <li><a href="Level_1/Cheat_Sheets/CS_06_Equity_Investments.md" target="_blank">Equity Investments</a></li>
-                    <li><a href="Level_1/Cheat_Sheets/CS_07_Fixed_Income.md" target="_blank">Fixed Income Key Concepts</a></li>
-                    <li><a href="Level_1/Cheat_Sheets/CS_07_Derivatives.md" target="_blank">Derivatives (was CS_08)</a></li>
-                    <li><a href="Level_1/Cheat_Sheets/CS_08_Alternative_Investments.md" target="_blank">Alternative Investments (was CS_09)</a></li>
-                    <li><a href="Level_1/Cheat_Sheets/CS_09_Portfolio_Management.md" target="_blank">Portfolio Management (was CS_10)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Cheat_Sheets/CS_01_Ethical_and_Professional_Standards.md">Ethical and Professional Standards</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Cheat_Sheets/CS_02_Quantitative_Methods.md">Quantitative Methods</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Cheat_Sheets/CS_03_Economics.md">Economics</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md">Financial Reporting and Analysis</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Cheat_Sheets/CS_05_Corporate_Finance.md">Corporate Finance</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Cheat_Sheets/CS_06_Equity_Investments.md">Equity Investments</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Cheat_Sheets/CS_07_Fixed_Income.md">Fixed Income Key Concepts</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Cheat_Sheets/CS_07_Derivatives.md">Derivatives (was CS_08)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Cheat_Sheets/CS_08_Alternative_Investments.md">Alternative Investments (was CS_09)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Cheat_Sheets/CS_09_Portfolio_Management.md">Portfolio Management (was CS_10)</a></li>
                 </ul>
 
                 <h4>Topic Deep Dives</h4>
                 <ul>
-                    <li><a href="Level_1/Topic_Deep_Dives/Quant_Time_Value_of_Money.md" target="_blank">Quantitative Methods: Time Value of Money</a></li>
-                    <li><a href="Level_1/Topic_Deep_Dives/FRA_Income_Statement_Analysis.md" target="_blank">FRA: Income Statement Analysis</a></li>
-                    <li><a href="Level_1/Topic_Deep_Dives/Understanding_Financial_Statement_Analysis.md" target="_blank">FRA: Understanding Financial Statement Analysis</a></li>
-                    <li><a href="Level_1/Topic_Deep_Dives/Equity_Valuation_Models_Intro.md" target="_blank">Equity: Valuation Models Introduction</a></li>
-                    <li><a href="Level_1/Topic_Deep_Dives/Fixed_Income_Basics.md" target="_blank">Fixed Income: Basics</a></li>
-                    <li><a href="Level_1/Topic_Deep_Dives/Introduction_to_Derivatives.md" target="_blank">Derivatives: Introduction to Derivatives</a></li>
-                    <li><a href="Level_1/Topic_Deep_Dives/FSA_Balance_Sheet_Analysis_for_Creditors.md" target="_blank">FRA: Balance Sheet Analysis for Creditors</a></li>
-                    <li><a href="Level_1/Topic_Deep_Dives/FSA_Cash_Flow_Statement_Analysis_for_Creditors.md" target="_blank">FRA: Cash Flow Statement Analysis for Creditors</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Topic_Deep_Dives/Quant_Time_Value_of_Money.md">Quantitative Methods: Time Value of Money</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Topic_Deep_Dives/FRA_Income_Statement_Analysis.md">FRA: Income Statement Analysis</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Topic_Deep_Dives/Understanding_Financial_Statement_Analysis.md">FRA: Understanding Financial Statement Analysis</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Topic_Deep_Dives/Equity_Valuation_Models_Intro.md">Equity: Valuation Models Introduction</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Topic_Deep_Dives/Fixed_Income_Basics.md">Fixed Income: Basics</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Topic_Deep_Dives/Introduction_to_Derivatives.md">Derivatives: Introduction to Derivatives</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Topic_Deep_Dives/FSA_Balance_Sheet_Analysis_for_Creditors.md">FRA: Balance Sheet Analysis for Creditors</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Topic_Deep_Dives/FSA_Cash_Flow_Statement_Analysis_for_Creditors.md">FRA: Cash Flow Statement Analysis for Creditors</a></li>
                 </ul>
 
                 <h4>Practice Exams</h4>
                 <ul>
-                    <li><a href="Level_1/Practice_Exams/Practice_Exam_1_Questions.md" target="_blank">Practice Exam 1 - Questions</a></li>
-                    <li><a href="Level_1/Practice_Exams/Practice_Exam_1_Answer_Key.md" target="_blank">Practice Exam 1 - Answer Key</a></li>
-                    <li><a href="Level_1/Practice_Exams/Practice_Exam_2_Questions.md" target="_blank">Practice Exam 2 - Questions</a></li>
-                    <li><a href="Level_1/Practice_Exams/Practice_Exam_2_Answer_Key.md" target="_blank">Practice Exam 2 - Answer Key</a></li>
-                    <li><a href="Level_1/Practice_Exams/Practice_Exam_3_Questions.md" target="_blank">Practice Exam 3 - Questions</a></li>
-                    <li><a href="Level_1/Practice_Exams/Practice_Exam_3_Answer_Key.md" target="_blank">Practice Exam 3 - Answer Key</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Practice_Exams/Practice_Exam_1_Questions.md">Practice Exam 1 - Questions</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Practice_Exams/Practice_Exam_1_Answer_Key.md">Practice Exam 1 - Answer Key</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Practice_Exams/Practice_Exam_2_Questions.md">Practice Exam 2 - Questions</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Practice_Exams/Practice_Exam_2_Answer_Key.md">Practice Exam 2 - Answer Key</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Practice_Exams/Practice_Exam_3_Questions.md">Practice Exam 3 - Questions</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Practice_Exams/Practice_Exam_3_Answer_Key.md">Practice Exam 3 - Answer Key</a></li>
                 </ul>
 
                 <h4>Case Studies</h4>
                 <ul>
-                    <li><a href="Level_1/Case_Studies/CS_AMC_Credit_Scenario.md" target="_blank">Case Study: AMC Credit Scenario</a></li>
-                    <li><a href="Level_1/Case_Studies/Case_Study_Ethical_Dilemma_Analysis.md" target="_blank">Case Study: Ethical Dilemma Analysis</a></li>
-                    <li><a href="Level_1/Case_Studies/Case_Study_Basic_Company_Valuation.md" target="_blank">Case Study: Basic Company Valuation</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Case_Studies/CS_AMC_Credit_Scenario.md">Case Study: AMC Credit Scenario</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Case_Studies/Case_Study_Ethical_Dilemma_Analysis.md">Case Study: Ethical Dilemma Analysis</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_1/Case_Studies/Case_Study_Basic_Company_Valuation.md">Case Study: Basic Company Valuation</a></li>
                 </ul>
             </div>
 
             <!-- Level II Materials -->
             <div class="materials-card">
                 <h3>Level II Materials</h3>
-                <p><a href="Level_2/README.md" target="_blank">Level II Main Study Guide (Overview)</a></p>
+                <p><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/README.md">Level II Main Study Guide (Overview)</a></p>
                 
                 <h4>Cheat Sheets</h4>
                 <ul>
-                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Ethical_and_Professional_Standards.md" target="_blank">Ethical and Professional Standards (L2)</a></li>
-                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Quantitative_Methods.md" target="_blank">Quantitative Methods (L2)</a></li>
-                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Economics.md" target="_blank">Economics (L2)</a></li>
-                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Financial_Reporting_and_Analysis.md" target="_blank">Financial Reporting and Analysis (L2)</a></li>
-                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Corporate_Finance.md" target="_blank">Corporate Issuers (L2)</a></li>
-                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Equity_Valuation.md" target="_blank">Equity Valuation (L2)</a></li>
-                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Fixed_Income.md" target="_blank">Fixed Income (L2)</a></li>
-                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Derivatives.md" target="_blank">Derivatives (L2)</a></li>
-                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Alternative_Investments.md" target="_blank">Alternative Investments (L2)</a></li>
-                    <li><a href="Level_2/Cheat_Sheets/L2_CS_Portfolio_Management.md" target="_blank">Portfolio Management (L2)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Cheat_Sheets/L2_CS_Ethical_and_Professional_Standards.md">Ethical and Professional Standards (L2)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Cheat_Sheets/L2_CS_Quantitative_Methods.md">Quantitative Methods (L2)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Cheat_Sheets/L2_CS_Economics.md">Economics (L2)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Cheat_Sheets/L2_CS_Financial_Reporting_and_Analysis.md">Financial Reporting and Analysis (L2)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Cheat_Sheets/L2_CS_Corporate_Finance.md">Corporate Issuers (L2)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Cheat_Sheets/L2_CS_Equity_Valuation.md">Equity Valuation (L2)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Cheat_Sheets/L2_CS_Fixed_Income.md">Fixed Income (L2)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Cheat_Sheets/L2_CS_Derivatives.md">Derivatives (L2)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Cheat_Sheets/L2_CS_Alternative_Investments.md">Alternative Investments (L2)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Cheat_Sheets/L2_CS_Portfolio_Management.md">Portfolio Management (L2)</a></li>
                 </ul>
 
                 <h4>Topic Deep Dives</h4>
                 <ul>
-                    <li><a href="Level_2/Topic_Deep_Dives/L2_DD_FCFF_FCFE_Valuation.md" target="_blank">Equity: FCFF/FCFE Valuation</a></li>
-                    <li><a href="Level_2/Topic_Deep_Dives/L2_Advanced_Equity_Valuation_Models.md" target="_blank">Equity: Advanced Equity Valuation Models</a></li>
-                    <li><a href="Level_2/Topic_Deep_Dives/L2_DD_Intercorporate_Investments.md" target="_blank">FRA: Intercorporate Investments</a></li>
-                    <li><a href="Level_2/Topic_Deep_Dives/L2_DD_Fixed_Income_Term_Structure_Models.md" target="_blank">Fixed Income: Term Structure Models</a></li>
-                    <li><a href="Level_2/Topic_Deep_Dives/L2_Fixed_Income_Analysis_Credit_Risk.md" target="_blank">Fixed Income: Analysis - Credit Risk</a></li>
-                    <li><a href="Level_2/Topic_Deep_Dives/L2_DD_Option_Valuation_Binomial_BSM.md" target="_blank">Derivatives: Option Valuation (Binomial & BSM)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Topic_Deep_Dives/L2_DD_FCFF_FCFE_Valuation.md">Equity: FCFF/FCFE Valuation</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Topic_Deep_Dives/L2_Advanced_Equity_Valuation_Models.md">Equity: Advanced Equity Valuation Models</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Topic_Deep_Dives/L2_DD_Intercorporate_Investments.md">FRA: Intercorporate Investments</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Topic_Deep_Dives/L2_DD_Fixed_Income_Term_Structure_Models.md">Fixed Income: Term Structure Models</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Topic_Deep_Dives/L2_Fixed_Income_Analysis_Credit_Risk.md">Fixed Income: Analysis - Credit Risk</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Topic_Deep_Dives/L2_DD_Option_Valuation_Binomial_BSM.md">Derivatives: Option Valuation (Binomial & BSM)</a></li>
                 </ul>
 
                 <h4>Practice Exams (Item Sets)</h4>
                 <ul>
-                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_1-3_Questions.md" target="_blank">Practice Exam 1 - Item Sets 1-3 Questions</a></li>
-                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_1-3_Answer_Key.md" target="_blank">Practice Exam 1 - Item Sets 1-3 Answer Key</a></li>
-                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_4-6_Questions.md" target="_blank">Practice Exam 1 - Item Sets 4-6 Questions</a></li>
-                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_4-6_Answer_Key.md" target="_blank">Practice Exam 1 - Item Sets 4-6 Answer Key</a></li>
-                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_7-8_Questions.md" target="_blank">Practice Exam 1 - Item Sets 7-8 Questions</a></li>
-                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_7-8_Answer_Key.md" target="_blank">Practice Exam 1 - Item Sets 7-8 Answer Key</a></li>
-                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_2_Questions.md" target="_blank">Practice Exam 2 - Questions</a></li>
-                    <li><a href="Level_2/Practice_Exams/L2_Practice_Exam_2_Answer_Key.md" target="_blank">Practice Exam 2 - Answer Key</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_1-3_Questions.md">Practice Exam 1 - Item Sets 1-3 Questions</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_1-3_Answer_Key.md">Practice Exam 1 - Item Sets 1-3 Answer Key</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_4-6_Questions.md">Practice Exam 1 - Item Sets 4-6 Questions</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_4-6_Answer_Key.md">Practice Exam 1 - Item Sets 4-6 Answer Key</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_7-8_Questions.md">Practice Exam 1 - Item Sets 7-8 Questions</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Practice_Exams/L2_Practice_Exam_1_Item_Sets_7-8_Answer_Key.md">Practice Exam 1 - Item Sets 7-8 Answer Key</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Practice_Exams/L2_Practice_Exam_2_Questions.md">Practice Exam 2 - Questions</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Practice_Exams/L2_Practice_Exam_2_Answer_Key.md">Practice Exam 2 - Answer Key</a></li>
                 </ul>
 
                 <h4>Case Studies</h4>
                 <ul>
-                    <li><a href="Level_2/Case_Studies/L2_Case_Complex_Company_Valuation.md" target="_blank">Case Study: Complex Company Valuation</a></li>
-                    <li><a href="Level_2/Case_Studies/L2_Case_Pension_Analysis_Impact.md" target="_blank">Case Study: Pension Analysis Impact</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Case_Studies/L2_Case_Complex_Company_Valuation.md">Case Study: Complex Company Valuation</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_2/Case_Studies/L2_Case_Pension_Analysis_Impact.md">Case Study: Pension Analysis Impact</a></li>
                 </ul>
             </div>
 
             <!-- Level III Materials -->
             <div class="materials-card">
                 <h3>Level III Materials</h3>
-                <p><a href="Level_3/README.md" target="_blank">Level III Main Study Guide (Overview)</a></p>
+                <p><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/README.md">Level III Main Study Guide (Overview)</a></p>
                 
                 <h4>Cheat Sheets</h4>
                 <ul>
-                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Ethical_and_Professional_Standards.md" target="_blank">Ethical and Professional Standards (L3 & GIPS)</a></li>
-                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Economics_Capital_Market_Expectations.md" target="_blank">Economics: Capital Market Expectations</a></li>
-                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Asset_Allocation.md" target="_blank">Asset Allocation</a></li>
-                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Behavioral_Finance.md" target="_blank">Behavioral Finance</a></li>
-                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Equity_Portfolio_Management.md" target="_blank">Equity Portfolio Management</a></li>
-                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Fixed_Income_Portfolio_Management.md" target="_blank">Fixed Income Portfolio Management</a></li>
-                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Alternative_Investments_Portfolio_Management.md" target="_blank">Alternative Investments Portfolio Management</a></li>
-                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Derivatives_and_Currency_Management.md" target="_blank">Derivatives and Currency Management</a></li>
-                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Risk_Management.md" target="_blank">Risk Management (Portfolio Context)</a></li>
-                    <li><a href="Level_3/Cheat_Sheets/L3_CS_Performance_Evaluation_and_Attribution.md" target="_blank">Performance Evaluation and Attribution</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Cheat_Sheets/L3_CS_Ethical_and_Professional_Standards.md">Ethical and Professional Standards (L3 & GIPS)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Cheat_Sheets/L3_CS_Economics_Capital_Market_Expectations.md">Economics: Capital Market Expectations</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Cheat_Sheets/L3_CS_Asset_Allocation.md">Asset Allocation</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Cheat_Sheets/L3_CS_Behavioral_Finance.md">Behavioral Finance</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Cheat_Sheets/L3_CS_Equity_Portfolio_Management.md">Equity Portfolio Management</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Cheat_Sheets/L3_CS_Fixed_Income_Portfolio_Management.md">Fixed Income Portfolio Management</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Cheat_Sheets/L3_CS_Alternative_Investments_Portfolio_Management.md">Alternative Investments Portfolio Management</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Cheat_Sheets/L3_CS_Derivatives_and_Currency_Management.md">Derivatives and Currency Management</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Cheat_Sheets/L3_CS_Risk_Management.md">Risk Management (Portfolio Context)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Cheat_Sheets/L3_CS_Performance_Evaluation_and_Attribution.md">Performance Evaluation and Attribution</a></li>
                 </ul>
 
                 <h4>Topic Deep Dives</h4>
                 <ul>
-                    <li><a href="Level_3/Topic_Deep_Dives/L3_DD_IPS_Construction_Private_Wealth.md" target="_blank">IPS Construction: Private Wealth</a></li>
-                    <li><a href="Level_3/Topic_Deep_Dives/L3_Private_Wealth_Management_Strategies.md" target="_blank">Private Wealth Management Strategies</a></li>
-                    <li><a href="Level_3/Topic_Deep_Dives/L3_DD_Asset_Allocation_Mean_Variance.md" target="_blank">Asset Allocation: Mean-Variance Optimization</a></li>
-                    <li><a href="Level_3/Topic_Deep_Dives/L3_DD_Fixed_Income_Portfolio_Strategies.md" target="_blank">Fixed Income: Portfolio Strategies</a></li>
-                    <li><a href="Level_3/Topic_Deep_Dives/L3_DD_Performance_Attribution.md" target="_blank">Performance Attribution</a></li>
-                    <li><a href="Level_3/Topic_Deep_Dives/L3_Behavioral_Finance_in_Portfolio_Management.md" target="_blank">Behavioral Finance in Portfolio Management</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Topic_Deep_Dives/L3_DD_IPS_Construction_Private_Wealth.md">IPS Construction: Private Wealth</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Topic_Deep_Dives/L3_Private_Wealth_Management_Strategies.md">Private Wealth Management Strategies</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Topic_Deep_Dives/L3_DD_Asset_Allocation_Mean_Variance.md">Asset Allocation: Mean-Variance Optimization</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Topic_Deep_Dives/L3_DD_Fixed_Income_Portfolio_Strategies.md">Fixed Income: Portfolio Strategies</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Topic_Deep_Dives/L3_DD_Performance_Attribution.md">Performance Attribution</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Topic_Deep_Dives/L3_Behavioral_Finance_in_Portfolio_Management.md">Behavioral Finance in Portfolio Management</a></li>
                 </ul>
 
                 <h4>Practice Exams</h4>
                 <ul>
-                    <li><a href="Level_3/Practice_Exams_Essays/L3_Practice_Essay_Exam_1_Questions.md" target="_blank">Practice Essay Exam 1 - Questions</a></li>
-                    <li><a href="Level_3/Practice_Exams_Essays/L3_Practice_Essay_Exam_1_Guideline_Answers.md" target="_blank">Practice Essay Exam 1 - Guideline Answers</a></li>
-                    <li><a href="Level_3/Practice_Exams_Essays/L3_Practice_Essay_Exam_2_Questions.md" target="_blank">Practice Essay Exam 2 - Questions</a></li>
-                    <li><a href="Level_3/Practice_Exams_Essays/L3_Practice_Essay_Exam_2_Guideline_Answers.md" target="_blank">Practice Essay Exam 2 - Guideline Answers</a></li>
-                    <li><a href="Level_3/Practice_Exams_Item_Sets/L3_Practice_Item_Set_Exam_1_Questions_1-3.md" target="_blank">Practice Item Set Exam 1 - Questions (Sets 1-3)</a></li>
-                    <li><a href="Level_3/Practice_Exams_Item_Sets/L3_Practice_Item_Set_Exam_1_Answers_1-3.md" target="_blank">Practice Item Set Exam 1 - Answers (Sets 1-3)</a></li>
-                    <li><a href="Level_3/Practice_Exams_Item_Sets/L3_Practice_Item_Set_Exam_1_Questions_4-5.md" target="_blank">Practice Item Set Exam 1 - Questions (Sets 4-5)</a></li>
-                    <li><a href="Level_3/Practice_Exams_Item_Sets/L3_Practice_Item_Set_Exam_1_Answers_4-5.md" target="_blank">Practice Item Set Exam 1 - Answers (Sets 4-5)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Practice_Exams_Essays/L3_Practice_Essay_Exam_1_Questions.md">Practice Essay Exam 1 - Questions</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Practice_Exams_Essays/L3_Practice_Essay_Exam_1_Guideline_Answers.md">Practice Essay Exam 1 - Guideline Answers</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Practice_Exams_Essays/L3_Practice_Essay_Exam_2_Questions.md">Practice Essay Exam 2 - Questions</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Practice_Exams_Essays/L3_Practice_Essay_Exam_2_Guideline_Answers.md">Practice Essay Exam 2 - Guideline Answers</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Practice_Exams_Item_Sets/L3_Practice_Item_Set_Exam_1_Questions_1-3.md">Practice Item Set Exam 1 - Questions (Sets 1-3)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Practice_Exams_Item_Sets/L3_Practice_Item_Set_Exam_1_Answers_1-3.md">Practice Item Set Exam 1 - Answers (Sets 1-3)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Practice_Exams_Item_Sets/L3_Practice_Item_Set_Exam_1_Questions_4-5.md">Practice Item Set Exam 1 - Questions (Sets 4-5)</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Practice_Exams_Item_Sets/L3_Practice_Item_Set_Exam_1_Answers_4-5.md">Practice Item Set Exam 1 - Answers (Sets 4-5)</a></li>
                 </ul>
 
                 <h4>Case Studies (IPS Focus)</h4>
                 <ul>
-                    <li><a href="Level_3/Case_Studies_IPS/L3_Case_IPS_Defined_Benefit_Pension.md" target="_blank">Case Study: IPS for Defined Benefit Pension Plan</a></li>
-                    <li><a href="Level_3/Case_Studies_IPS/L3_Case_IPS_Endowment_Foundation.md" target="_blank">Case Study: IPS for Endowment Fund</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Case_Studies_IPS/L3_Case_IPS_Defined_Benefit_Pension.md">Case Study: IPS for Defined Benefit Pension Plan</a></li>
+                    <li><a href="../global_markdown_viewer.html?mdfile=CFA/Level_3/Case_Studies_IPS/L3_Case_IPS_Endowment_Foundation.md">Case Study: IPS for Endowment Fund</a></li>
                 </ul>
             </div>
             <!-- Consider adding search/filter functionality via JavaScript later for a better UX -->
@@ -894,5 +897,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 </script>
+<script src="../js/nav_data.js" defer></script>
+<script src="../js/global_nav.js" defer></script>
 </body>
 </html>

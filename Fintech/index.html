@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Directory Viewer - Fintech</title>
+    <link rel="stylesheet" href="../css/global_nav.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="../assets/css/simple_viewer.css">
 </head>
-<body>
-    <div id="sidebar">
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div id="sidebar" style="flex-shrink: 0;">
         <div id="up-link-container">
             <!-- Up link will be dynamically generated -->
         </div>
@@ -18,10 +20,11 @@
             <!-- File list will be populated by JavaScript -->
         </ul>
     </div>
-    <div id="content-area" class="markdown-body">
+    <div id="content-area" class="markdown-body" style="flex-grow: 1; overflow-y: auto; padding: 20px;"> <!-- Added padding for consistency -->
         <p>Loading content...</p>
     </div>
-
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
     <script>
         const contentDisplay = document.getElementById('content-area');
         const fileListDisplay = document.getElementById('file-list');
@@ -35,25 +38,41 @@
 
         document.addEventListener('DOMContentLoaded', async function() {
             pageTitle.textContent = `Viewer - ${directoryName}`;
+            let fileLinksHtml = '';
 
-            let fileLinksHtml = `<li><a href="#" data-md-src="README.md" class="nav-link active">README.md (Main)</a></li>`;
+            const readmeFile = filesInDir.find(f => f.toLowerCase() === 'readme.md');
+            if (readmeFile) {
+                fileLinksHtml += `<li>
+                                    <a href="${readmeFile}" target="_blank" class="nav-link raw-md-link">README.md (Raw)</a>
+                                    <a href="#" data-md-src="${readmeFile}" class="nav-link view-formatted-link active" title="View formatted content in pane">(View Formatted)</a>
+                                 </li>`;
+            }
 
             const sortedFiles = filesInDir.sort((a, b) => {
-                if (a.toLowerCase() === 'readme.md') return -1;
-                if (b.toLowerCase() === 'readme.md') return 1;
+                // README already handled, sort others
+                if (a.toLowerCase() === 'readme.md' || a.toLowerCase() === 'agents.md') return 1; // push to end or filter out
+                if (b.toLowerCase() === 'readme.md' || b.toLowerCase() === 'agents.md') return -1;
                 return a.localeCompare(b);
             });
 
             sortedFiles.forEach(file => {
                 if (file.toLowerCase() !== 'readme.md' && file.toLowerCase() !== 'agents.md' && file.endsWith('.md')) {
-                    fileLinksHtml += `<li><a href="#" data-md-src="${file}" class="nav-link">${file}</a></li>`;
+                    fileLinksHtml += `<li>
+                                        <a href="${file}" target="_blank" class="nav-link raw-md-link">${file} (Raw)</a>
+                                        <a href="#" data-md-src="${file}" class="nav-link view-formatted-link" title="View formatted content in pane">(View Formatted)</a>
+                                     </li>`;
                 }
             });
 
+            // Subdirectory handling (if any) - this part remains the same conceptually
+            // but would also need dual links if it were listing .md files from subdirs directly
             subDirsInfo.forEach(subdir => {
-                if (subdir.readmePath) {
+                if (subdir.readmePath) { // Assuming readmePath is a direct .md file path
                      fileLinksHtml += `<li class="subdirectory-group"><h4>${subdir.name}/</h4></li>`;
-                     fileLinksHtml += `<li><a href="#" data-md-src="${subdir.readmePath}" class="nav-link">&nbsp;&nbsp;&nbsp;README.md</a></li>`;
+                     fileLinksHtml += `<li>
+                                        <a href="${subdir.readmePath}" target="_blank" class="nav-link raw-md-link">&nbsp;&nbsp;&nbsp;README.md (Raw)</a>
+                                        <a href="#" data-md-src="${subdir.readmePath}" class="nav-link view-formatted-link" title="View formatted content in pane">&nbsp;&nbsp;&nbsp;(View Formatted)</a>
+                                     </li>`;
                 }
             });
             fileListDisplay.innerHTML = fileLinksHtml;
@@ -69,23 +88,26 @@
             }
             upLinkContainer.innerHTML = upLink;
 
-            fileListDisplay.querySelectorAll('.nav-link').forEach(link => {
+            fileListDisplay.querySelectorAll('.view-formatted-link').forEach(link => {
                 link.addEventListener('click', function(event) {
                     event.preventDefault();
-                    document.querySelectorAll('#file-list .nav-link').forEach(l => l.classList.remove('active'));
+                    document.querySelectorAll('#file-list .view-formatted-link').forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
                     const mdSrc = this.getAttribute('data-md-src');
                     loadMarkdown(mdSrc);
                 });
             });
 
-            if (filesInDir.includes('README.md')) {
-                await loadMarkdown('README.md');
+            // Load initial content (README.md if it exists and was processed)
+            const initialFormattedLink = fileListDisplay.querySelector('.view-formatted-link.active');
+            if (initialFormattedLink) {
+                await loadMarkdown(initialFormattedLink.getAttribute('data-md-src'));
             } else {
-                const firstLink = fileListDisplay.querySelector('.nav-link');
-                if (firstLink) {
-                    firstLink.classList.add('active');
-                    await loadMarkdown(firstLink.getAttribute('data-md-src'));
+                // Fallback if no README was found or if filesInDir is empty of .md files
+                const firstFormattedLink = fileListDisplay.querySelector('.view-formatted-link');
+                if (firstFormattedLink) {
+                    firstFormattedLink.classList.add('active');
+                    await loadMarkdown(firstFormattedLink.getAttribute('data-md-src'));
                 } else {
                     contentDisplay.innerHTML = "<p>No Markdown files found to display.</p>";
                 }
