@@ -57,9 +57,18 @@ This section provides a list of recommended study materials for Level 2.
 *   **CFA Institute Mock Exams:** Crucial for item set practice.
 *   **Prep Provider Mock Exams:** Essential for building stamina and strategy for vignette-based questions.
 
-## 3. Practice Questions and Answers
+## 3. Detailed Study Resources & Practice
 
-Level 2 requires extensive practice with item sets. This section will contain sample vignettes and questions.
+This repository offers focused resources to deepen your understanding and test your knowledge for Level 2:
+
+*   **[Level 2 Topic Deep Dives](./Topic_Deep_Dives/README.md):** Explore detailed explanations of specific curriculum areas, particularly complex valuation models and analytical techniques.
+*   **[Level 2 Practice Exams (Item Sets)](./Practice_Exams/README.md):** Test your knowledge with full practice exams in the vignette format and review detailed answer keys.
+*   **[Level 2 Cheat Sheets](./Cheat_Sheets/README.md):** Access concise summaries of key concepts and formulas for quick review. (Also available via the [CFA Interactive Study Hub](../../index.html#materials-library))
+*   **[Level 2 Case Studies](./Case_Studies/README.md):** Apply your learning to practical scenarios, crucial for Level 2's application focus. (Also available via the [CFA Interactive Study Hub](../../index.html#materials-library))
+
+### Sample Practice Vignette and Questions
+
+Level 2 requires extensive practice with item sets. Below is a brief example. For more comprehensive exams, please see the [Level 2 Practice Exams section](./Practice_Exams/README.md).
 
 **(Example Vignette - Equity Valuation)**
 
