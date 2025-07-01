@@ -50,18 +50,27 @@ Each major directory listed above (and any new ones created at a similar level) 
 
 Currently, three main HTML-based interactive dashboards/hubs exist:
 
-*   `home.html` (Root dashboard)
-*   `corporate-credit-risk-analyst-training/index.html` (CRAFT Program Hub)
-*   `CFA/index.html` (CFA Study Hub)
+*   `home.html` (Root dashboard): This is the primary landing page for the entire financial learning repository. It features a single-scroll layout showcasing a Hero section, Learning Paths, Key Learning Pillars, Tools/Resources, and a "How to Use" guide. It integrates the global navigation sidebar and may include interactive elements like an AI Concept Explainer. It is built with Tailwind CSS.
+*   `corporate-credit-risk-analyst-training/index.html` (CRAFT Program Hub): An interactive hub for the CRAFT program, typically using iframes or dynamic content loading for modules.
+*   `CFA/index.html` (CFA Study Hub): An interactive hub for CFA program preparation materials.
 
-**Guidelines for Modifying Dashboards:**
+**Guidelines for Modifying Dashboards (especially `home.html`):**
 
-*   **Backup First:** Before making significant changes, consider copying the existing file content if you need to revert. (Though version control should handle this).
-*   **Maintain Structure:** These pages use specific HTML structures and JavaScript for their interactivity. Understand the existing structure before adding new elements.
-*   **Update Links Carefully:** If new sections are added to the repository, ensure links on these dashboards are updated to point to the correct new `README.md` or `index.html` for that section.
-*   **Test Interactivity:** After making changes, conceptually verify that existing interactive elements (navigation tabs, module loaders, chart displays) still function as expected.
-*   **Styling:** Adhere to the existing Tailwind CSS classes and general aesthetic for consistency.
-*   **Developer Notes:** Look for `<!-- DEVELOPER NOTE: ... -->` comments within these HTML files for specific guidance or history.
+*   **Backup First:** Before making significant changes, consider version control as your primary backup.
+*   **Understand Structure:**
+    *   `home.html`: Understand its single-page scroll structure, Tailwind CSS classes, and how sections are defined. JavaScript is used for minor enhancements and potentially for features like the AI explainer.
+    *   Other Hubs (`CRAFT/index.html`, `CFA/index.html`): These may have more complex JavaScript for their specific interactivity (e.g., tabbed views, dynamic content loading for modules/resources).
+*   **Update Links Carefully:** If new sections are added to the repository, ensure links on `home.html` (e.g., in Key Pillars or Learning Path cards) and within the global navigation data (`js/nav_data.js`) are updated to point to the correct new `README.md` or `index.html` for that section.
+*   **Test Interactivity:** After making changes, verify that:
+    *   The global navigation sidebar functions correctly.
+    *   Internal page links (smooth scrolling) on `home.html` work.
+    *   Any interactive JavaScript components (like the AI explainer) on `home.html` are functional.
+    *   For other hubs, test their specific interactive elements (tabs, content loaders, charts).
+*   **Styling:**
+    *   For `home.html`, primarily use Tailwind CSS utility classes. Custom component styles can be defined within `<style>` tags in `home.html` or in a dedicated CSS file (e.g., `assets/css/home_styles.css`) if they become extensive.
+    *   For other hubs, adhere to their existing styling approach (which may also include Tailwind or custom CSS).
+*   **Developer Notes:** Look for `<!-- DEVELOPER NOTE: ... -->` comments within HTML files for specific guidance or history.
+*   **Global Navigation:** Remember that the global navigation is driven by `js/nav_data.js` and rendered by `js/global_nav.js`. Changes to the site's overall structure that need to be reflected in the main navigation menu must be made in `js/nav_data.js`.
 
 ## 6. Working with Jupyter Notebooks (`.ipynb`)
 
