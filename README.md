@@ -4,9 +4,14 @@
 
 This repository is an integrated ecosystem of resources for students, aspiring analysts, and seasoned finance professionals. Our goal is to provide foundational knowledge, practical insights, advanced techniques, and continuous learning materials, with a special focus on developing top-tier credit risk analysts.
 
-**🚀 Quick Start: [Explore the Interactive Dashboard (home.html)](./home.html) 🚀**
+**🚀 Quick Start: [Explore the Financial Learning Hub (home.html)](./home.html) 🚀**
 
-The `home.html` page provides a role-based guide to navigate the extensive resources available.
+The `home.html` page is your newly redesigned central gateway to all resources. It features:
+*   **Learning Paths:** Curated journeys for aspiring Credit Analysts, CFA® Candidates, and general Finance Explorers.
+*   **Key Learning Pillars:** Direct access to major content areas like CRAFT, CFA Prep, Financial Modeling, and more.
+*   **Tools & Resources:** Quick links to the Global Glossary, Interactive Notebooks, and other helpful aids.
+*   **Global Navigation Sidebar:** A comprehensive tree view of all content in the repository.
+*   An **AI Concept Explainer** to help you quickly understand financial terms.
 
 ## Understanding This Repository
 
@@ -58,11 +63,16 @@ The content is organized into thematic pillars, each housed in its own directory
 
 ### How to Navigate This Repository
 
-1.  **Start with `home.html`:** This [interactive dashboard](./home.html) is the best starting point. It offers role-based navigation and direct links to key areas.
-2.  **Explore by Pillar:** Use the links in the "Repository Structure" section above to dive into specific topics of interest. Each pillar's `README.md` or `index.html` will provide further guidance.
-3.  **Follow a Learning Path:** If you have a specific goal (e.g., becoming a credit analyst), check the [Learning Paths section](./Learning_Paths/index.html).
-4.  **Use the Search Function (GitHub):** If you're looking for specific keywords or topics, GitHub's search functionality can be very helpful.
-5.  **Consult the `Global_Financial_Glossary.md`:** For definitions of common financial terms.
+1.  **Begin with `home.html`:** The [Financial Learning Hub (home.html)](./home.html) is your primary entry point.
+    *   Use its "Learning Paths" section for guided study if you have a specific role or goal in mind.
+    *   Explore the "Key Learning Pillars" for direct access to major subject areas.
+    *   Discover specific "Tools & Resources" like the glossary or interactive notebooks.
+    *   The "How to Use This Hub" section on `home.html` provides further tips.
+2.  **Utilize the Global Navigation Sidebar:** Accessible on `home.html` and other key hub pages, this sidebar provides a detailed tree structure for direct access to almost every file and section in the repository.
+3.  **Explore Section Hubs:** Many major pillars (like CFA, CRAFT, Financial_Modeling) have their own `index.html` pages that act as specialized dashboards or interactive viewers for that section's content. These are linked from `home.html` and the global navigation.
+4.  **Follow Specific Learning Path Documents:** For in-depth guidance, navigate to the [Learning Paths section](./Learning_Paths/index.html) where individual `.md` files outline steps for particular learning objectives.
+5.  **Use the Search Function (GitHub):** If you're looking for specific keywords or topics, GitHub's built-in search functionality for this repository can be very effective.
+6.  **Consult the `Global_Financial_Glossary.md`:** For definitions of common financial terms encountered throughout the repository.
 
 ### Understanding File Types (Helper Files Overview)
 
