@@ -1,0 +1,176 @@
+{
+  "title": "Security Package Analysis Checklist (Leveraged Lending)",
+  "description": "A checklist to guide the review and analysis of a security package in a leveraged loan transaction from a credit perspective. Based on principles in Section II.F and related areas.",
+  "sections": [
+    {
+      "section_name": "I. Guarantors and Guarantees",
+      "items": [
+        {
+          "point": "Identify all Guarantors.",
+          "questions_to_consider": [
+            "Are all material operating subsidiaries included?",
+            "Are holding companies providing guarantees?",
+            "What is the jurisdiction of each Guarantor?"
+          ]
+        },
+        {
+          "point": "Assess Guarantor Coverage.",
+          "questions_to_consider": [
+            "Is there a guarantor coverage test (e.g., % of Group EBITDA, Assets, Revenue)?",
+            "What is the required threshold?",
+            "Is current coverage compliant? How is it tested/monitored?",
+            "Are there provisions for adding new guarantors if coverage drops?"
+          ]
+        },
+        {
+          "point": "Review Guarantee Provisions.",
+          "questions_to_consider": [
+            "Are guarantees joint and several?",
+            "Are they full and unconditional (subject to legal limitations)?",
+            "What are the limitations on guarantees (e.g., corporate benefit, financial assistance, solvency caps, jurisdictional limits)?"
+          ]
+        },
+        {
+          "point": "Consider types of guarantees.",
+          "questions_to_consider": [
+            "Are there upstream, downstream, or cross-stream guarantees?",
+            "What are the associated risks/enforceability concerns (especially for upstream)?"
+          ]
+        }
+      ]
+    },
+    {
+      "section_name": "II. Secured Assets (Collateral)",
+      "items": [
+        {
+          "point": "Identify all material asset classes intended to be secured.",
+          "questions_to_consider": [
+            "Shares (of Borrower, key subsidiaries)?",
+            "Bank accounts (operating, collection, specific reserves)?",
+            "Real estate (owned, material leaseholds)?",
+            "Intellectual Property (patents, trademarks, copyrights, key licenses)?",
+            "Material contracts (customer, supplier)?",
+            "Insurance policies?",
+            "Trade receivables?",
+            "Plant, machinery, equipment?",
+            "Inventory?"
+          ]
+        },
+        {
+          "point": "Understand the type of security taken over each asset class.",
+          "questions_to_consider": [
+            "Fixed charge/mortgage (specific assets)?",
+            "Floating charge (all assets/undertaking)?",
+            "Pledge (shares, physical assets)?",
+            "Assignment (contractual rights, receivables)?",
+            "Is there an all-asset debenture or general security agreement?"
+          ]
+        },
+        {
+          "point": "Identify any significant excluded assets.",
+          "questions_to_consider": [
+            "Are there reasons for exclusion (e.g., cost, legal impossibility, immateriality)?",
+            "What is the value/importance of excluded assets?"
+          ]
+        },
+        {
+          "point": "Assess the quality and potential realizable value of key collateral.",
+          "questions_to_consider": [
+            "Are there third-party valuations? When were they done?",
+            "How liquid is the collateral?",
+            "Are there any factors that could impair value in a distress scenario (e.g., specialized nature, obsolescence)?"
+          ]
+        }
+      ]
+    },
+    {
+      "section_name": "III. Perfection of Security",
+      "items": [
+        {
+          "point": "Confirm perfection steps taken for each key asset class in relevant jurisdictions.",
+          "questions_to_consider": [
+            "Registration (e.g., Companies House, UCC filings, IP registries)? Timelines met?",
+            "Possession (e.g., share certificates)?",
+            "Control (e.g., account control agreements)?",
+            "Notice to third parties (e.g., contractual counterparties for assignments)?"
+          ]
+        },
+        {
+          "point": "Are there legal opinions confirming due creation and perfection of security?",
+          "questions_to_consider": [
+            "What qualifications or assumptions are made in these opinions?"
+          ]
+        },
+        {
+          "point": "What are the consequences of any failure to perfect or delayed perfection?"
+        }
+      ]
+    },
+    {
+      "section_name": "IV. Priority of Security",
+      "items": [
+        {
+          "point": "Determine the intended ranking of the lenders' security.",
+          "questions_to_consider": [
+            "Is it first priority? Second priority? Other?",
+            "Are there any prior ranking statutory liens (e.g., tax, employee claims that have priority)?"
+          ]
+        },
+        {
+          "point": "Review for Permitted Liens.",
+          "questions_to_consider": [
+            "What other liens are permitted to exist on the collateral?",
+            "Do any permitted liens rank ahead of or pari passu with the lenders' security?",
+            "Are there baskets for general liens or liens securing other debt?"
+          ]
+        },
+        {
+          "point": "If multiple debt tranches, analyze the Intercreditor Agreement (ICA).",
+          "questions_to_consider": [
+            "Does the ICA clearly establish lien subordination between tranches?",
+            "Who has control over enforcement of shared collateral?",
+            "What are the standstill provisions for junior lenders?",
+            "How does the waterfall for enforcement proceeds operate?"
+          ]
+        },
+        {
+          "point": "Have priority searches been conducted? What did they reveal?"
+        }
+      ]
+    },
+    {
+      "section_name": "V. Other Considerations",
+      "items": [
+        {
+          "point": "Enforceability.",
+          "questions_to_consider": [
+            "Are there any practical or legal obstacles to enforcing security in key jurisdictions?",
+            "What are the likely costs and timelines for enforcement?"
+          ]
+        },
+        {
+          "point": "Insurance.",
+          "questions_to_consider": [
+            "Is appropriate insurance maintained over secured assets?",
+            "Are lenders noted as loss payees?"
+          ]
+        },
+        {
+          "point": "Security Maintenance.",
+          "questions_to_consider": [
+            "Are there covenants requiring the borrower to protect/maintain secured assets and the security interests?"
+          ]
+        },
+        {
+          "point": "Release Provisions.",
+          "questions_to_consider": [
+            "Under what circumstances can security and guarantees be released (e.g., asset sales, refinancing, subsidiary becoming immaterial/unrestricted)?",
+            "Are these provisions appropriate?"
+          ]
+        }
+      ]
+    }
+  ],
+  "overall_assessment_prompt": "Based on the above, what is the overall strength and comprehensiveness of the security package? What are the key weaknesses or risks?",
+  "source_reference_note": "This checklist is informed by Section II.F (The Security Package in LMA Leveraged Loans) and related principles from the 'Leveraged Lending: A Comprehensive Legal Knowledge Base' document."
+}

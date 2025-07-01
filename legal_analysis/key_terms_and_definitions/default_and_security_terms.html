@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Default, Security, and Intercreditor Terms</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; max-width: 900px; margin: auto;}
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        .term-category { margin-bottom: 30px; }
+        .term-category h2 { color: #16a085; border-bottom: 1px solid #1abc9c; padding-bottom: 5px; margin-top: 0;}
+        .term { background-color: #f9f9f9; border: 1px solid #ecf0f1; padding: 15px; margin-bottom: 15px; border-radius: 5px; box-shadow: 2px 2px 5px #e0e0e0;}
+        .term-name { font-weight: bold; font-size: 1.15em; color: #2980b9; }
+        .term-definition { margin-top: 5px; margin-bottom: 8px;}
+        .term-details { font-size: 0.9em; color: #555; margin-left:15px;}
+        .term-details li { margin-bottom:3px;}
+        .source-ref { display: block; text-align: right; font-size: 0.8em; color: #7f8c8d; margin-top:5px; }
+    </style>
+</head>
+<body>
+    <h1>Glossary: Default, Security, and Intercreditor Terms in Leveraged Lending</h1>
+    <p>This glossary covers key terms related to defaults, remedies, the security package, and intercreditor arrangements in leveraged lending, primarily drawing from Sections II.E (Events of Default and Lender Remedies), II.F (The Security Package in LMA Leveraged Loans), and II.G (Waterfall Provisions) of the "Leveraged Lending: A Comprehensive Legal Knowledge Base" (Source Document).</p>
+
+    <div class="term-category">
+        <h2>Events of Default (EoDs) & Remedies</h2>
+        <div class="term">
+            <div class="term-name">Event of Default (EoD)</div>
+            <div class="term-definition">Contractually defined occurrences or circumstances that signify a material deterioration in the borrower's creditworthiness or a breach of its obligations under the credit agreement. Upon the occurrence and continuation of an EoD (after any applicable cure period), lenders are typically entitled to exercise a range of remedies.</div>
+            <div class="term-details">
+                Common EoDs include (Source Document: Section II.E):
+                <ul>
+                    <li>Non-payment (of principal, interest, or fees when due; principal payments rarely have grace periods, interest/fees may have short ones).</li>
+                    <li>Breach of Financial Covenants (failure to meet specified ratios as per Section II.D.3; often no or very limited cure period for maintenance covenants beyond equity cure rights).</li>
+                    <li>Breach of Other Covenants (affirmative or negative undertakings; often with a cure period, e.g., 15-30 days, if the breach is deemed "capable of remedy" as per Section II.E, [65]).</li>
+                    <li>Misrepresentation (a representation or warranty made by an Obligor proves to have been incorrect or misleading in any material respect when made or deemed repeated).</li>
+                    <li>Cross-Default / Cross-Acceleration (a default or acceleration occurring under other material financial indebtedness of the borrower or its material subsidiaries).</li>
+                    <li>Insolvency Events (e.g., borrower/material subsidiary becomes insolvent, admits inability to pay debts, commences bankruptcy/administration/liquidation, or has such proceedings instituted against it and not dismissed).</li>
+                    <li>Invalidity of Loan Documents or Security (any material provision ceases to be legal, valid, binding, or enforceable, or security becomes unenforceable/loses priority).</li>
+                    <li>Unlawfulness (it becomes unlawful for an obligor to perform its obligations).</li>
+                    <li>Material Judgments (a final judgment for money exceeding a threshold is rendered against an obligor and not discharged/stayed).</li>
+                    <li>Cessation of Business (borrower or material part of the group suspends or ceases all or a substantial part of its business per Section II.E, [29]).</li>
+                    <li>Material Adverse Change (MAC) (an event or circumstance that has or is reasonably likely to have a Material Adverse Effect; notoriously difficult for lenders to invoke successfully per Section II.E, [29]).</li>
+                    <li>Change of Control (a change in ownership/control, unless facility has portability or lenders have a put right per Section II.E, [6]).</li>
+                    <li>Audit Qualification (auditors qualify audit report or state doubt about going concern, unless related to upcoming refinancing per Section II.E).</li>
+                    <li>Expropriation/Nationalization of assets.</li>
+                </ul>
+            </div>
+            <p class="source-ref">Source: Section II.E</p>
+        </div>
+
+        <div class="term">
+            <div class="term-name">Default (or Potential Event of Default)</div>
+            <div class="term-definition">A condition or event that, with the passage of time or the giving of notice (or both), would become an Event of Default. Often referred to as a "Potential Event of Default" in LMA documents. It's an incipient EoD, an early warning signal.</div>
+            <p class="source-ref">Source: General (e.g., Section II.C - "No Default" representation); LMA context</p>
+        </div>
+
+        <div class="term">
+            <div class="term-name">Lender Remedies</div>
+            <div class="term-definition">Actions that lenders are entitled to take upon the occurrence and continuation of an Event of Default.</div>
+            <div class="term-details">
+                Key remedies include (Source Document: Section II.E, [51]):
+                <ul>
+                    <li><strong>Acceleration:</strong> Declare all outstanding principal, accrued interest, and other amounts immediately due and payable.</li>
+                    <li><strong>Cancellation of Commitments:</strong> Terminate any undrawn commitments (e.g., under RCFs or DDTLs).</li>
+                    <li><strong>Enforcement of Security:</strong> Instruct the Security Agent to take steps to enforce the security package (e.g., take possession of, appoint a receiver over, or sell collateralized assets).</li>
+                    <li><strong>Charging Default Interest:</strong> Impose a higher rate of interest on overdue amounts (and sometimes on the entire outstanding principal post-acceleration).</li>
+                    <li><strong>Set-Off:</strong> Apply any credit balances held by the lenders for the borrower against the outstanding debt.</li>
+                    <li><strong>Legal Action:</strong> Initiate legal proceedings, including potentially petitioning for the borrower's bankruptcy.</li>
+                </ul>
+                Lenders may also choose to negotiate a waiver, forbearance, or amendment instead of immediate enforcement.
+            </div>
+            <p class="source-ref">Source: Section II.E</p>
+        </div>
+
+        <div class="term">
+            <div class="term-name">Cure Period (Grace Period)</div>
+            <div class="term-definition">A negotiated period specified in the credit agreement allowing the borrower time to remedy certain specified breaches (typically non-financial covenants or minor administrative breaches) before such breaches crystallize into an actionable Event of Default. The availability and length are key negotiation points.</div>
+            <p class="source-ref">Source: Section II.E, referencing [65]</p>
+        </div>
+
+         <div class="term">
+            <div class="term-name">Defaulting Lender</div>
+            <div class="term-definition">A lender within the syndicate that fails to meet its funding obligations (e.g., to fund a drawdown request or participate in a letter of credit). LMA provisions (introduced post-2008 crisis) address this by allowing replacement of the Defaulting Lender ("yank the bank"), disenfranchising it from voting on undrawn commitments, and potentially requiring it to provide cash cover for its share of letters of credit, aiming to maintain operational integrity.</div>
+            <p class="source-ref">Source: Section II.E, referencing [64]</p>
+        </div>
+    </div>
+
+    <div class="term-category">
+        <h2>Security Package & Collateral</h2>
+        <div class="term">
+            <div class="term-name">Security Package / Collateral</div>
+            <div class="term-definition">The collection of assets pledged by the borrower and/or guarantors to secure the loan obligations. This provides lenders with recourse to these specific assets in a default scenario, aiming to mitigate potential losses and improve recovery prospects. A robust security package is a cornerstone of leveraged loans due to higher credit risk, contrasting with unsecured investment-grade deals. LMA Leveraged Facilities Agreements typically assume a secured structure.</div>
+            <div class="term-details">
+                Typical components include (Source Document: Section II.F):
+                <ul>
+                    <li>Guarantees (Upstream, Downstream, Cross-Stream from material operating companies).</li>
+                    <li>Asset Security (charges, mortgages, pledges) over various assets like shares (of borrower and material subsidiaries), bank accounts (often with control agreements), real estate, intellectual property, material contracts, insurance policies, and receivables.</li>
+                </ul>
+            </div>
+            <p class="source-ref">Source: Section I.A, I.C, II.F, referencing [19], [20]</p>
+        </div>
+
+        <div class="term">
+            <div class="term-name">Guarantee</div>
+            <div class="term-definition">A contractual promise by a third party (a Guarantor, typically another company within the borrower's group, like a parent or subsidiary) to satisfy the borrower's obligations under the finance documents if the borrower itself fails to do so.</div>
+            <div class="term-details">
+                Types include (Source Document: Section II.F):
+                <ul>
+                    <li><strong>Upstream Guarantee:</strong> By a subsidiary for its parent's (borrower's) debt. Requires careful legal consideration regarding corporate benefit and potential financial assistance prohibitions.</li>
+                    <li><strong>Downstream Guarantee:</strong> By a parent company for its subsidiary borrower's debt.</li>
+                    <li><strong>Cross-Stream Guarantee:</strong> Between sister companies within the borrower's group.</li>
+                    <li>Guarantor Coverage tests often require guarantors (e.g., representing 80-85% of group EBITDA or assets) to ensure substantial credit support.</li>
+                </ul>
+            </div>
+            <p class="source-ref">Source: Section II.F, referencing [6]</p>
+        </div>
+
+        <div class="term">
+            <div class="term-name">Debenture (UK context)</div>
+            <div class="term-definition">A comprehensive security document commonly granted by English companies in UK-based leveraged finance. It typically creates fixed charges over specific, identifiable assets (e.g., real estate, intellectual property, major contracts, equipment, specific bank accounts) and a floating charge over all other present and future assets and undertaking of the company not subject to a fixed charge (like inventory or general receivables).</div>
+            <p class="source-ref">Source: Section II.F, referencing [11]</p>
+        </div>
+
+        <div class="term">
+            <div class="term-name">Fixed Charge</div>
+            <div class="term-definition">A security interest that attaches to specific, identifiable assets. The chargor (borrower/guarantor) is restricted from dealing with (e.g., selling or further charging) the asset without the chargee's (lender's/security agent's) consent. Provides strong control for lenders and higher priority in insolvency over those specific assets.</div>
+            <p class="source-ref">Source: Section II.F</p>
+        </div>
+
+        <div class="term">
+            <div class="term-name">Floating Charge</div>
+            <div class="term-definition">A security interest over a class of assets (present and future) that may change in the ordinary course of the chargor's business (e.g., inventory, trade receivables). The chargor can deal with these assets until the floating charge "crystallizes" (becomes a fixed charge over the assets then in that class) upon certain events (e.g., default, appointment of an administrator/liquidator, cessation of business, or sometimes notice from the chargee). Ranks below fixed charges and certain preferential creditors.</div>
+            <p class="source-ref">Source: Section II.F</p>
+        </div>
+
+        <div class="term">
+            <div class="term-name">Perfection (of Security)</div>
+            <div class="term-definition">The legal steps required to make a security interest effective not only against the grantor (debtor) but also, crucially, against third parties such as other creditors, a liquidator, administrator, or trustee in insolvency, or a subsequent purchaser of the asset. Failure to properly perfect can render the security void against such third parties or subordinate it to other claims.</div>
+            <div class="term-details">
+                Common perfection steps vary by asset type and jurisdiction, including (Source Document: Section II.F):
+                <ul>
+                    <li>Registration of charges/security interests at public registries (e.g., Companies House in the UK for charges created by English companies within 21 days, UCC financing statements in the US). (Referencing [6])</li>
+                    <li>Giving notice to contractual counterparties (e.g., for assigned receivables or contracts).</li>
+                    <li>Taking possession (e.g., share certificates for a pledge of shares) or control (e.g., via account control agreements for bank accounts, or for certain investment property). (Referencing [67])</li>
+                </ul>
+            </div>
+            <p class="source-ref">Source: Section II.F</p>
+        </div>
+
+        <div class="term">
+            <div class="term-name">Priority (of Security)</div>
+            <div class="term-definition">The ranking of competing security interests over the same asset, or of security interests versus other types of claims (e.g., statutory preferential claims in insolvency). Priority determines which creditor gets paid first from the proceeds of the secured assets in an enforcement or insolvency scenario.</div>
+            <div class="term-details">
+                Determined by factors including (Source Document: Section II.F):
+                <ul>
+                    <li>Type of security interest (fixed charges generally rank ahead of floating charges over the same asset).</li>
+                    <li>Order of creation and perfection (the general principle of "first-in-time, first-in-right" applies to perfected interests, but is subject to specific statutory rules and exceptions). (Referencing [6])</li>
+                    <li>Terms of any applicable Intercreditor Agreement, which contractually establishes priorities between different creditor classes and is often the overriding factor in complex structures.</li>
+                    <li>Statutory priorities (e.g., certain employee claims, tax claims, insolvency practitioner fees may rank ahead of some secured claims, especially floating charges).</li>
+                </ul>
+            </div>
+            <p class="source-ref">Source: Section II.F</p>
+        </div>
+    </div>
+
+    <div class="term-category">
+        <h2>Intercreditor Arrangements & Waterfall</h2>
+        <div class="term">
+            <div class="term-name">Intercreditor Agreement (ICA)</div>
+            <div class="term-definition">A legally binding agreement entered into by different classes of creditors (e.g., super senior RCF lenders, senior term lenders, second lien lenders, mezzanine lenders, high-yield bondholders) and usually the borrower and guarantors. It regulates their respective rights, remedies, and priorities, especially in relation to shared security, enforcement actions, and distributions in situations of distress or formal insolvency. Essential when a borrower has multiple layers or types of debt. LMA publishes standard form ICAs.</div>
+            <div class="term-details">
+                Key provisions typically include (Source Document: Section II.F, referencing [9], [10], [72]):
+                <ul>
+                    <li>Ranking of Debt (Payment Subordination: defining if/when junior debt can be paid) and Liens (Lien Subordination: defining priority of claims against shared collateral).</li>
+                    <li>Application of Enforcement Proceeds (the "Waterfall").</li>
+                    <li>Control over Enforcement Actions (specifying which creditor class, usually the most senior, has the right to instruct the Security Agent and control the process).</li>
+                    <li>Standstill Periods (prohibiting junior creditors from taking independent enforcement action for a defined period).</li>
+                    <li>Release of Security and Guarantees (conditions under which shared security/guarantees can be released, often upon senior lender consent).</li>
+                    <li>Rights in Insolvency (e.g., agreements on voting on insolvency plans, rights to provide DIP financing, limitations on challenging other creditors' claims/security).</li>
+                    <li>Regulation of payments to junior creditors.</li>
+                    <li>Restrictions on amendments to respective debt documents if prejudicial to other classes.</li>
+                </ul>
+            </div>
+            <p class="source-ref">Source: Section II.F, II.G</p>
+        </div>
+
+        <div class="term">
+            <div class="term-name">Waterfall (Enforcement Waterfall / Application of Proceeds)</div>
+            <div class="term-definition">Contractual provisions, typically found in an Intercreditor Agreement or security documents, that meticulously dictate the order of priority in which cash flows or proceeds realized from the enforcement of collateral (or sometimes other recoveries like guarantee payments) are distributed among various stakeholders after an Event of Default and the commencement of enforcement actions. Distinguish from operational cash flow waterfalls in project finance.</div>
+            <div class="term-details">
+                Typical order of priority in an LMA-style leveraged loan (subject to deal-specific negotiation) (Source Document: Section II.G):
+                <ol>
+                    <li>Costs of Enforcement (fees, costs, expenses of Security Agent/other secured parties).</li>
+                    <li>Super Senior Obligations (if structure includes a super senior facility like an RCF, or certain hedging liabilities if granted super senior status in the ICA). (Referencing [9])</li>
+                    <li>Senior Secured Obligations (e.g., First Lien Term Loans, pari passu secured notes; proceeds distributed pro rata among this class). (Referencing [10])</li>
+                    <li>Second Lien Secured Obligations (claims secured by second-ranking security on common collateral).</li>
+                    <li>Other Junior Secured Obligations (e.g., Mezzanine debt if it benefits from junior security). (Referencing [70])</li>
+                    <li>Unsecured Obligations (senior unsecured notes, subordinated notes, deficiency claims of secured creditors).</li>
+                    <li>Shareholder Loans / Equity (any remaining proceeds, rare in enforcement for leveraged companies).</li>
+                </ol>
+                Key legal considerations include pro rata sharing within classes, debt caps for priority, "payment in full" definitions, valuation of non-cash proceeds, and preventing value leakage.
+            </div>
+            <p class="source-ref">Source: Section II.G, referencing [7], [10]</p>
+        </div>
+
+        <div class="term">
+            <div class="term-name">Lien Subordination</div>
+            <div class="term-definition">A type of subordination where junior lienholders agree that their security interest in shared collateral ranks behind the security interest of senior lienholders with respect to proceeds from that shared collateral. This means senior lienholders are entitled to be paid in full from the proceeds of that common collateral before junior lienholders receive anything from it. The underlying debt claims of the junior lenders might not be subordinated in terms of direct payment from the borrower from unencumbered assets (unless payment subordination also applies).</div>
+            <p class="source-ref">Source: Section II.F, referencing [10]</p>
+        </div>
+
+        <div class="term">
+            <div class="term-name">Payment Subordination (Debt Subordination)</div>
+            <div class="term-definition">A type of subordination where junior debt holders agree not to receive payments of principal (and often interest, or subject to payment stoppers) on their debt until senior debt holders are paid in full (or as otherwise agreed by the ICA). This applies to payments from any source available to the borrower, not just proceeds from shared collateral. More extensive than lien subordination.</div>
+            <p class="source-ref">Source: Section II.F, referencing [10]</p>
+        </div>
+    </div>
+
+    <p><em>(This HTML page provides a foundational glossary. The precise definitions, scope, and interaction of these terms are always subject to the specific wording of the relevant finance documents for a particular transaction.)</em></p>
+</body>
+</html>
+>>>>>>> REPLACE

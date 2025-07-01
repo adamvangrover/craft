@@ -1,0 +1,93 @@
+{
+  "title": "Economic and Pricing Terms in Leveraged Loans",
+  "description": "Definitions for key terms related to the economics, pricing, and yield of leveraged loans, primarily drawing from Section II.B (Core Economic and Facility Terms) of the 'Leveraged Lending: A Comprehensive Legal Knowledge Base' (Source Document).",
+  "terms": [
+    {
+      "term": "Loan Amount",
+      "definition": "The aggregate principal amount of the credit facilities, determined by the borrower's funding needs, capacity to service debt, and lender appetite.",
+      "source_reference": "Section II.B.2"
+    },
+    {
+      "term": "Interest Rate (Pricing)",
+      "definition": "The cost of borrowing. Leveraged loans almost invariably carry a floating interest rate, calculated as a benchmark rate plus a credit spread adjustment (CSA) or margin.",
+      "components": [
+        {
+          "component_term": "Benchmark Rate",
+          "examples": ["SOFR (Secured Overnight Financing Rate - US)", "Euribor (Euro Interbank Offered Rate - Europe)", "SONIA (UK)", "LIBOR (historically)"],
+          "description": "A market-based reference rate representing the underlying cost of funds. The transition from LIBOR to alternative reference rates like SOFR has introduced new complexities. (Source Document: Section I.A, II.A)"
+        },
+        {
+          "component_term": "Credit Spread / Margin (Credit Spread Adjustment - CSA)",
+          "description": "The additional percentage points charged above the benchmark rate, compensating lenders for the borrower's specific credit risk. This is a key component of pricing."
+        },
+        {
+          "component_term": "Margin Ratchet",
+          "description": "A provision allowing the credit spread/margin to increase or decrease based on the borrower's performance against pre-agreed metrics, typically a leverage ratio. (Source Document: Section II.B.2, referencing [6])"
+        },
+        {
+          "component_term": "Benchmark Floor (e.g., LIBOR/Euribor/SOFR Floor)",
+          "description": "A provision ensuring a minimum level for the benchmark rate component of the interest calculation, even if the underlying market rate falls below that floor. This protects lender yield in very low interest rate environments. (Source Document: Section II.B.2, referencing [6])"
+        }
+      ],
+      "source_reference": "Section I.A, Section II.B.2"
+    },
+    {
+      "term": "Fees",
+      "definition": "Various charges paid by the borrower to lenders and agents in connection with obtaining and maintaining the loan facilities.",
+      "types": [
+        {
+          "fee_type": "Arrangement Fees (or Upfront Fees / Underwriting Fees)",
+          "description": "Paid to the arrangers (MLAs) for their services in structuring, underwriting (if applicable), and syndicating the loan. Usually a percentage of the total loan amount, paid at closing."
+        },
+        {
+          "fee_type": "Commitment Fees",
+          "description": "Paid periodically (e.g., quarterly) by the borrower on the undrawn portion of a revolving credit facility (RCF) or other committed facility (like a Delayed Draw Term Loan). Compensates lenders for committing to make funds available."
+        },
+        {
+          "fee_type": "Agency Fees (Facility Agent Fee, Security Agent Fee)",
+          "description": "Annual fees paid to the Facility Agent and (if applicable) the Security Agent for their ongoing administrative and agency roles throughout the life of the loan. (Source Document: Section II.B.2, referencing [6])"
+        },
+        {
+          "fee_type": "Utilisation Fees / Drawing Fees (Less common for term loans, more for RCFs)",
+          "description": "Fees payable when a facility is drawn, sometimes tiered based on the level of utilisation of an RCF."
+        },
+        {
+          "fee_type": "Prepayment Fees / Premiums (see also 'Call Protection')",
+          "description": "Fees payable if the borrower prepays the loan before a certain date, particularly relevant for 'soft call' provisions in TLBs. (Source Document: Section II.B.4)"
+        }
+      ],
+      "source_reference": "Section II.B.2"
+    },
+    {
+      "term": "Original Issue Discount (OID)",
+      "definition": "Occurs when a loan or bond is issued at a price below its par or face value (e.g., issued at 99% of par). The difference between the issue price and the par value (which is repaid at maturity) constitutes the OID.",
+      "purpose": "Effectively increases the lender's yield without stating an unusually high coupon or margin. Serves to enhance the attractiveness of a debt offering, particularly for higher-risk credits or in challenging market conditions; can act as a 'deal sweetener'. (Source Document: Section II.B.2, referencing [30], [31])",
+      "calculation": "Redemption Price (par value at maturity) minus the Issuance Price. (Source Document: Section II.B.2, referencing [31])",
+      "accounting_tax_implications": "For accounting and tax purposes, OID is generally amortized over the term of the loan. For the lender, this amortized portion is typically treated as taxable interest income. For the borrower, it is an amortizable expense. Can lead to 'phantom income' for bondholders. (Source Document: Section II.B.2, referencing [31])",
+      "legal_documentation": "Credit agreement must clearly document OID's impact on yield-to-maturity, tax reporting, and prepayment amount calculations (par vs. discounted issue price).",
+      "source_reference": "Section II.B.2, referencing [30], [31], [32], [33]"
+    },
+    {
+      "term": "Market Flex Provisions",
+      "definition": "Contractual rights granted to arrangers and underwriters in mandate letters or arrangement fee letters, allowing them to unilaterally alter certain terms of the financing (pricing, structure, other terms) after the mandate is signed but before final closing and syndication. This is done if deemed necessary to ensure the successful sale (syndication) of the debt to other investors.",
+      "purpose": "Effectively shifts syndication risk (the risk that market conditions deteriorate or investor appetite wanes between mandate and syndication) from the arranging banks to the borrower. (Source Document: Section II.B.3, referencing [34])",
+      "location_and_confidentiality": "Typically detailed in confidential mandate letters or fee letters, not in the main credit agreement circulated to the syndicate, to avoid incentivizing potential lenders to hold back for better terms. (Source Document: Section II.B.3, referencing [35])",
+      "scope_of_flex": [
+        "Pricing Flex: Adjustments to interest margin, upfront fees, or OID. Often subject to an overall cap on the increase in borrower's weighted average cost of capital. May necessitate resetting financial covenant levels to maintain original headroom. (Source Document: Section II.B.3, referencing [35])",
+        "Structural Flex: Reallocation of amounts between different tranches (e.g., term loan vs. bond, senior vs. junior) without altering total debt quantum. (Source Document: Section II.B.3, referencing [35])",
+        "Terms Flex: Changes to other non-economic terms like prepayment penalties, margin ratchet mechanics, size of general debt/investment baskets, or covenant definitions. (Source Document: Section II.B.3, referencing [35])"
+      ],
+      "legal_and_negotiation_dynamics": "Exercise of flex must be legally binding, requiring obligors to execute amended documents. Borrowers seek to limit scope, demand consultation, impose caps, and negotiate termination rights or sunset clauses for flex exercise. (Source Document: Section II.B.3, referencing [34], [35])",
+      "variations": {
+        "reverse_flex": "Adjustments favorable to the borrower (e.g., reduced margin/fees) if syndication is oversubscribed, common in borrower-friendly markets. (Source Document: Section II.B.3, referencing [35])",
+        "lender_flex": "Increased lender power to dictate terms during syndication, signals a lender-friendly market. (Source Document: Section II.B.3, referencing [36])"
+      },
+      "source_reference": "Section II.B.3"
+    },
+    {
+      "term": "All-in Yield / All-in Cost",
+      "definition": "The total effective return for lenders (or total effective cost for borrowers) from a loan, considering not just the stated interest rate (benchmark + margin) but also upfront fees, OID, and sometimes other recurring fees. Provides a more comprehensive measure of the loan's economics.",
+      "source_reference": "Section II.B.2 (implied from discussion of various components)"
+    }
+  ]
+}
