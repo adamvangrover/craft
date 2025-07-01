@@ -1,0 +1,76 @@
+{
+  "title": "Illustrative Enforcement Waterfall Structure",
+  "description": "A conceptual JSON structure to represent a typical priority of claims in an enforcement waterfall. This could be used to generate a visual diagram or as input for an analytical tool.",
+  "waterfall_tiers": [
+    {
+      "tier_level": 1,
+      "tier_name": "Costs of Enforcement",
+      "description": "Fees and expenses of the Security Agent, legal counsel, valuers, auctioneers, and other costs related to preserving and realizing the collateral.",
+      "typical_claimants": ["Security Agent", "Professional Advisors"],
+      "source_reference": "Section II.G"
+    },
+    {
+      "tier_level": 2,
+      "tier_name": "Super Senior Obligations",
+      "description": "Claims under facilities or obligations explicitly granted super priority status in the Intercreditor Agreement.",
+      "typical_claimants": ["Super Senior Revolving Credit Facility Lenders", "Certain Super Senior Hedging Counterparties"],
+      "notes": "Existence and scope depend on the specific deal structure.",
+      "source_reference": "Section II.G"
+    },
+    {
+      "tier_level": 3,
+      "tier_name": "Senior Secured Obligations (First Lien)",
+      "description": "Claims of creditors holding first-ranking security interests over the shared collateral pool. Proceeds are typically shared pro rata among this class.",
+      "typical_claimants": ["First Lien Term Loan Lenders", "First Lien Notes Holders (if pari passu)", "Other Pari Passu First Lien Creditors"],
+      "source_reference": "Section II.G"
+    },
+    {
+      "tier_level": 4,
+      "tier_name": "Second Lien Secured Obligations",
+      "description": "Claims of creditors holding second-ranking security interests over the shared collateral pool. Paid after First Lien creditors are satisfied from common collateral.",
+      "typical_claimants": ["Second Lien Term Loan Lenders", "Second Lien Notes Holders"],
+      "notes": "Subject to terms of the Intercreditor Agreement regarding standstill and payment subordination.",
+      "source_reference": "Section II.G"
+    },
+    {
+      "tier_level": 5,
+      "tier_name": "Junior Secured Obligations (e.g., Third Lien / Mezzanine with junior security)",
+      "description": "Claims secured by liens ranking junior to Second Lien, if any such tranches exist.",
+      "typical_claimants": ["Third Lien Lenders", "Mezzanine Lenders with specific junior security"],
+      "source_reference": "Section II.G (implied, 'other debt secured by liens ranking junior')"
+    },
+    {
+      "tier_level": 6,
+      "tier_name": "Unsecured Obligations",
+      "description": "Claims of creditors who do not have the benefit of security interests, or deficiency claims of secured creditors if collateral proceeds were insufficient.",
+      "typical_claimants": [
+        "Senior Unsecured Noteholders",
+        "Subordinated Noteholders",
+        "Trade Creditors",
+        "Employees (for certain claims)",
+        "Deficiency claims from secured lenders"
+      ],
+      "source_reference": "Section II.G"
+    },
+    {
+      "tier_level": 7,
+      "tier_name": "Subordinated Shareholder Loans",
+      "description": "Loans provided by shareholders that are contractually subordinated to other debt.",
+      "typical_claimants": ["Shareholders as lenders"],
+      "source_reference": "Section II.G"
+    },
+    {
+      "tier_level": 8,
+      "tier_name": "Equity Holders",
+      "description": "Claims of equity owners (preferred and common shareholders). Typically receive value only if all debt and other senior claims are paid in full.",
+      "typical_claimants": ["Preferred Shareholders", "Common Shareholders"],
+      "notes": "Recovery for equity is rare in distressed enforcement scenarios for leveraged companies.",
+      "source_reference": "Section II.G"
+    }
+  ],
+  "general_notes": [
+    "The actual number of tiers and the specific claimants in each tier will vary significantly from deal to deal.",
+    "The Intercreditor Agreement is the primary document defining these priorities for secured creditors.",
+    "Statutory priorities (e.g., for certain employee claims or tax claims in some jurisdictions) can override contractual waterfalls in formal insolvency proceedings."
+  ]
+}

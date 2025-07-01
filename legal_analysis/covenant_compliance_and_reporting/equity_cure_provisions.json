@@ -1,0 +1,59 @@
+{
+  "title": "Equity Cure Provisions in Leveraged Loans",
+  "description": "This JSON structure outlines common characteristics, mechanisms, and negotiated points related to equity cure provisions found in leveraged loan agreements, particularly those for sponsor-backed borrowers. These provisions allow equity holders to remedy certain financial covenant breaches, thereby avoiding an Event of Default. Based on Section II.D.3 of the 'Leveraged Lending: A Comprehensive Legal Knowledge Base' (Source Document).",
+  "source_document_reference": "Section II.D.3 (Equity Cures), referencing [6]",
+  "provision_details": {
+    "purpose": "To allow the private equity sponsor (or other equity holders) to 'cure' a breach of a financial maintenance covenant by making an equity contribution to the borrower. This avoids an immediate Event of Default that would otherwise arise from the covenant breach, giving the borrower and sponsor time to address underlying issues.",
+    "mechanism_of_cure": [
+      {
+        "method": "Deemed Increase to EBITDA",
+        "description": "The most common mechanism. The amount of the equity contribution is treated as an addition to EBITDA for the specific fiscal quarter in which the breach occurred, solely for the purpose of recalculating that breached financial covenant for that quarter. The actual cash received by the borrower is not necessarily used to repay debt immediately under this mechanic.",
+        "notes": "This method improves the relevant financial ratio(s) (e.g., Leverage Ratio, Interest Coverage Ratio) by increasing the EBITDA component in the denominator or numerator as applicable."
+      },
+      {
+        "method": "Debt Reduction",
+        "description": "Less commonly, the equity cure proceeds might be required (or permitted) to be applied directly to reduce outstanding indebtedness. This would improve leverage ratios by decreasing the debt component.",
+        "notes": "This has a more direct deleveraging impact but might be less favorable to sponsors if they prefer the cash to remain in the business for operational flexibility or if the cure is primarily an accounting adjustment to EBITDA."
+      }
+    ],
+    "applicable_covenants": "Equity cures are typically available only for breaches of **financial maintenance covenants** (e.g., Leverage Ratio, Interest Coverage Ratio, Fixed Charge Coverage Ratio). They are generally not applicable to breaches of affirmative or negative covenants, or to payment defaults.",
+    "key_negotiated_limitations_and_features": [
+      {
+        "limitation_type": "Frequency and Number of Cures",
+        "examples": [
+          "A maximum number of times the equity cure can be exercised over the life of the loan (e.g., 'no more than four or five times in total' is a common range).",
+          "A maximum number of times the cure can be exercised within any four-fiscal-quarter period (e.g., 'no more than two cures in any four-quarter period').",
+          "Prohibition on exercising cures in consecutive fiscal quarters."
+        ],
+        "rationale": "Prevents the borrower from persistently relying on equity cures instead of addressing underlying operational issues that lead to covenant breaches."
+      },
+      {
+        "limitation_type": "Amount of Cure ('Cure Amount')",
+        "description": "Typically, the Cure Amount must be at least the amount sufficient to bring the borrower back into compliance with the breached financial covenant(s) for the relevant quarter. Some agreements specify that the Cure Amount shall be 'no greater than' the amount necessary for compliance, preventing 'over-curing' to create excessive covenant headroom for future periods using the cure mechanic.",
+        "notes": "The 'cured' EBITDA (i.e., EBITDA including the deemed cure amount from the equity injection) is often specified to be disregarded for other purposes beyond testing the specific breached covenant for that specific quarter. For example, it might be excluded from calculations for: \n - Determining capacity under negative covenant baskets (e.g., for debt incurrence or restricted payments).\n - Margin ratchet calculations for future interest periods.\n - Excess Cash Flow calculations."
+      },
+      {
+        "limitation_type": "Timing of Cure Contribution and Effect",
+        "description": "The equity contribution must usually be made within a specified period (e.g., 10-15 business days, sometimes up to 20-25 business days) after the date on which the financial statements for the relevant breached quarter are required to be delivered (or, if earlier, the date the compliance certificate disclosing the breach is delivered). The cure is then deemed to have taken effect as of the last day of the breached quarter for compliance purposes."
+      },
+      {
+        "limitation_type": "No Retroactive Cure for Other Defaults",
+        "description": "The equity cure typically only remedies the specific financial covenant breach for that specific quarter. It does not retroactively cure any other Default or Event of Default that may have arisen as a consequence of the initial financial covenant breach before the cure was effected (e.g., a cross-default triggered under another agreement due to the uncured breach, although this can be complex and depends on specific wording)."
+      },
+      {
+        "limitation_type": "Use of Actual Cash Proceeds",
+        "description": "While the *effect* of the cure is often a deemed increase in EBITDA for calculation purposes, the actual cash proceeds from the equity injection become part of the borrower's general funds. The credit agreement may or may not specify permitted uses or require mandatory prepayment with these actual cash proceeds (less common if the primary cure mechanism is deemed EBITDA, as the cash is expected to be available to the business).",
+        "notes": "If the cure mechanism is debt reduction, then the proceeds are directly applied to pay down debt."
+      },
+      {
+        "limitation_type": "Requirement for New Cash Equity",
+        "description": "Cure amounts usually must be from new cash equity contributions (common or preferred stock qualifying as equity) and not from other sources like shareholder loans that would constitute more debt."
+      }
+    ],
+    "impact_and_rationale": {
+      "for_borrower_sponsor": "Provides a crucial lifeline to avoid an immediate Event of Default, preserving the sponsor's equity investment and control, and allowing more time to address operational issues or wait for market improvements. Avoids potential acceleration and enforcement by lenders.",
+      "for_lenders": "Offers a mixed outcome. Lenders receive an indication that the sponsor is still supportive and willing to inject more capital (which de-risks the credit to some extent by adding an equity cushion). However, it can mask underlying business deterioration and delay necessary operational restructurings or an inevitable default, potentially to the detriment of lenders if the business issues remain unaddressed and the company's situation worsens further despite the temporary cure."
+    },
+    "documentation_note": "The precise mechanics, limitations, and effects of an equity cure right are detailed specifically in the financial covenants section or a dedicated equity cure clause within the credit agreement. These provisions are heavily negotiated."
+  }
+}
