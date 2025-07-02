@@ -2,103 +2,103 @@
 
 ## 1. Introduction: What is Credit Risk?
 
-**Credit Risk** is the risk of financial loss arising from a borrower or counterparty failing to meet its contractual obligations, typically the failure to repay principal and/or interest on a debt instrument. It is one of the oldest and most significant risks faced by lenders, investors in debt securities, and any entity that extends terms of trade (e.g., accounts receivable).
+**[Credit Risk](../../Global_Financial_Glossary.md#credit-risk)** is the [risk](../../Global_Financial_Glossary.md#risk) of [financial loss](../../Global_Financial_Glossary.md#financial-loss) arising from a [borrower](../../Global_Financial_Glossary.md#issuer) or [counterparty](../../Global_Financial_Glossary.md#counterparty-risk) failing to meet its contractual obligations, typically the failure to repay [principal](../../Global_Financial_Glossary.md#principal-loanbond) and/or [interest](../../Global_Financial_Glossary.md#interest-expense) on a [debt instrument](../../Global_Financial_Glossary.md#debt). It is one of the oldest and most significant [risks](../../Global_Financial_Glossary.md#risk) faced by [lenders](../../Global_Financial_Glossary.md#lendercreditor), investors in debt securities, and any entity that extends terms of trade (e.g., [accounts receivable](../../Global_Financial_Glossary.md#accounts-receivable-ar)).
 
 **Core Elements:**
-*   **Obligation:** There is a contractual promise by one party (obligor/borrower) to pay another party (obligee/lender/creditor).
-*   **Failure (Default):** The obligor does not fulfill this promise according to the agreed terms.
-*   **Financial Loss:** The obligee suffers a monetary loss as a result of the failure.
+*   **Obligation:** There is a contractual promise by one party (obligor/[borrower](../../Global_Financial_Glossary.md#issuer)) to pay another party (obligee/[lender](../../Global_Financial_Glossary.md#lendercreditor)/[creditor](../../Global_Financial_Glossary.md#creditors-committee)).
+*   **Failure ([Default](../../Global_Financial_Glossary.md#default-risk)):** The obligor does not fulfill this promise according to the agreed terms.
+*   **[Financial Loss](../../Global_Financial_Glossary.md#financial-loss):** The obligee suffers a monetary loss as a result of the failure.
 
-Understanding and managing credit risk is fundamental to the stability of individual financial institutions and the financial system as a whole.
+Understanding and managing [credit risk](../../Global_Financial_Glossary.md#credit-risk) is fundamental to the stability of individual [financial institutions](../../Global_Financial_Glossary.md#financial-institutions) and the financial system as a whole.
 
 ## 2. Types of Credit Risk
 
-Credit risk can manifest in several ways:
+[Credit risk](../../Global_Financial_Glossary.md#credit-risk) can manifest in several ways:
 
-*   **2.1. Default Risk:**
-    *   **Definition:** The risk that a borrower will be unable or unwilling to make its required debt payments (interest or principal) on time or in full. This is the most common form of credit risk.
-    *   **Example:** A company misses an interest payment on its bond or fails to repay a loan at maturity.
-*   **2.2. Downgrade Risk (Credit Migration Risk):**
-    *   **Definition:** The risk that a borrower's creditworthiness will deteriorate, leading to a downgrade in its credit rating by rating agencies (e.g., S&P, Moody's, Fitch) or an internal risk rating downgrade by a lender.
-    *   **Impact:** While not a default, a downgrade typically increases the market yield required on the borrower's debt, causing its market price to fall (for traded debt). It can also signal an increased probability of future default and may trigger certain clauses in loan agreements (e.g., increased interest rate).
-    *   **Example:** A company rated 'BBB' is downgraded to 'BB' due to declining profitability and rising leverage.
-*   **2.3. Counterparty Risk (Settlement Risk - pre-settlement & settlement):**
-    *   **Definition:** The risk that the other party to a financial transaction (e.g., a derivative contract, a foreign exchange trade, a securities trade before settlement) will default before the transaction is completed or on its obligations under the contract.
-    *   **Pre-Settlement Risk:** The risk of loss due to a counterparty defaulting on an obligation *before* the final settlement of a transaction. The loss is typically the cost of replacing the defaulted contract at current market prices. More significant for longer-dated, over-the-counter (OTC) derivatives.
-    *   **Settlement Risk (Herstatt Risk):** The risk that one party in a two-way transaction pays out the funds or delivers the assets it owes, but the counterparty defaults before fulfilling its part of the deal. This is most acute when payments are made in different time zones.
-    *   **Example (Pre-Settlement):** A bank has an interest rate swap with a corporation. The corporation goes bankrupt before the swap matures, and replacing the swap at current market rates results in a loss for the bank.
-*   **2.4. Concentration Risk:**
-    *   **Definition:** The risk of loss arising from having a high exposure to a single borrower/counterparty, a group of connected counterparties, a specific industry sector, a geographic region, or a particular type of collateral.
-    *   **Impact:** Lack of diversification means that a negative event affecting that concentrated exposure can lead to disproportionately large losses.
-    *   **Example:** A bank has 25% of its loan portfolio concentrated in the commercial real estate sector. A downturn in this sector could lead to significant credit losses for the bank.
-*   **2.5. Country Risk:**
-    *   **Definition:** The risk of loss arising from operating or investing in a particular country, closely related to sovereign risk. It includes the risk that a sovereign government may be unwilling or unable to meet its debt obligations (sovereign default risk), or that it may impose exchange controls, expropriate assets, or that political/economic instability will harm investments.
+*   **2.1. [Default Risk](../../Global_Financial_Glossary.md#default-risk):**
+    *   **Definition:** The [risk](../../Global_Financial_Glossary.md#risk) that a [borrower](../../Global_Financial_Glossary.md#issuer) will be unable or unwilling to make its required [debt](../../Global_Financial_Glossary.md#debt) payments ([interest](../../Global_Financial_Glossary.md#interest-expense) or [principal](../../Global_Financial_Glossary.md#principal-loanbond)) on time or in full. This is the most common form of [credit risk](../../Global_Financial_Glossary.md#credit-risk).
+    *   **Example:** A company misses an [interest](../../Global_Financial_Glossary.md#interest-expense) payment on its [bond](../../Global_Financial_Glossary.md#bond) or fails to repay a [loan](../../Global_Financial_Glossary.md#loan-origination) at maturity.
+*   **2.2. [Downgrade Risk (Credit Migration Risk)](../../Global_Financial_Glossary.md#downgrade-risk-credit-migration-risk):**
+    *   **Definition:** The [risk](../../Global_Financial_Glossary.md#risk) that a [borrower's](../../Global_Financial_Glossary.md#issuer) [creditworthiness](../../Global_Financial_Glossary.md#credit-rating) will deteriorate, leading to a downgrade in its [credit rating](../../Global_Financial_Glossary.md#credit-rating) by [rating agencies](../../Global_Financial_Glossary.md#credit-rating) (e.g., S&P, Moody's, Fitch) or an internal risk rating downgrade by a [lender](../../Global_Financial_Glossary.md#lendercreditor).
+    *   **Impact:** While not a [default](../../Global_Financial_Glossary.md#default-risk), a downgrade typically increases the market yield required on the [borrower's](../../Global_Financial_Glossary.md#issuer) [debt](../../Global_Financial_Glossary.md#debt), causing its market price to fall (for traded debt). It can also signal an increased [probability](../../Global_Financial_Glossary.md#probability) of future [default](../../Global_Financial_Glossary.md#default-risk) and may trigger certain clauses in loan agreements (e.g., increased interest rate).
+    *   **Example:** A company rated 'BBB' is downgraded to 'BB' due to declining [profitability](../../Global_Financial_Glossary.md#profitability) and rising [leverage](../../Global_Financial_Glossary.md#leverage-financial).
+*   **2.3. [Counterparty Risk](../../Global_Financial_Glossary.md#counterparty-risk) ([Settlement Risk](../../Global_Financial_Glossary.md#settlement-risk) - pre-settlement & settlement):**
+    *   **Definition:** The [risk](../../Global_Financial_Glossary.md#risk) that the other party to a financial transaction (e.g., a [derivative contract](../../Global_Financial_Glossary.md#derivatives), a [foreign exchange](../../Global_Financial_Glossary.md#foreign-exchange-fx-risk--currency-risk) trade, a securities trade before settlement) will [default](../../Global_Financial_Glossary.md#default-risk) before the transaction is completed or on its obligations under the contract.
+    *   **Pre-Settlement Risk:** The [risk](../../Global_Financial_Glossary.md#risk) of loss due to a [counterparty](../../Global_Financial_Glossary.md#counterparty-risk) defaulting on an obligation *before* the final settlement of a transaction. The loss is typically the cost of replacing the defaulted contract at current market prices. More significant for longer-dated, [over-the-counter (OTC)](../../../Global_Financial_Glossary.md#otc-over-the-counter-market) [derivatives](../../Global_Financial_Glossary.md#derivatives).
+    *   **[Settlement Risk (Herstatt Risk)](../../Global_Financial_Glossary.md#settlement-risk):** The [risk](../../Global_Financial_Glossary.md#risk) that one party in a two-way transaction pays out the funds or delivers the [assets](../../Global_Financial_Glossary.md#assets) it owes, but the [counterparty](../../Global_Financial_Glossary.md#counterparty-risk) defaults before fulfilling its part of the deal. This is most acute when payments are made in different time zones.
+    *   **Example (Pre-Settlement):** A [bank](../../Global_Financial_Glossary.md#banks) has an interest rate swap with a corporation. The corporation goes bankrupt before the swap matures, and replacing the swap at current market rates results in a loss for the bank.
+*   **2.4. [Concentration Risk](../../Global_Financial_Glossary.md#concentration-risk):**
+    *   **Definition:** The [risk](../../Global_Financial_Glossary.md#risk) of loss arising from having a high exposure to a single [borrower](../../Global_Financial_Glossary.md#issuer)/[counterparty](../../Global_Financial_Glossary.md#counterparty-risk), a group of connected counterparties, a specific industry sector, a geographic region, or a particular type of [collateral](../../Global_Financial_Glossary.md#collateral).
+    *   **Impact:** Lack of [diversification](../../Global_Financial_Glossary.md#diversification) means that a negative event affecting that concentrated exposure can lead to disproportionately large losses.
+    *   **Example:** A [bank](../../Global_Financial_Glossary.md#banks) has 25% of its loan portfolio concentrated in the commercial real estate sector. A downturn in this sector could lead to significant credit losses for the bank.
+*   **2.5. [Country Risk](../../Global_Financial_Glossary.md#country-risk):**
+    *   **Definition:** The [risk](../../Global_Financial_Glossary.md#risk) of loss arising from operating or investing in a particular country, closely related to [sovereign risk](../../Global_Financial_Glossary.md#sovereign-risk). It includes the [risk](../../Global_Financial_Glossary.md#risk) that a sovereign government may be unwilling or unable to meet its [debt](../../Global_Financial_Glossary.md#debt) obligations ([sovereign default risk](../../Global_Financial_Glossary.md#sovereign-risk)), or that it may impose [exchange controls](../../Global_Financial_Glossary.md#exchange-controls), [expropriate assets](../../Global_Financial_Glossary.md#expropriate), or that political/economic instability will harm investments.
     *   **Impact:** Can affect all entities operating within or exposed to that country.
-    *   **Example:** A company has significant operations in a country that suddenly imposes capital controls, preventing the company from repatriating its profits.
+    *   **Example:** A company has significant operations in a country that suddenly imposes [capital controls](../../Global_Financial_Glossary.md#capital-controls), preventing the company from repatriating its [profits](../../Global_Financial_Glossary.md#profitability).
 
-## 3. The Five Cs of Credit (Traditional Framework)
+## 3. The [Five Cs of Credit](../../Global_Financial_Glossary.md#five-cs-of-credit) (Traditional Framework)
 
-The "Five Cs of Credit" is a traditional, qualitative framework used by lenders to assess the creditworthiness of a borrower. While more sophisticated quantitative models exist, the principles remain highly relevant.
+The "[Five Cs of Credit](../../Global_Financial_Glossary.md#five-cs-of-credit)" is a traditional, [qualitative](../../Global_Financial_Glossary.md#qualitative-analysis) framework used by [lenders](../../Global_Financial_Glossary.md#lendercreditor) to assess the [creditworthiness](../../Global_Financial_Glossary.md#credit-rating) of a [borrower](../../Global_Financial_Glossary.md#issuer). While more sophisticated [quantitative](../../Global_Financial_Glossary.md#quantitative-analysis) models exist, the principles remain highly relevant.
 
-*   **3.1. Character (Willingness to Pay):**
-    *   **Focus:** The borrower's integrity, reputation, track record of meeting obligations, and overall trustworthiness.
-    *   **Assessment:** Reviewing payment history, credit reports, management's experience and reputation, business ethics, and any history of defaults or bankruptcies.
-    *   *Credit Analyst Note:* Considered by many to be the most important "C". A borrower with strong capacity but poor character may still choose not to pay.
-*   **3.2. Capacity (Ability to Pay from Operating Cash Flow):**
-    *   **Focus:** The borrower's ability to generate sufficient cash flow from its operations to service its debt obligations (interest and principal).
-    *   **Assessment:** Analyzing historical and projected financial statements, particularly cash flow statements. Key metrics include Debt Service Coverage Ratio (DSCR), Interest Coverage Ratio (TIE), Fixed Charge Coverage Ratio (FCCR), and overall profitability and cash flow trends.
-    *   *Credit Analyst Note:* This involves assessing the sustainability and quality of earnings and cash flows.
-*   **3.3. Capital (Financial Strength & Net Worth):**
-    *   **Focus:** The borrower's financial position, net worth, and overall financial resilience. The amount of equity or capital the owners have invested in the business.
-    *   **Assessment:** Analyzing the balance sheet, particularly leverage ratios (e.g., Debt-to-Equity, Debt-to-Capital), tangible net worth, and the quality of assets.
-    *   *Credit Analyst Note:* A strong capital base provides a cushion to absorb losses and protect creditors.
-*   **3.4. Collateral (Secondary Source of Repayment):**
-    *   **Focus:** Assets pledged by the borrower to secure the loan, which the lender can claim in the event of default.
-    *   **Assessment:** Evaluating the type, quality, value (market value, liquidation value), and liquidity of the collateral. Ensuring the lender has a perfected security interest (legal claim).
-    *   *Credit Analyst Note:* While important, collateral is a secondary source of repayment. Lenders prefer to be repaid from cash flow, not by seizing and selling assets.
-*   **3.5. Conditions (Economic & Industry Environment):**
-    *   **Focus:** The external economic and industry conditions that may affect the borrower's ability to repay.
-    *   **Assessment:** Analyzing the overall economic outlook (GDP growth, inflation, interest rates), industry trends, competitive landscape, regulatory environment, and any specific conditions impacting the borrower or the loan (e.g., purpose of the loan).
-    *   *Credit Analyst Note:* This involves understanding cyclical factors, industry-specific risks, and how the borrower is positioned to navigate these conditions.
+*   **3.1. [Character](../../Global_Financial_Glossary.md#character-five-cs-of-credit) (Willingness to Pay):**
+    *   **Focus:** The [borrower's](../../Global_Financial_Glossary.md#issuer) integrity, [reputation](../../Global_Financial_Glossary.md#reputational-risk), track record of meeting obligations, and overall trustworthiness.
+    *   **Assessment:** Reviewing payment history, credit reports, management's experience and [reputation](../../Global_Financial_Glossary.md#reputational-risk), business ethics, and any history of [defaults](../../Global_Financial_Glossary.md#default-risk) or bankruptcies.
+    *   *[Credit Analyst](../../Global_Financial_Glossary.md#credit-analysis) Note:* Considered by many to be the most important "C". A [borrower](../../Global_Financial_Glossary.md#issuer) with strong capacity but poor character may still choose not to pay.
+*   **3.2. [Capacity](../../Global_Financial_Glossary.md#capacity-five-cs-of-credit) (Ability to Pay from [Operating Cash Flow](../../Global_Financial_Glossary.md#cash-flow-from-operations-cfo)):**
+    *   **Focus:** The [borrower's](../../Global_Financial_Glossary.md#issuer) ability to generate sufficient [cash flow](../../Global_Financial_Glossary.md#cash-flow-from-operations-cfo) from its operations to service its [debt](../../Global_Financial_Glossary.md#debt) obligations ([interest](../../Global_Financial_Glossary.md#interest-expense) and [principal](../../Global_Financial_Glossary.md#principal-loanbond)).
+    *   **Assessment:** Analyzing historical and projected [financial statements](../../Global_Financial_Glossary.md#financial-statements), particularly [cash flow statements](../../Global_Financial_Glossary.md#statement-of-cash-flows). Key metrics include [Debt Service Coverage Ratio (DSCR)](../../Global_Financial_Glossary.md#debt-service-coverage-ratio-dscr), [Interest Coverage Ratio (TIE)](../../Global_Financial_Glossary.md#interest-coverage-ratio-times-interest-earned---tie), [Fixed Charge Coverage Ratio (FCCR)](../../Global_Financial_Glossary.md#fixed-charge-coverage-ratio-fccr), and overall [profitability](../../Global_Financial_Glossary.md#profitability) and [cash flow](../../Global_Financial_Glossary.md#cash-flow-from-operations-cfo) trends.
+    *   *[Credit Analyst](../../Global_Financial_Glossary.md#credit-analysis) Note:* This involves assessing the sustainability and quality of earnings and [cash flows](../../Global_Financial_Glossary.md#cash-flow-from-operations-cfo).
+*   **3.3. [Capital](../../Global_Financial_Glossary.md#capital-five-cs-of-credit) (Financial Strength & [Net Worth](../../Global_Financial_Glossary.md#net-worth)):**
+    *   **Focus:** The [borrower's](../../Global_Financial_Glossary.md#issuer) financial position, [net worth](../../Global_Financial_Glossary.md#net-worth), and overall financial resilience. The amount of [equity](../../Global_Financial_Glossary.md#equity) or capital the owners have invested in the business.
+    *   **Assessment:** Analyzing the [balance sheet](../../Global_Financial_Glossary.md#balance-sheet), particularly [leverage ratios](../../Global_Financial_Glossary.md#leverage-ratios) (e.g., Debt-to-Equity, Debt-to-Capital), [tangible net worth](../../Global_Financial_Glossary.md#tangible-net-worth), and the quality of [assets](../../Global_Financial_Glossary.md#assets).
+    *   *[Credit Analyst](../../Global_Financial_Glossary.md#credit-analysis) Note:* A strong capital base provides a cushion to absorb losses and protect [creditors](../../Global_Financial_Glossary.md#creditors-committee).
+*   **3.4. [Collateral](../../Global_Financial_Glossary.md#collateral) (Secondary Source of Repayment):**
+    *   **Focus:** [Assets](../../Global_Financial_Glossary.md#assets) pledged by the [borrower](../../Global_Financial_Glossary.md#issuer) to secure the [loan](../../Global_Financial_Glossary.md#loan-origination), which the [lender](../../Global_Financial_Glossary.md#lendercreditor) can claim in the event of [default](../../Global_Financial_Glossary.md#default-risk).
+    *   **Assessment:** Evaluating the type, quality, value (market value, [liquidation value](../../Global_Financial_Glossary.md#liquidation-value)), and [liquidity](../../Global_Financial_Glossary.md#liquidity) of the [collateral](../../Global_Financial_Glossary.md#collateral). Ensuring the [lender](../../Global_Financial_Glossary.md#lendercreditor) has a perfected [security interest](../../Global_Financial_Glossary.md#security-interest) (legal claim).
+    *   *[Credit Analyst](../../Global_Financial_Glossary.md#credit-analysis) Note:* While important, [collateral](../../Global_Financial_Glossary.md#collateral) is a secondary source of repayment. [Lenders](../../Global_Financial_Glossary.md#lendercreditor) prefer to be repaid from [cash flow](../../Global_Financial_Glossary.md#cash-flow-from-operations-cfo), not by seizing and selling [assets](../../Global_Financial_Glossary.md#assets).
+*   **3.5. [Conditions](../../Global_Financial_Glossary.md#conditions-five-cs-of-credit) (Economic & Industry Environment):**
+    *   **Focus:** The external economic and industry conditions that may affect the [borrower's](../../Global_Financial_Glossary.md#issuer) ability to repay.
+    *   **Assessment:** Analyzing the overall economic outlook ([GDP](../../Global_Financial_Glossary.md#gdp-gross-domestic-product) growth, [inflation](../../Global_Financial_Glossary.md#inflation), [interest rates](../../Global_Financial_Glossary.md#interest-rate-risk)), industry trends, competitive landscape, regulatory environment, and any specific conditions impacting the [borrower](../../Global_Financial_Glossary.md#issuer) or the [loan](../../Global_Financial_Glossary.md#loan-origination) (e.g., purpose of the loan).
+    *   *[Credit Analyst](../../Global_Financial_Glossary.md#credit-analysis) Note:* This involves understanding cyclical factors, industry-specific [risks](../../Global_Financial_Glossary.md#risk), and how the [borrower](../../Global_Financial_Glossary.md#issuer) is positioned to navigate these conditions.
 
-## 4. Overview of the Credit Lifecycle
+## 4. Overview of the [Credit Lifecycle](../../Global_Financial_Glossary.md#credit-lifecycle)
 
-The management of credit risk typically follows a lifecycle approach:
+The management of [credit risk](../../Global_Financial_Glossary.md#credit-risk) typically follows a lifecycle approach:
 
-*   **4.1. Origination & Business Development:**
-    *   Identifying potential borrowers that meet the lender's target market and risk appetite.
+*   **4.1. [Origination](../../Global_Financial_Glossary.md#loan-origination) & Business Development:**
+    *   Identifying potential [borrowers](../../Global_Financial_Glossary.md#issuer) that meet the [lender's](../../Global_Financial_Glossary.md#lendercreditor) target market and [risk appetite](../../Global_Financial_Glossary.md#risk-appetite).
     *   Initial discussions and gathering of preliminary information.
-*   **4.2. Underwriting & Due Diligence:**
-    *   The core credit analysis process. Involves detailed financial analysis, industry assessment, management evaluation, collateral appraisal (if any), and overall risk assessment (as outlined by the Five Cs and other frameworks).
+*   **4.2. [Underwriting](../../Global_Financial_Glossary.md#underwriting-securities) & [Due Diligence](../../Global_Financial_Glossary.md#due-diligence):**
+    *   The core [credit analysis](../../Global_Financial_Glossary.md#credit-analysis) process. Involves detailed [financial analysis](../../Global_Financial_Glossary.md#financial-analysis), industry assessment, management evaluation, [collateral](../../Global_Financial_Glossary.md#collateral) appraisal (if any), and overall [risk assessment](../../Global_Financial_Glossary.md#risk-assessment) (as outlined by the [Five Cs](../../Global_Financial_Glossary.md#five-cs-of-credit) and other frameworks).
     *   (See `CRM_02_Credit_Analysis_Process_and_Tools.md` for details).
 *   **4.3. Credit Approval & Structuring:**
-    *   Based on the underwriting, a credit decision is made (approve, decline, or approve with modifications).
-    *   If approved, the loan is structured with appropriate terms, conditions, pricing, covenants, and security.
+    *   Based on the [underwriting](../../Global_Financial_Glossary.md#underwriting-securities), a credit decision is made (approve, decline, or approve with modifications).
+    *   If approved, the [loan](../../Global_Financial_Glossary.md#loan-origination) is structured with appropriate terms, conditions, pricing, [covenants](../../Global_Financial_Glossary.md#covenant), and [security](../../Global_Financial_Glossary.md#security-interest).
 *   **4.4. Documentation & Closing:**
-    *   Legal documentation of the loan agreement and any security interests.
-    *   Fulfillment of conditions precedent before funding.
-*   **4.5. Monitoring & Portfolio Management:**
-    *   Ongoing review of the borrower's financial performance, compliance with covenants, and changes in its business or industry.
-    *   Regular risk rating updates.
-    *   Management of the overall credit portfolio to control concentrations and optimize risk-return.
-*   **4.6. Problem Loan Management & Workout/Recovery:**
-    *   If a borrower shows signs of financial distress or defaults, this stage involves strategies to minimize losses.
-    *   May include forbearance, loan restructuring, workout plans, or, as a last resort, legal action, collateral seizure, and recovery efforts.
+    *   Legal documentation of the loan agreement and any [security interests](../../Global_Financial_Glossary.md#security-interest).
+    *   Fulfillment of [conditions precedent](../../Global_Financial_Glossary.md#conditions-precedent-cps) before [funding](../../Global_Financial_Glossary.md#funding-liquidity-risk).
+*   **4.5. [Monitoring](../../Global_Financial_Glossary.md#risk-monitoring) & [Portfolio Management](../../Global_Financial_Glossary.md#portfolio-management):**
+    *   Ongoing review of the [borrower's](../../Global_Financial_Glossary.md#issuer) financial performance, compliance with [covenants](../../Global_Financial_Glossary.md#covenant), and changes in its business or industry.
+    *   Regular [risk rating](../../Global_Financial_Glossary.md#credit-rating) updates.
+    *   Management of the overall [credit portfolio](../../Global_Financial_Glossary.md#credit-portfolio-management-cpm) to control [concentrations](../../Global_Financial_Glossary.md#concentration-risk) and optimize risk-return.
+*   **4.6. [Problem Loan Management](../../Global_Financial_Glossary.md#problem-loan-management) & [Workout](../../Global_Financial_Glossary.md#workout-loan-workout)/[Recovery](../../Global_Financial_Glossary.md#recovery-rate):**
+    *   If a [borrower](../../Global_Financial_Glossary.md#issuer) shows signs of [financial distress](../../Global_Financial_Glossary.md#financial-distress) or [defaults](../../Global_Financial_Glossary.md#default-risk), this stage involves strategies to minimize losses.
+    *   May include [forbearance](../../Global_Financial_Glossary.md#forbearance-agreement), [loan restructuring](../../Global_Financial_Glossary.md#debt-restructuring), [workout](../../Global_Financial_Glossary.md#workout-loan-workout) plans, or, as a last resort, legal action, [collateral](../../Global_Financial_Glossary.md#collateral) seizure, and [recovery](../../Global_Financial_Glossary.md#recovery-rate) efforts.
     *   (To be detailed in `CRM_05_Problem_Loan_Management_and_Workout.md`).
 
 ## 5. Key Players in Credit Markets
 
-*   **Borrowers:** Individuals, corporations, governments, and other entities seeking funds.
-*   **Lenders/Creditors:**
-    *   **Banks:** Commercial banks, investment banks.
-    *   **Non-Bank Financial Institutions (NBFIs):** Insurance companies, pension funds, asset managers, private credit funds, finance companies.
-    *   **Bondholders/Investors:** Purchasers of corporate or government bonds.
-    *   **Suppliers (Trade Creditors):** Companies offering credit terms to their customers.
+*   **[Borrowers](../../Global_Financial_Glossary.md#issuer):** Individuals, corporations, governments, and other entities seeking funds.
+*   **[Lenders](../../Global_Financial_Glossary.md#lendercreditor)/[Creditors](../../Global_Financial_Glossary.md#creditors-committee):**
+    *   **[Banks](../../Global_Financial_Glossary.md#banks):** Commercial banks, [investment banks](../../Global_Financial_Glossary.md#investment-bank).
+    *   **[Non-Bank Financial Institutions (NBFIs)](../../Global_Financial_Glossary.md#nbfi-non-bank-financial-institution):** [Insurance companies](../../Global_Financial_Glossary.md#insurance), [pension funds](../../Global_Financial_Glossary.md#defined-benefit-pension-plan), [asset managers](../../Global_Financial_Glossary.md#asset-managers), [private credit funds](../../Global_Financial_Glossary.md#private-credit), [finance companies](../../Global_Financial_Glossary.md#finance-companies).
+    *   **[Bondholders](../../Global_Financial_Glossary.md#bondholders)/[Investors](../../Global_Financial_Glossary.md#investors):** Purchasers of corporate or government [bonds](../../Global_Financial_Glossary.md#bond).
+    *   **Suppliers ([Trade Creditors](../../Global_Financial_Glossary.md#trade-credit)):** Companies offering credit terms to their customers.
 *   **Intermediaries:**
-    *   **Investment Banks:** Arrange and underwrite debt issuances.
-    *   **Brokers/Dealers:** Facilitate trading of debt securities.
-*   **Credit Rating Agencies:** (e.g., S&P, Moody's, Fitch) Provide independent opinions on creditworthiness.
-*   **Regulators:** (e.g., Central Banks, Financial Supervisory Authorities) Set rules and oversee the stability of the financial system, including capital adequacy for lenders.
+    *   **[Investment Banks](../../Global_Financial_Glossary.md#investment-bank):** Arrange and [underwrite](../../Global_Financial_Glossary.md#underwriting-securities) debt issuances.
+    *   **[Brokers/Dealers](../../Global_Financial_Glossary.md#brokersdealers):** Facilitate trading of debt securities.
+*   **[Credit Rating Agencies](../../Global_Financial_Glossary.md#credit-rating):** (e.g., S&P, Moody's, Fitch) Provide independent opinions on [creditworthiness](../../Global_Financial_Glossary.md#credit-rating).
+*   **[Regulators](../../Global_Financial_Glossary.md#regulators):** (e.g., [Central Banks](../../Global_Financial_Glossary.md#central-banks), Financial Supervisory Authorities) Set rules and oversee the stability of the financial system, including [capital adequacy](../../Global_Financial_Glossary.md#capital-adequacy) for [lenders](../../Global_Financial_Glossary.md#lendercreditor).
 
 **Conclusion:**
-These fundamental concepts of credit risk – its definition, types, assessment frameworks like the Five Cs, and the typical lifecycle – provide the essential groundwork for more detailed credit analysis and risk management practices. Understanding these basics is the first step for any aspiring credit professional.
+These fundamental concepts of [credit risk](../../Global_Financial_Glossary.md#credit-risk) – its definition, types, assessment frameworks like the [Five Cs](../../Global_Financial_Glossary.md#five-cs-of-credit), and the typical lifecycle – provide the essential groundwork for more detailed [credit analysis](../../Global_Financial_Glossary.md#credit-analysis) and [risk management](../../Global_Financial_Glossary.md#risk-management) practices. Understanding these basics is the first step for any aspiring credit professional.

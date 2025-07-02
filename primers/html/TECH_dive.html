@@ -60,8 +60,13 @@
             transform: rotateY(180deg);
         }
     </style>
+    <link rel="stylesheet" href="../../css/global_nav.css">
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="bg-slate-50 text-slate-800" style="display: flex; min-height: 100vh;">
+
+    <div id="global-nav-placeholder"></div>
+
+    <div class="main-primer-content" style="flex-grow: 1; overflow-y: auto;">
 
     <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -302,6 +307,8 @@
         </div>
     </footer>
 
+    </div> <!-- End of main-primer-content -->
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
@@ -537,5 +544,7 @@
             document.querySelector('.sector-btn[data-sector="software"]').click();
         });
     </script>
+    <script src="../../js/nav_data.js" defer></script>
+    <script src="../../js/global_nav.js" defer></script>
 </body>
 </html>

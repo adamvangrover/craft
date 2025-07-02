@@ -118,7 +118,6 @@ const navData = [
     children: [
       { text: "Risk Management Hub", href: "Risk_Management/index.html", type: "html_hub" },
       { text: "Introduction to Risk Management", href: "Risk_Management/01_Introduction_to_Risk_Management.md", type: "markdown_viewer", viewer: "global" },
-      { text: "Introduction to Risk Management", href: "Risk_Management/01_Introduction_to_Risk_Management.md", type: "markdown_viewer", viewer: "global" },
       { text: "Risk ID & Assessment Frameworks", href: "Risk_Management/02_Risk_Identification_and_Assessment_Frameworks.md", type: "markdown_viewer", viewer: "global" },
       { text: "Risk Reporting & Dashboards", href: "Risk_Management/03_Risk_Reporting_and_Dashboards.md", type: "markdown_viewer", viewer: "global" },
       { text: "Risk Governance & Culture", href: "Risk_Management/04_Risk_Governance_and_Culture.md", type: "markdown_viewer", viewer: "global" },

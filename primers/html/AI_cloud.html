@@ -19,6 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global_nav.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -64,7 +65,11 @@
         }
     </style>
 </head>
-<body class="antialiased">
+<body style="display: flex; min-height: 100vh;">
+
+    <div id="global-nav-placeholder"></div>
+
+    <div class="main-primer-content" style="flex-grow: 1; overflow-y: auto;">
 
     <header id="header" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -300,6 +305,8 @@
             <p class="mt-2 text-sm">Data synthesized from "The AI-Powered Cloud" report. For informational purposes only.</p>
         </div>
     </footer>
+
+    </div> <!-- End of main-primer-content -->
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -557,5 +564,7 @@
             onScroll();
         });
     </script>
+    <script src="../../js/nav_data.js" defer></script>
+    <script src="../../js/global_nav.js" defer></script>
 </body>
 </html>
