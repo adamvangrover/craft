@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Outlook: Credit & Capital Markets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A tabbed dashboard interface is used to break down the dense report into digestible, user-driven sections: Dashboard (landing summary), Macro Outlook, Credit Markets, Capital Markets, Themes & Risks, and Investor Strategy. This non-linear structure prioritizes user exploration and prevents cognitive overload. The user can get a high-level overview on the dashboard, then dive into specific areas of interest, which is more intuitive than a linear scroll. Key interactions include toggling chart data to compare scenarios (e.g., default rates) and hover effects for detailed information, directly engaging the user with the report's core findings. -->
+    <!-- Visualization & Content Choices: 
+        - Global GDP Forecasts: Goal: Compare regional growth. Viz: Grouped Bar Chart (Chart.js). Interaction: Tooltips. Justification: Superior for direct comparison of discrete regional data points.
+        - HY Default Forecasts: Goal: Highlight uncertainty. Viz: Bar Chart (Chart.js). Interaction: Buttons to toggle between Base, Pessimistic, and Optimistic cases. Justification: Directly visualizes the "divergence of forecasts," making the key risk tangible and interactive.
+        - HY Maturity Wall: Goal: Show looming risk. Viz: Stacked Bar Chart (Chart.js). Justification: Clearly shows total volume and the deteriorating quality mix over time.
+        - Sector Outlook: Goal: Organize categorical risk. Viz: HTML/CSS Grid as a Heatmap. Justification: An intuitive, at-a-glance visualization of relative sector strength and vulnerability.
+        - Key Themes: Goal: Organize qualitative insights. Viz: HTML/CSS Accordion. Interaction: Click to expand. Justification: Presents dense text in a clean, user-controlled manner.
+        All choices adhere to the NO SVG/Mermaid constraint. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        .nav-button.active {
+            background-color: #4338ca;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-800 tracking-tight">Interactive Outlook: Credit & Capital Markets</h1>
+            <p class="mt-2 text-lg md:text-xl text-indigo-600 font-semibold">Navigating the Great Divergence: H2 2025 - H1 2026</p>
+        </header>
+
+        <nav class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 md:mb-12">
+            <button data-target="dashboard" class="nav-button active font-semibold py-2 px-3 md:px-5 rounded-lg bg-white shadow-sm hover:bg-slate-200">Dashboard</button>
+            <button data-target="macro" class="nav-button font-semibold py-2 px-3 md:px-5 rounded-lg bg-white shadow-sm hover:bg-slate-200">Macro Outlook</button>
+            <button data-target="credit" class="nav-button font-semibold py-2 px-3 md:px-5 rounded-lg bg-white shadow-sm hover:bg-slate-200">Credit Markets</button>
+            <button data-target="capital" class="nav-button font-semibold py-2 px-3 md:px-5 rounded-lg bg-white shadow-sm hover:bg-slate-200">Capital Markets</button>
+            <button data-target="themes" class="nav-button font-semibold py-2 px-3 md:px-5 rounded-lg bg-white shadow-sm hover:bg-slate-200">Themes & Risks</button>
+            <button data-target="strategy" class="nav-button font-semibold py-2 px-3 md:px-5 rounded-lg bg-white shadow-sm hover:bg-slate-200">Investor Strategy</button>
+        </nav>
+
+        <main id="main-content">
+
+            <section id="dashboard" class="content-section active">
+                <div class="bg-white rounded-lg shadow p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Executive Summary: An Unstable Equilibrium</h2>
+                    <p class="mb-4">The global credit and capital markets are entering a period of profound divergence. The synchronized post-pandemic recovery has fractured, replaced by a complex landscape where political and policy risks, particularly from the U.S., are the primary drivers of volatility. Markets are navigating a "Great Divergence," characterized by a resilient but expensive US market set against more challenged international economies.</p>
+                    <p>This interactive dashboard synthesizes our 6-12 month outlook. The key thesis is that success will demand active management, rigorous security selection, and portfolio resilience. Simple beta exposure is unlikely to be rewarded in the face of divergent central bank policies, compressed credit spreads, and fragile primary markets. Use the navigation above to explore the data and analysis shaping our view.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="font-bold text-slate-800 text-lg mb-2">Global GDP Growth (2025F)</h3>
+                        <p class="text-4xl font-bold text-red-500">~2.3%</p>
+                        <p class="text-sm text-slate-500 mt-1">Slowdown driven by trade tensions.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="font-bold text-slate-800 text-lg mb-2">US IG Credit Spread</h3>
+                        <p class="text-4xl font-bold text-amber-500">85 bps</p>
+                        <p class="text-sm text-slate-500 mt-1">Historically tight; minimal risk premium.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="font-bold text-slate-800 text-lg mb-2">S&P 500 Fwd P/E</h3>
+                        <p class="text-4xl font-bold text-red-500">~21x</p>
+                        <p class="text-sm text-slate-500 mt-1">Stretched valuation, priced for perfection.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="font-bold text-slate-800 text-lg mb-2">Primary Risk Driver</h3>
+                        <p class="text-4xl font-bold text-indigo-600">Policy</p>
+                        <p class="text-sm text-slate-500 mt-1">Geopolitics & trade eclipse economics.</p>
+                    </div>
+                </div>
+                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+                    <div class="bg-white rounded-lg shadow p-6">
+                         <h3 class="text-xl font-bold text-slate-800 mb-4 text-center">Global Growth Divergence (2025 GDP Forecast)</h3>
+                         <div class="chart-container"><canvas id="gdpChart"></canvas></div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                         <h3 class="text-xl font-bold text-slate-800 mb-4 text-center">U.S. High-Yield Default Forecasts (2025)</h3>
+                         <div class="chart-container"><canvas id="defaultRateChart"></canvas></div>
+                         <div class="flex justify-center gap-4 mt-4">
+                             <button id="base-case-btn" class="case-button bg-indigo-600 text-white py-1 px-3 rounded-md text-sm">Base Case</button>
+                             <button id="pessimistic-case-btn" class="case-button bg-slate-200 text-slate-700 py-1 px-3 rounded-md text-sm">Pessimistic Case</button>
+                             <button id="optimistic-case-btn" class="case-button bg-slate-200 text-slate-700 py-1 px-3 rounded-md text-sm">Optimistic Case</button>
+                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="macro" class="content-section">
+                <div class="bg-white rounded-lg shadow p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Macro Outlook: A Desynchronized World</h2>
+                    <p class="mb-4">The global economic environment is defined by desynchronization and policy-driven uncertainty. The cohesive post-pandemic recovery has fractured, replaced by divergent growth paths and asynchronous central bank policies. The U.S. stands as a resilient outlier whose very strength, fueling aggressive trade policy, creates instability for the rest of the world. This section explores the divergent trajectories of major economies and the primacy of political risk in shaping market outcomes.</p>
+                </div>
+                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4">Key Economic Blocs</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-lg">🇺🇸 The U.S. Anomaly</h4>
+                                <p>Robust growth (1.5%-2.5% F) but its trade policy is the primary drag on global growth. Resilient labor market supports sticky services inflation.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">🇪🇺 Eurozone's Tepid Recovery</h4>
+                                <p>Subdued growth (0.8%-1.0% F) due to trade vulnerability. A pivot to fiscal stimulus, especially in Germany, offers a potential buffer.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">🇨🇳 China's Structural Slowdown</h4>
+                                <p>Growth moderating (4.0%-4.7% F) amid a property crisis, weak consumption, and US tariffs. Stimulus provides a floor, but structural issues cap potential.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">🇮🇳 India: A Beacon of Growth</h4>
+                                <p>Remains a standout, with resilient expansion (~6.5% F) driven by strong domestic demand and investment.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 text-center">The Great Monetary Policy Divergence</h3>
+                        <p class="text-center mb-4 text-sm">The resilient US economy means the Fed is expected to cut rates much slower than peers like the ECB, driving capital flows and currency volatility.</p>
+                        <div class="chart-container"><canvas id="policyRateChart"></canvas></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="credit" class="content-section">
+                <div class="bg-white rounded-lg shadow p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Credit Markets: Complacency Amidst Rising Risk</h2>
+                    <p class="mb-4">The credit markets present a paradox: historically tight spreads suggest low risk, yet underlying fundamentals are deteriorating. This divergence creates a challenging environment favoring quality and research. Key risks include the erosion of covenant protections, which could lead to lower recovery rates in the next downturn, and a significant maturity wall looming for lower-quality issuers.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow p-6 flex flex-col">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 text-center">The High-Yield Maturity Wall</h3>
+                        <p class="text-center mb-4 text-sm">Refinancing risk is low in 2025 but grows substantially in 2026 and beyond, especially for lower-rated 'B' and 'CCC' issuers who must refinance at much higher rates.</p>
+                        <div class="chart-container flex-grow"><canvas id="maturityWallChart"></canvas></div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4">Analysis by Segment</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-lg">Investment Grade (IG)</h4>
+                                <p>Offers attractive all-in yields, but the minimal risk premium (spread) provides little cushion against shocks.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">High-Yield (HY) & Loans</h4>
+                                <p>A trade-off between attractive carry and rising default risk. The market is overwhelmingly "covenant-lite," degrading lender protections.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Private Credit</h4>
+                                <p>Growth continues, but intense competition and rising regulatory scrutiny from the SEC and Fed are key risks to monitor.</p>
+                            </div>
+                             <div>
+                                <h4 class="font-semibold text-lg">Structured & Municipal</h4>
+                                <p>CLO issuance is robust. CMBS faces office real estate headwinds. Muni bonds are strong but face federal tax policy uncertainty.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="capital" class="content-section">
+                <div class="bg-white rounded-lg shadow p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Capital Markets: Cautious Optimism</h2>
+                    <p class="mb-4">Equity markets are in a tug-of-war between resilient corporate earnings and significant valuation headwinds from higher-for-longer interest rates. With valuations stretched, the onus for returns shifts from multiple expansion to earnings growth and security selection. The fragile reopening of the IPO and M&A markets serves as a crucial barometer of corporate confidence in this uncertain environment.</p>
+                </div>
+                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 text-center">Sector Outlook: Resilient vs. Vulnerable</h3>
+                        <p class="text-center text-sm mb-4">Policy and economic shifts create clear winners and losers. Leadership is expected to broaden beyond mega-cap tech.</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-lg text-green-700 mb-2">✅ Resilient Sectors</h4>
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li><strong>Financials:</strong> Benefit from high rates, strong capital.</li>
+                                    <li><strong>Utilities:</strong> Defensive growth + AI energy demand.</li>
+                                    <li><strong>Healthcare:</strong> Non-discretionary demand, M&A activity.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg text-red-700 mb-2">❌ Vulnerable Sectors</h4>
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li><strong>Industrials:</strong> High foreign revenue, trade exposure.</li>
+                                    <li><strong>Energy/Materials:</strong> Cyclical, sensitive to global slowdown.</li>
+                                    <li><strong>Info Tech (parts):</strong> Risk from supply chain disruption.</li>
+                                </ul>
+                            </div>
+                        </div>
+                         <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4 text-center">Primary Market Health</h3>
+                         <div class="flex justify-around items-center h-24 bg-slate-100 rounded-lg">
+                            <div class="text-center">
+                               <p class="text-2xl font-bold">🧊</p>
+                               <p class="font-semibold">IPO Market</p>
+                               <p class="text-sm">Fragile Thaw</p>
+                            </div>
+                             <div class="text-center">
+                               <p class="text-2xl font-bold">🤝</p>
+                               <p class="font-semibold">M&A Activity</p>
+                               <p class="text-sm">Cautious Rebound</p>
+                            </div>
+                         </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 text-center">The "Great Broadening" of Leadership</h3>
+                        <p class="mb-4">After years of dominance by a few U.S. mega-cap tech stocks, capital is expected to shift to other market segments. International markets look increasingly attractive on a relative basis.</p>
+                        <div class="space-y-4">
+                             <div>
+                                <h4 class="font-semibold text-lg">🌍 Europe</h4>
+                                <p>Benefiting from a fiscal pivot to stimulus and attractive relative valuations.</p>
+                            </div>
+                             <div>
+                                <h4 class="font-semibold text-lg">🇯🇵 Japan</h4>
+                                <p>Supported by a powerful theme of corporate governance reform unlocking shareholder value.</p>
+                            </div>
+                             <div>
+                                <h4 class="font-semibold text-lg">🇺� U.S. Small/Mid-Caps</h4>
+                                <p>Trade at a significant discount to large caps and are more insulated from global trade disputes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="themes" class="content-section">
+                 <div class="bg-white rounded-lg shadow p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Overarching Themes & Key Risks</h2>
+                    <p class="mb-4">Synthesizing the analysis reveals several powerful, interconnected themes that will define the investment environment. These point to a market in transition toward a more fragmented and volatile regime. Understanding these drivers and the primary downside risks is essential for building resilient portfolios.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4">4 Dominant Market Themes</h3>
+                        <div class="space-y-3" id="themes-accordion">
+                            <div class="border rounded-lg">
+                                <button class="w-full text-left p-4 font-semibold flex justify-between items-center">1. AI & Energy Super-Cycle <span class="accordion-icon transform rotate-0">▼</span></button>
+                                <div class="accordion-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
+                                    <p class="p-4 pt-0">A massive, multi-year CAPEX cycle in AI and the required energy infrastructure buildout provides a durable growth pillar for Utilities, Industrials, and Tech Hardware, partially insulated from the business cycle.</p>
+                                </div>
+                            </div>
+                            <div class="border rounded-lg">
+                                <button class="w-full text-left p-4 font-semibold flex justify-between items-center">2. Geopolitical Fragmentation <span class="accordion-icon transform rotate-0">▼</span></button>
+                                <div class="accordion-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
+                                    <p class="p-4 pt-0">The end of frictionless globalization forces supply chain realignment ("reshoring," "friend-shoring"), creating winners (e.g., India, Mexico) and losers and driving a global rearmament trend benefitting the Defense sector.</p>
+                                </div>
+                            </div>
+                            <div class="border rounded-lg">
+                                <button class="w-full text-left p-4 font-semibold flex justify-between items-center">3. Public vs. Private Capital <span class="accordion-icon transform rotate-0">▼</span></button>
+                                <div class="accordion-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
+                                    <p class="p-4 pt-0">The explosive growth of private credit has created a formidable competitor to public debt markets, reshaping the risk-return proposition for debt investors across the board.</p>
+                                </div>
+                            </div>
+                            <div class="border rounded-lg">
+                                <button class="w-full text-left p-4 font-semibold flex justify-between items-center">4. The Primacy of Policy Risk <span class="accordion-icon transform rotate-0">▼</span></button>
+                                <div class="accordion-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
+                                    <p class="p-4 pt-0">The market's focus has shifted from economic data to political headlines. Trade and fiscal policy can trigger sharp, unpredictable sell-offs, making political analysis central to investing.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-red-50 border-l-4 border-red-500 rounded-r-lg p-6">
+                        <h3 class="text-xl font-bold text-red-800 mb-4">Key Downside Risks</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span class="text-red-600 font-bold text-xl mr-3">!</span>
+                                <div><strong class="text-red-700">Trade War Escalation:</strong> A full-scale, retaliatory trade war between the US, China, and Europe would likely trigger a global recession.</div>
+                            </li>
+                            <li class="flex items-start">
+                               <span class="text-red-600 font-bold text-xl mr-3">!</span>
+                                <div><strong class="text-red-700">Geopolitical Shock:</strong> A widening conflict in the Middle East disrupting oil supplies would be a severe stagflationary shock (lower growth, higher inflation).</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-600 font-bold text-xl mr-3">!</span>
+                                <div><strong class="text-red-700">Sticky Inflation:</strong> If inflation persists, a hawkish Fed response (higher-for-longer rates) would pressure equity valuations and risk assets.</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-600 font-bold text-xl mr-3">!</span>
+                                <div><strong class="text-red-700">Credit Contagion:</strong> A wave of defaults in a less transparent area like private credit or stress in Commercial Real Estate could spark a wider liquidity crunch.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="strategy" class="content-section">
+                <div class="bg-white rounded-lg shadow p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Strategic Recommendations by Investor Profile</h2>
+                    <p class="mb-4">In this complex environment, a one-size-fits-all approach is insufficient. The following high-level recommendations are designed to guide portfolio construction based on different risk profiles, tailored to the specific trends and risks identified in this outlook. The core principle for all profiles is a focus on quality, diversification, and resilience.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="border-2 border-green-500 rounded-lg p-6 bg-white shadow-lg">
+                        <h3 class="text-2xl font-bold text-green-700 mb-4 text-center">🛡️ Conservative</h3>
+                        <p class="text-center font-semibold mb-4">Objective: Capital Preservation & Income</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Overweight Fixed Income:</strong> Core of high-quality IG corporate and municipal bonds to lock in attractive yields.</li>
+                            <li><strong>Underweight Equities:</strong> Focus on defensive sectors like Utilities and Healthcare with stable demand.</li>
+                            <li><strong>Overweight Cash:</strong> Maintain liquidity and optionality to deploy during market dislocations.</li>
+                             <li><strong>Avoid:</strong> High-yield credit, speculative equities.</li>
+                        </ul>
+                    </div>
+                     <div class="border-2 border-blue-500 rounded-lg p-6 bg-white shadow-lg">
+                        <h3 class="text-2xl font-bold text-blue-700 mb-4 text-center">⚖️ Balanced</h3>
+                        <p class="text-center font-semibold mb-4">Objective: Growth with Prudent Risk</p>
+                        <ul class="list-disc list-inside space-y-2">
+                           <li><strong>Overweight Equities:</strong> Embrace the "Great Broadening." Diversify away from US mega-caps into international (Europe, Japan) and other US sectors.</li>
+                           <li><strong>Market-weight Fixed Income:</strong> Core IG allocation for income. Neutral duration stance.</li>
+                           <li><strong>Market-weight Alternatives:</strong> Add exposure to secular themes like AI/energy infrastructure.</li>
+                           <li><strong>Manage:</strong> The risk of over-concentration in last cycle's winners.</li>
+                        </ul>
+                    </div>
+                     <div class="border-2 border-purple-500 rounded-lg p-6 bg-white shadow-lg">
+                        <h3 class="text-2xl font-bold text-purple-700 mb-4 text-center">🚀 Aggressive</h3>
+                        <p class="text-center font-semibold mb-4">Objective: Maximizing Total Return</p>
+                        <ul class="list-disc list-inside space-y-2">
+                           <li><strong>Overweight Global Equities:</strong> Tactically allocate to US small/mid-caps. Lean into secular themes (AI, defense).</li>
+                           <li><strong>Market-weight Credit:</strong> Actively manage HY/loan exposure via security selection, avoiding weak covenants and refinancing risk.</li>
+                           <li><strong>Underweight Government Bonds:</strong> Avoid long-duration due to term premium risks.</li>
+                            <li><strong>Overweight Alternatives:</strong> Use managed futures or options to hedge against specific tail risks (e.g., geopolitics).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const reportData = {
+        gdpForecasts: {
+            labels: ['Global', 'USA', 'Eurozone', 'China', 'India'],
+            datasets: [{
+                label: '2025 GDP Growth F (%)',
+                data: [2.3, 1.7, 0.9, 4.2, 6.5],
+                backgroundColor: 'rgba(79, 70, 229, 0.8)',
+                borderColor: 'rgba(79, 70, 229, 1)',
+                borderWidth: 1
+            }]
+        },
+        defaultRates: {
+            labels: ["S&P", "Moody's", "Lord Abbett", "Invesco"],
+            base: [3.5, 7.75, 1.0, 3.5],
+            pessimistic: [6.0, 8.2, 1.5, 4.0],
+            optimistic: [2.25, 7.3, 0.8, 3.25]
+        },
+        policyRates: {
+            labels: ['Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025', 'Q1 2026'],
+            datasets: [
+                {
+                    label: 'Fed Funds Rate F',
+                    data: [4.25, 4.0, 3.75, 3.5, 3.5],
+                    borderColor: 'rgb(79, 70, 229)',
+                    tension: 0.1
+                },
+                {
+                    label: 'ECB Policy Rate F',
+                    data: [2.5, 2.25, 2.0, 1.75, 1.75],
+                    borderColor: 'rgb(234, 179, 8)',
+                    tension: 0.1
+                }
+            ]
+        },
+        maturityWall: {
+            labels: ['2025', '2026', '2027', '2028+'],
+            datasets: [
+                {
+                    label: 'CCC & Lower Rated',
+                    data: [15, 30, 45, 60],
+                    backgroundColor: 'rgb(239, 68, 68)',
+                },
+                {
+                    label: 'B Rated',
+                    data: [60, 110, 135, 150],
+                    backgroundColor: 'rgb(245, 158, 11)',
+                },
+                 {
+                    label: 'BB Rated & Higher',
+                    data: [38, 64, 80, 110],
+                    backgroundColor: 'rgb(34, 197, 94)',
+                }
+            ]
+        }
+    };
+
+    let charts = {};
+
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        let label = context.dataset.label || '';
+                        if (label) {
+                            label += ': ';
+                        }
+                        if (context.parsed.y !== null) {
+                            label += context.parsed.y + '%';
+                        }
+                        return label;
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                     callback: function(value) {
+                        return value + '%';
+                    }
+                }
+            }
+        }
+    };
+    
+    function createGdpChart() {
+        const ctx = document.getElementById('gdpChart')?.getContext('2d');
+        if (!ctx) return;
+        charts.gdp = new Chart(ctx, {
+            type: 'bar',
+            data: reportData.gdpForecasts,
+            options: chartOptions
+        });
+    }
+
+    function createDefaultRateChart(scenario = 'base') {
+        const ctx = document.getElementById('defaultRateChart')?.getContext('2d');
+        if (!ctx) return;
+        if(charts.default) charts.default.destroy();
+        
+        charts.default = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: reportData.defaultRates.labels,
+                datasets: [{
+                    label: `Default Rate Forecast (%) - ${scenario.charAt(0).toUpperCase() + scenario.slice(1)} Case`,
+                    data: reportData.defaultRates[scenario],
+                    backgroundColor: 'rgba(234, 179, 8, 0.8)',
+                    borderColor: 'rgba(234, 179, 8, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: chartOptions
+        });
+    }
+    
+    function createPolicyRateChart() {
+        const ctx = document.getElementById('policyRateChart')?.getContext('2d');
+        if (!ctx) return;
+        charts.policy = new Chart(ctx, {
+            type: 'line',
+            data: reportData.policyRates,
+            options: chartOptions
+        });
+    }
+    
+    function createMaturityWallChart() {
+        const ctx = document.getElementById('maturityWallChart')?.getContext('2d');
+        if (!ctx) return;
+        charts.maturity = new Chart(ctx, {
+            type: 'bar',
+            data: reportData.maturityWall,
+            options: {
+                ...chartOptions,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed.y !== null) { label += '$' + context.parsed.y + 'B'; }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: { stacked: true },
+                    y: { 
+                        stacked: true,
+                         ticks: {
+                             callback: function(value) {
+                                return '$' + value + 'B';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    const navButtons = document.querySelectorAll('.nav-button');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    function switchTab(targetId) {
+        navButtons.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.target === targetId);
+        });
+        contentSections.forEach(section => {
+            section.classList.toggle('active', section.id === targetId);
+        });
+        
+        // Re-initialize charts if they are in the active tab and not yet created
+        if (targetId === 'dashboard' && !charts.gdp) { createGdpChart(); createDefaultRateChart(); }
+        if (targetId === 'macro' && !charts.policy) { createPolicyRateChart(); }
+        if (targetId === 'credit' && !charts.maturity) { createMaturityWallChart(); }
+    }
+
+    navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            switchTab(button.dataset.target);
+        });
+    });
+    
+    const caseButtons = document.querySelectorAll('.case-button');
+    caseButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const scenario = e.target.id.split('-')[0];
+            createDefaultRateChart(scenario);
+            caseButtons.forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.add('bg-slate-200', 'text-slate-700');
+            });
+            e.target.classList.add('bg-indigo-600', 'text-white');
+            e.target.classList.remove('bg-slate-200', 'text-slate-700');
+        });
+    });
+    
+    const accordionContainer = document.getElementById('themes-accordion');
+    if (accordionContainer) {
+        accordionContainer.addEventListener('click', (e) => {
+            const header = e.target.closest('button');
+            if (!header) return;
+
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.accordion-icon');
+
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                content.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        });
+    }
+
+    createGdpChart();
+    createDefaultRateChart();
+});
+</script>
+</body>
+</html>
+�
