@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Automotive - Industry Primer</title>
     <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../../css/global_nav.css">
 </head>
-<body>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="main-primer-content" style="flex-grow: 1; padding: 1rem; overflow-y: auto;">
     <div class="page-container detail-page-container">
         <header class="detail-page-header page-header">
             <h1>Automotive Primer</h1>
@@ -188,6 +191,9 @@
             <p>&copy; <span id="currentYear"></span> Primer Analysis Tool</p>
         </footer>
     </div>
+    </div> <!-- End main-primer-content -->
     <script src="../script.js"></script>
+    <script src="../../js/nav_data.js" defer></script>
+    <script src="../../js/global_nav.js" defer></script>
 </body>
 </html>
