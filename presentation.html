@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Training Presentation</title>
+    <title>CRAFT Program Training Deck</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,284 +12,419 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* bg-gray-100 */
+        }
+        .presentation-container {
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            margin: 2rem auto;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
         }
         .slide {
             display: none;
             opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            transition: opacity 0.6s ease-in-out;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 2.5rem 3.5rem;
+            box-sizing: border-box;
         }
         .slide.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
             opacity: 1;
         }
-        .slide-content {
+
+        .slide-content-base {
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 2rem;
-            height: 100%; /* Ensure slide content takes full height of its container */
         }
-        .slide-title {
-            font-family: 'Roboto Slab', serif;
-            font-weight: 700;
-        }
-         .slide-subtitle, .slide-point {
-            font-family: 'Inter', sans-serif;
-        }
-        .icon-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1.5rem;
+
+        .slide-header {
             width: 100%;
-            max-width: 800px; /* Max width for the grid */
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e5e7eb;
+            text-align: left;
         }
-        .icon-item {
+         .slide-header h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e40af;
+        }
+
+        .slide-footer {
+            width: 100%;
+            padding-top: 0.75rem;
+            margin-top: auto;
+            border-top: 1px solid #e5e7eb;
+            font-size: 0.75rem;
+            color: #6b7280;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+            justify-content: space-between;
         }
-        .icon-item i { /* Font Awesome icons */
+
+        .slide-title-main h1 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 2.75rem;
+            font-weight: 700;
+            color: #1e3a8a;
             margin-bottom: 0.5rem;
         }
-        /* Ensure the presentation container itself has a defined aspect ratio or height */
-        #presentation-container {
-             height: calc(100vh - 100px); /* Example: viewport height minus some offset for controls */
-             max-height: 600px; /* Or a fixed max height */
+        .slide-title-main p {
+            font-size: 1.15rem;
+            color: #374151;
+        }
+
+        .slide-title-module h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1d4ed8;
+            text-align: center;
+            width:100%;
+            margin-bottom: 0.5rem;
+        }
+         .slide-title-module .subtitle {
+            font-size: 1rem;
+            color: #4b5563;
+            text-align: center;
+            width:100%;
+        }
+
+        .slide-content .content-area {
+            text-align: left;
+            width: 100%;
+            flex-grow: 1;
+            font-size: 0.9rem;
+        }
+        .slide-content .content-area h3 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-top: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .slide-content .content-area ul {
+            list-style-type: disc;
+            margin-left: 1.25rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+            color: #374151;
+        }
+         .slide-content .content-area ul li {
+            margin-bottom: 0.35rem;
+        }
+         .slide-content .content-area ul ul {
+            margin-top: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+        .slide-content .content-area p {
+            margin-bottom: 0.6rem;
+            line-height: 1.6;
+            color: #374151;
+        }
+
+        .slide-agenda .content-area ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+            line-height: 1.8;
+        }
+        .slide-agenda .content-area ol li {
+            margin-bottom: 0.6rem;
+            font-size: 1rem;
+            color: #1e40af;
+        }
+        .slide-agenda .content-area ol li span {
+            font-size: 0.85rem;
+            color: #4b5563;
+            display: block;
+            margin-left: 1rem;
+        }
+
+        .slide-appendix-title h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #065f46;
+            text-align: center;
+            width:100%;
+        }
+
+        .slide-end .content-area {
+            text-align: center;
+        }
+        .slide-end h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1e3a8a;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .nav-controls button {
+            background-color: #d1d5db;
+            color: #1f2937;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s;
+        }
+        .nav-controls button:hover {
+            background-color: #9ca3af;
+        }
+        .nav-controls button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        #slide-counter-display {
+            font-size: 1rem;
+            font-weight: 600;
+            min-width: 50px;
+            text-align: center;
         }
 
     </style>
 </head>
-<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4">
+<body>
 
-    <div class="w-full max-w-4xl bg-white rounded-lg shadow-2xl aspect-video overflow-hidden relative" id="presentation-container">
-        <!-- Slide 1: Title -->
-        <div class="slide active" data-slide="1">
-            <div class="slide-content bg-slate-800 text-white h-full">
-                <div class="w-full">
-                    <h1 class="slide-title text-4xl md:text-6xl mb-4">Comprehensive Financial Training Resources</h1>
-                    <p class="slide-subtitle text-xl md:text-2xl opacity-80">Exploring a Rich Repository of Learning Materials</p>
-                </div>
+    <div class="presentation-container">
+
+        <!-- Slide 1: Main Title -->
+        <div class="slide active slide-title-main" data-slide="1">
+            <div class="slide-content-base">
+                <h1>Credit Rating Analyst Foundation Training (CRAFT)</h1>
+                <p>A Comprehensive Learning Deck</p>
+            </div>
+            <div class="slide-footer">
+                <span>Internal Training Material</span>
+                <span class="slide-number-footer"></span>
             </div>
         </div>
 
-        <!-- Slide 2: Introduction -->
-        <div class="slide" data-slide="2">
-            <div class="slide-content h-full">
-                 <i class="fas fa-book-open text-6xl text-blue-500 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">Welcome</h2>
-                <p class="slide-subtitle text-lg md:text-xl max-w-3xl">This presentation will serve as a guided tour of our comprehensive financial training repository. We'll highlight the breadth and depth of resources available for your self-paced learning and professional development.</p>
+        <!-- Slide 2: Agenda -->
+        <div class="slide slide-agenda" data-slide="2">
+            <div class="slide-header">
+                 <h2 class="text-xl font-semibold text-gray-700">Agenda</h2>
+            </div>
+            <div class="content-area">
+                <h3 style="font-size: 1.4rem; color: #1d4ed8; margin-bottom: 1rem;">Training Modules Overview</h3>
+                <ol>
+                    <li>Module 1: Foundations <span>(Accounting, FSA, Modeling)</span></li>
+                    <li>Module 2: Understanding the Market <span>(Capital Markets, Industry Analysis)</span></li>
+                    <li>Module 3: The Analyst's Craft <span>(Writing, Critical Thinking)</span></li>
+                    <li>Module 4: The Credit Lifecycle <span>(SNC, Underwriting, Monitoring)</span></li>
+                    <li>Module 5: The Future of Risk Management <span>(AI & Emerging Trends)</span></li>
+                    <li>Module 6: Advanced Topics <span>(Adv. FSA, Debt Structuring, Legal)</span></li>
+                    <li>Module 7: Advanced Communication Skills <span>(Persuasion, Negotiation)</span></li>
+                    <li>Module 8: Specialized Industry Analysis <span>(Case Studies, e.g., SaaS)</span></li>
+                    <li>Module 9: Regulatory & Ethical Landscape <span>(Compliance, Integrity)</span></li>
+                    <li>Module 10: Quantitative Skills & Data Analytics <span>(Tools & Techniques)</span></li>
+                    <li>Module 11: Capstone Project <span>(Integrated Credit Analysis)</span></li>
+                    <li>Appendix <span>(Key Resources & Further Learning)</span></li>
+                </ol>
+            </div>
+            <div class="slide-footer">
+                <span>CRAFT Program</span>
+                <span class="slide-number-footer"></span>
             </div>
         </div>
 
-        <!-- Slide 3: Repository at a Glance -->
-        <div class="slide" data-slide="3">
-            <div class="slide-content h-full">
-                <h2 class="slide-title text-3xl md:text-5xl mb-8">What's Inside? A High-Level Overview</h2>
-                <div class="icon-grid">
-                    <div class="icon-item">
-                        <i class="fas fa-certificate text-4xl text-green-500"></i>
-                        <p class="font-semibold mt-2">CFA® Prep</p>
-                    </div>
-                    <div class="icon-item">
-                        <i class="fas fa-shield-halved text-4xl text-red-500"></i>
-                        <p class="font-semibold mt-2">Corporate Credit Risk</p>
-                    </div>
-                    <div class="icon-item">
-                        <i class="fas fa-table-cells text-4xl text-sky-500"></i>
-                        <p class="font-semibold mt-2">Financial Modeling</p>
-                    </div>
-                    <div class="icon-item">
-                        <i class="fas fa-chart-line text-4xl text-purple-500"></i>
-                        <p class="font-semibold mt-2">Market Analysis</p>
-                    </div>
-                    <div class="icon-item">
-                        <i class="fas fa-brain text-4xl text-orange-500"></i>
-                        <p class="font-semibold mt-2">Behavioral Finance</p>
-                    </div>
-                     <div class="icon-item">
-                        <i class="fas fa-industry text-4xl text-gray-500"></i>
-                        <p class="font-semibold mt-2">Industry Primers</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Module 1: Foundations - Part 1 -->
+        <div class="slide slide-title-module" data-slide="3"><div class="slide-content-base"><h2>Module 1: Foundations</h2><p class="subtitle">Part 1 - Accounting & Financial Statement Analysis</p></div><div class="slide-footer"><span>Module 1: Foundations</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="4"><div class="slide-header"><h2>Core Accounting Principles</h2></div><div class="content-area"><ul><li><strong>GAAP vs. IFRS:</strong> Rules-based (US) vs. Principles-based (Intl). Goal: Transparency, Consistency, Comparability.</li><li><strong>Historical Context:</strong> Post-1929 crash response, aimed to mitigate information asymmetry.</li><li><strong>Key GAAP Principles:</strong> Prudence (Conservatism) - recognize expenses/liabilities ASAP, revenues/assets when certain. Also Going Concern, Materiality, Full Disclosure.</li><li><strong>Accrual Method:</strong> Recognize revenue when earned, expenses when incurred (matching principle). Critical for true economic picture.</li></ul></div><div class="slide-footer"><span>Module 1: Accounting & FSA</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="5"><div class="slide-header"><h2>Deconstructing the Three Financial Statements</h2></div><div class="content-area"><ul><li><strong>Balance Sheet:</strong> Snapshot (Assets = Liabilities + Equity). Assets (liquidity order), Liabilities (immediacy order), Equity (residual interest).</li><li><strong>Income Statement (P&L):</strong> Performance over period. Revenue &rarr; COGS &rarr; Gross Profit &rarr; OpEx &rarr; Operating Income (EBIT) &rarr; Net Income.</li><li><strong>Statement of Cash Flows:</strong> Tracks actual cash movement. CFO (core business), CFI (long-term assets), CFF (owners/creditors). Often called the "truth-teller."</li></ul></div><div class="slide-footer"><span>Module 1: Accounting & FSA</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="6"><div class="slide-header"><h2>Interconnectivity & Revenue Recognition</h2></div><div class="content-area"><ul><li><strong>Key Links:</strong> Net Income &rarr; CFO & Retained Earnings. Working Capital changes &rarr; CFO. CapEx &rarr; CFI & BS PP&E. Debt/Equity changes &rarr; CFF & BS. Ending Cash (CFS) = Cash (BS).</li><li><strong>Revenue Recognition (ASC 606):</strong> 5-step model (Identify contract, performance obligations, transaction price, allocate price, recognize when/as satisfied). Crucial for assessing earnings quality.</li><li><strong>Expense Analysis:</strong> COGS vs. OpEx (SG&A, R&D, D&A). Analyze trends for margin insights.</li><li><strong>Importance of Footnotes:</strong> Critical for full understanding; detail accounting policies, debt, commitments, contingencies. Red flags: frequent accounting changes, opaque language.</li></ul></div><div class="slide-footer"><span>Module 1: Accounting & FSA</span><span class="slide-number-footer"></span></div></div>
+        <!-- Module 1: Foundations - Part 2 -->
+        <div class="slide slide-title-module" data-slide="7"><div class="slide-content-base"><h2>Module 1: Foundations</h2><p class="subtitle">Part 2 - Financial Analysis & Modeling</p></div><div class="slide-footer"><span>Module 1: Financial Analysis & Modeling</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="8"><div class="slide-header"><h2>Building the 3-Statement Financial Model</h2></div><div class="content-area"><ul><li><strong>Purpose:</strong> Forecast performance, test assumptions, assess debt service capacity.</li><li><strong>Best Practices:</strong> Clear structure (Inputs, Historicals, Projections, Schedules), Color-coding, Periodicity, Explicit formulas, Checks (Balance Sheet balances!).</li><li><strong>Historical Data:</strong> 3-5 years minimum for trends, seasonality.</li><li><strong>Supporting Schedules:</strong> Debt, PP&E (CapEx/Depreciation), Working Capital (DSO, DIH, DPO), Equity, Tax. These are the "engine room."</li></ul></div><div class="slide-footer"><span>Module 1: Financial Analysis & Modeling</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="9"><div class="slide-header"><h2>Forecasting & Key Credit Ratios</h2></div><div class="content-area"><ul><li><strong>Forecasting Order:</strong> Income Statement &rarr; Balance Sheet (operational items) &rarr; Cash Flow Statement (derived) &rarr; Balance Model (Cash/Revolver as plug). Watch for circular references!</li><li><strong>Leverage Ratios:</strong> Debt/EBITDA, Net Debt/EBITDA, Debt/Capital. (Measure debt burden).</li><li><strong>Coverage Ratios:</strong> Interest Coverage (EBITDA/Interest), DSCR, FCCR. (Measure ability to pay debt service).</li><li><strong>Liquidity Ratios:</strong> Current Ratio, Quick Ratio. (Measure short-term solvency).</li><li><strong>Profitability Ratios:</strong> Gross/Operating/Net Margins, ROA, ROE. (Support debt repayment).</li></ul></div><div class="slide-footer"><span>Module 1: Financial Analysis & Modeling</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="10"><div class="slide-header"><h2>Advanced Analysis Techniques</h2></div><div class="content-area"><ul><li><strong>Sensitivity Analysis:</strong> Change *one* assumption (e.g., revenue growth, margins) to see impact on key outputs (ratios, cash flow). Identifies key risk drivers.</li><li><strong>Scenario Analysis:</strong> Change *multiple* assumptions for plausible scenarios (Base Case, Upside Case, Downside/Stress Case). Tests resilience of financial projections.</li><li><strong>Stress Testing:</strong> A more extreme form of scenario analysis focusing on severe but plausible crisis events to gauge borrower survivability.</li></ul></div><div class="slide-footer"><span>Module 1: Financial Analysis & Modeling</span><span class="slide-number-footer"></span></div></div>
+        <!-- Module 2: Understanding the Market - Part 1 -->
+        <div class="slide slide-title-module" data-slide="11"><div class="slide-content-base"><h2>Module 2: Understanding the Market</h2><p class="subtitle">Part 1 - Capital Markets & Leveraged Loans</p></div><div class="slide-footer"><span>Module 2: Market Understanding</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="12"><div class="slide-header"><h2>The Capital Ecosystem</h2></div><div class="content-area"><ul><li><strong>Primary Markets:</strong> New securities issued (IPOs, new bonds/loans). Proceeds to issuer. Underwriters (investment banks) facilitate.</li><li><strong>Secondary Markets:</strong> Existing securities traded among investors (exchanges, OTC). Provides liquidity & price discovery.</li><li><strong>Participants:</strong> Sell-Side (Investment banks), Buy-Side (Institutional investors).</li></ul></div><div class="slide-footer"><span>Module 2: Capital Markets</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="13"><div class="slide-header"><h2>The Spectrum of Debt (Capital Structure)</h2></div><div class="content-area"><ul><li><strong>Senior Secured Debt:</strong> Highest claim, collateral-backed (Revolvers, Term Loans). Lowest risk/cost.</li><li><strong>Senior Unsecured Debt:</strong> General claim, no specific collateral (Bonds/Notes, High-Yield Bonds).</li><li><strong>Subordinated Debt (Junior):</strong> Ranks below senior debt (Sub. Bonds, Mezzanine).</li><li><strong>Equity:</strong> Ownership, residual claim. Highest risk/potential return.</li></ul></div><div class="slide-footer"><span>Module 2: Capital Markets</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="14"><div class="slide-header"><h2>Leveraged Loans & Credit Agreements</h2></div><div class="content-area"><ul><li><strong>Leveraged Loans:</strong> For highly levered/non-IG companies (LBOs, M&A). Higher risk/rates, secured, syndicated.</li><li><strong>Credit Agreement:</strong> Defines terms. Key Sections: Definitions (EBITDA!), Loan Terms, Reps & Warranties, CPs, Covenants (Affirmative, Negative, Financial - Maintenance vs. Incurrence), EoDs.</li><li><strong>Cov-Lite:</strong> Loans lacking financial maintenance covenants. Delays early warning.</li></ul></div><div class="slide-footer"><span>Module 2: Capital Markets</span><span class="slide-number-footer"></span></div></div>
+        <!-- Module 2: Understanding the Market - Part 2 -->
+        <div class="slide slide-title-module" data-slide="15"><div class="slide-content-base"><h2>Module 2: Understanding the Market</h2><p class="subtitle">Part 2 - Industry Analysis</p></div><div class="slide-footer"><span>Module 2: Industry Analysis</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="16"><div class="slide-header"><h2>Importance & Porter's Five Forces</h2></div><div class="content-area"><ul><li><strong>Why Industry Context:</strong> Shapes performance, projection realism, risk identification.</li><li><strong>Porter's Five Forces:</strong> Framework for industry structure & profitability.<ul><li>Threat of New Entrants (Barriers: capital, scale, brand).</li><li>Bargaining Power of Buyers (Concentration, differentiation).</li><li>Bargaining Power of Suppliers (Concentration, input criticality).</li><li>Threat of Substitutes (Alternatives outside industry).</li><li>Rivalry Among Existing Competitors (Number, growth, differentiation).</li></ul></li></ul></div><div class="slide-footer"><span>Module 2: Industry Analysis</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="17"><div class="slide-header"><h2>Other Key Industry Considerations</h2></div><div class="content-area"><ul><li><strong>Industry-Specific KPIs:</strong> e.g., Retail (SSS), Airlines (RASM), SaaS (ARR).</li><li><strong>Broad Industry Risks:</strong> Cyclicality, Technological Disruption, Regulatory Risk, Geopolitical Factors, ESG Risks, Supply Chain Risks.</li><li><strong>Other Frameworks:</strong> PESTLE Analysis (Political, Economic, Social, Technological, Legal, Environmental), SWOT Analysis (Strengths, Weaknesses, Opportunities, Threats).</li></ul></div><div class="slide-footer"><span>Module 2: Industry Analysis</span><span class="slide-number-footer"></span></div></div>
+        <!-- Module 3: The Analyst's Craft - Part 1 -->
+        <div class="slide slide-title-module" data-slide="18"><div class="slide-content-base"><h2>Module 3: The Analyst's Craft</h2><p class="subtitle">Part 1 - Business Writing & Grammar</p></div><div class="slide-footer"><span>Module 3: Analyst's Craft</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="19"><div class="slide-header"><h2>The Credit Memorandum: Purpose & Structure</h2></div><div class="content-area"><ul><li><strong>Purpose:</strong> Primary written analysis; persuasive document for decision-makers. Clarity, conciseness, objectivity.</li><li><strong>Standard Sections:</strong> Exec Summary (BLUF!), Borrower/Mgmt Overview, Industry Analysis, Financial Analysis, Repayment Sources, Loan Structure/Terms, Covenants, Conclusion.</li></ul></div><div class="slide-footer"><span>Module 3: Business Writing</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="20"><div class="slide-header"><h2>Effective Business Writing Principles</h2></div><div class="content-area"><ul><li><strong>Direct (BLUF) & Active Voice.</strong> Be Specific & Data-Driven. Avoid Jargon.</li><li><strong>Structure for Readability:</strong> Headings, short paragraphs, bullets. Conciseness.</li><li><strong>Grammar & Style:</strong> Professionalism. Focus on agreements, clarity, consistency. Avoid common word confusion. Proofread!</li></ul></div><div class="slide-footer"><span>Module 3: Business Writing</span><span class="slide-number-footer"></span></div></div>
+        <!-- Module 3: The Analyst's Craft - Part 2 -->
+        <div class="slide slide-title-module" data-slide="21"><div class="slide-content-base"><h2>Module 3: The Analyst's Craft</h2><p class="subtitle">Part 2 - Critical Thinking & Forming a Narrative</p></div><div class="slide-footer"><span>Module 3: Analyst's Craft</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="22"><div class="slide-header"><h2>Essence of Critical Thinking in Credit</h2></div><div class="content-area"><ul><li><strong>Disciplined Process:</strong> Conceptualizing, applying, analyzing, synthesizing, evaluating info.</li><li><strong>Core Tenets:</strong> Objectivity, Thoroughness, Logical Reasoning, Clarity, Accuracy, Relevance, Healthy Skepticism.</li><li><strong>Framework:</strong> Define Problem &rarr; Gather/Evaluate Info &rarr; Analyze/Interpret &rarr; Challenge Assumptions &rarr; Synthesize & Conclude &rarr; Communicate.</li></ul></div><div class="slide-footer"><span>Module 3: Critical Thinking</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="23"><div class="slide-header"><h2>Key Drivers, Risks, Mitigants & The Narrative</h2></div><div class="content-area"><ul><li><strong>Identify Key Factors:</strong> Drivers (Strengths), Risks (Weaknesses), Mitigants. Balance of these drives decisions.</li><li><strong>Beware Biases:</strong> Confirmation, Anchoring, Availability, Groupthink, Halo/Horn, Sunk Cost.</li><li><strong>The Credit Narrative IS the Analysis:</strong> Weaves quantitative & qualitative into a coherent, persuasive story. Justifies recommendation. Answers "So What?".</li></ul></div><div class="slide-footer"><span>Module 3: Critical Thinking</span><span class="slide-number-footer"></span></div></div>
+        <!-- Module 4: The Credit Lifecycle - Part 1 -->
+        <div class="slide slide-title-module" data-slide="24"><div class="slide-content-base"><h2>Module 4: The Credit Lifecycle</h2><p class="subtitle">Part 1 - SNC & Underwriting New Issuers</p></div><div class="slide-footer"><span>Module 4: Credit Lifecycle</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="25"><div class="slide-header"><h2>Shared National Credit (SNC) Program</h2></div><div class="content-area"><ul><li><strong>Purpose:</strong> Consistent regulatory review of large syndicated loans ($100M+ & 3+ institutions) by FRS, FDIC, OCC. Monitors systemic risk.</li><li><strong>SNC Classifications:</strong> Pass, Special Mention (SM - early warning), Classified (Substandard, Doubtful, Loss - repayment jeopardy).</li><li><strong>Implications:</strong> Drives loan loss provisions, capital adequacy, risk management intensity.</li></ul></div><div class="slide-footer"><span>Module 4: SNC & Underwriting</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="26"><div class="slide-header"><h2>Underwriting: Process & Due Diligence</h2></div><div class="content-area"><ul><li><strong>Process:</strong> Origination &rarr; Due Diligence &rarr; Credit Analysis/Memo &rarr; Committee Approval &rarr; Documentation &rarr; Closing/Funding.</li><li><strong>Due Diligence:</strong> Financial (Historicals, QoE, Projections), Business/Commercial (Market, Competition, Mgmt), Legal/Regulatory.</li><li><strong>5 C's:</strong> Character, Capacity (Cash Flow), Capital, Collateral, Conditions.</li></ul></div><div class="slide-footer"><span>Module 4: SNC & Underwriting</span><span class="slide-number-footer"></span></div></div>
+        <!-- Module 4: The Credit Lifecycle - Part 2 -->
+        <div class="slide slide-title-module" data-slide="27"><div class="slide-content-base"><h2>Module 4: The Credit Lifecycle</h2><p class="subtitle">Part 2 - LBOs, M&A & Ongoing Monitoring</p></div><div class="slide-footer"><span>Module 4: Credit Lifecycle</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="28"><div class="slide-header"><h2>LBOs & M&A Credit Analysis</h2></div><div class="content-area"><ul><li><strong>LBOs (Creditor View):</strong> High leverage from PE. Risks: thin equity, high fixed charges. Modeling: debt capacity, cash flow sweep, covenants under stress.</li><li><strong>M&A Analysis:</strong> Evaluate combined entity. Factors: Strategic Rationale, Financing Structure, Synergies (Cost vs. Revenue - realism is key), Integration Risk.</li></ul></div><div class="slide-footer"><span>Module 4: LBOs, M&A, Monitoring</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="29"><div class="slide-header"><h2>Ongoing Monitoring & Watchlist Management</h2></div><div class="content-area"><ul><li><strong>Portfolio Management:</strong> Optimize risk-return, diversify, ensure compliance.</li><li><strong>Early Warning Signs (EWS):</strong> Quantitative (declining ratios, neg CFO) & Qualitative (payment habits, mgmt issues, delayed financials).</li><li><strong>Watchlist:</strong> For credits with increased risk. Process: updated analysis, frequent reporting, action plan (forbearance, restructure).</li></ul></div><div class="slide-footer"><span>Module 4: LBOs, M&A, Monitoring</span><span class="slide-number-footer"></span></div></div>
+        <!-- Module 5: Future of Risk -->
+        <div class="slide slide-title-module" data-slide="30"><div class="slide-content-base"><h2>Module 5: The Future of Risk Management</h2><p class="subtitle">AI and Emerging Trends in Credit Analysis</p></div><div class="slide-footer"><span>Module 5: Future of Risk</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="31"><div class="slide-header"><h2>Transformation & Key Technologies</h2></div><div class="content-area"><ul><li><strong>Shift:</strong> From reactive/historical to proactive, predictive, efficient. Drivers: data explosion, AI/ML advances.</li><li><strong>Machine Learning (ML):</strong> Credit scoring (PD/LGD), classification. Integrates Alternative Data.</li><li><strong>Natural Language Processing (NLP):</strong> Sentiment analysis, info extraction (covenants), EWS from text.</li></ul></div><div class="slide-footer"><span>Module 5: Future of Risk</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="32"><div class="slide-header"><h2>AI in Action, Next Frontier & Challenges</h2></div><div class="content-area"><ul><li><strong>AI Cases:</strong> Algorithmic risk mgmt, NPL reduction, GenAI for credit memo automation.</li><li><strong>Next Frontier:</strong> AI in Portfolio Management, Intelligent Stress Testing, Adv. Model Risk Mgmt.</li><li><strong>Challenges:</strong> "Black Box" (need XAI), Data Bias, Model Risk, Regulatory Uncertainty.</li><li><strong>Evolving Analyst:</strong> "Human-in-the-loop" - oversee AI, critical questions, ethics.</li></ul></div><div class="slide-footer"><span>Module 5: Future of Risk</span><span class="slide-number-footer"></span></div></div>
+        <!-- Module 6: Advanced Topics - Part 1 -->
+        <div class="slide slide-title-module" data-slide="33"><div class="slide-content-base"><h2>Module 6: Advanced Topics</h2><p class="subtitle">Part 1 - Advanced FSA & Quality of Earnings (QoE)</p></div><div class="slide-footer"><span>Module 6: Advanced Topics</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="34"><div class="slide-header"><h2>Advanced FSA & Quality of Earnings (QoE)</h2></div><div class="content-area"><ul><li><strong>Importance:</strong> Deeper scrutiny for complex companies, M&A, distress. QoE: sustainability, reliability of earnings.</li><li><strong>Aggressive Accounting Red Flags:</strong> Rev Rec (premature, channel stuffing), Expenses (delaying, improper capitalization, under-reserving), Inventory (overstating), "Big Bath" charges, OBSF.</li></ul></div><div class="slide-footer"><span>Module 6: Adv. FSA & QoE</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="35"><div class="slide-header"><h2>Earnings Sustainability & Advanced Ratios</h2></div><div class="content-area"><ul><li><strong>Normalizing Earnings:</strong> Adjust for non-recurring items, accounting differences, M&A. Goal: reflect ongoing earning capacity.</li><li><strong>DuPont Analysis (ROE):</strong> `Profit Margin * Asset Turnover * Equity Multiplier`.</li><li><strong>Advanced Cash Flow Ratios:</strong> CFO/Debt, FCF/Debt, Cash Interest Coverage. CCC. Altman Z-Score.</li></ul></div><div class="slide-footer"><span>Module 6: Adv. FSA & QoE</span><span class="slide-number-footer"></span></div></div>
+        <!-- Module 6: Advanced Topics - Part 2 -->
+        <div class="slide slide-title-module" data-slide="36"><div class="slide-content-base"><h2>Module 6: Advanced Topics</h2><p class="subtitle">Part 2 - Debt Structuring & Restructuring</p></div><div class="slide-footer"><span>Module 6: Advanced Topics</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="37"><div class="slide-header"><h2>Debt Structuring & Advanced Covenants</h2></div><div class="content-area"><ul><li><strong>Structuring:</strong> Borrower vs. Lender objectives. Elements: Amount/Type, Seniority, Security, Tenor, Repayment, Pricing, Covenants.</li><li><strong>Adv. Covenants:</strong> EBITDA Definition (critical!), Headroom, Equity Cure Rights, Baskets, Springing Covenants.</li></ul></div><div class="slide-footer"><span>Module 6: Debt Structuring</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="38"><div class="slide-header"><h2>Debt Restructuring & Chapter 11 Overview</h2></div><div class="content-area"><ul><li><strong>Restructuring:</strong> When company can't meet debt. Goal: sustainable structure, viability, maximize recovery. Methods: Amend & Extend, Debt-for-Equity, Haircuts.</li><li><strong>Out-of-Court vs. In-Court (Chapter 11):</strong> Workouts vs. Bankruptcy.</li><li><strong>Ch. 11 Concepts:</strong> Automatic Stay, DIP, POR, Creditors' Committees, Cramdown, APR.</li></ul></div><div class="slide-footer"><span>Module 6: Debt Restructuring</span><span class="slide-number-footer"></span></div></div>
+        <!-- Module 6: Advanced Topics - Part 3 -->
+        <div class="slide slide-title-module" data-slide="39"><div class="slide-content-base"><h2>Module 6: Advanced Topics</h2><p class="subtitle">Part 3 - Legal Aspects of Loan Documentation</p></div><div class="slide-footer"><span>Module 6: Advanced Topics</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="40"><div class="slide-header"><h2>Key Loan Documents & Agreement Clauses</h2></div><div class="content-area"><ul><li><strong>Importance:</strong> Define rights, obligations, remedies. Docs: Loan Agmt, Notes, Security Agmts, Guarantees, Intercreditor Agmts.</li><li><strong>Key Clauses:</strong> Reps & Warranties, Conditions Precedent, Events of Default (non-payment, covenant breach, MAC), Remedies.</li></ul></div><div class="slide-footer"><span>Module 6: Legal Aspects</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="41"><div class="slide-header"><h2>Security, Perfection, Guarantees & Intercreditor</h2></div><div class="content-area"><ul><li><strong>Security Docs & Perfection:</strong> Security Agmt (personal property), Mortgage (real property). Perfection (UCC-1) makes lien effective vs third parties.</li><li><strong>Guarantees:</strong> Third-party promise to pay debt. Enforceability issues (corp. benefit).</li><li><strong>Intercreditor/Subordination Agreements:</strong> Define rights/priorities between creditor groups.</li></ul></div><div class="slide-footer"><span>Module 6: Legal Aspects</span><span class="slide-number-footer"></span></div></div>
+        <!-- Module 7: Advanced Communication Skills -->
+        <div class="slide slide-title-module" data-slide="42"><div class="slide-content-base"><h2>Module 7: Advanced Communication Skills</h2><p class="subtitle">Persuasive Writing, Negotiation, and Effective Interaction</p></div><div class="slide-footer"><span>Module 7: Communication</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="43"><div class="slide-header"><h2>Advanced Business Writing: Persuasion & Narrative</h2></div><div class="content-area"><ul><li><strong>Persuasion:</strong> Build compelling, evidence-based case. Anticipate concerns.</li><li><strong>Strong Narrative:</strong> Clear "thesis", strategic framing, balance objectivity, weave quant & qual.</li><li><strong>Tailor to Audience:</strong> Credit Committee, Sr. Mgmt, RMs. Style: Precision, strong verbs.</li></ul></div><div class="slide-footer"><span>Module 7: Communication</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="44"><div class="slide-header"><h2>Internal & External Communication</h2></div><div class="content-area"><ul><li><strong>Credit Committee:</strong> Know deal, anticipate questions, clear articulation, composure.</li><li><strong>Collaborating with RMs:</strong> Understand RM view, clear on credit concerns, problem-solve.</li><li><strong>Core Skills:</strong> Active Listening, Clarity (Verbal), Questioning, Constructive Feedback, Conflict Mgmt.</li></ul></div><div class="slide-footer"><span>Module 7: Communication</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="45"><div class="slide-header"><h2>Basic Negotiation Principles & Ethics</h2></div><div class="content-area"><ul><li><strong>Preparation:</strong> Know objectives, facts, BATNA (Best Alternative To a Negotiated Agreement).</li><li><strong>Focus on Interests, Not Positions.</strong> Separate People from Problem. Aim for Win-Win.</li><li><strong>Ethical Communication:</strong> Honesty, transparency, confidentiality, fairness.</li></ul></div><div class="slide-footer"><span>Module 7: Communication</span><span class="slide-number-footer"></span></div></div>
+        <!-- Module 8: Specialized Industry Analysis -->
+        <div class="slide slide-title-module" data-slide="46"><div class="slide-content-base"><h2>Module 8: Specialized Industry Analysis</h2><p class="subtitle">Adapting Frameworks for Unique Sector Risks & KPIs</p></div><div class="slide-footer"><span>Module 8: Specialized Industries</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="47"><div class="slide-header"><h2>Framework for Specialized Industries</h2></div><div class="content-area"><ul><li><strong>Beyond General Analysis:</strong> Many industries need tailored approaches.</li><li><strong>Identify Unique Traits & Tailor Frameworks:</strong> Adapt financial analysis, Porter's, risk assessment.</li><li><strong>Key Performance Indicators (KPIs):</strong> Identify & interpret industry-specific KPIs.</li></ul></div><div class="slide-footer"><span>Module 8: Specialized Industries</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="48"><div class="slide-header"><h2>Case Study: Software as a Service (SaaS)</h2></div><div class="content-area"><ul><li><strong>Overview:</strong> Subscription, cloud-hosted, scalable. High GM (mature), high upfront R&D/S&M.</li><li><strong>Key SaaS KPIs:</strong> ARR/MRR, CAC, LTV (LTV/CAC > 3x), Churn (NRR > 100% strong), CAC Payback, Rule of 40.</li><li><strong>Risks & Analysis:</strong> High churn, cash burn. Focus on recurring revenue quality, unit economics, FCF.</li></ul></div><div class="slide-footer"><span>Module 8: Specialized Industries</span><span class="slide-number-footer"></span></div></div>
 
-        <!-- Slide 4: Deep Dive: CFA Program Preparation -->
-        <div class="slide" data-slide="4">
-            <div class="slide-content h-full">
-                <i class="fas fa-graduation-cap text-6xl text-blue-500 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">Aspiring CFAs: Your Comprehensive Study Hub</h2>
-                <p class="slide-subtitle text-lg md:text-xl mb-6">Materials for CFA Levels 1, 2, and 3.</p>
-                <div class="flex flex-wrap justify-center space-x-4 sm:space-x-8 text-base sm:text-lg">
-                    <span class="font-medium my-1"><i class="fas fa-copy mr-2 text-gray-600"></i>Cheat Sheets</span>
-                    <span class="font-medium my-1"><i class="fas fa-file-alt mr-2 text-gray-600"></i>Practice Exams</span>
-                    <span class="font-medium my-1"><i class="fas fa-book mr-2 text-gray-600"></i>Topic Deep Dives</span>
-                    <span class="font-medium my-1"><i class="fas fa-folder-open mr-2 text-gray-600"></i>Case Studies</span>
-                </div>
-            </div>
-        </div>
+        <!-- Module 9: Regulatory & Ethical Landscape -->
+        <div class="slide slide-title-module" data-slide="49"><div class="slide-content-base"><h2>Module 9: Regulatory & Ethical Landscape</h2><p class="subtitle">Compliance and Integrity in Credit Risk Management</p></div><div class="slide-footer"><span>Module 9: Regulatory & Ethics</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="50"><div class="slide-header"><h2>Regulatory Landscape for Lending</h2></div><div class="content-area"><ul><li><strong>Importance:</strong> Ensures safety/soundness, protects borrowers, prevents financial crime.</li><li><strong>Key Frameworks:</strong> Capital Adequacy (Basel - RWA impact), Dodd-Frank (systemic risk), Fair Lending Laws (ECOA - non-discrimination).</li></ul></div><div class="slide-footer"><span>Module 9: Regulatory & Ethics</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="51"><div class="slide-header"><h2>AML, KYC, Data Privacy & Ethics</h2></div><div class="content-area"><ul><li><strong>AML/KYC:</strong> Prevent illicit funds. Verify customer identity (entity & beneficial owners), understand business/fund sources, monitor activity. Analyst role in due diligence.</li><li><strong>Data Privacy (GLBA, GDPR):</strong> Protect sensitive customer data. Adhere to security policies.</li><li><strong>Internal Policies:</strong> Often more restrictive. Define underwriting standards, risk ratings. Analysts must know & adhere.</li><li><strong>Ethical Conduct:</strong> Professional codes (integrity, objectivity), avoid conflicts, diligence, fair dealing.</li></ul></div><div class="slide-footer"><span>Module 9: Regulatory & Ethics</span><span class="slide-number-footer"></span></div></div>
 
-        <!-- Slide 5: CFA Prep - Level 1 Example -->
-        <div class="slide" data-slide="5">
-             <div class="slide-content h-full">
-                <i class="fas fa-gavel text-6xl text-amber-600 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">Example: CFA L1 - Ethical & Professional Standards</h2>
-                <p class="slide-subtitle text-lg md:text-xl max-w-3xl">Briefly state the importance of this topic. Includes concise cheat sheets covering core principles and practice questions to reinforce learning.</p>
-            </div>
-        </div>
+        <!-- Module 10: Quantitative Skills & Data Analytics -->
+        <div class="slide slide-title-module" data-slide="52"><div class="slide-content-base"><h2>Module 10: Quantitative Skills & Data Analytics</h2><p class="subtitle">Tools and Techniques Beyond AI/ML</p></div><div class="slide-footer"><span>Module 10: Quant Skills</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="53"><div class="slide-header"><h2>Role of Data Analytics & Tools</h2></div><div class="content-area"><ul><li><strong>Enhances Credit Lifecycle:</strong> Underwriting (criteria refinement), Portfolio Monitoring (trends, EWS), Risk Modeling (PD/LGD/EAD), Reporting.</li><li><strong>Tools (Conceptual):</strong>
+            <ul><li>Adv. Excel: PivotTables, Data Tables, Stat Functions, Power Query.</li><li>Python/R: Automation, complex transformations, statistical modeling (awareness level).</li><li>BI Tools (Tableau, Power BI): Interactive dashboards, visual exploration.</li></ul></li></ul></div><div class="slide-footer"><span>Module 10: Quant Skills</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="54"><div class="slide-header"><h2>Data Visualization & Use Cases</h2></div><div class="content-area"><ul><li><strong>Effective Visualization:</strong> Right chart type, clarity, highlight insights, audience awareness, data integrity.</li><li><strong>Use Cases:</strong> Portfolio Segmentation (risk distribution), EWS from Data Trends (time series of ratios), Basic PD Modeling Concepts (Logistic Regression, Credit Scoring).</li><li><strong>Limitations & Ethics:</strong> Data Quality ("GIGO"), Correlation vs. Causation, Overfitting, Model Risk. Ethical use: Bias, Privacy, Transparency.</li></ul></div><div class="slide-footer"><span>Module 10: Quant Skills</span><span class="slide-number-footer"></span></div></div>
 
-        <!-- Slide 6: Deep Dive: Corporate Credit Risk -->
-        <div class="slide" data-slide="6">
-            <div class="slide-content h-full">
-                 <i class="fas fa-magnifying-glass-chart text-6xl text-red-500 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">Mastering Corporate Credit Risk Analysis</h2>
-                 <p class="slide-subtitle text-lg md:text-xl max-w-3xl mb-6">Ideal for aspiring and current credit analysts, this is a modular program covering the A-to-Z of credit risk.</p>
-                <div class="text-left space-y-2 text-lg">
-                    <p><i class="fas fa-cogs mr-2 text-gray-600"></i><b>Key Areas:</b> Foundations, The Credit Lifecycle, Advanced Topics, Communication Skills.</p>
-                </div>
-            </div>
-        </div>
+        <!-- Module 11: Capstone Project -->
+        <div class="slide slide-title-module" data-slide="55"><div class="slide-content-base"><h2>Module 11: Capstone Project</h2><p class="subtitle">Integrated Credit Analysis Application</p></div><div class="slide-footer"><span>Module 11: Capstone</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="56"><div class="slide-header"><h2>Capstone Project: Overview & Objectives</h2></div><div class="content-area"><ul><li><strong>Purpose:</strong> Culminating experience to integrate and apply all CRAFT module skills.</li><li><strong>Role:</strong> Act as credit analyst assessing a company seeking financing (e.g., "Innovatech Solutions Group" case).</li><li><strong>Objectives:</strong> Demonstrate proficiency in FSA, 3-statement modeling, industry analysis, critical thinking (risks/drivers/mitigants), underwriting process, and clear communication (memo & presentation outline).</li></ul></div><div class="slide-footer"><span>Module 11: Capstone</span><span class="slide-number-footer"></span></div></div>
+        <div class="slide slide-content" data-slide="57"><div class="slide-header"><h2>Capstone Deliverables & Evaluation</h2></div><div class="content-area"><ul><li><strong>Deliverable 1: 3-Statement Financial Model:</strong> Historicals & Projections, clear assumptions, supporting schedules, ratios, downside scenario. Must balance.</li><li><strong>Deliverable 2: Comprehensive Credit Memorandum:</strong> Exec Summary, Borrower/Industry/Financial/Risk Analysis, Loan Structure, Repayment Sources, Recommendation.</li><li><strong>Deliverable 3: Credit Committee Presentation Outline.</strong></li><li><strong>Evaluation:</strong> Analytical rigor, critical thinking, model quality, memo clarity/persuasiveness, thoroughness, professionalism, application of course concepts.</li></ul></div><div class="slide-footer"><span>Module 11: Capstone</span><span class="slide-number-footer"></span></div></div>
 
-        <!-- Slide 7: Corporate Credit Risk - Modules & Practical Application -->
-        <div class="slide" data-slide="7">
-            <div class="slide-content h-full">
-                <h2 class="slide-title text-3xl md:text-5xl mb-8">From Theory to Practice in Credit Risk</h2>
-                <div class="grid md:grid-cols-3 gap-8 text-center">
-                    <div>
-                        <i class="fas fa-tasks text-4xl text-blue-500 mb-3"></i>
-                        <h3 class="font-bold text-xl mb-2">Key Modules</h3>
-                        <p class="text-base">Financial Statement Analysis, Underwriting, LBOs and M&A Analysis.</p>
-                    </div>
-                    <div>
-                        <i class="fas fa-file-signature text-4xl text-green-500 mb-3"></i>
-                        <h3 class="font-bold text-xl mb-2">Practical Learning</h3>
-                        <p class="text-base">Emphasizes Case Studies, Quizzes, and a Capstone Project.</p>
-                    </div>
-                    <div>
-                        <i class="fas fa-book-reader text-4xl text-purple-500 mb-3"></i>
-                        <h3 class="font-bold text-xl mb-2">Supporting Resources</h3>
-                        <p class="text-base">Includes supporting resources like a comprehensive `GLOSSARY.md`.</p>
-                    </div>
-                </div>
-            </div>
+        <!-- Appendix -->
+        <div class="slide slide-appendix-title" data-slide="58">
+            <div class="slide-content-base"><h2>Appendix</h2></div>
+            <div class="slide-footer"><span>Appendix</span><span class="slide-number-footer"></span></div>
         </div>
-
-        <!-- Slide 8: Financial Modeling -->
-        <div class="slide" data-slide="8">
-             <div class="slide-content h-full">
-                <i class="fas fa-chart-pie text-6xl text-sky-500 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">Building Skills in Financial Modeling</h2>
-                <p class="slide-subtitle text-lg md:text-xl max-w-3xl">Access best practices in `FM_Best_Practices.md` and utilize templates like the `Basic_3_Statement_Model_Template` to start building your own models.</p>
-            </div>
-        </div>
-
-        <!-- Slide 9: Behavioral Finance -->
-        <div class="slide" data-slide="9">
-            <div class="slide-content h-full">
-                <i class="fas fa-users-gear text-6xl text-orange-500 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">The Human Side of Finance: Behavioral Insights</h2>
-                <p class="slide-subtitle text-lg md:text-xl max-w-3xl">Explore how psychological factors influence financial decisions. Delve into `Key_Concepts.md` and real-world `Case_Studies.md`.</p>
-            </div>
-        </div>
-
-        <!-- Slide 10: Market Analysis -->
-        <div class="slide" data-slide="10">
-            <div class="slide-content h-full">
-                <i class="fas fa-rocket text-6xl text-purple-500 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">Get Up to Speed: Market Analysis Quick Start</h2>
-                <p class="slide-subtitle text-lg md:text-xl max-w-3xl">Designed for a rapid understanding of market fundamentals. Covers Capital Market Terms, Key Market Products, and more.</p>
-            </div>
-        </div>
-
-        <!-- Slide 11: Industry Primers -->
-        <div class="slide" data-slide="11">
-            <div class="slide-content h-full">
-                <h2 class="slide-title text-3xl md:text-5xl mb-8">Sector Insights: Industry Primers</h2>
-                <div class="icon-grid">
-                    <div class="icon-item"><i class="fas fa-plane-departure text-4xl text-cyan-500"></i><p>Aerospace & Defense</p></div>
-                    <div class="icon-item"><i class="fas fa-microchip text-4xl text-gray-600"></i><p>Technology</p></div>
-                    <div class="icon-item"><i class="fas fa-heart-pulse text-4xl text-red-500"></i><p>Healthcare</p></div>
-                    <div class="icon-item"><i class="fas fa-gas-pump text-4xl text-orange-400"></i><p>Energy</p></div>
-                    <div class="icon-item"><i class="fas fa-car text-4xl text-blue-800"></i><p>Automotive</p></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 12: Other Resources -->
-        <div class="slide" data-slide="12">
-            <div class="slide-content h-full">
-                <i class="fas fa-plus-circle text-6xl text-green-500 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">And There's More...</h2>
-                <ul class="space-y-4 text-lg md:text-xl text-left max-w-2xl">
-                    <li><i class="fas fa-cogs mr-2 text-gray-500"></i><b>Emerging Area:</b> Foundational resources on Fintech are available.</li>
-                    <li><i class="fas fa-file-code mr-2 text-gray-500"></i><b>Alternative Formats:</b> Industry primers available in HTML for easy web viewing.</li>
+        <div class="slide slide-content" data-slide="59">
+            <div class="slide-header"><h2>Appendix: Key Terminology Resources</h2></div>
+            <div class="content-area">
+                <h3>Glossaries & Definitions</h3>
+                <ul>
+                    <li><strong>Global Financial Glossary:</strong> Comprehensive A-Z list at repository root (`Global_Financial_Glossary.md`).</li>
+                    <li><strong>CRAFT Program Glossary:</strong> Specific to this training (`corporate-credit-risk-analyst-training/GLOSSARY.md`).</li>
+                    <li><strong>Module-Specific Glossaries:</strong> Most CRAFT modules include a "Key Terms Glossary" in their `XX-module-name-learning-materials.md` file (e.g., M1 for accounting terms, M5 for AI terms).</li>
                 </ul>
             </div>
+            <div class="slide-footer"><span>Appendix</span><span class="slide-number-footer"></span></div>
         </div>
-
-        <!-- Slide 13: Making the Most of This Repository -->
-        <div class="slide" data-slide="13">
-             <div class="slide-content h-full">
-                <i class="fas fa-map-signs text-6xl text-yellow-500 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">Your Learning Journey</h2>
-                <p class="slide-subtitle text-lg md:text-xl max-w-3xl mb-6">Tips for making the most of the repository:</p>
-                <ul class="list-disc list-inside text-lg space-y-2">
-                    <li>Navigate by interest area.</li>
-                    <li>Use cheat sheets for quick reviews.</li>
-                    <li>Test your knowledge with practice exams and quizzes.</li>
-                    <li>Apply concepts with case studies.</li>
+        <div class="slide slide-content" data-slide="60">
+            <div class="slide-header"><h2>Appendix: Reading, Toolkits & Future Learning</h2></div>
+            <div class="content-area">
+                <h3>Further Resources & Tools</h3>
+                <ul>
+                    <li><strong>Recommended Reading:</strong> Many module "learning materials" files list external resources (standards bodies like FASB, regulators like SEC EDGAR, educational sites).</li>
+                    <li><strong>Toolkits & Checklists:</strong> Explore `Toolkits_and_Checklists/` for items like the `Credit_Analysis_Due_Diligence_Checklist.md`.</li>
+                    <li><strong>Future of CRAFT:</strong> The `corporate-credit-risk-analyst-training/FUTURE_IDEAS.md` document outlines potential program enhancements (new modules, interactive features).</li>
                 </ul>
             </div>
+            <div class="slide-footer"><span>Appendix</span><span class="slide-number-footer"></span></div>
+        </div>
+         <div class="slide slide-content" data-slide="61">
+            <div class="slide-header"><h2>Appendix: General Learning Tips for Analysts</h2></div>
+            <div class="content-area">
+                <h3>Curated Advice</h3>
+                <ul>
+                    <li>Master fundamentals: Accounting, FSA, market context.</li>
+                    <li>Practice critical thinking: Question assumptions, seek evidence.</li>
+                    <li>Develop strong writing skills: Clarity, conciseness, persuasive narrative.</li>
+                    <li>Understand the full credit lifecycle: Underwriting to monitoring.</li>
+                    <li>Stay curious about technology: AI & Data Analytics are key.</li>
+                    <li>Embrace specialization: Learn industry KPIs and unique risks.</li>
+                    <li>Uphold ethics & compliance: Non-negotiable.</li>
+                    <li>Seek feedback & continuously learn: The field is dynamic.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Appendix</span><span class="slide-number-footer"></span></div>
         </div>
 
-        <!-- Slide 14: Conclusion -->
-        <div class="slide" data-slide="14">
-             <div class="slide-content h-full">
-                 <i class="fas fa-flag-checkered text-6xl text-blue-600 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">Start Your Financial Learning Adventure!</h2>
-                <p class="slide-subtitle text-lg md:text-xl max-w-3xl mb-4">This repository offers a rich collection of materials for enhancing your financial knowledge and skills.</p>
-                <a href="home.html" class="text-blue-500 hover:underline">Dive in and explore the resources! (Link to Main Hub)</a>
+        <!-- End Slide -->
+        <div class="slide slide-end" data-slide="62">
+             <div class="slide-content-base">
+                <div class="content-area">
+                    <h2>Thank You & Questions?</h2>
+                    <p class="mt-4 text-lg text-gray-600">This concludes the CRAFT Program overview.</p>
+                </div>
+            </div>
+             <div class="slide-footer">
+                <span>End</span>
+                <span class="slide-number-footer"></span>
             </div>
         </div>
 
-        <!-- Slide 15: Q&A -->
-        <div class="slide" data-slide="15">
-            <div class="slide-content h-full bg-slate-800 text-white">
-                <h2 class="slide-title text-5xl md:text-7xl">Questions?</h2>
-            </div>
-        </div>
     </div>
 
-    <!-- Navigation -->
-    <div class="flex items-center space-x-4 mt-4">
-        <button id="prevBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l disabled:opacity-50 disabled:cursor-not-allowed">
+    <div class="nav-controls">
+        <button id="prevBtn" title="Previous Slide">
             <i class="fas fa-arrow-left"></i>
         </button>
-        <div id="slide-counter" class="text-lg font-semibold">1 / 15</div>
-        <button id="nextBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+        <div id="slide-counter-display">1 / 62</div>
+        <button id="nextBtn" title="Next Slide">
             <i class="fas fa-arrow-right"></i>
         </button>
     </div>
 
     <script>
-        const slides = document.querySelectorAll('.slide');
+        const slides = document.querySelectorAll('.presentation-container .slide');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        const slideCounter = document.getElementById('slide-counter');
+        const slideCounterDisplay = document.getElementById('slide-counter-display');
+        const slideNumberFooters = document.querySelectorAll('.slide-number-footer');
         let currentSlide = 0;
         const totalSlides = slides.length;
+
+        function updateSlideNumbers() {
+            slideNumberFooters.forEach((footer, index) => {
+                if (slides[index]) {
+                     footer.textContent = `Slide ${index + 1} of ${totalSlides}`;
+                }
+            });
+             slideCounterDisplay.textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
 
         function showSlide(index) {
             slides.forEach((slide, i) => {
                 slide.classList.toggle('active', i === index);
             });
-            slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+            currentSlide = index;
+            updateSlideNumbers();
             prevBtn.disabled = index === 0;
             nextBtn.disabled = index === totalSlides - 1;
-            currentSlide = index;
         }
 
         prevBtn.addEventListener('click', () => {
@@ -304,7 +439,6 @@
             }
         });
 
-        // Keyboard navigation
         document.addEventListener('keydown', (event) => {
             if (event.key === 'ArrowLeft') {
                 if (currentSlide > 0) {
@@ -317,7 +451,7 @@
             }
         });
 
-        showSlide(0); // Show the first slide initially
+        showSlide(0);
     </script>
 
 </body>

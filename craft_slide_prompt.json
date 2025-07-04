@@ -1,0 +1,3 @@
+{
+  "prompt": "review the entire repo, distill the credit rating analyst foundation training (CRAFT) into 4-5 slides per module, and then an appendix with any additional helpful information or learnings from around the repo, create a comprehensive slidedeck that can be used for human training, then commit this entire prompt into a json file craft slide prompt then create the slide deck and radically update and overhaul the presentation html, do you have questions?"
+}
