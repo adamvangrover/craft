@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Training Presentation</title>
+    <title>CRAFT Program Training Deck</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,284 +12,1585 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* bg-gray-100 */
+        }
+        .presentation-container {
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            margin: 1rem auto;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
         }
         .slide {
             display: none;
             opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            transition: opacity 0.6s ease-in-out;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 2rem 3rem;
+            box-sizing: border-box;
+            line-height: 1.6;
         }
         .slide.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
             opacity: 1;
         }
-        .slide-content {
+
+        .slide-content-base {
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 2rem;
-            height: 100%; /* Ensure slide content takes full height of its container */
         }
-        .slide-title {
-            font-family: 'Roboto Slab', serif;
-            font-weight: 700;
-        }
-         .slide-subtitle, .slide-point {
-            font-family: 'Inter', sans-serif;
-        }
-        .icon-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1.5rem;
+
+        .slide-header {
             width: 100%;
-            max-width: 800px; /* Max width for the grid */
+            padding-bottom: 0.6rem;
+            margin-bottom: 0.8rem;
+            border-bottom: 2px solid #e5e7eb;
+            text-align: left;
         }
-        .icon-item {
+         .slide-header h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1e40af;
+        }
+        .slide-header h2 .fas {
+            margin-right: 0.5rem;
+            color: #1d4ed8;
+        }
+
+
+        .slide-footer {
+            width: 100%;
+            padding-top: 0.6rem;
+            margin-top: auto;
+            border-top: 1px solid #e5e7eb;
+            font-size: 0.7rem;
+            color: #6b7280;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+            justify-content: space-between;
         }
-        .icon-item i { /* Font Awesome icons */
+
+        .slide-title-main h1 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
             margin-bottom: 0.5rem;
         }
-        /* Ensure the presentation container itself has a defined aspect ratio or height */
-        #presentation-container {
-             height: calc(100vh - 100px); /* Example: viewport height minus some offset for controls */
-             max-height: 600px; /* Or a fixed max height */
+        .slide-title-main h1 .fas {
+            font-size: 2.3rem;
+            margin-right: 0.5rem;
+        }
+        .slide-title-main p {
+            font-size: 1.1rem;
+            color: #374151;
+        }
+
+        .slide-title-module h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #1d4ed8;
+            text-align: center;
+            width:100%;
+            margin-bottom: 0.4rem;
+        }
+        .slide-title-module h2 .fas {
+            margin-right: 0.6rem;
+            font-size: 1.7rem;
+        }
+         .slide-title-module .subtitle {
+            font-size: 0.95rem;
+            color: #4b5563;
+            text-align: center;
+            width:100%;
+        }
+
+        .slide-content .content-area {
+            text-align: left;
+            width: 100%;
+            flex-grow: 1;
+            font-size: 0.8rem;
+            overflow-y: auto;
+            max-height: calc(100% - 4rem);
+        }
+        .slide-content .content-area h3 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-top: 0.5rem;
+            margin-bottom: 0.3rem;
+        }
+        .slide-content .content-area h3 .fas {
+            margin-right: 0.4rem;
+            font-size: 0.95rem;
+             color: #2563eb;
+        }
+        .slide-content .content-area ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-bottom: 0.5rem;
+            line-height: 1.55;
+            color: #374151;
+        }
+         .slide-content .content-area ul li {
+            margin-bottom: 0.25rem;
+            padding-left: 1.5em;
+            position: relative;
+        }
+        .slide-content .content-area ul li .fas {
+            position: absolute;
+            left: 0;
+            top: 0.2em;
+            color: #1d4ed8;
+            margin-right: 0.5em;
+            font-size: 0.8em;
+        }
+         .slide-content .content-area ul ul {
+            margin-top: 0.15rem;
+            margin-bottom: 0.15rem;
+            margin-left: 1rem;
+        }
+        .slide-content .content-area ul ul li .fas {
+             color: #3b82f6;
+        }
+        .slide-content .content-area p {
+            margin-bottom: 0.4rem;
+            line-height: 1.5;
+            color: #374151;
+        }
+        .slide-content .content-area p .fas {
+            margin-right: 0.3rem;
+            color: #1d4ed8;
+        }
+        .slide-content .content-area strong {
+            font-weight: 600;
+        }
+
+
+        .slide-agenda .content-area ol {
+            list-style-type: decimal;
+            margin-left: 0.5rem;
+            line-height: 1.6;
+        }
+        .slide-agenda .content-area ol li {
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            position: relative;
+            padding-left: 1.7em;
+        }
+        .slide-agenda .content-area ol li .fas {
+            position: absolute;
+            left: 0;
+            top: 0.15em;
+            color: #1d4ed8;
+            font-size: 0.9em;
+        }
+        .slide-agenda .content-area ol li a {
+            color: #1e40af;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .slide-agenda .content-area ol li a:hover {
+            text-decoration: underline;
+        }
+        .slide-agenda .content-area ol li span {
+            font-size: 0.75rem;
+            color: #4b5563;
+            display: block;
+            margin-left: 0;
+            padding-left: 0.2em;
+        }
+
+        .slide-appendix-title h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #065f46;
+            text-align: center;
+            width:100%;
+        }
+         .slide-appendix-title h2 .fas {
+            margin-right: 0.75rem;
+        }
+
+        .slide-end .content-area {
+            text-align: center;
+        }
+        .slide-end h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1e3a8a;
+        }
+        .slide-end h2 .fas {
+            display: block;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Two Column Layout */
+        .two-column-layout {
+            display: flex;
+            gap: 1.25rem;
+            width: 100%;
+            margin-top: 0.4rem;
+        }
+        .two-column-layout .column {
+            flex: 1;
+        }
+        .two-column-layout .column h4 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #2563eb;
+            margin-bottom: 0.2rem;
+            border-bottom: 1px solid #d1d5db;
+            padding-bottom: 0.2rem;
+        }
+         .two-column-layout .column h4 .fas {
+            margin-right: 0.3rem;
+            font-size: 0.9em;
+        }
+        .two-column-layout .column ul {
+            font-size: 0.78rem;
+            line-height: 1.45;
+            margin-left: 0;
+            list-style-type: none;
+            padding-left: 0;
+        }
+         .two-column-layout .column ul li {
+            padding-left: 1.25em;
+            position: relative;
+            margin-bottom: 0.2rem;
+        }
+        .two-column-layout .column ul li .fas {
+             position: absolute;
+            left: 0;
+            top: 0.15em;
+            color: #3b82f6;
+            font-size: 0.75em;
+        }
+
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .nav-controls button {
+            background-color: #d1d5db;
+            color: #1f2937;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s;
+        }
+        .nav-controls button:hover {
+            background-color: #9ca3af;
+        }
+        .nav-controls button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        #slide-counter-display {
+            font-size: 1rem;
+            font-weight: 600;
+            min-width: 50px;
+            text-align: center;
         }
 
     </style>
 </head>
-<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4">
+<body>
 
-    <div class="w-full max-w-4xl bg-white rounded-lg shadow-2xl aspect-video overflow-hidden relative" id="presentation-container">
-        <!-- Slide 1: Title -->
-        <div class="slide active" data-slide="1">
-            <div class="slide-content bg-slate-800 text-white h-full">
-                <div class="w-full">
-                    <h1 class="slide-title text-4xl md:text-6xl mb-4">Comprehensive Financial Training Resources</h1>
-                    <p class="slide-subtitle text-xl md:text-2xl opacity-80">Exploring a Rich Repository of Learning Materials</p>
-                </div>
+    <div class="presentation-container">
+
+        <!-- Slide 1: Main Title -->
+        <div class="slide active slide-title-main" data-slide="1" id="main-title">
+            <div class="slide-content-base">
+                <h1><i class="fas fa-graduation-cap"></i> Credit Rating Analyst Foundation Training (CRAFT)</h1>
+                <p>A Comprehensive Learning Deck</p>
+            </div>
+            <div class="slide-footer">
+                <span>Internal Training Material</span>
+                <span class="slide-number-footer"></span>
             </div>
         </div>
 
-        <!-- Slide 2: Introduction -->
-        <div class="slide" data-slide="2">
-            <div class="slide-content h-full">
-                 <i class="fas fa-book-open text-6xl text-blue-500 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">Welcome</h2>
-                <p class="slide-subtitle text-lg md:text-xl max-w-3xl">This presentation will serve as a guided tour of our comprehensive financial training repository. We'll highlight the breadth and depth of resources available for your self-paced learning and professional development.</p>
+        <!-- Slide 2: Agenda -->
+        <div class="slide slide-agenda" data-slide="2" id="agenda-slide">
+            <div class="slide-header">
+                 <h2 class="text-xl font-semibold text-gray-700"><i class="fas fa-list-ol"></i> Agenda</h2>
+            </div>
+            <div class="content-area">
+                <h3 style="font-size: 1.4rem; color: #1d4ed8; margin-bottom: 1rem;"> <i class="fas fa-book-reader"></i> Training Modules Overview</h3>
+                <ol id="agenda-list">
+                    <li><a href="#" data-target-slide-id="module-1-title"><i class="fas fa-university"></i> Module 1: Foundations</a> <span>(Accounting, FSA, Modeling)</span></li>
+                    <li><a href="#" data-target-slide-id="module-2-title"><i class="fas fa-chart-area"></i> Module 2: Understanding the Market</a> <span>(Capital Markets, Industry Analysis)</span></li>
+                    <li><a href="#" data-target-slide-id="module-3-title"><i class="fas fa-tools"></i> Module 3: The Analyst's Craft</a> <span>(Writing, Critical Thinking)</span></li>
+                    <li><a href="#" data-target-slide-id="module-4-title"><i class="fas fa-recycle"></i> Module 4: The Credit Lifecycle</a> <span>(SNC, Underwriting, Monitoring)</span></li>
+                    <li><a href="#" data-target-slide-id="module-5-title"><i class="fas fa-brain"></i> Module 5: The Future of Risk Management</a> <span>(AI & Emerging Trends)</span></li>
+                    <li><a href="#" data-target-slide-id="module-6-title"><i class="fas fa-cogs"></i> Module 6: Advanced Topics</a> <span>(Adv. FSA, Debt Structuring, Legal)</span></li>
+                    <li><a href="#" data-target-slide-id="module-7-title"><i class="fas fa-comments"></i> Module 7: Advanced Communication Skills</a> <span>(Persuasion, Negotiation)</span></li>
+                    <li><a href="#" data-target-slide-id="module-8-title"><i class="fas fa-industry"></i> Module 8: Specialized Industry Analysis</a> <span>(Case Studies, e.g., SaaS)</span></li>
+                    <li><a href="#" data-target-slide-id="module-9-title"><i class="fas fa-balance-scale"></i> Module 9: Regulatory & Ethical Landscape</a> <span>(Compliance, Integrity)</span></li>
+                    <li><a href="#" data-target-slide-id="module-10-title"><i class="fas fa-calculator"></i> Module 10: Quantitative Skills & Data Analytics</a> <span>(Tools & Techniques)</span></li>
+                    <li><a href="#" data-target-slide-id="module-11-title"><i class="fas fa-award"></i> Module 11: Capstone Project</a> <span>(Integrated Credit Analysis)</span></li>
+                    <li><a href="#" data-target-slide-id="appendix-title-slide"><i class="fas fa-paperclip"></i> Appendix</a> <span>(Key Resources & Further Learning)</span></li>
+                </ol>
+            </div>
+            <div class="slide-footer">
+                <span>CRAFT Program</span>
+                <span class="slide-number-footer"></span>
             </div>
         </div>
 
-        <!-- Slide 3: Repository at a Glance -->
-        <div class="slide" data-slide="3">
-            <div class="slide-content h-full">
-                <h2 class="slide-title text-3xl md:text-5xl mb-8">What's Inside? A High-Level Overview</h2>
-                <div class="icon-grid">
-                    <div class="icon-item">
-                        <i class="fas fa-certificate text-4xl text-green-500"></i>
-                        <p class="font-semibold mt-2">CFA® Prep</p>
-                    </div>
-                    <div class="icon-item">
-                        <i class="fas fa-shield-halved text-4xl text-red-500"></i>
-                        <p class="font-semibold mt-2">Corporate Credit Risk</p>
-                    </div>
-                    <div class="icon-item">
-                        <i class="fas fa-table-cells text-4xl text-sky-500"></i>
-                        <p class="font-semibold mt-2">Financial Modeling</p>
-                    </div>
-                    <div class="icon-item">
-                        <i class="fas fa-chart-line text-4xl text-purple-500"></i>
-                        <p class="font-semibold mt-2">Market Analysis</p>
-                    </div>
-                    <div class="icon-item">
-                        <i class="fas fa-brain text-4xl text-orange-500"></i>
-                        <p class="font-semibold mt-2">Behavioral Finance</p>
-                    </div>
-                     <div class="icon-item">
-                        <i class="fas fa-industry text-4xl text-gray-500"></i>
-                        <p class="font-semibold mt-2">Industry Primers</p>
-                    </div>
-                </div>
-            </div>
+        <!-- Module 1: Foundations - Part 1: Accounting & FSA -->
+        <div class="slide slide-title-module" data-slide="3" id="module-1-title">
+            <div class="slide-content-base"><h2><i class="fas fa-university"></i> Module 1: Foundations</h2><p class="subtitle">Part 1 - Accounting & Financial Statement Analysis</p></div>
+            <div class="slide-footer"><span>Module 1: Foundations</span><span class="slide-number-footer"></span></div>
         </div>
-
-        <!-- Slide 4: Deep Dive: CFA Program Preparation -->
-        <div class="slide" data-slide="4">
-            <div class="slide-content h-full">
-                <i class="fas fa-graduation-cap text-6xl text-blue-500 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">Aspiring CFAs: Your Comprehensive Study Hub</h2>
-                <p class="slide-subtitle text-lg md:text-xl mb-6">Materials for CFA Levels 1, 2, and 3.</p>
-                <div class="flex flex-wrap justify-center space-x-4 sm:space-x-8 text-base sm:text-lg">
-                    <span class="font-medium my-1"><i class="fas fa-copy mr-2 text-gray-600"></i>Cheat Sheets</span>
-                    <span class="font-medium my-1"><i class="fas fa-file-alt mr-2 text-gray-600"></i>Practice Exams</span>
-                    <span class="font-medium my-1"><i class="fas fa-book mr-2 text-gray-600"></i>Topic Deep Dives</span>
-                    <span class="font-medium my-1"><i class="fas fa-folder-open mr-2 text-gray-600"></i>Case Studies</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 5: CFA Prep - Level 1 Example -->
-        <div class="slide" data-slide="5">
-             <div class="slide-content h-full">
-                <i class="fas fa-gavel text-6xl text-amber-600 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">Example: CFA L1 - Ethical & Professional Standards</h2>
-                <p class="slide-subtitle text-lg md:text-xl max-w-3xl">Briefly state the importance of this topic. Includes concise cheat sheets covering core principles and practice questions to reinforce learning.</p>
-            </div>
-        </div>
-
-        <!-- Slide 6: Deep Dive: Corporate Credit Risk -->
-        <div class="slide" data-slide="6">
-            <div class="slide-content h-full">
-                 <i class="fas fa-magnifying-glass-chart text-6xl text-red-500 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">Mastering Corporate Credit Risk Analysis</h2>
-                 <p class="slide-subtitle text-lg md:text-xl max-w-3xl mb-6">Ideal for aspiring and current credit analysts, this is a modular program covering the A-to-Z of credit risk.</p>
-                <div class="text-left space-y-2 text-lg">
-                    <p><i class="fas fa-cogs mr-2 text-gray-600"></i><b>Key Areas:</b> Foundations, The Credit Lifecycle, Advanced Topics, Communication Skills.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 7: Corporate Credit Risk - Modules & Practical Application -->
-        <div class="slide" data-slide="7">
-            <div class="slide-content h-full">
-                <h2 class="slide-title text-3xl md:text-5xl mb-8">From Theory to Practice in Credit Risk</h2>
-                <div class="grid md:grid-cols-3 gap-8 text-center">
-                    <div>
-                        <i class="fas fa-tasks text-4xl text-blue-500 mb-3"></i>
-                        <h3 class="font-bold text-xl mb-2">Key Modules</h3>
-                        <p class="text-base">Financial Statement Analysis, Underwriting, LBOs and M&A Analysis.</p>
+        <div class="slide slide-content" data-slide="4">
+            <div class="slide-header"><h2><i class="fas fa-landmark"></i> Accounting Standards & Context</h2></div>
+            <div class="content-area">
+                <div class="two-column-layout">
+                    <div class="column">
+                        <h4><i class="fas fa-globe-americas"></i> GAAP vs. <i class="fas fa-globe-europe"></i> IFRS</h4>
+                        <ul>
+                            <li><i class="fas fa-ruler-combined"></i><strong>GAAP (US):</strong> Rules-based.</li>
+                            <li><i class="fas fa-lightbulb"></i><strong>IFRS (International):</strong> Principles-based.</li>
+                            <li><i class="fas fa-bullseye"></i> Goal for both: Transparency, Consistency, Comparability.</li>
+                        </ul>
                     </div>
-                    <div>
-                        <i class="fas fa-file-signature text-4xl text-green-500 mb-3"></i>
-                        <h3 class="font-bold text-xl mb-2">Practical Learning</h3>
-                        <p class="text-base">Emphasizes Case Studies, Quizzes, and a Capstone Project.</p>
-                    </div>
-                    <div>
-                        <i class="fas fa-book-reader text-4xl text-purple-500 mb-3"></i>
-                        <h3 class="font-bold text-xl mb-2">Supporting Resources</h3>
-                        <p class="text-base">Includes supporting resources like a comprehensive `GLOSSARY.md`.</p>
+                    <div class="column">
+                        <h4><i class="fas fa-history"></i> Historical Context</h4>
+                        <ul>
+                            <li><i class="fas fa-chart-line"></i> Emerged post-1929 crash.</li>
+                            <li><i class="fas fa-eye"></i> Aim: Mitigate information asymmetry.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
+            <div class="slide-footer"><span>Module 1: Accounting & FSA</span><span class="slide-number-footer"></span></div>
         </div>
-
-        <!-- Slide 8: Financial Modeling -->
-        <div class="slide" data-slide="8">
-             <div class="slide-content h-full">
-                <i class="fas fa-chart-pie text-6xl text-sky-500 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">Building Skills in Financial Modeling</h2>
-                <p class="slide-subtitle text-lg md:text-xl max-w-3xl">Access best practices in `FM_Best_Practices.md` and utilize templates like the `Basic_3_Statement_Model_Template` to start building your own models.</p>
-            </div>
-        </div>
-
-        <!-- Slide 9: Behavioral Finance -->
-        <div class="slide" data-slide="9">
-            <div class="slide-content h-full">
-                <i class="fas fa-users-gear text-6xl text-orange-500 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">The Human Side of Finance: Behavioral Insights</h2>
-                <p class="slide-subtitle text-lg md:text-xl max-w-3xl">Explore how psychological factors influence financial decisions. Delve into `Key_Concepts.md` and real-world `Case_Studies.md`.</p>
-            </div>
-        </div>
-
-        <!-- Slide 10: Market Analysis -->
-        <div class="slide" data-slide="10">
-            <div class="slide-content h-full">
-                <i class="fas fa-rocket text-6xl text-purple-500 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">Get Up to Speed: Market Analysis Quick Start</h2>
-                <p class="slide-subtitle text-lg md:text-xl max-w-3xl">Designed for a rapid understanding of market fundamentals. Covers Capital Market Terms, Key Market Products, and more.</p>
-            </div>
-        </div>
-
-        <!-- Slide 11: Industry Primers -->
-        <div class="slide" data-slide="11">
-            <div class="slide-content h-full">
-                <h2 class="slide-title text-3xl md:text-5xl mb-8">Sector Insights: Industry Primers</h2>
-                <div class="icon-grid">
-                    <div class="icon-item"><i class="fas fa-plane-departure text-4xl text-cyan-500"></i><p>Aerospace & Defense</p></div>
-                    <div class="icon-item"><i class="fas fa-microchip text-4xl text-gray-600"></i><p>Technology</p></div>
-                    <div class="icon-item"><i class="fas fa-heart-pulse text-4xl text-red-500"></i><p>Healthcare</p></div>
-                    <div class="icon-item"><i class="fas fa-gas-pump text-4xl text-orange-400"></i><p>Energy</p></div>
-                    <div class="icon-item"><i class="fas fa-car text-4xl text-blue-800"></i><p>Automotive</p></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 12: Other Resources -->
-        <div class="slide" data-slide="12">
-            <div class="slide-content h-full">
-                <i class="fas fa-plus-circle text-6xl text-green-500 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">And There's More...</h2>
-                <ul class="space-y-4 text-lg md:text-xl text-left max-w-2xl">
-                    <li><i class="fas fa-cogs mr-2 text-gray-500"></i><b>Emerging Area:</b> Foundational resources on Fintech are available.</li>
-                    <li><i class="fas fa-file-code mr-2 text-gray-500"></i><b>Alternative Formats:</b> Industry primers available in HTML for easy web viewing.</li>
+        <div class="slide slide-content" data-slide="5">
+            <div class="slide-header"><h2><i class="fas fa-gavel"></i> Key GAAP Principles</h2></div>
+            <div class="content-area">
+                <ul>
+                    <li><i class="fas fa-balance-scale-left"></i><strong>Prudence (Conservatism):</strong> Recognize expenses/liabilities ASAP; revenues/assets only when certain. Critical for credit.</li>
+                    <li><i class="fas fa-building"></i><strong>Going Concern:</strong> Assume business continues operating. Affects asset valuation.</li>
+                    <li><i class="fas fa-search-dollar"></i><strong>Materiality:</strong> Report all info that could reasonably impact decisions.</li>
+                    <li><i class="fas fa-book-reader"></i><strong>Full Disclosure:</strong> Reveal all relevant material information, including in footnotes.</li>
+                    <li><i class="fas fa-stream"></i>Others: Regularity, Sincerity, Permanent Methods, Non-Compensation, Periodicity.</li>
                 </ul>
             </div>
+            <div class="slide-footer"><span>Module 1: Accounting & FSA</span><span class="slide-number-footer"></span></div>
         </div>
-
-        <!-- Slide 13: Making the Most of This Repository -->
-        <div class="slide" data-slide="13">
-             <div class="slide-content h-full">
-                <i class="fas fa-map-signs text-6xl text-yellow-500 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">Your Learning Journey</h2>
-                <p class="slide-subtitle text-lg md:text-xl max-w-3xl mb-6">Tips for making the most of the repository:</p>
-                <ul class="list-disc list-inside text-lg space-y-2">
-                    <li>Navigate by interest area.</li>
-                    <li>Use cheat sheets for quick reviews.</li>
-                    <li>Test your knowledge with practice exams and quizzes.</li>
-                    <li>Apply concepts with case studies.</li>
+        <div class="slide slide-content" data-slide="6">
+            <div class="slide-header"><h2><i class="fas fa-exchange-alt"></i> Accrual Method & Intro to Financial Statements</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-calendar-check"></i> Accrual Method of Accounting</h3>
+                <ul>
+                    <li><i class="fas fa-hand-holding-usd"></i>Revenues recognized when earned (performance obligations met).</li>
+                    <li><i class="fas fa-receipt"></i>Expenses recognized when incurred (resources consumed).</li>
+                    <li><i class="fas fa-link"></i>Follows the <strong>Matching Principle</strong>. More accurate economic picture.</li>
+                </ul>
+                <h3><i class="fas fa-file-invoice-dollar"></i> The Three Financial Statements</h3>
+                <ul>
+                    <li><i class="fas fa-cubes"></i>Core reports providing a comprehensive view of a company's financial health.</li>
                 </ul>
             </div>
+            <div class="slide-footer"><span>Module 1: Accounting & FSA</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="7">
+            <div class="slide-header"><h2><i class="fas fa-file-invoice-dollar"></i> The Balance Sheet</h2></div>
+            <div class="content-area">
+                <ul>
+                    <li><i class="fas fa-camera"></i><strong>Definition:</strong> A snapshot of financial position at a specific point in time.</li>
+                    <li><i class="fas fa-equals"></i><strong>Equation:</strong> Assets = Liabilities + Stockholders' Equity.</li>
+                    <li><i class="fas fa-archive"></i><strong>Assets:</strong> What company owns (cash, A/R, inventory, PP&E). Listed by liquidity.</li>
+                    <li><i class="fas fa-file-contract"></i><strong>Liabilities:</strong> What company owes (A/P, debt). Listed by immediacy.</li>
+                    <li><i class="fas fa-users"></i><strong>Stockholders' Equity:</strong> Residual interest (owners' stake). Common stock, retained earnings.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 1: Accounting & FSA</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="8">
+            <div class="slide-header"><h2><i class="fas fa-chart-pie"></i> The Income Statement (P&L)</h2></div>
+            <div class="content-area">
+                <ul>
+                    <li><i class="fas fa-calendar-alt"></i><strong>Definition:</strong> Reports financial performance over a specific period.</li>
+                    <li><i class="fas fa-sort-amount-down"></i><strong>Structure (Top-Down):</strong>
+                        <ul>
+                            <li><i class="fas fa-dollar-sign"></i>Revenue (Sales)</li>
+                            <li><i class="fas fa-shopping-cart"></i>Cost of Goods Sold (COGS) &rarr; Gross Profit</li>
+                            <li><i class="fas fa-cogs"></i>Operating Expenses (SG&A, R&D) &rarr; Operating Income (EBIT)</li>
+                            <li><i class="fas fa-handshake"></i>Interest Expense & Taxes &rarr; Net Income ("Bottom Line")</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 1: Accounting & FSA</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="9">
+            <div class="slide-header"><h2><i class="fas fa-filter"></i> The Statement of Cash Flows</h2></div>
+            <div class="content-area">
+                <ul>
+                    <li><i class="fas fa-glasses"></i><strong>Definition:</strong> Tracks actual inflows/outflows of cash. The "truth-teller."</li>
+                    <li><i class="fas fa-sitemap"></i><strong>Sections:</strong>
+                        <ul>
+                            <li><strong>Cash Flow from Operations (CFO):</strong> From principal revenue activities. Starts Net Income, adjusts for non-cash & NWC changes.</li>
+                            <li><strong>Cash Flow from Investing (CFI):</strong> From purchase/sale of long-term assets (PP&E).</li>
+                            <li><strong>Cash Flow from Financing (CFF):</strong> From debt, equity, dividends.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 1: Accounting & FSA</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="10">
+            <div class="slide-header"><h2><i class="fas fa-link"></i> Interconnectivity of Financial Statements</h2></div>
+            <div class="content-area">
+                <h3>Key Linkages:</h3>
+                <ul>
+                    <li><i class="fas fa-level-down-alt"></i><strong>Net Income (IS):</strong> Flows to Retained Earnings (BS) and starts CFO (CFS).</li>
+                    <li><i class="fas fa-retweet"></i><strong>Working Capital Changes (BS):</strong> Adjust Net Income to arrive at CFO (CFS).</li>
+                    <li><i class="fas fa-tools"></i><strong>Capital Expenditures (CFI):</strong> Affect PP&E (BS) and Depreciation (IS).</li>
+                    <li><i class="fas fa-landmark"></i><strong>Debt & Equity Transactions (CFF):</strong> Impact Debt and Equity accounts (BS).</li>
+                    <li><i class="fas fa-check-circle"></i><strong>Ending Cash (CFS):</strong> Must equal Cash on Balance Sheet. Fundamental model check.</li>
+                </ul>
+                <p><i class="fas fa-exclamation-circle"></i> <em>Understanding these links is vital for building financial models and spotting discrepancies.</em></p>
+            </div>
+            <div class="slide-footer"><span>Module 1: Accounting & FSA</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="11">
+            <div class="slide-header"><h2><i class="fas fa-file-invoice"></i> Revenue Recognition & Expense Analysis</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-signature"></i> Revenue Recognition (ASC 606)</h3>
+                <ul>
+                    <li><i class="fas fa-list-ol"></i>A 5-step model: Identify contract, performance obligations, transaction price, allocate price, recognize revenue when/as satisfied.</li>
+                    <li><i class="fas fa-search"></i>Crucial for assessing earnings quality; be wary of aggressive practices.</li>
+                </ul>
+                <h3><i class="fas fa-calculator"></i> Expense Analysis</h3>
+                <ul>
+                    <li><i class="fas fa-balance-scale"></i>COGS vs. Operating Expenses (SG&A, R&D).</li>
+                    <li><i class="fas fa-chart-line"></i>Depreciation & Amortization (non-cash). Analyze trends for margin insights.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 1: Accounting & FSA</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="12">
+            <div class="slide-header"><h2><i class="fas fa-sticky-note"></i> The Importance of Footnotes</h2></div>
+            <div class="content-area">
+                <h3>Notes to Financial Statements:</h3>
+                <ul>
+                    <li><i class="fas fa-info-circle"></i>Provide crucial details and context often "hidden." REQUIRED READING.</li>
+                    <li><i class="fas fa-key"></i><strong>Key Disclosures:</strong> Accounting Policies, Debt Schedules (terms, covenants), Commitments & Contingencies, Segment Info, Fair Value, Related Party Transactions.</li>
+                    <li><i class="fas fa-flag"></i><strong>Red Flags:</strong> Frequent accounting changes, opaque language, large Level 3 assets, significant off-BS items.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 1: Accounting & FSA</span><span class="slide-number-footer"></span></div>
         </div>
 
-        <!-- Slide 14: Conclusion -->
-        <div class="slide" data-slide="14">
-             <div class="slide-content h-full">
-                 <i class="fas fa-flag-checkered text-6xl text-blue-600 mb-6"></i>
-                <h2 class="slide-title text-3xl md:text-5xl mb-4">Start Your Financial Learning Adventure!</h2>
-                <p class="slide-subtitle text-lg md:text-xl max-w-3xl mb-4">This repository offers a rich collection of materials for enhancing your financial knowledge and skills.</p>
-                <a href="home.html" class="text-blue-500 hover:underline">Dive in and explore the resources! (Link to Main Hub)</a>
+        <!-- Module 1: Foundations - Part 2: Financial Analysis & Modeling -->
+        <div class="slide slide-title-module" data-slide="13" id="module-1-fam-title">
+            <div class="slide-content-base"><h2><i class="fas fa-university"></i> Module 1: Foundations</h2><p class="subtitle">Part 2 - Financial Analysis & Modeling</p></div>
+            <div class="slide-footer"><span>Module 1: Financial Analysis & Modeling</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="14">
+            <div class="slide-header"><h2><i class="fas fa-project-diagram"></i> 3-Statement Model: Purpose & Best Practices</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-bullseye"></i> Purpose of the 3-Statement Model</h3>
+                <ul>
+                    <li><i class="fas fa-chart-line"></i>Forecast financial performance.</li>
+                    <li><i class="fas fa-vial"></i>Test assumptions and their impact.</li>
+                    <li><i class="fas fa-money-check-alt"></i>Assess debt service capacity and overall financial health.</li>
+                </ul>
+                <h3><i class="fas fa-star"></i> Modeling Best Practices</h3>
+                <ul>
+                    <li><i class="fas fa-sitemap"></i>Clear Structure: Inputs, Historicals, Projections (IS, BS, CFS), Schedules.</li>
+                    <li><i class="fas fa-palette"></i>Color-Coding: Blue for inputs, Black for formulas.</li>
+                    <li><i class="fas fa-calendar-day"></i>Periodicity: Annual or Quarterly.</li>
+                    <li><i class="fas fa-calculator"></i>Explicit Formulas & Error Checks (Balance Sheet must balance!).</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 1: Financial Analysis & Modeling</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="15">
+            <div class="slide-header"><h2><i class="fas fa-database"></i> Model Inputs: Historical Data & Supporting Schedules</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-history"></i> Populating Historical Data</h3>
+                <ul>
+                    <li><i class="far fa-calendar-alt"></i>Typically 3-5 years from public filings or private statements.</li>
+                    <li><i class="fas fa-search-dollar"></i>Crucial for understanding trends, seasonality, and informing forecasts.</li>
+                </ul>
+                <h3><i class="fas fa-cogs"></i> Supporting Schedules ("Engine Room")</h3>
+                <ul>
+                    <li><strong>Debt & Interest:</strong> Tracks tranches, repayments, interest. Critical.</li>
+                    <li><strong>Fixed Asset (PP&E):</strong> Beg. PP&E + CapEx - Dep. = End. PP&E.</li>
+                    <li><strong>Working Capital:</strong> Forecasts A/R, Inv, A/P via activity ratios (DSO, DIH, DPO).</li>
+                    <li>Others: Equity, Tax.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 1: Financial Analysis & Modeling</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="16">
+            <div class="slide-header"><h2><i class="fas fa-tasks"></i> Forecasting Process & Order of Operations</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-bullseye"></i> Forecasting with Purpose</h3>
+                <ul>
+                    <li><i class="fas fa-balance-scale"></i>Assumptions based on history, management guidance, industry/economic outlook, analyst judgment.</li>
+                </ul>
+                <h3><i class="fas fa-list-ol"></i> Order of Operations:</h3>
+                <ol>
+                    <li>Forecast Income Statement (Revenue &rarr; Expenses &rarr; Net Income).</li>
+                    <li>Forecast Balance Sheet (Operational items, link to IS, project equity).</li>
+                    <li>Forecast Cash Flow Statement (Derived from IS & BS changes).</li>
+                    <li>Balance the Model: Ending Cash (CFS) links to Cash (BS). "Plug" is often Revolver.</li>
+                </ol>
+                <p><i class="fas fa-exclamation-triangle"></i> <em>Beware of circular references (e.g., interest expense).</em></p>
+            </div>
+            <div class="slide-footer"><span>Module 1: Financial Analysis & Modeling</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="17">
+            <div class="slide-header"><h2><i class="fas fa-percentage"></i> Key Credit Ratios: Leverage & Coverage</h2></div>
+            <div class="content-area">
+                <h3>Leverage Ratios (Measure Debt Burden)</h3>
+                <ul>
+                    <li><i class="fas fa-weight-hanging"></i><strong>Total Debt / EBITDA:</strong> Years of OpCF to repay debt. Lower is better.</li>
+                    <li><i class="fas fa-cash-register"></i><strong>Net Debt / EBITDA:</strong> Gives credit for cash.</li>
+                    <li><i class="fas fa-chart-pie"></i><strong>Debt / Capital:</strong> Debt as % of total capital.</li>
+                </ul>
+                <h3>Coverage Ratios (Measure Repayment Capacity)</h3>
+                <ul>
+                    <li><i class="fas fa-shield-alt"></i><strong>Interest Coverage (TIE):</strong> EBIT or EBITDA / Interest Expense. Higher is better.</li>
+                    <li><i class="fas fa-umbrella-beach"></i><strong>Debt Service Coverage Ratio (DSCR):</strong> Broader measure.</li>
+                    <li><i class="fas fa-tachometer-alt"></i><strong>Fixed Charge Coverage Ratio (FCCR):</strong> Most comprehensive.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 1: Financial Analysis & Modeling</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="18">
+            <div class="slide-header"><h2><i class="fas fa-water"></i> Key Credit Ratios: Liquidity & <i class="fas fa-hand-holding-usd"></i> Profitability</h2></div>
+            <div class="content-area">
+                <h3>Liquidity Ratios (Measure Short-Term Solvency)</h3>
+                <ul>
+                    <li><i class="fas fa-tint"></i><strong>Current Ratio:</strong> Current Assets / Current Liabilities.</li>
+                    <li><i class="fas fa-flask"></i><strong>Quick Ratio (Acid-Test):</strong> (Cash + Marketables + A/R) / Current Liabilities. Stricter.</li>
+                </ul>
+                <h3>Profitability Ratios (Support Debt Repayment)</h3>
+                <ul>
+                    <li><i class="fas fa-tags"></i><strong>Gross/Operating/Net Margins.</strong></li>
+                    <li><i class="fas fa-chart-area"></i><strong>Return on Assets (ROA) & Return on Equity (ROE).</strong></li>
+                </ul>
+                <p><i class="fas fa-info-circle"></i> <em>Analyst Tip: Always compare ratios to history, peers, and covenants. Understand the "why."</em></p>
+            </div>
+            <div class="slide-footer"><span>Module 1: Financial Analysis & Modeling</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="19">
+            <div class="slide-header"><h2><i class="fas fa-search-plus"></i> Advanced Analysis: Sensitivity Analysis</h2></div>
+            <div class="content-area">
+                <h3>Sensitivity Analysis ("What-if" Analysis)</h3>
+                <ul>
+                    <li><i class="fas fa-question-circle"></i><strong>Purpose:</strong> How changes in a *single* assumption affect key outputs (Net Income, ratios, FCF).</li>
+                    <li><i class="fas fa-arrows-alt-h"></i><strong>Examples:</strong> Impact of 1% revenue growth change on Interest Coverage.</li>
+                    <li><i class="fas fa-lightbulb"></i><strong>Value:</strong> Identifies model's most critical assumptions.</li>
+                    <li><i class="fas fa-chart-bar"></i>Tools like Tornado Diagrams can visually show impact.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 1: Financial Analysis & Modeling</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="20">
+            <div class="slide-header"><h2><i class="fas fa-theater-masks"></i> Advanced Analysis: Scenario & Stress Testing</h2></div>
+            <div class="content-area">
+                <h3>Scenario Analysis</h3>
+                <ul>
+                    <li><i class="fas fa-random"></i>Changes *multiple* inputs for a plausible future state (e.g., "mild recession").</li>
+                    <li><i class="fas fa-clipboard-list"></i>Typical Scenarios: Base Case, Upside Case, Downside Case (critical for credit).</li>
+                </ul>
+                <h3>Stress Testing</h3>
+                <ul>
+                    <li><i class="fas fa-bolt"></i>More extreme form; gauges impact of *severe but plausible* crises.</li>
+                    <li><i class="fas fa-life-ring"></i>Assesses capital adequacy and borrower survivability under extreme conditions.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 1: Financial Analysis & Modeling</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- Module 2: Understanding the Market - Part 1: Capital Markets -->
+        <div class="slide slide-title-module" data-slide="21" id="module-2-title">
+            <div class="slide-content-base"><h2><i class="fas fa-chart-area"></i> Module 2: Understanding the Market</h2><p class="subtitle">Part 1 - Capital Markets & Leveraged Loans</p></div>
+            <div class="slide-footer"><span>Module 2: Market Understanding</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="22">
+            <div class="slide-header"><h2><i class="fas fa-landmark"></i> Primary vs. Secondary Markets</h2></div>
+            <div class="content-area">
+                <h3>The Capital Ecosystem</h3>
+                <p><i class="fas fa-users-cog"></i> Venues matching capital providers (investors) with capital users (issuers).</p>
+                <div class="two-column-layout">
+                    <div class="column">
+                        <h4><i class="fas fa-plus-circle"></i> Primary Markets</h4>
+                        <ul>
+                            <li><i class="far fa-file-alt"></i>New securities created & sold first time.</li>
+                            <li><i class="fas fa-arrow-to-bottom"></i>Proceeds go to issuer.</li>
+                            <li><i class="fas fa-briefcase"></i>Investment banks as underwriters.</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4><i class="fas fa-exchange-alt"></i> Secondary Markets</h4>
+                        <ul>
+                            <li><i class="fas fa-history"></i>Existing securities traded among investors.</li>
+                            <li><i class="fas fa-water"></i>Provides liquidity & price discovery.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer"><span>Module 2: Capital Markets</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="23">
+            <div class="slide-header"><h2><i class="fas fa-users"></i> Market Participants: Sell-Side vs. Buy-Side</h2></div>
+            <div class="content-area">
+                 <div class="two-column-layout">
+                    <div class="column">
+                        <h4><i class="fas fa-store-alt"></i> Sell-Side</h4>
+                        <ul>
+                            <li><i class="fas fa-building"></i>Investment banks, broker-dealers.</li>
+                            <li><i class="fas fa-handshake"></i>Role: Originate, underwrite, structure, market, sell securities. Intermediaries.</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4><i class="fas fa-shopping-bag"></i> Buy-Side</h4>
+                        <ul>
+                            <li><i class="fas fa-piggy-bank"></i>Institutional investors (Funds, CLOs, Insurance).</li>
+                            <li><i class="fas fa-search-dollar"></i>Role: Purchase & manage portfolios to generate returns.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer"><span>Module 2: Capital Markets</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="24">
+            <div class="slide-header"><h2><i class="fas fa-layer-group"></i> The Spectrum of Debt: Capital Structure Hierarchy</h2></div>
+            <div class="content-area">
+                <p><i class="fas fa-sort-amount-up"></i> Debt instruments vary by risk, seniority (claim priority), security, and cost.</p>
+                <ul>
+                    <li><i class="fas fa-lock"></i><strong>Senior Secured Debt:</strong> Highest claim, collateral-backed (Revolvers, Term Loans). Lowest risk/cost.</li>
+                    <li><i class="far fa-file-alt"></i><strong>Senior Unsecured Debt:</strong> General claim, no specific collateral (Bonds/Notes).</li>
+                    <li><i class="fas fa-level-down-alt"></i><strong>Subordinated Debt (Junior):</strong> Ranks below senior debt (Sub. Bonds, Mezzanine).</li>
+                    <li><i class="fas fa-user-tie"></i><strong>Equity:</strong> Ownership, residual claim. Highest risk/potential return.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 2: Capital Markets</span><span class="slide-number-footer"></span></div>
+        </div>
+         <div class="slide slide-content" data-slide="25">
+            <div class="slide-header"><h2><i class="fas fa-balance-scale-right"></i> Focus: The Leveraged Loan Market</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-info-circle"></i> Leveraged Loans Defined</h3>
+                <ul>
+                    <li><i class="fas fa-landmark"></i>Syndicated bank loans to companies already highly levered or non-investment grade.</li>
+                    <li><i class="fas fa-crosshairs"></i>Purpose: LBOs, M&A, recapitalizations, refinancing.</li>
+                </ul>
+                <h3><i class="fas fa-list-alt"></i> Characteristics</h3>
+                <ul>
+                    <li><i class="fas fa-exclamation-triangle"></i>Higher risk & higher interest rates (typically floating, e.g., SOFR + spread).</li>
+                    <li><i class="fas fa-shield-alt"></i>Most are secured (first or second lien).</li>
+                    <li><i class="fas fa-users"></i>Investor Base: CLOs (largest), loan mutual funds, hedge funds.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 2: Capital Markets</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="26">
+            <div class="slide-header"><h2><i class="fas fa-project-diagram"></i> Loan Syndication & <i class="fas fa-file-contract"></i> Credit Agreement Anatomy</h2></div>
+            <div class="content-area">
+                <h3>The Syndication Process</h3>
+                <ul>
+                    <li><i class="fas fa-users-cog"></i>Large loans distributed by Lead Arrangers to spread risk.</li>
+                    <li><i class="fas fa-bullhorn"></i>Involves Information Memorandums (IMs), bank meetings, "price flex."</li>
+                </ul>
+                <h3>Credit Agreement - The Rulebook</h3>
+                <ul>
+                    <li><i class="fas fa-gavel"></i>Legally binding. Key Sections:
+                        <ul>
+                            <li><strong>Definitions:</strong> CRITICAL (EBITDA, Debt).</li>
+                            <li>Loan Terms, Reps & Warranties, CPs, Covenants, EoDs.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 2: Capital Markets</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="27">
+            <div class="slide-header"><h2><i class="fas fa-traffic-light"></i> Covenants: Lender's Guardrails & Cov-Lite</h2></div>
+            <div class="content-area">
+                <h3>Covenant Types</h3>
+                <ul>
+                    <li><i class="fas fa-check"></i><strong>Affirmative:</strong> Borrower *must do*.</li>
+                    <li><i class="fas fa-ban"></i><strong>Negative:</strong> Borrower *cannot do* without consent/baskets.</li>
+                    <li><i class="fas fa-calculator"></i><strong>Financial:</strong> Maintain specified ratios.
+                        <ul>
+                            <li><em>Maintenance:</em> Tested regularly.</li>
+                            <li><em>Incurrence:</em> Tested on action.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <h3><i class="fas fa-fighter-jet"></i> "Covenant-Lite" (Cov-Lite)</h3>
+                <ul>
+                    <li><i class="far fa-lightbulb"></i>Loans lacking financial *maintenance* covenants.</li>
+                    <li><i class="fas fa-balance-scale"></i>Offers borrower flexibility but delays lender EWS.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 2: Capital Markets</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- Module 2: Understanding the Market - Part 2: Industry Analysis -->
+        <div class="slide slide-title-module" data-slide="28" id="module-2-ia-title">
+             <div class="slide-content-base"><h2><i class="fas fa-chart-area"></i> Module 2: Understanding the Market</h2><p class="subtitle">Part 2 - Industry Analysis</p></div>
+            <div class="slide-footer"><span>Module 2: Industry Analysis</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="29">
+            <div class="slide-header"><h2><i class="fas fa-building"></i> Importance of Industry Context</h2></div>
+            <div class="content-area">
+                <p><i class="fas fa-info-circle"></i> A company's performance, strategy, and creditworthiness are profoundly shaped by its industry environment.</p>
+                <h3>Why Industry Analysis is Crucial:</h3>
+                <ul>
+                    <li><i class="fas fa-balance-scale"></i>Provides context for judging company performance (vs. peers).</li>
+                    <li><i class="fas fa-clipboard-check"></i>Assesses realism of financial projections.</li>
+                    <li><i class="fas fa-search"></i>Identifies industry-specific risks and opportunities.</li>
+                    <li><i class="fas fa-lightbulb"></i>Helps understand sources of profitability & competitive advantage.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 2: Industry Analysis</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="30">
+            <div class="slide-header"><h2><i class="fas fa-sitemap"></i> Porter's Five Forces: Overview</h2></div>
+            <div class="content-area">
+                <p>A framework for analyzing industry structure and attractiveness by assessing five fundamental competitive forces that determine long-term profit potential.</p>
+                <ol>
+                    <li><i class="fas fa-user-plus"></i><strong>Threat of New Entrants</strong></li>
+                    <li><i class="fas fa-handshake"></i><strong>Bargaining Power of Buyers (Customers)</strong></li>
+                    <li><i class="fas fa-truck-loading"></i><strong>Bargaining Power of Suppliers</strong></li>
+                    <li><i class="fas fa-random"></i><strong>Threat of Substitute Products or Services</strong></li>
+                    <li><i class="fas fa-users"></i><strong>Rivalry Among Existing Competitors</strong> (Central Force)</li>
+                </ol>
+            </div>
+            <div class="slide-footer"><span>Module 2: Industry Analysis</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="31">
+            <div class="slide-header"><h2><i class="fas fa-door-open"></i> Porter's: New Entrants & <i class="fas fa-shopping-cart"></i> Buyer Power</h2></div>
+            <div class="content-area">
+                <h3>1. Threat of New Entrants</h3>
+                <ul>
+                    <li><i class="fas fa-shield-alt"></i>High barriers (capital, scale, brand, regulation) protect incumbents.</li>
+                    <li><i class="fas fa-arrow-down"></i>Low barriers invite competition, erode profits.</li>
+                </ul>
+                <h3>2. Bargaining Power of Buyers</h3>
+                <ul>
+                    <li><i class="fas fa-users"></i>High when: Buyers concentrated, products undifferentiated, low switching costs.</li>
+                    <li><i class="fas fa-compress-arrows-alt"></i>High power squeezes industry margins.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 2: Industry Analysis</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="32">
+            <div class="slide-header"><h2><i class="fas fa-parachute-box"></i> Porter's: Supplier Power & <i class="fas fa-exchange-alt"></i> Substitutes</h2></div>
+            <div class="content-area">
+                <h3>3. Bargaining Power of Suppliers</h3>
+                <ul>
+                    <li><i class="fas fa-link"></i>High when: Suppliers concentrated, critical/unique input, high switching costs.</li>
+                    <li><i class="fas fa-arrow-up"></i>High power increases costs for industry players.</li>
+                </ul>
+                <h3>4. Threat of Substitute Products/Services</h3>
+                <ul>
+                    <li><i class="fas fa-lightbulb"></i>Alternatives from *outside* traditional industry.</li>
+                    <li><i class="fas fa-dollar-sign"></i>High if substitute offers attractive price-performance or low switching cost.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 2: Industry Analysis</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="33">
+            <div class="slide-header"><h2><i class="fas fa-fist-raised"></i> Porter's Forces: Competitive Rivalry</h2></div>
+            <div class="content-area">
+                <h3>5. Rivalry Among Existing Competitors</h3>
+                <ul>
+                    <li><i class="fas fa-fire"></i>Intensity of price wars, ad battles, new product intros.</li>
+                    <li><i class="fas fa-users"></i>Most intense when: Many competitors, slow growth, undifferentiated products, high fixed/exit costs.</li>
+                    <li><i class="fas fa-chart-line"></i>Erodes profitability, increases cash flow volatility.</li>
+                </ul>
+                <p><i class="fas fa-info-circle"></i> <em>Analyst Tip: Use Porter's to question long-term stability and cash flow predictability.</em></p>
+            </div>
+            <div class="slide-footer"><span>Module 2: Industry Analysis</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="34">
+            <div class="slide-header"><h2><i class="fas fa-cogs"></i> Other Key Industry Considerations (1/2)</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-tachometer-alt"></i> Industry-Specific KPIs</h3>
+                <ul>
+                    <li><i class="fas fa-key"></i>Unique metrics for performance/health (e.g., Retail: SSS; SaaS: ARR).</li>
+                </ul>
+                <h3><i class="fas fa-exclamation-triangle"></i> Broad Industry Risks & Mitigants</h3>
+                <ul>
+                    <li><i class="fas fa-sync-alt"></i><strong>Cyclicality:</strong> Sensitivity to business cycle. Mitigants: diversification, flexible costs.</li>
+                    <li><i class="fas fa-bolt"></i><strong>Technological Disruption:</strong> Vulnerability to new tech. Mitigants: innovation, R&D.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 2: Industry Analysis</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="35">
+            <div class="slide-header"><h2><i class="fas fa-globe"></i> Other Key Industry Considerations (2/2)</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-exclamation-triangle"></i> More Broad Industry Risks & Mitigants</h3>
+                <ul>
+                    <li><i class="fas fa-balance-scale"></i><strong>Regulatory Risk:</strong> Impact of law changes. Mitigants: compliance.</li>
+                    <li><i class="fas fa-map-marked-alt"></i><strong>Geopolitical & Macroeconomic Factors:</strong> Tariffs, FX, instability. Mitigants: hedging.</li>
+                    <li><i class="fas fa-leaf"></i><strong>ESG Risks:</strong> Environmental, Social, Governance. Mitigants: proactive ESG strategy.</li>
+                    <li><i class="fas fa-truck"></i><strong>Supply Chain Risks:</strong> Supplier dependence, disruptions. Mitigants: diversification.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 2: Industry Analysis</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="36">
+            <div class="slide-header"><h2><i class="fas fa-project-diagram"></i> Other Useful Analytical Frameworks</h2></div>
+            <div class="content-area">
+                <h3>PESTLE Analysis</h3>
+                <ul>
+                    <li><i class="fas fa-search"></i>Analyzes macro-environmental factors: Political, Economic, Social, Technological, Legal, Environmental.</li>
+                </ul>
+                <h3>SWOT Analysis</h3>
+                <ul>
+                    <li><i class="fas fa-arrows-alt"></i>Identifies internal & external factors: Strengths, Weaknesses, Opportunities, Threats.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 2: Industry Analysis</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- Module 3: The Analyst's Craft - Part 1: Business Writing -->
+        <div class="slide slide-title-module" data-slide="37" id="module-3-title">
+            <div class="slide-content-base"><h2><i class="fas fa-tools"></i> Module 3: The Analyst's Craft</h2><p class="subtitle">Part 1 - Business Writing & Grammar</p></div>
+            <div class="slide-footer"><span>Module 3: Analyst's Craft</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="38">
+            <div class="slide-header"><h2><i class="fas fa-file-alt"></i> The Credit Memorandum: Purpose & Characteristics</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-bullseye"></i> Purpose</h3>
+                <ul>
+                    <li>Primary written analysis; persuasive document for decision-makers.</li>
+                </ul>
+                <h3><i class="fas fa-check-double"></i> Key Characteristics</h3>
+                <ul>
+                    <li>Clarity, Conciseness, Objectivity, Thoroughness. Deep understanding of borrower, industry, financials, risks & mitigants.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 3: Business Writing</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="39">
+            <div class="slide-header"><h2><i class="fas fa-list-ul"></i> Standard Credit Memo Sections (1/2)</h2></div>
+            <div class="content-area">
+                <ol>
+                    <li><i class="fas fa-star"></i><strong>Executive Summary & Recommendation:</strong> Most critical. BLUF. Overview, recommendation, key strengths, risks/mitigants.</li>
+                    <li><i class="fas fa-user-tie"></i><strong>Borrower and Management Overview:</strong> History, products, markets, management assessment.</li>
+                    <li><i class="fas fa-industry"></i><strong>Industry Analysis:</strong> Dynamics, competition (Porter's), company position.</li>
+                </ol>
+            </div>
+            <div class="slide-footer"><span>Module 3: Business Writing</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="40">
+            <div class="slide-header"><h2><i class="fas fa-list-ul"></i> Standard Credit Memo Sections (2/2)</h2></div>
+            <div class="content-area">
+                <ol start="4">
+                    <li><i class="fas fa-chart-bar"></i><strong>Financial Analysis:</strong> Historical & projected performance, QoE, ratios.</li>
+                    <li><i class="fas fa-undo-alt"></i><strong>Sources of Repayment:</strong> Primary (OpCF), Secondary (collateral), Tertiary (guarantees).</li>
+                    <li><i class="fas fa-file-signature"></i><strong>Loan Structure and Terms:</strong> Amount, type, tenor, pricing, security.</li>
+                    <li><i class="fas fa-shield-alt"></i><strong>Proposed Covenants & Conditions:</strong> Financial, negative, affirmative; rationale.</li>
+                    <li><i class="fas fa-flag-checkered"></i><strong>Conclusion:</strong> Reiterate recommendation.</li>
+                </ol>
+            </div>
+            <div class="slide-footer"><span>Module 3: Business Writing</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="41">
+            <div class="slide-header"><h2><i class="fas fa-pen-fancy"></i> Effective Business Writing: Clarity & Conciseness</h2></div>
+            <div class="content-area">
+                <ul>
+                    <li><i class="fas fa-bullhorn"></i><strong>Be Direct (BLUF):</strong> Main point first.</li>
+                    <li><i class="fas fa-running"></i><strong>Use Active Voice:</strong> More direct and impactful.</li>
+                    <li><i class="fas fa-database"></i><strong>Be Specific & Data-Driven:</strong> Back assertions with evidence. Quantify.</li>
+                    <li><i class="fas fa-comment-slash"></i><strong>Avoid Jargon, Clichés, Ambiguity:</strong> Clear, plain English.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 3: Business Writing</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="42">
+            <div class="slide-header"><h2><i class="fas fa-spell-check"></i> Effective Business Writing: Structure & Grammar</h2></div>
+            <div class="content-area">
+                <ul>
+                    <li><i class="fas fa-align-left"></i><strong>Structure for Readability:</strong> Headings, short paragraphs, topic sentences, bullets.</li>
+                    <li><i class="fas fa-cut"></i><strong>Conciseness:</strong> Eliminate unnecessary words. Strong verbs.</li>
+                    <li><i class="fas fa-book"></i><strong>Grammar & Style Essentials:</strong> Subject-verb agreement, pronoun clarity, commas, apostrophes, consistency. Avoid common word confusions. Proofread!</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 3: Business Writing</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- Module 3: The Analyst's Craft - Part 2: Critical Thinking -->
+        <div class="slide slide-title-module" data-slide="43" id="module-3-ct-title">
+            <div class="slide-content-base"><h2><i class="fas fa-tools"></i> Module 3: The Analyst's Craft</h2><p class="subtitle">Part 2 - Critical Thinking & Forming a Narrative</p></div>
+            <div class="slide-footer"><span>Module 3: Analyst's Craft</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="44">
+            <div class="slide-header"><h2><i class="fas fa-brain"></i> The Essence of Critical Thinking in Credit</h2></div>
+            <div class="content-area">
+                <p>The intellectual engine driving robust credit analysis.</p>
+                <ul>
+                    <li><i class="fas fa-cogs"></i><strong>Disciplined Process:</strong> Actively & skillfully conceptualizing, applying, analyzing, synthesizing, and/or evaluating information.</li>
+                    <li><i class="fas fa-check-circle"></i><strong>Core Tenets:</strong> Objectivity, Thoroughness, Logical Reasoning, Clarity, Accuracy, Relevance, Healthy Skepticism.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 3: Critical Thinking</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="45">
+            <div class="slide-header"><h2><i class="fas fa-project-diagram"></i> A Framework for Critical Thinking</h2></div>
+            <div class="content-area">
+                <p>(Iterative Process)</p>
+                <ol>
+                    <li><i class="fas fa-question"></i>Define Core Question/Problem.</li>
+                    <li><i class="fas fa-database"></i>Gather & Evaluate Information.</li>
+                    <li><i class="fas fa-chart-pie"></i>Analyze & Interpret Information (Quant & Qual).</li>
+                    <li><i class="fas fa-user-secret"></i>Challenge Assumptions & Test Hypotheses.</li>
+                    <li><i class="fas fa-puzzle-piece"></i>Synthesize Findings & Draw Conclusions.</li>
+                    <li><i class="fas fa-bullhorn"></i>Communicate the Analysis (Narrative).</li>
+                </ol>
+            </div>
+            <div class="slide-footer"><span>Module 3: Critical Thinking</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="46">
+            <div class="slide-header"><h2><i class="fas fa-key"></i> Identifying Key Drivers, Risks, and Mitigants</h2></div>
+            <div class="content-area">
+                <p>Distilling complexity into factors that truly matter.</p>
+                <ul>
+                    <li><i class="fas fa-lightbulb"></i><strong>Key Performance Drivers (Strengths):</strong> Factors for success & repayment.</li>
+                    <li><i class="fas fa-exclamation-triangle"></i><strong>Key Credit Risks (Weaknesses):</strong> Significant threats.</li>
+                    <li><i class="fas fa-shield-alt"></i><strong>Mitigants to Key Risks:</strong> Factors reducing risk probability/impact.</li>
+                </ul>
+                <p><i class="fas fa-balance-scale"></i><em>Recommendation often hinges on balance of risks vs. mitigants.</em></p>
+            </div>
+            <div class="slide-footer"><span>Module 3: Critical Thinking</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="47">
+            <div class="slide-header"><h2><i class="fas fa-user-md"></i> Common Logical Fallacies & Cognitive Biases</h2></div>
+            <div class="content-area">
+                 <p><i class="fas fa-exclamation-circle"></i> Awareness is key to mitigation. Examples:</p>
+                <div class="two-column-layout">
+                    <div class="column">
+                        <h4><i class="fas fa-brain"></i> Cognitive Biases</h4>
+                        <ul>
+                            <li><i class="fas fa-filter"></i>Confirmation Bias</li>
+                            <li><i class="fas fa-anchor"></i>Anchoring Bias</li>
+                            <li><i class="fas fa-bolt"></i>Availability Heuristic</li>
+                            <li><i class="fas fa-theater-masks"></i>Halo/Horn Effect</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4><i class="fas fa-users"></i> Group & Other Biases</h4>
+                        <ul>
+                            <li><i class="fas fa-users"></i>Bandwagon Effect (Groupthink)</li>
+                            <li><i class="fas fa-undo"></i>Sunk Cost Fallacy</li>
+                            <li><i class="fas fa-feather-alt"></i>Narrative Fallacy</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer"><span>Module 3: Critical Thinking</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="48">
+            <div class="slide-header"><h2><i class="fas fa-feather-alt"></i> Synthesizing Data into a Compelling Credit Narrative</h2></div>
+            <div class="content-area">
+                <p><strong>The narrative IS the analysis</strong> translated into an actionable story. Forces critical judgments, identifies causal links, develops a thesis.</p>
+                <h3><i class="fas fa-list-alt"></i> Elements:</h3>
+                <ul>
+                    <li><i class="far fa-check-circle"></i>Clarity & Simplicity, Logical Structure, Evidence-Based.</li>
+                    <li><i class="fas fa-balance-scale-left"></i>Balanced Perspective (leading to clear conclusion).</li>
+                    <li><i class="fas fa-bullseye"></i>Focus on Key Drivers & Answers "So What?".</li>
+                    <li><i class="fas fa-question-circle"></i>Addresses Lender's Fundamental Questions.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 3: Critical Thinking</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- Module 4: The Credit Lifecycle - Part 1 -->
+        <div class="slide slide-title-module" data-slide="49" id="module-4-title">
+            <div class="slide-content-base"><h2><i class="fas fa-recycle"></i> Module 4: The Credit Lifecycle</h2><p class="subtitle">Part 1 - SNC & Underwriting New Issuers</p></div>
+            <div class="slide-footer"><span>Module 4: Credit Lifecycle</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="50">
+            <div class="slide-header"><h2><i class="fas fa-landmark"></i> Shared National Credit (SNC) Program</h2></div>
+            <div class="content-area">
+                <ul>
+                    <li><i class="fas fa-users-cog"></i><strong>Purpose:</strong> Consistent regulatory review of large syndicated loans ($100M+ & 3+ institutions) by FRS, FDIC, OCC. Monitors systemic risk.</li>
+                    <li><i class="fas fa-tags"></i><strong>SNC Classifications:</strong> Pass, Special Mention (SM - early warning), Classified (Substandard, Doubtful, Loss - repayment jeopardy).</li>
+                    <li><i class="fas fa-chart-pie"></i><strong>Implications:</strong> Drives loan loss provisions, capital adequacy, risk management intensity.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 4: SNC & Underwriting</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="51">
+            <div class="slide-header"><h2><i class="fas fa-tasks"></i> Underwriting: The Process</h2></div>
+            <div class="content-area">
+                <p><i class="fas fa-search-dollar"></i> Comprehensive evaluation to assess creditworthiness and decide terms.</p>
+                <ol>
+                    <li><i class="fas fa-file-import"></i>Origination, Application & Initial Screening.</li>
+                    <li><i class="fas fa-user-secret"></i>Due Diligence (in-depth investigation: financial, business, legal).</li>
+                    <li><i class="fas fa-pen-square"></i>Credit Analysis & Memo Preparation.</li>
+                    <li><i class="fas fa-gavel"></i>Credit Committee Approval (decision point).</li>
+                    <li><i class="fas fa-file-signature"></i>Documentation & Legal Review.</li>
+                    <li><i class="fas fa-hand-holding-usd"></i>Closing & Funding.</li>
+                </ol>
+            </div>
+            <div class="slide-footer"><span>Module 4: SNC & Underwriting</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="52">
+            <div class="slide-header"><h2><i class="fas fa-clipboard-list"></i> Underwriting: Due Diligence & Key Considerations</h2></div>
+            <div class="content-area">
+                <h3><i class="far fa-check-square"></i> Due Diligence Areas:</h3>
+                <ul>
+                    <li>Financial: Historicals, QoE, Projections, Cash Flow, Debt Structure.</li>
+                    <li>Business/Commercial: Market/Industry, Competition, Products, Management.</li>
+                    <li>Legal/Regulatory: Corp. Structure, Contracts, Litigation, Compliance.</li>
+                </ul>
+                <h3><i class="fas fa-star"></i> Key Considerations (5 C's):</h3>
+                <ul><li>Character, Capacity, Capital, Collateral, Conditions.</li></ul>
+            </div>
+            <div class="slide-footer"><span>Module 4: SNC & Underwriting</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- Module 4: The Credit Lifecycle - Part 2 -->
+        <div class="slide slide-title-module" data-slide="53" id="module-4-lma-title">
+            <div class="slide-content-base"><h2><i class="fas fa-recycle"></i> Module 4: The Credit Lifecycle</h2><p class="subtitle">Part 2 - LBOs, M&A & Ongoing Monitoring</p></div>
+            <div class="slide-footer"><span>Module 4: Credit Lifecycle</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="54">
+            <div class="slide-header"><h2><i class="fas fa-chart-line"></i> LBOs & M&A Credit Analysis</h2></div>
+            <div class="content-area">
+                <div class="two-column-layout">
+                    <div class="column">
+                        <h4><i class="fas fa-balance-scale-right"></i> LBOs (Creditor View)</h4>
+                        <ul>
+                            <li><i class="fas fa-users"></i>High leverage from PE.</li>
+                            <li><i class="fas fa-exclamation-triangle"></i>Risks: thin equity, high fixed charges.</li>
+                            <li><i class="fas fa-calculator"></i>Modeling: debt capacity, cash sweep, covenants under stress.</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4><i class="fas fa-compress-arrows-alt"></i> M&A Analysis</h4>
+                        <ul>
+                            <li><i class="fas fa-building"></i>Evaluate combined entity.</li>
+                            <li><i class="fas fa-tasks"></i>Factors: Strategic Rationale, Financing Structure, Synergies (realism is key), Integration Risk.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer"><span>Module 4: LBOs, M&A, Monitoring</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="55">
+            <div class="slide-header"><h2><i class="fas fa-binoculars"></i> Ongoing Monitoring & Watchlist Management</h2></div>
+            <div class="content-area">
+                <ul>
+                    <li><i class="fas fa-briefcase"></i><strong>Portfolio Management:</strong> Optimize risk-return, diversify, ensure compliance.</li>
+                    <li><i class="fas fa-bell"></i><strong>Early Warning Signs (EWS):</strong>
+                        <div class="two-column-layout" style="font-size: 0.9em; gap: 0.5rem;">
+                            <div class="column">
+                                <h4><i class="fas fa-calculator"></i>Quantitative (Lagging)</h4>
+                                <ul><li><i class="fas fa-chart-line"></i>Declining ratios</li><li><i class="fas fa-tint"></i>Neg CFO/WC issues</li><li><i class="fas fa-ban"></i>Covenant breaches</li></ul>
+                            </div>
+                            <div class="column">
+                                <h4><i class="fas fa-user-clock"></i>Qualitative (Leading)</h4>
+                                <ul><li><i class="far fa-credit-card"></i>Payment habit changes</li><li><i class="fas fa-users-slash"></i>Mgmt issues</li><li><i class="far fa-calendar-times"></i>Delayed financials</li></ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li><i class="fas fa-exclamation-circle"></i><strong>Watchlist:</strong> For credits with increased risk. Process: updated analysis, frequent reporting, action plan.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 4: LBOs, M&A, Monitoring</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- Module 5: Future of Risk -->
+        <div class="slide slide-title-module" data-slide="56" id="module-5-title">
+            <div class="slide-content-base"><h2><i class="fas fa-brain"></i> Module 5: The Future of Risk Management</h2><p class="subtitle">AI and Emerging Trends in Credit Analysis</p></div>
+            <div class="slide-footer"><span>Module 5: Future of Risk</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="57">
+            <div class="slide-header"><h2><i class="fas fa-cogs"></i> Transformation & Key Technologies</h2></div>
+            <div class="content-area">
+                <ul>
+                    <li><i class="fas fa-rocket"></i><strong>Shift:</strong> From reactive/historical to proactive, predictive, efficient. Drivers: data explosion, AI/ML advances.</li>
+                    <li><i class="fas fa-robot"></i><strong>Machine Learning (ML):</strong> Credit scoring (PD/LGD), classification. Integrates Alternative Data.</li>
+                    <li><i class="fas fa-language"></i><strong>Natural Language Processing (NLP):</strong> Sentiment analysis, info extraction (covenants), EWS from text.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 5: Future of Risk</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="58">
+            <div class="slide-header"><h2><i class="fas fa-microchip"></i> AI in Action, Next Frontier & Challenges</h2></div>
+            <div class="content-area">
+                <div class="two-column-layout">
+                    <div class="column">
+                        <h4><i class="fas fa-lightbulb"></i> AI Cases & Next Frontier</h4>
+                        <ul>
+                            <li><i class="fas fa-city"></i>Algorithmic risk mgmt, NPL reduction.</li>
+                            <li><i class="fas fa-magic"></i>GenAI for credit memo automation.</li>
+                            <li><i class="fas fa-map"></i>Portfolio Management, Intelligent Stress Testing.</li>
+                        </ul>
+                    </div>
+                     <div class="column">
+                        <h4><i class="fas fa-exclamation-circle"></i> Challenges & Analyst Role</h4>
+                        <ul>
+                            <li><i class="fas fa-question-circle"></i>"Black Box" (need XAI).</li>
+                            <li><i class="fas fa-users-cog"></i>Data Bias & Fairness.</li>
+                            <li><i class="fas fa-user-astronaut"></i>Evolving Analyst: "Human-in-the-loop" - oversee AI, critical questions, ethics.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer"><span>Module 5: Future of Risk</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- Module 6: Advanced Topics - Part 1 -->
+        <div class="slide slide-title-module" data-slide="59" id="module-6-title">
+            <div class="slide-content-base"><h2><i class="fas fa-cogs"></i> Module 6: Advanced Topics</h2><p class="subtitle">Part 1 - Advanced FSA & Quality of Earnings (QoE)</p></div>
+            <div class="slide-footer"><span>Module 6: Advanced Topics</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="60">
+            <div class="slide-header"><h2><i class="fas fa-search-dollar"></i> Importance of Advanced FSA & QoE</h2></div>
+            <div class="content-area">
+                <ul>
+                    <li><i class="fas fa-microscope"></i>Goes beyond basic ratios for complex companies, M&A, or potential distress.</li>
+                    <li><i class="fas fa-check-double"></i><strong>Quality of Earnings (QoE):</strong> Assesses sustainability, reliability, and representativeness of reported earnings.
+                        <ul>
+                            <li>High quality = sustainable, backed by cash flow, conservative accounting.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 6: Adv. FSA & QoE</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="61">
+            <div class="slide-header"><h2><i class="fas fa-user-secret"></i> Aggressive Accounting & Red Flags</h2></div>
+            <div class="content-area">
+                <p>Companies have discretion; some use "aggressive" policies.</p>
+                <ul>
+                    <li><i class="fas fa-file-invoice-dollar"></i><strong>Revenue Recognition:</strong> Premature recognition, "bill & hold," channel stuffing. (Watch DSO).</li>
+                    <li><i class="fas fa-receipt"></i><strong>Expense Recognition:</strong> Delaying expenses, improper capitalization, under-reserving.</li>
+                    <li><i class="fas fa-boxes"></i><strong>Inventory Accounting:</strong> Overstating value. (Watch DIH).</li>
+                    <li><i class="fas fa-bath"></i>Other: "Big Bath" charges, OBSF, Cookie Jar Reserves.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 6: Adv. FSA & QoE</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="62">
+            <div class="slide-header"><h2><i class="fas fa-chart-bar"></i> Earnings Sustainability & Advanced Ratios</h2></div>
+            <div class="content-area">
+                <ul>
+                    <li><i class="fas fa-filter"></i><strong>Normalizing Earnings:</strong> Adjust for non-recurring items, M&A impacts. Goal: reflect ongoing earning capacity.</li>
+                    <li><i class="fas fa-calculator"></i><strong>DuPont Analysis (ROE):</strong> Profit Margin * Asset Turnover * Equity Multiplier.</li>
+                    <li><i class="fas fa-tint"></i><strong>Advanced Cash Flow Ratios:</strong> CFO/Total Debt, FCF/Total Debt, Cash Interest Coverage.</li>
+                    <li><i class="fas fa-recycle"></i><strong>Cash Conversion Cycle (CCC):</strong> DSO + DIH - DPO.</li>
+                    <li><i class="fas fa-thermometer-half"></i><strong>Altman Z-Score:</strong> Predicts bankruptcy probability (use with caution).</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 6: Adv. FSA & QoE</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- Module 6: Advanced Topics - Part 2 -->
+        <div class="slide slide-title-module" data-slide="63" id="module-6-dsr-title">
+            <div class="slide-content-base"><h2><i class="fas fa-cogs"></i> Module 6: Advanced Topics</h2><p class="subtitle">Part 2 - Debt Structuring & Restructuring</p></div>
+            <div class="slide-footer"><span>Module 6: Advanced Topics</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="64">
+            <div class="slide-header"><h2><i class="fas fa-sitemap"></i> Debt Structuring Principles</h2></div>
+            <div class="content-area">
+                <div class="two-column-layout">
+                    <div class="column">
+                        <h4><i class="fas fa-building"></i> Borrower Objectives</h4>
+                        <ul><li><i class="fas fa-dollar-sign"></i>Sufficient capital</li><li><i class="fas fa-tags"></i>Low cost</li><li><i class="fas fa-arrows-alt"></i>Flexibility</li></ul>
+                    </div>
+                    <div class="column">
+                        <h4><i class="fas fa-shield-alt"></i> Lender Objectives</h4>
+                        <ul><li><i class="fas fa-chart-line"></i>Return for risk</li><li><i class="fas fa-lock"></i>Principal protection</li><li><i class="fas fa-undo-alt"></i>Timely repayment</li></ul>
+                    </div>
+                </div>
+                <h3><i class="fas fa-list-alt"></i> Key Elements Considered:</h3>
+                <ul><li>Amount/Type, Seniority, Security, Tenor, Repayment, Pricing, Covenants.</li></ul>
+            </div>
+            <div class="slide-footer"><span>Module 6: Debt Structuring</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="65">
+            <div class="slide-header"><h2><i class="fas fa-tools"></i> Advanced Covenant Considerations</h2></div>
+            <div class="content-area">
+                <ul>
+                    <li><i class="fas fa-signature"></i><strong>EBITDA Definition:</strong> Critical, heavily negotiated (add-backs).</li>
+                    <li><i class="fas fa-ruler-combined"></i><strong>Covenant Headroom/Cushion:</strong> Leeway before breach (15-30% typical).</li>
+                    <li><i class="fas fa-hand-holding-heart"></i><strong>Equity Cure Rights:</strong> Sponsor equity to fix breach (limits common).</li>
+                    <li><i class="fas fa-shopping-basket"></i><strong>Negative Covenant Baskets:</strong> Fixed/builder allowances for restricted actions.</li>
+                    <li><i class="fas fa-project-diagram"></i><strong>Springing Covenants:</strong> Activate on a trigger event.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 6: Debt Structuring</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="66">
+            <div class="slide-header"><h2><i class="fas fa-medkit"></i> Debt Restructuring & <i class="fas fa-landmark"></i> Chapter 11</h2></div>
+            <div class="content-area">
+                <h3>Debt Restructuring</h3>
+                <ul>
+                    <li><i class="fas fa-exclamation-triangle"></i>Triggered when company can't meet debt. Goal: viable structure, maximize recovery.</li>
+                    <li><i class="fas fa-random"></i>Methods: Amend & Extend, Debt-for-Equity, Haircuts, New Money.</li>
+                </ul>
+                <div class="two-column-layout">
+                    <div class="column">
+                        <h4><i class="fas fa-users"></i> Out-of-Court (Workout)</h4>
+                        <ul><li><i class="far fa-clock"></i>Faster, <i class="fas fa-dollar-sign"></i>cheaper, <i class="fas fa-handshake"></i>consensual.</li></ul>
+                    </div>
+                    <div class="column">
+                        <h4><i class="fas fa-gavel"></i> In-Court (Chapter 11)</h4>
+                        <ul><li><i class="fas fa-link"></i>Binds dissenters, <i class="fas fa-shield-virus"></i>automatic stay, <i class="fas fa-parachute-box"></i>DIP financing. Costly/public.</li></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer"><span>Module 6: Debt Restructuring</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- Module 6: Advanced Topics - Part 3 -->
+        <div class="slide slide-title-module" data-slide="67" id="module-6-la-title">
+            <div class="slide-content-base"><h2><i class="fas fa-cogs"></i> Module 6: Advanced Topics</h2><p class="subtitle">Part 3 - Legal Aspects of Loan Documentation</p></div>
+            <div class="slide-footer"><span>Module 6: Advanced Topics</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="68">
+            <div class="slide-header"><h2><i class="fas fa-file-contract"></i> Importance & Key Loan Documents</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-info-circle"></i> Why Legal Docs Matter to Analysts</h3>
+                <ul><li>Define rights, obligations, remedies. Misinterpreting can lead to unexpected risks.</li></ul>
+                <h3><i class="fas fa-folder-open"></i> Key Documents in Secured Lending:</h3>
+                <ul>
+                    <li>Loan Agreement, Notes, Security Agreements, Mortgages, Guarantees, Intercreditor/Subordination Agreements.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 6: Legal Aspects</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="69">
+            <div class="slide-header"><h2><i class="fas fa-list-alt"></i> Critical Loan Agreement Clauses</h2></div>
+            <div class="content-area">
+                <p>(Beyond basic covenants)</p>
+                <ul>
+                    <li><i class="fas fa-user-check"></i><strong>Reps & Warranties:</strong> Borrower statements of fact.</li>
+                    <li><i class="fas fa-tasks"></i><strong>Conditions Precedent (CPs):</strong> Must be met before funding.</li>
+                    <li><i class="fas fa-exclamation-triangle"></i><strong>Events of Default (EoDs):</strong> Triggers for remedies (non-payment, covenant breach, MAC).</li>
+                    <li><i class="fas fa-hammer"></i><strong>Remedies:</strong> Acceleration, default interest, foreclosure.</li>
+                    <li><i class="fas fa-exchange-alt"></i>Assignments and Participations.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 6: Legal Aspects</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="70">
+            <div class="slide-header"><h2><i class="fas fa-lock"></i> Security, Perfection, Guarantees & Intercreditor</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-shield-alt"></i> Security & Perfection</h3>
+                <ul><li>Security Docs grant liens. Perfection (UCC-1) makes lien effective vs third parties.</li></ul>
+                <h3><i class="fas fa-handshake"></i> Guarantees</h3>
+                <ul><li>Third-party promise to pay debt. Enforceability issues (corp. benefit).</li></ul>
+                <h3><i class="fas fa-users-cog"></i> Intercreditor & Subordination Agreements</h3>
+                <ul><li>Define rights/priorities between creditor groups.</li></ul>
+            </div>
+            <div class="slide-footer"><span>Module 6: Legal Aspects</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- Module 7: Advanced Communication Skills -->
+        <div class="slide slide-title-module" data-slide="71" id="module-7-title">
+            <div class="slide-content-base"><h2><i class="fas fa-comments"></i> Module 7: Advanced Communication Skills</h2><p class="subtitle">Persuasive Writing, Negotiation, and Effective Interaction</p></div>
+            <div class="slide-footer"><span>Module 7: Communication</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="72">
+            <div class="slide-header"><h2><i class="fas fa-pen-alt"></i> Advanced Business Writing: Persuasion</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-lightbulb"></i> The Art of Persuasion</h3>
+                <ul><li>Build compelling, evidence-based case. Anticipate concerns. Highlight key drivers.</li></ul>
+                <h3><i class="fas fa-feather-alt"></i> Crafting a Compelling Credit Narrative</h3>
+                <ul><li>Clear "thesis", strategic framing, balance objectivity, weave quant & qual.</li></ul>
+            </div>
+            <div class="slide-footer"><span>Module 7: Communication</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="73">
+            <div class="slide-header"><h2><i class="fas fa-users"></i> Tailoring Communication & <i class="fas fa-spell-check"></i> Advanced Style</h2></div>
+            <div class="content-area">
+                <h3>Tailoring to Audiences</h3>
+                <ul><li>Credit Committee (risk, detail), Sr. Mgmt (strategic), RMs (client impact).</li></ul>
+                <h3>Advanced Grammar & Style</h3>
+                <ul><li>Precision, strong verbs, parallel structure, sentence variety. Professional tone. Rigorous editing.</li></ul>
+            </div>
+            <div class="slide-footer"><span>Module 7: Communication</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="74">
+            <div class="slide-header"><h2><i class="fas fa-network-wired"></i> Internal & External Communication Dynamics</h2></div>
+            <div class="content-area">
+                <h3>Internal</h3>
+                <ul><li>Credit Committee: Know deal, anticipate Qs. RMs: Understand RM view, explain credit concerns.</li></ul>
+                <h3>External</h3>
+                <ul><li>Borrowers/Clients: Professionalism, clear questioning, active listening.</li></ul>
+            </div>
+            <div class="slide-footer"><span>Module 7: Communication</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="75">
+            <div class="slide-header"><h2><i class="fas fa-hands-helping"></i> Core Skills & Basic Negotiation</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-star"></i> Core Skills</h3>
+                <ul><li>Active Listening, Clarity (Verbal), Questioning, Constructive Feedback, Conflict Mgmt.</li></ul>
+                <h3><i class="fas fa-balance-scale"></i> Basic Negotiation Principles</h3>
+                <ul><li>Preparation (objectives, BATNA). Focus on Interests, Not Positions. Separate People/Problem. Ethical.</li></ul>
+            </div>
+            <div class="slide-footer"><span>Module 7: Communication</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- Module 8: Specialized Industry Analysis -->
+        <div class="slide slide-title-module" data-slide="76" id="module-8-title">
+            <div class="slide-content-base"><h2><i class="fas fa-industry"></i> Module 8: Specialized Industry Analysis</h2><p class="subtitle">Adapting Frameworks for Unique Sector Risks & KPIs</p></div>
+            <div class="slide-footer"><span>Module 8: Specialized Industries</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="77">
+            <div class="slide-header"><h2><i class="fas fa-drafting-compass"></i> Framework for Specialized Industries</h2></div>
+            <div class="content-area">
+                <ul>
+                    <li><i class="fas fa-exclamation"></i>"One-size-fits-all" is insufficient; many industries need tailored approaches.</li>
+                    <li><i class="fas fa-search"></i>Identify Unique Traits & Tailor Frameworks (FSA, Porter's, Risk).</li>
+                    <li><i class="fas fa-tachometer-alt"></i>Key Performance Indicators (KPIs): Identify & interpret industry-specific metrics.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 8: Specialized Industries</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="78">
+            <div class="slide-header"><h2><i class="fas fa-laptop-code"></i> Case Study: Software as a Service (SaaS) - Part 1</h2></div>
+            <div class="content-area">
+                <h3>SaaS Overview & Key KPIs</h3>
+                <ul>
+                    <li><i class="fas fa-cloud"></i>Subscription, cloud-hosted, scalable. High GM (mature), high upfront R&D/S&M.</li>
+                    <li><i class="fas fa-key"></i>KPIs: ARR/MRR (recurring revenue), CAC (Customer Acquisition Cost), LTV (Customer Lifetime Value; LTV/CAC > 3x good).</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 8: Specialized Industries</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="79">
+            <div class="slide-header"><h2><i class="fas fa-chart-line"></i> Case Study: Software as a Service (SaaS) - Part 2</h2></div>
+            <div class="content-area">
+                <h3>More SaaS KPIs & Analysis Focus</h3>
+                <ul>
+                    <li><i class="fas fa-sync-alt"></i>More KPIs: Churn Rate (NRR > 100% strong), CAC Payback, Rule of 40.</li>
+                    <li><i class="fas fa-fire-alt"></i>Risks: High churn, cash burn, competition.</li>
+                    <li><i class="fas fa-search-dollar"></i>Analysis: Recurring revenue quality, unit economics, FCF, SaaS-specific covenants.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 8: Specialized Industries</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- Module 9: Regulatory & Ethical Landscape -->
+        <div class="slide slide-title-module" data-slide="80" id="module-9-title">
+            <div class="slide-content-base"><h2><i class="fas fa-balance-scale"></i> Module 9: Regulatory & Ethical Landscape</h2><p class="subtitle">Compliance and Integrity in Credit Risk Management</p></div>
+            <div class="slide-footer"><span>Module 9: Regulatory & Ethics</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="81">
+            <div class="slide-header"><h2><i class="fas fa-landmark"></i> Regulatory Landscape for Lending</h2></div>
+            <div class="content-area">
+                <ul>
+                    <li><i class="fas fa-shield-alt"></i>Importance: Ensures safety/soundness, protects borrowers, prevents financial crime.</li>
+                    <li><i class="fas fa-gavel"></i>Key Frameworks: Capital Adequacy (Basel - RWA impact), Dodd-Frank (systemic risk), Fair Lending Laws (ECOA - non-discrimination).</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 9: Regulatory & Ethics</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="82">
+            <div class="slide-header"><h2><i class="fas fa-user-shield"></i> AML, KYC, Data Privacy & Ethics</h2></div>
+            <div class="content-area">
+                <ul>
+                    <li><i class="fas fa-fingerprint"></i><strong>AML/KYC:</strong> Prevent illicit funds. Verify customer identity (entity & beneficial owners), understand business/fund sources.</li>
+                    <li><i class="fas fa-lock"></i><strong>Data Privacy (GLBA, GDPR):</strong> Protect sensitive customer data. Adhere to security policies.</li>
+                    <li><i class="fas fa-book"></i><strong>Internal Policies:</strong> Define underwriting standards, risk ratings. Analysts must adhere.</li>
+                    <li><i class="fas fa-heart"></i><strong>Ethical Conduct:</strong> Professional codes (integrity, objectivity), avoid conflicts, diligence.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 9: Regulatory & Ethics</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- Module 10: Quantitative Skills & Data Analytics -->
+        <div class="slide slide-title-module" data-slide="83" id="module-10-title">
+            <div class="slide-content-base"><h2><i class="fas fa-calculator"></i> Module 10: Quantitative Skills & Data Analytics</h2><p class="subtitle">Tools and Techniques Beyond AI/ML</p></div>
+            <div class="slide-footer"><span>Module 10: Quant Skills</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="84">
+            <div class="slide-header"><h2><i class="fas fa-chart-pie"></i> Role of Data Analytics & Key Tools</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-tasks"></i> Data Analytics in Credit Lifecycle:</h3>
+                <ul><li>Underwriting, Portfolio Monitoring (EWS), Risk Modeling (PD/LGD/EAD), Reporting.</li></ul>
+                <h3><i class="fas fa-tools"></i> Tools (Conceptual Awareness):</h3>
+                <ul>
+                    <li>Adv. Excel (PivotTables, Power Query), Python/R (automation, modeling), BI Tools (Tableau).</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 10: Quant Skills</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="85">
+            <div class="slide-header"><h2><i class="fas fa-eye"></i> Data Visualization, Use Cases & Limitations</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-paint-brush"></i> Effective Visualization:</h3>
+                <ul><li>Right chart, clarity, highlight insights, audience awareness, data integrity.</li></ul>
+                <h3><i class="fas fa-cogs"></i> Use Cases:</h3>
+                <ul><li>Portfolio Segmentation, EWS from Data Trends, Basic PD Modeling.</li></ul>
+                <h3><i class="fas fa-exclamation-triangle"></i> Limitations & Ethics:</h3>
+                <ul><li>Data Quality ("GIGO"), Correlation vs. Causation, Model Risk. Ethical use: Bias, Privacy.</li></ul>
+            </div>
+            <div class="slide-footer"><span>Module 10: Quant Skills</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- Module 11: Capstone Project -->
+        <div class="slide slide-title-module" data-slide="86" id="module-11-title">
+            <div class="slide-content-base"><h2><i class="fas fa-award"></i> Module 11: Capstone Project</h2><p class="subtitle">Integrated Credit Analysis Application</p></div>
+            <div class="slide-footer"><span>Module 11: Capstone</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="87">
+            <div class="slide-header"><h2><i class="fas fa-flag-checkered"></i> Capstone Project: Overview & Objectives</h2></div>
+            <div class="content-area">
+                <ul>
+                    <li><i class="fas fa-puzzle-piece"></i><strong>Purpose:</strong> Culminating experience to integrate all CRAFT module skills.</li>
+                    <li><i class="fas fa-user-graduate"></i><strong>Role:</strong> Act as credit analyst assessing a company seeking financing.</li>
+                    <li><i class="fas fa-bullseye"></i><strong>Objectives:</strong> Demonstrate proficiency in FSA, 3-statement modeling, industry analysis, critical thinking, underwriting, communication.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Module 11: Capstone</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="88">
+            <div class="slide-header"><h2><i class="fas fa-tasks"></i> Capstone Project: Deliverables & Evaluation</h2></div>
+            <div class="content-area">
+                <h3><i class="far fa-file-alt"></i> Required Deliverables:</h3>
+                <ol>
+                    <li>3-Statement Financial Model (Historicals, Projections, Assumptions, Ratios, Downside).</li>
+                    <li>Comprehensive Credit Memorandum (Standard Structure, Persuasive Narrative).</li>
+                    <li>Credit Committee Presentation Outline.</li>
+                </ol>
+                <h3><i class="fas fa-clipboard-check"></i> Evaluation Criteria:</h3>
+                <ul><li>Analytical Rigor, Critical Thinking, Model Quality, Memo Clarity, Professionalism.</li></ul>
+            </div>
+            <div class="slide-footer"><span>Module 11: Capstone</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- Appendix -->
+        <div class="slide slide-appendix-title" data-slide="89" id="appendix-title-slide">
+            <div class="slide-content-base"><h2><i class="fas fa-paperclip"></i> Appendix</h2></div>
+            <div class="slide-footer"><span>Appendix</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="90">
+            <div class="slide-header"><h2><i class="fas fa-book"></i> Appendix: Key Terminology Resources</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-spell-check"></i> Glossaries & Definitions</h3>
+                <ul>
+                    <li><i class="fas fa-globe"></i><strong>Global Financial Glossary:</strong> Comprehensive A-Z list at repository root.</li>
+                    <li><i class="fas fa-graduation-cap"></i><strong>CRAFT Program Glossary:</strong> Specific to this training.</li>
+                    <li><i class="fas fa-bookmark"></i><strong>Module-Specific Glossaries:</strong> In each module's "learning-materials.md".</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Appendix</span><span class="slide-number-footer"></span></div>
+        </div>
+        <div class="slide slide-content" data-slide="91">
+            <div class="slide-header"><h2><i class="fas fa-link"></i> Appendix: Reading, Toolkits & Future Learning</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-external-link-alt"></i> Further Resources & Tools</h3>
+                <ul>
+                    <li><strong>Recommended Reading:</strong> Module "learning materials" list external resources (FASB, SEC EDGAR).</li>
+                    <li><strong>Toolkits & Checklists:</strong> Explore `Toolkits_and_Checklists/` (e.g., Due Diligence Checklist).</li>
+                    <li><strong>Future of CRAFT:</strong> `corporate-credit-risk-analyst-training/FUTURE_IDEAS.md` outlines program enhancements.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Appendix</span><span class="slide-number-footer"></span></div>
+        </div>
+         <div class="slide slide-content" data-slide="92">
+            <div class="slide-header"><h2><i class="fas fa-lightbulb"></i> Appendix: General Learning Tips for Analysts</h2></div>
+            <div class="content-area">
+                <h3><i class="fas fa-star"></i> Curated Advice</h3>
+                <ul>
+                    <li><i class="fas fa-check"></i>Master fundamentals (Accounting, FSA, Market Context).</li>
+                    <li><i class="fas fa-brain"></i>Practice critical thinking (Question assumptions).</li>
+                    <li><i class="fas fa-pen"></i>Develop strong writing skills (Clarity, Narrative).</li>
+                    <li><i class="fas fa-sync"></i>Understand the full credit lifecycle.</li>
+                    <li><i class="fas fa-laptop-code"></i>Stay curious about technology (AI, Data Analytics).</li>
+                    <li><i class="fas fa-industry"></i>Embrace specialization (Industry KPIs, Risks).</li>
+                    <li><i class="fas fa-balance-scale-left"></i>Uphold ethics & compliance.</li>
+                    <li><i class="fas fa-comments"></i>Seek feedback & continuously learn.</li>
+                </ul>
+            </div>
+            <div class="slide-footer"><span>Appendix</span><span class="slide-number-footer"></span></div>
+        </div>
+
+        <!-- End Slide -->
+        <div class="slide slide-end" data-slide="93" id="end-slide">
+             <div class="slide-content-base">
+                <div class="content-area">
+                    <h2><i class="fas fa-flag-checkered"></i> Thank You & Questions?</h2>
+                    <p class="mt-4 text-lg text-gray-600">This concludes the CRAFT Program overview.</p>
+                </div>
+            </div>
+             <div class="slide-footer">
+                <span>End</span>
+                <span class="slide-number-footer"></span>
             </div>
         </div>
 
-        <!-- Slide 15: Q&A -->
-        <div class="slide" data-slide="15">
-            <div class="slide-content h-full bg-slate-800 text-white">
-                <h2 class="slide-title text-5xl md:text-7xl">Questions?</h2>
-            </div>
-        </div>
     </div>
 
-    <!-- Navigation -->
-    <div class="flex items-center space-x-4 mt-4">
-        <button id="prevBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l disabled:opacity-50 disabled:cursor-not-allowed">
+    <div class="nav-controls">
+        <button id="prevBtn" title="Previous Slide">
             <i class="fas fa-arrow-left"></i>
         </button>
-        <div id="slide-counter" class="text-lg font-semibold">1 / 15</div>
-        <button id="nextBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+        <div id="slide-counter-display">1 / 93</div> <!-- Will be updated by JS -->
+        <button id="nextBtn" title="Next Slide">
             <i class="fas fa-arrow-right"></i>
         </button>
     </div>
 
     <script>
-        const slides = document.querySelectorAll('.slide');
+        const slides = document.querySelectorAll('.presentation-container .slide');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        const slideCounter = document.getElementById('slide-counter');
+        const slideCounterDisplay = document.getElementById('slide-counter-display');
+        const slideNumberFooters = document.querySelectorAll('.slide-number-footer');
         let currentSlide = 0;
         const totalSlides = slides.length;
+
+        function updateSlideNumbers() {
+            slideNumberFooters.forEach((footer, index) => {
+                if (slides[index]) {
+                     footer.textContent = `Slide ${index + 1} of ${totalSlides}`;
+                }
+            });
+             slideCounterDisplay.textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
 
         function showSlide(index) {
             slides.forEach((slide, i) => {
                 slide.classList.toggle('active', i === index);
             });
-            slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+            currentSlide = index;
+            updateSlideNumbers();
             prevBtn.disabled = index === 0;
             nextBtn.disabled = index === totalSlides - 1;
-            currentSlide = index;
         }
 
         prevBtn.addEventListener('click', () => {
@@ -304,7 +1605,6 @@
             }
         });
 
-        // Keyboard navigation
         document.addEventListener('keydown', (event) => {
             if (event.key === 'ArrowLeft') {
                 if (currentSlide > 0) {
@@ -317,8 +1617,31 @@
             }
         });
 
-        showSlide(0); // Show the first slide initially
+        // Agenda navigation
+        const agendaLinks = document.querySelectorAll('#agenda-list a');
+        agendaLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const targetId = link.getAttribute('data-target-slide-id');
+                const targetSlideElement = document.getElementById(targetId);
+                if (targetSlideElement) {
+                    let targetIndex = -1;
+                    slides.forEach((s, idx) => {
+                        if (s.id === targetId) {
+                            targetIndex = idx;
+                        }
+                    });
+                    if (targetIndex !== -1) {
+                        showSlide(targetIndex);
+                    }
+                }
+            });
+        });
+
+        showSlide(0);
     </script>
 
 </body>
 </html>
+
+[end of presentation.html]
