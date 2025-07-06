@@ -50,4 +50,24 @@ Case studies and quizzes are in their respective subdirectories.
 *   Connect discussions of loan documentation/covenants to Module 14 (Legal Aspects) and the `Interactive_Notebooks/Legal_Analysis/` notebook.
 *   Link industry analysis concepts to `primers/` for specific industry details.
 
+### 5. Content Expansion Guidelines (New Mandate)
+In addition to the above, all content within this module should be enhanced to:
+*   **Incorporate Historical Context:**
+    *   For capital markets: Briefly touch upon the evolution of loan markets, e.g., the rise of institutional term loans, covenant-lite trends.
+    *   For industry analysis: Mention how certain industries have been reshaped by major economic or technological shifts (e.g., impact of e-commerce on retail).
+*   **Integrate Real-World Case Studies/Examples:**
+    *   Use examples of specific covenant breaches and their consequences (anonymized or public).
+    *   Illustrate Porter's Five Forces with concise examples from diverse industries.
+    *   Discuss historical examples of how industry cyclicality or disruption impacted credit quality for companies in that sector.
+*   **Detail Key Terms, Concepts, and Structures:**
+    *   **Leveraged Loans:** Clearly explain typical loan structures (e.g., Revolver, Term Loan A, Term Loan B), pricing (LIBOR/SOFR + spread, OID), syndication process, and key players (Arrangers, Agents, Lenders).
+    *   **Covenants:** Provide more examples of specific financial covenants (Leverage, Coverage, CapEx limits) and affirmative/negative covenants. Explain the rationale behind them from a lender's perspective.
+    *   **Industry Analysis:** For each of Porter's Five Forces, provide more detailed examples of factors that strengthen or weaken each force. Discuss limitations of the framework or alternative/complementary frameworks if appropriate (e.g., PESTLE analysis at a high level).
+*   **Provide Foundational Knowledge:** If concepts like "moral hazard" or "adverse selection" are relevant to credit markets or lending, briefly explain them.
+*   **Develop Walkthroughs:**
+    *   Conceptually walk through how a credit agreement's key sections are typically structured.
+    *   Provide a mini-walkthrough of applying Porter's Five Forces to a chosen sample industry.
+
+This expansion should aim to make the market and industry understanding more robust, practical, and grounded in real-world application for trainees.
+
 Refer to parent `AGENTS.MD` files for broader CRAFT program and repository guidelines.

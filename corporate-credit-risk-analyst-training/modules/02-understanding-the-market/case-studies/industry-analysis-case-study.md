@@ -25,9 +25,11 @@ The global coffee market is vast, but GlobalBrew operates within the "premium" o
 
 **Recent Developments:**
 *   Several large multinational food & beverage companies have been acquiring smaller, successful premium coffee brands to gain entry into this growing market.
-*   The cost of green coffee beans has seen a 30% increase over the past 18 months due to adverse weather in Brazil.
-*   New, well-funded DTC coffee startups are emerging, often with aggressive digital marketing strategies.
-*   Logistics and shipping costs have increased globally.
+*   The cost of green coffee beans has seen a 30% increase over the past 18 months due to adverse weather in Brazil and increased global demand.
+*   New, well-funded DTC coffee startups are emerging, often with aggressive digital marketing strategies and innovative subscription models.
+*   Logistics and shipping costs have increased globally, impacting import costs for beans and distribution costs for finished products.
+*   Growing consumer and regulatory focus on sustainable sourcing, packaging waste, and carbon footprint in the coffee industry.
+*   Potential for new trade tariffs or disruptions related to key coffee-producing regions.
 
 ---
 

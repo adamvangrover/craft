@@ -1,4 +1,4 @@
-# Quiz: Module 2 - Financial Analysis & Modeling
+# Quiz: Module 2 - Comprehensive Financial Analysis & Modeling
 
 This quiz is designed to test your understanding of the concepts covered in Module 2.
 
@@ -47,46 +47,40 @@ This quiz is designed to test your understanding of the concepts covered in Modu
     c)  It typically includes other fixed charges like scheduled principal repayments and sometimes lease payments in its calculation.
     d)  It focuses solely on liquidity.
 
+7.  When calculating a Debt Service Coverage Ratio (DSCR) for credit analysis, the capital expenditures (CapEx) figure used in the numerator (cash available for debt service, e.g., EBITDA - CapEx - Taxes) should ideally represent:
+    a)  Total CapEx including all expansionary projects.
+    b)  Maintenance CapEx required to sustain current operations.
+    c)  Zero, as CapEx is an investing activity not relevant to debt service from an operational cash flow perspective.
+    d)  Only CapEx that is financed by new debt issuance.
+
 **Part 2: True/False (Indicate whether the statement is True or False)**
 
-7.  True or False: In a 3-statement model, the Cash Flow Statement is typically forecasted directly by projecting individual cash inflows and outflows.
-8.  True or False: Supporting schedules, such as a Debt Schedule or PP&E Schedule, are used to keep the main financial statements cleaner and make complex calculations more transparent.
-9.  True or False: A Current Ratio of 0.8x indicates strong short-term liquidity for a company.
-10. True or False: Stress Testing involves analyzing the impact of a small change in a single key assumption on a model output.
+8.  True or False: In a 3-statement model, the Cash Flow Statement is typically forecasted directly by projecting individual cash inflows and outflows using the "direct method."
+9.  True or False: Supporting schedules, such as a Debt Schedule or PP&E Schedule, are used to keep the main financial statements cleaner and make complex calculations more transparent.
+10. True or False: A Current Ratio of 0.8x indicates strong short-term liquidity for a company.
+11. True or False: Stress Testing involves analyzing the impact of a small change in a single key assumption on a model output.
+12. True or False: Return on Invested Capital (ROIC) is primarily a measure of a company's short-term liquidity and ability to meet immediate obligations.
 
 **Part 3: Short Answer (Provide a concise answer)**
 
-11. List the four main categories of financial ratios used in credit analysis, as discussed in the module.
+13. List the four main categories of financial ratios used in credit analysis, as discussed in the module.
     *(Your Answer Here)*
 
-12. Explain the purpose of a "Debt Schedule" in a 3-statement financial model. What key information does it typically track and calculate?
+14. Explain the purpose of a "Debt Schedule" in a 3-statement financial model. What key information does it typically track and calculate concerning a company's debt (e.g. revolver, term loans)?
     *(Your Answer Here)*
 
-13. What is the final "check" or "plug" that ensures a 3-statement model is balanced? Explain briefly how this works.
+15. What is the final "check" that ensures a 3-statement model is balanced, and what balance sheet item often acts as the "plug" to achieve this balance, especially when a revolving credit facility is part of the capital structure?
     *(Your Answer Here)*
 
-14. A company has an EBIT of $20 million and Interest Expense of $5 million. What is its Interest Coverage Ratio (TIE)? What does this ratio indicate?
+16. A company has an EBIT of $20 million and Cash Interest Expense of $5 million. What is its Interest Coverage Ratio (TIE) using these figures? What does this ratio generally indicate about the company?
     *(Your Answer Here)*
 
-15. Briefly describe the difference between Sensitivity Analysis and Scenario Analysis. Why would a credit analyst use both?
+17. Briefly describe the difference between Sensitivity Analysis and Scenario Analysis. Why would a credit analyst use both techniques when evaluating a company's financial projections?
+    *(Your Answer Here)*
+
+18. When "normalizing" or "adjusting" EBITDA for credit analysis, what is an example of a 'non-recurring' or 'one-time' item that an analyst might add back or subtract, and what is the primary goal of making such adjustments?
     *(Your Answer Here)*
 
 ---
 
 *(Answer Key will be provided separately)*
-=======
-=======
-**(Placeholder for Quiz Questions)**
-
-*Quiz content to be added here. This section will include multiple-choice questions, problem-solving exercises (which may require conceptual understanding of model mechanics rather than actual Excel work), and short-answer questions covering:*
-*   *The purpose and structure of a 3-statement financial model*
-*   *Best practices in financial modeling (color-coding, periodicity, structure)*
-*   *Key supporting schedules (Debt, PP&E, Working Capital)*
-*   *The forecasting process for the Income Statement, Balance Sheet, and Cash Flow Statement*
-*   *Balancing a financial model and handling circular references (conceptual)*
-*   *Calculation and interpretation of key credit ratios (Leverage, Coverage, Liquidity, Profitability)*
-*   *The purpose and application of Sensitivity Analysis, Scenario Analysis, and Stress Testing*
-
----
-
-*Once completed, you can compare your answers to the answer key (to be provided separately or at the end of this document).*
