@@ -56,4 +56,17 @@ Quizzes are in the `quizzes/` subdirectory.
 *   Link to relevant sections in `/Financial_Modeling/` for more detailed modeling best practices or templates.
 *   Link to `/CFA/Level_1/` materials for related topics (e.g., FSA, Quantitative Methods).
 
+### 5. Content Expansion Guidelines (New Mandate)
+In addition to the above, all content within this module should be enhanced to:
+*   **Incorporate Historical Context:** Where relevant, briefly explain the historical development of accounting standards or financial analysis techniques.
+*   **Integrate Real-World Case Studies/Examples:** Use anonymized or public examples to illustrate concepts. These can be brief mentions or links to more detailed case studies if appropriate new files are created.
+*   **Detail Formulas and Assumptions:**
+    *   Clearly present all formulas.
+    *   Explicitly state and explain the common assumptions underlying financial ratios, valuation methods, and forecasting.
+    *   Discuss different schools of thought or alternative approaches where they exist and are relevant for credit analysis.
+*   **Provide Foundational Knowledge:** If a concept relies on specific mathematical or economic principles not commonly understood, briefly explain these or link to a resource that does. For instance, when discussing time value of money in modeling, ensure the core concepts are clear.
+*   **Develop Walkthroughs:** For complex processes (e.g., building a simple 3-statement model from scratch, performing a DuPont analysis), provide step-by-step walkthroughs.
+
+This expansion should aim to make the foundational knowledge more robust and practically applicable for trainees.
+
 Refer to parent `AGENTS.MD` files for broader CRAFT program and repository guidelines.
