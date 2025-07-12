@@ -1,0 +1,13 @@
+Objective: Write the `README.md`, `GAME_INSTRUCTIONS.md`, and `PROMPT_ENGINEERING_GUIDE.md` files.
+
+Instructions:
+1. Write `README.md` with an overview of the game, its features, and instructions on how to play.
+2. Write `docs/GAME_INSTRUCTIONS.md` with detailed instructions for the game facilitator, including production details, game flow, and the scoring system.
+3. Write `docs/PROMPT_ENGINEERING_GUIDE.md` with examples of good and bad prompts, and a list of best practices for prompt engineering.
+4. Ensure all files adhere to the specifications in the master prompt.
+
+Developer Notes:
+- The documentation is crucial for understanding and playing the game. It should be clear, concise, and easy to follow.
+- The `GAME_INSTRUCTIONS.md` file is particularly important for the game facilitator. It should provide all the information they need to run the game smoothly.
+- The `PROMPT_ENGINEERING_GUIDE.md` is a key educational component of the game. It should be practical and provide actionable advice.
+- Consider adding a "Contributing" section to the `README.md` file to encourage community contributions.

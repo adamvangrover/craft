@@ -1,0 +1,23 @@
+Objective: Create the HTML, CSS, and JavaScript files for the "Copilot Quest" game website.
+
+Instructions:
+1. Create `index.html` with the following sections:
+   - A welcome screen with a "Start Game" button.
+   - A personality questionnaire screen.
+   - A game screen for displaying questions, answers, and AI feedback.
+   - A results screen to display final scores and winning team poems.
+2. Create `style.css` to provide a professional and fun theme for the website. Include styles for all screens and team-specific colors.
+3. Create `script.js` to handle the game logic.
+   - Store all questions, answers, categories, and feedback in JavaScript objects.
+   - Implement a function to handle the personality questionnaire and team assignment.
+   - Implement functions to display questions and answers for each round.
+   - Implement an event listener for answer submissions.
+   - Implement a function to check answers, update scores, and display AI feedback.
+   - Implement logic to transition between game rounds and display the final results.
+
+Developer Notes:
+- The `script.js` file is the core of the game's functionality. It should be well-commented and easy to understand.
+- The personality quiz is a key feature of the game. The team assignment logic should be fair and balanced.
+- The game's data (questions, answers, etc.) is stored in JavaScript objects. This makes it easy to add or modify the game's content.
+- The website should be responsive and work well on a variety of devices.
+- Consider adding animations and sound effects to make the game more engaging.
