@@ -106,3 +106,17 @@ button:disabled {
 .team-harmony-bg { background-color: #e7f3e7; }
 .team-action-bg { background-color: #fdf0eb; }
 .team-imagination-bg { background-color: #f6f2fa; }
+
+.links {
+    margin-top: 2em;
+}
+
+.links a {
+    margin: 0 1em;
+    color: #0078d4;
+    text-decoration: none;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
