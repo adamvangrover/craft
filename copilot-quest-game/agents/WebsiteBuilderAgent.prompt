@@ -14,3 +14,10 @@ Instructions:
    - Implement an event listener for answer submissions.
    - Implement a function to check answers, update scores, and display AI feedback.
    - Implement logic to transition between game rounds and display the final results.
+
+Developer Notes:
+- The `script.js` file is the core of the game's functionality. It should be well-commented and easy to understand.
+- The personality quiz is a key feature of the game. The team assignment logic should be fair and balanced.
+- The game's data (questions, answers, etc.) is stored in JavaScript objects. This makes it easy to add or modify the game's content.
+- The website should be responsive and work well on a variety of devices.
+- Consider adding animations and sound effects to make the game more engaging.

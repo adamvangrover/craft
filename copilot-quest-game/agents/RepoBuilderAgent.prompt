@@ -11,3 +11,8 @@ Instructions:
 2. Trigger the `DocsWriterAgent` to populate the `/docs` directory and the root `README.md`.
 3. Trigger the `WebsiteBuilderAgent` to populate the `/src/website` directory.
 4. Trigger the `PresentationCreatorAgent` to populate the `/src/presentation` directory.
+
+Developer Notes:
+- This agent is the first to be run. It sets up the entire repository structure.
+- The order of agent execution is important. The `RepoBuilderAgent` must run before the other agents.
+- This agent could be extended to take a configuration file as input, allowing for different repository structures to be created.

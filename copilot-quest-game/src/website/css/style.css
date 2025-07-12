@@ -1,32 +1,108 @@
+/*
+    Developer Note:
+    This file contains all the styles for the Copilot Quest game.
+    The styles are organized by screen, with a section for common styles.
+*/
+
+/* --- Common Styles --- */
+
 body {
-    font-family: sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     text-align: center;
+    background-color: #f0f2f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
+
+#app-container {
+    background-color: #fff;
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+}
+
+h1, h2, h3 {
+    color: #005a9e;
+}
+
+button {
+    background-color: #0078d4;
+    color: #fff;
+    border: none;
+    padding: 0.8em 1.5em;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #005a9e;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+/* --- Screen Styles --- */
 
 #welcome-screen, #personality-quiz-screen, #game-screen, #results-screen {
     padding: 2em;
 }
 
-button {
-    padding: 0.5em 1em;
-    font-size: 1em;
-    cursor: pointer;
+/* Personality Quiz */
+#personality-quiz-screen .question {
+    margin-bottom: 1.5em;
+    text-align: left;
 }
 
+#personality-quiz-screen label {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+/* Game Screen */
 #answer-options {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 1em;
-    margin: 1em 0;
+    margin: 1.5em 0;
 }
 
-.team-logic { color: blue; }
-.team-harmony { color: green; }
-.team-action { color: red; }
-.team-imagination { color: purple; }
+.answer-option {
+    flex-basis: 45%;
+}
 
 #feedback {
-    margin-top: 1em;
+    margin-top: 1.5em;
     padding: 1em;
     border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #e9f5ff;
 }
+
+/* --- Team Colors --- */
+/*
+    Developer Note:
+    These colors are used to distinguish the different teams.
+    They should be accessible and have sufficient contrast.
+*/
+
+.team-logic { color: #0078d4; }
+.team-harmony { color: #107c10; }
+.team-action { color: #d83b01; }
+.team-imagination { color: #8661c5; }
+.team-logic-bg { background-color: #e9f5ff; }
+.team-harmony-bg { background-color: #e7f3e7; }
+.team-action-bg { background-color: #fdf0eb; }
+.team-imagination-bg { background-color: #f6f2fa; }
