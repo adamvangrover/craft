@@ -48,6 +48,7 @@ function getQuestion(category) {
       { text: "What is the highest mountain in the world?", type: "multiple-choice", options: ["Mount Everest", "K2", "Kangchenjunga", "Lhotse"] },
       { text: "What is the largest ocean in the world?", type: "multiple-choice", options: ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Arctic Ocean"] },
     ],
+
   };
   return questions[category][Math.floor(Math.random() * questions[category].length)];
 }
