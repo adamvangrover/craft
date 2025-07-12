@@ -136,12 +136,17 @@ const winningPoems = {
 // --- DOM ELEMENTS --- //
 
 const startGameBtn = document.getElementById('start-game');
+const challengeModeBtn = document.getElementById('challenge-mode');
+const sandboxModeBtn = document.getElementById('sandbox-mode');
 const welcomeScreen = document.getElementById('welcome-screen');
 const quizScreen = document.getElementById('personality-quiz-screen');
 const gameScreen = document.getElementById('game-screen');
 const resultsScreen = document.getElementById('results-screen');
+const challengeModeScreen = document.getElementById('challenge-mode-screen');
+const sandboxModeScreen = document.getElementById('sandbox-mode-screen');
 const quizQuestionsDiv = document.getElementById('quiz-questions');
 const submitQuizBtn = document.getElementById('submit-quiz');
+const backToWelcomeBtns = document.querySelectorAll('.back-to-welcome');
 const roundTitle = document.getElementById('round-title');
 const question = document.getElementById('question');
 const answerOptionsDiv = document.getElementById('answer-options');
@@ -149,6 +154,8 @@ const feedbackDiv = document.getElementById('feedback');
 const nextQuestionBtn = document.getElementById('next-question');
 const scoresDiv = document.getElementById('scores');
 const winningPoemDiv = document.getElementById('winning-poem');
+const viewHallOfFameBtn = document.getElementById('view-hall-of-fame');
+const hallOfFameScreen = document.getElementById('hall-of-fame-screen');
 
 
 // --- GAME STATE --- //
@@ -242,10 +249,16 @@ function assignTeams() {
  * Displays the current question and answer options.
  */
 function showQuestion() {
-    const roundName = Object.keys(gameData)[currentRound];
-    const questionData = gameData[roundName][currentQuestion];
+    let questionData;
+    if (isChallengeMode) {
+        questionData = getQuestion('challenge', true);
+        roundTitle.innerText = "Challenge Round";
+    } else {
+        const roundName = Object.keys(gameData)[currentRound];
+        questionData = gameData[roundName][currentQuestion];
+        roundTitle.innerText = roundName;
+    }
 
-    roundTitle.innerText = roundName;
     question.innerText = questionData.question;
     answerOptionsDiv.innerHTML = '';
     feedbackDiv.style.display = 'none';
@@ -350,6 +363,41 @@ startGameBtn.addEventListener('click', () => {
     showPersonalityQuiz();
 });
 
+challengeModeBtn.addEventListener('click', () => {
+    welcomeScreen.style.display = 'none';
+    challengeModeScreen.style.display = 'block';
+    isChallengeMode = true;
+    // In a real game, you would have a more complex way of starting the challenge mode
+    // For now, we will just display a message.
+    const challengeContent = document.querySelector('#challenge-mode-screen p');
+    challengeContent.innerText = 'Challenge Mode Activated! Questions will be tougher and worth double points.';
+
+    // Replace the back button with a start button
+    const backButton = document.querySelector('#challenge-mode-screen button');
+    backButton.id = 'start-challenge-btn';
+    backButton.innerText = 'Start Challenge';
+
+    const startChallengeBtn = document.getElementById('start-challenge-btn');
+    startChallengeBtn.addEventListener('click', () => {
+        challengeModeScreen.style.display = 'none';
+        gameScreen.style.display = 'block';
+        showQuestion();
+    });
+});
+
+sandboxModeBtn.addEventListener('click', () => {
+    welcomeScreen.style.display = 'none';
+    sandboxModeScreen.style.display = 'block';
+});
+
+backToWelcomeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        challengeModeScreen.style.display = 'none';
+        sandboxModeScreen.style.display = 'none';
+        welcomeScreen.style.display = 'block';
+    });
+});
+
 submitQuizBtn.addEventListener('click', assignTeams);
 
 nextQuestionBtn.addEventListener('click', nextQuestion);
@@ -361,4 +409,10 @@ answerOptionsDiv.addEventListener('click', (e) => {
         const answer = document.getElementById('open-ended-answer').value;
         checkAnswer(answer); // Note: Open-ended questions are not auto-graded in this version.
     }
+});
+
+viewHallOfFameBtn.addEventListener('click', () => {
+    resultsScreen.style.display = 'none';
+    hallOfFameScreen.style.display = 'block';
+    displayHallOfFame();
 });

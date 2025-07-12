@@ -21,3 +21,9 @@ This prompt is designed to elicit a more detailed and nuanced response. Here's w
 - **Be Specific:** Avoid vague language. The more specific your query, the better the result.
 - **Use Clear Language:** Don't use jargon or overly complex sentences.
 - **Iterate and Refine:** If you don't get the desired response on the first try, refine your prompt and try again.
+
+## Advanced Prompting Techniques
+- **Chain of Thought Prompting:** Ask the AI to "think step by step" to encourage a more logical and detailed response.
+- **Zero-Shot Prompting:** Ask the AI to perform a task it hasn't been explicitly trained on, by providing a clear and detailed prompt.
+- **Few-Shot Prompting:** Provide a few examples of the desired output to help the AI understand the task.
+- **Generated Knowledge Prompting:** Ask the AI to generate its own knowledge about a topic before answering a question.
