@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customization Guide - Copilot Quest</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Customization Guide</h1>
+        <nav>
+            <a href="index.html">Home</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Introduction</h2>
+            <p>This guide will walk you through the process of customizing Copilot Quest.</p>
+        </section>
+
+        <section>
+            <h2>Adding New Questions</h2>
+            <p>To add new questions, open the <code>game-logic.js</code> file and add new questions to the <code>questions</code> object.</p>
+            <h3>Example</h3>
+            <pre><code>
+const questions = {
+  risk: [
+    { text: "What is the biggest risk to our company?", type: "open" },
+    { text: "How can we mitigate the risk of a data breach?", type: "open" },
+    { text: "What are the top three risks in our industry?", type: "open" },
+    // Add your new question here
+  ],
+  // ...
+};
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Creating Custom Game Modes</h2>
+            <p>To create a custom game mode, you can modify the <code>game-logic.js</code> file to add new game logic.</p>
+            <h3>Step-by-Step Guide</h3>
+            <ol>
+                <li>Create a new function for your custom game mode.</li>
+                <li>Add your custom game logic to the function.</li>
+                <li>Call the function when the game starts.</li>
+            </ol>
+            <h3>Example</h3>
+            <pre><code>
+function customGameMode() {
+  // Add your custom game logic here
+}
+
+// Call the function when the game starts
+customGameMode();
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Modifying the Game's Appearance</h2>
+            <p>To modify the game's appearance, you can edit the <code>styles.css</code> file.</p>
+            <h3>Example</h3>
+            <pre><code>
+body {
+  background-color: #f0f0f0;
+  color: #333;
+  /* Add your custom styles here */
+}
+            </code></pre>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Copilot Quest</p>
+    </footer>
+</body>
+</html>
