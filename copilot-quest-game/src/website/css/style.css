@@ -1,0 +1,32 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+#welcome-screen, #personality-quiz-screen, #game-screen, #results-screen {
+    padding: 2em;
+}
+
+button {
+    padding: 0.5em 1em;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+#answer-options {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin: 1em 0;
+}
+
+.team-logic { color: blue; }
+.team-harmony { color: green; }
+.team-action { color: red; }
+.team-imagination { color: purple; }
+
+#feedback {
+    margin-top: 1em;
+    padding: 1em;
+    border: 1px solid #ccc;
+}

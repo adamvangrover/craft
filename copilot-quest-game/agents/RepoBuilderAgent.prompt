@@ -1,0 +1,13 @@
+Objective: Create the main directory structure for the "Copilot Quest" game.
+
+Instructions:
+1. Create the following directories:
+   - `/docs`
+   - `/src/website/css`
+   - `/src/website/js`
+   - `/src/website/images`
+   - `/src/presentation`
+   - `/agents`
+2. Trigger the `DocsWriterAgent` to populate the `/docs` directory and the root `README.md`.
+3. Trigger the `WebsiteBuilderAgent` to populate the `/src/website` directory.
+4. Trigger the `PresentationCreatorAgent` to populate the `/src/presentation` directory.

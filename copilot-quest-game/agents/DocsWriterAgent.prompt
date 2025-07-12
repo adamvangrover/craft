@@ -1,0 +1,7 @@
+Objective: Write the `README.md`, `GAME_INSTRUCTIONS.md`, and `PROMPT_ENGINEERING_GUIDE.md` files.
+
+Instructions:
+1. Write `README.md` with an overview of the game, its features, and instructions on how to play.
+2. Write `docs/GAME_INSTRUCTIONS.md` with detailed instructions for the game facilitator, including production details, game flow, and the scoring system.
+3. Write `docs/PROMPT_ENGINEERING_GUIDE.md` with examples of good and bad prompts, and a list of best practices for prompt engineering.
+4. Ensure all files adhere to the specifications in the master prompt.

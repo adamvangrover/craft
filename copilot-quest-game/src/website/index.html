@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copilot Quest</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="welcome-screen">
+        <h1>Copilot Quest</h1>
+        <button id="start-game">Start Game</button>
+    </div>
+
+    <div id="personality-quiz-screen" style="display: none;">
+        <h2>Personality Quiz</h2>
+        <div id="quiz-questions"></div>
+        <button id="submit-quiz">Submit</button>
+    </div>
+
+    <div id="game-screen" style="display: none;">
+        <h2 id="round-title"></h2>
+        <p id="question"></p>
+        <div id="answer-options"></div>
+        <div id="feedback"></div>
+        <button id="next-question">Next</button>
+    </div>
+
+    <div id="results-screen" style="display: none;">
+        <h2>Results</h2>
+        <div id="scores"></div>
+        <div id="winning-poem"></div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
