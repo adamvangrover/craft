@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Scores - Copilot Quest</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app-container">
+        <h1>High Scores</h1>
+        <div id="high-scores-list">
+            <!-- High scores will be populated here by JavaScript -->
+        </div>
+        <a href="index.html">Back to Game</a>
+    </div>
+    <script>
+        // In a real application, you would fetch and display high scores from a server.
+        // For this example, we'll just use some dummy data.
+        const highScores = [
+            { team: "Team Logic", score: 10 },
+            { team: "Team Harmony", score: 8 },
+            { team: "Team Action", score: 7 },
+            { team: "Team Imagination", score: 5 },
+        ];
+
+        const highScoresList = document.getElementById('high-scores-list');
+        let output = '<ol>';
+        highScores.forEach(score => {
+            output += `<li>${score.team}: ${score.score}</li>`;
+        });
+        output += '</ol>';
+        highScoresList.innerHTML = output;
+    </script>
+</body>
+</html>

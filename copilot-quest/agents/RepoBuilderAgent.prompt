@@ -1,0 +1,20 @@
+Objective: Create the main directory structure for the "Copilot Quest" project.
+
+Instructions:
+1. Create the following directories:
+   - `/docs`
+   - `/websites/training`
+   - `/websites/presentation`
+   - `/websites/games/copilot-quest/css`
+   - `/websites/games/copilot-quest/js`
+   - `/websites/games/copilot-quest/images`
+   - `/agents`
+2. Trigger the `DocsWriterAgent` to populate the `/docs` directory and the root `README.md`.
+3. Trigger the `WebsiteBuilderAgent` to populate the `/websites` directory.
+4. Trigger the `PresentationCreatorAgent` to populate the `/websites/presentation` directory.
+
+Developer Notes:
+- This agent is the first to be run. It sets up the entire repository structure.
+- The order of agent execution is important. The `RepoBuilderAgent` must run before the other agents.
+- This agent has been updated to reflect the new, expanded directory structure.
+- The `WebsiteBuilderAgent` is now responsible for populating the entire `/websites` directory, not just a single website.
