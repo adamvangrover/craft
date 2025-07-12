@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Copilot Quest</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <!--
@@ -68,8 +69,18 @@
 
         </div>
 
+        <!--
+            Developer Note:
+            The Hall of Fame screen displays the top-scoring teams.
+        -->
+        <div id="hall-of-fame-screen" style="display: none;">
+            <h2>Hall of Fame</h2>
+            <ul id="hall-of-fame-list"></ul>
+        </div>
+
     </div>
 
     <script src="js/script.js"></script>
+    <script src="js/game-logic.js"></script>
 </body>
 </html>
