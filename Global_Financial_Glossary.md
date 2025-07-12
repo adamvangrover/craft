@@ -265,7 +265,7 @@ Terms are listed alphabetically. Placeholder sections for all letters are includ
 *   **Effective Tax Rate:** (Accounting/FSA) The income tax expense reported on the income statement divided by the pre-tax income (EBT). Can differ from the statutory tax rate due to permanent differences and tax credits.
 *   **Emotional Biases:** (Behavioral Finance) Biases that stem from feelings, impulses, intuition, or emotions rather than conscious thought. Often harder to correct and may need to be accommodated. Examples: loss aversion, overconfidence, self-control bias. *See: `Behavioral_Finance/Key_Concepts.md`*
 *   **Enforcement (of Remedies - Loan Default):** (Legal/Credit Risk) Legal actions taken by a lender after a borrower defaults on a loan to recover amounts owed, such as accelerating the loan, seizing and liquidating collateral, or pursuing litigation.
-*   **Enterprise Risk Management (ERM):** A comprehensive and integrated framework for managing all material risks across an organization to achieve its strategic objectives.
+*   **Enterprise Risk Management (ERM):** (Risk Management) A comprehensive and integrated framework for managing all material risks across an organization to achieve its strategic objectives. *See: `Risk_Management/Enterprise_Risk_Management/README.md`*
 *   **Enterprise Value (EV):** (Valuation/Corporate Finance) A measure of a company's total value, often seen as the theoretical takeover price. Typically calculated as `Market Capitalization + Total Debt - Cash & Cash Equivalents + Preferred Stock + Minority Interest`. Used in valuation multiples like EV/EBITDA. *See: `Financial_Modeling/Valuation_Applications/DCF_Modeling_Overview.md`*
 *   **Entry Multiple (LBO):** (Private Equity/LBOs) The valuation multiple (e.g., EV/EBITDA) at which a private equity firm acquires a target company in a leveraged buyout.
 *   **Environmental, Social, and Governance (ESG) Risks:** (Risk Management/Sustainable Investing) Risks arising from environmental issues (e.g., climate change, pollution, resource scarcity), social factors (e.g., labor practices, human rights, data privacy, community relations), and corporate governance (e.g., board structure, executive compensation, ethics, shareholder rights).
@@ -299,6 +299,7 @@ Terms are listed alphabetically. Placeholder sections for all letters are includ
 *   **Financial Distress:** (Credit Risk/Corporate Finance) A situation where a company is struggling to meet its financial obligations as they come due. May lead to debt restructuring, asset sales, or bankruptcy if not resolved.
 *   **Financial Due Diligence:** (Credit Analysis/M&A) The part of a due diligence investigation that focuses on analyzing a company's historical and projected financial statements, quality of earnings, cash flow generation, balance sheet strength, internal controls over financial reporting, and tax position.
 *   **Financial Leverage:** (FSA/Corporate Finance) The extent to which a company uses debt to finance its assets. Measured by ratios like Debt/Equity or Assets/Equity. Magnifies both returns and risks for equity holders.
+*   **Financial Model Review:** (Financial Modeling/Best Practices) The process of systematically examining a financial model for its accuracy, robustness, clarity, and adherence to best practices. Often involves using a checklist to ensure all key aspects are covered. *See: `Toolkits_and_Checklists/Financial_Model_Review_Checklist.md`*
 *   **Financial Modeling:** (Quantitative Analysis) The process of creating a mathematical representation (typically in a spreadsheet like Excel) of a company's past financial performance and projecting its future financial performance. Used for forecasting, valuation, scenario analysis, and decision-making. *See: `Financial_Modeling/README.md`*
 *   **Fintech (Financial Technology):** (Technology/Finance) The use of innovative technology to deliver financial services and products in new and often disruptive ways. Encompasses a broad range of applications including payments, lending, wealth management, insurance, and regulatory compliance. *See: `Fintech/README.md`*
 *   **Five C's of Credit:** (Credit Risk Analysis) A traditional framework for evaluating a borrower's creditworthiness, consisting of: Character, Capacity, Capital, Collateral, and Conditions. *See: `Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md`*
@@ -405,6 +406,8 @@ Terms are listed alphabetically. Placeholder sections for all letters are includ
 ## V
 ## W
 ## X
+*   **XLOOKUP Function:** (Excel/Financial Modeling) A modern Excel function for performing lookups (vertical or horizontal). It is designed to replace older functions like VLOOKUP, HLOOKUP, and INDEX/MATCH, offering more flexibility and simpler syntax. *See: `Financial_Modeling/Excel_Tips/01_XLOOKUP_Guide.md`*
+
 ## Y
 ## Z
 

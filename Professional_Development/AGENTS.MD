@@ -53,9 +53,39 @@ The interactive HTML view is `Professional_Development/index.html`.
 
 ### 5. Roadmap / Planned Additions (from `README.md`)
 *   Content for placeholder files: `Negotiation_Skills_for_Analysts.md`, `Presentation_Skills_for_Financial_Information.md`, `Ethical_Decision_Making_in_Practice.md`.
-*   Future topics: Career Management, Time Management/Productivity, Leadership Skills.
-*   Guide to effective networking for finance professionals.
-*   Managing stakeholder expectations.
+*   Future topics: Career Management (goal setting, mentorship, career pathing), Time Management/Productivity for Analysts, foundational Leadership Skills for analysts aspiring to team lead roles.
+*   Guide to effective networking specifically for finance professionals (online and offline).
+*   Techniques for managing stakeholder expectations and handling difficult conversations.
+*   Developing industry expertise and commercial acumen.
 
-Refer to the root `AGENTS.MD` for general guidelines.
-This section is less likely to use Jupyter Notebooks directly, but if a specific interactive exercise makes sense, refer to `Interactive_Notebooks/AGENTS.MD`.
+### 6. Developer Notes & Future Considerations
+
+**Developer Notes:**
+*   **`Professional_Development/index.html` Maintenance:** This HTML file uses a JavaScript array (e.g., `filesInDir`) to list the Markdown topic files. When adding a new `.md` file, or renaming/reordering existing ones, this array in `index.html` **must** be updated.
+*   **Actionable and Finance-Specific Advice:** The key is to make the advice practical and directly relevant to the challenges and opportunities faced by finance professionals, especially analysts. Generic advice is less helpful.
+*   **Structure of Topic Files:** Each `.md` file should ideally cover:
+    *   Why the skill is important in finance/analysis.
+    *   Key principles or frameworks.
+    *   Actionable tips, techniques, and best practices.
+    *   Examples or short scenarios specific to finance.
+    *   Common pitfalls to avoid.
+*   **Tone:** Maintain a professional, encouraging, and empowering tone.
+
+**Roadmap / Future Considerations:**
+*   **Content Expansion:**
+    *   Systematically create content for all placeholder files and planned topics (Negotiation, Presentation Skills, Ethics, Career Management, Time Management, Leadership, Networking, Stakeholder Management, Commercial Acumen).
+    *   Add a guide on "Preparing for Finance Interviews (Behavioral and Technical)."
+    *   Develop content on "Giving and Receiving Feedback Effectively."
+    *   Create a module on "Understanding and Navigating Financial Institution Culture."
+*   **Interactive Elements (Limited Scope):**
+    *   While this section is primarily text-based, consider simple interactive quizzes (e.g., using `quiz_viewer.html`) for topics like ethical dilemmas or identifying communication pitfalls.
+    *   Self-assessment checklists for certain skills could be useful.
+*   **Case Studies/Scenarios:**
+    *   Incorporate more short case studies or scenarios to illustrate the application of these skills in realistic financial settings.
+*   **Cross-Linking:**
+    *   Strengthen links to CRAFT modules, particularly those on business writing, critical thinking, and ethics.
+    *   Link to `Behavioral_Finance/` where relevant (e.g., biases affecting decision-making or negotiation).
+
+Refer to the root `AGENTS.MD` for general guidelines and for instructions on tools like `quiz_viewer.html` if used.
+Jupyter Notebooks are less likely to be a primary tool here, but if a specific interactive exercise is designed (e.g., for analyzing communication patterns or decision trees for ethical choices), refer to `Interactive_Notebooks/AGENTS.MD`.
+Ensure the `Professional_Development/README.md` (table of contents) is kept in sync with `index.html` and the actual files.

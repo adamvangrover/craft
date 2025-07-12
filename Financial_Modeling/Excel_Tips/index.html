@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-T">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Tips | Financial Modeling</title>
+    <link rel="stylesheet" href="../../assets/css/simple_viewer.css">
+    <link rel="stylesheet" href="../../css/global_nav.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div id="global-nav-placeholder"></div>
+
+    <div class="container">
+        <header>
+            <h1>Excel Tips for Financial Modeling</h1>
+            <p>Guides and techniques for leveraging Excel in financial analysis and modeling.</p>
+        </header>
+
+        <nav id="local-nav">
+            <h2>Available Tips & Guides:</h2>
+            <ul id="file-list">
+                <!-- JS will populate this list -->
+            </ul>
+        </nav>
+
+        <main id="content-display">
+            <!-- JS will load README.md here by default -->
+        </main>
+
+        <footer>
+            <p><a href="../index.html">Back to Financial Modeling Hub</a> | <a href="../../home.html">Back to Main Hub</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const localFiles = [
+            { name: "Overview - Excel Tips", path: "README.md", default: true },
+            { name: "XLOOKUP Guide", path: "01_XLOOKUP_Guide.md" }
+            // Add new Excel tip files here
+            // e.g. { name: "INDEX and MATCH", path: "02_INDEX_MATCH_Guide.md" },
+        ];
+
+        const contentDisplay = document.getElementById('content-display');
+        const fileList = document.getElementById('file-list');
+
+        function loadContent(filePath) {
+            fetch(filePath)
+                .then(response => response.ok ? response.text() : Promise.reject(`File not found: ${filePath}`))
+                .then(text => {
+                    contentDisplay.innerHTML = marked.parse(text);
+                })
+                .catch(error => {
+                    console.error('Error loading content:', error);
+                    contentDisplay.innerHTML = `<p style="color:red;">Error loading content: ${error}. Please check the file path and ensure the file exists.</p>`;
+                });
+        }
+
+        localFiles.forEach(file => {
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = `#${file.path}`;
+            link.textContent = file.name;
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                loadContent(file.path);
+                // Update URL hash
+                window.location.hash = file.path;
+            });
+            listItem.appendChild(link);
+            fileList.appendChild(listItem);
+        });
+
+        // Load content based on URL hash or default
+        function loadInitialContent() {
+            const hash = window.location.hash.substring(1);
+            const fileToLoad = localFiles.find(f => f.path === hash) || localFiles.find(f => f.default);
+            if (fileToLoad) {
+                loadContent(fileToLoad.path);
+            } else if (localFiles.length > 0) {
+                loadContent(localFiles[0].path); // Fallback to first file if no default/hash match
+            }
+        }
+
+        loadInitialContent();
+        window.addEventListener('hashchange', loadInitialContent);
+
+    </script>
+    <script src="../../js/nav_data.js" defer></script>
+    <script src="../../js/global_nav.js" defer></script>
+</body>
+</html>

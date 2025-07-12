@@ -57,7 +57,31 @@ The interactive HTML view for this section is `Risk_Management/index.html`, whic
 *   More detailed examples of risk reports and dashboards.
 *   Case studies on risk management failures and successes.
 *   Development of interactive notebooks for quantitative risk measures.
-*   Modules on ERM, Strategic Risk, Reputational Risk, Climate/ESG Risk, Cybersecurity Risk.
+*   Modules on ERM (Enterprise Risk Management), Strategic Risk, Reputational Risk, Climate/ESG Risk, Cybersecurity Risk.
 
-Refer to the root `AGENTS.MD` for general guidelines.
+### 6. Developer Notes & Future Considerations
+
+**Developer Notes:**
+*   **`Risk_Management/index.html` Hub Maintenance:** This HTML file is the main interactive viewer for the Risk Management section. It uses JavaScript arrays (`localFiles` for root Markdown files, `subDirectoryModules` for sub-sections like Credit Risk, Market Risk) to populate its content. When adding new foundational topic files or new risk subdirectories, these JavaScript arrays in `Risk_Management/index.html` **must** be updated.
+*   **Subdirectory Structure:** Each risk type subdirectory (e.g., `Credit_Risk/`, `Market_Risk/`) should maintain its own `README.md` (overview) and `index.html` (simple viewer for its own content). Ensure these are kept consistent.
+*   **File Naming Conventions:** Strictly adhere to the established naming conventions: `XX_TopicName.md` for root foundational topics, and `[RISKTYPEINITIALS]_XX_TopicName.md` (e.g., `CRM_01_...`, `MRM_01_...`) for files within specific risk type subdirectories. This helps maintain order and predictability.
+*   **Placeholder Content:** Use `*(Future Addition)*` or similar markers in `README.md` files to clearly indicate planned but not-yet-developed content sections. This helps track progress and identify gaps.
+
+**Roadmap / Future Considerations (Expanding on `README.md` and general needs):**
+*   **Content Deepening:**
+    *   Provide significantly more detailed content for `Liquidity_Risk/`, `Operational_Risk/`, and `Market_Risk/` sections, similar to the depth planned for `Credit_Risk/`.
+    *   Develop advanced topics within each risk category (e.g., advanced credit portfolio models, sophisticated market risk hedging techniques, operational risk quantification).
+*   **New Risk Modules:**
+    *   Systematically develop the planned modules: Enterprise Risk Management (ERM), Strategic Risk, Reputational Risk, Climate Change/ESG Risk, Cybersecurity Risk. Each should become a new subdirectory with its own `README.md`, `index.html`, and content files.
+    *   Consider adding modules on Model Risk Management and Third-Party Risk Management.
+*   **Practical Tools & Examples:**
+    *   Include more detailed examples of risk reports, dashboards, and key risk indicators (KRIs).
+    *   Develop practical case studies on risk management failures (what went wrong, lessons learned) and successes across different financial crises or institutional settings.
+*   **Interactive Learning:**
+    *   Create Jupyter Notebooks in `Interactive_Notebooks/Risk_Management/` to demonstrate quantitative risk measures (e.g., VaR calculations, stress testing simulations, credit scoring models).
+*   **Regulatory Context:**
+    *   Integrate more context on relevant regulatory frameworks (e.g., Basel Accords, Solvency II, specific national regulations) as they apply to different risk types, ensuring explanations are simplified for a general audience.
+
+Refer to the root `AGENTS.MD` for general guidelines, especially on Jupyter Notebooks and global navigation updates.
 Refer to `Interactive_Notebooks/AGENTS.MD` if planning to create Jupyter Notebook based illustrations.
+When adding new risk subdirectories, ensure they are also added to the `subDirectoryModules` array in `Risk_Management/index.html`.

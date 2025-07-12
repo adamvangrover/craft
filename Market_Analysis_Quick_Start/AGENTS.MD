@@ -50,8 +50,32 @@ The interactive HTML view is `Market_Analysis_Quick_Start/index.html`.
 ### 5. Roadmap / Planned Additions (from `README.md`)
 *   Quick guide to understanding key economic indicators and their market impact.
 *   Introduction to basic technical analysis chart patterns (very high-level).
-*   Understanding basic option terminology (Greeks) if relevant to credit.
-*   Market sentiment indicators (VIX, put/call ratios).
+*   Understanding basic option terminology (Greeks) if relevant to credit (e.g., for convertible bonds or hedged positions).
+*   Market sentiment indicators (e.g., VIX, put/call ratios, fear & greed index) and their interpretation.
 
-Refer to the root `AGENTS.MD` for general guidelines.
-Refer to `Interactive_Notebooks/AGENTS.MD` if planning to create Jupyter Notebook based illustrations.
+### 6. Developer Notes & Future Considerations
+
+**Developer Notes:**
+*   **`Market_Analysis_Quick_Start/index.html` Maintenance:** This HTML file uses a JavaScript array (typically `filesInDir` or similar) to list the Markdown files in this section. When adding a new `.md` topic file, or renaming/reordering existing ones, this array in `index.html` **must** be updated to ensure the new content is discoverable through the interactive viewer.
+*   **Conciseness is Key:** This section is a "Quick Start." Content should be highly focused and avoid unnecessary depth. Link to more detailed explanations in other parts of the repository.
+*   **Heavy Glossary Linking:** Due to the jargon-heavy nature of market analysis, ensure that all technical terms, product names, and metrics are rigorously linked to their definitions in the `Global_Financial_Glossary.md`.
+*   **Credit Analyst Perspective:** Always try to frame the market concepts in terms of their relevance to a credit analyst. How does this market indicator or product affect credit risk, spreads, or a company's ability to access capital?
+
+**Roadmap / Future Considerations:**
+*   **Content Expansion:**
+    *   Quick guide to understanding key economic indicators (e.g., GDP, inflation, unemployment) and their typical market impact.
+    *   Introduction to basic technical analysis chart patterns (e.g., support/resistance, trendlines, moving averages) – keep this very high-level and focused on what a fundamental analyst might observe.
+    *   Brief overview of different yield curve shapes and their common interpretations.
+    *   Explanation of common credit market indices and their significance.
+*   **Interactive Elements:**
+    *   Consider simple Jupyter Notebooks in `Interactive_Notebooks/Market_Analysis/` for:
+        *   Visualizing a yield curve.
+        *   Calculating simple spreads.
+        *   A basic peer comparison dashboard.
+*   **Visual Aids:**
+    *   Where possible, use Markdown tables or simple textual diagrams to illustrate concepts (e.g., a table comparing different types of spreads).
+*   **Cross-referencing:** Systematically review content in other sections (CFA, CRAFT, Financial Modeling) and add links *to* relevant Quick Start topics here if they provide useful foundational knowledge for those more advanced topics.
+
+Refer to the root `AGENTS.MD` for general guidelines, especially on Jupyter Notebooks and the `Global_Financial_Glossary.md`.
+Refer to `Interactive_Notebooks/AGENTS.MD` if planning to create Jupyter Notebook based illustrations for this section.
+Ensure the `Market_Analysis_Quick_Start/README.md` (table of contents) is also kept in sync with `index.html` and the actual files.
