@@ -111,6 +111,7 @@ const navData = [
       { text: "WACC Calculator Guide", href: "Interactive_Notebooks/Valuation_Components/README.md", type: "jupyter_guide" },
       { text: "VaR Calculation Notebook Guide", href: "Interactive_Notebooks/Risk_Management/README.md", type: "jupyter_guide" },
       { text: "Interactive TVM Solver Guide", href: "Interactive_Notebooks/CFA_Quant_Methods/README.md", type: "jupyter_guide" }, // # Assuming this exists or is planned
+      { text: "Fixed Income Bond Math Guide", href: "Interactive_Notebooks/Fixed_Income/README.md", type: "jupyter_guide" },
     ],
   },
   {

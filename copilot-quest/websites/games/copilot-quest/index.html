@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copilot Quest</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!--
+        Developer Note:
+        This is the main container for the entire application.
+        The different screens are shown and hidden by changing their display property.
+    -->
+    <div id="app-container">
+
+        <!--
+            Developer Note:
+            The welcome screen is the first thing the user sees.
+            It should be inviting and clearly explain what the game is about.
+        -->
+        <div id="welcome-screen">
+            <h1>Copilot Quest</h1>
+            <p>An interactive AI collaboration game.</p>
+            <button id="start-game">Start Game</button>
+            <div class="links">
+                <a href="game-instructions.html">Game Instructions</a>
+                <a href="prompt-engineering-guide.html">Prompt Engineering Guide</a>
+            </div>
+        </div>
+
+        <!--
+            Developer Note:
+            The personality quiz is used to sort players into teams.
+            The questions should be fun and engaging.
+        -->
+        <div id="personality-quiz-screen" style="display: none;">
+            <h2>Personality Quiz</h2>
+            <div id="quiz-questions"></div>
+            <button id="submit-quiz">Submit</button>
+        </div>
+
+        <!--
+            Developer Note:
+            The game screen is where the main action takes place.
+            It displays the questions, answer options, and feedback.
+        -->
+        <div id="game-screen" style="display: none;">
+            <h2 id="round-title"></h2>
+            <p id="question"></p>
+            <div id="answer-options"></div>
+            <div id="feedback"></div>
+            <button id="next-question" style="display: none;">Next</button>
+        </div>
+
+        <!--
+            Developer Note:
+            The results screen displays the final scores and the winning team's poem.
+        -->
+        <div id="results-screen" style="display: none;">
+            <h2>Results</h2>
+            <div id="scores"></div>
+            <div id="winning-poem"></div>
+            <div class="links">
+                <a href="high-scores.html">View High Scores</a>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

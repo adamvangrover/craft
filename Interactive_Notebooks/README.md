@@ -43,8 +43,8 @@ This section acts as a catalog for all interactive Jupyter Notebook modules. Eac
 
 
 *   **Fixed Income:**
-    *   **Guide & Overview:** [./Fixed_Income/Bond_Math_Notebook_Guide.md](./Fixed_Income/Bond_Math_Notebook_Guide.md)
-    *   **Notebook File:** *(Planned: [Bond_Math.ipynb](./Fixed_Income/Bond_Math.ipynb))*
+    *   **Guide & Overview:** [./Fixed_Income/README.md](./Fixed_Income/README.md)
+    *   **Notebook File:** [Bond_Math.ipynb](./Fixed_Income/Bond_Math.ipynb)
     *   *Description:* An interactive guide to core bond mathematics, including pricing, yield calculations, and duration/convexity concepts.
 
 *   **Legal Document Analysis (Credit Agreements):**
