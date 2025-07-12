@@ -57,9 +57,23 @@ New content should generally fall into one of these categories.
 *   Cross-reference related topics within the CFA section (e.g., an FSA deep dive might link to relevant quantitative methods).
 *   Link to foundational concepts in other parts of the repository if applicable (e.g., a CFA corporate finance reading might link to a more general `Financial_Modeling/` guide).
 
-### 5. Roadmap / Planned Additions (Illustrative)
-*   More Level 2 and Level 3 practice exams.
-*   Video summaries for challenging topics (future consideration, would require external hosting).
-*   Integration of Jupyter Notebooks for quantitative examples (see `Interactive_Notebooks/AGENTS.MD`).
+### 5. Developer Notes, Roadmap & Future Considerations
 
-Refer to the root `AGENTS.MD` for guidelines on Jupyter Notebooks and general Markdown/HTML practices.
+**Developer Notes:**
+*   **`CFA/index.html` Maintenance:** The "Study Materials Library" section of `CFA/index.html` is populated by JavaScript logic (around `AppData.levels`). When adding new content files (Cheat Sheets, Deep Dives, Practice Exams, Case Studies) to the Level subdirectories, ensure this HTML file is updated with correct links and metadata. If new *types* of resources are added or the structure is significantly changed, the `AppData` JavaScript object within `CFA/index.html` might also need modification.
+*   **LOS Tagging:** While not strictly enforced for all content yet, consistently tagging content with the relevant CFA Learning Outcome Statement(s) (LOS) it addresses would be a significant enhancement for users. This could be done as comments in Markdown or as part of the frontmatter if a more formal system is adopted.
+*   **Practice Exam Structure:** Ensure practice questions and answers are clearly separated or formatted in a way that `quiz_viewer.html` can parse them if they are intended to be interactive. For PDF-style exams, ensure questions and answers are distinct sections.
+
+**Roadmap / Planned Additions (Illustrative):**
+*   **Content Expansion:**
+    *   More Level 2 and Level 3 practice exams, especially essay questions for Level 3 with detailed guideline answers.
+    *   Expand `Topic_Deep_Dives/` for all levels, covering a wider range of challenging readings.
+    *   Develop more `Case_Studies/` that integrate multiple topic areas.
+*   **Interactive Elements:**
+    *   Integrate more Jupyter Notebooks for quantitative examples, particularly for topics like derivatives, fixed income, and portfolio management. Refer to `Interactive_Notebooks/AGENTS.MD` and root `AGENTS.MD` for guidelines.
+    *   Explore options for interactive formula sheets or concept maps.
+*   **Multimedia Content (Future):**
+    *   Video summaries or walkthroughs for particularly challenging topics (would require decisions on hosting and embedding).
+*   **LOS Mapping Files:** Systematically create/update `LOS_Mappings/` files that explicitly link content within this repository to each CFA LOS.
+
+Refer to the root `AGENTS.MD` for guidelines on Jupyter Notebooks, general Markdown/HTML practices, and global navigation updates.
