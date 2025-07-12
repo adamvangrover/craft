@@ -1,0 +1,20 @@
+Objective: Create the HTML, CSS, and JavaScript files for the "Copilot Quest" websites.
+
+Instructions:
+1.  **Create the Training Website:**
+    *   Create `websites/training/index.html` with sections for guidelines, prompt tips, prompt libraries, workflow integration, and tips & tricks.
+    *   Create `websites/training/style.css` to style the training website.
+2.  **Create the Games Website:**
+    *   Create `websites/games/index.html` to serve as a hub for all games.
+    *   Create `websites/games/style.css` to style the games hub.
+    *   Populate `websites/games/copilot-quest` with the game files, including `index.html`, `style.css`, and `script.js`.
+3.  **Create the Presentation Website:**
+    *   Create `websites/presentation/index.html` for the presentation.
+    *   Create `websites/presentation/style.css` to style the presentation.
+    *   Create `websites/presentation/script.js` to handle the presentation logic.
+
+Developer Notes:
+- This agent is now responsible for building out the entire `/websites` directory, which includes multiple websites.
+- Each website should have its own subdirectory within `/websites` to keep the code organized.
+- The `script.js` file for the presentation should be able to dynamically load the presentation content from the `presentation_script.md` file. This would make it easier to update the presentation without having to edit the JavaScript file.
+- The games hub should be designed to be easily extensible, so that new games can be added in the future.
