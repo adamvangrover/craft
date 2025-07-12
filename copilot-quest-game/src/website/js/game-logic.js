@@ -27,12 +27,28 @@ function sortIntoTeam(player, personality) {
 
 // Function to get a random question
 function getQuestion(category) {
-  // In a real application, you would fetch questions from a database or a JSON file.
   const questions = {
-    risk: [{ text: "What is the biggest risk to our company?", type: "open" }],
-    compliance: [{ text: "Is our company compliant with all regulations?", type: "boolean" }],
-    safety: [{ text: "What is our company's safety record?", type: "open" }],
-    lightning: [{ text: "What is the capital of France?", type: "multiple-choice", options: ["Paris", "London", "Berlin", "Rome"] }],
+    risk: [
+      { text: "What is the biggest risk to our company?", type: "open" },
+      { text: "How can we mitigate the risk of a data breach?", type: "open" },
+      { text: "What are the top three risks in our industry?", type: "open" },
+    ],
+    compliance: [
+      { text: "Is our company compliant with all regulations?", type: "boolean" },
+      { text: "What are the consequences of non-compliance?", type: "open" },
+      { text: "How can we ensure that we remain compliant?", type: "open" },
+    ],
+    safety: [
+      { text: "What is our company's safety record?", type: "open" },
+      { text: "How can we improve our safety procedures?", type: "open" },
+      { text: "What are the most common workplace accidents?", type: "open" },
+    ],
+    lightning: [
+      { text: "What is the capital of France?", type: "multiple-choice", options: ["Paris", "London", "Berlin", "Rome"] },
+      { text: "What is the highest mountain in the world?", type: "multiple-choice", options: ["Mount Everest", "K2", "Kangchenjunga", "Lhotse"] },
+      { text: "What is the largest ocean in the world?", type: "multiple-choice", options: ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Arctic Ocean"] },
+    ],
+
   };
   return questions[category][Math.floor(Math.random() * questions[category].length)];
 }

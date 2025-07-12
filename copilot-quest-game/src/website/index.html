@@ -78,9 +78,40 @@
             <ul id="hall-of-fame-list"></ul>
         </div>
 
+        <!--
+            Developer Note:
+            The Hall of Fame screen displays the top-scoring teams.
+        -->
+        <div id="hall-of-fame-screen" style="display: none;">
+            <h2>Hall of Fame</h2>
+            <ul id="hall-of-fame-list"></ul>
+        </div>
+
+        <!--
+            Developer Note:
+            The Leaderboard screen displays the current scores.
+        -->
+        <div id="leaderboard-screen" style="display: none;">
+            <h2>Leaderboard</h2>
+            <ul id="leaderboard-list"></ul>
+        </div>
+
+        <!--
+            Developer Note:
+            The Settings screen allows the user to customize the game.
+        -->
+        <div id="settings-screen" style="display: none;">
+            <h2>Settings</h2>
+            <label for="dark-mode-toggle">Dark Mode:</label>
+            <input type="checkbox" id="dark-mode-toggle">
+        </div>
+
     </div>
 
     <script src="js/script.js"></script>
     <script src="js/game-logic.js"></script>
+    <script src="js/leaderboard.js"></script>
+    <script src="js/settings.js"></script>
+
 </body>
 </html>

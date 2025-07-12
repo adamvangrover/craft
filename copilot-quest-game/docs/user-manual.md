@@ -20,5 +20,11 @@ Welcome to Copilot Quest! This guide will walk you through the process of settin
     - Open-ended questions are worth 1-3 points.
 4. **Winning:** The team with the most points at the end of the game wins!
 
+## Tips and Tricks
+- **Risk Management:** Think about the potential risks and how to mitigate them.
+- **Compliance:** Make sure you are familiar with the relevant regulations.
+- **Safety:** Always be aware of your surroundings and follow safety procedures.
+- **Lightning Round:** Answer as quickly as you can to earn bonus points.
+
 ## Hall of Fame
 The Hall of Fame displays the top-scoring teams. Check to see if your team has made it to the top!
