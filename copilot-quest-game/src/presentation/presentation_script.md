@@ -1,17 +1,20 @@
 # Slide 1: Title
 - Are You Smarter Than an AI Chatbot?
-- **Facilitator Note:** Welcome everyone and introduce yourself. Explain that this is a fun, interactive game designed to test their knowledge and collaboration skills.
+- **Image:** A picture of a robot and a human thinking.
+- **Speaker Notes:** Welcome everyone and introduce yourself. Explain that this is a fun, interactive game designed to test their knowledge and collaboration skills.
 
 # Slide 2: Game Overview
 - Welcome to Copilot Quest!
 - Today, you'll be working in teams to answer questions on a variety of topics.
 - The goal is to see how well you can collaborate with your team and with an AI to get the right answers.
-- **Facilitator Note:** Briefly explain the rules of the game. Mention that there will be multiple rounds, including a lightning round and a final round.
+- **Diagram:** A flowchart showing the game's structure.
+- **Speaker Notes:** Briefly explain the rules of the game. Mention that there will be multiple rounds, including a lightning round and a final round.
 
 # Slide 3: Team Sorting
 - To start, we'll take a quick personality quiz to sort you into teams.
 - Please navigate to the game website to begin.
-- **Facilitator Note:** Provide the URL for the game website. Give participants a few minutes to complete the quiz.
+- **Image:** A picture of a personality quiz.
+- **Speaker Notes:** Provide the URL for the game website. Give participants a few minutes to complete the quiz.
 
 # Slide 4: Announce Teams
 - (Facilitator announces the teams based on the quiz results)
@@ -19,30 +22,34 @@
 - Team Harmony
 - Team Action
 - Team Imagination
-- **Facilitator Note:** Encourage teams to come up with a team name or cheer.
+- **Image:** A picture of four diverse teams.
+- **Speaker Notes:** Encourage teams to come up with a team name or cheer.
 
 # Slide 5: Round 1: Risk Management
 - Let's begin!
-- **Facilitator Note:** Explain that this round will focus on risk management.
+- **Image:** A picture of a person climbing a mountain.
+- **Speaker Notes:** Explain that this round will focus on risk management.
 
 # Slide 6: Risk Management - Question 1
 - **Question:** What is the primary goal of risk management?
-- **Facilitator Note:** Encourage teams to discuss the question and come to a consensus.
+- **Speaker Notes:** Encourage teams to discuss the question and come to a consensus.
 
 # Slide 7: Risk Management - Answer 1
 - **Answer:** To identify, assess, and mitigate risks.
 - **AI Feedback:** Correct! The goal is to proactively manage risks.
-- **Facilitator Note:** Award points to the teams that answered correctly.
+- **Speaker Notes:** Award points to the teams that answered correctly.
 
 ... (Continue this pattern for all questions) ...
 
 # Slide 38: Winners Announcement
 - And the winner is...
-- **Facilitator Note:** Announce the winning team and congratulate them.
+- **Image:** A picture of a trophy.
+- **Speaker Notes:** Announce the winning team and congratulate them.
 
 # Slide 39: Prize
 - (Display the winning team's poem)
-- **Facilitator Note:** Present the prize to the winning team. Thank everyone for participating.
+- **Image:** A picture of a scroll with a poem on it.
+- **Speaker Notes:** Present the prize to the winning team. Thank everyone for participating.
 
 # Interactivity Suggestions
 - **Polls:** Use a polling tool (e.g., Mentimeter, Slido) to have participants vote on the correct answer.
