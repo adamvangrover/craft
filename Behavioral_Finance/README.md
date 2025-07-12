@@ -9,6 +9,7 @@ Traditional finance theory often assumes that market participants are perfectly 
 ### Quick Links
 *   **[Key Concepts](./Key_Concepts.md)**: Core theories and bias classifications.
 *   **[Case Studies](./Case_Studies.md)**: Examples of biases in action.
+*   **[Debiasing Techniques for Analysts](./Debiasing_Techniques_for_Analysts.md)**: Practical strategies to mitigate the impact of biases.
 
 ## Purpose of this Section
 

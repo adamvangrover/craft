@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Risk Management Notebooks | Interactive Hub</title>
+    <title>ERM | Risk Management</title>
     <link rel="stylesheet" href="../../assets/css/simple_viewer.css">
     <link rel="stylesheet" href="../../css/global_nav.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -13,12 +13,12 @@
 
     <div class="container">
         <header>
-            <h1>Interactive Notebooks: Risk Management</h1>
-            <p>Hands-on tools for understanding and applying key concepts in financial risk management.</p>
+            <h1>Enterprise Risk Management (ERM)</h1>
+            <p>An overview of ERM frameworks, components, and strategic importance.</p>
         </header>
 
         <nav id="local-nav">
-            <h2>Available Notebooks:</h2>
+            <h2>Topics:</h2>
             <ul id="file-list">
                 <!-- JS will populate this list -->
             </ul>
@@ -29,14 +29,15 @@
         </main>
 
         <footer>
-            <p><a href="../index.html">Back to All Interactive Notebooks</a> | <a href="../../home.html">Back to Main Hub</a></p>
+            <p><a href="../index.html">Back to Risk Management Hub</a> | <a href="../../home.html">Back to Main Hub</a></p>
         </footer>
     </div>
 
     <script>
         const localFiles = [
-            { name: "Risk Management Notebooks Overview", path: "README.md", default: true },
-            { name: "VaR Calculation Notebook (Download)", path: "VaR_Calculation_Notebook.ipynb", download: true }
+            { name: "ERM Overview", path: "README.md", default: true }
+            // Add new ERM content files here, e.g.:
+            // { name: "COSO Framework Deep Dive", path: "ERM_01_COSO_Framework_Deep_Dive.md" },
         ];
 
         const contentDisplay = document.getElementById('content-display');
@@ -50,44 +51,37 @@
                 })
                 .catch(error => {
                     console.error('Error loading content:', error);
-                    contentDisplay.innerHTML = `<p style="color:red;">Error loading content. Please check the file path and ensure the file exists.</p>`;
+                    contentDisplay.innerHTML = `<p style="color:red;">Error loading content: ${error}. Please check the file path and ensure the file exists.</p>`;
                 });
         }
 
         localFiles.forEach(file => {
             const listItem = document.createElement('li');
             const link = document.createElement('a');
-            link.href = file.path;
+            link.href = `#${file.path}`; // Use hash for SPA-like navigation
             link.textContent = file.name;
-
-            if (file.download) {
-                link.setAttribute('download', '');
-                link.title = `Download ${file.path}`;
-            } else {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    loadContent(file.path);
-                    window.location.hash = file.path;
-                });
-            }
-
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                loadContent(file.path);
+                window.location.hash = file.path; // Update URL hash
+            });
             listItem.appendChild(link);
             fileList.appendChild(listItem);
         });
 
         function loadInitialContent() {
             const hash = window.location.hash.substring(1);
-            const fileToLoad = localFiles.find(f => f.path === hash && !f.download) || localFiles.find(f => f.default);
+            const fileToLoad = localFiles.find(f => f.path === hash) || localFiles.find(f => f.default);
             if (fileToLoad) {
                 loadContent(fileToLoad.path);
             } else if (localFiles.length > 0) {
-                const firstViewable = localFiles.find(f => !f.download);
-                if(firstViewable) loadContent(firstViewable.path);
+                loadContent(localFiles[0].path); // Fallback to first file if no default/hash match
             }
         }
 
-        loadInitialContent();
-        window.addEventListener('hashchange', loadInitialContent);
+        loadInitialContent(); // Load content on initial page load
+        window.addEventListener('hashchange', loadInitialContent); // Load content on hash change
+
 
     </script>
     <script src="../../js/nav_data.js" defer></script>

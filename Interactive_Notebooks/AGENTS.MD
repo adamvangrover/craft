@@ -73,7 +73,37 @@ The main interactive HTML view for this section is `Interactive_Notebooks/index.
 
 ### 6. Roadmap / Planned Additions (from README)
 *   Existing notebooks cover Financial Modeling, Legal Analysis, and Valuation Components.
-*   Future notebooks planned for Fixed Income, Quantitative Methods, Risk Management, Market Analysis, etc.
+*   Future notebooks planned for Fixed Income, Quantitative Methods (expanding beyond current CFA Quant), Risk Management, Market Analysis, and potentially specific Fintech concept demonstrations.
 
-Refer to the root `AGENTS.MD` for general guidelines on content creation and linking.
-The main `Interactive_Notebooks/README.md` and `Interactive_Notebooks/index.html` must be updated when new notebook modules are added or significantly changed.
+### 7. Developer Notes & Future Considerations
+
+**Developer Notes:**
+*   **`Interactive_Notebooks/index.html` Hub Maintenance:** This HTML file is the primary interactive navigator for all notebook modules. It uses JavaScript (e.g., an `notebookCategories` array) to define the categories and link to their respective `index.html` (or `README.md`) files within subdirectories like `Financial_Modeling/`, `Legal_Analysis/`, etc. When a new notebook category (e.g., a new subdirectory like `Fixed_Income/`) is added, this `Interactive_Notebooks/index.html` **must** be updated.
+*   **Notebook Module Structure:** Strictly adhere to the structure for each notebook module:
+    *   `Topic_Name/` (e.g., `Financial_Modeling/`)
+        *   `ActualNotebookFile.ipynb`
+        *   `README.md` (This is the critical guide file for the notebook)
+        *   `index.html` (Simple viewer that displays the `README.md` and lists `.ipynb` files)
+        *   `data/` (Optional, for local datasets)
+*   **`README.md` as the Guide:** The `README.md` within each notebook's own subdirectory is the central piece of documentation for that notebook. It must be comprehensive, explaining purpose, usage, learning objectives, and providing a direct link to download/view the `.ipynb` file.
+*   **No Direct HTML Conversion (Current Policy):** Reiterate that the current strategy is to link to `.ipynb` files via their `README.md` guides, not to convert notebooks to HTML for embedding. This is due to agent environment constraints with `nbconvert`. If this changes, the root `AGENTS.MD` will be updated.
+*   **Dependencies:** Clearly list Python library dependencies (with versions if critical) in both the notebook itself (e.g., in the first code cell or a dedicated Markdown cell) and in its accompanying `README.md` guide.
+
+**Roadmap / Future Considerations:**
+*   **Content Expansion:**
+    *   Systematically develop notebooks for all planned categories: `Fixed_Income/`, `CFA_Quant_Methods/` (more advanced topics), `Risk_Management/`, `Market_Analysis/`.
+    *   Create notebooks for `Fintech/` concepts where interactive demonstration is valuable.
+    *   Develop more advanced notebooks within existing categories (e.g., complex LBO models, specific derivative pricing models).
+*   **Standardization:**
+    *   Develop a standard template for notebook `README.md` guides to ensure consistency in structure and information provided.
+    *   Create a template `.ipynb` file with recommended starting cells (e.g., library imports, standard disclaimers, learning objectives section).
+*   **Interactivity & Visualization:**
+    *   Encourage more use of `ipywidgets` for creating interactive dashboards and input controls within notebooks.
+    *   Promote the use of `plotly` for more dynamic and interactive visualizations, in addition to `matplotlib` and `seaborn`.
+*   **Data Sources:**
+    *   For notebooks requiring larger datasets not suitable for direct inclusion, explore options for linking to publicly available data sources or providing clear instructions on where users can obtain similar data.
+*   **User Experience:**
+    *   Consider adding a "launch in Binder" or "open in Colab" button to `README.md` guides if notebooks are hosted in a public GitHub repository and are self-contained, to lower the barrier to entry for users. (This is an advanced feature, dependent on external services).
+
+Refer to the root `AGENTS.MD` for general guidelines on content creation, linking, and the overall Jupyter Notebook strategy.
+The main `Interactive_Notebooks/README.md` (catalog) and `Interactive_Notebooks/index.html` (navigator) **must** be updated when new notebook modules/categories are added or significantly changed.

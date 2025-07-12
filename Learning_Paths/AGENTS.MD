@@ -58,3 +58,27 @@ The `Learning_Paths/README.md` file serves as a human-readable overview of this 
 The `home.html` page itself functions as a high-level, interactive learning path navigator. If significant new roles or learning objectives emerge that are not well-represented by the existing tabs/sections on `home.html`, consider whether `home.html` needs updating or if a new, detailed `.md` learning path in this directory is more appropriate.
 
 The `AGENTS.MD` files in other directories will indicate new content that might need to be incorporated into these learning paths. This directory is unlikely to contain interactive notebooks itself but will link to them extensively.
+
+### 7. Developer Notes & Future Considerations
+
+**Developer Notes:**
+*   **`Learning_Paths/index.html` - Critical Updates:** This HTML file is the interactive viewer for learning paths. Its `<ul id="learning-path-nav-list">` **must be manually updated** with a new `<li>` element for each new learning path `.md` file created. The `<li>` must have the correct `data-md-src="path/to/your_new_path.md"` attribute for the dynamic loading to work.
+*   **Path Maintenance is Key:** Learning paths are aggregators. Their value depends on the accuracy and relevance of their links to content across the repository. As other sections are updated (new content added, files moved/renamed), relevant learning paths **must be reviewed and updated**. This is a significant ongoing maintenance task. Note changes in other `AGENTS.MD` files that might trigger updates here.
+*   **Clarity of Structure in `.md` Path Files:** Use clear headings, ordered lists, and descriptive link texts within the Markdown files defining each path. This makes them easy to follow.
+*   **`path_id` in `js/nav_data.js`:** If a learning path is to be directly featured or linked from special UI elements driven by `js/nav_data.js` (like on `home.html`), it needs a unique `path_id` when defined in `nav_data.js` with `type: "learning_path_definition"`.
+
+**Roadmap / Future Considerations:**
+*   **Content Expansion (New Paths):**
+    *   Systematically create the planned learning paths: "Advanced Credit Risk Analysis," "CFA Level 2 Focus," "CFA Level 3 Focus," "Financial Modeling Mastery," "Risk Management Professional," "Introduction to Capital Markets."
+    *   Consider paths for specialized roles (e.g., "Fintech Analyst," "Quantitative Analyst Foundations").
+    *   Develop "skill-based" mini-paths (e.g., "Mastering Covenant Analysis," "Effective Financial Presentations").
+*   **Path Features & Interactivity:**
+    *   **Progress Tracking (Advanced):** Long-term, consider client-side JavaScript to allow users to mark sections of a path as complete (perhaps using local storage). This is a complex addition.
+    *   **Prerequisite Linking:** More formally define prerequisites between paths or sections within a path.
+    *   **Time Estimates:** Provide realistic time estimates for completing each path or major sections within a path.
+*   **Integration with Global Navigation:** Ensure that new, significant learning paths are added to `js/nav_data.js` so they appear in the global navigation sidebar, making them easily discoverable.
+*   **Feedback Mechanism:** Consider how users could provide feedback on the utility or completeness of specific learning paths.
+
+Refer to the root `AGENTS.MD` for general guidelines on content creation, linking, and updating `js/nav_data.js`.
+This section is highly dependent on the content of all other sections. Proactive review of other `AGENTS.MD` for changes impacting learning paths is crucial.
+Ensure the `Learning_Paths/README.md` (overview) is also kept in sync with `index.html` and the available `.md` path files.

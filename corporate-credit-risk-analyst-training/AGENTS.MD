@@ -56,9 +56,33 @@ The CRAFT program is organized into modules, each in its own subdirectory (e.g.,
 *   Link to relevant content in other repository sections (e.g., a CRAFT module on financial modeling could link to more detailed guides in `/Financial_Modeling/`).
 *   Consider linking to relevant `Interactive_Notebooks/` for hands-on examples.
 
-## 5. Roadmap / Planned Additions (Illustrative)
-*   Development of more interactive quizzes using Jupyter Notebooks or embedded HTML/JS.
-*   Video walkthroughs for complex case studies.
-*   Advanced modules on specialized lending types (e.g., project finance, real estate).
+## 5. Developer Notes, Roadmap & Future Considerations
 
-Refer to the root `AGENTS.MD` for guidelines on Jupyter Notebooks, general Markdown/HTML practices, and global glossary updates.
+**Developer Notes:**
+*   **CRAFT Hub (`corporate-credit-risk-analyst-training/index.html`):** This is the main entry point. The `appData.modules` JavaScript array within this HTML file is critical for module navigation. **It MUST be updated when modules are added, reordered, or their main `README.md` path changes.** Ensure descriptions are concise and accurate.
+*   **Module `README.md` as Main Content:** The primary content for each module resides in its `README.md` file. Sub-topic Markdown files should be clearly linked from this main README.
+*   **Local `GLOSSARY.md` vs. `Global_Financial_Glossary.md`:** Prioritize adding terms to the local `GLOSSARY.md` first if they are highly specific to CRAFT or introduced with a CRAFT-specific nuance. If the term has broader applicability, ensure it's also in the `Global_Financial_Glossary.md`. Link to both where it makes sense.
+*   **`FUTURE_IDEAS.md`:** This file in the `corporate-credit-risk-analyst-training/` directory contains a backlog of potential content and structural ideas. Consult this file for inspiration and to align new content with planned expansions.
+*   **Teacher/Developer Notes within Modules:** Some modules (especially advanced ones like in `modules/06-advanced-topics/`) include `*-developer-notes.md` and `*-teacher-notes.md`. These are valuable for providing deeper context, alternative explanations, or teaching tips. Consider adding these for new complex modules.
+*   **Consistency is Key:** Given this is a structured training program, maintaining consistency in module structure, tone, formatting, and depth of explanation across all modules is very important for the learner experience.
+
+**Roadmap / Future Considerations (also see `FUTURE_IDEAS.md`):**
+*   **Content Expansion (Ongoing):**
+    *   Systematically work through the items in `FUTURE_IDEAS.md`.
+    *   Flesh out existing modules with more diverse case studies (covering different industries/scenarios), more comprehensive quizzes, and deeper dives into complex sub-topics.
+    *   Develop advanced modules on specialized lending types (e.g., project finance, real estate, asset-based lending) and emerging risk areas.
+*   **Interactive Learning:**
+    *   Increase the use of interactive quizzes, potentially leveraging `quiz_viewer.html` or creating module-specific interactive HTML/JS components.
+    *   Integrate more Jupyter Notebooks from `Interactive_Notebooks/` as practical exercises for financial analysis, modeling, or data interpretation within relevant CRAFT modules.
+*   **Multimedia Content:**
+    *   Develop video walkthroughs for complex case studies or particularly challenging analytical techniques (would require decisions on hosting and embedding).
+    *   Consider audio summaries for key concepts.
+*   **Assessment & Feedback:**
+    *   Long-term: Explore options for more robust end-of-module assessments and a capstone project for the entire CRAFT program.
+    *   Consider mechanisms for learners to provide feedback on module content for continuous improvement.
+*   **Skills Mapping & Learning Paths:**
+    *   Develop a detailed skills matrix mapping CRAFT content to core competencies for credit analysts.
+    *   Potentially define specialized learning paths within CRAFT (e.g., "Focus on SME Lending," "Focus on Large Corporate Syndications").
+*   **Solution Guides:** Ensure comprehensive solution guides or walkthroughs are available for all case studies and complex quizzes.
+
+Refer to the root `AGENTS.MD` for general guidelines on Jupyter Notebooks, general Markdown/HTML practices, global glossary updates, and integration with the main site navigation if direct links to CRAFT modules are desired from outside the CRAFT hub.
