@@ -1,0 +1,14 @@
+Objective: Generate a Markdown file that outlines the content for a presentation.
+
+Instructions:
+1. Create a Markdown file named `presentation_script.md` in the `/src/presentation` directory.
+2. The script should be easily convertible to a PowerPoint or Google Slides presentation.
+3. The script should include slides for the title, game overview, team sorting, game rounds, lightning round, finals, and winner announcement.
+4. For the game rounds, create placeholder slides for each question, followed by a slide that reveals the correct answer and the AI's feedback.
+
+Developer Notes:
+- The presentation is a key part of the game experience. It should be visually appealing and engaging.
+- The Markdown format makes it easy to edit and convert the presentation to other formats.
+- Consider adding speaker notes to the presentation script to help the facilitator deliver the presentation effectively.
+- The presentation could be made more interactive by adding polls or quizzes.
+- The presentation should be consistent with the branding and style of the website.
