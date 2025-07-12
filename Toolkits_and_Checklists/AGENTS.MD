@@ -52,7 +52,31 @@ The interactive HTML view is `Toolkits_and_Checklists/index.html`.
 *   Industry Analysis Framework Checklist.
 *   Management Meeting Question Template.
 *   SWOT Analysis template.
-*   Template for a basic credit memo outline.
+*   Template for a basic credit memo outline/structure.
+*   Checklist for reviewing data room contents during due diligence.
+*   Quick reference for common accounting red flags.
 
-Refer to the root `AGENTS.MD` for general guidelines.
-Refer to `Interactive_Notebooks/AGENTS.MD` if planning to create Jupyter Notebook based tools.
+### 6. Developer Notes & Future Considerations
+
+**Developer Notes:**
+*   **`Toolkits_and_Checklists/index.html` Maintenance:** This HTML file uses a JavaScript array (typically `filesInDir` or similar) to list the Markdown files in this section. When adding a new toolkit or checklist `.md` file, or renaming/reordering existing ones, this array in `index.html` **must** be updated for discoverability via the interactive viewer.
+*   **Actionability and Clarity:** These are paramount. Toolkits should be immediately usable. Checklists should have clear, distinct, and actionable items. Use precise language.
+*   **Markdown Formatting:** Leverage Markdown's features for checklists (`- [ ] Task`), tables, and structured lists to enhance usability.
+*   **Guidance on Use:** Each toolkit/checklist `.md` file should include a brief introduction explaining its purpose, intended audience, and how to use it effectively. Include disclaimers if the tool is a simplification or not exhaustive.
+*   **Print-Friendly Consideration:** While not a primary design constraint for agents, consider if the Markdown structure lends itself to being reasonably print-friendly, as users might want to print checklists.
+
+**Roadmap / Future Considerations:**
+*   **Content Expansion:**
+    *   Systematically develop the planned additions: Financial Model Review Checklist, Covenant Analysis Checklist, Industry Analysis Framework Checklist, Management Meeting Question Template, SWOT Analysis template.
+    *   Add a quick reference guide for common Excel formulas used in finance.
+    *   Develop a simple "Early Warning Signals" checklist for credit monitoring.
+    *   Create a toolkit for preparing a basic sources and uses table.
+*   **Interactive Versions:**
+    *   For certain tools (e.g., financial ratio calculators, simple scenario analysis templates), consider developing interactive Jupyter Notebook versions in `Interactive_Notebooks/Toolkits/` (a new subdirectory might be needed there). The `.md` file here would then describe the tool and link to the interactive notebook.
+*   **Version Control/Updates:**
+    *   As best practices evolve, checklists and toolkits may need updating. Consider a simple versioning note or "last reviewed" date in the Markdown if significant changes occur.
+*   **Categorization:** If the number of toolkits grows significantly, consider adding subdirectories within `Toolkits_and_Checklists/` for better organization (e.g., `Credit_Analysis_Tools/`, `Modeling_Aids/`). This would require updating `index.html` logic.
+
+Refer to the root `AGENTS.MD` for general guidelines, especially on Jupyter Notebooks and the `Global_Financial_Glossary.md`.
+Refer to `Interactive_Notebooks/AGENTS.MD` if planning to create Jupyter Notebook based interactive versions of these tools.
+Ensure `Toolkits_and_Checklists/README.md` (table of contents) is also kept in sync with `index.html` and the actual files.

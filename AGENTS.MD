@@ -23,8 +23,13 @@ The repository is structured into several main thematic directories, each potent
 *   `Toolkits_and_Checklists/`: Practical job aids.
 *   `Professional_Development/`: Soft skills for finance professionals.
 *   `Learning_Paths/`: Curated guides for specific learning objectives.
+*   `legal_analysis/`: Guides and tools for understanding legal documents in finance.
 
 Each major directory listed above (and any new ones created at a similar level) **MUST** have its own `AGENTS.MD` file providing section-specific guidance.
+
+**Note on other directories:**
+*   `outlook/`: This directory contains market outlook and trend reports. Due to its specific and often time-sensitive nature, content here should follow general guidelines. Specific agent instructions, if any beyond the general ones, would be minimal and could be covered in this root `AGENTS.MD` if necessary, but a dedicated `AGENTS.MD` is not currently mandated for it unless it significantly expands in scope.
+*   `assets/`, `css/`, `js/`: These have their own `AGENTS.MD` files focused on asset management and global UI components.
 
 ## 3. General Principles for Content Creation
 
@@ -259,4 +264,37 @@ When adding an item to `navData`, specify its `type`. Common types include:
 
 Always test your changes by opening an HTML page that includes the global navigation (e.g., `home.html`) locally.
 Refer to the existing entries in `js/nav_data.js` for more examples.
-The global navigation system is designed to be expandable. Future enhancements may include different visual styles (e.g., top menu), improved active link highlighting, and more advanced learning path integration.
+
+## 11. Developer Notes & Future Considerations
+
+This section outlines broader ideas for repository improvement, technical debt, and potential future features that agents should be aware of.
+
+*   **Global Navigation Enhancements:**
+    *   The current system is functional but could be improved with different visual styles (e.g., a top menu option).
+    *   Active link highlighting could be more robust.
+    *   More advanced learning path integration (e.g., tracking progress, suggesting next steps) is a long-term goal.
+*   **Jupyter Notebook Integration:**
+    *   The current strategy of using `README.md` guides for notebooks is due to agent limitations with `nbconvert`. If `nbconvert` becomes reliably available and performant for agents, revisiting direct HTML conversion and embedding of notebooks (as outlined in section 6) would be valuable. This would involve:
+        *   Ensuring `pandoc` is available if `nbconvert` requires it.
+        *   Standardizing `nbconvert` commands and output styling.
+*   **Interactive Quiz Enhancements:**
+    *   The `quiz_viewer.html` and `assets/js/quiz_loader.js` provide basic quiz functionality. Future enhancements could include:
+        *   Different question types (e.g., fill-in-the-blank, matching).
+        *   Score tracking and feedback persistence (potentially using local storage).
+        *   Randomization of questions and answers.
+*   **Content Discoverability:**
+    *   While the global navigation helps, implementing a simple client-side search functionality could greatly improve content discoverability.
+    *   Topic maps or visual diagrams showing connections between different learning modules could be beneficial.
+*   **Accessibility (A11y):**
+    *   Future efforts should include a more thorough review of HTML structures and CSS to ensure content is accessible (e.g., proper ARIA roles, keyboard navigation, color contrast).
+*   **Automated Checks & Linting:**
+    *   Implementing automated checks for broken links would be highly beneficial.
+    *   Using linters for Markdown (e.g., Markdownlint) and formatters for code (e.g., Prettier for JS/CSS/HTML, Black for Python in notebooks) could improve consistency.
+*   **Contribution Guide for Humans (`CONTRIBUTING.md`):**
+    *   Creating a `CONTRIBUTING.md` file to guide human contributors, summarizing key principles from these `AGENTS.MD` files, is a planned addition.
+*   **Performance:**
+    *   Regularly review image sizes and consider optimizing large assets.
+    *   Monitor JavaScript performance, especially for scripts that manipulate large amounts of content.
+*   **Content Gaps & Expansion:**
+    *   Regularly review `AGENTS.MD` files in subdirectories, as they often contain "Roadmap" or "Future Additions" sections that highlight specific content needs.
+    *   Encourage cross-linking to newly developed content to ensure it's well-integrated.

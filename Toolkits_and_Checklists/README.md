@@ -23,9 +23,9 @@ This section will house a variety of toolkits and checklists, including:
 *   **[Basic_Financial_Ratios_Calculator_Guide.md](./Basic_Financial_Ratios_Calculator_Guide.md):**
     *   A Markdown guide explaining how to set up a simple Excel sheet to calculate key financial ratios (Liquidity, Solvency/Leverage, Coverage, Profitability, Activity).
     *   Includes formulas and interpretation notes from a credit analyst's perspective.
-*   **Financial_Model_Review_Checklist.md:** *(Future Addition)*
+*   **[Financial_Model_Review_Checklist.md](./Financial_Model_Review_Checklist.md):**
     *   A checklist for reviewing financial models, focusing on structure, inputs, formula integrity, logic, and output reasonableness.
-    *   Will link to `Financial_Modeling/Templates/Excel_Financial_Model_Best_Practices.md`.
+    *   Links to `Financial_Modeling/Templates/Excel_Financial_Model_Best_Practices.md`.
 *   **Covenant_Analysis_Checklist.md:** *(Future Addition)*
     *   A guide for analyzing loan covenants, including identifying key terms, assessing their restrictiveness, and modeling compliance.
 *   **Industry_Analysis_Framework_Checklist.md:** *(Future Addition)*

@@ -58,11 +58,26 @@ This section is typically structured by modeling concepts or applications:
 *   Connect modeling concepts to their application in other areas, such as `/corporate-credit-risk-analyst-training/` (e.g., how modeling is used in underwriting), `/CFA/` (e.g., CFA curriculum on valuation), or specific `/primers/` if discussing industry-specific models.
 *   Point to relevant `Interactive_Notebooks/` for hands-on examples.
 
-### 5. Roadmap / Planned Additions (Illustrative from README)
-*   More detailed model templates (e.g., LBO model, M&A model structure).
-*   Guides on specific industry modeling nuances (e.g., banking, real estate, natural resources).
-*   Section on Model Auditing and Testing.
-*   Interactive model examples using Jupyter Notebooks (see `Interactive_Notebooks/AGENTS.MD`).
+### 5. Developer Notes, Roadmap & Future Considerations
 
-Refer to the root `AGENTS.MD` for general guidelines.
-Refer to `Interactive_Notebooks/AGENTS.MD` if planning to create Jupyter Notebook based models.
+**Developer Notes:**
+*   **`Financial_Modeling/index.html` Maintenance:** This HTML file serves as an interactive hub for the Financial Modeling section. When new major content (e.g., a new best practice guide, a new template description, a new valuation application overview) is added, ensure `Financial_Modeling/index.html` is updated to link to it. This might involve modifying the JavaScript data structures that populate the cards or lists on that page.
+*   **Excel Templates vs. Descriptions:** As noted, agents primarily create text-based descriptions of model structures in Markdown. If actual `.xlsx` files are needed, they would typically be provided by a human or the agent's Markdown description would serve as a spec for a human. Focus on creating very clear, step-by-step structural guides in Markdown.
+*   **Formula Representation:** When describing formulas in Markdown, use clear notation. Code blocks can be used for `Value = Other_Value * (1 + Growth_Rate)` style representations. For complex formulas, consider breaking them down.
+*   **Interactive Notebooks:** Guides in this section should heavily cross-reference and link to corresponding Jupyter Notebooks in `Interactive_Notebooks/Financial_Modeling/`. The Markdown guides can explain theory and high-level structure, while notebooks provide the hands-on practice.
+
+**Roadmap / Planned Additions:**
+*   **Content Expansion:**
+    *   Create the `Excel_Tips/` subdirectory with content on useful Excel functions, shortcuts, and techniques (e.g., XLOOKUP, INDEX/MATCH, data tables, goal seek).
+    *   Develop more detailed model structure guides/templates (e.g., LBO model, M&A model, 3-statement projection model, DCF model variations).
+    *   Add guides on specific industry modeling nuances (e.g., for banking (FIG), real estate (REITs), natural resources, SaaS).
+    *   Create a dedicated section/guide on "Model Auditing and Testing" including common checks, stress testing, and scenario analysis.
+    *   Expand `Forecasting_Techniques/` with more detailed approaches for various financial statement line items.
+*   **Interactive Elements:**
+    *   Develop more interactive model examples as Jupyter Notebooks in `Interactive_Notebooks/Financial_Modeling/`.
+    *   Consider simple web-based calculators (HTML/JS) for common ratios or formulas, embedded within relevant Markdown guides.
+*   **Visual Aids:**
+    *   While direct image creation is limited for agents, encourage textual descriptions that could easily be translated into diagrams (e.g., flowcharts of model logic, schematics of sheet linking).
+
+Refer to the root `AGENTS.MD` for general guidelines, especially on Jupyter Notebooks and global navigation.
+Refer to `Interactive_Notebooks/AGENTS.MD` for specific instructions on creating notebook-based models.

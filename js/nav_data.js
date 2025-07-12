@@ -69,8 +69,9 @@ const navData = [
     text: "Financial Modeling",
     type: "category",
     children: [
-      { text: "Financial Modeling Hub", href: "Financial_Modeling/index.html", type: "html_hub" }, // Links to Financial_Modeling/index.html
+      { text: "Financial Modeling Hub", href: "Financial_Modeling/index.html", type: "html_hub" },
       { text: "Best Practices", href: "Financial_Modeling/Best_Practices/FM_Best_Practices.md", type: "markdown_viewer", viewer: "global" },
+      { text: "Excel Tips & Techniques", href: "Financial_Modeling/Excel_Tips/index.html", type: "section_viewer" },
       { text: "Forecasting Techniques", href: "Financial_Modeling/Forecasting_Techniques/Revenue_Forecasting_Approaches.md", type: "markdown_viewer", viewer: "global" },
       { text: "Templates", href: "Financial_Modeling/Templates/Basic_3_Statement_Model_Structure.md", type: "markdown_viewer", viewer: "global" },
       { text: "Valuation Applications", href: "Financial_Modeling/Valuation_Applications/DCF_Modeling_Overview.md", type: "markdown_viewer", viewer: "global" },
@@ -110,6 +111,7 @@ const navData = [
       { text: "WACC Calculator Guide", href: "Interactive_Notebooks/Valuation_Components/README.md", type: "jupyter_guide" },
       { text: "Interactive VaR Calculator Guide", href: "Interactive_Notebooks/Risk_Management/README.md", type: "jupyter_guide" }, // # Assuming this exists or is planned
       { text: "Interactive TVM Solver Guide", href: "Interactive_Notebooks/CFA_Quant_Methods/README.md", type: "jupyter_guide" }, // # Assuming this exists or is planned
+      { text: "Fixed Income Bond Math Guide", href: "Interactive_Notebooks/Fixed_Income/README.md", type: "jupyter_guide" },
     ],
   },
   {
@@ -150,10 +152,20 @@ const navData = [
       },
       {
         text: "Liquidity Risk",
-        href: "Risk_Management/Liquidity_Risk/index.html", // Or README.md if it's the main lander
-        type: "section_viewer", // Assuming index.html or README.md acts as a mini-hub for this sub-topic
+        href: "Risk_Management/Liquidity_Risk/index.html",
+        type: "section_viewer",
         children: [
           { text: "Introduction to Liquidity Risk", href: "Risk_Management/Liquidity_Risk/LRM_01_Introduction_to_Liquidity_Risk.md", type: "markdown_viewer", viewer: "global"}
+        ]
+      },
+      {
+        text: "Enterprise Risk Management (ERM)",
+        href: "Risk_Management/Enterprise_Risk_Management/index.html",
+        type: "section_viewer",
+        children: [
+            { text: "ERM Overview", href: "Risk_Management/Enterprise_Risk_Management/README.md", type: "markdown_viewer", viewer: "global" }
+            // Add links to specific ERM documents as they are created, e.g.,
+            // { text: "COSO Framework Deep Dive", href: "Risk_Management/Enterprise_Risk_Management/ERM_01_COSO_Framework_Deep_Dive.md", type: "markdown_viewer", viewer: "global" }
         ]
       }
     ],

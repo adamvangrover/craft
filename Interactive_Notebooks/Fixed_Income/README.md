@@ -18,8 +18,8 @@ The primary goals of this section are to:
 This section currently plans for or includes the following notebook(s):
 
 *   **Interactive Bond Mathematics Notebook:**
-    *   **Guide & Overview:** Detailed below. This guide describes the planned `Bond_Math.ipynb`.
-    *   **Notebook File:** [Bond_Math.ipynb](./Bond_Math.ipynb) *(Currently a planned notebook - file does not exist yet)*
+    *   **Guide & Overview:** Detailed below. This guide describes the `Bond_Math.ipynb` notebook.
+    *   **Notebook File:** [Bond_Math.ipynb](./Bond_Math.ipynb)
     *   **Description:** An interactive guide to core bond mathematics, including pricing, yield calculations, and duration/convexity concepts.
 
 *(This list will be updated as more notebooks for Fixed Income are developed.)*
@@ -33,11 +33,9 @@ This section currently plans for or includes the following notebook(s):
 
 ### 1. Purpose of This Notebook
 
-The (planned) `Bond_Math.ipynb` Jupyter Notebook, accompanied by this guide, aims to provide an interactive, hands-on learning experience for understanding and applying core bond mathematics concepts.
+The `Bond_Math.ipynb` Jupyter Notebook, accompanied by this guide, provides an interactive, hands-on learning experience for understanding and applying core bond mathematics concepts.
 
 Fixed income securities are a cornerstone of financial markets, and a solid grasp of how to value them and assess their risks is crucial for various finance professionals, including portfolio managers, risk analysts, and credit analysts. This interactive tool aims to demystify bond math by allowing users to experiment with calculations and visualize relationships.
-
-> **Development Note:** The `Bond_Math.ipynb` notebook needs to be created to accompany this guide. It will contain Python code cells for calculations and visualizations, along with explanatory Markdown cells as outlined below.
 
 ### 2. Learning Objectives for this Notebook
 
@@ -130,9 +128,9 @@ The `Bond_Math.ipynb` notebook will likely be structured as follows:
 
 ## 5. How to Use This Guide & The Notebook
 
-1.  **Read this Guide:** Familiarize yourself with the concepts and the planned structure of the notebook.
-2.  **Download the Notebook:** Once available, download the `Bond_Math.ipynb` file from this directory.
-    *   **[Download the Bond_Math.ipynb Notebook](./Bond_Math.ipynb)** *(Note: This file is planned and does not exist yet.)*
+1.  **Read this Guide:** Familiarize yourself with the concepts and the structure of the notebook.
+2.  **Download the Notebook:** Download the `Bond_Math.ipynb` file from this directory.
+    *   **[Download the Bond_Math.ipynb Notebook](./Bond_Math.ipynb)**
 3.  **Run the Notebook:** Open the `.ipynb` file in a Jupyter environment.
 4.  **Follow Along:** Execute the code cells sequentially. Read the explanatory Markdown cells in the notebook.
 5.  **Experiment:** Change input parameters in the interactive widgets or code cells to see how bond prices, yields, and risk measures react. This is key to building intuition.
@@ -160,11 +158,11 @@ The `Bond_Math.ipynb` notebook will likely be structured as follows:
 
 ## Developer Notes & Areas for Impact (for this Fixed Income Notebook Section)
 
-*   **Develop `Bond_Math.ipynb`:** This is the highest priority for this section. It should follow the outline provided above.
-*   **Data for Examples:** While many bond math concepts can be illustrated with user inputs, consider if a small, simple dataset of sample bonds (in `data/.placeholder` or a new CSV) could be useful for batch calculations or comparisons.
-*   **Advanced Topics:** Once the core `Bond_Math.ipynb` is complete, consider notebooks for:
-    *   Valuation of bonds with embedded options (using binomial trees).
-    *   Term structure of interest rates modeling (visualizing different yield curve shapes).
+*   **`Bond_Math.ipynb`:** This notebook has been developed according to the outline provided above. Future enhancements could include more advanced error handling or additional visualizations.
+*   **Data for Examples:** While many bond math concepts can be illustrated with user inputs, consider if a small, simple dataset of sample bonds (in `data/.placeholder` or a new CSV) could be useful for batch calculations or comparisons in this or future notebooks.
+*   **Advanced Topics:** With the core `Bond_Math.ipynb` now complete, consider notebooks for:
+    *   Valuation of bonds with embedded options (e.g., using binomial trees, building on the conceptual introduction in `Bond_Math.ipynb`).
+    *   Term structure of interest rates modeling (visualizing different yield curve shapes and their implications).
     *   Credit spread analysis.
 
 ## Possible Avenues for Exploration and Further Development
