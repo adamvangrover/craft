@@ -109,7 +109,7 @@ const navData = [
       { text: "LBO Model Basics Guide", href: "Interactive_Notebooks/Financial_Modeling/LBO_Model_Basics/README.md", type: "jupyter_guide" },
       { text: "Credit Agreement Analysis Guide", href: "Interactive_Notebooks/Legal_Analysis/README.md", type: "jupyter_guide" },
       { text: "WACC Calculator Guide", href: "Interactive_Notebooks/Valuation_Components/README.md", type: "jupyter_guide" },
-      { text: "Interactive VaR Calculator Guide", href: "Interactive_Notebooks/Risk_Management/README.md", type: "jupyter_guide" }, // # Assuming this exists or is planned
+      { text: "VaR Calculation Notebook Guide", href: "Interactive_Notebooks/Risk_Management/README.md", type: "jupyter_guide" },
       { text: "Interactive TVM Solver Guide", href: "Interactive_Notebooks/CFA_Quant_Methods/README.md", type: "jupyter_guide" }, // # Assuming this exists or is planned
       { text: "Fixed Income Bond Math Guide", href: "Interactive_Notebooks/Fixed_Income/README.md", type: "jupyter_guide" },
     ],
@@ -233,7 +233,7 @@ const navData = [
               {text: "Ethical Decision Making", href: "Professional_Development/Ethical_Decision_Making_in_Practice.md", type: "markdown_viewer", viewer: "global"}
           ]
         },
-        { text: "Global Financial Glossary", href: "Global_Financial_Glossary.md", type: "markdown_viewer", viewer: "global"},
+        { text: "Interactive Glossary", href: "view_glossary.html", type: "html"},
     ]
   }
 ];
