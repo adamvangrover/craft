@@ -1,27 +1,17 @@
-# Agent Instructions
+# Agent Instructions: Financial Modeling
 
-This document provides instructions for AI agents working with the content in this directory and its subdirectories.
+This document provides instructions for AI agents working with the content in the `/Financial_Modeling/` directory and its subdirectories.
 
-## General Guidelines:
+## Inherits From
 
-*   **Consistency:** Maintain consistency with the overall repository structure, formatting, and writing style. Refer to the main `README.md` and other `AGENTS.MD` files for examples.
-*   **Clarity and Conciseness:** Ensure all documentation, explanations, and comments are clear, concise, and easy to understand.
-*   **Markdown Best Practices:** Follow standard Markdown syntax. Use formatting (headings, lists, bolding, etc.) to improve readability.
-*   **Accuracy:** Verify the accuracy of all information, especially financial concepts, formulas, and modeling techniques.
-*   **File Naming:** Use clear and consistent file names (e.g., `dcf_model_guide.md`, `Excel_Best_Practices.md`).
-*   **Links:**
-    *   Use relative links for internal navigation.
-    *   Verify that all links are functional.
-*   **Updating Navigation:** When adding new content or significantly modifying existing content, ensure that relevant `README.md` files and `index.html` (especially `Financial_Modeling/index.html`) are updated to reflect these changes for discoverability.
-*   **Code (if applicable, e.g., for VBA snippets or formulas):**
-    *   Comment code adequately.
-    *   Ensure any described logic is sound.
-*   **Review:** Before submitting changes, review your work for adherence to these guidelines and the specific task requirements.
+This document inherits all general principles from the root `AGENTS.MD` file. Please review that document first for guidelines on:
 
-## Directory-Specific Instructions: Financial Modeling
-
-### Inherits From
-This document inherits general principles from the root `AGENTS.MD` file. Please review that first.
+*   Overall repository architecture and purpose.
+*   General content creation principles (accuracy, clarity, modularity).
+*   Linking conventions.
+*   Working with interactive dashboards and the global navigation system (`js/nav_data.js`).
+*   Jupyter Notebook and Markdown viewer implementation.
+*   Updating the Global Financial Glossary.
 
 ### 1. Purpose and Scope of this Directory
 The `/Financial_Modeling/` directory provides resources on best practices, structural guides, Excel tips, and techniques for building robust financial models. The focus is on models used for financial analysis, valuation, and credit assessment.
@@ -58,7 +48,14 @@ This section is typically structured by modeling concepts or applications:
 *   Connect modeling concepts to their application in other areas, such as `/corporate-credit-risk-analyst-training/` (e.g., how modeling is used in underwriting), `/CFA/` (e.g., CFA curriculum on valuation), or specific `/primers/` if discussing industry-specific models.
 *   Point to relevant `Interactive_Notebooks/` for hands-on examples.
 
-### 5. Developer Notes, Roadmap & Future Considerations
+### 5. Tools
+
+*   **`global_markdown_viewer.html`:** Use this tool to render Markdown files.
+*   **`Financial_Modeling/index.html`:** Use this tool to add new content to the Financial Modeling Hub.
+*   **`js/nav_data.js`:** Use this tool to add new content to the global navigation.
+*   **`Global_Financial_Glossary.md`:** Use this tool to add new terms to the global glossary.
+
+### 6. Developer Notes, Roadmap & Future Considerations
 
 **Developer Notes:**
 *   **`Financial_Modeling/index.html` Maintenance:** This HTML file serves as an interactive hub for the Financial Modeling section. When new major content (e.g., a new best practice guide, a new template description, a new valuation application overview) is added, ensure `Financial_Modeling/index.html` is updated to link to it. This might involve modifying the JavaScript data structures that populate the cards or lists on that page.
@@ -78,6 +75,3 @@ This section is typically structured by modeling concepts or applications:
     *   Consider simple web-based calculators (HTML/JS) for common ratios or formulas, embedded within relevant Markdown guides.
 *   **Visual Aids:**
     *   While direct image creation is limited for agents, encourage textual descriptions that could easily be translated into diagrams (e.g., flowcharts of model logic, schematics of sheet linking).
-
-Refer to the root `AGENTS.MD` for general guidelines, especially on Jupyter Notebooks and global navigation.
-Refer to `Interactive_Notebooks/AGENTS.MD` for specific instructions on creating notebook-based models.

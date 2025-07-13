@@ -76,6 +76,37 @@ body {
     padding: 8px 12px;
     font-size: 0.9em;
 }
+
+.top-nav {
+    background-color: #f4f4f4;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.top-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.top-nav li {
+    margin: 0 0.5rem;
+}
+
+.top-nav a {
+    text-decoration: none;
+    color: #333;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.top-nav a:hover {
+    background-color: #ddd;
+}
 .primers-nav-pane .primer-summary-card.active-primer {
     border-left: 4px solid #007bff;
     background-color: #e7f3ff;

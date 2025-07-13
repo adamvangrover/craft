@@ -269,6 +269,27 @@ Refer to the existing entries in `js/nav_data.js` for more examples.
 
 This section outlines broader ideas for repository improvement, technical debt, and potential future features that agents should be aware of.
 
+### Getting Started: Quick Guide for New Contributors
+
+1.  **Read the Root `AGENTS.MD`:** This file is the most important document in the repository. It contains the overall strategy and guidelines for content creation.
+2.  **Explore the Repository:** Familiarize yourself with the existing content and structure.
+3.  **Review the `AGENTS.MD` for the Section You're Working In:** Each major section has its own `AGENTS.MD` file with specific guidelines.
+4.  **Check for "Roadmap" or "Future Additions" Sections:** These sections often contain specific content needs.
+5.  **Start Small:** If you're not sure where to start, try adding a new term to the `Global_Financial_Glossary.md` or fixing a broken link.
+
+### Tone and Voice
+
+*   **Professional and Authoritative:** The tone of the content should be professional and authoritative, but also accessible and engaging.
+*   **Clear and Concise:** Avoid jargon and use clear, concise language.
+*   **Objective and Unbiased:** Present information in an objective and unbiased manner.
+
+### Image and Asset Guidelines
+
+*   **Optimize Images:** All images should be optimized for the web to ensure fast loading times.
+*   **Use Descriptive File Names:** File names should be descriptive and use hyphens instead of spaces (e.g., `financial-modeling-best-practices.png`).
+*   **Add Alt Text:** All images should have descriptive alt text for accessibility.
+*   **Store Images in the `assets/` Directory:** All images should be stored in the `assets/` directory, organized into subdirectories by topic.
+
 *   **Global Navigation Enhancements:**
     *   The current system is functional but could be improved with different visual styles (e.g., a top menu option).
     *   Active link highlighting could be more robust.

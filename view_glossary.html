@@ -179,16 +179,16 @@
                     if (!response.ok) throw new Error('Network response was not ok');
                     const markdown = await response.text();
 
-                    const lines = markdown.split('\\n');
+                    const lines = markdown.split('\n');
                     let currentLetter = '';
 
                     lines.forEach(line => {
-                        const letterMatch = line.match(/^##\\s+([A-Z])$/);
+                        const letterMatch = line.match(/^##\s+([A-Z])$/);
                         if (letterMatch) {
                             currentLetter = letterMatch[1];
                         }
 
-                        const termMatch = line.match(/^\\*\\s+\\*\\*(.*?):\\*\\*\\s*(?:\\((.*?)\\))?\\s*(.*)/);
+                        const termMatch = line.match(/^\*\s+\*\*(.*?):\*\*\s*(?:\((.*?)\))?\s*(.*)/);
                         if (termMatch && currentLetter) {
                             allTerms.push({
                                 letter: currentLetter,
