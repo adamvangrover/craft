@@ -1,24 +1,17 @@
-# Agent Instructions
+# Agent Instructions: Corporate Credit Risk Analyst Training (CRAFT) Program
 
-This document provides instructions for AI agents working with the content in this directory and its subdirectories.
+This document provides instructions for AI agents working with the content in the `/corporate-credit-risk-analyst-training/` directory and its subdirectories.
 
-## General Guidelines:
+## Inherits From
 
-*   **Consistency:** Maintain consistency with the overall repository structure, CRAFT program's established style, and formatting of existing modules.
-*   **Clarity and Detail:** CRAFT modules should be comprehensive and detailed enough for self-study by aspiring analysts. Explain concepts from fundamentals.
-*   **Markdown Best Practices:** Utilize Markdown effectively for structure, readability, tables, and code blocks (for examples if any).
-*   **Accuracy:** All financial concepts, accounting rules, analytical techniques, and market descriptions must be accurate and current where possible.
-*   **File Naming:** Follow existing conventions (e.g., `01-foundations/`, `01-accounting-and-financial-statement-analysis.md`).
-*   **Links:** Use relative links. Verify functionality. Link extensively to the local `GLOSSARY.md` and the `Global_Financial_Glossary.md`.
-*   **Updating Navigation:**
-    *   The primary navigation is `corporate-credit-risk-analyst-training/index.html`. Its `craftModulesData` JavaScript array **must** be updated if modules are added, reordered, or their main `index.html` (or `README.md`) path changes.
-    *   The main `corporate-credit-risk-analyst-training/README.md` module list should also be kept in sync.
-*   **Review:** Adhere to guidelines and task requirements.
+This document inherits all general principles from the root `AGENTS.MD` file. Please review that document first for guidelines on:
 
-## Directory-Specific Instructions: Corporate Credit Risk Analyst Training (CRAFT) Program
-
-### Inherits From
-This document inherits general principles from the root `AGENTS.MD` file. Please review that first.
+*   Overall repository architecture and purpose.
+*   General content creation principles (accuracy, clarity, modularity).
+*   Linking conventions.
+*   Working with interactive dashboards and the global navigation system (`js/nav_data.js`).
+*   Jupyter Notebook and Markdown viewer implementation.
+*   Updating the Global Financial Glossary.
 
 ### 1. Purpose and Scope of this Directory
 The `/corporate-credit-risk-analyst-training/` (CRAFT) directory contains a comprehensive, modular training program designed to equip new and aspiring analysts with the essential skills and knowledge for a career in corporate credit risk. It covers accounting, financial analysis, capital markets, the credit lifecycle, and critical thinking.
@@ -56,7 +49,16 @@ The CRAFT program is organized into modules, each in its own subdirectory (e.g.,
 *   Link to relevant content in other repository sections (e.g., a CRAFT module on financial modeling could link to more detailed guides in `/Financial_Modeling/`).
 *   Consider linking to relevant `Interactive_Notebooks/` for hands-on examples.
 
-## 5. Developer Notes, Roadmap & Future Considerations
+### 5. Tools
+
+*   **`quiz_viewer.html`:** Use this tool to create interactive quizzes.
+*   **`global_markdown_viewer.html`:** Use this tool to render Markdown files.
+*   **`corporate-credit-risk-analyst-training/index.html`:** Use this tool to add new content to the CRAFT Program Hub.
+*   **`js/nav_data.js`:** Use this tool to add new content to the global navigation.
+*   **`GLOSSARY.md`:** Use this tool to add new terms to the local glossary.
+*   **`Global_Financial_Glossary.md`:** Use this tool to add new terms to the global glossary.
+
+### 6. Developer Notes, Roadmap & Future Considerations
 
 **Developer Notes:**
 *   **CRAFT Hub (`corporate-credit-risk-analyst-training/index.html`):** This is the main entry point. The `appData.modules` JavaScript array within this HTML file is critical for module navigation. **It MUST be updated when modules are added, reordered, or their main `README.md` path changes.** Ensure descriptions are concise and accurate.
@@ -84,5 +86,3 @@ The CRAFT program is organized into modules, each in its own subdirectory (e.g.,
     *   Develop a detailed skills matrix mapping CRAFT content to core competencies for credit analysts.
     *   Potentially define specialized learning paths within CRAFT (e.g., "Focus on SME Lending," "Focus on Large Corporate Syndications").
 *   **Solution Guides:** Ensure comprehensive solution guides or walkthroughs are available for all case studies and complex quizzes.
-
-Refer to the root `AGENTS.MD` for general guidelines on Jupyter Notebooks, general Markdown/HTML practices, global glossary updates, and integration with the main site navigation if direct links to CRAFT modules are desired from outside the CRAFT hub.

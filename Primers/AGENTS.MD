@@ -1,7 +1,17 @@
-# Agent Instructions - /Primers/ Directory
+# Agent Instructions: /Primers/ Directory
+
+This document provides instructions for AI agents working with the content in the `/Primers/` directory and its subdirectories.
 
 ## Inherits From
-This document inherits general principles from the root `AGENTS.MD` file. Please review that first, particularly sections on general content creation, linking conventions, and the use of `marked.js` for HTML viewers.
+
+This document inherits all general principles from the root `AGENTS.MD` file. Please review that document first for guidelines on:
+
+*   Overall repository architecture and purpose.
+*   General content creation principles (accuracy, clarity, modularity).
+*   Linking conventions.
+*   Working with interactive dashboards and the global navigation system (`js/nav_data.js`).
+*   Jupyter Notebook and Markdown viewer implementation.
+*   Updating the Global Financial Glossary.
 
 ## 1. Purpose and Scope
 The `/Primers/` directory provides concise overviews of various industries, sectors, or specific financial products/concepts. These primers are intended to give analysts a quick understanding of key characteristics, drivers, risks, and analytical considerations for the topic covered.
@@ -51,7 +61,14 @@ The `Primers/README.md` file offers a human-readable list of available primers.
     *   Link to `Market_Analysis_Quick_Start/` for foundational market concepts relevant to the primer.
 *   **Within Primers:** Link related concepts between different primers if applicable.
 
-## 6. Developer Notes, Roadmap & Future Considerations
+## 6. Tools
+
+*   **`Primers/index.html`:** Use this tool to add new primers to the Primers section.
+*   **`global_markdown_viewer.html`:** Use this tool to render Markdown files.
+*   **`js/nav_data.js`:** Use this tool to add new content to the global navigation.
+*   **`Global_Financial_Glossary.md`:** Use this tool to add new terms to the global glossary.
+
+## 7. Developer Notes, Roadmap & Future Considerations
 
 **Developer Notes:**
 *   **Focus on `.md` for New Primers:** For any new primer, create it as a Markdown file in the root of the `Primers/` directory and ensure it's added to the navigation in `Primers/index.html`. Avoid adding new files to the `Primers/html/` subdirectory unless there's a compelling reason related to complex HTML structure.
@@ -70,6 +87,3 @@ The `Primers/README.md` file offers a human-readable list of available primers.
     *   Develop a Markdown template for new primers to ensure all key sections are considered.
 *   **Visuals:**
     *   If simple diagrams (e.g., of a supply chain) can be represented effectively with Markdown/HTML or text art, consider adding them. Avoid actual image files unless a process for managing them in `assets/` is established and they are truly essential.
-
-Refer to the root `AGENTS.MD` for general guidelines on Markdown, linking, `marked.js` usage, and global navigation.
-Ensure the `Primers/README.md` file is kept in sync with the list of available primers in `Primers/index.html`.

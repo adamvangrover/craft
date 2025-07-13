@@ -76,9 +76,23 @@
 
             <!-- Section: The Finals -->
             <section id="finals" class="content-section hidden space-y-6">
-                 <h2 class="text-3xl font-bold text-slate-800">The Finals: Scoring Rubrics</h2>
-                 <p class="text-slate-600 max-w-4xl">The final round features complex, open-ended questions that require strategic thinking and nuanced justification. There are no single "correct" answers. Instead, responses are scored based on the depth and quality of their reasoning. Use the tabs within each question to see examples of 1, 2, and 3-point responses.</p>
+                 <h2 class="text-3xl font-bold text-slate-800">The Finals: Self-Scoring</h2>
+                 <p class="text-slate-600 max-w-4xl">The final round features complex, open-ended questions. Enter your answer in the text box, then click "Submit & View Rubric". You will then be shown the scoring criteria and can select the score that you believe your answer best meets.</p>
                  <div id="finals-questions" class="space-y-6"></div>
+                 <div class="mt-8 p-6 bg-white rounded-xl shadow-md">
+                     <div class="flex justify-between items-center">
+                        <h3 class="text-2xl font-bold text-slate-800">Total Score: <span id="total-score" class="text-sky-600">0</span> / 12</h3>
+                        <button id="export-btn" class="bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600">Export Scores</button>
+                    </div>
+                 </div>
+                 <div class="mt-8 p-6 bg-white rounded-xl shadow-md">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-4">Game Resources</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="docs/GAME_INSTRUCTIONS.md" target="_blank" class="text-blue-600 hover:underline">Game Instructions</a>
+                        <a href="docs/PROMPT_ENGINEERING_GUIDE.md" target="_blank" class="text-blue-600 hover:underline">Prompt Engineering Guide</a>
+                        <a href="https://github.com/features/copilot" target="_blank" class="text-blue-600 hover:underline">Copilot Libraries</a>
+                    </div>
+                </div>
             </section>
 
         </main>
@@ -232,20 +246,73 @@
                     finalItem.className = 'bg-white p-6 rounded-xl shadow-md';
                     finalItem.innerHTML = `
                         <h4 class="font-poppins text-xl font-bold text-slate-800 mb-4">${index + 1}. ${finalQ.q}</h4>
-                        <div class="border-b border-slate-200 mb-3">
-                            <nav class="flex gap-4 -mb-px" aria-label="Tabs">
-                                ${finalQ.rubric.map((r, i) => `
-                                    <button class="tab-btn whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm ${i === 2 ? 'tab-btn-active border-sky-500 text-sky-600' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'}">
-                                        ${r.points}-Point Response
-                                    </button>
-                                `).join('')}
-                            </nav>
-                        </div>
-                        <div class="rubric-content-container mt-4 text-slate-700">
-                             ${finalQ.rubric.map((r, i) => `<div class="rubric-content ${i === 2 ? '' : 'hidden'}">${r.text}</div>`).join('')}
+                        <textarea class="w-full p-2 border border-slate-300 rounded-lg" rows="4" placeholder="Enter your answer here..."></textarea>
+                        <button class="submit-btn mt-2 bg-sky-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-600">Submit & View Rubric</button>
+                        <div class="rubric-container hidden mt-4">
+                            <div class="border-b border-slate-200 mb-3">
+                                <nav class="flex gap-4 -mb-px" aria-label="Tabs">
+                                    ${finalQ.rubric.map((r, i) => `
+                                        <button class="tab-btn whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm ${i === 2 ? 'tab-btn-active border-sky-500 text-sky-600' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'}">
+                                            ${r.points}-Point Response
+                                        </button>
+                                    `).join('')}
+                                </nav>
+                            </div>
+                            <div class="rubric-content-container mt-4 text-slate-700">
+                                 ${finalQ.rubric.map((r, i) => `<div class="rubric-content ${i === 2 ? '' : 'hidden'}">${r.text}</div>`).join('')}
+                            </div>
+                            <div class="scoring-container mt-4">
+                                <h5 class="font-bold">Select your score:</h5>
+                                <div class="flex gap-2 mt-2">
+                                    ${finalQ.rubric.map(r => `
+                                        <button class="score-btn bg-slate-200 text-slate-800 font-bold py-2 px-4 rounded-lg hover:bg-slate-300" data-points="${r.points}">${r.points}</button>
+                                    `).join('')}
+                                </div>
+                            </div>
                         </div>
                     `;
                     finalsQuestions.appendChild(finalItem);
+                });
+
+                document.querySelectorAll('.submit-btn').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const rubric = button.nextElementSibling;
+                        rubric.classList.remove('hidden');
+                        button.classList.add('hidden');
+                    });
+                });
+
+                let totalScore = 0;
+                const scores = {};
+                const scoreButtons = document.querySelectorAll('.score-btn');
+                scoreButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const question = button.closest('.bg-white').querySelector('h4').textContent;
+                        const points = parseInt(button.dataset.points);
+                        scores[question] = points;
+                        totalScore += points;
+                        document.getElementById('total-score').textContent = totalScore;
+                        button.parentElement.parentElement.querySelectorAll('.score-btn').forEach(btn => {
+                            btn.disabled = true;
+                            btn.classList.add('opacity-50', 'cursor-not-allowed');
+                        });
+                        button.classList.add('bg-green-500', 'text-white');
+                    });
+                });
+
+                document.getElementById('export-btn').addEventListener('click', () => {
+                    let csvContent = "data:text/csv;charset=utf-8,";
+                    csvContent += "Question,Score\n";
+                    for (const question in scores) {
+                        csvContent += `"${question}",${scores[question]}\n`;
+                    }
+                    csvContent += "Total Score," + totalScore;
+                    const encodedUri = encodeURI(csvContent);
+                    const link = document.createElement("a");
+                    link.setAttribute("href", encodedUri);
+                    link.setAttribute("download", "copilot-quest-scores.csv");
+                    document.body.appendChild(link);
+                    link.click();
                 });
             }
 

@@ -1,28 +1,17 @@
-# Agent Instructions
+# Agent Instructions: CFA Program Study Resources
 
-This document provides instructions for AI agents working with the content in this directory and its subdirectories.
+This document provides instructions for AI agents working with the content in the `/CFA/` directory and its subdirectories.
 
-## General Guidelines:
+## Inherits From
 
-*   **Consistency:** Maintain consistency with the overall repository structure, formatting, and writing style. Refer to the main `README.md` and other `AGENTS.MD` files for examples.
-*   **Clarity and Conciseness:** Ensure all documentation, explanations, and comments are clear, concise, and easy to understand.
-*   **Markdown Best Practices:** Follow standard Markdown syntax. Use formatting (headings, lists, bolding, etc.) to improve readability.
-*   **Accuracy:** Verify the accuracy of all information, especially financial concepts, formulas, and examples.
-*   **File Naming:** Use clear and consistent file names (e.g., `snake_case_for_files.md`, `PascalCaseForFolders/`).
-*   **Links:**
-    *   Use relative links for internal navigation.
-    *   Verify that all links are functional.
-*   **Updating Navigation:** When adding new content or significantly modifying existing content, ensure that relevant `README.md` files and `index.html` (if applicable) are updated to reflect these changes for discoverability.
-*   **Code (if applicable):**
-    *   Comment code adequately.
-    *   Follow any language-specific style guides if established for this project.
-    *   Ensure code is functional and tested.
-*   **Review:** Before submitting changes, review your work for adherence to these guidelines and the specific task requirements.
+This document inherits all general principles from the root `AGENTS.MD` file. Please review that document first for guidelines on:
 
-## Directory-Specific Instructions: CFA Program Study Resources
-
-### Inherits From
-This document inherits general principles from the root `AGENTS.MD` file. Please review that first.
+*   Overall repository architecture and purpose.
+*   General content creation principles (accuracy, clarity, modularity).
+*   Linking conventions.
+*   Working with interactive dashboards and the global navigation system (`js/nav_data.js`).
+*   Jupyter Notebook and Markdown viewer implementation.
+*   Updating the Global Financial Glossary.
 
 ### 1. Purpose and Scope of this Directory
 This `/CFA/` directory is dedicated to providing comprehensive study materials for all three levels of the Chartered Financial Analyst (CFA) Program. Content should align with the official CFA Institute curriculum learning outcome statements (LOS) as much as possible.
@@ -57,7 +46,14 @@ New content should generally fall into one of these categories.
 *   Cross-reference related topics within the CFA section (e.g., an FSA deep dive might link to relevant quantitative methods).
 *   Link to foundational concepts in other parts of the repository if applicable (e.g., a CFA corporate finance reading might link to a more general `Financial_Modeling/` guide).
 
-### 5. Developer Notes, Roadmap & Future Considerations
+### 5. Tools
+
+*   **`quiz_viewer.html`:** Use this tool to create interactive quizzes.
+*   **`global_markdown_viewer.html`:** Use this tool to render Markdown files.
+*   **`CFA/index.html`:** Use this tool to add new content to the CFA Study Hub.
+*   **`js/nav_data.js`:** Use this tool to add new content to the global navigation.
+
+### 6. Developer Notes, Roadmap & Future Considerations
 
 **Developer Notes:**
 *   **`CFA/index.html` Maintenance:** The "Study Materials Library" section of `CFA/index.html` is populated by JavaScript logic (around `AppData.levels`). When adding new content files (Cheat Sheets, Deep Dives, Practice Exams, Case Studies) to the Level subdirectories, ensure this HTML file is updated with correct links and metadata. If new *types* of resources are added or the structure is significantly changed, the `AppData` JavaScript object within `CFA/index.html` might also need modification.
@@ -75,5 +71,3 @@ New content should generally fall into one of these categories.
 *   **Multimedia Content (Future):**
     *   Video summaries or walkthroughs for particularly challenging topics (would require decisions on hosting and embedding).
 *   **LOS Mapping Files:** Systematically create/update `LOS_Mappings/` files that explicitly link content within this repository to each CFA LOS.
-
-Refer to the root `AGENTS.MD` for guidelines on Jupyter Notebooks, general Markdown/HTML practices, and global navigation updates.
