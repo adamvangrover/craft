@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copilot Quest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals with Blue Accent -->
+    <!-- Application Structure Plan: The application uses a linear, multi-screen single-page application (SPA) structure. The user is guided through a sequence of four distinct views: Welcome -> Questionnaire -> Game -> Results. This structure was chosen because it is highly intuitive for a game format. It focuses the user's attention on a single task at a time (starting the game, finding their team, answering questions, viewing results), creating a clear narrative flow and preventing cognitive overload. Navigation is driven by explicit user actions (e.g., clicking 'Start Game' or 'Next Question'), ensuring the user is always in control and understands their position within the game's progression. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Team Sorting -> Goal: Organize users into teams -> Viz/Method: HTML form with radio buttons -> Interaction: User selection and a single 'Submit' button -> Justification: Standard, universally understood method for quizzes. It's efficient and requires no learning curve. -> Library: Vanilla JS/HTML.
+        - Report Info: Game Rounds (MCQ/T-F) -> Goal: Compare user knowledge against correct answers -> Viz/Method: Question text with interactive HTML buttons for each option -> Interaction: User clicks an answer button, which provides immediate visual feedback (color change) and reveals pre-scripted AI analysis. -> Justification: Buttons are more engaging and touch-friendly than standard inputs, enhancing the game-like feel. -> Library: Vanilla JS/HTML.
+        - Report Info: Game Rounds (Open-Ended/Finals) -> Goal: Allow for complex, facilitator-judged answers -> Viz/Method: A text area for verbal answer transcription and facilitator-only buttons to award points -> Interaction: The facilitator clicks a point value (1, 2, or 3) based on the team's spoken answer and the scoring rubric. -> Justification: This UI directly supports the specified game mechanics, empowering the facilitator to apply the rubric without disrupting the game flow. -> Library: Vanilla JS/HTML.
+        - Report Info: Scoring -> Goal: Inform users of their progress -> Viz/Method: A persistent Heads-Up Display (HUD) showing the team name and current score -> Interaction: The score updates automatically after each question is answered. -> Justification: A HUD is a classic, non-intrusive game element that provides essential, at-a-glance information. -> Library: Vanilla JS/HTML.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
+        .team-logic-bg { background-color: #3b82f6 !important; }
+        .team-logic-text { color: #3b82f6 !important; }
+        .team-logic-border { border-color: #3b82f6 !important; }
+
+        .team-harmony-bg { background-color: #22c55e !important; }
+        .team-harmony-text { color: #22c55e !important; }
+        .team-harmony-border { border-color: #22c55e !important; }
+
+        .team-action-bg { background-color: #ef4444 !important; }
+        .team-action-text { color: #ef4444 !important; }
+        .team-action-border { border-color: #ef4444 !important; }
+
+        .team-imagination-bg { background-color: #a855f7 !important; }
+        .team-imagination-text { color: #a855f7 !important; }
+        .team-imagination-border { border-color: #a855f7 !important; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 flex items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-3xl mx-auto">
+
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="text-center bg-white p-8 md:p-12 rounded-xl shadow-lg">
+            <h1 class="text-4xl md:text-5xl font-bold text-blue-600 mb-2">Copilot Quest</h1>
+            <p class="text-gray-500 text-lg mb-8">An Interactive AI Collaboration Game</p>
+            <div class="max-w-xl mx-auto text-left bg-gray-50 p-6 rounded-lg border border-gray-200 mb-8">
+                <h3 class="font-semibold text-lg mb-2">Welcome, Player!</h3>
+                <p class="text-gray-600">This experience will test your knowledge and teamwork. You'll answer questions, get feedback from a simulated AI, and compete to see which team is the smartest collaborator. Click "Start Game" to begin the team sorting process.</p>
+            </div>
+            <button id="start-game-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-blue-700 transition-all transform hover:scale-105">Start Game</button>
+        </div>
+
+        <!-- Questionnaire Screen -->
+        <div id="questionnaire-screen" class="hidden bg-white p-8 md:p-12 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold text-center mb-4">Find Your Team</h2>
+            <p class="text-gray-500 text-center mb-8">Your answers to the following questions will help determine your team's core strength. This is the first step in your quest. Answer honestly to find your fellow collaborators.</p>
+            <div id="questionnaire-form-container">
+                <!-- Questionnaire will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="hidden">
+            <div id="hud" class="grid grid-cols-2 gap-4 mb-6">
+                <div id="hud-team" class="bg-white p-4 rounded-lg shadow text-center border-b-4">
+                    <p class="text-sm text-gray-500">Team</p>
+                    <h2 id="team-name-hud" class="text-2xl font-bold">Logic</h2>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow text-center border-b-4 border-blue-600">
+                    <p class="text-sm text-gray-500">Score</p>
+                    <h2 id="score-hud" class="text-2xl font-bold text-blue-600">0</h2>
+                </div>
+            </div>
+            <div id="game-content" class="bg-white p-8 md:p-12 rounded-xl shadow-lg">
+                <h3 id="round-title" class="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">Round 1: Risk Management</h3>
+                <p id="question-text" class="text-xl md:text-2xl font-semibold mb-6">Question text will appear here.</p>
+                <div id="answer-options" class="space-y-3">
+                    <!-- Answer options will be dynamically inserted here -->
+                </div>
+                <div id="feedback-container" class="hidden mt-6 bg-blue-50 p-5 rounded-lg border border-blue-200">
+                    <h4 class="text-lg font-semibold text-blue-800 mb-2">🤖 AI Chatbot Feedback:</h4>
+                    <p id="feedback-text" class="text-blue-900"></p>
+                    <div class="text-right mt-4">
+                        <button id="next-question-btn" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-all">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center bg-white p-8 md:p-12 rounded-xl shadow-lg">
+            <h1 class="text-4xl font-bold mb-4">Game Over!</h1>
+            <p class="text-gray-600 mb-6">The quest is complete! Here are the final scores. This shows how each team performed across all rounds.</p>
+            <div id="final-scores-container" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <!-- Final scores will be dynamically inserted here -->
+            </div>
+            <div id="winner-announcement" class="bg-gray-50 p-6 rounded-lg border-2">
+                <h2 class="text-gray-500 text-lg">The winner is...</h2>
+                <h1 id="winning-team-name" class="text-4xl md:text-5xl font-bold my-2">Team Name</h1>
+                <div id="winning-poem-container" class="mt-4">
+                    <h3 class="font-semibold text-gray-700">A Poem for the Victors:</h3>
+                    <p id="winning-poem" class="text-gray-600 italic mt-2"></p>
+                </div>
+            </div>
+            <button id="play-again-btn" class="mt-8 bg-gray-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-700 transition-all">Play Again</button>
+        </div>
+
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const screens = {
+            welcome: document.getElementById('welcome-screen'),
+            questionnaire: document.getElementById('questionnaire-screen'),
+            game: document.getElementById('game-screen'),
+            results: document.getElementById('results-screen')
+        };
+
+        const buttons = {
+            startGame: document.getElementById('start-game-btn'),
+            nextQuestion: document.getElementById('next-question-btn'),
+            playAgain: document.getElementById('play-again-btn')
+        };
+
+        const containers = {
+            questionnaireForm: document.getElementById('questionnaire-form-container'),
+            questionText: document.getElementById('question-text'),
+            answerOptions: document.getElementById('answer-options'),
+            feedback: document.getElementById('feedback-container'),
+            feedbackText: document.getElementById('feedback-text'),
+            finalScores: document.getElementById('final-scores-container'),
+            winnerAnnouncement: document.getElementById('winner-announcement'),
+            winningTeamName: document.getElementById('winning-team-name'),
+            winningPoem: document.getElementById('winning-poem')
+        };
+
+        const hud = {
+            teamName: document.getElementById('team-name-hud'),
+            score: document.getElementById('score-hud'),
+            roundTitle: document.getElementById('round-title'),
+            hudTeamDiv: document.getElementById('hud-team')
+        };
+
+        const gameData = {
+            teams: {
+                'Team Logic': {
+                    poem: "With minds so sharp and reason's light, you solved the puzzles, clear and bright. For every challenge, every test, your logic proved to be the best.",
+                    className: "team-logic"
+                },
+                'Team Harmony': {
+                    poem: "With balance, grace, and thoughtful plea, you found the path for all to see. In collaboration, you excelled, a story of teamwork, masterfully told.",
+                    className: "team-harmony"
+                },
+                'Team Action': {
+                    poem: "With bold decisions, swift and fast, you built a lead that's meant to last. No hesitation, no delay, you bravely seized and won the day.",
+                    className: "team-action"
+                },
+                'Team Imagination': {
+                    poem: "With novel thoughts and creative flair, you found solutions beyond compare. Where others saw but simple facts, you built new worlds and covered tracks.",
+                    className: "team-imagination"
+                }
+            },
+            personalityQuestions: [
+                {
+                    question: "When faced with a new, complex project, what is your first instinct?",
+                    answers: {
+                        a: { text: "Break it down into a logical, step-by-step plan.", type: "logic" },
+                        b: { text: "Consider how it will impact everyone on the team and seek consensus.", type: "harmony" },
+                        c: { text: "Jump in and start experimenting with the most immediate tasks.", type: "action" },
+                        d: { text: "Brainstorm all the wild and unconventional possibilities.", type: "imagination" }
+                    }
+                },
+                {
+                    question: "How do you prefer to solve problems?",
+                    answers: {
+                        a: { text: "Through data analysis and evidence-based reasoning.", type: "logic" },
+                        b: { text: "By facilitating a discussion to find a solution that works for everyone.", type: "harmony" },
+                        c: { text: "By taking decisive steps and iterating based on the results.", type: "action" },
+                        d: { text: "By thinking outside the box and connecting seemingly unrelated ideas.", type: "imagination" }
+                    }
+                },
+                {
+                    question: "What is most important in a team?",
+                    answers: {
+                        a: { text: "Clarity and precision in communication and goals.", type: "logic" },
+                        b: { text: "A supportive and inclusive environment where everyone feels heard.", type: "harmony" },
+                        c: { text: "Momentum and a shared drive to get things done.", type: "action" },
+                        d: { text: "The freedom to explore new ideas and challenge the status quo.", type: "imagination" }
+                    }
+                }
+            ],
+            rounds: [
+                {
+                    title: "Round 1: Risk Management",
+                    questions: [
+                        { type: 'mcq', question: "What is the primary purpose of risk management?", options: { a: "To eliminate all uncertainties", b: "To increase project costs", c: "To identify and manage potential threats and opportunities", d: "To delay decision making" }, correctAnswer: 'c', feedback: "Correct! Effective risk management is a proactive process focused on identifying, assessing, and controlling uncertainties to help an organization achieve its objectives. It's about balancing risk and reward, not just eliminating risk entirely." },
+                        { type: 'true_false', question: "Risk retention is a strategy where an organization decides to bear the financial responsibility for a potential loss.", correctAnswer: true, feedback: "True. Risk retention, often used for high-frequency, low-severity risks, is a form of self-insurance where a company sets aside funds to cover potential losses rather than transferring the risk to an insurer." },
+                        { type: 'open', question: "Describe one key difference between Qualitative and Quantitative Risk Analysis.", feedback: "A great answer distinguishes between the two methods. Qualitative analysis is subjective, using scales like 'low-medium-high' to prioritize risks based on expert opinion. Quantitative analysis is objective, using numerical data and statistical models to assign a monetary value or specific probability to risks." },
+                    ]
+                },
+                {
+                    title: "Round 2: Compliance",
+                    questions: [
+                        { type: 'true_false', question: "A conflict of interest only occurs if an employee gains a direct financial benefit.", correctAnswer: false, feedback: "False. A conflict of interest can be any situation where personal interests—financial, social, or otherwise—could potentially interfere with an employee's professional judgment or duties to the company." },
+                        { type: 'mcq', question: "Which of the following is a key goal of a corporate compliance program?", options: { a: "To increase company profits at all costs", b: "To detect and prevent misconduct and illegal activity", c: "To shift all responsibility for errors to employees", d: "To create more rules for the sake of bureaucracy" }, correctAnswer: 'b', feedback: "Correct. A robust compliance program aims to establish a culture of integrity, ensure adherence to laws and regulations, and provide clear channels for reporting and addressing potential violations." },
+                    ]
+                },
+                {
+                    title: "Round 3: Safety",
+                    questions: [
+                        { type: 'mcq', question: "In workplace safety, what does the acronym 'HAZOP' stand for?", options: { a: "Hazardous Operations", b: "Hazard and Operability Study", c: "Health and Occupational Procedures", d: "Hazardous Operator Protocol" }, correctAnswer: 'b', feedback: "Correct! A HAZOP study is a structured and systematic examination of a planned or existing process or operation in order to identify and evaluate problems that may represent risks to personnel or equipment." },
+                    ]
+                },
+                {
+                    title: "Lightning Round",
+                    questions: [
+                        { type: 'lightning', question: "How many stripes are there on the US flag?", answer: "13" },
+                        { type: 'lightning', question: "What is the national animal of Australia?", answer: "Kangaroo" },
+                        { type: 'lightning', question: "What does 'www' stand for in a website address?", answer: "World Wide Web" },
+                        { type: 'lightning', question: "How many keys does a classic piano have?", answer: "88" },
+                    ]
+                },
+                {
+                    title: "The Finals",
+                    questions: [
+                        { type: 'open', question: "If an autonomous AI system makes a mistake that causes financial loss, who should be held accountable: the user, the developer, or the company that deployed it? Justify your answer.", feedback: "Excellent discussion point! There's no single right answer. A strong response would explore shared liability, discussing the developer's responsibility for foreseeable failures, the company's role in implementation and oversight, and the user's duty to operate the system as intended." },
+                        { type: 'open', question: "Discuss how the concept of 'value alignment' in AI presents a significant risk for global corporations. Provide one example.", feedback: "This is a critical concept. A great answer would define value alignment (ensuring an AI's goals align with human values) and give an example, such as an AI optimizing for profit maximization might violate ethical or environmental standards if not properly constrained." },
+                        { type: 'open', question: "Beyond automation, what is the single greatest opportunity generative AI offers to a modern business, and what is the greatest risk it introduces?", feedback: "This requires strategic thinking. Top answers for 'opportunity' might include hyper-personalization at scale or accelerating R&D. For 'risk,' they might mention intellectual property contamination, the generation of convincing misinformation that damages brand reputation, or over-reliance on a technology that can hallucinate." },
+                    ]
+                }
+            ]
+        };
+
+        let gameState = {};
+
+        function resetGameState() {
+            gameState = {
+                currentRoundIndex: 0,
+                currentQuestionIndex: 0,
+                scores: { 'Team Logic': 0, 'Team Harmony': 0, 'Team Action': 0, 'Team Imagination': 0 },
+                playerTeam: null,
+            };
+        }
+
+        function showScreen(screenId) {
+            Object.values(screens).forEach(screen => screen.classList.add('hidden'));
+            screens[screenId].classList.remove('hidden');
+        }
+
+        function startQuestionnaire() {
+            let formHTML = '<form id="personality-quiz" class="space-y-6">';
+            gameData.personalityQuestions.forEach((q, index) => {
+                formHTML += `<div class="text-left"><h4 class="font-semibold mb-2">${q.question}</h4><div class="space-y-2">`;
+                for (const [key, answer] of Object.entries(q.answers)) {
+                    formHTML += `
+                        <label class="block cursor-pointer p-3 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors">
+                            <input type="radio" name="question${index}" value="${answer.type}" required class="mr-3 accent-blue-600">
+                            <span>${answer.text}</span>
+                        </label>
+                    `;
+                }
+                formHTML += `</div></div>`;
+            });
+            formHTML += `<div class="text-center pt-4"><button type="submit" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-blue-700 transition-all">Find My Team</button></div></form>`;
+            containers.questionnaireForm.innerHTML = formHTML;
+
+            document.getElementById('personality-quiz').addEventListener('submit', handleQuestionnaireSubmit);
+            showScreen('questionnaire');
+        }
+
+        function handleQuestionnaireSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const teamScores = { logic: 0, harmony: 0, action: 0, imagination: 0 };
+            for (const value of formData.values()) {
+                teamScores[value]++;
+            }
+            
+            const playerTeamType = Object.keys(teamScores).reduce((a, b) => teamScores[a] > teamScores[b] ? a : b);
+
+            switch (playerTeamType) {
+                case 'logic': gameState.playerTeam = 'Team Logic'; break;
+                case 'harmony': gameState.playerTeam = 'Team Harmony'; break;
+                case 'action': gameState.playerTeam = 'Team Action'; break;
+                case 'imagination': gameState.playerTeam = 'Team Imagination'; break;
+            }
+            
+            // Assign a random team for demonstration if there's a tie
+            if (!gameState.playerTeam) {
+                const teams = Object.keys(gameData.teams);
+                gameState.playerTeam = teams[Math.floor(Math.random() * teams.length)];
+            }
+
+            startGame();
+        }
+
+        function startGame() {
+            const teamClass = gameData.teams[gameState.playerTeam].className;
+            hud.teamName.textContent = gameState.playerTeam;
+            hud.hudTeamDiv.className = `bg-white p-4 rounded-lg shadow text-center border-b-4 ${teamClass}-border`;
+            hud.teamName.className = `text-2xl font-bold ${teamClass}-text`;
+            updateScores(); 
+            displayQuestion();
+            showScreen('game');
+        }
+        
+        function updateScores() {
+             hud.score.textContent = gameState.scores[gameState.playerTeam];
+        }
+
+        function displayQuestion() {
+            containers.feedback.classList.add('hidden');
+            containers.answerOptions.innerHTML = '';
+            
+            const round = gameData.rounds[gameState.currentRoundIndex];
+            const question = round.questions[gameState.currentQuestionIndex];
+
+            hud.roundTitle.textContent = round.title;
+            containers.questionText.textContent = question.question;
+
+            if (question.type === 'mcq') {
+                for (const [key, text] of Object.entries(question.options)) {
+                    const button = document.createElement('button');
+                    button.innerHTML = `<span class="font-bold mr-2">${key.toUpperCase()})</span> ${text}`;
+                    button.className = 'w-full text-left p-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors';
+                    button.addEventListener('click', () => handleAnswerSubmission(key, button));
+                    containers.answerOptions.appendChild(button);
+                }
+            } else if (question.type === 'true_false') {
+                ['True', 'False'].forEach(val => {
+                    const button = document.createElement('button');
+                    button.textContent = val;
+                    button.className = 'w-full text-left p-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors';
+                    button.addEventListener('click', () => handleAnswerSubmission(val.toLowerCase() === 'true', button));
+                    containers.answerOptions.appendChild(button);
+                });
+            } else if (question.type === 'open') {
+                containers.answerOptions.innerHTML = `
+                    <p class="text-sm text-gray-500 mb-4 text-center">This is an open-ended question. The facilitator will award points based on your team's discussion and answer.</p>
+                    <div class="flex justify-center gap-4">
+                        <button data-points="1" class="w-24 text-center p-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors font-bold">1 Point</button>
+                        <button data-points="2" class="w-24 text-center p-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors font-bold">2 Points</button>
+                        <button data-points="3" class="w-24 text-center p-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors font-bold">3 Points</button>
+                    </div>
+                `;
+                 containers.answerOptions.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => handleAnswerSubmission(parseInt(button.dataset.points), button));
+                });
+            } else if (question.type === 'lightning') {
+                containers.answerOptions.innerHTML = `
+                    <input type="text" id="lightning-answer" class="w-full p-3 border border-gray-300 rounded-lg text-lg" placeholder="Type answer quickly!">
+                    <button id="submit-lightning" class="mt-3 w-full p-3 rounded-lg bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors">Submit</button>
+                `;
+                document.getElementById('submit-lightning').addEventListener('click', () => {
+                    const input = document.getElementById('lightning-answer');
+                    handleAnswerSubmission(input.value, document.getElementById('submit-lightning'));
+                });
+            }
+        }
+
+        function handleAnswerSubmission(submittedAnswer, button) {
+            Array.from(containers.answerOptions.children).forEach(child => {
+                if(child.tagName === 'BUTTON') child.disabled = true;
+                if(child.querySelector('button')) {
+                    child.querySelectorAll('button').forEach(b => b.disabled = true);
+                }
+            });
+             if (document.getElementById('submit-lightning')) {
+                document.getElementById('submit-lightning').disabled = true;
+                document.getElementById('lightning-answer').disabled = true;
+            }
+
+            const round = gameData.rounds[gameState.currentRoundIndex];
+            const question = round.questions[gameState.currentQuestionIndex];
+            let points = 0;
+            
+            if(question.type === 'open') {
+                points = submittedAnswer;
+                button.classList.add('bg-blue-200');
+            } else if (question.type === 'lightning') {
+                if (submittedAnswer.trim().toLowerCase() === question.answer.toLowerCase()) {
+                    points = 1;
+                    button.classList.add('bg-green-500');
+                } else {
+                    button.classList.add('bg-red-500');
+                }
+            } else {
+                if(submittedAnswer === question.correctAnswer) {
+                    points = 1;
+                    button.classList.remove('bg-gray-100');
+                    button.classList.add('bg-green-500', 'text-white');
+                } else {
+                    button.classList.remove('bg-gray-100');
+                    button.classList.add('bg-red-500', 'text-white');
+                }
+            }
+
+            if (points > 0) {
+                 gameState.scores[gameState.playerTeam] += points;
+            }
+            updateScores();
+            
+            containers.feedbackText.textContent = question.feedback || (points > 0 ? "Correct!" : `The correct answer was: ${question.answer}`);
+            containers.feedback.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            gameState.currentQuestionIndex++;
+            const currentRound = gameData.rounds[gameState.currentRoundIndex];
+            if (gameState.currentQuestionIndex >= currentRound.questions.length) {
+                gameState.currentRoundIndex++;
+                gameState.currentQuestionIndex = 0;
+            }
+
+            if (gameState.currentRoundIndex >= gameData.rounds.length) {
+                showResults();
+            } else {
+                displayQuestion();
+            }
+        }
+
+        function showResults() {
+            containers.finalScores.innerHTML = '';
+            
+            // For fun, let's give other teams some random scores
+            Object.keys(gameState.scores).forEach(team => {
+                if (team !== gameState.playerTeam) {
+                    gameState.scores[team] = Math.floor(Math.random() * (gameData.rounds.length * 2));
+                }
+            });
+
+            const sortedScores = Object.entries(gameState.scores).sort(([, a], [, b]) => b - a);
+
+            sortedScores.forEach(([team, score]) => {
+                const teamData = gameData.teams[team];
+                const scoreDiv = document.createElement('div');
+                scoreDiv.className = `p-4 bg-white rounded-lg shadow-md border-b-4 ${teamData.className}-border`;
+                scoreDiv.innerHTML = `<h3 class="font-bold ${teamData.className}-text">${team}</h3><p class="text-2xl font-bold text-gray-700">${score}</p>`;
+                containers.finalScores.appendChild(scoreDiv);
+            });
+
+            const [winningTeamName] = sortedScores[0];
+            const winningTeamData = gameData.teams[winningTeamName];
+
+            containers.winningTeamName.textContent = winningTeamName;
+            containers.winningTeamName.className = `text-4xl md:text-5xl font-bold my-2 ${winningTeamData.className}-text`;
+            containers.winnerAnnouncement.className = `bg-gray-50 p-6 rounded-lg border-2 ${winningTeamData.className}-border`;
+            containers.winningPoem.textContent = winningTeamData.poem;
+
+            showScreen('results');
+        }
+        
+        buttons.startGame.addEventListener('click', startQuestionnaire);
+        buttons.nextQuestion.addEventListener('click', nextQuestion);
+        buttons.playAgain.addEventListener('click', () => {
+            resetGameState();
+            showScreen('welcome');
+        });
+
+        resetGameState();
+        showScreen('welcome');
+    });
+    </script>
+</body>
+</html>
