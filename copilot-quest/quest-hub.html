@@ -108,6 +108,7 @@
                         <li><strong>Break down complex problems:</strong> If you have a complex problem to solve, break it down into smaller, more manageable pieces.</li>
                     </ul>
                 </div>
+
             </section>
             <section id="the-game" class="bg-white p-8 rounded-xl shadow-lg">
                 <h2 class="text-3xl font-bold mb-4">The Game</h2>
@@ -214,6 +215,7 @@
                     objective: 'To generate a SQL query from a natural language description.',
                     prompt: 'Write a SQL query that selects all users from the `users` table who have signed up in the last 30 days and have made at least one purchase.',
                     annotation: 'Uses a clear **instruction** and a **specific** request to generate a useful SQL query.'
+
                 }
             ];
 
@@ -279,6 +281,7 @@
             });
 
             function updateFinalScore() {
+
                 let totalScore = 0;
                 for (let i = 0; i < questions.length; i++) {
                     const score = document.getElementById(`score-${i}`).value;
@@ -295,6 +298,7 @@
                 const data = Object.fromEntries(formData.entries());
                 localStorage.setItem('scoreSheet', JSON.stringify(data));
                 updateFinalScore();
+
             });
 
             scoreSheetForm.addEventListener('submit', (event) => {
@@ -346,6 +350,7 @@
                 }
                 updateFinalScore();
             }
+
         });
     </script>
 </body>
