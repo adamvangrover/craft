@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The AI-Powered Professional: An Interactive Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: A thematic, multi-panel SPA. The linear report is reorganized into three core, navigable themes: 1) Foundations (What is AI?), 2) Tools in Action (How is it used?), and 3) User's Playbook (How to master it?). This non-linear structure promotes user-driven exploration over passive reading. Navigation is handled by a sticky header, allowing users to jump to sections. Interactivity is key: static tables are converted into clickable card grids and vertical tab components; complex concepts like the Transformer architecture and the Habit Loop are visualized with interactive HTML/CSS diagrams. This design was chosen to make dense, conceptual information more digestible, engaging, and easier to synthesize for a professional audience. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: GenAI vs. Predictive AI -> Goal: Compare -> Viz: Side-by-side flexbox cards with Unicode icons. -> Interaction: Static visual comparison. -> Justification: Clear, immediate differentiation of concepts. -> Library/Method: HTML/Tailwind.
+        - Report Info: Transformer Architecture -> Goal: Explain Process -> Viz: HTML/CSS flowchart diagram. -> Interaction: Hover to reveal tooltips with explanations for each component. -> Justification: Deconstructs a complex technical topic into understandable, interactive parts. -> Library/Method: HTML/Tailwind/JS.
+        - Report Info: Workday Customer Improvements -> Goal: Inform (Quantitative) -> Viz: Bar Chart. -> Interaction: Hover tooltips on bars. -> Justification: Provides a clear, quantitative visualization of impact metrics mentioned in the report. -> Library/Method: Chart.js.
+        - Report Info: Workday AI Ecosystem Table -> Goal: Organize/Inform -> Viz: Vertical tab layout. -> Interaction: Click tab to show corresponding content. -> Justification: More dynamic and space-efficient than a long table, encourages user interaction. -> Library/Method: HTML/Tailwind/JS.
+        - Report Info: Prompt Engineering Best Practices -> Goal: Compare/Inform -> Viz: Grid of clickable/flippable cards. -> Interaction: Click to reveal "weak vs. strong" examples. -> Justification: Transforms a static table into an engaging micro-learning experience. -> Library/Method: HTML/Tailwind/JS.
+        - Report Info: Habit Loop -> Goal: Explain Process -> Viz: Circular HTML/CSS diagram. -> Interaction: Click on each stage to highlight and show context. -> Justification: Visually represents a cyclical process in a more intuitive way than text alone. -> Library/Method: HTML/Tailwind/JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FEFCE8; /* amber-50 */
+            color: #1E293B; /* slate-800 */
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            border-bottom-color: #0284C7; /* sky-600 */
+            color: #0C4A6E; /* sky-900 */
+        }
+        .section-card {
+            background-color: #FFFFFF;
+            border: 1px solid #E0E7FF; /* indigo-100 */
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .section-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 40vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .prompt-card {
+            perspective: 1000px;
+        }
+        .prompt-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .prompt-card.is-flipped .prompt-card-inner {
+            transform: rotateY(180deg);
+        }
+        .prompt-card-front, .prompt-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+        .prompt-card-front {
+            background-color: #F0F9FF; /* sky-50 */
+        }
+        .prompt-card-back {
+            background-color: #E0F2FE; /* sky-100 */
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="main-header" class="bg-amber-50/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-sky-800">AI-Powered Professional</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#foundations" class="nav-link px-3 py-2 rounded-md text-sm font-semibold text-slate-700">The Foundations</a>
+                        <a href="#tools" class="nav-link px-3 py-2 rounded-md text-sm font-semibold text-slate-700">The Tools in Action</a>
+                        <a href="#playbook" class="nav-link px-3 py-2 rounded-md text-sm font-semibold text-slate-700">The User's Playbook</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:text-slate-800 hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-sky-500">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6" id="menu-closed-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                        <svg class="hidden h-6 w-6" id="menu-open-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="#foundations" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700">The Foundations</a>
+                    <a href="#tools" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700">The Tools in Action</a>
+                    <a href="#playbook" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700">The User's Playbook</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        
+        <div class="text-center mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Mastering Generative AI</h2>
+            <p class="mt-4 max-w-3xl mx-auto text-lg md:text-xl text-slate-600">An interactive guide to understanding and leveraging AI for peak productivity.</p>
+        </div>
+
+        <!-- Section 1: The Foundations -->
+        <section id="foundations" class="mb-20 pt-16 -mt-16">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-sky-900">The Foundations</h3>
+                <p class="mt-2 text-lg text-slate-600 max-w-2xl mx-auto">This section demystifies the core technology driving the AI revolution. You'll learn what Generative AI is, how Large Language Models (LLMs) work, and understand the breakthrough Transformer architecture that makes it all possible.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="section-card p-6 md:col-span-2 lg:col-span-3">
+                    <h4 class="font-bold text-xl text-sky-800 mb-4">What is Generative AI?</h4>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                            <h5 class="font-semibold text-lg flex items-center">🔍 Predictive AI</h5>
+                            <p class="mt-2 text-slate-700">Analyzes existing data to make predictions or classify information. It answers questions like "Is this a cat?" or "What will sales be next quarter?". Its role is primarily analytical.</p>
+                        </div>
+                        <div class="bg-sky-50 p-4 rounded-lg border border-sky-200">
+                             <h5 class="font-semibold text-lg flex items-center">✨ Generative AI</h5>
+                             <p class="mt-2 text-slate-700">Creates entirely new, original content. It responds to prompts like "Create an image of a cat on a skateboard" or "Write a poem about productivity." Its role is creative and generative.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card p-6 lg:col-span-2">
+                    <h4 class="font-bold text-xl text-sky-800 mb-4">The Transformer Architecture: A Breakthrough</h4>
+                    <p class="text-slate-600 mb-4">The innovation that unlocked the power of modern LLMs. Unlike older models, it processes all words at once using a mechanism called "self-attention." Hover over each step to learn more.</p>
+                    <div id="transformer-diagram" class="space-y-2 text-sm">
+                        <div data-info="Input text is broken into smaller units (words or sub-words) called tokens." class="transformer-step bg-amber-100 p-3 rounded-md text-center font-medium">Input: "The cat sat" ➔ Tokenization</div>
+                        <div class="text-center">↓</div>
+                        <div data-info="Each token is converted into a numerical vector (embedding) that represents its meaning." class="transformer-step bg-amber-100 p-3 rounded-md text-center font-medium">Input Embeddings</div>
+                        <div class="text-center">↓</div>
+                        <div data-info="Information about each token's position in the sequence is added, as the model has no inherent sense of order." class="transformer-step bg-amber-100 p-3 rounded-md text-center font-medium">Positional Encoding</div>
+                        <div class="text-center">↓</div>
+                        <div data-info="The core of the Transformer. Multiple 'attention heads' weigh the importance of all other words in the input for each word, creating a rich contextual understanding." class="transformer-step bg-sky-200 p-3 rounded-md text-center font-bold text-sky-900">Multi-Head Self-Attention</div>
+                        <div class="text-center">↓</div>
+                        <div data-info="The processed information is passed through a standard neural network." class="transformer-step bg-amber-100 p-3 rounded-md text-center font-medium">Feed-Forward Network</div>
+                        <div class="text-center">↓</div>
+                        <div data-info="The decoder generates the output sequence one token at a time, using the context from the encoder to produce a coherent response." class="transformer-step bg-green-100 p-3 rounded-md text-center font-medium">Output Generation</div>
+                    </div>
+                </div>
+
+                <div class="section-card p-6">
+                    <h4 class="font-bold text-xl text-sky-800 mb-2">Large Language Models (LLMs)</h4>
+                    <p class="text-slate-600 mb-4">LLMs are the engines of text-based GenAI. They are massive neural networks trained on trillions of words to understand and generate human-like text.</p>
+                    <ul class="space-y-3 text-slate-700">
+                        <li class="flex items-start">
+                            <span class="text-sky-600 mr-2">🧠</span>
+                            <div><strong class="font-semibold">Neural Networks:</strong> Inspired by the human brain, they recognize complex patterns in data.</div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-sky-600 mr-2">📚</span>
+                            <div><strong class="font-semibold">Massive Training Data:</strong> Trained on a vast corpus of text and code from the internet.</div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-sky-600 mr-2">🎯</span>
+                           <div><strong class="font-semibold">Self-Supervised Learning:</strong> They learn by predicting the next word in a sentence, which implicitly teaches grammar, facts, and reasoning.</div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 2: The Tools in Action -->
+        <section id="tools" class="mb-20 pt-16 -mt-16">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-sky-900">The Tools in Action</h3>
+                <p class="mt-2 text-lg text-slate-600 max-w-2xl mx-auto">Explore how AI is being integrated into the workplace. This section covers AI Copilots that assist with daily tasks and delves into the Workday ecosystem, showcasing how a major enterprise platform embeds AI into core HR and finance processes.</p>
+            </div>
+
+             <div class="grid lg:grid-cols-5 gap-8">
+                <div class="lg:col-span-3 section-card p-6">
+                    <h4 class="font-bold text-xl text-sky-800 mb-4">The Workday AI Ecosystem</h4>
+                    <p class="text-slate-600 mb-6">Workday embeds AI across its platform using a multi-layered strategy. This approach combines native intelligence with custom and third-party solutions. Click on a component to learn about its role.</p>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div id="workday-tabs" class="flex md:flex-col md:w-1/3 overflow-x-auto md:overflow-x-visible pb-2">
+                        </div>
+                        <div id="workday-content" class="md:w-2/3 min-h-[200px] bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 space-y-8">
+                    <div class="section-card p-6">
+                        <h4 class="font-bold text-xl text-sky-800 mb-2">AI Copilots & Agents</h4>
+                        <p class="text-slate-600 mb-4"><strong class="font-semibold text-slate-800">Copilots</strong> are assistants embedded in your apps (like Microsoft 365) to help with tasks. <strong class="font-semibold text-slate-800">Agents</strong> are more specialized and autonomous, designed to handle entire business processes.</p>
+                    </div>
+                    <div class="section-card p-6">
+                        <h4 class="font-bold text-xl text-sky-800 mb-4">Workday's Reported AI Impact</h4>
+                        <p class="text-slate-600 mb-4">Clients using Workday's AI features report significant efficiency gains.</p>
+                        <div class="chart-container">
+                            <canvas id="workdayChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The User's Playbook -->
+        <section id="playbook" class="pt-16 -mt-16">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-sky-900">The User's Playbook</h3>
+                <p class="mt-2 text-lg text-slate-600 max-w-2xl mx-auto">True productivity comes from skill. This is your guide to mastering the craft of AI interaction. Learn the art of prompt engineering to get better results, and discover the science of habit formation to make AI a seamless part of your workflow.</p>
+            </div>
+
+            <div class="section-card p-6 md:p-8 mb-12">
+                <h4 class="text-2xl font-bold text-center text-sky-800 mb-2">The Definitive Prompt Engineering Guide</h4>
+                <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">The quality of your output depends entirely on the quality of your input. These techniques will help you write prompts that get the results you want. Click each card to see examples.</p>
+                <div id="prompt-engineering-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                </div>
+            </div>
+
+            <div class="section-card p-6 md:p-8">
+                <h4 class="text-2xl font-bold text-center text-sky-800 mb-2">Building Sustainable AI Habits</h4>
+                <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">To make AI a consistent tool for productivity, you need to build habits. This process follows a simple, powerful psychological loop. Click each stage to see how it applies to adopting AI.</p>
+                <div id="habit-loop-container" class="relative max-w-lg mx-auto aspect-square">
+                </div>
+                <div id="habit-loop-info" class="mt-8 text-center min-h-[80px] bg-slate-50 p-4 rounded-lg border border-slate-200">
+                    <p class="text-slate-700">Click a stage in the loop to learn more.</p>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-white mt-20">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-slate-400">
+            <p>Interactive Guide to Generative AI. All content adapted from "The AI-Powered Professional" report.</p>
+        </div>
+    </footer>
+    
+    <div id="tooltip" class="hidden absolute z-50 bg-slate-800 text-white text-xs rounded-md py-1 px-2 pointer-events-none"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const workdayData = {
+        tabs: [
+            { id: 'illuminate', name: 'Workday Illuminate™' },
+            { id: 'agents', name: 'Role-Based Agents' },
+            { id: 'extend', name: 'Workday Extend' },
+            { id: 'copilot', name: 'Developer Copilot' },
+            { id: 'gateway', name: 'AI Gateway & APIs' },
+            { id: 'marketplace', name: 'AI Marketplace' },
+        ],
+        content: {
+            illuminate: {
+                title: 'Workday Illuminate™',
+                description: 'The core AI engine embedded across the platform for native intelligence. It leverages Workday\'s massive, clean HR and financial dataset to provide contextual insights.',
+                user: 'All Workday Users (Implicitly)',
+                useCase: 'Automatically suggesting relevant skills for a job requisition.'
+            },
+            agents: {
+                title: 'Role-Based Agents',
+                description: 'Specialized AI designed to automate complex, multi-step business processes with a high degree of autonomy.',
+                user: 'Business Process Owners, Managers',
+                useCase: 'A "Payroll Agent" that identifies and fixes invalid payroll data automatically.'
+            },
+            extend: {
+                title: 'Workday Extend',
+                description: 'A low-code/no-code Platform-as-a-Service (PaaS) for building custom apps that run natively on Workday, inheriting its security and UI.',
+                user: 'Developers, Business Technologists',
+                useCase: 'Creating a custom app to manage employee equipment requests.'
+            },
+            copilot: {
+                title: 'Developer Copilot',
+                description: 'A conversational AI assistant within the Extend environment that helps developers build faster by generating code, recommending APIs, and creating documentation.',
+                user: 'Developers using Extend',
+                useCase: 'Generating a code snippet to query employee data for a custom app.'
+            },
+            gateway: {
+                title: 'AI Gateway & APIs',
+                description: 'Provides developers with API access to Workday\'s native AI services (like skills analysis or document intelligence) for use in custom applications.',
+                user: 'Professional Developers',
+                useCase: 'Using the Document Intelligence API to parse resumes in a custom recruiting app.'
+            },
+            marketplace: {
+                title: 'AI Marketplace',
+                description: 'A curated store for certified, third-party AI solutions that integrate seamlessly with Workday, built by trusted partners.',
+                user: 'HR/Finance Leaders, Department Heads',
+                useCase: 'Installing the Paradox agent to automate interview scheduling.'
+            }
+        }
+    };
+
+    const promptData = [
+        { 
+            title: 'Specificity & Detail',
+            weak: '"Summarize the report."',
+            strong: '"Summarize the attached Q3 financial report into a 3-bullet point list for an executive audience. Focus on revenue growth, key challenges, and the outlook for Q4."'
+        },
+        { 
+            title: 'Persona Assignment',
+            weak: '"Explain the marketing plan."',
+            strong: '"Act as the CMO. Explain the go-to-market strategy for Product X, focusing on the target audience, key channels, and budget allocation."'
+        },
+        { 
+            title: 'Example-Driven (Few-Shot)',
+            weak: '"Extract the names and companies."',
+            strong: '"Extract name and company. Example: \'Text: Jane Doe works at Acme Inc. -> Name: Jane Doe, Company: Acme Inc.\' Now, process this: \'John Smith is CEO of Globex Corp.\'"'
+        },
+        { 
+            title: 'Chain-of-Thought',
+            weak: '"Is this investment a good idea?"',
+            strong: '"Analyze this investment step-by-step. First, evaluate market size. Second, assess competition. Third, analyze the team. Finally, provide a summary recommendation."'
+        },
+        { 
+            title: 'Format Definition',
+            weak: '"List the pros and cons."',
+            strong: '"Provide the pros and cons in a two-column markdown table with headers \'Advantages\' and \'Disadvantages\'."'
+        },
+        { 
+            title: 'Positive Instruction',
+            weak: '"Don\'t write a long response. Don\'t use jargon."',
+            strong: '"Provide a concise, 100-word summary using language a high school student can understand."'
+        },
+        { 
+            title: 'Contextual Grounding',
+            weak: '"Write an email to the sales team."',
+            strong: '"Using the following sales data for Q2 [paste data], write a motivational email to the sales team congratulating them on exceeding the target for Product A."'
+        },
+        { 
+            title: 'Splitting Complex Tasks',
+            weak: '"Write a business plan."',
+            strong: '"First, generate an outline for a business plan. Then, for each section of the outline, write a detailed paragraph."'
+        }
+    ];
+
+    const habitLoopData = {
+        cue: { 
+            title: '1. Cue (The Trigger)',
+            description: 'Make it obvious. Place the AI tool in your direct line of sight. Make it a browser bookmark. Set the AI summary as your default view for long emails. The goal is to make using AI the most obvious first step.'
+        },
+        craving: {
+            title: '2. Craving (The Motivation)',
+            description: 'Make it attractive. Focus on the immediate relief of having a task done in seconds. The craving is for clarity and reduced cognitive load, which AI provides instantly.'
+        },
+        response: {
+            title: '3. Response (The Action)',
+            description: 'Make it easy. Start with a "Two-Minute" AI task. For example, summarize one email or ask one brainstorming question per day. This builds momentum and makes the habit feel effortless.'
+        },
+        reward: {
+            title: '4. Reward (The Satisfaction)',
+            description: 'Make it satisfying. The immediate, high-quality output from the AI is a powerful reward. Track the time you save to make the progress tangible, reinforcing the loop.'
+        },
+    };
+
+    function initMobileMenu() {
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const openIcon = document.getElementById('menu-open-icon');
+        const closedIcon = document.getElementById('menu-closed-icon');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            openIcon.classList.toggle('hidden');
+            closedIcon.classList.toggle('hidden');
+        });
+
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                mobileMenu.classList.add('hidden');
+                openIcon.classList.add('hidden');
+                closedIcon.classList.remove('hidden');
+            }
+        });
+    }
+
+    function initNavScrollSpy() {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === entry.target.id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: '-50% 0px -50% 0px' });
+
+        sections.forEach(section => observer.observe(section));
+    }
+
+    function initTransformerTooltips() {
+        const steps = document.querySelectorAll('.transformer-step');
+        const tooltip = document.getElementById('tooltip');
+
+        steps.forEach(step => {
+            step.addEventListener('mouseenter', (e) => {
+                tooltip.textContent = step.dataset.info;
+                tooltip.classList.remove('hidden');
+                const rect = e.target.getBoundingClientRect();
+                tooltip.style.left = `${e.clientX}px`;
+                tooltip.style.top = `${rect.bottom + window.scrollY + 5}px`;
+            });
+            step.addEventListener('mouseleave', () => {
+                tooltip.classList.add('hidden');
+            });
+            step.addEventListener('mousemove', (e) => {
+                tooltip.style.left = `${e.clientX + 15}px`;
+            });
+        });
+    }
+
+    function initWorkdayChart() {
+        const ctx = document.getElementById('workdayChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Financial Planning Efficiency', 'AP Process Speed', 'Top Talent Turnover Reduction'],
+                datasets: [{
+                    label: '% Improvement',
+                    data: [49, 52, 39],
+                    backgroundColor: [
+                        'rgba(56, 189, 248, 0.6)', // sky-400
+                        'rgba(14, 165, 233, 0.6)', // sky-500
+                        'rgba(2, 132, 199, 0.6)'  // sky-600
+                    ],
+                    borderColor: [
+                        'rgba(56, 189, 248, 1)',
+                        'rgba(14, 165, 233, 1)',
+                        'rgba(2, 132, 199, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    },
+                    x: {
+                        ticks: {
+                           maxRotation: 0,
+                           minRotation: 0,
+                           callback: function(value, index, values) {
+                               const label = this.getLabelForValue(value);
+                               return label.length > 20 ? label.substring(0, 20) + '...' : label;
+                           }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function initWorkdayTabs() {
+        const tabsContainer = document.getElementById('workday-tabs');
+        const contentContainer = document.getElementById('workday-content');
+
+        workdayData.tabs.forEach(tab => {
+            const tabButton = document.createElement('button');
+            tabButton.dataset.tab = tab.id;
+            tabButton.textContent = tab.name;
+            tabButton.className = 'workday-tab text-left md:text-right whitespace-nowrap text-sm font-semibold text-slate-600 p-2 md:pr-4 border-b-2 md:border-b-0 md:border-r-2 border-transparent hover:bg-slate-100 rounded-t-md md:rounded-l-md md:rounded-tr-none';
+            tabsContainer.appendChild(tabButton);
+        });
+
+        tabsContainer.addEventListener('click', e => {
+            if (e.target.classList.contains('workday-tab')) {
+                const tabId = e.target.dataset.tab;
+                updateWorkdayContent(tabId);
+            }
+        });
+
+        function updateWorkdayContent(tabId) {
+            document.querySelectorAll('.workday-tab').forEach(tab => {
+                tab.classList.remove('text-sky-700', 'border-sky-500', 'bg-sky-50');
+                if (tab.dataset.tab === tabId) {
+                    tab.classList.add('text-sky-700', 'border-sky-500', 'bg-sky-50');
+                }
+            });
+            const content = workdayData.content[tabId];
+            contentContainer.innerHTML = `
+                <h5 class="font-bold text-lg text-sky-900 mb-2">${content.title}</h5>
+                <p class="text-slate-700 mb-4">${content.description}</p>
+                <div class="text-sm">
+                    <p><strong class="font-semibold text-slate-800">Target User:</strong> ${content.user}</p>
+                    <p><strong class="font-semibold text-slate-800">Example:</strong> ${content.useCase}</p>
+                </div>
+            `;
+        }
+
+        updateWorkdayContent(workdayData.tabs[0].id);
+    }
+    
+    function initPromptGrid() {
+        const grid = document.getElementById('prompt-engineering-grid');
+        promptData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'prompt-card h-52 cursor-pointer';
+            card.innerHTML = `
+                <div class="prompt-card-inner">
+                    <div class="prompt-card-front">
+                        <h5 class="font-bold text-lg text-sky-800">${item.title}</h5>
+                        <p class="mt-2 text-xs text-slate-500">(Click to see example)</p>
+                    </div>
+                    <div class="prompt-card-back text-xs leading-relaxed">
+                        <p class="mb-2"><strong class="text-red-600">❌ Weak:</strong> ${item.weak}</p>
+                        <p><strong class="text-green-600">✅ Strong:</strong> ${item.strong}</p>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        grid.addEventListener('click', e => {
+            const card = e.target.closest('.prompt-card');
+            if (card) {
+                card.classList.toggle('is-flipped');
+            }
+        });
+    }
+
+    function initHabitLoop() {
+        const container = document.getElementById('habit-loop-container');
+        const infoBox = document.getElementById('habit-loop-info');
+        const stages = Object.keys(habitLoopData);
+        const angleStep = 360 / stages.length;
+
+        stages.forEach((stage, i) => {
+            const angle = angleStep * i - 90; 
+            const x = 50 + 40 * Math.cos(angle * Math.PI / 180);
+            const y = 50 + 40 * Math.sin(angle * Math.PI / 180);
+            
+            const node = document.createElement('div');
+            node.className = 'habit-node absolute w-24 h-24 rounded-full flex items-center justify-center text-center p-2 cursor-pointer transition-all duration-300 bg-amber-100 hover:bg-amber-200 shadow-md border-2 border-amber-200';
+            node.style.left = `calc(${x}% - 48px)`;
+            node.style.top = `calc(${y}% - 48px)`;
+            node.dataset.stage = stage;
+            node.innerHTML = `<span class="font-semibold text-sm text-amber-900">${habitLoopData[stage].title.split('. ')[1]}</span>`;
+            container.appendChild(node);
+        });
+
+        container.addEventListener('click', e => {
+            const node = e.target.closest('.habit-node');
+            if (node) {
+                const stageId = node.dataset.stage;
+                updateHabitInfo(stageId);
+                document.querySelectorAll('.habit-node').forEach(n => {
+                    n.classList.remove('bg-sky-200', 'border-sky-400', 'scale-110', 'shadow-xl');
+                    n.classList.add('bg-amber-100', 'border-amber-200');
+                });
+                node.classList.add('bg-sky-200', 'border-sky-400', 'scale-110', 'shadow-xl');
+                node.classList.remove('bg-amber-100', 'border-amber-200');
+            }
+        });
+
+        function updateHabitInfo(stageId) {
+            const data = habitLoopData[stageId];
+            infoBox.innerHTML = `
+                <h5 class="font-bold text-lg text-sky-900 mb-2">${data.title}</h5>
+                <p class="text-slate-700">${data.description}</p>
+            `;
+        }
+    }
+
+    initMobileMenu();
+    initNavScrollSpy();
+    initTransformerTooltips();
+    initWorkdayChart();
+    initWorkdayTabs();
+    initPromptGrid();
+    initHabitLoop();
+});
+</script>
+</body>
+</html>

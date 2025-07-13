@@ -26,6 +26,9 @@ This section will house a variety of toolkits and checklists, including:
 *   **[Financial_Model_Review_Checklist.md](./Financial_Model_Review_Checklist.md):**
     *   A checklist for reviewing financial models, focusing on structure, inputs, formula integrity, logic, and output reasonableness.
     *   Links to `Financial_Modeling/Templates/Excel_Financial_Model_Best_Practices.md`.
+*   **[Debiasing_Checklist_for_Analysis.md](./Debiasing_Checklist_for_Analysis.md):**
+    *   A practical job aid with questions to help analysts identify and mitigate common behavioral biases before finalizing a recommendation.
+    *   Links to `Behavioral_Finance/Debiasing_Techniques_for_Analysts.md`.
 *   **Covenant_Analysis_Checklist.md:** *(Future Addition)*
     *   A guide for analyzing loan covenants, including identifying key terms, assessing their restrictiveness, and modeling compliance.
 *   **Industry_Analysis_Framework_Checklist.md:** *(Future Addition)*
