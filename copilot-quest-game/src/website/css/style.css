@@ -1,122 +1,252 @@
-/*
-    Developer Note:
-    This file contains all the styles for the Copilot Quest game.
-    The styles are organized by screen, with a section for common styles.
-*/
+/* --- Global Styles & Variables --- */
+:root {
+    --font-primary: 'Poppins', sans-serif;
+    --font-secondary: 'Lato', sans-serif;
 
-/* --- Common Styles --- */
+    --color-bg: #f0f2f5;
+    --color-surface: #ffffff;
+    --color-text-primary: #1c1e21;
+    --color-text-secondary: #606770;
+    --color-accent: #007bff;
+    --color-accent-hover: #0056b3;
+    --color-correct: #28a745;
+    --color-incorrect: #dc3545;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    text-align: center;
-    background-color: #f0f2f5;
-    color: #333;
+    /* Team Colors */
+    --team-logic-primary: #0D47A1; /* Blue */
+    --team-harmony-primary: #1B5E20; /* Green */
+    --team-action-primary: #B71C1C; /* Red */
+    --team-imagination-primary: #4A148C; /* Purple */
+}
+
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+body {
+    font-family: var(--font-secondary);
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
 
-#app-container {
-    background-color: #fff;
-    padding: 2em;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
+.container {
     width: 100%;
+    max-width: 800px;
+    padding: 20px;
 }
 
 h1, h2, h3 {
-    color: #005a9e;
-}
-
-button {
-    background-color: #0078d4;
-    color: #fff;
-    border: none;
-    padding: 0.8em 1.5em;
-    font-size: 1em;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #005a9e;
-}
-
-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-
-/* --- Screen Styles --- */
-
-#welcome-screen, #personality-quiz-screen, #game-screen, #results-screen {
-    padding: 2em;
-}
-
-/* Personality Quiz */
-#personality-quiz-screen .question {
-    margin-bottom: 1.5em;
-    text-align: left;
-}
-
-#personality-quiz-screen label {
-    display: block;
+    font-family: var(--font-primary);
     margin-bottom: 0.5em;
 }
 
-/* Game Screen */
+h1 {
+    font-size: 2.5rem;
+    color: var(--color-accent);
+}
+
+h2 {
+    font-size: 1.8rem;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 1em;
+}
+
+.btn {
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--color-accent);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+    box-shadow: var(--shadow);
+}
+
+.btn:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.hidden {
+    display: none!important;
+}
+
+.screen {
+    width: 100%;
+}
+
+.content-box {
+    background-color: var(--color-surface);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+/* --- Welcome & Results Screens --- */
+#welcome-screen p, #results-screen p {
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
+}
+
+#results-screen #final-scores-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 2rem 0;
+    text-align: left;
+}
+
+#winner-announcement {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 2px solid var(--color-accent);
+}
+
+#winning-poem {
+    font-style: italic;
+    color: var(--color-text-secondary);
+}
+
+/* --- Questionnaire Screen --- */
+#questionnaire-form-container .question-group {
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+#questionnaire-form-container h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+#questionnaire-form-container label {
+    display: block;
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#questionnaire-form-container label:hover {
+    background-color: #e9ecef;
+}
+
+#questionnaire-form-container input[type="radio"] {
+    margin-right: 10px;
+}
+
+/* --- Game Screen --- */
+#hud {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.hud-item {
+    background-color: var(--color-surface);
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    flex-basis: 48%;
+    text-align: center;
+}
+
+.hud-prefix {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+#hud h2 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+#team-name-hud {
+    color: var(--color-accent);
+}
+
+#game-content {
+    text-align: left;
+}
+
+#question-text {
+    margin-bottom: 2rem;
+}
+
 #answer-options {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1em;
-    margin: 1.5em 0;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.answer-option {
-    flex-basis: 45%;
+.answer-btn {
+    width: 100%;
+    text-align: left;
+    background-color: #f0f2f5;
+    color: var(--color-text-primary);
+    box-shadow: none;
+    border: 2px solid transparent;
 }
 
-#feedback {
-    margin-top: 1.5em;
-    padding: 1em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.answer-btn:hover {
+    background-color: #e4e6eb;
+}
+
+.answer-btn.selected {
+    background-color: var(--color-accent);
+    color: white;
+    border-color: var(--color-accent-hover);
+}
+
+.answer-btn.correct {
+    background-color: var(--color-correct);
+    color: white;
+}
+
+.answer-btn.incorrect {
+    background-color: var(--color-incorrect);
+    color: white;
+}
+
+#feedback-container {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 8px;
     background-color: #e9f5ff;
+    border: 1px solid #b8d8f3;
 }
 
-/* --- Team Colors --- */
-/*
-    Developer Note:
-    These colors are used to distinguish the different teams.
-    They should be accessible and have sufficient contrast.
-*/
-
-.team-logic { color: #0078d4; }
-.team-harmony { color: #107c10; }
-.team-action { color: #d83b01; }
-.team-imagination { color: #8661c5; }
-.team-logic-bg { background-color: #e9f5ff; }
-.team-harmony-bg { background-color: #e7f3e7; }
-.team-action-bg { background-color: #fdf0eb; }
-.team-imagination-bg { background-color: #f6f2fa; }
-
-.links {
-    margin-top: 2em;
+#feedback-container h3 {
+    color: var(--color-accent);
 }
 
-.links a {
-    margin: 0 1em;
-    color: #0078d4;
-    text-decoration: none;
+#next-question-btn {
+    margin-top: 1rem;
+    float: right;
 }
 
-.links a:hover {
-    text-decoration: underline;
-}
+/* Team-specific HUD styles */
+.team-logic #team-name-hud { color: var(--team-logic-primary); }
+.team-harmony #team-name-hud { color: var(--team-harmony-primary); }
+.team-action #team-name-hud { color: var(--team-action-primary); }
+.team-imagination #team-name-hud { color: var(--team-imagination-primary); }

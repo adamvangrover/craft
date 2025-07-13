@@ -1,418 +1,419 @@
-// --- DATA --- //
-
-const personalityQuestions = [
-    {
-        question: "When faced with a problem, you...",
-        options: {
-            a: "Analyze it logically.",
-            b: "Consider everyone's feelings.",
-            c: "Take immediate action.",
-            d: "Brainstorm creative solutions."
-        }
-    },
-    {
-        question: "You are most comfortable when...",
-        options: {
-            a: "You have a clear plan.",
-            b: "Everyone is getting along.",
-            c: "You are making progress.",
-            d: "You are exploring new ideas."
-        }
-    },
-    {
-        question: "Your ideal role in a team is...",
-        options: {
-            a: "The strategist.",
-            b: "The mediator.",
-            c: "The implementer.",
-            d: "The visionary."
-        }
-    }
-];
-
-const gameData = {
-    "Risk Management": [
-        {
-            question: "What is the primary goal of risk management?",
-            options: ["To eliminate all risks", "To identify, assess, and mitigate risks.", "To transfer all risks to a third party", "To ignore risks"],
-            answer: "To identify, assess, and mitigate risks.",
-            feedback: "Correct! The goal is to proactively manage risks."
-        },
-        {
-            question: "What are the three main types of risk?",
-            options: ["Financial, operational, and strategic.", "Technical, legal, and reputational", "Market, credit, and liquidity", "Physical, social, and environmental"],
-            answer: "Financial, operational, and strategic.",
-            feedback: "Correct! These are the three main categories of risk."
-        },
-        {
-            question: "What is a risk register?",
-            options: ["A list of all employees", "A tool for documenting risks, their severity, and the actions taken to mitigate them.", "A financial statement", "A marketing plan"],
-            answer: "A tool for documenting risks, their severity, and the actions taken to mitigate them.",
-            feedback: "Correct! A risk register is a key tool in risk management."
-        }
-    ],
-    "Compliance": [
-        {
-            question: "True or False: Compliance is only about following laws.",
-            options: ["True", "False"],
-            answer: "False",
-            feedback: "Correct! Compliance also includes following internal policies and industry standards."
-        },
-        {
-            question: "What is the purpose of a compliance program?",
-            options: ["To punish employees", "To create unnecessary bureaucracy", "To ensure that an organization adheres to all applicable laws, regulations, and internal policies.", "To increase profits"],
-            answer: "To ensure that an organization adheres to all applicable laws, regulations, and internal policies.",
-            feedback: "Correct! A compliance program helps to prevent and detect violations."
-        },
-        {
-            question: "What is a whistleblower?",
-            options: ["A type of bird", "A person who exposes any kind of information or activity that is deemed illegal, unethical, or not correct within an organization.", "A security guard", "A professional athlete"],
-            answer: "A person who exposes any kind of information or activity that is deemed illegal, unethical, or not correct within an organization.",
-            feedback: "Correct! Whistleblowers play an important role in ensuring accountability."
-        }
-    ],
-    "Safety": [
-        {
-            question: "What does the acronym 'OSHA' stand for?",
-            options: ["Occupational Safety and Health Administration", "Office of Safe and Healthy Accommodations", "Organization for Safe and Healthy Alternatives", "Official Safety and Health Authority"],
-            answer: "Occupational Safety and Health Administration",
-            feedback: "Correct! OSHA sets and enforces workplace safety standards."
-        },
-        {
-            question: "What is a 'near miss'?",
-            options: ["A type of golf shot", "A close call in a sporting event", "An unplanned event that did not result in injury, illness, or damage - but had the potential to do so.", "A failed attempt to achieve a goal"],
-            answer: "An unplanned event that did not result in injury, illness, or damage - but had the potential to do so.",
-            feedback: "Correct! Reporting near misses can help to prevent future accidents."
-        },
-        {
-            question: "What is the most common cause of workplace injuries?",
-            options: ["Electrocution", "Burns", "Slips, trips, and falls.", "Chemical exposure"],
-            answer: "Slips, trips, and falls.",
-            feedback: "Correct! These are the most common, but also the most preventable, workplace injuries."
-        }
-    ],
-    "Lightning Round": [
-        {
-            question: "What is the capital of France?",
-            options: ["London", "Paris", "Berlin", "Rome"],
-            answer: "Paris",
-            feedback: "Correct!"
-        },
-        {
-            question: "What is the largest planet in our solar system?",
-            options: ["Mars", "Jupiter", "Saturn", "Earth"],
-            answer: "Jupiter",
-            feedback: "Correct!"
-        },
-        {
-            question: "What is the chemical symbol for gold?",
-            options: ["Ag", "Au", "G", "Go"],
-            answer: "Au",
-            feedback: "Correct!"
-        }
-    ],
-    "Finals": [
-        {
-            question: "Discuss the potential risks and benefits of implementing AI in risk management.",
-            answer: "Answers will vary, but should discuss both the pros (e.g., improved efficiency, better data analysis) and cons (e.g., model bias, implementation costs).",
-            feedback: "This is a complex topic with many valid points."
-        },
-        {
-            question: "How can an organization foster a strong risk culture?",
-            answer: "Answers will vary, but should include things like leadership commitment, clear communication, and employee training.",
-            feedback: "A strong risk culture is essential for effective risk management."
-        }
-    ]
-};
-
-const winningPoems = {
-    "Team Logic": "With logic and reason, you've won the day,\nYour sharp minds have led you all the way!",
-    "Team Harmony": "With teamwork and grace, you've won the prize,\nYour collaborative spirit reached the skies!",
-    "Team Action": "With speed and with courage, you've claimed the top spot,\nYour decisive actions could not be stopped!",
-    "Team Imagination": "With creativity and flair, you've won the game,\nYour innovative thinking has brought you to fame!"
-};
-
-
-// --- DOM ELEMENTS --- //
-
-const startGameBtn = document.getElementById('start-game');
-const challengeModeBtn = document.getElementById('challenge-mode');
-const sandboxModeBtn = document.getElementById('sandbox-mode');
-const welcomeScreen = document.getElementById('welcome-screen');
-const quizScreen = document.getElementById('personality-quiz-screen');
-const gameScreen = document.getElementById('game-screen');
-const resultsScreen = document.getElementById('results-screen');
-const challengeModeScreen = document.getElementById('challenge-mode-screen');
-const sandboxModeScreen = document.getElementById('sandbox-mode-screen');
-const quizQuestionsDiv = document.getElementById('quiz-questions');
-const submitQuizBtn = document.getElementById('submit-quiz');
-const backToWelcomeBtns = document.querySelectorAll('.back-to-welcome');
-const roundTitle = document.getElementById('round-title');
-const question = document.getElementById('question');
-const answerOptionsDiv = document.getElementById('answer-options');
-const feedbackDiv = document.getElementById('feedback');
-const nextQuestionBtn = document.getElementById('next-question');
-const scoresDiv = document.getElementById('scores');
-const winningPoemDiv = document.getElementById('winning-poem');
-const viewHallOfFameBtn = document.getElementById('view-hall-of-fame');
-const hallOfFameScreen = document.getElementById('hall-of-fame-screen');
-
-
-// --- GAME STATE --- //
-
-let currentRound = 0;
-let currentQuestion = 0;
-let scores = {
-    "Team Logic": 0,
-    "Team Harmony": 0,
-    "Team Action": 0,
-    "Team Imagination": 0
-};
-let teams = {};
-
-
-// --- FUNCTIONS --- //
-
-/**
- * Displays the personality quiz questions.
- */
-function showPersonalityQuiz() {
-    let output = '';
-    personalityQuestions.forEach((q, i) => {
-        output += `<div class="question">`;
-        output += `<p>${i + 1}. ${q.question}</p>`;
-        for (const option in q.options) {
-            output += `
-                <label>
-                    <input type="radio" name="q${i}" value="${option}">
-                    ${q.options[option]}
-                </label><br>
-            `;
-        }
-        output += `</div>`;
-    });
-    quizQuestionsDiv.innerHTML = output;
-}
-
-/**
- * Assigns players to teams based on their quiz answers.
- * This is a simplified version. A more complex version could
- * weigh the answers to provide a more accurate team assignment.
- */
-function assignTeams() {
-    const answers = [];
-    for (let i = 0; i < personalityQuestions.length; i++) {
-        const answer = document.querySelector(`input[name="q${i}"]:checked`);
-        if (answer) {
-            answers.push(answer.value);
-        } else {
-            alert("Please answer all questions.");
-            return;
-        }
-    }
-
-    // Simplified team assignment logic
-    const teamAssignments = {
-        a: "Team Logic",
-        b: "Team Harmony",
-        c: "Team Action",
-        d: "Team Imagination"
+document.addEventListener('DOMContentLoaded', () => {
+    // --- DOM Element Selection ---
+    const screens = {
+        welcome: document.getElementById('welcome-screen'),
+        questionnaire: document.getElementById('questionnaire-screen'),
+        game: document.getElementById('game-screen'),
+        results: document.getElementById('results-screen')
     };
 
-    // Count the number of answers for each option
-    const answerCounts = { a: 0, b: 0, c: 0, d: 0 };
-    answers.forEach(answer => {
-        answerCounts[answer]++;
-    });
+    const buttons = {
+        startGame: document.getElementById('start-game-btn'),
+        submitQuestionnaire: null, // Will be created dynamically
+        nextQuestion: document.getElementById('next-question-btn'),
+        playAgain: document.getElementById('play-again-btn')
+    };
 
-    // Find the option with the most answers
-    let maxCount = 0;
-    let teamLetter = '';
-    for (const option in answerCounts) {
-        if (answerCounts[option] > maxCount) {
-            maxCount = answerCounts[option];
-            teamLetter = option;
+    const containers = {
+        questionnaireForm: document.getElementById('questionnaire-form-container'),
+        questionText: document.getElementById('question-text'),
+        answerOptions: document.getElementById('answer-options'),
+        feedback: document.getElementById('feedback-container'),
+        feedbackText: document.getElementById('feedback-text'),
+        finalScores: document.getElementById('final-scores-container'),
+        winnerAnnouncement: document.getElementById('winner-announcement'),
+        winningTeamName: document.getElementById('winning-team-name'),
+        winningPoem: document.getElementById('winning-poem')
+    };
+
+    const hud = {
+        teamName: document.getElementById('team-name-hud'),
+        score: document.getElementById('score-hud'),
+        roundTitle: document.getElementById('round-title'),
+        hudTeamDiv: document.getElementById('hud-team')
+    };
+
+    // --- Game Data ---
+    const gameData = {
+        teams: {
+            'Team Logic': {
+                poem: "With minds so sharp and reason's light, you solved the puzzles, clear and bright. For every challenge, every test, your logic proved to be the best."
+            },
+            'Team Harmony': {
+                poem: "With balance, grace, and thoughtful plea, you found the path for all to see. In collaboration, you excelled, a story of teamwork, masterfully told."
+            },
+            'Team Action': {
+                poem: "With bold decisions, swift and fast, you built a lead that's meant to last. No hesitation, no delay, you bravely seized and won the day."
+            },
+            'Team Imagination': {
+                poem: "With novel thoughts and creative flair, you found solutions beyond compare. Where others saw but simple facts, you built new worlds and covered tracks."
+            }
+        },
+        personalityQuestions: [
+            {
+                question: "When faced with a new, complex project, what is your first instinct?",
+                answers: {
+                    a: { text: "Break it down into a logical, step-by-step plan.", type: "logic" },
+                    b: { text: "Consider how it will impact everyone on the team and seek consensus.", type: "harmony" },
+                    c: { text: "Jump in and start experimenting with the most immediate tasks.", type: "action" },
+                    d: { text: "Brainstorm all the wild and unconventional possibilities.", type: "imagination" }
+                }
+            },
+            {
+                question: "A team you are on is stuck. You are most likely to...",
+                answers: {
+                    a: { text: "Suggest analyzing the data to find the root cause.", type: "logic" },
+                    b: { text: "Facilitate a discussion to ensure everyone's voice is heard.", type: "harmony" },
+                    c: { text: "Propose a quick experiment to test a new approach.", type: "action" },
+                    d: { text: "Tell a story or use an analogy to reframe the problem.", type: "imagination" }
+                }
+            },
+            {
+                question: "When making a decision, you primarily rely on...",
+                answers: {
+                    a: { text: "Data, facts, and evidence.", type: "logic" },
+                    b: { text: "Intuition and the group's feelings.", type: "harmony" },
+                    c: { text: "Past experiences and what has worked before.", type: "action" },
+                    d: { text: "Future possibilities and innovative ideas.", type: "imagination" }
+                }
+            }
+        ],
+        mainRounds: [
+            {
+                title: "Round 1: Risk Management",
+                questions: [
+                    {
+                        type: 'mcq',
+                        question: "What is the primary purpose of risk management?",
+                        options: {
+                            a: "To eliminate all uncertainties",
+                            b: "To increase project costs",
+                            c: "To identify and manage potential threats and opportunities",
+                            d: "To delay decision making"
+                        },
+                        correctAnswer: 'c',
+                        feedback: "Correct! Effective risk management is a proactive process focused on identifying, assessing, and controlling uncertainties to help an organization achieve its objectives. It's about balancing risk and reward, not just eliminating risk entirely."
+                    },
+                    {
+                        type: 'true_false',
+                        question: "True or False: Risk retention is a strategy where an organization decides to bear the financial responsibility for a potential loss.",
+                        correctAnswer: true,
+                        feedback: "True. Risk retention, often used for high-frequency, low-severity risks, is a form of self-insurance where a company sets aside funds to cover potential losses rather than transferring the risk to an insurer."
+                    },
+                    {
+                        type: 'open',
+                        question: "Describe one key difference between Qualitative and Quantitative Risk Analysis.",
+                        feedback: "A great answer distinguishes between the two methods. Qualitative analysis is subjective, using scales like 'low-medium-high' to prioritize risks based on expert opinion. Quantitative analysis is objective, using numerical data and statistical models to assign a monetary value or specific probability to risks."
+                    }
+                ]
+            },
+            {
+                title: "Round 2: Compliance",
+                questions: [
+                    {
+                        type: 'true_false',
+                        question: "True or False: A conflict of interest only occurs if an employee gains a direct financial benefit.",
+                        correctAnswer: false,
+                        feedback: "False. A conflict of interest can be any situation where personal interests—financial, social, or otherwise—could potentially interfere with an employee's professional judgment or duties to the company."
+                    },
+                    {
+                        type: 'mcq',
+                        question: "Which of the following is a key goal of a corporate compliance program?",
+                        options: {
+                            a: "To increase company profits at all costs",
+                            b: "To detect and prevent misconduct and illegal activity",
+                            c: "To shift all responsibility for errors to employees",
+                            d: "To create more rules for the sake of bureaucracy"
+                        },
+                        correctAnswer: 'b',
+                        feedback: "Correct. A robust compliance program aims to establish a culture of integrity, ensure adherence to laws and regulations, and provide clear channels for reporting and addressing potential violations."
+                    }
+                ]
+            },
+            {
+                title: "Round 3: Safety",
+                questions: [
+                     {
+                        type: 'mcq',
+                        question: "In workplace safety, what does the acronym 'HAZOP' stand for?",
+                        options: {
+                            a: "Hazardous Operations",
+                            b: "Hazard and Operability Study",
+                            c: "Health and Occupational Procedures",
+                            d: "Hazardous Operator Protocol"
+                        },
+                        correctAnswer: 'b',
+                        feedback: "Correct! A HAZOP study is a structured and systematic examination of a planned or existing process or operation in order to identify and evaluate problems that may represent risks to personnel or equipment."
+                    }
+                ]
+            }
+        ],
+        lightningRound: {
+            title: "Lightning Round",
+            questions: [
+                { question: "How many stripes are there on the US flag?", answer: "13" },
+                { question: "What is the national animal of Australia?", answer: "Kangaroo" },
+                { question: "What does 'www' stand for in a website address?", answer: "World Wide Web" },
+                { question: "How many keys does a classic piano have?", answer: "88" }
+            ]
+        },
+        finals: {
+            title: "Finals",
+            questions: [
+                {
+                    question: "If an autonomous AI system makes a mistake that causes financial loss, who should be held accountable: the user, the developer, or the company that deployed it? Justify your answer."
+                },
+                {
+                    question: "Discuss how the concept of 'value alignment' in AI presents a significant risk for global corporations. Provide one example."
+                },
+                {
+                    question: "Beyond automation, what is the single greatest opportunity generative AI offers to a modern business, and what is the greatest risk it introduces?"
+                }
+            ]
         }
+    };
+
+    // --- Game State Management ---
+    let gameState = {};
+
+    function resetGameState() {
+        gameState = {
+            currentScreen: 'welcome',
+            currentRoundIndex: 0,
+            currentQuestionIndex: 0,
+            scores: {
+                'Team Logic': 0,
+                'Team Harmony': 0,
+                'Team Action': 0,
+                'Team Imagination': 0
+            },
+            playerTeam: null,
+            isLightningRound: false,
+            isFinals: false
+        };
     }
 
-    const team = teamAssignments[teamLetter];
-    alert(`You have been assigned to ${team}`);
-    teams["Player 1"] = team; // In a real game, you'd have multiple players
-
-    // Transition to the game screen
-    quizScreen.style.display = 'none';
-    gameScreen.style.display = 'block';
-    showQuestion();
-}
-
-/**
- * Displays the current question and answer options.
- */
-function showQuestion() {
-    let questionData;
-    if (isChallengeMode) {
-        questionData = getQuestion('challenge', true);
-        roundTitle.innerText = "Challenge Round";
-    } else {
-        const roundName = Object.keys(gameData)[currentRound];
-        questionData = gameData[roundName][currentQuestion];
-        roundTitle.innerText = roundName;
+    // --- Core Functions ---
+    function showScreen(screenId) {
+        Object.values(screens).forEach(screen => screen.classList.add('hidden'));
+        screens[screenId].classList.remove('hidden');
+        gameState.currentScreen = screenId;
     }
 
-    question.innerText = questionData.question;
-    answerOptionsDiv.innerHTML = '';
-    feedbackDiv.style.display = 'none';
-    nextQuestionBtn.style.display = 'none';
-
-    if (questionData.options) {
-        questionData.options.forEach(option => {
-            const button = document.createElement('button');
-            button.innerText = option;
-            button.classList.add('answer-option');
-            answerOptionsDiv.appendChild(button);
+    function startQuestionnaire() {
+        let formHTML = '<form id="personality-quiz">';
+        gameData.personalityQuestions.forEach((q, index) => {
+            formHTML += `<div class="question-group"><h3>${q.question}</h3>`;
+            for (const [key, answer] of Object.entries(q.answers)) {
+                formHTML += `
+                    <label>
+                        <input type="radio" name="question${index}" value="${answer.type}" required>
+                        ${answer.text}
+                    </label>
+                `;
+            }
+            formHTML += `</div>`;
         });
-    } else {
-        // For open-ended questions
-        const textarea = document.createElement('textarea');
-        textarea.id = 'open-ended-answer';
-        const button = document.createElement('button');
-        button.innerText = 'Submit';
-        button.id = 'submit-open-ended';
-        answerOptionsDiv.appendChild(textarea);
-        answerOptionsDiv.appendChild(button);
-    }
-}
+        formHTML += `<button type="submit" id="submit-questionnaire-btn" class="btn">Find My Team</button></form>`;
+        containers.questionnaireForm.innerHTML = formHTML;
 
-/**
- * Checks the selected answer and updates the score.
- * @param {string} selectedAnswer - The answer selected by the player.
- */
-function checkAnswer(selectedAnswer) {
-    const roundName = Object.keys(gameData)[currentRound];
-    const questionData = gameData[roundName][currentQuestion];
+        buttons.submitQuestionnaire = document.getElementById('submit-questionnaire-btn');
+        document.getElementById('personality-quiz').addEventListener('submit', handleQuestionnaireSubmit);
 
-    if (selectedAnswer === questionData.answer) {
-        scores[teams["Player 1"]]++;
-        feedbackDiv.innerText = "Correct! " + questionData.feedback;
-    } else {
-        feedbackDiv.innerText = "Incorrect. " + questionData.feedback;
+        showScreen('questionnaire');
     }
 
-    feedbackDiv.style.display = 'block';
-    nextQuestionBtn.style.display = 'block';
+    function handleQuestionnaireSubmit(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const scores = { logic: 0, harmony: 0, action: 0, imagination: 0 };
+        for (const value of formData.values()) {
+            scores[value]++;
+        }
 
-    // Disable answer buttons after an answer is selected
-    const answerButtons = document.querySelectorAll('.answer-option');
-    answerButtons.forEach(button => {
-        button.disabled = true;
-    });
-}
+        const playerTeamType = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
 
-/**
- * Moves to the next question or ends the game if all questions have been answered.
- */
-function nextQuestion() {
-    currentQuestion++;
-    const roundName = Object.keys(gameData)[currentRound];
-    if (currentQuestion >= gameData[roundName].length) {
-        currentQuestion = 0;
-        currentRound++;
+        switch(playerTeamType) {
+            case 'logic': gameState.playerTeam = 'Team Logic'; break;
+            case 'harmony': gameState.playerTeam = 'Team Harmony'; break;
+            case 'action': gameState.playerTeam = 'Team Action'; break;
+            case 'imagination': gameState.playerTeam = 'Team Imagination'; break;
+        }
+
+        startGame();
     }
 
-    if (currentRound >= Object.keys(gameData).length) {
-        showResults();
-    } else {
-        showQuestion();
+    function startGame() {
+        hud.teamName.textContent = gameState.playerTeam;
+        hud.hudTeamDiv.className = 'hud-item ' + gameState.playerTeam.toLowerCase().replace(' ', '-');
+        updateScoreboard();
+        displayQuestion();
+        showScreen('game');
     }
-}
 
-/**
- * Displays the final scores and winning team's poem.
- */
-function showResults() {
-    gameScreen.style.display = 'none';
-    resultsScreen.style.display = 'block';
-
-    let scoresOutput = '<h3>Final Scores</h3>';
-    for (const team in scores) {
-        scoresOutput += `<p class="${team.replace(' ', '-').toLowerCase()}">${team}: ${scores[team]}</p>`;
+    function updateScoreboard() {
+        hud.score.textContent = gameState.scores[gameState.playerTeam];
     }
-    scoresDiv.innerHTML = scoresOutput;
 
-    let winningTeam = "";
-    let maxScore = -1;
-    for (const team in scores) {
-        if (scores[team] > maxScore) {
-            maxScore = scores[team];
-            winningTeam = team;
+    function displayQuestion() {
+        containers.feedback.classList.add('hidden');
+        containers.answerOptions.innerHTML = ''; // Clear previous options
+
+        let currentQuestionData;
+
+        if (gameState.isLightningRound) {
+            hud.roundTitle.textContent = gameData.lightningRound.title;
+            currentQuestionData = gameData.lightningRound.questions[gameState.currentQuestionIndex];
+            containers.questionText.textContent = currentQuestionData.question;
+            containers.answerOptions.innerHTML = `
+                <input type="text" id="lightning-answer" class="text-input" placeholder="Type your answer...">
+                <button id="submit-answer-btn" class="btn">Submit</button>
+            `;
+            document.getElementById('submit-answer-btn').addEventListener('click', () => handleAnswerSubmission(document.getElementById('lightning-answer').value));
+
+        } else if (gameState.isFinals) {
+            hud.roundTitle.textContent = gameData.finals.title;
+            currentQuestionData = gameData.finals.questions[gameState.currentQuestionIndex];
+            containers.questionText.textContent = currentQuestionData.question;
+            containers.answerOptions.innerHTML = `
+                <textarea id="final-answer" class="text-input" rows="5" placeholder="Type your detailed answer..."></textarea>
+                <div class="points-selector">Points:
+                    <button class="point-btn" data-points="1">1</button>
+                    <button class="point-btn" data-points="2">2</button>
+                    <button class="point-btn" data-points="3">3</button>
+                </div>
+            `;
+            document.querySelectorAll('.point-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => handleAnswerSubmission(parseInt(e.target.dataset.points)));
+            });
+
+        } else { // Main Rounds
+            const round = gameData.mainRounds[gameState.currentRoundIndex];
+            hud.roundTitle.textContent = round.title;
+            currentQuestionData = round.questions[gameState.currentQuestionIndex];
+            containers.questionText.textContent = currentQuestionData.question;
+
+            if (currentQuestionData.type === 'mcq') {
+                for (const [key, text] of Object.entries(currentQuestionData.options)) {
+                    const button = document.createElement('button');
+                    button.textContent = `${key.toUpperCase()}. ${text}`;
+                    button.classList.add('btn', 'answer-btn');
+                    button.dataset.answer = key;
+                    button.addEventListener('click', () => handleAnswerSubmission(key));
+                    containers.answerOptions.appendChild(button);
+                }
+            } else if (currentQuestionData.type === 'true_false') {
+                ['True', 'False'].forEach(val => {
+                    const button = document.createElement('button');
+                    button.textContent = val;
+                    button.classList.add('btn', 'answer-btn');
+                    button.dataset.answer = val.toLowerCase();
+                    button.addEventListener('click', () => handleAnswerSubmission(val.toLowerCase() === 'true'));
+                    containers.answerOptions.appendChild(button);
+                });
+            } else if (currentQuestionData.type === 'open') {
+                 containers.answerOptions.innerHTML = `
+                    <textarea id="open-answer" class="text-input" rows="4" placeholder="Type your team's answer..."></textarea>
+                    <div class="points-selector">Points:
+                        <button class="point-btn" data-points="1">1</button>
+                        <button class="point-btn" data-points="2">2</button>
+                        <button class="point-btn" data-points="3">3</button>
+                    </div>
+                `;
+                document.querySelectorAll('.point-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => handleAnswerSubmission(parseInt(e.target.dataset.points)));
+                });
+            }
         }
     }
 
-    winningPoemDiv.innerHTML = `
-        <h3>Congratulations, ${winningTeam}!</h3>
-        <p>${winningPoems[winningTeam]}</p>
-    `;
-}
+    function handleAnswerSubmission(submittedAnswer) {
+        let points = 0;
+        let feedback = "Let's see...";
 
+        document.querySelectorAll('#answer-options button, #answer-options input, #answer-options textarea').forEach(el => el.disabled = true);
 
-// --- EVENT LISTENERS --- //
+        if (gameState.isLightningRound) {
+            const currentQuestionData = gameData.lightningRound.questions[gameState.currentQuestionIndex];
+            if (submittedAnswer.toLowerCase().trim() === currentQuestionData.answer.toLowerCase()) {
+                points = 1;
+                feedback = "Correct and quick!";
+            } else {
+                feedback = `The correct answer was: ${currentQuestionData.answer}`;
+            }
+        } else if (gameState.isFinals || (gameData.mainRounds[gameState.currentRoundIndex].questions[gameState.currentQuestionIndex].type === 'open')) {
+            points = submittedAnswer;
+            feedback = `The facilitator has awarded ${points} point(s) for your detailed response. A thoughtful approach is key when dealing with complex AI topics.`;
+        } else {
+            const round = gameData.mainRounds[gameState.currentRoundIndex];
+            const currentQuestionData = round.questions[gameState.currentQuestionIndex];
+            if (submittedAnswer === currentQuestionData.correctAnswer) {
+                points = 1;
+            }
+            feedback = currentQuestionData.feedback;
+        }
 
-startGameBtn.addEventListener('click', () => {
-    welcomeScreen.style.display = 'none';
-    quizScreen.style.display = 'block';
-    showPersonalityQuiz();
-});
+        gameState.scores[gameState.playerTeam] += points;
+        updateScoreboard();
 
-challengeModeBtn.addEventListener('click', () => {
-    welcomeScreen.style.display = 'none';
-    challengeModeScreen.style.display = 'block';
-    isChallengeMode = true;
-    // In a real game, you would have a more complex way of starting the challenge mode
-    // For now, we will just display a message.
-    const challengeContent = document.querySelector('#challenge-mode-screen p');
-    challengeContent.innerText = 'Challenge Mode Activated! Questions will be tougher and worth double points.';
-
-    // Replace the back button with a start button
-    const backButton = document.querySelector('#challenge-mode-screen button');
-    backButton.id = 'start-challenge-btn';
-    backButton.innerText = 'Start Challenge';
-
-    const startChallengeBtn = document.getElementById('start-challenge-btn');
-    startChallengeBtn.addEventListener('click', () => {
-        challengeModeScreen.style.display = 'none';
-        gameScreen.style.display = 'block';
-        showQuestion();
-    });
-});
-
-sandboxModeBtn.addEventListener('click', () => {
-    welcomeScreen.style.display = 'none';
-    sandboxModeScreen.style.display = 'block';
-});
-
-backToWelcomeBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        challengeModeScreen.style.display = 'none';
-        sandboxModeScreen.style.display = 'none';
-        welcomeScreen.style.display = 'block';
-    });
-});
-
-submitQuizBtn.addEventListener('click', assignTeams);
-
-nextQuestionBtn.addEventListener('click', nextQuestion);
-
-answerOptionsDiv.addEventListener('click', (e) => {
-    if (e.target.classList.contains('answer-option')) {
-        checkAnswer(e.target.innerText);
-    } else if (e.target.id === 'submit-open-ended') {
-        const answer = document.getElementById('open-ended-answer').value;
-        checkAnswer(answer); // Note: Open-ended questions are not auto-graded in this version.
+        containers.feedbackText.textContent = feedback;
+        containers.feedback.classList.remove('hidden');
     }
-});
 
-viewHallOfFameBtn.addEventListener('click', () => {
-    resultsScreen.style.display = 'none';
-    hallOfFameScreen.style.display = 'block';
-    displayHallOfFame();
+    function next() {
+        gameState.currentQuestionIndex++;
+
+        if (gameState.isLightningRound) {
+            if (gameState.currentQuestionIndex >= gameData.lightningRound.questions.length) {
+                gameState.isLightningRound = false;
+                gameState.isFinals = true;
+                gameState.currentQuestionIndex = 0;
+            }
+        } else if (gameState.isFinals) {
+            if (gameState.currentQuestionIndex >= gameData.finals.questions.length) {
+                showResults();
+                return;
+            }
+        } else { // Main Rounds
+            const round = gameData.mainRounds[gameState.currentRoundIndex];
+            if (gameState.currentQuestionIndex >= round.questions.length) {
+                gameState.currentRoundIndex++;
+                gameState.currentQuestionIndex = 0;
+                if (gameState.currentRoundIndex >= gameData.mainRounds.length) {
+                    gameState.isLightningRound = true;
+                }
+            }
+        }
+
+        displayQuestion();
+    }
+
+    function showResults() {
+        containers.finalScores.innerHTML = '';
+        const sortedScores = Object.entries(gameState.scores).sort(([,a],[,b]) => b-a);
+
+        sortedScores.forEach(([team, score]) => {
+            const scoreDiv = document.createElement('div');
+            scoreDiv.innerHTML = `<h3>${team}</h3><p>${score} Points</p>`;
+            containers.finalScores.appendChild(scoreDiv);
+        });
+
+        const [winningTeamName, ] = sortedScores[0];
+        containers.winningTeamName.textContent = winningTeamName;
+        containers.winningPoem.textContent = gameData.teams[winningTeamName].poem;
+
+        showScreen('results');
+    }
+
+    // --- Event Listeners ---
+    buttons.startGame.addEventListener('click', startQuestionnaire);
+    buttons.nextQuestion.addEventListener('click', next);
+    buttons.playAgain.addEventListener('click', () => {
+        resetGameState();
+        showScreen('welcome');
+    });
+
+    // --- Initializer ---
+    resetGameState();
+    showScreen('welcome');
 });
