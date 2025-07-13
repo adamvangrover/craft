@@ -233,6 +233,42 @@ footer {
 }
 
 /* Basic responsiveness */
+.hub-card {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.hub-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.hub-card h2 {
+    color: #007bff;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.hub-card p {
+    color: #495057;
+    margin-bottom: 1rem;
+}
+
+.hub-card a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hub-card a:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
