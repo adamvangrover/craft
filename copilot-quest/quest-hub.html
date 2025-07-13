@@ -94,7 +94,21 @@
             </section>
             <section id="copilot-usage" class="bg-white p-8 rounded-xl shadow-lg">
                 <h2 class="text-3xl font-bold mb-4">Copilot Usage</h2>
-                <p>Tips and tricks for getting the most out of Copilot.</p>
+                <div class="prose max-w-none">
+                    <h3>Getting Started</h3>
+                    <ul>
+                        <li><strong>Start with a clear goal:</strong> Know what you want to achieve before you start writing a prompt.</li>
+                        <li><strong>Use natural language:</strong> Write your prompts in plain English, as if you were talking to a person.</li>
+                        <li><strong>Be patient:</strong> Copilot is a powerful tool, but it's not perfect. It may take a few tries to get the desired output.</li>
+                    </ul>
+                    <h3>Advanced Techniques</h3>
+                    <ul>
+                        <li><strong>Use comments to guide Copilot:</strong> You can use comments in your code to give Copilot hints about what you want it to do.</li>
+                        <li><strong>Use specific function names:</strong> If you want Copilot to generate a specific function, use a descriptive name for it.</li>
+                        <li><strong>Break down complex problems:</strong> If you have a complex problem to solve, break it down into smaller, more manageable pieces.</li>
+                    </ul>
+                </div>
+
             </section>
             <section id="the-game" class="bg-white p-8 rounded-xl shadow-lg">
                 <h2 class="text-3xl font-bold mb-4">The Game</h2>
@@ -183,6 +197,25 @@
                     objective: 'To improve the clarity, conciseness, or tone of existing text.',
                     prompt: 'Rewrite the following sentence to sound more professional and confident.\\n\\nOriginal Sentence: "I think maybe we should probably try to have a meeting next week to discuss the project status."\\n\\nRewritten Sentence:',
                     annotation: `Uses a clear instruction and a simple form of **Few-Shot prompting** by labeling the "Original" and "Rewritten" parts, which clearly teaches the model the transformation task.`
+                },
+                {
+                    title: 'The Code Explainer',
+                    objective: 'To understand a piece of code by generating a natural language explanation.',
+                    prompt: 'Explain the following Python code snippet in plain English. Describe what it does, what its inputs are, and what it returns.\\n\\n```python\\n[Paste your code here]\\n```',
+                    annotation: 'Uses a **persona** ("Explain in plain English") and a clear **format** to generate a useful explanation of a code snippet.'
+                },
+                {
+                    title: 'The Test Case Generator',
+                    objective: 'To generate test cases for a given function.',
+                    prompt: 'Generate a set of test cases for the following JavaScript function. Include edge cases and invalid inputs.\\n\\n```javascript\\n[Paste your function here]\\n```',
+                    annotation: 'Uses a **persona** ("Generate a set of test cases") and a clear **format** to generate a useful set of test cases for a function.'
+                },
+                {
+                    title: 'The SQL Query Writer',
+                    objective: 'To generate a SQL query from a natural language description.',
+                    prompt: 'Write a SQL query that selects all users from the `users` table who have signed up in the last 30 days and have made at least one purchase.',
+                    annotation: 'Uses a clear **instruction** and a **specific** request to generate a useful SQL query.'
+
                 }
             ];
 
@@ -247,7 +280,8 @@
                 answersContainer.appendChild(questionDiv);
             });
 
-            scoreSheetForm.addEventListener('input', () => {
+            function updateFinalScore() {
+
                 let totalScore = 0;
                 for (let i = 0; i < questions.length; i++) {
                     const score = document.getElementById(`score-${i}`).value;
@@ -256,6 +290,15 @@
                     }
                 }
                 finalScore.textContent = totalScore;
+                localStorage.setItem('finalScore', totalScore);
+            }
+
+            scoreSheetForm.addEventListener('input', () => {
+                const formData = new FormData(scoreSheetForm);
+                const data = Object.fromEntries(formData.entries());
+                localStorage.setItem('scoreSheet', JSON.stringify(data));
+                updateFinalScore();
+
             });
 
             scoreSheetForm.addEventListener('submit', (event) => {
@@ -284,6 +327,30 @@
                 document.body.appendChild(link);
                 link.click();
             });
+
+            const clearButton = document.createElement('button');
+            clearButton.textContent = 'Clear Scores';
+            clearButton.classList.add('bg-red-500', 'text-white', 'font-bold', 'py-2', 'px-4', 'rounded-lg', 'hover:bg-red-700', 'transition-colors', 'ml-4');
+            clearButton.addEventListener('click', () => {
+                localStorage.removeItem('scoreSheet');
+                localStorage.removeItem('finalScore');
+                scoreSheetForm.reset();
+                finalScore.textContent = '0';
+            });
+            scoreSheetForm.querySelector('button[type="submit"]').insertAdjacentElement('afterend', clearButton);
+
+            const savedScoreSheet = localStorage.getItem('scoreSheet');
+            if (savedScoreSheet) {
+                const data = JSON.parse(savedScoreSheet);
+                for (const key in data) {
+                    const input = scoreSheetForm.querySelector(`[name="${key}"]`);
+                    if (input) {
+                        input.value = data[key];
+                    }
+                }
+                updateFinalScore();
+            }
+
         });
     </script>
 </body>
