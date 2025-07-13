@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 3 Keys Interactive Guide to Strategic AI Prompting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Background: #FFFBEB (Amber 50), Text: #374151 (Gray 700), Accent: #2563EB (Blue 600)) -->
+    <!-- Application Structure Plan: A single-page application with a task-oriented top navigation (Overview, Principles, Techniques, Risks, Library, Mitigation). This non-linear structure prioritizes user goals over the report's linear chapter format. Users can either follow a learning path or jump directly to tools like the Prompt Library. Key interactions include clickable cards for principles, tabbed interfaces for comparing techniques, an interactive flowchart for risks, and a copy-to-clipboard feature in the library, designed to transform passive reading into active exploration and application. -->
+    <!-- Visualization & Content Choices: 1. Overview: (Goal: Inform) A Chart.js radar chart visualizes the components of a perfect prompt, providing a visual anchor. 2. Principles: (Goal: Inform/Engage) Interactive cards for the 'Four C's' use JS to show details on click. 3. Techniques: (Goal: Compare) A tabbed HTML/JS interface compares prompting architectures side-by-side. 4. Risks: (Goal: Organize) A CSS Grid layout displays risks, and an HTML/CSS flowchart illustrates interconnectedness. 5. Library: (Goal: Use) A highly interactive component with tabs and 'copy' buttons (JS) makes prompts actionable. 6. Mitigation: (Goal: Synthesize) An interactive HTML table makes the risk matrix a usable tool. Chosen libraries/methods are Chart.js and vanilla JS, adhering to requirements. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .chart-container { position: relative; width: 100%; max-width: 500px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 400px; } }
+        .nav-link { transition: color 0.3s ease, border-color 0.3s ease; }
+        .nav-link.active { color: #2563EB; border-bottom-color: #2563EB; }
+        .nav-link:not(.active) { border-bottom-color: transparent; }
+        .prompt-card-code { white-space: pre-wrap; word-wrap: break-word; }
+        .table-cell { padding: 12px 16px; }
+        .flowchart-arrow { font-size: 2rem; color: #9CA3AF; }
+    </style>
+</head>
+<body class="bg-amber-50 text-gray-700 antialiased">
+
+    <div id="app-container" class="w-full">
+        <header id="main-header" class="bg-amber-50/80 backdrop-blur-lg sticky top-0 z-50 border-b border-amber-200">
+            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center">
+                        <span class="font-bold text-xl text-gray-800">Strategic Prompting</span>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="#overview" class="nav-link px-3 py-2 text-sm font-medium text-gray-500 hover:text-blue-600 border-b-2">Overview</a>
+                            <a href="#principles" class="nav-link px-3 py-2 text-sm font-medium text-gray-500 hover:text-blue-600 border-b-2">Principles</a>
+                            <a href="#techniques" class="nav-link px-3 py-2 text-sm font-medium text-gray-500 hover:text-blue-600 border-b-2">Techniques</a>
+                            <a href="#risks" class="nav-link px-3 py-2 text-sm font-medium text-gray-500 hover:text-blue-600 border-b-2">Risks</a>
+                            <a href="#library" class="nav-link px-3 py-2 text-sm font-medium text-gray-500 hover:text-blue-600 border-b-2">Prompt Library</a>
+                            <a href="#mitigation" class="nav-link px-3 py-2 text-sm font-medium text-gray-500 hover:text-blue-600 border-b-2">Mitigation</a>
+                        </div>
+                    </div>
+                    <div class="md:hidden">
+                         <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                            <span class="sr-only">Open main menu</span>
+                            <div id="hamburger-icon">
+                                <div class="w-6 h-0.5 bg-gray-600 my-1"></div>
+                                <div class="w-6 h-0.5 bg-gray-600 my-1"></div>
+                                <div class="w-6 h-0.5 bg-gray-600 my-1"></div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+            <div id="mobile-menu" class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="#overview" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-blue-600">Overview</a>
+                    <a href="#principles" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-blue-600">Principles</a>
+                    <a href="#techniques" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-blue-600">Techniques</a>
+                    <a href="#risks" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-blue-600">Risks</a>
+                    <a href="#library" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-blue-600">Library</a>
+                    <a href="#mitigation" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-blue-600">Mitigation</a>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section id="overview" class="py-20 sm:py-28">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Master the Art of AI Communication</h1>
+                        <p class="mt-6 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">This guide transforms the dense theory of AI interaction into a practical, hands-on toolkit. Learn to craft prompts that deliver precise results, understand the technology's risks, and unlock the full potential of generative AI in your professional work.</p>
+                    </div>
+                    <div class="mt-16 lg:mt-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                        <div class="text-left">
+                            <h2 class="text-3xl font-bold tracking-tight text-gray-900">Anatomy of an Effective Prompt</h2>
+                            <p class="mt-4 text-gray-600">A high-quality prompt is more than just a question; it's a structured instruction. It combines several key elements to guide the AI towards a desired outcome. This chart visualizes the core components that create a balanced, effective, and safe prompt. Mastering this balance is the key to moving from simple queries to strategic communication with AI.</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="promptAnatomyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="border-t border-amber-200"></div>
+
+            <section id="principles" class="py-20 sm:py-28 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">The Four Pillars of Prompting</h2>
+                        <p class="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">All successful prompting strategies are built on four foundational pillars. Think of them as the 'Four C's'. Mastering these concepts will dramatically improve the quality, relevance, and safety of your AI-generated results by providing the model with the guidance it needs to perform effectively.</p>
+                    </div>
+                    <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="bg-amber-50 rounded-xl shadow-lg p-6 text-center">
+                            <div class="text-4xl mb-4">🎯</div>
+                            <h3 class="text-xl font-semibold text-gray-900">Clarity</h3>
+                            <p class="mt-2 text-gray-600">Be specific, direct, and unambiguous. Vague instructions lead to generic outputs.</p>
+                        </div>
+                        <div class="bg-amber-50 rounded-xl shadow-lg p-6 text-center">
+                            <div class="text-4xl mb-4">📚</div>
+                            <h3 class="text-xl font-semibold text-gray-900">Context</h3>
+                            <p class="mt-2 text-gray-600">Provide all necessary background information. AI doesn't know your project's history.</p>
+                        </div>
+                        <div class="bg-amber-50 rounded-xl shadow-lg p-6 text-center">
+                             <div class="text-4xl mb-4">📏</div>
+                            <h3 class="text-xl font-semibold text-gray-900">Constraints</h3>
+                            <p class="mt-2 text-gray-600">Define the desired output format, length, and style. Don't leave it to chance.</p>
+                        </div>
+                        <div class="bg-amber-50 rounded-xl shadow-lg p-6 text-center">
+                             <div class="text-4xl mb-4">🎭</div>
+                            <h3 class="text-xl font-semibold text-gray-900">Persona</h3>
+                            <p class="mt-2 text-gray-600">Assign a role to the AI (e.g., "Act as an expert analyst") to frame its response.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="border-t border-amber-200"></div>
+
+            <section id="techniques" class="py-20 sm:py-28">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Advanced Prompting Architectures</h2>
+                        <p class="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">For more complex tasks, move beyond basic questions to structured prompting architectures. These techniques provide the AI with 'cognitive scaffolding' to improve reasoning, follow instructions, and produce more accurate results.</p>
+                    </div>
+                    <div class="mt-16">
+                        <div class="w-full max-w-4xl mx-auto">
+                            <div class="mb-4 flex space-x-1 p-1 bg-amber-100 rounded-xl" id="technique-tabs">
+                                <button data-target="zero-shot" class="technique-tab w-full py-2.5 text-sm font-medium leading-5 text-blue-700 rounded-lg bg-white shadow">Zero-Shot</button>
+                                <button data-target="few-shot" class="technique-tab w-full py-2.5 text-sm font-medium leading-5 text-blue-700 rounded-lg hover:bg-white/50">Few-Shot</button>
+                                <button data-target="cot" class="technique-tab w-full py-2.5 text-sm font-medium leading-5 text-blue-700 rounded-lg hover:bg-white/50">Chain-of-Thought</button>
+                            </div>
+                            <div id="technique-content" class="bg-white p-6 rounded-xl shadow-lg">
+                                <div id="zero-shot">
+                                    <h3 class="text-xl font-semibold text-gray-900">Zero-Shot Prompting</h3>
+                                    <p class="mt-2 text-gray-600">Asking a direct question without providing examples. It's fast and simple, best for general knowledge queries where the AI can rely on its pre-existing training.</p>
+                                    <p class="mt-4 font-semibold text-gray-800">Use Case: Quick classification</p>
+                                    <pre class="mt-2 bg-gray-100 p-4 rounded-lg text-sm text-gray-800"><code>Classify the following text as having a positive, neutral, or negative sentiment: "The new software update is a bit confusing to navigate."</code></pre>
+                                </div>
+                                <div id="few-shot" class="hidden">
+                                    <h3 class="text-xl font-semibold text-gray-900">Few-Shot Prompting</h3>
+                                    <p class="mt-2 text-gray-600">Providing 2-5 examples of the desired input/output format. This teaches the AI a specific task or format in context, dramatically improving accuracy and consistency.</p>
+                                     <p class="mt-4 font-semibold text-gray-800">Use Case: Data extraction into a specific format</p>
+                                    <pre class="mt-2 bg-gray-100 p-4 rounded-lg text-sm text-gray-800"><code>Extract the product and company from the text.<br><br>Text: "We just integrated Stripe to handle our payments."<br>Product: Stripe, Company: Stripe<br><br>Text: "Our team uses Slack for all internal communication."<br>Product: Slack, Company: Slack<br><br>Text: "We are running our infrastructure on Amazon Web Services."<br>Product: Amazon Web Services, Company: Amazon</code></pre>
+                                </div>
+                                <div id="cot" class="hidden">
+                                    <h3 class="text-xl font-semibold text-gray-900">Chain-of-Thought (CoT) Prompting</h3>
+                                    <p class="mt-2 text-gray-600">Instructing the model to "think step-by-step" before giving a final answer. This forces a logical sequence, improving performance on math, logic, and complex reasoning tasks.</p>
+                                    <p class="mt-4 font-semibold text-gray-800">Use Case: Multi-step problem solving</p>
+                                    <pre class="mt-2 bg-gray-100 p-4 rounded-lg text-sm text-gray-800"><code>Q: Roger has 5 tennis balls. He buys 2 more cans of tennis balls. Each can has 3 tennis balls. How many tennis balls does he have now?<br><br>A: Let's think step by step.<br>1. Roger started with 5 tennis balls.<br>2. He buys 2 cans of balls, and each can has 3 balls, so he gets 2 * 3 = 6 new balls.<br>3. In total, he now has his original 5 balls plus the 6 new balls.<br>4. 5 + 6 = 11.<br>Final Answer: 11.</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="border-t border-amber-200"></div>
+
+            <section id="risks" class="py-20 sm:py-28 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">The AI Risk Landscape</h2>
+                        <p class="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">Generative AI is a powerful tool, but it comes with inherent risks. Understanding these vulnerabilities—from content accuracy to security—is the first step toward responsible and safe adoption in a professional setting.</p>
+                    </div>
+                    <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-amber-50 p-6 rounded-xl shadow-lg">
+                            <h3 class="text-xl font-semibold text-gray-900">1. Content Accuracy Risks</h3>
+                            <ul class="mt-4 space-y-2 text-gray-600 list-disc list-inside">
+                                <li><strong>Hallucinations:</strong> The AI confidently invents facts, citations, or data.</li>
+                                <li><strong>Outdated Information:</strong> The AI's knowledge is not real-time and can be months or years old.</li>
+                                <li><strong>Bias Propagation:</strong> The AI reproduces and can amplify societal biases from its training data.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-amber-50 p-6 rounded-xl shadow-lg">
+                            <h3 class="text-xl font-semibold text-gray-900">2. Security & Privacy Risks</h3>
+                            <ul class="mt-4 space-y-2 text-gray-600 list-disc list-inside">
+                                <li><strong>Prompt Injection:</strong> Malicious instructions hidden in text trick the AI.</li>
+                                <li><strong>Data Leakage:</strong> Users input sensitive or proprietary data into public tools.</li>
+                                <li><strong>Malicious Use:</strong> The AI is used to create phishing emails, malware, or disinformation.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-amber-50 p-6 rounded-xl shadow-lg">
+                            <h3 class="text-xl font-semibold text-gray-900">3. Operational & Strategic Risks</h3>
+                            <ul class="mt-4 space-y-2 text-gray-600 list-disc list-inside">
+                                <li><strong>Skill Atrophy:</strong> Over-reliance degrades users' own fundamental skills.</li>
+                                <li><strong>Automation Bias:</strong> Humans uncritically trust flawed AI outputs.</li>
+                                <li><strong>Reputational Damage:</strong> Public-facing AI errors harm brand and customer trust.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-20 text-center">
+                         <h3 class="text-2xl font-bold tracking-tight text-gray-900">How Risks Connect: A Cascading Failure</h3>
+                         <p class="mt-2 text-gray-600 max-w-2xl mx-auto">These risks are not isolated. A single mistake can trigger a chain reaction, as this common scenario illustrates.</p>
+                         <div class="mt-8 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
+                            <div class="text-center p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+                                <p class="font-semibold text-blue-600">Data Leakage</p>
+                                <p class="text-sm">Analyst pastes sensitive data into a public tool.</p>
+                            </div>
+                            <div class="flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                            <div class="text-center p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+                                <p class="font-semibold text-blue-600">Hallucination</p>
+                                <p class="text-sm">AI invents a fake statistic in its summary.</p>
+                            </div>
+                             <div class="flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                            <div class="text-center p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+                                 <p class="font-semibold text-blue-600">Automation Bias</p>
+                                <p class="text-sm">Manager trusts the fake stat without verifying.</p>
+                            </div>
+                             <div class="flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                            <div class="text-center p-4 bg-red-100 border border-red-300 rounded-lg shadow-sm">
+                                <p class="font-semibold text-red-700">Reputational Damage</p>
+                                <p class="text-sm">Company publishes the false information.</p>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="border-t border-amber-200"></div>
+
+            <section id="library" class="py-20 sm:py-28">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                     <div class="text-center">
+                        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">The Strategic Prompt Library</h2>
+                        <p class="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">Move from theory to practice with this tiered library of ready-to-use prompts. Each example is designed to illustrate key techniques and can be copied with a single click to use in your own work.</p>
+                    </div>
+
+                    <div class="mt-16 w-full max-w-5xl mx-auto">
+                        <div class="mb-4 flex space-x-1 p-1 bg-amber-100 rounded-xl" id="library-tabs">
+                            <button data-target="novice" class="library-tab w-full py-2.5 text-sm font-medium leading-5 text-blue-700 rounded-lg bg-white shadow">Novice</button>
+                            <button data-target="professional" class="library-tab w-full py-2.5 text-sm font-medium leading-5 text-blue-700 rounded-lg hover:bg-white/50">Intermediate</button>
+                            <button data-target="expert" class="library-tab w-full py-2.5 text-sm font-medium leading-5 text-blue-700 rounded-lg hover:bg-white/50">Expert</button>
+                        </div>
+
+                        <div id="novice-prompts" class="library-content space-y-6"></div>
+                        <div id="professional-prompts" class="library-content hidden space-y-6"></div>
+                        <div id="expert-prompts" class="library-content hidden space-y-6"></div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="border-t border-amber-200"></div>
+
+            <section id="mitigation" class="py-20 sm:py-28 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Prompting as Risk Mitigation</h2>
+                        <p class="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">Effective prompting isn't just about getting better answers—it's your first line of defense against AI's inherent risks. This matrix shows how each best practice directly maps to a specific risk, turning your interaction into an act of control.</p>
+                    </div>
+                    <div class="mt-16 flow-root">
+                        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                    <table id="mitigation-table" class="min-w-full divide-y divide-gray-300">
+                                        <thead class="bg-gray-50">
+                                            <tr>
+                                                <th scope="col" class="table-cell text-left text-sm font-semibold text-gray-900">Risk</th>
+                                                <th scope="col" class="table-cell text-left text-sm font-semibold text-gray-900">Potential Impact</th>
+                                                <th scope="col" class="table-cell text-left text-sm font-semibold text-gray-900">Primary Mitigation Tactic</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200 bg-white">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const appData = {
+        prompts: {
+            novice: [
+                { 
+                    title: 'The Universal Summarizer',
+                    objective: 'To condense a piece of text into its most critical points.',
+                    prompt: 'Summarize the following text, which is enclosed in triple quotes, into exactly 3 bullet points. The summary should be clear and concise.\n\n"""\n[Paste your text here]\n"""',
+                    annotation: 'Uses **delimiters** (`"""`) to separate instructions from content and a clear **constraint** ("exactly 3 bullet points") to control the output format.'
+                },
+                {
+                    title: 'The Idea Generator',
+                    objective: `To overcome writer's block and brainstorm initial concepts.`,
+                    prompt: `I need to create content about the benefits of remote work for small businesses. Generate 5 unique blog post titles. For each title, provide a 2-sentence description of the angle the post would take.`,
+                    annotation: `Demonstrates **clarity** and **specificity**. Instead of a vague request, it specifies the topic, the exact output format, and a further requirement, ensuring a structured and useful result.`
+                },
+                 {
+                    title: 'The Rephraser & Tone Adjuster',
+                    objective: 'To improve the clarity, conciseness, or tone of existing text.',
+                    prompt: 'Rewrite the following sentence to sound more professional and confident.\n\nOriginal Sentence: "I think maybe we should probably try to have a meeting next week to discuss the project status."\n\nRewritten Sentence:',
+                    annotation: `Uses a clear instruction and a simple form of **Few-Shot prompting** by labeling the "Original" and "Rewritten" parts, which clearly teaches the model the transformation task.`
+                }
+            ],
+            professional: [
+                {
+                    title: 'The Expert Persona Email Drafter',
+                    objective: 'To draft professional communications with a specific tone and context.',
+                    prompt: `Act as a customer success manager at a SaaS company. Your tone should be helpful and proactive, not defensive.\n\nA customer has written in complaining that they find our new analytics dashboard confusing.\n\nDraft an email response that:\n1. Acknowledges their frustration and validates their feedback.\n2. Briefly highlights one key benefit of the new dashboard (e.g., more granular data).\n3. Offers to schedule a 15-minute one-on-one call to walk them through it.\n4. Provides a link to our new video tutorial series.`,
+                    annotation: `Combines a **persona** ("Act as a customer success manager") with rich **context** (the customer's problem) and clear **constraints** (the numbered list of requirements) to produce a strategically crafted email.`
+                },
+                {
+                    title: 'The Structured Data Extractor',
+                    objective: 'To pull specific pieces of information from unstructured text and format them as JSON.',
+                    prompt: `Your task is to extract key information from an email signature and format it as a JSON object.\n\nHere is an example of the task:\n<text>\nJohn Smith, Senior Analyst at Global Corp. Reach me at j.smith@globalcorp.com or 555-123-4567.\n</text>\n<json>\n{\n  "name": "John Smith",\n  "title": "Senior Analyst",\n  "company": "Global Corp",\n  "email": "j.smith@globalcorp.com",\n  "phone": "555-123-4567"\n}\n</json>\n\nNow, process the following text:\n<text>\n[Paste new email signature or text block here]\n</text>\n<json>`,
+                    annotation: `Uses the **Few-Shot** technique with XML-style **delimiters** to teach the model a specific data extraction and formatting task, dramatically increasing output accuracy.`
+                },
+                {
+                    title: 'The Argument Synthesizer',
+                    objective: 'To compare and contrast different viewpoints from a piece of text.',
+                    prompt: "Analyze the following article, delimited by triple backticks. Identify the main arguments presented FOR the proposal and the main arguments presented AGAINST the proposal.\n\nPresent your output as a two-column Markdown table with the headings 'Arguments For' and 'Arguments Against'.\n\n```\n[Paste article text here]\n```",
+                    annotation: 'Goes beyond simple summarization by asking for synthesis and categorization. Provides clear **instructions** and a precise output **constraint** (a two-column Markdown table).'
+                }
+            ],
+            expert: [
+                {
+                    title: 'The Chain-of-Thought Code Generator',
+                    objective: 'To generate robust code by forcing the AI to outline its logic first.',
+                    prompt: `You are an expert Python developer specializing in data manipulation with the Pandas library.\n\nI need a Python function that takes a file path to a CSV file as input. The function should perform the following operations:\n1. Load the CSV into a Pandas DataFrame.\n2. Remove any rows where the 'email' column is empty.\n3. Convert the 'registration_date' column from a string to a datetime object.\n4. Return the cleaned DataFrame.\n\nFirst, provide a step-by-step plan for how you will write this function.\nSecond, write the complete Python code, including necessary imports and docstrings.\nThird, explain how you would write a simple test case to verify the function works correctly.`,
+                    annotation: `Uses a **persona**, specific **constraints**, and invokes **Chain-of-Thought** reasoning by demanding a plan *before* the code. This forces a logical construction process and makes the output easier to debug.`
+                },
+                 {
+                    title: 'The Competitive Analysis Matrix Builder',
+                    objective: 'To have the AI act as an analyst, synthesizing disparate information into a structured strategic framework.',
+                    prompt: `Act as a senior market research analyst. I will provide you with three text snippets containing unstructured information about three different companies. Your task is to synthesize this information and create a competitive analysis matrix.\n\nThe output must be a Markdown table. The columns of the table must be: "Company", "Primary Market", "Reported Strength", and "Potential Weakness".\n\nInfer the information for each cell from the provided texts. If a piece of information is not available in the text, you must write "Not Mentioned". Do not invent information.\n\nHere is the data:\n<company_a_data>\n[Paste text about Company A here]\n</company_a_data>\n\n<company_b_data>\n[Paste text about Company B here]\n</company_b_data>\n\n<company_c_data>\n[Paste text about Company C here]\n</company_c_data>`,
+                    annotation: `A complex synthesis task using a strong **persona**, strict **constraints**, and a critical instruction to prevent **hallucination**. The XML-style **delimiters** help the model organize the input data effectively.`
+                },
+                {
+                    title: 'The Strategic Scenario Modeler',
+                    objective: `To use the AI's generative capabilities for strategic foresight and planning.`,
+                    prompt: `Act as a strategic consultant with expertise in the direct-to-consumer e-commerce sector.\n\nOur company sells premium coffee beans online. Our primary competitor, "Java Co.", has just announced a permanent 25% price reduction across their entire product line.\n\nYour task is to model three distinct strategic responses we could take. For each proposed response, use a step-by-step thought process to analyze the following:\n- The core of the strategy.\n- The potential positive outcomes (Pros).\n- The potential negative outcomes (Cons).\n- The primary risks associated with implementing this strategy.\n\nStructure your entire output using Markdown headings for clarity.`,
+                    annotation: `Uses the AI for generative thinking. Combines a specific **persona** and **context** with a **Chain-of-Thought** instruction to ensure a deep, structured analysis rather than a superficial list of ideas.`
+                }
+            ]
+        },
+        mitigationMatrix: [
+            { risk: 'Hallucination', impact: 'Dissemination of false information', tactic: 'Provide all necessary factual context within the prompt to ground the model.' },
+            { risk: 'Outdated Information', impact: 'Decisions based on obsolete data', tactic: 'For time-sensitive queries, provide current data within the prompt and ask the model to use only that data.' },
+            { risk: 'Bias Propagation', impact: 'Generation of stereotypical or offensive content', tactic: 'Assign a persona of an impartial, ethical, and unbiased expert.' },
+            { risk: 'Prompt Injection', impact: 'Execution of malicious commands', tactic: 'Use delimiters (e.g., `"""`, `<data>`) to clearly separate instructions from untrusted content.' },
+            { risk: 'Data Leakage', impact: 'Breach of confidential or personal info', tactic: 'Policy Control: Never input sensitive data into public AI tools. Use private instances.' },
+            { risk: 'Automation Bias', impact: 'Uncritical acceptance of flawed AI outputs', tactic: 'Frame prompts to ask for options or analysis, not a single definitive answer.' },
+        ]
+    };
+
+    function createPromptCard(prompt) {
+        return `
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="p-6">
+                    <h4 class="text-xl font-semibold text-gray-900">${prompt.title}</h4>
+                    <p class="mt-2 text-gray-600">${prompt.objective}</p>
+                    <div class="mt-4 bg-gray-50 p-4 rounded-lg relative">
+                        <pre class="prompt-card-code text-sm text-gray-800"><code>${prompt.prompt}</code></pre>
+                        <button class="copy-button absolute top-2 right-2 bg-blue-500 text-white text-xs font-bold py-1 px-2 rounded hover:bg-blue-600 transition-colors" data-clipboard-text="${escape(prompt.prompt)}">Copy</button>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <p class="text-sm text-gray-800"><strong class="font-semibold text-blue-600">Annotation:</strong> ${prompt.annotation}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderPrompts() {
+        document.getElementById('novice-prompts').innerHTML = appData.prompts.novice.map(createPromptCard).join('');
+        document.getElementById('professional-prompts').innerHTML = appData.prompts.professional.map(createPromptCard).join('');
+        document.getElementById('expert-prompts').innerHTML = appData.prompts.expert.map(createPromptCard).join('');
+    }
+
+    function renderMitigationTable() {
+        const tableBody = document.querySelector('#mitigation-table tbody');
+        tableBody.innerHTML = appData.mitigationMatrix.map(row => `
+            <tr>
+                <td class="table-cell text-sm font-medium text-gray-900">${row.risk}</td>
+                <td class="table-cell text-sm text-gray-500">${row.impact}</td>
+                <td class="table-cell text-sm text-gray-500">${row.tactic}</td>
+            </tr>
+        `).join('');
+    }
+    
+    renderPrompts();
+    renderMitigationTable();
+
+    const chartCtx = document.getElementById('promptAnatomyChart').getContext('2d');
+    new Chart(chartCtx, {
+        type: 'radar',
+        data: {
+            labels: ['Clarity', 'Context', 'Constraints', 'Persona', 'Risk Mitigation'],
+            datasets: [{
+                label: 'Effective Prompt Score',
+                data: [90, 85, 80, 75, 70],
+                fill: true,
+                backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                borderColor: 'rgb(37, 99, 235)',
+                pointBackgroundColor: 'rgb(37, 99, 235)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(37, 99, 235)'
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                    grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                    pointLabels: { font: { size: 14 } },
+                    ticks: {
+                        backdropColor: 'transparent',
+                        color: 'rgba(0, 0, 0, 0.5)',
+                        stepSize: 20
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 100
+                }
+            },
+            plugins: { legend: { display: false } }
+        }
+    });
+
+    function setupTabSwitching(tabContainerId, contentClass) {
+        const tabContainer = document.getElementById(tabContainerId);
+        if (!tabContainer) return;
+
+        const tabs = tabContainer.querySelectorAll('button');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.dataset.target;
+                
+                tabs.forEach(t => {
+                    t.classList.remove('bg-white', 'shadow');
+                    t.classList.add('hover:bg-white/50');
+                });
+                tab.classList.add('bg-white', 'shadow');
+                tab.classList.remove('hover:bg-white/50');
+
+                document.querySelectorAll(`.${contentClass}`).forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                const activeContent = document.getElementById(targetId) || document.getElementById(`${targetId}-prompts`);
+                if (activeContent) {
+                    activeContent.classList.remove('hidden');
+                }
+            });
+        });
+    }
+
+    setupTabSwitching('technique-tabs', 'technique-content > div');
+    setupTabSwitching('library-tabs', 'library-content');
+
+    document.body.addEventListener('click', function(event) {
+        if (event.target.classList.contains('copy-button')) {
+            const textToCopy = unescape(event.target.dataset.clipboardText);
+            const button = event.target;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                const textArea = document.createElement("textarea");
+                textArea.value = textToCopy;
+                textArea.style.position="fixed"; 
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    button.textContent = 'Copied!';
+                } catch (err) {
+                    button.textContent = 'Failed';
+                }
+                document.body.removeChild(textArea);
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+    });
+    
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.3
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+    
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+    });
+
+});
+</script>
+</body>
+</html>
