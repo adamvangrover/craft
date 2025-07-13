@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <script src="/assets/js/header.js"></script>
     <!--
         Developer Note:
         This is the main container for the entire application.
@@ -24,6 +25,8 @@
             <h1>Copilot Quest</h1>
             <p>An interactive AI collaboration game.</p>
             <button id="start-game">Start Game</button>
+            <button id="challenge-mode">Challenge Mode</button>
+            <button id="sandbox-mode">Sandbox Mode</button>
             <div class="links">
                 <a href="game-instructions.html">Game Instructions</a>
                 <a href="prompt-engineering-guide.html">Prompt Engineering Guide</a>
@@ -65,17 +68,9 @@
             <div id="winning-poem"></div>
             <div class="links">
                 <a href="high-scores.html">View High Scores</a>
+                <button id="view-hall-of-fame">View Hall of Fame</button>
             </div>
 
-        </div>
-
-        <!--
-            Developer Note:
-            The Hall of Fame screen displays the top-scoring teams.
-        -->
-        <div id="hall-of-fame-screen" style="display: none;">
-            <h2>Hall of Fame</h2>
-            <ul id="hall-of-fame-list"></ul>
         </div>
 
         <!--
@@ -106,12 +101,33 @@
             <input type="checkbox" id="dark-mode-toggle">
         </div>
 
+        <!--
+            Developer Note:
+            The Challenge Mode screen.
+        -->
+        <div id="challenge-mode-screen" style="display: none;">
+            <h2>Challenge Mode</h2>
+            <p>Coming Soon!</p>
+            <button id="back-to-welcome">Back</button>
+        </div>
+
+        <!--
+            Developer Note:
+            The Sandbox Mode screen.
+        -->
+        <div id="sandbox-mode-screen" style="display: none;">
+            <h2>Sandbox Mode</h2>
+            <p>Coming Soon!</p>
+            <button id="back-to-welcome">Back</button>
+        </div>
+
     </div>
 
     <script src="js/script.js"></script>
     <script src="js/game-logic.js"></script>
     <script src="js/leaderboard.js"></script>
     <script src="js/settings.js"></script>
+    <script src="js/hall-of-fame.js"></script>
 
 </body>
 </html>

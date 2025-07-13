@@ -26,7 +26,7 @@ function sortIntoTeam(player, personality) {
 }
 
 // Function to get a random question
-function getQuestion(category) {
+function getQuestion(category, isChallengeMode = false) {
   const questions = {
     risk: [
       { text: "What is the biggest risk to our company?", type: "open" },
@@ -47,16 +47,42 @@ function getQuestion(category) {
       { text: "What is the capital of France?", type: "multiple-choice", options: ["Paris", "London", "Berlin", "Rome"] },
       { text: "What is the highest mountain in the world?", type: "multiple-choice", options: ["Mount Everest", "K2", "Kangchenjunga", "Lhotse"] },
       { text: "What is the largest ocean in the world?", type: "multiple-choice", options: ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Arctic Ocean"] },
+      { text: "Who wrote 'To Kill a Mockingbird'?", type: "multiple-choice", options: ["Harper Lee", "J.K. Rowling", "Stephen King", "George Orwell"] },
+      { text: "What is the boiling point of water in Celsius?", type: "multiple-choice", options: ["100°C", "0°C", "50°C", "212°C"] },
     ],
-
+    challenge: [
+        { text: "Explain the concept of 'black swan' events in risk management.", type: "open" },
+        { text: "Analyze the ethical implications of using AI in hiring decisions.", type: "open" },
+        { text: "Propose a comprehensive strategy for managing supply chain disruptions.", type: "open" },
+        { text: "Discuss the impact of quantum computing on cybersecurity.", type: "open" },
+        { text: "Evaluate the role of central banks in a digital currency environment.", type: "open" },
+    ],
+    "General Knowledge": [
+        { text: "What is the currency of Japan?", type: "multiple-choice", options: ["Yen", "Won", "Yuan", "Ringgit"] },
+        { text: "Which planet is known as the Red Planet?", type: "multiple-choice", options: ["Mars", "Venus", "Jupiter", "Saturn"] },
+        { text: "What is the largest animal in the world?", type: "multiple-choice", options: ["Blue Whale", "Elephant", "Giraffe", "Shark"] },
+        { text: "Who painted the Mona Lisa?", type: "multiple-choice", options: ["Leonardo da Vinci", "Vincent van Gogh", "Pablo Picasso", "Michelangelo"] },
+        { text: "What is the smallest country in the world?", type: "multiple-choice", options: ["Vatican City", "Monaco", "Nauru", "Tuvalu"] },
+    ]
   };
+
+  if (isChallengeMode) {
+    return questions.challenge[Math.floor(Math.random() * questions.challenge.length)];
+  }
+
   return questions[category][Math.floor(Math.random() * questions[category].length)];
 }
 
+let isChallengeMode = false;
+
 // Function to update the score
 function updateScore(team, points) {
+  let scoreToAdd = points;
+  if (isChallengeMode) {
+    scoreToAdd *= 2; // Double points for challenge mode
+  }
   // In a real application, you would have a more sophisticated scoring system.
-  console.log(`Team ${team} gets ${points} points!`);
+  console.log(`Team ${team} gets ${scoreToAdd} points!`);
 }
 
 // Function to display the Hall of Fame
