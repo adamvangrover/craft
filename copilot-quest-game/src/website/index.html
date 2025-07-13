@@ -5,129 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Copilot Quest</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <script src="/assets/js/header.js"></script>
-    <!--
-        Developer Note:
-        This is the main container for the entire application.
-        The different screens are shown and hidden by changing their display property.
-    -->
-    <div id="app-container">
+    <div class="container">
+        <div id="welcome-screen" class="screen">
+            <div class="content-box">
+                <h1>Copilot Quest</h1>
+                <p>An Interactive AI Collaboration Game</p>
+                <button id="start-game-btn" class="btn">Start Game</button>
 
-        <!--
-            Developer Note:
-            The welcome screen is the first thing the user sees.
-            It should be inviting and clearly explain what the game is about.
-        -->
-        <div id="welcome-screen">
-            <h1>Copilot Quest</h1>
-            <p>An interactive AI collaboration game.</p>
-            <button id="start-game">Start Game</button>
-            <button id="challenge-mode">Challenge Mode</button>
-            <button id="sandbox-mode">Sandbox Mode</button>
-            <div class="links">
-                <a href="game-instructions.html">Game Instructions</a>
-                <a href="prompt-engineering-guide.html">Prompt Engineering Guide</a>
             </div>
-
         </div>
 
-        <!--
-            Developer Note:
-            The personality quiz is used to sort players into teams.
-            The questions should be fun and engaging.
-        -->
-        <div id="personality-quiz-screen" style="display: none;">
-            <h2>Personality Quiz</h2>
-            <div id="quiz-questions"></div>
-            <button id="submit-quiz">Submit</button>
-        </div>
-
-        <!--
-            Developer Note:
-            The game screen is where the main action takes place.
-            It displays the questions, answer options, and feedback.
-        -->
-        <div id="game-screen" style="display: none;">
-            <h2 id="round-title"></h2>
-            <p id="question"></p>
-            <div id="answer-options"></div>
-            <div id="feedback"></div>
-            <button id="next-question" style="display: none;">Next</button>
-        </div>
-
-        <!--
-            Developer Note:
-            The results screen displays the final scores and the winning team's poem.
-        -->
-        <div id="results-screen" style="display: none;">
-            <h2>Results</h2>
-            <div id="scores"></div>
-            <div id="winning-poem"></div>
-            <div class="links">
-                <a href="high-scores.html">View High Scores</a>
-                <button id="view-hall-of-fame">View Hall of Fame</button>
+        <div id="questionnaire-screen" class="screen hidden">
+            <div class="content-box">
+                <h2>Personality Questionnaire</h2>
+                <p>Answer a few questions to find your team!</p>
+                <div id="questionnaire-form-container">
+                    <!-- Dynamically populated by JS -->
+                </div>
             </div>
-
         </div>
 
-        <!--
-            Developer Note:
-            The Hall of Fame screen displays the top-scoring teams.
-        -->
-        <div id="hall-of-fame-screen" style="display: none;">
-            <h2>Hall of Fame</h2>
-            <ul id="hall-of-fame-list"></ul>
+        <div id="game-screen" class="screen hidden">
+            <div id="hud">
+                <div id="hud-team" class="hud-item">
+                    <p class="hud-prefix">Team</p>
+                    <h2 id="team-name-hud"></h2>
+                </div>
+                <div id="hud-score" class="hud-item">
+                    <p class="hud-prefix">Score</p>
+                    <h2 id="score-hud">0</h2>
+                </div>
+            </div>
+            <div id="game-content" class="content-box">
+                <h3 id="round-title">Round Title</h3>
+                <h2 id="question-text">Question text will appear here.</h2>
+                <div id="answer-options">
+                    <!-- Dynamically populated by JS -->
+                </div>
+                <div id="feedback-container" class="hidden">
+                    <h3>AI Chatbot Feedback:</h3>
+                    <p id="feedback-text"></p>
+                    <button id="next-question-btn" class="btn">Next Question</button>
+                </div>
+            </div>
         </div>
 
-        <!--
-            Developer Note:
-            The Leaderboard screen displays the current scores.
-        -->
-        <div id="leaderboard-screen" style="display: none;">
-            <h2>Leaderboard</h2>
-            <ul id="leaderboard-list"></ul>
+        <div id="results-screen" class="screen hidden">
+            <div class="content-box">
+                <h1>Game Over!</h1>
+                <h2>Final Scores</h2>
+                <div id="final-scores-container">
+                    <!-- Dynamically populated by JS -->
+                </div>
+                <div id="winner-announcement">
+                    <h2>The winner is...</h2>
+                    <h1 id="winning-team-name"></h1>
+                    <div id="winning-poem-container">
+                        <h3>A Poem for the Victors:</h3>
+                        <p id="winning-poem"></p>
+                    </div>
+                </div>
+                <button id="play-again-btn" class="btn">Play Again</button>
+            </div>
         </div>
-
-        <!--
-            Developer Note:
-            The Settings screen allows the user to customize the game.
-        -->
-        <div id="settings-screen" style="display: none;">
-            <h2>Settings</h2>
-            <label for="dark-mode-toggle">Dark Mode:</label>
-            <input type="checkbox" id="dark-mode-toggle">
-        </div>
-
-        <!--
-            Developer Note:
-            The Challenge Mode screen.
-        -->
-        <div id="challenge-mode-screen" style="display: none;">
-            <h2>Challenge Mode</h2>
-            <p>Coming Soon!</p>
-            <button id="back-to-welcome">Back</button>
-        </div>
-
-        <!--
-            Developer Note:
-            The Sandbox Mode screen.
-        -->
-        <div id="sandbox-mode-screen" style="display: none;">
-            <h2>Sandbox Mode</h2>
-            <p>Coming Soon!</p>
-            <button id="back-to-welcome">Back</button>
-        </div>
-
     </div>
-
     <script src="js/script.js"></script>
-    <script src="js/game-logic.js"></script>
-    <script src="js/leaderboard.js"></script>
-    <script src="js/settings.js"></script>
-    <script src="js/hall-of-fame.js"></script>
-
 </body>
 </html>
