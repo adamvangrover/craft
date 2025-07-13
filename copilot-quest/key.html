@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Report: Copilot Quest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Slate Gray and Sky Blue -->
+    <!-- Application Structure Plan: The application is structured as a tab-based single-page application (SPA). A persistent top navigation bar allows users to switch between four distinct content views: "Overview & Review", "Team Sorting", "Answer Key (Rounds 1-4)", and "The Finals". This structure was chosen over a linear document format to improve usability. It allows users to non-linearly access specific information (e.g., jump directly to the final round's scoring guide) without scrolling through irrelevant content. This prioritizes user-driven exploration and quick information retrieval. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Code Review -> Goal: Inform -> Viz/Method: Two-column layout with styled cards for "Strengths" and "Suggestions" -> Interaction: None -> Justification: A clean, static presentation is best for this high-level summary information. -> Library/Method: HTML/Tailwind.
+        - Report Info: Question Rounds -> Goal: Organize & Detail -> Viz/Method: Accordion-style layout. Each round is a collapsible section. -> Interaction: User clicks a round title to expand/collapse its content. -> Justification: An accordion prevents overwhelming the user with a long list of all questions at once. It keeps the interface clean and focused. -> Library/Method: HTML/Tailwind/JS.
+        - Report Info: Open-Ended Scoring Rubrics -> Goal: Compare -> Viz/Method: Tabbed interface within each question card for 1, 2, and 3-point responses. -> Interaction: User clicks on a point value tab to view the corresponding example answer. -> Justification: Tabs are an excellent UI pattern for comparing related content (the different scoring levels) without cluttering the view. -> Library/Method: HTML/Tailwind/JS.
+        - Report Info: Standard Q&A -> Goal: Inform -> Viz/Method: Styled cards for each question containing the question, answer, and justification. -> Interaction: None -> Justification: A simple card format clearly delineates each piece of information. -> Library/Method: HTML/Tailwind.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        h1, h2, h3, h4, .font-poppins { font-family: 'Poppins', sans-serif; }
+        .nav-btn { transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
+        .nav-btn-active { background-color: #0ea5e9 !important; color: white !important; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out; }
+        .tab-btn-active { border-color: #0ea5e9; color: #0ea5e9; background-color: #e0f2fe; }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900">Copilot Quest</h1>
+            <p class="text-lg text-slate-500 mt-2">Interactive Review & Answer Key</p>
+        </header>
+
+        <nav id="main-nav" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 bg-white p-3 rounded-xl shadow-sm sticky top-4 z-10">
+            <button data-target="overview" class="nav-btn nav-btn-active flex-grow md:flex-none font-semibold py-2 px-4 rounded-lg border-2 border-transparent hover:bg-sky-100 hover:text-sky-600">📝 Overview & Review</button>
+            <button data-target="teams" class="nav-btn flex-grow md:flex-none font-semibold py-2 px-4 rounded-lg border-2 border-transparent hover:bg-sky-100 hover:text-sky-600">👥 Team Sorting</button>
+            <button data-target="answers" class="nav-btn flex-grow md:flex-none font-semibold py-2 px-4 rounded-lg border-2 border-transparent hover:bg-sky-100 hover:text-sky-600">🔑 Answer Key</button>
+            <button data-target="finals" class="nav-btn flex-grow md:flex-none font-semibold py-2 px-4 rounded-lg border-2 border-transparent hover:bg-sky-100 hover:text-sky-600">🏆 The Finals</button>
+        </nav>
+
+        <main id="content-container">
+            <!-- Section: Overview & Review -->
+            <section id="overview" class="content-section space-y-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-800 mb-4">Code Review Summary</h2>
+                    <p class="text-slate-600 max-w-4xl">This section provides a high-level analysis of the `Copilot Quest` game's frontend code. The application is a well-structured single-page application (SPA) using vanilla JavaScript and TailwindCSS. It demonstrates a clean separation of data and logic, making it easy to maintain and update. The following cards highlight its key strengths and offer suggestions for further improvement.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-green-500">
+                        <h3 class="text-2xl font-bold text-green-600 mb-3">✅ Strengths</h3>
+                        <ul id="strengths-list" class="space-y-2 text-slate-700 list-disc list-inside"></ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-amber-500">
+                        <h3 class="text-2xl font-bold text-amber-600 mb-3">💡 Suggestions for Improvement</h3>
+                        <ul id="suggestions-list" class="space-y-2 text-slate-700 list-disc list-inside"></ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Team Sorting -->
+            <section id="teams" class="content-section hidden space-y-6">
+                <h2 class="text-3xl font-bold text-slate-800">Team Sorting Questionnaire</h2>
+                <p class="text-slate-600 max-w-4xl">The initial set of questions in the game has no "correct" answers. Its purpose is to determine which of the four teams the player belongs to by tallying their responses based on their underlying approach to problem-solving and collaboration. Each team represents a different core strength.</p>
+                <div id="teams-list" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+            </section>
+
+            <!-- Section: Answer Key -->
+            <section id="answers" class="content-section hidden space-y-6">
+                <h2 class="text-3xl font-bold text-slate-800">Answer Key: Rounds 1-4</h2>
+                <p class="text-slate-600 max-w-4xl">This section contains the questions, correct answers, and justifications for the standard rounds of the game. Click on a round title to expand it and view its content. This format allows you to focus on one round at a time.</p>
+                <div id="rounds-accordion" class="space-y-4"></div>
+            </section>
+
+            <!-- Section: The Finals -->
+            <section id="finals" class="content-section hidden space-y-6">
+                 <h2 class="text-3xl font-bold text-slate-800">The Finals: Scoring Rubrics</h2>
+                 <p class="text-slate-600 max-w-4xl">The final round features complex, open-ended questions that require strategic thinking and nuanced justification. There are no single "correct" answers. Instead, responses are scored based on the depth and quality of their reasoning. Use the tabs within each question to see examples of 1, 2, and 3-point responses.</p>
+                 <div id="finals-questions" class="space-y-6"></div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        const reportData = {
+            review: {
+                strengths: [
+                    "<strong>Data-Driven Design:</strong> Game content (teams, questions) is organized in a `gameData` object, making updates easy without touching core logic.",
+                    "<strong>Clear State Management:</strong> A central `gameState` object cleanly tracks progress and scores, with a `resetGameState` function for replayability.",
+                    "<strong>Component-like Structure:</strong> The code uses functions to manage views and UI updates, mimicking a modern component-based architecture.",
+                    "<strong>Good UI/UX Choices:</strong> The HUD, immediate feedback, and multi-screen layout create an engaging, user-friendly experience."
+                ],
+                suggestions: [
+                    "<strong>Accessibility:</strong> Primary feedback for answers is color. Adding icons (e.g., ✔️/❌) would improve accessibility for users with color vision deficiency.",
+                    "<strong>Questionnaire Tie-Breaking:</strong> A tie in the sorting quiz results in a random team. A better approach would be to ask a tie-breaker question or let the user choose.",
+                    "<strong>Dynamic Score Initialization:</strong> The scores object is hardcoded. Generating it dynamically from the `gameData.teams` object would be more robust."
+                ]
+            },
+            teams: [
+                { name: "Team Logic", description: "Prioritizes data, planning, and step-by-step reasoning.", color: "sky" },
+                { name: "Team Harmony", description: "Focuses on consensus, team impact, and collaboration.", color: "green" },
+                { name: "Team Action", description: "Values momentum, experimentation, and decisiveness.", color: "red" },
+                { name: "Team Imagination", description: "Emphasizes brainstorming, innovation, and unconventional thinking.", color: "purple" }
+            ],
+            rounds: [
+                {
+                    title: "Round 1: Risk Management",
+                    questions: [
+                        { q: "What is the primary purpose of risk management?", a: "`c` - To identify and manage potential threats and opportunities.", j: "Effective risk management is a proactive process for controlling uncertainties to achieve goals. It is not about eliminating all risk, which is impossible, but about balancing risk and reward." },
+                        { q: "<strong>True/False:</strong> Risk retention is a strategy where an organization decides to bear the financial responsibility for a potential loss.", a: "`True`", j: "Risk retention is a form of self-insurance. A company consciously accepts a risk and sets aside funds to cover potential losses, typically for risks that are frequent but low in severity." },
+                    ]
+                },
+                {
+                    title: "Round 2: Compliance",
+                    questions: [
+                        { q: "<strong>True/False:</strong> A conflict of interest only occurs if an employee gains a direct financial benefit.", a: "`False`", j: "A conflict of interest can be any situation where personal interests (financial, social, familial, etc.) could interfere with an employee's professional judgment or their duty to the company." },
+                        { q: "Which of the following is a key goal of a corporate compliance program?", a: "`b` - To detect and prevent misconduct and illegal activity.", j: "A compliance program's core function is to ensure a company operates ethically and adheres to all relevant laws and regulations, thereby preventing and detecting violations." }
+                    ]
+                },
+                {
+                    title: "Round 3: Safety",
+                    questions: [
+                        { q: "In workplace safety, what does the acronym 'HAZOP' stand for?", a: "`b` - Hazard and Operability Study.", j: "A HAZOP is a systematic and structured review of a process or operation to identify potential hazards and operational problems that could pose a risk to personnel or equipment." }
+                    ]
+                },
+                 {
+                    title: "Lightning Round",
+                    questions: [
+                        { q: "How many stripes are there on the US flag?", a: "13" },
+                        { q: "What is the national animal of Australia?", a: "Kangaroo" },
+                        { q: "What does 'www' stand for in a website address?", a: "World Wide Web" },
+                        { q: "How many keys does a classic piano have?", a: "88" },
+                    ]
+                },
+            ],
+            finals: [
+                {
+                    q: "Describe one key difference between Qualitative and Quantitative Risk Analysis.",
+                    rubric: [
+                        { points: 1, text: "Mentions a simple, superficial difference. <br><em>Example: 'Qualitative uses words and quantitative uses numbers.'</em>" },
+                        { points: 2, text: "Correctly defines both types of analysis but doesn't clearly state the core distinction. <br><em>Example: 'Qualitative analysis prioritizes risks to see which is most important. Quantitative analysis uses numbers to figure out the financial cost of a risk.'</em>" },
+                        { points: 3, text: "Clearly defines both and highlights the key distinction between subjectivity (opinion-based) and objectivity (data-driven). <br><em>Example: '<strong>The key difference is that qualitative analysis is subjective, while quantitative analysis is objective.</strong> Qualitative relies on expert opinion to rank risks on a scale like low-medium-high. In contrast, quantitative uses hard data and statistical models to assign a specific numerical value, like a probability percentage or a dollar amount, to a risk.'</em>" }
+                    ]
+                },
+                {
+                    q: "If an autonomous AI system makes a mistake that causes financial loss, who should be held accountable: the user, the developer, or the company that deployed it? Justify your answer.",
+                    rubric: [
+                        { points: 1, text: "Blames a single party with little or no justification. <br><em>Example: 'The developer should be held accountable because they wrote the code.'</em>" },
+                        { points: 2, text: "Discusses the liability of at least two parties but with weak reasoning or connections. <br><em>Example: 'It's probably the developer's fault for making a bug, but the company should also be careful when it uses the AI.'</em>" },
+                        { points: 3, text: "Argues for shared liability and clearly articulates the specific responsibilities of each party. <br><em>Example: '<strong>Accountability is shared among all three.</strong> The <strong>developer</strong> is responsible for foreseeable failures. The <strong>company</strong> is responsible for proper implementation and oversight. The <strong>user</strong> has a responsibility to operate the system as intended. Each has a role in the chain of responsibility.'</em>" }
+                    ]
+                },
+                {
+                    q: "Discuss how the concept of 'value alignment' in AI presents a significant risk for global corporations. Provide one example.",
+                    rubric: [
+                        { points: 1, text: "Vaguely mentions AI being 'bad' and gives an irrelevant example. <br><em>Example: 'It's a risk if the AI doesn't work right. For example, it could crash.'</em>" },
+                        { points: 2, text: "Defines value alignment or provides a relevant example, but not both. <br><em>Example: 'Value alignment is making sure AI has the same goals as humans. If it doesn't, it could cause problems for the company.'</em>" },
+                        { points: 3, text: "Clearly defines value alignment, explains the corporate risk, and provides a strong example. <br><em>Example: '<strong>Value alignment is ensuring an AI's goals align with human values.</strong> The risk is that an AI optimized for a simple goal, like maximizing profit, may do so in harmful ways. For example, an AI might violate <strong>environmental or ethical labor standards</strong> because that's the cheapest path to profit, creating massive legal and reputational damage.'</em>" }
+                    ]
+                },
+                {
+                    q: "Beyond automation, what is the single greatest opportunity generative AI offers to a modern business, and what is the greatest risk it introduces?",
+                    rubric: [
+                        { points: 1, text: "Gives a generic opportunity and risk without strategic depth. <br><em>Example: 'The opportunity is making work faster, and the risk is that it can be wrong.'</em>" },
+                        { points: 2, text: "Provides a valid strategic opportunity and risk but with a basic explanation. <br><em>Example: 'An opportunity is creating new product ideas. A risk is that the AI could leak company secrets.'</em>" },
+                        { points: 3, text: "Identifies a high-level strategic opportunity and a significant risk, explaining both with business insight. <br><em>Example: 'The greatest <strong>opportunity is accelerating innovation</strong>, using AI to model complex data in R&D to discover new medicines at a fraction of the time. The greatest <strong>risk is intellectual property contamination</strong>; if an AI is trained on copyrighted data, it could generate output that puts the company in legal jeopardy.'</em>" }
+                    ]
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const nav = document.getElementById('main-nav');
+            const sections = document.querySelectorAll('.content-section');
+            const navButtons = nav.querySelectorAll('.nav-btn');
+
+            const strengthsList = document.getElementById('strengths-list');
+            const suggestionsList = document.getElementById('suggestions-list');
+            const teamsList = document.getElementById('teams-list');
+            const roundsAccordion = document.getElementById('rounds-accordion');
+            const finalsQuestions = document.getElementById('finals-questions');
+
+            function populateContent() {
+                reportData.review.strengths.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = item;
+                    strengthsList.appendChild(li);
+                });
+
+                reportData.review.suggestions.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = item;
+                    suggestionsList.appendChild(li);
+                });
+
+                reportData.teams.forEach(team => {
+                    const div = document.createElement('div');
+                    div.className = `bg-white p-6 rounded-xl shadow-md border-b-4 border-${team.color}-500`;
+                    div.innerHTML = `<h3 class="font-poppins text-xl font-bold text-${team.color}-600">${team.name}</h3><p class="text-slate-600 mt-2">${team.description}</p>`;
+                    teamsList.appendChild(div);
+                });
+                
+                const allRounds = [...reportData.rounds, { title: "Open-Ended Finals Prep", questions: [reportData.finals[0]] }];
+
+                reportData.rounds.forEach((round, index) => {
+                    const accordionItem = document.createElement('div');
+                    accordionItem.className = 'bg-white rounded-xl shadow-md overflow-hidden';
+                    accordionItem.innerHTML = `
+                        <button class="accordion-toggle w-full text-left p-6 font-poppins font-bold text-xl flex justify-between items-center hover:bg-slate-50">
+                            ${round.title}
+                            <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content px-6">
+                            <div class="py-6 border-t border-slate-200 space-y-4">
+                                ${round.questions.map(q => `
+                                    <div class="p-4 bg-slate-50 rounded-lg">
+                                        <p class="font-semibold text-slate-800">${q.q}</p>
+                                        <p class="text-green-700 mt-2"><strong class="font-semibold">Answer:</strong> ${q.a}</p>
+                                        ${q.j ? `<p class="text-slate-600 mt-1"><strong class="font-semibold">Justification:</strong> ${q.j}</p>` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>`;
+                    roundsAccordion.appendChild(accordionItem);
+                });
+                
+                reportData.finals.forEach((finalQ, index) => {
+                    const finalItem = document.createElement('div');
+                    finalItem.className = 'bg-white p-6 rounded-xl shadow-md';
+                    finalItem.innerHTML = `
+                        <h4 class="font-poppins text-xl font-bold text-slate-800 mb-4">${index + 1}. ${finalQ.q}</h4>
+                        <div class="border-b border-slate-200 mb-3">
+                            <nav class="flex gap-4 -mb-px" aria-label="Tabs">
+                                ${finalQ.rubric.map((r, i) => `
+                                    <button class="tab-btn whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm ${i === 2 ? 'tab-btn-active border-sky-500 text-sky-600' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'}">
+                                        ${r.points}-Point Response
+                                    </button>
+                                `).join('')}
+                            </nav>
+                        </div>
+                        <div class="rubric-content-container mt-4 text-slate-700">
+                             ${finalQ.rubric.map((r, i) => `<div class="rubric-content ${i === 2 ? '' : 'hidden'}">${r.text}</div>`).join('')}
+                        </div>
+                    `;
+                    finalsQuestions.appendChild(finalItem);
+                });
+            }
+
+            function setupInteractions() {
+                nav.addEventListener('click', (e) => {
+                    if (e.target.matches('.nav-btn')) {
+                        const targetId = e.target.dataset.target;
+                        
+                        navButtons.forEach(btn => btn.classList.remove('nav-btn-active'));
+                        e.target.classList.add('nav-btn-active');
+
+                        sections.forEach(section => {
+                            if (section.id === targetId) {
+                                section.classList.remove('hidden');
+                            } else {
+                                section.classList.add('hidden');
+                            }
+                        });
+                    }
+                });
+
+                document.querySelectorAll('.accordion-toggle').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const content = button.nextElementSibling;
+                        const svg = button.querySelector('svg');
+                        if (content.style.maxHeight) {
+                            content.style.maxHeight = null;
+                            content.style.paddingTop = null;
+                            content.style.paddingBottom = null;
+                            svg.style.transform = 'rotate(0deg)';
+                        } else {
+                            content.style.maxHeight = content.scrollHeight + 48 + "px";
+                            content.style.paddingTop = '1.5rem';
+                            content.style.paddingBottom = '1.5rem';
+                            svg.style.transform = 'rotate(180deg)';
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.final-question-card').forEach(card => {
+                    const tabs = card.querySelectorAll('.tab-btn');
+                    const contents = card.querySelectorAll('.rubric-content');
+                    tabs.forEach((tab, index) => {
+                        tab.addEventListener('click', () => {
+                            tabs.forEach(t => t.classList.remove('tab-btn-active'));
+                            tab.classList.add('tab-btn-active');
+                            contents.forEach(c => c.classList.add('hidden'));
+                            contents[index].classList.remove('hidden');
+                        });
+                    });
+                });
+                
+                document.body.addEventListener('click', function(event) {
+                    const questionCard = event.target.closest('.bg-white.p-6.rounded-xl.shadow-md');
+                    if (!questionCard) return;
+
+                    const tabs = questionCard.querySelectorAll('.tab-btn');
+                    const contents = questionCard.querySelectorAll('.rubric-content');
+                    
+                    if (event.target.classList.contains('tab-btn')) {
+                        const clickedTab = event.target;
+                        let clickedIndex = -1;
+                        tabs.forEach((tab, index) => {
+                             if(tab === clickedTab) clickedIndex = index;
+                        });
+
+                        if(clickedIndex !== -1){
+                            tabs.forEach(t => t.classList.remove('tab-btn-active'));
+                            clickedTab.classList.add('tab-btn-active');
+
+                            contents.forEach(c => c.classList.add('hidden'));
+                            contents[clickedIndex].classList.remove('hidden');
+                        }
+                    }
+                });
+            }
+            
+            populateContent();
+            setupInteractions();
+        });
+    </script>
+</body>
+</html>
