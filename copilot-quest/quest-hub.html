@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copilot Quest Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
+        .nav-link { transition: color 0.3s ease, border-color 0.3s ease; }
+        .nav-link.active { color: #3b82f6; border-bottom-color: #3b82f6; }
+        .nav-link:not(.active) { border-bottom-color: transparent; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-blue-600 mb-4">Copilot Quest Hub</h1>
+            <p class="text-xl text-gray-600">Your journey into the world of AI-powered collaboration begins here.</p>
+        </header>
+
+        <nav class="sticky top-0 bg-white/80 backdrop-blur-lg z-10 mb-12 rounded-xl shadow-md">
+            <ul class="flex flex-wrap justify-center gap-4 p-4">
+                <li><a href="#presentation" class="nav-link font-semibold pb-2 border-b-2">Presentation</a></li>
+                <li><a href="#navigation" class="nav-link font-semibold pb-2 border-b-2">Navigation</a></li>
+                <li><a href="#prompting-guidelines" class="nav-link font-semibold pb-2 border-b-2">Prompting Guidelines</a></li>
+                <li><a href="#prompt-library" class="nav-link font-semibold pb-2 border-b-2">Prompt Library</a></li>
+                <li><a href="#copilot-usage" class="nav-link font-semibold pb-2 border-b-2">Copilot Usage</a></li>
+                <li><a href="#the-game" class="nav-link font-semibold pb-2 border-b-2">The Game</a></li>
+                <li><a href="#answer-key" class="nav-link font-semibold pb-2 border-b-2">Answer Key</a></li>
+                <li><a href="#scoring" class="nav-link font-semibold pb-2 border-b-2">Scoring</a></li>
+                <li><a href="#final-score-sheet" class="nav-link font-semibold pb-2 border-b-2">Final Score Sheet</a></li>
+            </ul>
+        </nav>
+
+        <main class="space-y-16">
+            <section id="presentation" class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-4">Presentation</h2>
+                <p class="text-gray-600">This section provides an overview of the Copilot Quest game, including its purpose, rules, and how to play. It's a great place to start if you're new to the game.</p>
+                <a href="websites/presentation/index.html" class="inline-block mt-4 bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">View Presentation</a>
+            </section>
+            <section id="navigation" class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-4">Navigation</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Copilot Quest</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><a href="index.html" class="text-blue-600 hover:underline">Copilot Quest Game</a></li>
+                            <li><a href="home.html" class="text-blue-600 hover:underline">Home</a></li>
+                            <li><a href="intro.html" class="text-blue-600 hover:underline">Intro</a></li>
+                            <li><a href="intro2.html" class="text-blue-600 hover:underline">Intro 2</a></li>
+                            <li><a href="key.html" class="text-blue-600 hover:underline">Answer Key</a></li>
+                            <li><a href="3keys.html" class="text-blue-600 hover:underline">3 Keys to Strategic AI Prompting</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Copilot Quest Game</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><a href="../copilot-quest-game/src/website/index.html" class="text-blue-600 hover:underline">In-Person Game</a></li>
+                            <li><a href="../copilot-quest-game/src/website/game-instructions.html" class="text-blue-600 hover:underline">Game Instructions</a></li>
+                            <li><a href="../copilot-quest-game/src/website/prompt-engineering-guide.html" class="text-blue-600 hover:underline">Prompt Engineering Guide</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section id="prompting-guidelines" class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-4">Prompting Guidelines</h2>
+                <div class="prose max-w-none">
+                    <h3>Best Practices for Writing Effective Prompts</h3>
+                    <ul>
+                        <li><strong>Provide Context:</strong> Give the AI some background information to help it understand the request.</li>
+                        <li><strong>Define the Desired Format:</strong> If you want a list, a paragraph, or a specific structure, say so.</li>
+                        <li><strong>Be Specific:</strong> Avoid vague language. The more specific your query, the better the result.</li>
+                        <li><strong>Use Clear Language:</strong> Don't use jargon or overly complex sentences.</li>
+                        <li><strong>Iterate and Refine:</strong> If you don't get the desired response on the first try, refine your prompt and try again.</li>
+                    </ul>
+                    <h3>Advanced Prompting Techniques</h3>
+                    <ul>
+                        <li><strong>Chain of Thought Prompting:</strong> Ask the AI to "think step by step" to encourage a more logical and detailed response.</li>
+                        <li><strong>Zero-Shot Prompting:</strong> Ask the AI to perform a task it hasn't been explicitly trained on, by providing a clear and detailed prompt.</li>
+                        <li><strong>Few-Shot Prompting:</strong> Provide a few examples of the desired output to help the AI understand the task.</li>
+                        <li><strong>Generated Knowledge Prompting:</strong> Ask the AI to generate its own knowledge about a topic before answering a question.</li>
+                    </ul>
+                </div>
+            </section>
+            <section id="prompt-library" class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-4">Prompt Library</h2>
+                <p class="text-gray-600 mb-4">A collection of ready-to-use prompts to illustrate key techniques. Each example can be copied with a single click.</p>
+                <div id="prompt-library-content" class="space-y-6"></div>
+            </section>
+            <section id="copilot-usage" class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-4">Copilot Usage</h2>
+                <p>Tips and tricks for getting the most out of Copilot.</p>
+            </section>
+            <section id="the-game" class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-4">The Game</h2>
+                <p>Ready to test your skills? Click the link below to start the Copilot Quest game.</p>
+                <a href="index.html" class="inline-block mt-4 bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Play the Game</a>
+            </section>
+            <section id="answer-key" class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-4">Answer Key</h2>
+                <p>Want to check your answers? The answer key has all the correct responses and explanations.</p>
+                <a href="key.html" class="inline-block mt-4 bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">View Answer Key</a>
+            </section>
+            <section id="scoring" class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-4">Scoring Open-Ended Questions</h2>
+                <div class="prose max-w-none">
+                    <p>Open-ended questions are scored on a scale of 1 to 3 points. The following rubric is used to determine the score for each answer:</p>
+                    <ul>
+                        <li><strong>1 Point:</strong> The answer is partially correct but lacks detail or contains inaccuracies.</li>
+                        <li><strong>2 Points:</strong> The answer is correct and provides some detail, but could be more thorough.</li>
+                        <li><strong>3 Points:</strong> The answer is correct, detailed, and demonstrates a deep understanding of the topic.</li>
+                    </ul>
+                </div>
+            </section>
+            <section id="final-score-sheet" class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-4">Final Score Sheet</h2>
+                <form id="score-sheet-form">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <label for="user-name" class="block font-semibold mb-2">User Name</label>
+                            <input type="text" id="user-name" name="user-name" class="w-full p-2 border border-gray-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label for="team-affiliation" class="block font-semibold mb-2">Team Affiliation</label>
+                            <input type="text" id="team-affiliation" name="team-affiliation" class="w-full p-2 border border-gray-300 rounded-lg">
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-2xl font-bold mb-4">Answers</h3>
+                        <div id="answers-container" class="space-y-4">
+                            </div>
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-2xl font-bold mb-4">Final Score</h3>
+                        <div class="text-4xl font-bold text-blue-600" id="final-score">0</div>
+                    </div>
+                    <div class="mt-8">
+                        <button type="submit" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Export Score</button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, { rootMargin: '-50% 0px -50% 0px' });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            const promptLibrary = [
+                {
+                    title: 'The Universal Summarizer',
+                    objective: 'To condense a piece of text into its most critical points.',
+                    prompt: 'Summarize the following text, which is enclosed in triple quotes, into exactly 3 bullet points. The summary should be clear and concise.\\n\\n"""\\n[Paste your text here]\\n"""',
+                    annotation: 'Uses **delimiters** (`"""`) to separate instructions from content and a clear **constraint** ("exactly 3 bullet points") to control the output format.'
+                },
+                {
+                    title: 'The Idea Generator',
+                    objective: `To overcome writer's block and brainstorm initial concepts.`,
+                    prompt: `I need to create content about the benefits of remote work for small businesses. Generate 5 unique blog post titles. For each title, provide a 2-sentence description of the angle the post would take.`,
+                    annotation: `Demonstrates **clarity** and **specificity**. Instead of a vague request, it specifies the topic, the exact output format, and a further requirement, ensuring a structured and useful result.`
+                },
+                 {
+                    title: 'The Rephraser & Tone Adjuster',
+                    objective: 'To improve the clarity, conciseness, or tone of existing text.',
+                    prompt: 'Rewrite the following sentence to sound more professional and confident.\\n\\nOriginal Sentence: "I think maybe we should probably try to have a meeting next week to discuss the project status."\\n\\nRewritten Sentence:',
+                    annotation: `Uses a clear instruction and a simple form of **Few-Shot prompting** by labeling the "Original" and "Rewritten" parts, which clearly teaches the model the transformation task.`
+                }
+            ];
+
+            const promptLibraryContent = document.getElementById('prompt-library-content');
+
+            function createPromptCard(prompt) {
+                return `
+                    <div class="bg-gray-100 rounded-xl shadow-lg overflow-hidden">
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold text-gray-900">${prompt.title}</h4>
+                            <p class="mt-2 text-gray-600">${prompt.objective}</p>
+                            <div class="mt-4 bg-gray-200 p-4 rounded-lg relative">
+                                <pre class="prompt-card-code text-sm text-gray-800"><code>${prompt.prompt}</code></pre>
+                                <button class="copy-button absolute top-2 right-2 bg-blue-500 text-white text-xs font-bold py-1 px-2 rounded hover:bg-blue-600 transition-colors" data-clipboard-text="${escape(prompt.prompt)}">Copy</button>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-gray-300">
+                                <p class="text-sm text-gray-800"><strong class="font-semibold text-blue-600">Annotation:</strong> ${prompt.annotation}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            promptLibraryContent.innerHTML = promptLibrary.map(createPromptCard).join('');
+
+            document.body.addEventListener('click', function(event) {
+                if (event.target.classList.contains('copy-button')) {
+                    const textToCopy = unescape(event.target.dataset.clipboardText);
+                    const button = event.target;
+
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        button.textContent = 'Copied!';
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy text: ', err);
+                    });
+                }
+            });
+
+            const scoreSheetForm = document.getElementById('score-sheet-form');
+            const answersContainer = document.getElementById('answers-container');
+            const finalScore = document.getElementById('final-score');
+
+            const questions = [
+                "What is the primary purpose of risk management?",
+                "Risk retention is a strategy where an organization decides to bear the financial responsibility for a potential loss.",
+                "Describe one key difference between Qualitative and Quantitative Risk Analysis."
+            ];
+
+            questions.forEach((question, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.innerHTML = `
+                    <label for="answer-${index}" class="block font-semibold mb-2">${question}</label>
+                    <textarea id="answer-${index}" name="answer-${index}" class="w-full p-2 border border-gray-300 rounded-lg"></textarea>
+                    <div class="mt-2">
+                        <label for="score-${index}" class="block font-semibold mb-2">Score</label>
+                        <input type="number" id="score-${index}" name="score-${index}" min="0" max="3" class="w-full p-2 border border-gray-300 rounded-lg">
+                    </div>
+                `;
+                answersContainer.appendChild(questionDiv);
+            });
+
+            scoreSheetForm.addEventListener('input', () => {
+                let totalScore = 0;
+                for (let i = 0; i < questions.length; i++) {
+                    const score = document.getElementById(`score-${i}`).value;
+                    if (score) {
+                        totalScore += parseInt(score);
+                    }
+                }
+                finalScore.textContent = totalScore;
+            });
+
+            scoreSheetForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const formData = new FormData(scoreSheetForm);
+                const data = Object.fromEntries(formData.entries());
+
+                let csvContent = "data:text/csv;charset=utf-8,";
+                csvContent += "User Name,Team Affiliation\n";
+                csvContent += `${data['user-name']},${data['team-affiliation']}\n\n`;
+                csvContent += "Question,Answer,Score\n";
+
+                for (let i = 0; i < questions.length; i++) {
+                    const question = questions[i];
+                    const answer = data[`answer-${i}`];
+                    const score = data[`score-${i}`];
+                    csvContent += `"${question}","${answer}",${score}\n`;
+                }
+
+                csvContent += `\nFinal Score,${finalScore.textContent}`;
+
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "copilot-quest-scores.csv");
+                document.body.appendChild(link);
+                link.click();
+            });
+        });
+    </script>
+</body>
+</html>
