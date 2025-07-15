@@ -41,6 +41,7 @@ const slides = [
     "<h2>Prompting Guidelines</h2><p>When you're writing a prompt, keep the following guidelines in mind:</p><ul><li>Use clear and concise language.</li><li>Avoid jargon and slang.</li><li>Be polite and respectful.</li><li>Proofread your prompts before you send them.</li></ul>",
     "<h2>Prompt Library</h2><p>Here are a few examples of prompts that you can use to get started:</p><ul><li>'Write a short story about a robot who falls in love with a human.'</li><li>'Translate the following sentence into French: 'Hello, how are you?''</li><li>'Write a poem about the beauty of nature.'</li></ul>",
     "<h2>Congratulations!</h2><p>You have completed the Copilot Quest! We hope you had fun and learned a lot. Thank you for participating, and we hope to see you again soon.</p>"
+
 ];
 
 let currentSlide = 0;
