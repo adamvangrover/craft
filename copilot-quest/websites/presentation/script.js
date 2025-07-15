@@ -4,6 +4,16 @@ const nextSlideBtn = document.getElementById('next-slide');
 
 const slides = [
     "<h1>Are You Smarter Than an AI Chatbot?</h1>",
+    `
+    <h2>Copilot Quest Menu</h2>
+    <ul>
+        <li><a href="teams.html">Teams</a></li>
+        <li><a href="in_person_game.html">In-Person Game</a></li>
+        <li><a href="open_ended_questions.html">Open-Ended Questions</a></li>
+        <li><a href="winning_teams.html">Winning Teams</a></li>
+        <li><a href="resources.html">Resources</a></li>
+    </ul>
+    `,
     "<h2>Game Overview</h2><p>Welcome to Copilot Quest! Today, you'll be working in teams to answer questions on a variety of topics. The goal is to see how well you can collaborate with your team and with an AI to get the right answers.</p>",
     "<h2>Team Sorting</h2><p>To start, we'll take a quick personality quiz to sort you into teams. Please navigate to the game website to begin.</p>",
     // ... more slides based on presentation_script.md
