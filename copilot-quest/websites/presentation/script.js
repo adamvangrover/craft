@@ -4,9 +4,35 @@ const nextSlideBtn = document.getElementById('next-slide');
 
 const slides = [
     "<h1>Are You Smarter Than an AI Chatbot?</h1>",
+    `
+    <h2>Copilot Quest Menu</h2>
+    <ul>
+        <li><a href="teams.html">Teams</a></li>
+        <li><a href="in_person_game.html">In-Person Game</a></li>
+        <li><a href="open_ended_questions.html">Open-Ended Questions</a></li>
+        <li><a href="winning_teams.html">Winning Teams</a></li>
+        <li><a href="resources.html">Resources</a></li>
+    </ul>
+    `,
     "<h2>Game Overview</h2><p>Welcome to Copilot Quest! Today, you'll be working in teams to answer questions on a variety of topics. The goal is to see how well you can collaborate with your team and with an AI to get the right answers.</p>",
     "<h2>Team Sorting</h2><p>To start, we'll take a quick personality quiz to sort you into teams. Please navigate to the game website to begin.</p>",
-    // ... more slides based on presentation_script.md
+    "<h2>Round 1: Risk Management - Question 1</h2><p><strong>Question:</strong> What is the primary goal of risk management?</p>",
+    "<h2>Round 1: Risk Management - Answer 1</h2><p><strong>Answer:</strong> To identify, assess, and mitigate risks.</p>",
+    "<h2>Round 1: Risk Management - Question 2</h2><p><strong>Question:</strong> What is a risk matrix?</p>",
+    "<h2>Round 1: Risk Management - Answer 2</h2><p><strong>Answer:</strong> A tool for ranking and prioritizing risks.</p>",
+    "<h2>Round 2: Compliance - Question 1</h2><p><strong>Question:</strong> What is the purpose of a compliance program?</p>",
+    "<h2>Round 2: Compliance - Answer 1</h2><p><strong>Answer:</strong> To ensure that an organization follows all applicable laws and regulations.</p>",
+    "<h2>Round 2: Compliance - Question 2</h2><p><strong>Question:</strong> What are some of the consequences of non-compliance?</p>",
+    "<h2>Round 2: Compliance - Answer 2</h2><p><strong>Answer:</strong> Fines, penalties, and reputational damage.</p>",
+    "<h2>Round 3: Safety - Question 1</h2><p><strong>Question:</strong> What is the most common cause of workplace accidents?</p>",
+    "<h2>Round 3: Safety - Answer 1</h2><p><strong>Answer:</strong> Slips, trips, and falls.</p>",
+    "<h2>Round 3: Safety - Question 2</h2><p><strong>Question:</strong> What is the purpose of a safety data sheet (SDS)?</p>",
+    "<h2>Round 3: Safety - Answer 2</h2><p><strong>Answer:</strong> To provide information on the hazards of a chemical and how to handle it safely.</p>",
+    "<h2>Lightning Round</h2><p>A series of quick-fire questions on a variety of topics.</p>",
+    "<h2>Finals</h2><p>Complex bonus questions to determine the winner.</p>",
+    "<h2>Open-Ended Question 1</h2><p>Describe a time when you had to work with a difficult team member. How did you handle the situation?</p>",
+    "<h2>Open-Ended Question 2</h2><p>What are the biggest challenges facing our industry today? How can we overcome them?</p>",
+    "<h2>Discussion</h2><p>Use this time to discuss the open-ended questions with your team. Brainstorm ideas, share your perspectives, and come up with a comprehensive answer.</p>"
 ];
 
 let currentSlide = 0;
