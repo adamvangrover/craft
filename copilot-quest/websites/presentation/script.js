@@ -32,7 +32,12 @@ const slides = [
     "<h2>Finals</h2><p>Complex bonus questions to determine the winner.</p>",
     "<h2>Open-Ended Question 1</h2><p>Describe a time when you had to work with a difficult team member. How did you handle the situation?</p>",
     "<h2>Open-Ended Question 2</h2><p>What are the biggest challenges facing our industry today? How can we overcome them?</p>",
-    "<h2>Discussion</h2><p>Use this time to discuss the open-ended questions with your team. Brainstorm ideas, share your perspectives, and come up with a comprehensive answer.</p>"
+    "<h2>Discussion</h2><p>Use this time to discuss the open-ended questions with your team. Brainstorm ideas, share your perspectives, and come up with a comprehensive answer.</p>",
+    "<h2>Wrap-Up Discussion</h2><p>Let's discuss what we've learned today. What were some of the key takeaways from the game? How can you apply what you've learned to your work?</p>",
+    "<h2>Copilot Tips and Tricks</h2><p>Here are a few tips and tricks to help you get the most out of your AI assistant:</p><ul><li>Be specific in your prompts.</li><li>Provide context.</li><li>Use keywords.</li><li>Experiment with different prompts.</li></ul>",
+    "<h2>Prompting Guidelines</h2><p>When you're writing a prompt, keep the following guidelines in mind:</p><ul><li>Use clear and concise language.</li><li>Avoid jargon and slang.</li><li>Be polite and respectful.</li><li>Proofread your prompts before you send them.</li></ul>",
+    "<h2>Prompt Library</h2><p>Here are a few examples of prompts that you can use to get started:</p><ul><li>'Write a short story about a robot who falls in love with a human.'</li><li>'Translate the following sentence into French: 'Hello, how are you?''</li><li>'Write a poem about the beauty of nature.'</li></ul>"
+
 ];
 
 let currentSlide = 0;
@@ -77,6 +82,15 @@ function prevSlide() {
 
 createSlides();
 showSlide(currentSlide);
+
+const menuItems = document.querySelectorAll('#slide-2 li');
+
+menuItems.forEach(item => {
+    item.addEventListener('click', () => {
+        const slideIndex = parseInt(item.dataset.slide);
+        showSlide(slideIndex);
+    });
+});
 
 nextSlideBtn.addEventListener('click', nextSlide);
 prevSlideBtn.addEventListener('click', prevSlide);
