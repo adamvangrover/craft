@@ -37,6 +37,8 @@
         - **Key Metrics:** Each metric (Revenue, EBITDA, FCF, Leverage) is presented in its own card with a clear explanation. This modular approach makes the information easy to scan and digest.
         - **Fundamental Principles:** An accordion is used to present the core accounting principles. This keeps the initial view clean and allows users to expand on topics of interest, reducing cognitive load.
         - **Full Report Reference:** The entire original markdown report is included in a collapsible section at the bottom, serving as a comprehensive appendix for detailed reference.
+        - **LLM Integration - Ratio Insights:** A button in the "Ratio Analysis" section triggers a call to the Gemini API to generate a narrative summary of the implications of the displayed Apple Inc. ratios. This provides dynamic, AI-powered analysis.
+        - **LLM Integration - Financial Terminology Explainer:** An input field and button in the "Reporting & GAAP" section allow users to query financial terms, with the Gemini API providing concise explanations. This acts as an interactive glossary.
 
         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
     -->
@@ -66,7 +68,7 @@
                 <div class="card">
                     <h2 class="text-2xl font-bold mb-4 text-gray-800">Executive Summary</h2>
                     <p class="text-gray-700 leading-relaxed">
-                        This report provides a comprehensive guide to financial analysis, designed to equip finance professionals and astute investors with the knowledge and tools necessary for in-depth financial understanding. It commences by establishing the foundational role of financial reporting under Generally Accepted Accounting Principles (GAAP) and contrasting it with International Financial Reporting Standards (IFRS), highlighting the critical need for comparability. The report then transitions to the practical discipline of financial spreading, detailing methodologies for ensuring data accuracy, consistency, and the appropriate integration of pro forma adjustments and restatements. A robust section on basic financial analysis, including ratio and trend analysis, is presented, alongside an exploration of core finance concepts. The document culminates by demonstrating how key financial metrics—revenue, EBITDA, free cash flow, and leverage—can be decoded to reveal a company's strategic narrative, with special attention given to the unique analytical challenges posed by private companies. The overarching aim is to transform raw financial data into actionable intelligence, fostering informed decision-making in dynamic capital markets.
+                        This report provides a comprehensive guide to financial analysis, designed to equip finance professionals and astute investors with the knowledge and tools necessary for in-depth financial understanding. It commences by establishing the foundational role of financial reporting under Generally Accepted Accounting Principles (GAAP) and contrasting it with International Financial Reporting Standards (IFRS), highlighting the critical need for comparability. The report then transitions to the practical discipline of financial spreading, detailing methodologies for ensuring data accuracy, consistency, and the appropriate integration of pro forma adjustments and restatements. A robust section on basic financial analysis, including ratio and trend analysis, is presented, alongside an exploration of core finance concepts. The document culminates by demonstrating how key financial metrics—revenue, EBITDA, free cash flow, and leverage—can be decoded to reveal a company's strategic narrative, with special attention given to the unique analytical challenges posed by private companies. The overarching aim is to transform raw financial data into actionable intelligence, fostering informed decision-decision-making in dynamic capital markets.
                     </p>
                 </div>
             </section>
@@ -138,6 +140,19 @@
                     <div id="accordion-container">
                         <h3 class="text-xl font-semibold mb-3 text-gray-700">Fundamental Accounting Principles</h3>
                         <!-- Accordion items will be inserted here by JavaScript -->
+                    </div>
+
+                    <div class="mt-8 p-4 border rounded-lg bg-blue-50">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-800">✨ Financial Terminology Explainer</h3>
+                        <p class="text-gray-700 mb-4">Unsure about a financial term? Type it below and get a concise explanation powered by AI.</p>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <input type="text" id="financialTermInput" placeholder="e.g., EBITDA, Accrual Basis" class="flex-grow p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
+                            <button id="explainTermBtn" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-300">✨ Explain Term</button>
+                        </div>
+                        <div id="termExplanation" class="mt-4 p-3 bg-white rounded-md border border-gray-200 hidden">
+                            <p class="text-gray-800" id="explanationText"></p>
+                            <div id="explanationLoading" class="hidden text-center text-blue-500 mt-2">Loading...</div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -263,6 +278,16 @@
                             </tbody>
                         </table>
                         <p class="text-sm text-gray-500 mt-2">* Data derived from Apple Inc. 10-K filings. Ratios are calculated for illustrative purposes.</p>
+                    </div>
+
+                    <div class="mt-8 p-4 border rounded-lg bg-blue-50">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-800">✨ Get Ratio Insights</h3>
+                        <p class="text-gray-700 mb-4">Click the button below to get an AI-generated narrative summary of what the Apple Inc. ratios imply about its financial performance and strategic choices.</p>
+                        <button id="generateInsightsBtn" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-300">✨ Generate Ratio Insights</button>
+                        <div id="ratioInsights" class="mt-4 p-3 bg-white rounded-md border border-gray-200 hidden">
+                            <p class="text-gray-800" id="insightsText"></p>
+                            <div id="insightsLoading" class="hidden text-center text-blue-500 mt-2">Loading...</div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -954,7 +979,7 @@
                             position: 'top',
                         },
                         title: {
-                            display: false // We use an H3 tag instead
+                            display: false
                         }
                     }
                 }
@@ -1011,6 +1036,88 @@
                     }]
                 },
                 options: chartConfig.options
+            });
+
+            // Gemini API Integration Functions
+            const apiKey = ""; 
+
+            async function callGeminiAPI(prompt) {
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                const payload = {
+                    contents: [{ role: "user", parts: [{ text: prompt }] }]
+                };
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        return result.candidates[0].content.parts[0].text;
+                    } else {
+                        return "Error: Could not get a valid response from the API.";
+                    }
+                } catch (error) {
+                    console.error("Error calling Gemini API:", error);
+                    return "Error: Failed to connect to the API.";
+                }
+            }
+
+            // Financial Terminology Explainer Logic
+            const financialTermInput = document.getElementById('financialTermInput');
+            const explainTermBtn = document.getElementById('explainTermBtn');
+            const termExplanationDiv = document.getElementById('termExplanation');
+            const explanationText = document.getElementById('explanationText');
+            const explanationLoading = document.getElementById('explanationLoading');
+
+            explainTermBtn.addEventListener('click', async () => {
+                const term = financialTermInput.value.trim();
+                if (!term) {
+                    explanationText.textContent = "Please enter a financial term.";
+                    termExplanationDiv.classList.remove('hidden');
+                    return;
+                }
+
+                explanationText.textContent = "";
+                termExplanationDiv.classList.remove('hidden');
+                explanationLoading.classList.remove('hidden');
+
+                const prompt = `Explain the financial term "${term}" concisely and clearly, as if to a finance professional.`;
+                const explanation = await callGeminiAPI(prompt);
+
+                explanationText.textContent = explanation;
+                explanationLoading.classList.add('hidden');
+            });
+
+            // Ratio Insights Generator Logic
+            const generateInsightsBtn = document.getElementById('generateInsightsBtn');
+            const ratioInsightsDiv = document.getElementById('ratioInsights');
+            const insightsText = document.getElementById('insightsText');
+            const insightsLoading = document.getElementById('insightsLoading');
+
+            generateInsightsBtn.addEventListener('click', async () => {
+                insightsText.textContent = "";
+                ratioInsightsDiv.classList.remove('hidden');
+                insightsLoading.classList.remove('hidden');
+
+                const appleRatios = `
+                    Apple Inc. Financial Ratios (3-Year Analysis):
+                    - Gross Profit Margin: 2021: 41.8%, 2022: 43.3%, 2023: 44.1%
+                    - Net Profit Margin: 2021: 25.9%, 2022: 25.3%, 2023: 25.3%
+                    - Current Ratio: 2021: 1.07, 2022: 0.88, 2023: 0.99
+                    - Debt-to-Equity Ratio: 2021: 4.56, 2022: 5.96, 2023: 4.67
+                `;
+
+                const prompt = `Based on the following Apple Inc. financial ratios for 2021-2023, provide a concise narrative summary of what these trends imply about the company's financial performance, strategic choices, and overall health. Focus on the key takeaways and potential implications.
+                ${appleRatios}`;
+                const insights = await callGeminiAPI(prompt);
+
+                insightsText.textContent = insights;
+                insightsLoading.classList.add('hidden');
             });
         });
     </script>
