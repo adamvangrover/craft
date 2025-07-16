@@ -144,10 +144,29 @@
         </div>
 
         <div id="indicative-rating-section" class="section">
-            <h2>Indicative Rating</h2>
+            <h2>Indicative Rating <button id="run-script-button">Run Script</button></h2>
             <div id="indicative-rating">
                 <!-- The indicative rating will be displayed here -->
                 PASS
+            </div>
+            <div id="justification" class="section">
+                <h3>Justification</h3>
+                <p id="justification-text"></p>
+            </div>
+            <div id="visual-element" class="section">
+                <h3>Rating Input Map</h3>
+                <table id="input-map-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Value</th>
+                            <th>Rating Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Table rows will be dynamically generated here -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
