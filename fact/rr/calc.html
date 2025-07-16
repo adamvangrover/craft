@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regulatory Risk Rating Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .input-group label {
+            font-weight: 600;
+            color: #334155; /* Slate 700 */
+        }
+        .input-group select, .input-group input {
+            border: 1px solid #cbd5e1; /* Slate 300 */
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .input-group select:focus, .input-group input:focus {
+            border-color: #3b82f6; /* Blue 500 */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+            outline: none;
+        }
+        .btn-primary {
+            background-color: #2563eb; /* Blue 600 */
+            color: #ffffff;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+        }
+        .btn-primary:hover {
+            background-color: #1d4ed8; /* Blue 700 */
+            transform: translateY(-1px);
+        }
+        .result-box {
+            background-color: #e0f2fe; /* Light blue 100 */
+            border: 1px solid #93c5fd; /* Blue 300 */
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        .result-box h3 {
+            color: #1e40af; /* Blue 800 */
+            font-weight: 700;
+        }
+        .result-box p {
+            color: #334155; /* Slate 700 */
+        }
+        .disclaimer {
+            font-size: 0.875rem;
+            color: #64748b; /* Slate 500 */
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #f8fafc; /* Slate 50 */
+            border-radius: 8px;
+            border: 1px dashed #e2e8f0; /* Slate 200 */
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="container">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Regulatory Risk Rating Calculator</h1>
+        <p class="text-center text-gray-600 mb-6">
+            This interactive tool helps illustrate how quantitative and qualitative factors might influence a conceptual regulatory risk rating.
+            Select the options that best describe the credit's characteristics and click "Calculate Rating".
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Quantitative Inputs -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-inner">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Quantitative Inputs</h2>
+
+                <div class="input-group mb-4">
+                    <label for="revenueTrend" class="block text-sm mb-2">Revenue Trend:</label>
+                    <select id="revenueTrend" class="block w-full">
+                        <option value="consistent_growth">Consistent Growth / Stability</option>
+                        <option value="flat_declining">Flat / Declining (Below Projections)</option>
+                        <option value="significant_decline">Significant / Sustained Decline</option>
+                        <option value="severe_decline">Sustained, Severe Decline</option>
+                        <option value="minimal_non_existent">Minimal / Non-existent (Cessation)</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-4">
+                    <label for="ebitdaTrend" class="block text-sm mb-2">EBITDA Trend:</label>
+                    <select id="ebitdaTrend" class="block w-full">
+                        <option value="strong_stable">Strong / Stable (Ample Coverage)</option>
+                        <option value="compressing_positive">Margins Compressing (Still Positive)</option>
+                        <option value="breakeven_negative_insufficient">Breakeven / Negative (Insufficient for Interest)</option>
+                        <option value="consistently_negative">Consistently Negative (Unable to Cover Fixed Costs)</option>
+                        <option value="deeply_negative">Deeply Negative (No Operational Viability)</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-4">
+                    <label for="fcfTrend" class="block text-sm mb-2">Free Cash Flow (FCF) Trend:</label>
+                    <select id="fcfTrend" class="block w-full">
+                        <option value="sufficient_predictable">Sufficient / Predictable (Covers All Obligations)</option>
+                        <option value="tightening_reduced_margin">Tightening (Reduced Margin for Error)</option>
+                        <option value="inadequate">Inadequate (Unable to Cover Liquidity/Debt)</option>
+                        <option value="severely_negative">Severely Negative (Requires External Capital)</option>
+                        <option value="no_capacity">No Capacity (Dependent on Liquidation)</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-4">
+                    <label for="leverageRatio" class="block text-sm mb-2">Total Debt/EBITDA Ratio:</label>
+                    <select id="leverageRatio" class="block w-full">
+                        <option value="below_3x">Below 3.0x</option>
+                        <option value="3x_4x">3.0x - 4.0x</option>
+                        <option value="4x_5x">4.0x - 5.0x (Approaching SM)</option>
+                        <option value="5x_6x">5.0x - 6.0x</option>
+                        <option value="6x_7x">6.0x - 7.0x (Very High, Substandard)</option>
+                        <option value="over_7x">Over 7.0x</option>
+                        <option value="extremely_high">Extremely High (Technical Insolvency)</option>
+                        <option value="overwhelming">Overwhelming (Far Exceeding Asset Value)</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-4">
+                    <label for="fccr" class="block text-sm mb-2">Fixed Charge Coverage Ratio (FCCR):</label>
+                    <select id="fccr" class="block w-full">
+                        <option value="over_1_5x">Over 1.5x</option>
+                        <option value="1_25x_1_5x">1.25x - 1.5x</option>
+                        <option value="1_0x_1_25x">1.0x - 1.25x (Minimal Buffer)</option>
+                        <option value="below_1_0x">Below 1.0x (Unable to Cover Fixed Charges)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="llInterestCoverage" class="block text-sm mb-2">LL Interest Coverage Ratio:</label>
+                    <select id="llInterestCoverage" class="block w-full">
+                        <option value="over_3_0x">Over 3.0x</option>
+                        <option value="2_0x_3_0x">2.0x - 3.0x</option>
+                        <option value="1_5x_2_0x">1.5x - 2.0x (Tightening)</option>
+                        <option value="below_1_5x">Below 1.5x</option>
+                        <option value="below_1_0x">Below 1.0x (Unable to Cover Interest)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Qualitative Inputs -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-inner">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Qualitative Inputs</h2>
+
+                <div class="input-group mb-4">
+                    <label for="managementQuality" class="block text-sm mb-2">Management Quality:</label>
+                    <select id="managementQuality" class="block w-full">
+                        <option value="strong">Strong (Competent & Adaptable)</option>
+                        <option value="adequate">Adequate (Generally Capable)</option>
+                        <option value="concerns">Concerns (Some Issues/Lack of Depth)</option>
+                        <option value="significant_issues">Significant Issues (Loss of Key Personnel/Poor Execution)</option>
+                        <option value="absent">Absent / Ineffective</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-4">
+                    <label for="industryOutlook" class="block text-sm mb-2">Industry Outlook:</label>
+                    <select id="industryOutlook" class="block w-full">
+                        <option value="favorable">Favorable (Growth/Stable)</option>
+                        <option value="stable">Stable (Mature/Predictable)</option>
+                        <option value="challenged">Challenged (Competitive Pressure/Cyclical Downturn)</option>
+                        <option value="deteriorating">Deteriorating (Structural Decline/Severe Headwinds)</option>
+                        <option value="critical">Critical (Extreme Contraction/Obsolete)</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-4">
+                    <label for="underwritingStrength" class="block text-sm mb-2">Underwriting Strength:</label>
+                    <select id="underwritingStrength" class="block w-full">
+                        <option value="strong">Strong (Robust Covenants/Amortization)</option>
+                        <option value="adequate">Adequate (Standard Protections)</option>
+                        <option value="weaknesses">Weaknesses (Loose Covenants/Reliance on Refi)</option>
+                        <option value="significant_weaknesses">Significant Weaknesses (Poorly Structured/Deferred Interest)</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-4">
+                    <label for="collateralProtection" class="block text-sm mb-2">Collateral Protection (Conservatively Valued):</label>
+                    <select id="collateralProtection" class="block w-full">
+                        <option value="fully_secured">Fully Secured (High Quality, Liquid)</option>
+                        <option value="partially_secured">Partially Secured (Some Coverage)</option>
+                        <option value="minimal">Minimal (Uncertain Value/Illiquid)</option>
+                        <option value="none">None / Ineffective</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-4">
+                    <label for="relianceOnRefinancing" class="block text-sm mb-2">Reliance on Refinancing as Primary Repayment:</label>
+                    <select id="relianceOnRefinancing" class="block w-full">
+                        <option value="none">None</option>
+                        <option value="low">Low</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="high">High</option>
+                        <option value="primary_source">Primary Source</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="covenantCompliance" class="block text-sm mb-2">Covenant Compliance:</label>
+                    <select id="covenantCompliance" class="block w-full">
+                        <option value="compliant">Compliant (Significant Headroom)</option>
+                        <option value="minor_waivers">Minor Waivers (Approaching Limits)</option>
+                        <option value="repeated_violations">Repeated Violations (Requires Restructure)</option>
+                        <option value="default">In Default (No Waivers/Breaches)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-8">
+            <button id="calculateBtn" class="btn-primary">Calculate Regulatory Rating</button>
+        </div>
+
+        <div id="result" class="result-box hidden">
+            <h3 class="text-lg mb-2">Suggested Regulatory Rating: <span id="ratingOutput" class="font-bold text-xl"></span></h3>
+            <p id="justificationOutput" class="text-sm"></p>
+        </div>
+
+        <div class="disclaimer">
+            <p class="font-semibold mb-2">Disclaimer:</p>
+            <p>This tool provides a conceptual illustration of how various factors might contribute to a regulatory risk rating based on the provided guide. It is a simplified model and does not replicate the full complexity of actual bank credit analysis or regulatory examination processes. It should NOT be used for actual financial decisions, credit underwriting, or regulatory compliance. Real-world credit risk assessment involves extensive due diligence, detailed financial modeling, expert judgment, and adherence to specific internal and regulatory policies.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', calculateRating);
+
+        function calculateRating() {
+            // Get values from inputs
+            const revenueTrend = document.getElementById('revenueTrend').value;
+            const ebitdaTrend = document.getElementById('ebitdaTrend').value;
+            const fcfTrend = document.getElementById('fcfTrend').value;
+            const leverageRatio = document.getElementById('leverageRatio').value;
+            const fccr = document.getElementById('fccr').value;
+            const llInterestCoverage = document.getElementById('llInterestCoverage').value;
+            const managementQuality = document.getElementById('managementQuality').value;
+            const industryOutlook = document.getElementById('industryOutlook').value;
+            const underwritingStrength = document.getElementById('underwritingStrength').value;
+            const collateralProtection = document.getElementById('collateralProtection').value;
+            const relianceOnRefinancing = document.getElementById('relianceOnRefinancing').value;
+            const covenantCompliance = document.getElementById('covenantCompliance').value;
+
+            let riskScore = 0; // Lower score = lower risk (Pass), Higher score = higher risk (Loss)
+            let justification = [];
+
+            // --- Quantitative Factors Scoring ---
+            // Revenue Trend
+            switch (revenueTrend) {
+                case 'consistent_growth': riskScore += 0; justification.push("Revenue trend is consistent/growing."); break;
+                case 'flat_declining': riskScore += 5; justification.push("Revenue trend is flat/declining."); break;
+                case 'significant_decline': riskScore += 15; justification.push("Revenue trend shows significant decline."); break;
+                case 'severe_decline': riskScore += 25; justification.push("Revenue trend shows severe decline."); break;
+                case 'minimal_non_existent': riskScore += 35; justification.push("Revenue is minimal/non-existent."); break;
+            }
+
+            // EBITDA Trend
+            switch (ebitdaTrend) {
+                case 'strong_stable': riskScore += 0; justification.push("EBITDA is strong/stable."); break;
+                case 'compressing_positive': riskScore += 5; justification.push("EBITDA margins are compressing."); break;
+                case 'breakeven_negative_insufficient': riskScore += 15; justification.push("EBITDA is breakeven/negative and insufficient for interest."); break;
+                case 'consistently_negative': riskScore += 25; justification.push("EBITDA is consistently negative."); break;
+                case 'deeply_negative': riskScore += 35; justification.push("EBITDA is deeply negative, no operational viability."); break;
+            }
+
+            // FCF Trend
+            switch (fcfTrend) {
+                case 'sufficient_predictable': riskScore += 0; justification.push("FCF is sufficient and predictable."); break;
+                case 'tightening_reduced_margin': riskScore += 5; justification.push("FCF is tightening with reduced margin."); break;
+                case 'inadequate': riskScore += 15; justification.push("FCF is inadequate to cover liquidity/debt."); break;
+                case 'severely_negative': riskScore += 25; justification.push("FCF is severely negative, requiring external capital."); break;
+                case 'no_capacity': riskScore += 35; justification.push("FCF has no capacity, dependent on liquidation."); break;
+            }
+
+            // Leverage Ratio (Total Debt/EBITDA)
+            switch (leverageRatio) {
+                case 'below_3x': riskScore += 0; justification.push("Leverage is low (below 3.0x Total Debt/EBITDA)."); break;
+                case '3x_4x': riskScore += 2; justification.push("Leverage is moderate (3.0x-4.0x Total Debt/EBITDA)."); break;
+                case '4x_5x': riskScore += 8; justification.push("Leverage is increasing (4.0x-5.0x Total Debt/EBITDA)."); break; // Approaching SM
+                case '5x_6x': riskScore += 12; justification.push("Leverage is high (5.0x-6.0x Total Debt/EBITDA)."); break;
+                case '6x_7x': riskScore += 20; justification.push("Leverage is very high (6.0x-7.0x Total Debt/EBITDA), indicating Substandard risk."); break;
+                case 'over_7x': riskScore += 25; justification.push("Leverage is over 7.0x Total Debt/EBITDA."); break;
+                case 'extremely_high': riskScore += 30; justification.push("Leverage is extremely high, indicating technical insolvency (Doubtful)."); break;
+                case 'overwhelming': riskScore += 35; justification.push("Leverage is overwhelming, far exceeding asset value (Loss)."); break;
+            }
+
+            // FCCR
+            switch (fccr) {
+                case 'over_1_5x': riskScore += 0; justification.push("FCCR is strong (>1.5x)."); break;
+                case '1_25x_1_5x': riskScore += 2; justification.push("FCCR is good (1.25x-1.5x)."); break;
+                case '1_0x_1_25x': riskScore += 8; justification.push("FCCR has minimal buffer (1.0x-1.25x)."); break; // Approaching SM
+                case 'below_1_0x': riskScore += 20; justification.push("FCCR is below 1.0x, unable to cover fixed charges."); break; // Substandard
+            }
+
+            // LL Interest Coverage
+            switch (llInterestCoverage) {
+                case 'over_3_0x': riskScore += 0; justification.push("LL Interest Coverage is strong (>3.0x)."); break;
+                case '2_0x_3_0x': riskScore += 2; justification.push("LL Interest Coverage is good (2.0x-3.0x)."); break;
+                case '1_5x_2_0x': riskScore += 8; justification.push("LL Interest Coverage is tightening (1.5x-2.0x)."); break; // Approaching SM
+                case 'below_1_5x': riskScore += 15; justification.push("LL Interest Coverage is below 1.5x."); break;
+                case 'below_1_0x': riskScore += 25; justification.push("LL Interest Coverage is below 1.0x, unable to cover interest."); break; // Substandard
+            }
+
+            // --- Qualitative Factors Scoring ---
+            // Management Quality
+            switch (managementQuality) {
+                case 'strong': riskScore += 0; justification.push("Management quality is strong."); break;
+                case 'adequate': riskScore += 1; justification.push("Management quality is adequate."); break;
+                case 'concerns': riskScore += 5; justification.push("Concerns exist regarding management quality."); break; // SM
+                case 'significant_issues': riskScore += 10; justification.push("Management has significant issues."); break; // SS
+                case 'absent': riskScore += 20; justification.push("Management is absent or ineffective."); break; // D/L
+            }
+
+            // Industry Outlook
+            switch (industryOutlook) {
+                case 'favorable': riskScore += 0; justification.push("Industry outlook is favorable."); break;
+                case 'stable': riskScore += 1; justification.push("Industry outlook is stable."); break;
+                case 'challenged': riskScore += 5; justification.push("Industry is challenged by competitive pressure/downturn."); break; // SM
+                case 'deteriorating': riskScore += 10; justification.push("Industry outlook is deteriorating."); break; // SS
+                case 'critical': riskScore += 20; justification.push("Industry outlook is critical."); break; // D/L
+            }
+
+            // Underwriting Strength
+            switch (underwritingStrength) {
+                case 'strong': riskScore += 0; justification.push("Underwriting is strong with robust protections."); break;
+                case 'adequate': riskScore += 1; justification.push("Underwriting is adequate."); break;
+                case 'weaknesses': riskScore += 5; justification.push("Underwriting has weaknesses (e.g., loose covenants, reliance on refinancing)."); break; // SM
+                case 'significant_weaknesses': riskScore += 15; justification.push("Underwriting has significant weaknesses (e.g., poorly structured, deferred interest)."); break; // SS/D
+            }
+
+            // Collateral Protection
+            switch (collateralProtection) {
+                case 'fully_secured': riskScore += 0; justification.push("Credit is fully secured by high-quality, liquid collateral."); break;
+                case 'partially_secured': riskScore += 5; justification.push("Credit is partially secured."); break;
+                case 'minimal': riskScore += 15; justification.push("Collateral protection is minimal/uncertain."); break; // SS/D
+                case 'none': riskScore += 25; justification.push("No effective collateral protection."); break; // D/L
+            }
+
+            // Reliance on Refinancing
+            switch (relianceOnRefinancing) {
+                case 'none': riskScore += 0; justification.push("No reliance on refinancing for repayment."); break;
+                case 'low': riskScore += 1; justification.push("Low reliance on refinancing."); break;
+                case 'moderate': riskScore += 5; justification.push("Moderate reliance on refinancing."); break; // SM
+                case 'high': riskScore += 10; justification.push("High reliance on refinancing."); break; // SS
+                case 'primary_source': riskScore += 20; justification.push("Refinancing is the primary source of repayment."); break; // D/L
+            }
+
+            // Covenant Compliance
+            switch (covenantCompliance) {
+                case 'compliant': riskScore += 0; justification.push("Covenants are compliant with significant headroom."); break;
+                case 'minor_waivers': riskScore += 5; justification.push("Minor covenant waivers indicate approaching limits."); break; // SM
+                case 'repeated_violations': riskScore += 15; justification.push("Repeated covenant violations require restructure."); break; // SS
+                case 'default': riskScore += 25; justification.push("Credit is in default on covenants."); break; // D/L
+            }
+
+            let rating = "Pass";
+            let ratingDescription = "";
+
+            // --- Determine Rating based on Risk Score ---
+            // These thresholds are conceptual and simplified for illustrative purposes.
+            // Actual thresholds are complex and bank-specific.
+            if (riskScore >= 100) {
+                rating = "Loss (L)";
+                ratingDescription = "The credit exhibits overwhelming weaknesses, minimal or non-existent operational viability, and debt far exceeding any remaining asset value. Collection is highly improbable, mandating immediate charge-off.";
+            } else if (riskScore >= 70) {
+                rating = "Doubtful (D)";
+                ratingDescription = "The credit shows all weaknesses of Substandard, with collection in full highly questionable and improbable. Its fate relies on highly uncertain pending events, and the borrower is likely in severe distress or default.";
+            } else if (riskScore >= 40) {
+                rating = "Substandard (SS)";
+                ratingDescription = "The credit is inadequately protected by the obligor's worth or collateral, with well-defined weaknesses jeopardizing debt liquidation. There is a distinct possibility of loss if deficiencies are not corrected, requiring intensive supervision.";
+            } else if (riskScore >= 15) {
+                rating = "Special Mention (SM)";
+                ratingDescription = "The credit possesses potential weaknesses that warrant close attention from management. If uncorrected, these may lead to a deterioration in repayment prospects or negatively impact the institution's credit position at a future date. It is not yet adversely classified.";
+            } else {
+                rating = "Pass";
+                ratingDescription = "The credit is in good standing, without any special mention or adverse classification. It represents high quality with a low probability of default, adequate capacity to meet financial commitments, and expected full and timely repayment.";
+            }
+
+            // Display results
+            document.getElementById('ratingOutput').textContent = rating;
+            document.getElementById('justificationOutput').innerHTML = "Based on your inputs, the key factors contributing to this conceptual rating are:<ul class='list-disc list-inside mt-2'>" + justification.map(item => `<li>${item}</li>`).join('') + "</ul><p class='mt-4 font-semibold'>Rating Justification: " + ratingDescription + "</p>";
+            document.getElementById('result').classList.remove('hidden');
+
+            // Scroll to the result
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>
