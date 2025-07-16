@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Interactive Guide to Regulatory Risk Ratings</title>
+    <!-- Chosen Palette: "Calm Harmony" - A warm neutral background (stone-100), dark slate text, and a muted blue for primary accents, supplemented by a color-coded system (green, yellow, orange, red, black) for risk ratings to enhance visual communication. -->
+    <!-- Application Structure Plan: The application is designed as a single, comprehensive webpage, allowing for continuous scrolling through the detailed guide while seamlessly integrating interactive elements. This structure prioritizes a holistic view of the content, enabling users to read through the entire report linearly or jump to specific interactive sections. Key interactions include expandable sections for detailed definitions, embedded charts for data visualization, a conceptual rating simulator, and LLM-powered dynamic explanations, all designed to enhance understanding and engagement within a unified flow. This approach was chosen to provide both the depth of the original report and the dynamic exploration capabilities of an interactive application on one page. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Core definitions of the 5 risk ratings. Goal: Inform & Compare. Viz/Method: Expandable detail sections for each rating. Interaction: Clicking a rating title reveals its detailed breakdown and characteristics. Justification: Integrates definitions directly into the flow while allowing users to control information density. Library: HTML/CSS/JS.
+        - Report Info: The step-by-step SNC process. Goal: Organize & Inform. Viz/Method: A horizontal flowchart with distinct, descriptive steps. Interaction: Static visual flow. Justification: Clearly visualizes a complex procedure, making it easier to follow than plain text. Library: HTML/CSS/JS.
+        - Report Info: Key statistics (Leveraged Loan risk, industry concentration). Goal: Compare & Analyze. Viz/Method: Donut and Bar charts. Interaction: Hover tooltips provide exact data. Justification: Charts make quantitative data immediately impactful and easy to compare within the continuous page flow. Library: Chart.js.
+        - Report Info: Core concepts requiring user synthesis. Goal: Engage & Teach. Viz/Method: An interactive rating simulator. Interaction: User inputs data via forms to see a conceptual outcome. Justification: Provides a hands-on way to apply the report's concepts directly within the guide. Library: HTML/CSS/JS.
+        - Report Info: Simulator results. Goal: Explain & Deepen Understanding. Viz/Method: LLM-generated detailed justification. Interaction: Button click triggers LLM call and displays dynamic text. Justification: Provides nuanced, context-aware explanations beyond static text, leveraging AI for deeper learning. Library: Gemini API.
+        - Report Info: Industry risk data. Goal: Provide Context & Expand Knowledge. Viz/Method: LLM-generated industry insights based on selection. Interaction: Dropdown selection and button click trigger LLM call and display dynamic text. Justification: Offers immediate, relevant qualitative context for quantitative data, enhancing user understanding of specific industry risks. Library: Gemini API.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f5f5f4; }
+        .section-container { background-color: #ffffff; padding: 2rem; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 2rem; }
+        .rating-toggle { cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 1rem; margin-bottom: 0.5rem; border-radius: 0.5rem; transition: background-color 0.3s ease; }
+        .rating-toggle:hover { background-color: #f0f4f8; }
+        .rating-details-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
+        .rating-details-content.expanded { max-height: 500px; transition: max-height 0.7s ease-in; }
+        .chart-container { position: relative; width: 100%; max-width: 500px; margin-left: auto; margin-right: auto; height: 320px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+        .pass-color { background-color: #ecfdf5; border-left-color: #22c55e; }
+        .sm-color { background-color: #fffbeb; border-left-color: #facc15; }
+        .ss-color { background-color: #fff7ed; border-left-color: #f97316; }
+        .d-color { background-color: #fef2f2; border-left-color: #ef4444; }
+        .l-color { background-color: #f3f4f6; border-left-color: #171717; }
+        .loading-spinner { border: 4px solid rgba(0, 0, 0, 0.1); border-left-color: #3b82f6; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; margin-left: 8px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="text-slate-700">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-800">Comprehensive Interactive Guide to Regulatory Risk Ratings</h1>
+            <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">A deep dive into credit risk assessment and the Shared National Credit (SNC) Program, presented interactively.</p>
+        </header>
+
+        <main>
+            <!-- Introduction Section -->
+            <section id="introduction" class="section-container">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">I. Introduction to Regulatory Risk Ratings and the Shared National Credit (SNC) Program</h2>
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">A. Overview of Credit Risk in Banking</h3>
+                <p class="mb-4 text-slate-600">Credit risk stands as the paramount financial risk pervading the banking system, inherently present in virtually all income-generating activities. Its effective and proactive management is not merely a best practice but a critical determinant of a bank's sustained performance. Historically, the depletion of capital reserves due to loan losses has been a leading cause of institutional failures, underscoring the foundational importance of robust credit risk oversight. The ubiquitous nature of credit risk across a bank's operations necessitates a sophisticated, dynamic, and deeply integrated risk rating framework. Such a framework is indispensable for maintaining financial stability and ensuring the safety and soundness of banking institutions.</p>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">B. Purpose and Importance of Regulatory Risk Ratings</h3>
+                <p class="mb-4 text-slate-600">Regulatory risk ratings serve as an essential mechanism for identifying, quantifying, and differentiating credit risk across individual credits and portfolios. This systematic measurement enables both bank management and external supervisory bodies to continuously monitor changes and emerging trends in risk levels. By providing a standardized and objective measure of credit quality, these ratings facilitate informed decision-making, allowing institutions to strategically manage risk to optimize returns while adhering to prudential standards. These ratings function as a common language and a critical diagnostic tool, fostering shared understanding and enabling effective communication regarding credit exposures between internal bank functions and external supervisory authorities.</p>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">C. Introduction to the Shared National Credit (SNC) Program</h3>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">1. Objectives and Scope</h4>
+                <p class="mb-4 text-slate-600">The Shared National Credit (SNC) Program is an interagency initiative specifically designed to assess risk within the largest and most intricate credit facilities. These facilities are characterized by being shared among multiple regulated financial institutions (banks) and nonbank investors. The program's core objectives include establishing uniformity in credit rating determinations and assessment methodologies, enhancing efficiency in risk analysis through the collection of bank-reported data, and ensuring the timely dissemination of results to both reporting institutions and regulatory agencies. The program's scope encompasses credits with a minimum aggregate loan commitment of $100 million or more, provided they are shared by three or more unaffiliated federally supervised institutions. This program represents a direct and strategic response to the systemic risk potential inherent in large, widely syndicated credits, aiming to standardize risk assessment across a diverse participant base and thereby mitigate the potential for inconsistent regulatory treatment or supervisory gaps.</p>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">2. Historical Context and Evolution</h4>
+                <p class="mb-4 text-slate-600">The SNC Program was established in 1977, initially focusing on borrowers with aggregate loan commitments of $20 million or more shared by at least two regulated financial institutions. A significant modification occurred in 1998, increasing the minimum number of regulated institutions required for an SNC designation to three. Further adaptation to market dynamics led to another crucial adjustment effective January 1, 2018, when the minimum aggregate loan commitment threshold was raised from $20 million to $100 million. This increase was specifically implemented to account for inflation and the evolving average size of syndicated loans. The progressive evolution of SNC thresholds and participant requirements demonstrates regulators' adaptive capacity, continuously refining their oversight mechanisms to remain relevant and effective in addressing the increasing scale and complexity of syndicated lending activities.</p>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">3. Interagency Agreement</h4>
+                <p class="text-slate-600">The governance of the SNC Program is formalized through an interagency agreement involving three principal federal banking regulatory bodies: the Board of Governors of the Federal Reserve System, the Federal Deposit Insurance Corporation (FDIC), and the Office of the Comptroller of the Currency (OCC). This collaborative framework, uniting key supervisory agencies, establishes a unified regulatory front. This concerted approach is crucial for minimizing jurisdictional inconsistencies and fostering a comprehensive, holistic view of systemic credit risk across the entire U.S. banking system. Such large, complex credits, if not consistently monitored and assessed, could pose significant systemic threats.</p>
+            </section>
+
+            <!-- Foundational Concepts Section -->
+            <section id="foundational-concepts" class="section-container">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">II. Foundational Concepts of Credit Risk Rating Systems</h2>
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">A. Functions and Expectations of Bank Credit Risk Rating Systems</h3>
+                <p class="mb-4 text-slate-600">Well-managed credit risk rating systems are instrumental in promoting bank safety and soundness by facilitating informed decision-making across various banking functions. These systems are designed to accurately measure and differentiate individual credits and groups of credits based on the risk they present, enabling continuous monitoring of risk levels and trends.</p>
+                <ul class="list-disc list-inside text-slate-600 mb-4">
+                    <li>**Credit Approval and Underwriting:** Risk ratings directly influence authorization levels, exposure limits, and structural elements of credit facilities.</li>
+                    <li>**Loan Pricing:** Fundamental guide for setting loan prices commensurate with credit risk.</li>
+                    <li>**Relationship Management and Credit Administration:** Dictates intensity and frequency of administration, with higher-risk credits needing more frequent reviews.</li>
+                    <li>**Allowance for Loan and Lease Losses (ALLL) and Capital Adequacy:** Form the bedrock for determining ALLL and assessing appropriate capital levels.</li>
+                    <li>**Portfolio Management Information Systems (MIS) and Board Reporting:** Vital for effective credit risk management and strategic decision-making.</li>
+                    <li>**Traditional and Advanced Portfolio Management:** Significantly influence strategic decisions regarding acquisition, sale, retention, and hedging of credit facilities.</li>
+                </ul>
+                <p class="text-slate-600">An effective credit risk rating system transcends the role of a mere compliance tool; it operates as a strategic asset that seamlessly integrates risk management across the entire lending lifecycle, from the initial origination and underwriting phases through ongoing administration and portfolio optimization.</p>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">B. Key Attributes of Effective Internal Rating Systems</h3>
+                <p class="mb-4 text-slate-600">The OCC expects national banks to maintain credit risk management systems that produce accurate and timely risk ratings, considering precise credit classification a top supervisory priority. An effective internal risk rating system must possess several key attributes:</p>
+                <ul class="list-disc list-inside text-slate-600 mb-4">
+                    <li>**Integration:** Fully integrated into the bank's overarching portfolio risk management framework.</li>
+                    <li>**Board Oversight:** Board responsible for approving the system and overseeing implementation.</li>
+                    <li>**Comprehensive Coverage:** All credit exposures, without exception, should be rated.</li>
+                    <li>**Granularity:** Adequate number of rating grades, especially within the "pass" category.</li>
+                    <li>**Accuracy and Timeliness:** Ratings must be consistently accurate and promptly updated.</li>
+                    <li>**Clear Definitions:** Criteria for assigning each rating must be clear and precisely defined.</li>
+                    <li>**Holistic Risk Reflection:** Ratings should capture risks from borrower performance and transaction structure.</li>
+                    <li>**Dynamism:** Ratings must be updated whenever the underlying risk profile changes.</li>
+                    <li>**Independent Validation:** The rating process should undergo independent validation and back-testing.</li>
+                    <li>**Documentation:** Every assigned rating must be thoroughly supported and documented.</li>
+                </ul>
+                <p class="text-slate-600">The emphasis on dynamic, independently validated, and meticulously documented ratings highlights a regulatory expectation for proactive and evidence-based risk management. This approach moves beyond static, compliance-driven assessments toward a continuous, data-informed evaluation of credit quality.</p>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">C. Developments in Bank Risk Rating Systems</h3>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">1. Pass Risk Ratings and Dual Rating Systems</h4>
+                <p class="mb-4 text-slate-600">One of the most notable changes has been the expansion in the number of rating categories, particularly within the "pass" category. This increased granularity allows for a more precise measurement of default and loss probabilities, which in turn facilitates more accurate loan pricing, improves the allocation of ALLL and capital, and enhances early warning capabilities for portfolio management.</p>
+                <p class="text-slate-600">Furthermore, some banks have adopted dual rating systems. These typically involve assigning one rating to the general creditworthiness of the obligor and another, separate rating to each specific credit facility. The trend toward more granular pass ratings and dual rating systems reflects a growing sophistication in risk differentiation, empowering banks to optimize capital allocation and pricing strategies more effectively.</p>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">2. Linking Internal and External (Public) Ratings</h4>
+                <p class="mb-4 text-slate-600">Banks are increasingly integrating external, public credit ratings from nationally recognized agencies into their internal risk management frameworks. While these external ratings offer a valuable benchmark and data source, regulatory guidance emphasizes the primacy of a bank's independent, dynamic internal assessment. This approach prevents over-reliance on potentially less sensitive external views and ensures that internal risk assessments remain responsive to evolving credit conditions.</p>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">3. Role of Automated Scoring Systems</h4>
+                <p class="text-slate-600">The adoption of commercial credit risk models and automated scoring systems has gained traction, particularly in larger banks. However, challenges include the scarcity of comprehensive commercial loan data and untested accuracy across a full business cycle. Consequently, automated scoring systems should be rigorously evaluated, periodically validated, and used as a supplement to more traditional credit risk management tools. The cautious integration of automated scoring systems reflects a regulatory balance between leveraging technological efficiencies and acknowledging the inherent limitations of models.</p>
+            </section>
+
+            <!-- Regulatory Classifications Section -->
+            <section id="regulatory-classifications" class="section-container">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">III. Regulatory Risk Rating Classifications: Definitions and Standards</h2>
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">A. Overview of Regulatory Classifications</h3>
+                <p class="mb-6 text-slate-600">Regulatory agencies employ a common, standardized risk rating scale to identify and categorize problem credits: Special Mention, Substandard, Doubtful, and Loss. Credits not in these categories are "pass" credits. This unified system ensures consistent supervisory assessment and facilitates early identification of systemic vulnerabilities.</p>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">B. Detailed Definitions of Regulatory Ratings</h3>
+                <p class="mb-6 text-slate-600">Click on a rating below to expand and explore its detailed definition, characteristics, and the underlying conditions that lead to its assignment. This interactive section allows you to quickly grasp the nuances of each classification.</p>
+                
+                <!-- Interactive Rating Definitions -->
+                <div class="mb-8">
+                    <div class="border border-slate-200 rounded-lg">
+                        <div class="rating-toggle pass-color border-l-4" data-rating="pass">
+                            <h4 class="font-bold text-lg text-green-800">1. Pass</h4>
+                            <span class="text-xl text-slate-500">&#9660;</span>
+                        </div>
+                        <div class="rating-details-content p-4 text-slate-600">
+                            <p class="font-semibold mb-2">Key Definition: In good standing, not Special Mention or Classified. Highest quality loans with lowest probability of default.</p>
+                            <p><span class="font-semibold">Primary Characteristics:</span> Adequate capacity to meet financial commitments; full and timely repayment expected. Strong, stable cash flow; low leverage; robust liquidity; sound management; favorable industry conditions.</p>
+                        </div>
+                    </div>
+                    <div class="border border-slate-200 rounded-lg mt-2">
+                        <div class="rating-toggle sm-color border-l-4" data-rating="sm">
+                            <h4 class="font-bold text-lg text-yellow-800">2. Special Mention (SM)</h4>
+                            <span class="text-xl text-slate-500">&#9660;</span>
+                        </div>
+                        <div class="rating-details-content p-4 text-slate-600">
+                            <p class="font-semibold mb-2">Key Definition: Potential weaknesses deserving management's close attention; if uncorrected, may deteriorate repayment prospects or credit position. Not adversely classified.</p>
+                            <p><span class="font-semibold">Primary Characteristics:</span> Elevated risk, but default not imminent. Adverse operating trends (declining revenues/margins), ill-proportioned balance sheet (e.g., high leverage, tight liquidity), management problems, structural weaknesses.</p>
+                        </div>
+                    </div>
+                    <div class="border border-slate-200 rounded-lg mt-2">
+                        <div class="rating-toggle ss-color border-l-4" data-rating="ss">
+                            <h4 class="font-bold text-lg text-orange-800">3. Substandard (SS)</h4>
+                            <span class="text-xl text-slate-500">&#9660;</span>
+                        </div>
+                        <div class="rating-details-content p-4 text-slate-600">
+                            <p class="font-semibold mb-2">Key Definition: Inadequately protected by obligor's worth or collateral; well-defined weaknesses jeopardize debt liquidation; distinct possibility of loss if deficiencies not corrected.</p>
+                            <p><span class="font-semibold">Primary Characteristics:</span> High probability of payment default. Current/expected unprofitable operations, inadequate debt service coverage, inadequate liquidity, marginal capitalization. Repayment may depend on collateral.</p>
+                        </div>
+                    </div>
+                    <div class="border border-slate-200 rounded-lg mt-2">
+                        <div class="rating-toggle d-color border-l-4" data-rating="d">
+                            <h4 class="font-bold text-lg text-red-800">4. Doubtful (D)</h4>
+                            <span class="text-xl text-slate-500">&#9660;</span>
+                        </div>
+                        <div class="rating-details-content p-4 text-slate-600">
+                            <p class="font-semibold mb-2">Key Definition: All weaknesses of Substandard, plus collection/liquidation in full is highly questionable and improbable based on current facts/values.</p>
+                            <p><span class="font-semibold">Primary Characteristics:</span> High probability of total/substantial loss, but classification deferred due to specific pending events (e.g., mergers, capital injections, refinancing). Borrowers usually in default, lack adequate liquidity/capital.</p>
+                        </div>
+                    </div>
+                    <div class="border border-slate-200 rounded-lg mt-2">
+                        <div class="rating-toggle l-color border-l-4" data-rating="l">
+                            <h4 class="font-bold text-lg text-slate-800">5. Loss (L)</h4>
+                            <span class="text-xl text-slate-500">&#9660;</span>
+                        </div>
+                        <div class="rating-details-content p-4 text-slate-600">
+                            <p class="font-semibold mb-2">Key Definition: Considered uncollectible and of such little value that continuance as bankable asset is unwarranted; impractical/undesirable to defer write-off.</p>
+                            <p><span class="font-semibold">Primary Characteristics:</span> Borrowers often in bankruptcy, suspended debt repayments, or ceased operations. Little prospect of collecting principal or interest.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">C. Split Ratings: Substandard/Doubtful/Loss, Pass/Adverse Rating, Partial Charge-off</h3>
+                <p class="mb-4 text-slate-600">In situations where a single credit exposure presents varying degrees of risk across its components, more than one rating may be assigned. This typically occurs when collateral or other structural protection supports only a portion of the credit. This approach provides a nuanced and granular assessment of credit risk, accurately reflecting the heterogeneous nature of repayment sources and collateral protection within a single credit facility.</p>
+                <ul class="list-disc list-inside text-slate-600 mb-4">
+                    <li>**Substandard/Doubtful/Loss:** Applied to collateral-dependent loans where collateral value is uncertain.</li>
+                    <li>**Pass/Adverse Rating:** Used when a distinct portion of a credit has an unquestionable repayment source (e.g., fully secured by cash), while the rest has weaknesses.</li>
+                    <li>**Partial Charge-off:** Assigned when a portion of a loan is charged off, but the remaining balance is reliably serviced and expected to be collected.</li>
+                </ul>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">D. Accrual Status and Nonaccrual Determination</h3>
+                <p class="mb-4 text-slate-600">Accrual status is a critical accounting reflection of a credit's risk profile, directly impacting a bank's reported earnings and asset quality. It serves as a key trigger for heightened regulatory scrutiny. A loan on nonaccrual status indicates severe underlying problems where full collection of interest and principal is highly questionable, almost invariably leading to classification.</p>
+                <p class="text-slate-600">Banks are generally prohibited from accruing interest if payment in full is not expected or principal/interest is in default for 90 days or more (unless well secured and actively in collection). Return to accrual status requires all principal and interest to be current and reasonable expectation of repayment. Capitalization of interest is generally inappropriate for most classified loans.</p>
+            </section>
+
+            <!-- SNC Process Section -->
+            <section id="snc-process" class="section-container">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">IV. The Shared National Credit (SNC) Rating Process: A Step-by-Step Guide</h2>
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">A. SNC Program Mechanics and Review Cycle</h3>
+                <p class="mb-6 text-slate-600">The SNC Program conducts its reviews in the first and third quarters of each calendar year. Large agent banks are subject to two reviews annually, while other agent banks are reviewed less frequently. The findings from these reviews are consolidated into a single annual statement. The selection of SNC transactions for review employs a risk-based sampling methodology, targeting bank-identified leveraged loans, special mention and classified loans, and credits extended to borrowers operating in stressed industry segments. This risk-based sampling and staggered review cycle reflect a targeted and efficient regulatory approach, prioritizing oversight of the most volatile and systemically important credit exposures.</p>
+                
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">B. Data Reporting Requirements for SNCs</h3>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">1. What to Report (Credit, Obligor, Sponsor, Agent, Participant Details)</h4>
+                <p class="mb-4 text-slate-600">Federally supervised institutions are mandated to report syndicated credits for which they serve as the agent or administrative agent, provided these credits meet the established SNC definition. Each distinct tranche or facility within a credit agreement must be reported as a separate credit. The comprehensive data submission includes Obligor, Sponsor (new as of Sept 2024), Agent Bank, Credit Details (including new Credit Agreement Identifier), Leveraged Lending (LL) Ratios (new as of Sept 2024, optional until Sept 2025), Commercial Real Estate (CRE) Details (new as of Sept 2024), Participants Details, Ratings (converted to Concordance Risk Rating Scale), and Basel Ratings. The continuous expansion of SNC reporting requirements indicates regulators' increasing focus on granular, forward-looking risk indicators and specific high-risk segments.</p>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">2. Who Must Report (Agent vs. Participant Bank Responsibilities)</h4>
+                <p class="mb-4 text-slate-600">The agent or administrative agent of the SNC is primarily responsible for submitting the required SNC data. The scope of federally supervised institutions subject to these requirements is broad, encompassing FDIC-insured banks, bank holding companies, and U.S. branches/subsidiaries of foreign banks. Participant banks are required to provide SNC data if notified by their primary federal regulator. The clear delineation of reporting responsibilities ensures full transparency and a complete picture of risk distribution across the market.</p>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">3. How to Report (SNC Reporting Application, Data Elements)</h4>
+                <p class="mb-4 text-slate-600">SNC data is submitted through the Agencies' secure, web-based SNC Reporting application. It allows manual entry, XML upload, or a combination. Institutions are required to provide reconciliation for credits not included from the prior period (starting Sept 30, 2024). The application incorporates built-in validation. This signifies a deliberate move toward greater data integrity and efficiency in regulatory oversight.</p>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">4. When to Report (Submission Schedule)</h4>
+                <p class="mb-4 text-slate-600">SNC data submissions adhere to a strict quarterly schedule: March 31st data by April 30th; June 30th by July 31st; September 30th by October 31st; and December 31st by January 31st. This rigorous schedule ensures a timely and consistent flow of critical data.</p>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">5. Data Retention and Confidentiality</h4>
+                <p class="text-slate-600">All source data must be retained for five years. Reported data is classified as examination data and treated with strict confidentiality. Aggregated data is anonymized. This balances comprehensive regulatory oversight with the essential protection of proprietary bank information.</p>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">C. The Credit Risk Evaluation Process within SNC</h3>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">1. Financial Statement Analysis (Cash Flow, Liquidity, Leverage)</h4>
+                <p class="mb-6 text-slate-600">The evaluation commences with rigorous analysis of financial statements to identify trends and anomalies. This deep dive reflects a regulatory understanding that these metrics are the most immediate and critical indicators of a borrower's ability to service debt and withstand financial stress.</p>
+                <ul class="list-disc list-inside text-slate-600 mb-4">
+                    <li>**Cash Flow:** Primary source of repayment; analysis must support debt repayment capacity based on actual and projected cash flows.</li>
+                    <li>**Liquidity:** Balance sheet serves as an early warning; inadequate liquidity is common for substandard/doubtful assets.</li>
+                    <li>**Leverage:** High debt levels increase default risk, measured by various ratios (e.g., Total Debt/EBITDA).</li>
+                </ul>
+                <p class="font-semibold text-slate-700 mt-6 mb-4 text-center">Key Leveraged Lending Ratios and Benchmarks</p>
+                <div class="overflow-x-auto mb-8">
+                    <table class="min-w-full bg-white border border-slate-200 rounded-lg">
+                        <thead>
+                            <tr class="bg-slate-50">
+                                <th class="py-2 px-4 border-b border-slate-200 text-left text-sm font-semibold text-slate-600">Ratio Name</th>
+                                <th class="py-2 px-4 border-b border-slate-200 text-left text-sm font-semibold text-slate-600">Calculation Formula</th>
+                                <th class="py-2 px-4 border-b border-slate-200 text-left text-sm font-semibold text-slate-600">General Benchmark/Interpretation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Total Outstanding Debt Repayment (Projected 7 Year)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">7-year projected cumulative free cash flow / Total Outstanding Debt</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Pass: High percentage (>80-90%). SM: Moderate (60-80%). SS: Low (<50%).</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Fixed Charge Coverage Ratio (TTM)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Adj EBITDA / Fixed Charges (TTM)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Pass: > 1.25x-1.50x. SM: Approaching 1.0x-1.25x. SS: < 1.0x.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">LL Interest Coverage Ratio (TTM)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">TTM Adj EBITDA / Total Cash Interest (TTM)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Pass: > 2.0x-3.0x. SM: Approaching 1.5x-2.0x. SS: < 1.0x-1.5x.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Total Committed Leverage Ratio (TTM)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Total Committed Debt / Adj EBITDA (TTM)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Pass: < 3.0x-4.0x. SM: Approaching 4.0x-5.0x. SS: > 6.0x-7.0x.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Total Outstanding Leverage Ratio (TTM)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Total Outstanding Debt / Adj EBITDA (TTM)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Pass: < 3.0x-4.0x. SM: Approaching 4.0x-5.0x. SS: > 6.0x-7.0x.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Cost Savings/Synergies Add Backs as a % of Adj EBITDA (TTM)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">EBITDA cost savings/synergies / Adj EBITDA (prior to pro forma adjustments)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Pass: Low to moderate. SM/SS: High, reliance on unproven projections.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4 class="text-xl font-medium text-slate-600 mb-2">2. Qualitative Considerations (Management, Industry, Underwriting)</h4>
+                <p class="mb-4 text-slate-600">The credit risk evaluation extends beyond quantitative analysis to incorporate crucial qualitative factors, acknowledging that financial numbers alone do not capture the full spectrum of credit risk.</p>
+                <ul class="list-disc list-inside text-slate-600 mb-4">
+                    <li>**Management:** Competency and integrity of the management team are paramount for strategic guidance and adaptation.</li>
+                    <li>**Industry:** Thorough industry analysis is essential to understand cyclical trends, competitive pressures, and technological advancements.</li>
+                    <li>**Underwriting:** Sound practices structure credit facilities to minimize risks; weaknesses directly increase credit risk.</li>
+                </ul>
+
+                <h4 class="text-xl font-medium text-slate-600 mb-2">3. Credit Risk Mitigation (Collateral, Guarantees, Letters of Credit, Derivatives, Insurance)</h4>
+                <p class="mb-4 text-slate-600">Credit risk mitigants are structural enhancements designed to moderate credit risk, primarily by affecting the loss given default (LGD) rather than significantly reducing the probability of default (PD) itself. Regulators caution against overstating their impact on default probability.</p>
+                <ul class="list-disc list-inside text-slate-600 mb-4">
+                    <li>**Collateral:** Most prevalent form; effectiveness depends on value, liquidity, and marketability under duress.</li>
+                    <li>**Guarantees:** Financial strength of guarantor is key; unconditional guarantees mitigate both default and loss risk.</li>
+                    <li>**Letters of Credit (L/C):** Can prevent default and losses if from a high-quality, irrevocable issuer.</li>
+                    <li>**Credit Derivatives:** Primarily mitigate loss rather than default risk; effectiveness can be compromised by various risks.</li>
+                    <li>**Credit Insurance:** Can enhance rating if underwriting is acceptable and insurer is financially strong.</li>
+                </ul>
+
+                <h4 class="text-xl font-medium text-slate-600 mb-2">4. Stress Testing Projections</h4>
+                <p class="mb-6 text-slate-600">The mandate for multi-scenario stress testing reflects a regulatory imperative to assess credit resilience under adverse conditions, moving beyond optimistic base-case assumptions. Financial projections must be rigorously analyzed under multiple scenarios (downside, break-even, best-case) and periodically stress-tested. This ensures banks understand the potential impact of unfavorable market shifts.</p>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">Interactive: The SNC Process Flow</h3>
+                <p class="mb-8 text-slate-600">This visual flow illustrates the key stages of the Shared National Credit (SNC) program, from the initial review cycle to the final rating determination. Understanding this process is crucial for all participating financial institutions.</p>
+                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-4 mb-8">
+                    <div class="text-center p-4 flex-1 bg-blue-50 rounded-lg shadow-sm">
+                        <div class="text-3xl mb-2 text-blue-600">①</div>
+                        <h4 class="font-bold text-slate-700">Review Cycle & Sampling</h4>
+                        <p class="text-sm text-slate-500">Reviews in Q1/Q3. Risk-based sampling targets leveraged loans, classified credits, and stressed industries.</p>
+                    </div>
+                    <div class="text-slate-300 hidden md:block text-2xl font-bold">&rarr;</div>
+                    <div class="text-center p-4 flex-1 bg-blue-50 rounded-lg shadow-sm">
+                         <div class="text-3xl mb-2 text-blue-600">②</div>
+                        <h4 class="font-bold text-slate-700">Data Reporting</h4>
+                        <p class="text-sm text-slate-500">Agent banks submit detailed credit, obligor, and participant data quarterly via a secure web portal.</p>
+                    </div>
+                     <div class="text-slate-300 hidden md:block text-2xl font-bold">&rarr;</div>
+                    <div class="text-center p-4 flex-1 bg-blue-50 rounded-lg shadow-sm">
+                         <div class="text-3xl mb-2 text-blue-600">③</div>
+                        <h4 class="font-bold text-slate-700">Credit Evaluation</h4>
+                        <p class="text-sm text-slate-500">Examiners perform deep analysis of financials, management, industry trends, and credit mitigants.</p>
+                    </div>
+                     <div class="text-slate-300 hidden md:block text-2xl font-bold">&rarr;</div>
+                    <div class="text-center p-4 flex-1 bg-blue-50 rounded-lg shadow-sm">
+                         <div class="text-3xl mb-2 text-blue-600">④</div>
+                        <h4 class="font-bold text-slate-700">Rating Determination</h4>
+                        <p class="text-sm text-slate-500">A final rating is assigned based on a holistic view of risk, with outcomes shared with all participants.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Roles and Requirements Section -->
+            <section id="roles-requirements" class="section-container">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">V. Roles and Requirements in the SNC Process</h2>
+                <p class="mb-6 text-slate-600">Effective credit risk management requires a clear delineation of roles and responsibilities across various entities and internal functions. This section outlines the critical contributions of agent banks, participant banks, and the bank's internal lines of defense.</p>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">A. The Agent Bank's Perspective</h3>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">1. Responsibilities in Origination, Underwriting, and Syndication</h4>
+                <p class="mb-4 text-slate-600">Agent banks play a pivotal role in the leveraged loan market, often operating under an "originate-to-distribute" model. This dual role creates inherent conflicts of interest and exposes the agent bank to price risk. They are required to clearly define leveraged lending policies, address risk objectives, implement robust underwriting standards, and manage "distribution fails."</p>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">2. Data Submission and Reporting Obligations</h4>
+                <p class="mb-4 text-slate-600">The agent bank bears the primary responsibility for submitting comprehensive SNC data for all credits they agent or administer. This includes detailed obligor, sponsor, credit, leveraged lending ratios, CRE details, participant data, and Basel ratings.</p>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">3. Managing Leveraged Lending Exposure</h4>
+                <p class="mb-6 text-slate-600">Leveraged loans constitute a significant portion of total SNC commitments and account for a disproportionately high percentage of special mention and classified exposures. This necessitates heightened vigilance and adaptive risk management by agent banks, as these exposures are particularly sensitive to macroeconomic shifts.</p>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">B. The Participant Bank's Perspective</h3>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">1. Due Diligence and Independent Evaluation of Participations</h4>
+                <p class="mb-4 text-slate-600">Banks that purchase participations are required to conduct a thorough and independent evaluation of the transaction and its associated risks before committing funds. This mitigates the risk of "herd mentality" and ensures prudence.</p>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">2. Data Submission and Reporting Obligations</h4>
+                <p class="mb-4 text-slate-600">Participant banks are required to provide SNC data if notified by their primary federal regulator. Their reporting complements agent bank data, offering a holistic view of risk distribution.</p>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">3. Monitoring Borrower Performance</h4>
+                <p class="mb-6 text-slate-600">Participant banks are expected to maintain policies that mandate careful monitoring of the borrower's performance throughout the entire life of the loan. This reinforces independent risk management capabilities.</p>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">C. The First Line of Defense (1LoD) at the Bank</h3>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">1. Responsibilities in Credit Origination, Underwriting, and Monitoring</h4>
+                <p class="mb-4 text-slate-600">The 1LoD comprises business units directly involved in credit origination, underwriting, and ongoing monitoring. Loan officers are responsible for initial analysis, structuring, adherence to policies, and are primary risk owners. They are key to early problem identification.</p>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">2. Initial Risk Rating Assignment and Documentation</h4>
+                <p class="mb-6 text-slate-600">The 1LoD is responsible for assigning initial risk ratings based on borrower performance and transaction structure. These ratings must be thoroughly supported and documented, as they form the foundational input for the entire risk management system.</p>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">D. The Second Line of Defense (2LoD) at the Bank</h3>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">1. Role in Risk Management Oversight and Policy Setting</h4>
+                <p class="mb-4 text-slate-600">The 2LoD functions as the architect and guardian of the bank's risk framework, providing independent oversight to ensure policies are robust, consistently applied, and aligned with risk appetite and regulatory expectations. They develop and approve policies governing the risk rating process.</p>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">2. Independent Credit Review and Validation</h4>
+                <p class="mb-4 text-slate-600">Independent credit review functions within the 2LoD provide a critical check-and-balance, challenging the 1LoD's assessments to ensure integrity and objectivity of risk ratings. They verify loan ratings for accuracy and consistency, and for leveraged credits, evaluate risk rating integrity and valuation methodologies annually or more frequently.</p>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">3. Internal Audit's Role in Process Integrity</h4>
+                <p class="mb-6 text-slate-600">Internal Audit provides an overarching assurance function, verifying the operational effectiveness of all risk management controls and data flows. Their responsibilities include testing the integrity of risk rating data, reviewing documentation, and verifying that other control functions are operating as intended.</p>
+            </section>
+
+            <!-- Regulatory Rating Determination Section -->
+            <section id="rating-determination" class="section-container">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">VI. Regulatory Rating Determination and Outcomes</h2>
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">A. Point-in-Time Rating Determination</h3>
+                <p class="mb-4 text-slate-600">Examiners assess credit risk based on the borrower's expected performance over the foreseeable future (typically at least 12 months), focusing on anticipated ability to service obligations. While historical performance is considered, ratings fundamentally measure future risk, emphasizing proactive identification. The primary consideration is the strength of the primary repayment source.</p>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">B. Quantitative and Qualitative Standards for Each Rating Designation</h3>
+                <p class="mb-6 text-slate-600">Regulatory risk ratings are determined by a comprehensive assessment integrating both quantitative and qualitative factors. General assessment factors include the borrower's financial condition (cash flow, liquidity, leverage), capacity to withstand adverse conditions (stress testing), debt servicing history and willingness to repay, underwriting elements, collateral quality, and qualitative factors like management caliber and industry outlook.</p>
+                <h4 class="text-xl font-medium text-slate-600 mb-2">1. Revenue, EBITDA, Free Cash Flow, and Leverage Trends for Each Rating (with examples)</h4>
+                <p class="mb-6 text-slate-600">The detailed financial characteristics and examples provided for each adverse rating category offer credit analysts a practical framework for translating complex financial realities into actionable regulatory classifications, ensuring consistency in risk assessment.</p>
+                <div class="overflow-x-auto mb-8">
+                    <table class="min-w-full bg-white border border-slate-200 rounded-lg">
+                        <thead>
+                            <tr class="bg-slate-50">
+                                <th class="py-2 px-4 border-b border-slate-200 text-left text-sm font-semibold text-slate-600">Rating Designation</th>
+                                <th class="py-2 px-4 border-b border-slate-200 text-left text-sm font-semibold text-slate-600">Revenue Trend</th>
+                                <th class="py-2 px-4 border-b border-slate-200 text-left text-sm font-semibold text-slate-600">EBITDA Trend</th>
+                                <th class="py-2 px-4 border-b border-slate-200 text-left text-sm font-semibold text-slate-600">Free Cash Flow (FCF) Trend</th>
+                                <th class="py-2 px-4 border-b border-slate-200 text-left text-sm font-semibold text-slate-600">Leverage Trend</th>
+                                <th class="py-2 px-4 border-b border-slate-200 text-left text-sm font-semibold text-slate-600">Sample Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Pass</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Consistent growth or stability, often exceeding projections.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Strong and stable, ample coverage for debt service.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Sufficient, predictable, covers all obligations without external reliance.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Low to moderate (e.g., Debt/EBITDA well below 3.0x-4.0x).</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">A well-established manufacturing company with consistent revenue growth, strong EBITDA margins, and predictable free cash flow that comfortably covers all debt service, maintenance capex, and regular dividends. Leverage ratios are conservative and consistently below industry averages.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Special Mention (SM)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Flat or declining, potentially below projections, indicating market/competitive pressures.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Margins compressing, but still positive and generally covering interest.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Tightening, reduced margin for error, potential reliance on minimal amortization or short-term liquidity.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Increasing (e.g., Debt/EBITDA approaching 4.0x-5.0x), but within amended covenants.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">A retail chain experiencing a slight decline in same-store sales and compressing margins due to increased competition. While current cash flow still covers debt service, projections show minimal buffer, and the company's inventory levels are rising faster than sales. Management is implementing a turnaround plan, but its success is not yet proven.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Substandard (SS)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Significant decline, well below projections, indicating severe issues.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Breakeven or negative, insufficient to cover interest payments.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Inadequate, unable to cover liquidity, capital needs, debt repayment, and interest costs.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Very high (e.g., Debt/EBITDA > 6.0x-7.0x), repeated covenant violations.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">A regional construction firm facing significant project delays and cost overruns, leading to sustained operating losses and negative EBITDA. Liquidity is severely strained, and the firm has violated several financial covenants, requiring a waiver from the bank. Repayment is now heavily reliant on the successful liquidation of a specific asset, but its value under duress is uncertain.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Doubtful (D)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Sustained, severe decline, indicating business model failure or extreme market contraction.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Consistently negative, unable to cover any fixed costs.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Severely negative, requiring external capital or asset sales to survive.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Extremely high, often indicating technical insolvency.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">A technology startup that has exhausted its initial funding, failed to achieve projected user growth, and is burning cash rapidly. It is in default on its loan, has minimal remaining liquidity, and its only hope for repayment lies in an uncommitted, highly speculative capital injection from a new investor, which is still in negotiation.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Loss (L)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Minimal or non-existent, reflecting cessation of operations.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Deeply negative, no operational viability.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">No capacity to generate cash, dependent on liquidation.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Overwhelming, far exceeding any asset value.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">A small business whose primary asset was destroyed in a fire, with insufficient insurance coverage. The business has ceased operations, declared bankruptcy, and its remaining assets are minimal, with no prospect of collecting principal or interest.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">C. Easy Scoring System for Credit Analysts (Conceptual Framework)</h3>
+                <p class="mb-6 text-slate-600">To provide a structured yet flexible approach for credit analysts to consistently apply regulatory rating guidelines, a hybrid scoring system is essential. Such a system blends quantitative rigor with qualitative judgment, capturing the full complexity of credit risk. This section describes the conceptual components of such a system.</p>
+                <ul class="list-disc list-inside text-slate-600 mb-4">
+                    <li>**Quantitative Scorecard:** Assigns points based on key financial ratios (Debt/EBITDA, FCCR, FCF/Debt Service, Liquidity Ratios) benchmarked against thresholds.</li>
+                    <li>**Qualitative Overlay:** Applies adjustments based on subjective factors like management quality, industry outlook, competitive position, underwriting strength, collateral quality, and sponsor support.</li>
+                    <li>**Structural Weakness Assessment:** Identifies and assesses impact of weaknesses like indefinite repayment programs, weak covenants, or reliance on refinancing.</li>
+                    <li>**Mitigant Impact Assessment:** Evaluates true reduction in Loss Given Default (LGD) from collateral, guarantees, L/Cs, and credit derivatives, ensuring impact on PD is not overstated.</li>
+                    <li>**Concordance Mapping:** Maps the derived internal score to the SNC Concordance Risk Rating Scale based on predefined thresholds.</li>
+                </ul>
+                <p class="font-semibold text-slate-700 mt-6 mb-4 text-center">SNC Concordance Risk Rating Scale</p>
+                <div class="overflow-x-auto mb-8">
+                    <table class="min-w-full bg-white border border-slate-200 rounded-lg">
+                        <thead>
+                            <tr class="bg-slate-50">
+                                <th class="py-2 px-4 border-b border-slate-200 text-left text-sm font-semibold text-slate-600">Concordance Rating Name</th>
+                                <th class="py-2 px-4 border-b border-slate-200 text-left text-sm font-semibold text-slate-600">Description</th>
+                                <th class="py-2 px-4 border-b border-slate-200 text-left text-sm font-semibold text-slate-600">General Internal Rating Equivalent</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Investment Grade (IG) Pass</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Highest quality loans with lowest probability of default. Borrowers have adequate capacity to meet financial commitments; full and timely repayment expected.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Highest quality internal ratings; typically corresponds to external ratings of BBB- or higher.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Non-Investment Grade (Non-IG) Pass</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Internal rating buckets that fall between Investment Grade and Lowest Rated Pass.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Internal ratings below Investment Grade but not yet considered Lowest Rated Pass.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Lowest Rated Pass (LRP)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Internal rating bucket(s) one or more notches above the Special Mention equivalent.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Internal ratings immediately preceding the Special Mention category, indicating heightened but still acceptable risk.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Special Mention (SM)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Potential weaknesses deserving management's close attention. If uncorrected, may deteriorate repayment prospects or credit position. Not adversely classified.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Internal ratings identifying nascent credit deterioration, requiring proactive monitoring.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Substandard (SS)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Inadequately protected by obligor's worth or collateral; well-defined weaknesses jeopardize debt liquidation; distinct possibility of loss.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Internal ratings indicating probable impairment and requiring intensive supervision.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Doubtful (D)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">All weaknesses of Substandard, plus collection/liquidation in full is highly questionable and improbable.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Internal ratings where loss is highly probable, but specific pending events offer a slim chance of recovery.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Loss (L)</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Considered uncollectible and of such little value that continuance as bankable asset is unwarranted.</td>
+                                <td class="py-2 px-4 border-b border-slate-200 text-sm">Internal ratings indicating unrecoverable value, mandating immediate charge-off.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">D. Problem Loan Management and Remedial Actions</h3>
+                <p class="mb-4 text-slate-600">Once adverse ratings are assigned, proactive problem loan management becomes crucial for mitigating potential losses and preserving bank capital. Banks are expected to formulate individual action plans with clear, quantifiable objectives and timeframes for all adversely rated and high-risk borrowers. These plans may involve working with the borrower, selling the loan, or initiating liquidation. Problem credits must be subject to regular and frequent reviews.</p>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">E. Accounting Implications of Risk Ratings (ALLL, Nonaccrual, Restructured Loans)</h3>
+                <p class="text-slate-600">Risk ratings directly dictate critical accounting treatments, linking supervisory assessments to a bank's financial statements and ensuring reported earnings and capital accurately reflect underlying credit quality. This includes ensuring inherent risks are fully incorporated into ALLL and capital adequacy analyses, placing severely problematic loans on nonaccrual status, and closely monitoring formally restructured loans.</p>
+            </section>
+
+            <!-- Risk Dashboard Section -->
+            <section id="risk-dashboard" class="section-container">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">VII. Risk Dashboard (2024 SNC Data Insights)</h2>
+                <p class="mb-8 text-slate-600">This dashboard presents key insights from the 2024 SNC review, highlighting areas of concentrated risk within the syndicated loan market. These visualizations help to quickly grasp critical benchmarks for risk management discussions.</p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-center mb-2">Leveraged Loans: Disproportionate Risk</h3>
+                         <p class="text-center text-sm text-slate-500 mb-4">Leveraged loans make up less than half of total SNC commitments but account for a significantly higher proportion of problem credits (Special Mention and Classified).</p>
+                        <div class="chart-container">
+                            <canvas id="leveragedLoanChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-center mb-2">Non-Pass Credits by Industry</h3>
+                         <p class="text-center text-sm text-slate-500 mb-4">This chart illustrates the concentration of non-pass (Special Mention, Substandard, Doubtful, Loss) credits across various industry segments, highlighting sectors with elevated risk levels.</p>
+                        <div class="chart-container">
+                            <canvas id="industryRiskChart"></canvas>
+                        </div>
+                        <div class="mt-6 text-center">
+                            <label for="industrySelect" class="block text-sm font-medium text-slate-600 mb-2">Select an industry for insights:</label>
+                            <select id="industrySelect" class="w-full md:w-auto p-2 border border-slate-300 rounded-md">
+                                <option value="Tech, Telecom, Media">Tech, Telecom, Media</option>
+                                <option value="Commercial Services">Commercial Services</option>
+                                <option value="Health Care & Pharma">Health Care & Pharma</option>
+                                <option value="Materials & Commodities">Materials & Commodities</option>
+                            </select>
+                            <button id="getIndustryInsightsBtn" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition mt-4 md:mt-0 md:ml-4">✨ Get Industry Insights</button>
+                            <div id="industryInsightsOutput" class="mt-4 p-4 bg-blue-50 rounded-lg text-left text-slate-700 hidden">
+                                <p class="font-semibold mb-2">Industry Insights:</p>
+                                <div id="industryInsightsText"></div>
+                                <div id="industryInsightsSpinner" class="loading-spinner hidden mx-auto mt-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Appeal Process Section -->
+            <section id="appeal-process" class="section-container">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">VIII. Appeal Process and Risk Management Benchmarks</h2>
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">A. Overview of the SNC Appeal Process</h3>
+                <p class="mb-4 text-slate-600">The multi-tiered SNC appeal process provides a critical safeguard for banks, ensuring fairness and due process in supervisory decisions, while also offering regulators a feedback loop on the clarity and consistency of their own assessments. The process encourages early, informal resolution of concerns, with options for formal appeals to the Deputy Comptroller or Ombudsman.</p>
+                <ul class="list-disc list-inside text-slate-600 mb-4">
+                    <li>**General Appeals Process:** Informal appeal within 10 days, formal appeal within 60 days to Deputy Comptroller or Ombudsman.</li>
+                    <li>**SNC Specific Appeals:** Agent bank appeal within 14 days of preliminary disposition. Participant bank can appeal through agent or independently within 14 days of receiving results. Second-tier appeal to Ombudsman within 30 days of Deputy Comptroller's decision.</li>
+                </ul>
+                <p class="text-slate-600">Decisions under dispute are generally not stayed during the appeal process.</p>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-3">B. General Scoring Benchmarks for Risk Management Discussions with Regulators</h3>
+                <p class="mb-6 text-slate-600">Regulatory discussions on risk management benchmarks extend beyond purely quantitative ratios, encompassing the holistic quality of a bank's risk governance framework, with a particular emphasis on the effective identification and management of high-risk segments. Key benchmarks include Overall Risk Management Quality (weak, acceptable, strong), Policy Adequacy, Process Effectiveness (MIS, data integrity, underwriting rigor, risk rating accuracy), Personnel Competency, and Control System Adequacy (loan review, audit).</p>
+                <ul class="list-disc list-inside text-slate-600 mb-4">
+                    <li>**Risk Rating Accuracy:** Typically less than 5% of credits reviewed, or 3% of dollar amount, should exhibit inaccuracies that understate risk.</li>
+                    <li>**ALLL Adequacy:** All risks, especially from leveraged loans, must be fully incorporated into ALLL and capital adequacy analyses.</li>
+                    <li>**Leveraged Lending Exposure:** Regulators closely monitor disproportionate risk; in 2024, leveraged loans were 45% of commitments but 79% of special mention and 84% of classified commitments.</li>
+                    <li>**Industry Concentrations:** High special mention and classified rates in specific industry segments (e.g., Tech, Telecom, Media; Commercial Services; Health Care) are scrutinized.</li>
+                    <li>**Non-Pass Holdings:** Distribution across lender types is benchmarked; nonbank entities held a disproportionate share of non-pass leveraged commitments in 2024.</li>
+                </ul>
+            </section>
+
+            <!-- Rating Simulator Section -->
+            <section id="rating-simulator" class="section-container">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">Conceptual Regulatory Rating Simulator</h2>
+                <p class="mb-6 text-slate-600">This interactive tool allows you to select various quantitative and qualitative factors to see how they might conceptually influence a credit's regulatory risk rating. It's designed to help you apply the principles discussed in this guide.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                    <div class="input-group">
+                        <label for="simRevenueTrend" class="block text-sm font-medium text-slate-600 mb-1">Revenue Trend</label>
+                        <select id="simRevenueTrend" class="w-full p-2 border border-slate-300 rounded-md">
+                            <option value="0">Consistent Growth</option>
+                            <option value="5">Flat / Declining</option>
+                            <option value="15">Significant Decline</option>
+                            <option value="25">Severe Decline</option>
+                            <option value="35">Cessation of Operations</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="simLeverageRatio" class="block text-sm font-medium text-slate-600 mb-1">Total Debt/EBITDA</label>
+                        <select id="simLeverageRatio" class="w-full p-2 border border-slate-300 rounded-md">
+                            <option value="0">< 4.0x</option>
+                            <option value="8">4.0x - 5.0x</option>
+                            <option value="20">> 6.0x (Substandard)</option>
+                            <option value="30">> 7.0x (Doubtful/Loss)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="simFccr" class="block text-sm font-medium text-slate-600 mb-1">Fixed Charge Coverage</label>
+                        <select id="simFccr" class="w-full p-2 border border-slate-300 rounded-md">
+                            <option value="0">> 1.25x</option>
+                            <option value="8">1.0x - 1.25x (Minimal Buffer)</option>
+                            <option value="20">< 1.0x (Inadequate)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="simManagementQuality" class="block text-sm font-medium text-slate-600 mb-1">Management Quality</label>
+                        <select id="simManagementQuality" class="w-full p-2 border border-slate-300 rounded-md">
+                            <option value="0">Strong/Adequate</option>
+                            <option value="5">Some Concerns</option>
+                            <option value="10">Significant Issues</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="simUnderwritingStrength" class="block text-sm font-medium text-slate-600 mb-1">Underwriting Strength</label>
+                        <select id="simUnderwritingStrength" class="w-full p-2 border border-slate-300 rounded-md">
+                            <option value="0">Strong/Adequate</option>
+                            <option value="5">Identified Weaknesses</option>
+                            <option value="15">Significant Weaknesses</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="simCovenantCompliance" class="block text-sm font-medium text-slate-600 mb-1">Covenant Compliance</label>
+                        <select id="simCovenantCompliance" class="w-full p-2 border border-slate-300 rounded-md">
+                            <option value="0">Compliant</option>
+                            <option value="5">Minor Waivers</option>
+                            <option value="15">Repeated Violations</option>
+                            <option value="25">In Default</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="text-center mt-8">
+                    <button id="calculateSimBtn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition">Calculate Conceptual Rating</button>
+                </div>
+
+                <div id="sim-result-container" class="mt-8 p-6 rounded-lg text-center hidden">
+                    <h3 class="text-lg font-semibold text-slate-600">Conceptual Rating:</h3>
+                    <p id="simRatingOutput" class="text-4xl font-bold"></p>
+                    <p id="simJustificationOutput" class="mt-2 text-slate-600 max-w-xl mx-auto"></p>
+                    <button id="getDetailedJustificationBtn" class="bg-purple-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-purple-700 transition mt-4">✨ Get Detailed Justification</button>
+                    <div id="detailedJustificationOutput" class="mt-4 p-4 bg-purple-50 rounded-lg text-left text-slate-700 hidden">
+                        <p class="font-semibold mb-2">Detailed Justification:</p>
+                        <div id="detailedJustificationText"></div>
+                        <div id="detailedJustificationSpinner" class="loading-spinner hidden mx-auto mt-2"></div>
+                    </div>
+                </div>
+
+                <p class="text-xs text-slate-500 mt-8 text-center">Disclaimer: This is a simplified, conceptual tool for educational purposes only and does not constitute financial advice or a substitute for professional credit analysis.</p>
+            </section>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const ratingToggles = document.querySelectorAll('.rating-toggle');
+    ratingToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            const content = toggle.nextElementSibling;
+            const arrow = toggle.querySelector('span');
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                arrow.innerHTML = '&#9660;';
+            } else {
+                content.classList.add('expanded');
+                arrow.innerHTML = '&#9650;';
+            }
+        });
+    });
+
+    let leveragedLoanChartInstance, industryRiskChartInstance;
+
+    function renderCharts() {
+        const leveragedLoanCtx = document.getElementById('leveragedLoanChart').getContext('2d');
+        if(leveragedLoanChartInstance) leveragedLoanChartInstance.destroy();
+        leveragedLoanChartInstance = new Chart(leveragedLoanCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Leveraged Loans (% of Commitments)', 'Other Loans (% of Commitments)', 'Leveraged Loans (% of Non-Pass)', 'Other Loans (% of Non-Pass)'],
+                datasets: [{
+                    label: 'Commitments Distribution',
+                    data: [45, 55, 0, 0],
+                    backgroundColor: ['#f97316', '#d1d5db', 'transparent', 'transparent'],
+                    borderWidth: 0
+                }, {
+                    label: 'Non-Pass Distribution',
+                    data: [0, 0, 81.5, 18.5],
+                    backgroundColor: ['transparent', 'transparent', '#ef4444', '#d1d5db'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            filter: function(item, chart) {
+                                return item.datasetIndex === 0 || item.datasetIndex === 1;
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed !== null) { label += context.parsed + '%'; }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const industryRiskCtx = document.getElementById('industryRiskChart').getContext('2d');
+        if(industryRiskChartInstance) industryRiskChartInstance.destroy();
+        industryRiskChartInstance = new Chart(industryRiskCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Tech, Telecom, Media', 'Commercial Services', 'Health Care & Pharma', 'Materials & Commodities'],
+                datasets: [{
+                    label: 'Classified Rate (%)',
+                    data: [19.7, 17.4, 14.4, 12.4],
+                    backgroundColor: ['#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe'],
+                    borderColor: '#1e40af',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) { return context.dataset.label + ': ' + context.formattedValue + '%'; }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Classified Rate (%)' }
+                    }
+                }
+            }
+        });
+    }
+    renderCharts();
+
+    const calculateSimBtn = document.getElementById('calculateSimBtn');
+    const getDetailedJustificationBtn = document.getElementById('getDetailedJustificationBtn');
+    const detailedJustificationOutput = document.getElementById('detailedJustificationOutput');
+    const detailedJustificationText = document.getElementById('detailedJustificationText');
+    const detailedJustificationSpinner = document.getElementById('detailedJustificationSpinner');
+
+    calculateSimBtn.addEventListener('click', () => {
+        const inputs = document.querySelectorAll('#rating-simulator select');
+        let riskScore = 0;
+        const inputValues = {};
+        inputs.forEach(input => {
+            riskScore += parseInt(input.value);
+            inputValues[input.id] = input.options[input.selectedIndex].text;
+        });
+
+        let rating = "Pass";
+        let ratingDescription = "The credit appears strong with minimal risk indicators. Repayment is expected as scheduled.";
+        let ratingColor = "text-green-600";
+        let bgColor = "bg-green-50";
+
+        if (riskScore >= 70) {
+            rating = "Loss (L)";
+            ratingDescription = "Overwhelming weaknesses suggest the asset is uncollectible. Immediate charge-off is likely warranted.";
+            ratingColor = "text-slate-800";
+            bgColor = "bg-slate-200";
+        } else if (riskScore >= 50) {
+            rating = "Doubtful (D)";
+            ratingDescription = "Severe weaknesses make collection in full highly improbable. Loss is likely, but deferred pending specific events.";
+            ratingColor = "text-red-600";
+            bgColor = "bg-red-50";
+        } else if (riskScore >= 25) {
+            rating = "Substandard (SS)";
+            ratingDescription = "Well-defined weaknesses jeopardize the debt. There is a distinct possibility of loss if deficiencies are not corrected.";
+            ratingColor = "text-orange-600";
+            bgColor = "bg-orange-50";
+        } else if (riskScore >= 10) {
+            rating = "Special Mention (SM)";
+            ratingDescription = "Potential weaknesses are evident and require close management attention to prevent further deterioration.";
+            ratingColor = "text-yellow-600";
+            bgColor = "bg-yellow-50";
+        }
+
+        const resultContainer = document.getElementById('sim-result-container');
+        const simRatingOutput = document.getElementById('simRatingOutput');
+        const simJustificationOutput = document.getElementById('simJustificationOutput');
+
+        simRatingOutput.textContent = rating;
+        simJustificationOutput.textContent = ratingDescription;
+        simRatingOutput.className = `text-4xl font-bold ${ratingColor}`;
+        resultContainer.className = `mt-8 p-6 rounded-lg text-center ${bgColor}`;
+        resultContainer.classList.remove('hidden');
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Store current simulator state for detailed justification
+        resultContainer.dataset.currentRating = rating;
+        resultContainer.dataset.currentInputs = JSON.stringify(inputValues);
+        detailedJustificationOutput.classList.add('hidden'); // Hide previous justification
+    });
+
+    getDetailedJustificationBtn.addEventListener('click', async () => {
+        const currentRating = document.getElementById('sim-result-container').dataset.currentRating;
+        const currentInputs = JSON.parse(document.getElementById('sim-result-container').dataset.currentInputs || '{}');
+
+        if (!currentRating) {
+            detailedJustificationText.textContent = "Please calculate a conceptual rating first.";
+            detailedJustificationOutput.classList.remove('hidden');
+            return;
+        }
+
+        detailedJustificationText.textContent = '';
+        detailedJustificationOutput.classList.remove('hidden');
+        detailedJustificationSpinner.classList.remove('hidden');
+
+        const prompt = `Given the following credit characteristics and a conceptual regulatory risk rating of "${currentRating}", provide a detailed justification for this rating. Explain how each characteristic contributes to the rating, referencing general principles of credit risk assessment.
+
+        Characteristics:
+        - Revenue Trend: ${currentInputs.simRevenueTrend}
+        - Total Debt/EBITDA: ${currentInputs.simLeverageRatio}
+        - Fixed Charge Coverage: ${currentInputs.simFccr}
+        - Management Quality: ${currentInputs.simManagementQuality}
+        - Underwriting Strength: ${currentInputs.simUnderwritingStrength}
+        - Covenant Compliance: ${currentInputs.simCovenantCompliance}
+
+        Focus on how these factors align with the definition and typical characteristics of a "${currentRating}" credit, as per standard financial regulatory guidelines.`;
+
+        try {
+            let chatHistory = [];
+            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+            const payload = { contents: chatHistory };
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+            if (result.candidates && result.candidates.length > 0 &&
+                result.candidates[0].content && result.candidates[0].content.parts &&
+                result.candidates[0].content.parts.length > 0) {
+                const text = result.candidates[0].content.parts[0].text;
+                detailedJustificationText.textContent = text;
+            } else {
+                detailedJustificationText.textContent = "Failed to get detailed justification. Please try again.";
+            }
+        } catch (error) {
+            detailedJustificationText.textContent = `Error: ${error.message}. Failed to fetch detailed justification.`;
+        } finally {
+            detailedJustificationSpinner.classList.add('hidden');
+        }
+    });
+
+    const getIndustryInsightsBtn = document.getElementById('getIndustryInsightsBtn');
+    const industrySelect = document.getElementById('industrySelect');
+    const industryInsightsOutput = document.getElementById('industryInsightsOutput');
+    const industryInsightsText = document.getElementById('industryInsightsText');
+    const industryInsightsSpinner = document.getElementById('industryInsightsSpinner');
+
+    getIndustryInsightsBtn.addEventListener('click', async () => {
+        const selectedIndustry = industrySelect.value;
+        industryInsightsText.textContent = '';
+        industryInsightsOutput.classList.remove('hidden');
+        industryInsightsSpinner.classList.remove('hidden');
+
+        const prompt = `Provide a brief overview of common credit risks and current trends typically associated with the "${selectedIndustry}" industry from a financial lending perspective. Focus on factors that could impact a borrower's ability to repay debt.`;
+
+        try {
+            let chatHistory = [];
+            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+            const payload = { contents: chatHistory };
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+            if (result.candidates && result.candidates.length > 0 &&
+                result.candidates[0].content && result.candidates[0].content.parts &&
+                result.candidates[0].content.parts.length > 0) {
+                const text = result.candidates[0].content.parts[0].text;
+                industryInsightsText.textContent = text;
+            } else {
+                industryInsightsText.textContent = "Failed to get industry insights. Please try again.";
+            }
+        } catch (error) {
+            industryInsightsText.textContent = `Error: ${error.message}. Failed to fetch industry insights.`;
+        } finally {
+            industryInsightsSpinner.classList.add('hidden');
+        }
+    });
+});
+</script>
+</body>
+</html>
