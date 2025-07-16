@@ -106,61 +106,52 @@ Here are the key rules governing this relationship :
 ○	A decrease in a liability like Accounts Payable represents a use of cash. If Accounts Payable decreases, it means the company paid off its suppliers faster than it incurred new obligations, resulting in a cash outflow. Therefore, a decrease in a current operating liability is subtracted from Net Income in the CFO section.
 Finally, the entire system is closed by one last link: the Ending Cash Balance calculated at the very bottom of the Statement of Cash Flows for a period becomes the Cash and Cash Equivalents line item on the Balance Sheet for that same period's end date. This ensures that the Balance Sheet accurately reflects the cash position determined by the CFS, making the three-statement model a fully integrated and self-balancing system.
 Grasping these linkages is the key to unlocking a deeper level of financial analysis. It allows one to see beyond the static numbers and understand the dynamic flow of resources through a business. For example, if a company reports strong Net Income growth but its Accounts Receivable on the Balance Sheet are growing even faster, the linkage mechanism will reveal this. The CFO section will show a large negative adjustment for the increase in A/R, signaling to an analyst that the company's "profits" are not translating into cash because it is struggling to get paid by its customers. This operational weakness is invisible if one only looks at the Income Statement but becomes glaringly obvious when the interconnectedness of the three statements is understood. This is why all robust financial forecasting is built upon a three-statement model; one cannot realistically project a change in one area without modeling its ripple effects across the entire financial system of the company.
-Module 4: Spreading Financials: From Theory to Practice with Apple Inc.
-After understanding the theory behind the three financial statements and their interconnections, the next step is to engage with real-world data. This is where the practical skill of financial spreading comes into play. It is the bridge between raw financial reports and meaningful analysis.
-4.1 The Art of "Spreading": Translating for Analysis
-Financial spreading is the systematic process of extracting key financial data from a company's published reports (like a 10-K) and organizing it into a standardized spreadsheet format. This practice is a cornerstone of professional financial analysis, particularly for credit analysts at banks and investment analysts at funds. While it may seem like a simple data entry task, its purpose is multifaceted and crucial.
-●	Standardization for Comparison: No two companies present their financial statements in exactly the same way. One company might call its sales "Revenue," while another calls it "Net Sales." One might break out five different types of operating expenses, while another groups them all into "SG&A." Spreading involves taking this varied data and mapping it to a consistent, standardized template. This allows for valid "apples-to-apples" comparisons of a company's performance over multiple years and against its direct competitors.
-●	Facilitation of Analysis: Once the data is organized in a spreadsheet, the power of modern software can be unleashed. Financial ratios, growth rates, and complex calculations can be automated. Charts and graphs can be generated instantly to visualize trends. This organized data becomes the foundation for building sophisticated financial models to forecast future performance.
-●	Deeper Understanding and Error Checking: The manual (or semi-manual) process of spreading financials forces the analyst to look closely at the numbers and the structure of the reports. This often leads to the discovery of important details in the footnotes or the identification of unusual trends or anomalies that might be missed in a cursory review. It builds an intimate familiarity with the company's financial DNA.
-In essence, spreading transforms the static, often dense, format of a public filing into a dynamic and flexible analytical tool, setting the stage for all subsequent analysis.
-4.2 A Practical Guide to Finding a 10-K Report
-For any publicly traded company in the United States, the most comprehensive and authoritative source of financial information is the Form 10-K. This is an annual report filed with the U.S. Securities and Exchange Commission (SEC) that provides a complete overview of the company's business, its risks, and its audited financial statements for the year. Finding this document is a fundamental skill for any aspiring analyst.
-Here is a simple, step-by-step guide to locating a company's 10-K using the SEC's public database:
-1.	Navigate to the SEC EDGAR Database: The SEC makes all public filings available through its EDGAR (Electronic Data Gathering, Analysis, and Retrieval) system. The direct portal for searching company filings is found at: https://www.sec.gov/edgar/searchedgar/companysearch.html.
-2.	Search for the Company: On the EDGAR search page, use the "Company and Person Lookup" search box. Type in the name of the company you are interested in, for example, "Apple Inc." and click search.
-3.	Filter the Filing Type: The search results will show a long list of all the different forms the company has filed. To narrow this down to only the annual reports, find the "Filing Type" box near the top of the list and type "10-K" into it. Then, press Enter or click the search button.
-4.	Select and View the Report: You will now see a list of all the 10-K reports filed by the company, with the most recent ones at the top. Click on the "Filing" link for the year you wish to analyze. This will take you to the full report. The core financial statements are typically found under "Item 8. Financial Statements and Supplementary Data."
-Alternatively, most public companies also provide easy access to their SEC filings, including the 10-K, in the "Investor Relations" or "Investors" section of their corporate website.
-4.3 Case Study: Spreading Apple Inc.'s Financials
-To bring this process to life, let's perform a simplified spreading exercise for Apple Inc., using data from its recent financial reports. We will extract key line items from the Income Statement, Balance Sheet, and Statement of Cash Flows for the fiscal years 2023, 2022, and 2021 and organize them into a standardized table. This table will serve as our analytical foundation for the subsequent modules.
-The following table represents the output of this spreading process. Note that all figures are in millions of U.S. dollars.
-Apple Inc. - Standardized Financial Statements (3-Year Spread) (All figures in millions USD)
-Line Item	Fiscal Year 2023	Fiscal Year 2022	Fiscal Year 2021
-Income Statement			
-Net Sales	$383,285	$394,328	$365,817
-Cost of Sales	$214,137	$223,546	$212,981
-Gross Margin	$169,148	$170,782	$152,836
-Research & Development	$29,915	$26,251	$21,914
-Selling, General & Admin	$24,932	$25,094	$21,973
-Operating Income	$114,301	$119,437	$108,949
-Provision for Income Taxes	$16,741	$19,300	$14,527
-Net Income	$96,995	$99,803	$94,680
-			
-Balance Sheet			
-Assets			
-Cash & Cash Equivalents	$29,965	$23,646	$34,940
-Accounts Receivable	$29,508	$28,184	$26,278
-Inventories	$6,331	$4,946	$6,580
-Total Current Assets	$143,566	$135,405	$134,836
-Property, Plant & Equipment, net	$43,715	$42,117	$39,440
-Total Assets	$352,583	$352,755	$351,002
-Liabilities & Equity			
-Accounts Payable	$62,611	$64,115	$54,763
-Total Current Liabilities	$145,308	$153,982	$125,481
-Long-Term Debt	$95,281	$98,959	$109,106
-Total Liabilities	$290,437	$302,083	$287,912
-Retained Earnings	$3,962	$3,044	$5,562
-Total Shareholders' Equity	$62,146	$50,672	$63,090
-Total Liabilities & Equity	$352,583	$352,755	$351,002
-			
-Statement of Cash Flows			
-Cash from Operating Activities	$110,543	$122,151	$104,038
-Cash from Investing Activities	$3,740	(19,970)	(19,458)
-Cash from Financing Activities	(108,469)	(110,749)	(93,353)
-Net Change in Cash	$5,814	(8,568)	(8,773)
-Source: Compiled from Apple Inc. 10-K filings. Data has been simplified and rounded for illustrative purposes.
-This organized table is now a powerful analytical tool. It allows for the direct calculation of ratios and the immediate visualization of trends, transforming the raw data from dense SEC filings into actionable intelligence. This spread will be the data source for the analysis in the following modules.
+Module 4: A Step-by-Step Guide to Financial Statement Analysis
+
+This module provides a practical, step-by-step guide to analyzing a company's financial statements. We will walk through the process from finding the necessary documents to crafting a compelling narrative about the company's financial health.
+
+## Step 1: Obtain the Financial Statements
+
+For any publicly traded company in the United States, the most comprehensive and authoritative source of financial information is the **Form 10-K**. This is an annual report filed with the U.S. Securities and Exchange Commission (SEC) that provides a complete overview of the company's business, its risks, and its audited financial statements for the year.
+
+You can find a company's 10-K in two main ways:
+
+1.  **SEC's EDGAR Database:** The SEC makes all public filings available through its EDGAR (Electronic Data Gathering, Analysis, and Retrieval) system. You can search for company filings at: [https://www.sec.gov/edgar/searchedgar/companysearch.html](https://www.sec.gov/edgar/searchedgar/companysearch.html)
+2.  **Company's Investor Relations Website:** Most public companies provide easy access to their SEC filings, including the 10-K, in the "Investor Relations" or "Investors" section of their corporate website.
+
+## Step 2: Spread the Financials
+
+"Spreading" the financials is the process of extracting key data from the financial statements and organizing it into a standardized spreadsheet format. This is a crucial step that allows for easier analysis, comparison, and calculation of financial ratios.
+
+When spreading financials, it's important to be consistent and to pay close attention to the details. For example, make sure you are using the same units (e.g., millions of dollars) for all your data.
+
+## Step 3: Calculate and Analyze Key Financial Ratios
+
+Once you have the financials spread, you can start calculating and analyzing key financial ratios. As we discussed in Module 5, these ratios can be grouped into several key categories:
+
+*   **Profitability Ratios:** Measure how well a company generates profits from its sales and assets.
+*   **Liquidity Ratios:** Measure a company's ability to meet its short-term financial obligations.
+*   **Leverage Ratios:** Measure how much a company relies on debt to finance its assets.
+
+When analyzing ratios, it's important to look at **trends over time** and to **compare the company to its peers** in the same industry. This will give you a much better context for understanding the company's performance.
+
+## Step 4: Craft a Financial Narrative
+
+The final step is to synthesize your analysis into a compelling financial narrative. This is where you go beyond the numbers to tell a story about the company's health, strategy, and prospects.
+
+A good financial narrative should:
+
+*   **Be clear and concise.**
+*   **Be supported by the data.**
+*   **Explain the "why" behind the numbers.**
+*   **Identify the key strengths, weaknesses, opportunities, and threats.**
+
+## Case Study: Apple Inc.
+
+To see these steps in action, let's walk through a case study of Apple Inc. We will use the principles we've learned to analyze Apple's financials and craft a narrative about its performance.
+
+**[Link to Apple Inc. Case Study](./fra3.md)**
+
 Module 5: Basic Financial Analysis: Unlocking Insights with Ratios
 With the financial data for Apple Inc. neatly "spread" into a standardized format, we can now move to the next stage: analysis. Raw dollar figures, especially for a company the size of Apple, can be difficult to interpret. Is $114 billion in operating income good? Compared to what? This is where ratio analysis becomes an indispensable tool.
 5.1 Introduction to Ratio Analysis: Beyond the Raw Numbers
