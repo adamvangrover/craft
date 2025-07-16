@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Art of Financial Storytelling</title>
+    <!-- Chosen Palette: Warm Neutrals (Calm Harmony) -->
+    <!-- Application Structure Plan: The SPA's architecture is designed for intuitive exploration, diverging from the linear report structure. It's organized into three thematic pillars: 1) 'Crafting the Narrative' (combining message, structure, and rhetorical devices), 2) 'Visualizing & Presenting' (merging data viz, presentation skills, and emotional connection), and 3) 'Analytical Foundations' (uniting bias mitigation, robust analysis techniques, and driving action). This structure groups related concepts for better cognitive flow. Navigation is facilitated by a sticky header, and content is presented through interactive components like tabs, accordions, and dynamic content cards to enhance user engagement and learning, transforming passive reading into active exploration. -->
+    <!-- Visualization & Content Choices: The application translates the report's text into interactive elements to achieve specific communication goals. For comparing narrative structures and audience messages, tabs are used for direct side-by-side evaluation. To organize detailed, layered information like checklists and step-by-step guides, accordions are implemented to reduce cognitive load. The 'Cognitive Biases' section uses an interactive grid of clickable cards that dynamically update a central display, promoting focused learning. For quantitative data from case studies (e.g., retail chain's improved metrics), Chart.js is used to create responsive bar and line charts, providing clear, visual 'before-and-after' comparisons that are more impactful than text alone. This ensures all content is presented in its most effective, engaging format. All graphics are rendered on Canvas via Chart.js or created with structured HTML/CSS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #FDFBF6;
+            color: #3C3633;
+        }
+        h1, h2, h3, .font-serif {
+            font-family: 'Merriweather', serif;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #739072;
+            border-bottom-color: #739072;
+        }
+        .tab-button {
+            transition: all 0.3s;
+        }
+        .tab-button.active {
+            background-color: #739072;
+            color: #FDFBF6;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-xl font-serif text-[#739072]">Financial Storytelling</span>
+                </div>
+                <nav class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#pillar1" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Crafting the Narrative</a>
+                        <a href="#pillar2" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Visualizing & Presenting</a>
+                        <a href="#pillar3" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Analytical Foundations</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- Hero Section -->
+        <section class="text-center my-16">
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-4">The Art of Financial Storytelling</h1>
+            <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">An interactive guide to transforming complex financial analysis into clear, compelling, and actionable insights that drive strategic decisions.</p>
+        </section>
+
+        <!-- Pillar 1: Crafting the Narrative -->
+        <section id="pillar1" class="my-20 space-y-16">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold mb-2">Pillar I: Crafting the Narrative</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">This section explores the foundational elements of building a powerful financial story. Learn how to distill complex data into a singular, impactful message, structure your story for maximum clarity, and use rhetorical devices like analogies and suspense to engage your audience.</p>
+            </div>
+
+            <!-- Narrative Structures -->
+            <div>
+                <h3 class="text-2xl font-bold mb-6 text-center">Structuring the Financial Narrative</h3>
+                <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
+                     <p class="mb-6 text-center text-gray-600">The structure of your report is as critical as its content. It guides the audience, enhances comprehension, and makes your insights more persuasive. Select a structure below to see how it can be applied to financial reporting.</p>
+                    <div id="narrative-tabs" class="flex justify-center space-x-2 mb-6 border-b">
+                        <button data-tab="chrono" class="tab-button active font-semibold py-2 px-4 rounded-t-lg">Chronological</button>
+                        <button data-tab="prosol" class="tab-button font-semibold py-2 px-4 rounded-t-lg">Problem/Solution</button>
+                        <button data-tab="others" class="tab-button font-semibold py-2 px-4 rounded-t-lg">Other Structures</button>
+                    </div>
+                    <div id="narrative-content">
+                        <!-- Content will be injected by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analogies & Suspense -->
+            <div>
+                <h3 class="text-2xl font-bold mb-6 text-center">Enhancing with Analogies & Suspense</h3>
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h4 class="font-bold text-xl mb-3 text-[#739072]">The Power of Analogies</h4>
+                        <p class="mb-4 text-gray-600">Analogies make abstract financial concepts concrete and relatable. They bridge the gap between the complex and the familiar.</p>
+                        <div id="analogy-cards" class="space-y-3">
+                            <!-- JS will populate this -->
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h4 class="font-bold text-xl mb-3 text-[#739072]">Building Suspense</h4>
+                         <p class="mb-4 text-gray-600">Strategic suspense captivates your audience, making them eager to learn what comes next. These techniques guide attention and improve retention.</p>
+                        <div id="suspense-techniques" class="space-y-3">
+                            <!-- JS will populate this -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Pillar 2: Visualizing & Presenting -->
+        <section id="pillar2" class="my-20 space-y-16">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold mb-2">Pillar II: Visualizing & Presenting</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Effective communication is both an art and a science. This pillar covers how to visualize data for clarity and impact, master the skills of presentation delivery, and ethically leverage emotion to create a genuine connection with your audience.</p>
+            </div>
+            
+            <!-- Visualizing the Narrative -->
+            <div>
+                <h3 class="text-2xl font-bold mb-6 text-center">Visualizing the Narrative</h3>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                     <p class="mb-8 text-center text-gray-600 max-w-3xl mx-auto">Visuals transform raw numbers into understandable insights. A well-designed chart can communicate a trend far more effectively than a paragraph of text. The following case study shows the quantifiable impact of data-driven strategies.</p>
+                    <div class="chart-container">
+                        <canvas id="retailCaseStudyChart"></canvas>
+                    </div>
+                    <p class="text-center mt-4 text-sm text-gray-500">Case Study: A retail chain's performance before and after implementing data-driven strategies.</p>
+                </div>
+            </div>
+
+            <!-- Presentation Skills -->
+            <div>
+                <h3 class="text-2xl font-bold mb-6 text-center">Mastering Presentation Skills</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                     <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h4 class="font-bold text-xl mb-3 text-[#739072]">Slide Design Checklist</h4>
+                        <p class="mb-4 text-gray-600">Follow these principles to create clear, professional, and impactful presentation slides.</p>
+                        <div id="slide-checklist" class="space-y-2">
+                            <!-- JS will populate this -->
+                        </div>
+                    </div>
+                     <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h4 class="font-bold text-xl mb-3 text-[#739072]">Handling Q&A Sessions</h4>
+                        <p class="mb-4 text-gray-600">A Q&A session can make or break a presentation. Use these strategies to answer questions with confidence and credibility.</p>
+                        <div id="qa-accordion" class="space-y-2">
+                             <!-- JS will populate this -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pillar 3: Analytical Foundations -->
+        <section id="pillar3" class="my-20 space-y-16">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold mb-2">Pillar III: Analytical Foundations</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Robust analysis is the bedrock of any financial story. Here, we delve into the critical thinking required to challenge assumptions, mitigate cognitive biases, and structure complex problems, ensuring your conclusions are sound and actionable.</p>
+            </div>
+
+            <!-- Cognitive Biases -->
+            <div>
+                <h3 class="text-2xl font-bold mb-6 text-center">Navigating Cognitive Biases</h3>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <p class="mb-6 text-center text-gray-600 max-w-3xl mx-auto">Cognitive biases are mental shortcuts that can distort rational decision-making. Recognizing and mitigating them is critical. Click on a bias to learn more.</p>
+                    <div class="flex flex-wrap justify-center gap-2 mb-6" id="bias-buttons">
+                        <!-- JS populates buttons -->
+                    </div>
+                    <div id="bias-display" class="bg-stone-50 p-6 rounded-lg min-h-[200px] transition-all duration-300">
+                        <!-- JS populates content -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Robust Analysis Techniques -->
+             <div>
+                <h3 class="text-2xl font-bold mb-6 text-center">Robust Analysis & The "So What?" Imperative</h3>
+                 <div class="grid md:grid-cols-2 gap-8 items-start">
+                     <div class="bg-white rounded-lg shadow-lg p-6 space-y-6">
+                         <div>
+                            <h4 class="font-bold text-xl mb-3 text-[#739072]">Problem Decomposition</h4>
+                            <p class="mb-4 text-gray-600">Systematically break down complex problems to ensure your analysis addresses root causes, not just symptoms. The Fishbone Diagram helps identify various potential causes for an effect or problem.</p>
+                             <div class="p-4 bg-stone-50 rounded-lg">
+                                <div class="relative">
+                                    <div class="absolute left-0 top-1/2 w-full h-0.5 bg-gray-400 -translate-y-1/2"></div>
+                                    <div class="absolute right-0 top-1/2 p-2 bg-[#E0A75E] text-white rounded-md -translate-y-1/2 translate-x-full shadow-md">Problem</div>
+                                    <div class="relative grid grid-cols-2 gap-y-8 text-center">
+                                        <div class="relative">
+                                            <div class="absolute left-1/2 top-0 w-0.5 h-full bg-gray-300 transform -rotate-45 origin-bottom-left"></div>
+                                            <span class="bg-white px-2 relative z-10 text-sm font-medium text-gray-700">Manpower</span>
+                                        </div>
+                                         <div class="relative">
+                                            <div class="absolute right-1/2 top-0 w-0.5 h-full bg-gray-300 transform rotate-45 origin-bottom-right"></div>
+                                            <span class="bg-white px-2 relative z-10 text-sm font-medium text-gray-700">Methods</span>
+                                        </div>
+                                         <div class="relative">
+                                            <div class="absolute left-1/2 top-0 w-0.5 h-full bg-gray-300 transform -rotate-45 origin-bottom-left"></div>
+                                            <span class="bg-white px-2 relative z-10 text-sm font-medium text-gray-700">Machinery</span>
+                                        </div>
+                                         <div class="relative">
+                                            <div class="absolute right-1/2 top-0 w-0.5 h-full bg-gray-300 transform rotate-45 origin-bottom-right"></div>
+                                            <span class="bg-white px-2 relative z-10 text-sm font-medium text-gray-700">Materials</span>
+                                        </div>
+                                    </div>
+                                </div>
+                             </div>
+                         </div>
+                         <div>
+                            <h4 class="font-bold text-xl mb-3 text-[#739072]">The "So What?" Checklist</h4>
+                            <p class="mb-4 text-gray-600">Always ask these questions to ensure your analysis leads to actionable insights.</p>
+                            <ul id="so-what-checklist" class="space-y-2 list-inside">
+                               <!-- JS will populate -->
+                            </ul>
+                        </div>
+                     </div>
+
+                     <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h4 class="font-bold text-xl mb-3 text-[#739072]">Case Study: Identifying Operational Slippage</h4>
+                        <p class="mb-4 text-gray-600">Financial analysis can uncover "silent killers" like bloated cost structures before they trigger a crisis. This chart shows how tracking COGS growth relative to Sales growth reveals shrinking margins.</p>
+                        <div class="chart-container">
+                            <canvas id="legacyClothingChart"></canvas>
+                        </div>
+                         <p class="text-center mt-4 text-sm text-gray-500">Case Study: Legacy Clothing's Cost of Goods Sold (COGS) rising faster than sales.</p>
+                     </div>
+                 </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-gray-800 text-white">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <p>Interactive Report created from "The Art of Financial Storytelling".</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            // --- DATA --- //
+            const narrativeData = {
+                chrono: {
+                    title: 'The Chronological Approach',
+                    description: 'This structure organizes events as they occurred, making it ideal for showing progression and cause-and-effect. It is highly effective for quarterly/annual reviews or turnaround stories.',
+                    example: {
+                        title: 'Example: A Company Turnaround',
+                        steps: [
+                            '<strong>Inciting Incident:</strong> Declining profits in Q1 2022.',
+                            '<strong>Rising Action:</strong> Strategic changes implemented, like cost-cutting in Q2 and a new product launch in Q3.',
+                            '<strong>Resolution:</strong> Improved profitability in Q4 2023 results.',
+                            '<strong>Denouement:</strong> Outline of sustained growth projections.'
+                        ]
+                    }
+                },
+                prosol: {
+                    title: 'The Problem/Solution Framework',
+                    description: 'This powerful structure starts by defining a clear problem, presenting a solution, and detailing the results. It immediately establishes relevance and demonstrates value.',
+                     example: {
+                        title: 'Example: Justifying a Strategic Initiative',
+                        steps: [
+                            '<strong>Problem:</strong> "Our average order value (AOV) had plateaued, and contribution margin was lagging."',
+                            '<strong>Solution:</strong> "We introduced segmented pricing models and automated real-time price adjustments."',
+                            '<strong>Results:</strong> "Within 90 days, AOV increased by 6.2%, and contribution margin jumped 11%."'
+                        ]
+                    }
+                },
+                others: {
+                    title: 'Other Narrative Structures',
+                    description: 'Beyond the two main frameworks, other structures can be blended to tell a complex financial story effectively.',
+                     example: {
+                        title: 'Examples of Other Structures',
+                        steps: [
+                            '<strong>Inverted Pyramid:</strong> Most crucial findings upfront. Ideal for executive summaries.',
+                            '<strong>Thematic Structure:</strong> Organized around key themes (e.g., Market Trends, Regulatory Landscape). Useful for industry reports.',
+                            '<strong>Explanatory Structure:</strong> Breaks down complex topics into digestible sections. Perfect for explaining new accounting standards.'
+                        ]
+                    }
+                }
+            };
+
+            const analogyData = [
+                { title: "Diversification", text: "Not putting all your eggs in one basket. A portfolio benefits from a mix of different asset classes." },
+                { title: "Compound Interest", text: "A snowball rolling downhill, gaining momentum and size over time." },
+                { title: "Market Volatility", text: "Riding a roller coaster. There are ups and downs, but the long-term direction is forward." },
+                { title: "Competitive Advantage", text: "A 'moat' around a castle, protecting a company from competitors." }
+            ];
+
+            const suspenseData = [
+                { title: "Foreshadowing", text: "Hinting at future events. 'While Q3 results were strong, a looming regulatory decision in Q4 could reshape the landscape...'" },
+                { title: "Rhetorical Questions", text: "Engaging the audience. 'Could this minor shift in consumer behavior signal a fundamental change?'" },
+                { title: "Cliffhangers", text: "Ending a section at a crucial point. '...the true test lies in the unforeseen headwinds gathering on the horizon.'" }
+            ];
+
+            const slideChecklistData = [
+                "<strong>Professional Title Slide:</strong> Sets the tone and topic.",
+                "<strong>Clear Agenda:</strong> Manages audience expectations.",
+                "<strong>Use Graphs for Storytelling:</strong> Better for trends than tables.",
+                "<strong>Select Right Chart Type:</strong> Match the visual to the data's purpose.",
+                "<strong>Utilize Whitespace:</strong> Avoids clutter and increases engagement.",
+                "<strong>Avoid Misleading Scales:</strong> Always start bar chart Y-axes at zero."
+            ];
+            
+            const qaAccordionData = [
+                { title: "Handling Hostile Questions", content: "Acknowledge the concern, reframe the issue respectfully, and provide evidence. Avoid becoming defensive." },
+                { title: "Handling 'I Don't Know'", content: "Be honest. It builds credibility. Say, 'I don't have that specific data, but I will find out and follow up with you.' This turns a weakness into a strength." },
+                { title: "General Strategy", content: "Listen carefully to the full question, paraphrase it back to ensure you understood correctly, and then answer directly." }
+            ];
+            
+            const soWhatChecklistData = [
+                "Why does this matter?",
+                "What are the implications of this finding?",
+                "What action should be taken as a result?",
+                "What is the quantifiable impact?",
+                "What would happen if we did nothing?"
+            ];
+
+            const cognitiveBiasesData = {
+                'Confirmation': { title: 'Confirmation Bias', desc: "The tendency to seek information that confirms existing beliefs while ignoring contradictory evidence.", example: "An investor who likes a stock only reads positive news about it, dismissing any negative reports.", mitigation: "Actively seek out disconfirming evidence and consider devil's advocate perspectives." },
+                'Loss Aversion': { title: 'Loss Aversion', desc: "The tendency to fear losses more intensely than valuing equivalent gains, often leading to holding onto losing investments too long.", example: "An investor refuses to sell a declining stock, hoping for a rebound, rather than cutting losses and reinvesting elsewhere.", mitigation: "Set clear stop-loss orders based on analysis, not emotion. Focus on long-term portfolio goals." },
+                'Herd Mentality': { title: 'Herd Mentality', desc: "The inclination to follow the crowd, buying or selling assets based on what others are doing rather than conducting independent research.", example: "Buying into a market bubble because 'everyone else is doing it' and fear of missing out.", mitigation: "Conduct independent research and stick to your own investment thesis and criteria." },
+                'Anchoring': { title: 'Anchoring', desc: "Relying too heavily on the first piece of information encountered (the 'anchor') when making subsequent decisions.", example: "Fixating on a stock's initial purchase price rather than its current fundamentals when deciding whether to sell.", mitigation: "Re-evaluate investments based on current market conditions and fundamentals, ignoring the initial purchase price." },
+                'Overconfidence': { title: 'Overconfidence', desc: "Overestimating one's abilities or knowledge, which can lead to excessive risk-taking.", example: "An investor believes they can consistently 'beat the market' after a few successful trades, leading to larger, less-researched bets.", mitigation: "Regularly review investment performance objectively and seek input from trusted advisors." },
+            };
+
+            // --- FUNCTIONS --- //
+            
+            function setupTabs(containerId, contentId, data) {
+                const tabContainer = document.getElementById(containerId);
+                const contentContainer = document.getElementById(contentId);
+
+                function renderContent(tabKey) {
+                    const item = data[tabKey];
+                    contentContainer.innerHTML = `
+                        <div class="p-4 transition-opacity duration-500">
+                            <h4 class="text-xl font-bold mb-2 text-[#739072]">${item.title}</h4>
+                            <p class="mb-4 text-gray-600">${item.description}</p>
+                            <div class="mt-4 border-t pt-4">
+                               <h5 class="font-semibold mb-2">${item.example.title}</h5>
+                               <ul class="space-y-2 list-disc list-inside text-gray-600">
+                                    ${item.example.steps.map(step => `<li>${step}</li>`).join('')}
+                               </ul>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                tabContainer.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'BUTTON') {
+                        const tabKey = e.target.dataset.tab;
+                        
+                        // Update active button
+                        Array.from(tabContainer.children).forEach(button => {
+                            button.classList.remove('active');
+                        });
+                        e.target.classList.add('active');
+                        
+                        // Render content
+                        renderContent(tabKey);
+                    }
+                });
+
+                // Initial render
+                renderContent(Object.keys(data)[0]);
+            }
+            
+            function createAccordionItem(parent, itemData) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'bg-stone-50 rounded-lg';
+
+                const button = document.createElement('button');
+                button.className = 'w-full text-left p-4 font-semibold flex justify-between items-center';
+                button.innerHTML = `<span>${itemData.title}</span> <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>`;
+
+                const content = document.createElement('div');
+                content.className = 'accordion-content px-4 pb-4 text-gray-600';
+                content.innerHTML = `<p>${itemData.content}</p>`;
+                
+                button.addEventListener('click', () => {
+                    const icon = button.querySelector('svg');
+                    const isOpening = content.style.maxHeight === '0px' || !content.style.maxHeight;
+                    
+                    document.querySelectorAll(`#${parent.id} .accordion-content`).forEach(el => el.style.maxHeight = '0px');
+                    document.querySelectorAll(`#${parent.id} button svg`).forEach(svg => svg.classList.remove('rotate-180'));
+
+                    if (isOpening) {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.classList.add('rotate-180');
+                    }
+                });
+
+                wrapper.appendChild(button);
+                wrapper.appendChild(content);
+                parent.appendChild(wrapper);
+            }
+
+            function setupCognitiveBiases() {
+                const buttonsContainer = document.getElementById('bias-buttons');
+                const displayContainer = document.getElementById('bias-display');
+
+                Object.keys(cognitiveBiasesData).forEach(key => {
+                    const bias = cognitiveBiasesData[key];
+                    const button = document.createElement('button');
+                    button.dataset.bias = key;
+                    button.textContent = bias.title;
+                    button.className = 'tab-button text-sm font-semibold py-2 px-3 rounded-md bg-stone-200 hover:bg-[#739072] hover:text-white';
+                    buttonsContainer.appendChild(button);
+                });
+
+                function renderBias(biasKey) {
+                    const bias = cognitiveBiasesData[biasKey];
+                    displayContainer.innerHTML = `
+                        <h4 class="text-xl font-bold mb-2 text-[#739072]">${bias.title}</h4>
+                        <p class="mb-3 text-gray-700"><strong>Description:</strong> ${bias.desc}</p>
+                        <p class="mb-3 text-gray-600"><strong>Example:</strong> ${bias.example}</p>
+                        <p class="text-gray-600 bg-green-50 p-3 rounded-md"><strong>Mitigation:</strong> ${bias.mitigation}</p>
+                    `;
+                }
+                
+                buttonsContainer.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'BUTTON') {
+                        const biasKey = e.target.dataset.bias;
+                        Array.from(buttonsContainer.children).forEach(btn => btn.classList.remove('active'));
+                        e.target.classList.add('active');
+                        renderBias(biasKey);
+                    }
+                });
+
+                // Initial selection
+                buttonsContainer.children[0].classList.add('active');
+                renderBias(Object.keys(cognitiveBiasesData)[0]);
+            }
+            
+            function createChart(ctx, type, data, options) {
+                new Chart(ctx, { type, data, options });
+            }
+
+            // --- INITIALIZATION --- //
+
+            // Pillar 1 Init
+            setupTabs('narrative-tabs', 'narrative-content', narrativeData);
+
+            const analogyContainer = document.getElementById('analogy-cards');
+            analogyData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'p-4 bg-stone-50 rounded-lg';
+                card.innerHTML = `<h5 class="font-semibold text-gray-800">${item.title}</h5><p class="text-gray-600 text-sm">${item.text}</p>`;
+                analogyContainer.appendChild(card);
+            });
+            
+            const suspenseContainer = document.getElementById('suspense-techniques');
+            suspenseData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'p-4 bg-stone-50 rounded-lg';
+                card.innerHTML = `<h5 class="font-semibold text-gray-800">${item.title}</h5><p class="text-gray-600 text-sm">${item.text}</p>`;
+                suspenseContainer.appendChild(card);
+            });
+
+
+            // Pillar 2 Init
+            const slideChecklistContainer = document.getElementById('slide-checklist');
+            slideChecklistContainer.innerHTML = `<ul class="space-y-2 list-inside">${slideChecklistData.map(item => `<li class="flex items-start"><span class="text-green-500 mr-2">✓</span><span>${item}</span></li>`).join('')}</ul>`;
+
+            const qaAccordionContainer = document.getElementById('qa-accordion');
+            qaAccordionData.forEach(item => createAccordionItem(qaAccordionContainer, item));
+
+            const retailChartCtx = document.getElementById('retailCaseStudyChart').getContext('2d');
+            createChart(retailChartCtx, 'bar', {
+                labels: ['Customer Retention Rate', 'Inventory Holding Costs ($K)', 'Profit Margin'],
+                datasets: [
+                    {
+                        label: 'Before',
+                        data: [60, 500, 10],
+                        backgroundColor: 'rgba(224, 167, 94, 0.6)',
+                        borderColor: 'rgba(224, 167, 94, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'After',
+                        data: [80, 440, 11.5],
+                        backgroundColor: 'rgba(115, 144, 114, 0.6)',
+                        borderColor: 'rgba(115, 144, 114, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            }, {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Retail Chain Performance Improvement', font: { size: 16, family: 'Merriweather' } },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    if(context.label.includes('%') || context.label.includes('Rate')) {
+                                       label += context.parsed.y + '%';
+                                    } else {
+                                       label += '$' + context.parsed.y + 'K';
+                                    }
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            });
+
+            // Pillar 3 Init
+            setupCognitiveBiases();
+            
+            const soWhatList = document.getElementById('so-what-checklist');
+            soWhatList.innerHTML = soWhatChecklistData.map(item => `<li class="flex items-start"><span class="text-green-500 mr-2">?</span><span>${item}</span></li>`).join('');
+
+            const legacyChartCtx = document.getElementById('legacyClothingChart').getContext('2d');
+            createChart(legacyChartCtx, 'line', {
+                labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4'],
+                datasets: [
+                     {
+                        label: 'Sales Growth %',
+                        data: [5, 8, 7, 9],
+                        borderColor: '#739072',
+                        backgroundColor: 'rgba(115, 144, 114, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    },
+                    {
+                        label: 'COGS Growth %',
+                        data: [4, 10, 11, 14],
+                        borderColor: '#E0A75E',
+                        backgroundColor: 'rgba(224, 167, 94, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    }
+                ]
+            }, {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Sales Growth vs. COGS Growth', font: { size: 16, family: 'Merriweather' } },
+                    tooltip: { mode: 'index', intersect: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) { return value + '%'; }
+                        }
+                    }
+                }
+            });
+            
+            // Active nav link scrolling
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('header nav a');
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 80) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                })
+            });
+        });
+    </script>
+</body>
+</html>

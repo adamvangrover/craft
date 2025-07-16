@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Chosen Palette: Calm Neutrals (Slate Gray, Muted Blue, Off-White) -->
+    <!-- Application Structure Plan: Thematic dashboard structure with sections for Overview, Rating Definitions, SNC Process, and Risk Deep Dives. This task-oriented design prioritizes user learning and exploration over the linear format of the source reports. Key interactions include tab-based navigation for rating details and interactive charts for data exploration, creating a guided yet flexible user journey. -->
+    <!-- Visualization & Content Choices: Overview: Line chart for trends. Definitions: Tabs with text and illustrative bar charts to compare financial profiles. Process: HTML/CSS timeline. Risk Analysis: Donut, stacked bar, and horizontal bar charts to compare compositions and concentrations. Justification: Chosen for clarity and direct comparison of key data points from the SNC report. All visuals use Canvas via Chart.js. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <title>Interactive Guide to Regulatory Risk Ratings & SNC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #3b82f6; /* blue-500 */
+            transition: width 0.3s ease;
+        }
+        .nav-link.active::after, .nav-link:hover::after {
+            width: 100%;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .tab-button.active {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            left: -21px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            border: 2px solid #ffffff;
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-slate-800">SNC Risk Guide</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#overview" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-slate-900">Overview</a>
+                        <a href="#ratings" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-slate-900">Rating Definitions</a>
+                        <a href="#process" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-slate-900">SNC Process</a>
+                        <a href="#risks" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-slate-900">Risk Analysis</a>
+                        <a href="#roles" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-slate-900">Bank Roles</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <section id="overview" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-800 mb-2">Shared National Credit: 2024 Overview</h2>
+            <p class="text-lg text-slate-600 mb-8 max-w-4xl">This section provides a high-level summary of the Shared National Credit (SNC) landscape based on the 2024 review. It visualizes key trends in credit volume and quality, offering an immediate snapshot of the systemic risk environment in large syndicated loans.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                    <h3 class="text-slate-500 font-medium">Total SNC Commitments (2024)</h3>
+                    <p class="text-4xl font-bold text-blue-600 mt-2">$5.9 Trillion</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                    <h3 class="text-slate-500 font-medium">Classified Commitments (2024)</h3>
+                    <p class="text-4xl font-bold text-amber-600 mt-2">$160.6 Billion</p>
+                    <p class="text-sm text-slate-500">(2.7% of Total)</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                    <h3 class="text-slate-500 font-medium">Special Mention (2024)</h3>
+                    <p class="text-4xl font-bold text-yellow-500 mt-2">$273.4 Billion</p>
+                    <p class="text-sm text-slate-500">(4.6% of Total)</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
+                <h3 class="text-xl font-bold text-slate-800 mb-1">SNC Credit Quality Trends</h3>
+                <p class="text-slate-600 mb-6">Examines the evolution of credit quality within the SNC portfolio over the last decade, highlighting the volume of commitments rated Special Mention or worse.</p>
+                <div class="chart-container h-[450px] max-h-[450px]">
+                    <canvas id="sncTrendsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-12 md:my-16 border-slate-200">
+
+        <section id="ratings" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-800 mb-2">Regulatory Risk Rating Deep Dive</h2>
+            <p class="text-lg text-slate-600 mb-8 max-w-4xl">Explore the official definitions and standards for each regulatory risk rating. This interactive tool allows you to select a rating to see its core definition, common characteristics, and a typical financial profile, helping analysts translate complex borrower situations into standardized classifications.</p>
+
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="p-6 md:p-8 border-b border-slate-200">
+                    <div id="tabs-container" class="flex flex-wrap -mb-px text-sm font-medium text-center" role="tablist">
+                         <button class="tab-button inline-block p-4 border-b-2 rounded-t-lg" data-target="pass-content">Pass</button>
+                         <button class="tab-button inline-block p-4 border-b-2 rounded-t-lg active" data-target="sm-content">Special Mention</button>
+                         <button class="tab-button inline-block p-4 border-b-2 rounded-t-lg" data-target="ss-content">Substandard</button>
+                         <button class="tab-button inline-block p-4 border-b-2 rounded-t-lg" data-target="d-content">Doubtful</button>
+                         <button class="tab-button inline-block p-4 border-b-2 rounded-t-lg" data-target="l-content">Loss</button>
+                    </div>
+                </div>
+
+                <div id="tab-content" class="p-6 md:p-8">
+                    <div id="rating-content-container">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div>
+                                <h3 id="ratingTitle" class="text-2xl font-bold text-blue-600 mb-3"></h3>
+                                <p id="ratingDefinition" class="text-slate-600 mb-6"></p>
+                                <h4 class="font-semibold text-slate-800 mb-2">Common Characteristics:</h4>
+                                <ul id="ratingCharacteristics" class="list-disc list-inside space-y-2 text-slate-600"></ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="font-semibold text-slate-800 mb-2">Illustrative Financial Profile</h4>
+                                <p id="ratingProfileDescription" class="text-slate-600 mb-4 text-sm"></p>
+                                <div class="chart-container h-[300px] max-h-[300px] mt-auto">
+                                    <canvas id="financialProfileChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-12 md:my-16 border-slate-200">
+
+        <section id="process" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-800 mb-2">The SNC Process Explained</h2>
+            <p class="text-lg text-slate-600 mb-8 max-w-4xl">This section demystifies the Shared National Credit program's operational flow, outlining the key stages from data submission to the final rating determination and appeal. It clarifies the distinct responsibilities of agent and participant banks throughout the cycle.</p>
+            <div class="relative pl-8 border-l-2 border-slate-200">
+                <div class="timeline-item mb-10">
+                    <h3 class="text-xl font-bold text-slate-800">1. Data Reporting</h3>
+                    <p class="text-slate-600 mt-1"><strong>Agent and designated Participant banks</strong> submit detailed credit, obligor, sponsor, and rating data quarterly via the secure SNC web application. New requirements for 2024 include more granular data on leveraged lending and commercial real estate.</p>
+                </div>
+                <div class="timeline-item mb-10">
+                    <h3 class="text-xl font-bold text-slate-800">2. Risk-Based Sampling</h3>
+                    <p class="text-slate-600 mt-1">Regulators select a sample of SNCs for review, focusing on bank-identified leveraged loans, special mention and classified credits, and borrowers in stressed industries to target high-risk areas.</p>
+                </div>
+                <div class="timeline-item mb-10">
+                    <h3 class="text-xl font-bold text-slate-800">3. Credit Risk Evaluation</h3>
+                    <p class="text-slate-600 mt-1">Examiners conduct a comprehensive analysis, evaluating quantitative factors (cash flow, leverage, liquidity) and qualitative aspects (management, industry, underwriting). The focus is on the borrower's expected performance over the next 12 months.</p>
+                </div>
+                <div class="timeline-item mb-10">
+                    <h3 class="text-xl font-bold text-slate-800">4. Rating Determination</h3>
+                    <p class="text-slate-600 mt-1">A final regulatory rating (Pass, SM, SS, D, L) is assigned based on the evaluation. Ratings are communicated to the agent bank, which then disseminates the results to participant institutions.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-bold text-slate-800">5. Appeal Process</h3>
+                    <p class="text-slate-600 mt-1">Agent or participant banks can appeal a rating decision if they disagree with the examiner's conclusion. The process has defined timelines and tiers, escalating from the local Deputy Comptroller to the Ombudsman.</p>
+                </div>
+            </div>
+        </section>
+        
+        <hr class="my-12 md:my-16 border-slate-200">
+
+        <section id="risks" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-800 mb-2">SNC Risk Analysis</h2>
+            <p class="text-lg text-slate-600 mb-8 max-w-4xl">This analysis section uses interactive charts to break down the key risk concentrations within the SNC portfolio. It highlights the disproportionate risk in leveraged lending, pinpoints high-risk industries, and compares risk distribution between bank and nonbank entities.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold text-slate-800 mb-1">Leveraged vs. Non-Leveraged Loan Quality</h3>
+                    <p class="text-slate-600 mb-6">A comparison of credit quality, showing the significantly higher proportion of non-pass ratings within the leveraged lending segment.</p>
+                     <div class="chart-container">
+                        <canvas id="leveragedQualityChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold text-slate-800 mb-1">Non-Pass Rate by Industry (2024)</h3>
+                    <p class="text-slate-600 mb-6">Identifies industries with the highest concentration of Special Mention and Classified credits, highlighting sectors facing significant stress.</p>
+                    <div class="chart-container">
+                        <canvas id="industryRiskChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
+                     <h3 class="text-xl font-bold text-slate-800 mb-1">SNC Portfolio Composition</h3>
+                    <p class="text-slate-600 mb-6">Shows the breakdown of the total SNC portfolio between leveraged and non-leveraged loans.</p>
+                    <div class="chart-container h-80 max-h-80">
+                        <canvas id="leveragedCompositionChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold text-slate-800 mb-1">Non-Pass Exposure by Lender Type (2024)</h3>
+                    <p class="text-slate-600 mb-6">Compares the distribution of non-pass (SM & Classified) exposures between U.S. banks, foreign banks, and nonbank entities.</p>
+                     <div class="chart-container">
+                        <canvas id="lenderRiskChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-12 md:my-16 border-slate-200">
+
+        <section id="roles" class="scroll-mt-20">
+             <h2 class="text-3xl font-bold text-slate-800 mb-2">Bank Roles in Risk Management</h2>
+            <p class="text-lg text-slate-600 mb-8 max-w-4xl">A strong risk rating process relies on a clear division of responsibilities. This section outlines the critical roles of the First and Second Lines of Defense (1LoD and 2LoD) in maintaining the integrity and accuracy of credit risk management.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">1️⃣ First Line of Defense (1LoD)</h3>
+                    <p class="text-slate-600 mb-4">Comprises the business units and personnel directly owning the risk—primarily loan officers and credit originators.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-3 mt-1">&#10003;</span>
+                            <span><strong>Origination & Underwriting:</strong> Conducts initial credit analysis, structures loans, and ensures adherence to policy.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-3 mt-1">&#10003;</span>
+                            <span><strong>Initial Rating Assignment:</strong> Assigns the initial risk rating and provides thorough documentation in the credit file.</span>
+                        </li>
+                         <li class="flex items-start">
+                            <span class="text-blue-500 mr-3 mt-1">&#10003;</span>
+                            <span><strong>Ongoing Monitoring:</strong> Acts as the primary detector of credit deterioration through direct client contact and regular reviews.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">2️⃣ Second Line of Defense (2LoD)</h3>
+                    <p class="text-slate-600 mb-4">Functions as the independent oversight and control layer, ensuring the risk framework is effective and consistently applied.</p>
+                     <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-3 mt-1">&#10003;</span>
+                            <span><strong>Risk Oversight & Policy:</strong> Develops and approves risk management policies, sets the risk appetite, and establishes the governance framework.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-3 mt-1">&#10003;</span>
+                            <span><strong>Independent Credit Review:</strong> Challenges 1LoD ratings to ensure objectivity and accuracy, validating the effectiveness of the rating system.</span>
+                        </li>
+                         <li class="flex items-start">
+                            <span class="text-blue-500 mr-3 mt-1">&#10003;</span>
+                            <span><strong>Internal Audit & Validation:</strong> Provides assurance by testing the integrity of risk data, processes, and controls across all lines of defense.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-sm">
+            <p>&copy; 2025 SNC Interactive Guide. Information synthesized from public regulatory documents for educational purposes.</p>
+        </div>
+    </footer>
+    
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const chartColors = {
+        pass: 'rgba(74, 222, 128, 0.6)', // green-400
+        specialMention: 'rgba(250, 204, 21, 0.6)', // yellow-400
+        classified: 'rgba(239, 68, 68, 0.6)', // red-500
+        blue: 'rgba(59, 130, 246, 0.6)',
+        slate: 'rgba(100, 116, 139, 0.6)',
+        border: {
+            pass: 'rgb(34, 197, 94)',
+            specialMention: 'rgb(234, 179, 8)',
+            classified: 'rgb(220, 38, 38)',
+            blue: 'rgb(59, 130, 246)',
+            slate: 'rgb(71, 85, 105)'
+        }
+    };
+    
+    const ratingDefinitionsData = {
+        'pass': {
+            title: 'Pass',
+            definition: 'A "Pass" credit is in good standing, without any designation as special mention or any form of adverse classification. These represent the highest quality loans, exhibiting the lowest probability of default.',
+            characteristics: [
+                'Demonstrates adequate capacity to meet financial commitments.',
+                'Full and timely repayment of principal and interest is expected.',
+                'Exhibits strong and stable cash flow, low leverage, and robust liquidity.',
+                'Benefits from sound management and operates in favorable industry conditions.'
+            ],
+            profile: {
+                description: 'Pass-rated borrowers show strong performance, with ample cash flow to cover all obligations and conservative leverage.',
+                data: {
+                    labels: ['Revenue Growth', 'EBITDA Margin', 'Free Cash Flow', 'Leverage'],
+                    values: [8, 9, 8, 2],
+                    colors: [chartColors.pass, chartColors.pass, chartColors.pass, chartColors.pass]
+                }
+            }
+        },
+        'sm-content': {
+            title: 'Special Mention',
+            definition: 'A Special Mention asset has potential weaknesses that warrant close attention. If uncorrected, these may lead to a deterioration in repayment prospects or negatively impact the institution\'s credit position at a future date.',
+            characteristics: [
+                'Indicates elevated risk, but default is not imminent.',
+                'Borrower may be experiencing adverse operating trends (e.g., declining revenue, compressing margins).',
+                'Balance sheet may be ill-proportioned (e.g., high leverage, tight liquidity).',
+                'May have nonfinancial weaknesses like management problems or an ineffective loan agreement.'
+            ],
+            profile: {
+                description: 'SM borrowers show potential weakness. Cash flow may be tightening and leverage increasing, eroding buffers.',
+                data: {
+                    labels: ['Revenue Growth', 'EBITDA Margin', 'Free Cash Flow', 'Leverage'],
+                    values: [2, 4, 3, 6],
+                    colors: [chartColors.specialMention, chartColors.specialMention, chartColors.specialMention, chartColors.specialMention]
+                }
+            }
+        },
+        'ss-content': {
+            title: 'Substandard',
+            definition: 'A Substandard asset is inadequately protected by the current sound worth and paying capacity of the obligor or collateral. It has a well-defined weakness that jeopardizes debt liquidation, with a distinct possibility of some loss.',
+            characteristics: [
+                'High probability of payment default.',
+                'Characterized by current or expected unprofitable operations.',
+                'Inadequate debt service coverage, insufficient liquidity, or marginal capitalization.',
+                'Repayment may increasingly depend on the realization of collateral value.'
+            ],
+            profile: {
+                description: 'Substandard borrowers have well-defined weaknesses. Operations are often unprofitable, with cash flow insufficient to service debt.',
+                data: {
+                    labels: ['Revenue Growth', 'EBITDA Margin', 'Free Cash Flow', 'Leverage'],
+                    values: [-4, 1, -2, 8],
+                    colors: [chartColors.classified, chartColors.classified, chartColors.classified, chartColors.classified]
+                }
+            }
+        },
+        'd-content': {
+            title: 'Doubtful',
+            definition: 'A Doubtful asset has all the weaknesses of Substandard, with the added characteristic that collection or liquidation in full is highly questionable and improbable based on current facts and values.',
+            characteristics: [
+                'High probability of total or substantial loss.',
+                'Loss classification is deferred due to specific, identifiable pending events that have a realistic potential to strengthen the asset (e.g., merger, capital injection).',
+                'Borrowers are typically in default and lack adequate liquidity or capital to continue as a going concern.'
+            ],
+             profile: {
+                description: 'Doubtful assets have weaknesses making full collection improbable. Survival often depends on uncertain future events.',
+                data: {
+                    labels: ['Revenue Growth', 'EBITDA Margin', 'Free Cash Flow', 'Leverage'],
+                    values: [-7, -3, -6, 9],
+                    colors: [chartColors.classified, chartColors.classified, chartColors.classified, chartColors.classified]
+                }
+            }
+        },
+        'l-content': {
+            title: 'Loss',
+            definition: 'An asset classified as Loss is considered uncollectible and of such little value that its continuance as a bankable asset is not warranted. This does not mean it has no recovery value, but that deferring write-off is impractical.',
+            characteristics: [
+                'The underlying borrower is often in bankruptcy or has ceased normal business operations.',
+                'There is little to no prospect of collecting either principal or interest.',
+                'The asset is considered fundamentally worthless for booking purposes.'
+            ],
+            profile: {
+                description: 'Loss assets are uncollectible. The business has often ceased operations with no prospect of repayment from cash flow.',
+                data: {
+                    labels: ['Revenue Growth', 'EBITDA Margin', 'Free Cash Flow', 'Leverage'],
+                    values: [-10, -8, -9, 10],
+                    colors: [chartColors.classified, chartColors.classified, chartColors.classified, chartColors.classified]
+                }
+            }
+        }
+    };
+
+    let financialProfileChartInstance;
+
+    function updateRatingContent(targetId) {
+        const data = ratingDefinitionsData[targetId];
+        if (!data) return;
+
+        document.getElementById('ratingTitle').textContent = data.title;
+        document.getElementById('ratingDefinition').textContent = data.definition;
+        
+        const characteristicsList = document.getElementById('ratingCharacteristics');
+        characteristicsList.innerHTML = '';
+        data.characteristics.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            characteristicsList.appendChild(li);
+        });
+        
+        document.getElementById('ratingProfileDescription').textContent = data.profile.description;
+
+        const ctx = document.getElementById('financialProfileChart').getContext('2d');
+        if (financialProfileChartInstance) {
+            financialProfileChartInstance.destroy();
+        }
+
+        financialProfileChartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.profile.data.labels,
+                datasets: [{
+                    label: 'Relative Score (-10 to 10)',
+                    data: data.profile.data.values,
+                    backgroundColor: data.profile.data.colors,
+                    borderColor: data.profile.data.colors.map(c => c.replace('0.6', '1')),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: false,
+                        min: -10,
+                        max: 10,
+                        grid: {
+                           color: '#e2e8f0' // slate-200
+                        },
+                        ticks: { color: '#64748b' } // slate-500
+                    },
+                    y: {
+                        grid: {
+                           display: false
+                        },
+                         ticks: { color: '#64748b' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: '#1e293b', // slate-800
+                        titleFont: { size: 14 },
+                        bodyFont: { size: 12 },
+                    }
+                }
+            }
+        });
+    }
+    
+    const tabsContainer = document.getElementById('tabs-container');
+    tabsContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('tab-button')) {
+            tabsContainer.querySelector('.active').classList.remove('active');
+            e.target.classList.add('active');
+            const targetId = e.target.getAttribute('data-target');
+            updateRatingContent(targetId);
+        }
+    });
+
+    updateRatingContent('sm-content');
+
+
+    new Chart(document.getElementById('sncTrendsChart').getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+            datasets: [
+                {
+                    label: 'Special Mention',
+                    data: [153.0, 167.2, 165.9, 117.3, 131.0, 233.3, 205.6, 194.1, 259.6, 273.4],
+                    borderColor: chartColors.border.specialMention,
+                    backgroundColor: chartColors.specialMention,
+                    fill: true,
+                    tension: 0.3
+                },
+                {
+                    label: 'Classified',
+                    data: [75.4, 117.9, 119.9, 65.2, 73.1, 132.6, 127.2, 97.2, 136.0, 160.6],
+                    borderColor: chartColors.border.classified,
+                    backgroundColor: chartColors.classified,
+                    fill: true,
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    stacked: true,
+                    title: { display: true, text: 'Commitments ($ Billions)', color: '#475569' },
+                    grid: { color: '#e2e8f0' },
+                    ticks: { color: '#64748b' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#64748b' }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                    backgroundColor: '#1e293b',
+                },
+                legend: {
+                    position: 'top',
+                    labels: { color: '#475569' }
+                }
+            },
+        }
+    });
+    
+    new Chart(document.getElementById('leveragedQualityChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ['Leveraged Loans', 'Non-Leveraged Loans'],
+            datasets: [{
+                label: 'Special Mention %',
+                data: [7.9, 1.8],
+                backgroundColor: chartColors.specialMention,
+                borderColor: chartColors.border.specialMention,
+                borderWidth: 1
+            }, {
+                label: 'Classified %',
+                data: [4.9, 0.8],
+                backgroundColor: chartColors.classified,
+                borderColor: chartColors.border.classified,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { 
+                    beginAtZero: true, 
+                    title: { display: true, text: 'Percentage of Commitments', color: '#475569' },
+                    grid: { color: '#e2e8f0' },
+                    ticks: { 
+                        color: '#64748b',
+                        callback: function(value) { return value + '%'; }
+                    }
+                },
+                x: { grid: { display: false }, ticks: { color: '#64748b' } }
+            },
+            plugins: {
+                legend: { position: 'bottom', labels: { color: '#475569' }},
+                tooltip: { backgroundColor: '#1e293b' }
+            }
+        }
+    });
+
+    new Chart(document.getElementById('industryRiskChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ['Technology, Telecom, & Media', 'Commercial Services', 'Health Care & Pharma', 'Materials & Commodities', 'CRE: Office', 'Utilities, Chem, & Plastic'],
+            datasets: [{
+                label: 'Non-Pass Rate (%)',
+                data: [19.7, 17.4, 14.4, 12.4, 11.2, 10.5],
+                backgroundColor: [chartColors.classified, chartColors.classified, chartColors.classified, chartColors.specialMention, chartColors.specialMention, chartColors.specialMention],
+                borderColor: [chartColors.border.classified, chartColors.border.classified, chartColors.border.classified, chartColors.border.specialMention, chartColors.border.specialMention, chartColors.border.specialMention],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { 
+                    beginAtZero: true, 
+                    title: { display: true, text: 'Non-Pass Rate (%)', color: '#475569' },
+                    grid: { color: '#e2e8f0' },
+                    ticks: { color: '#64748b' }
+                },
+                y: { grid: { display: false }, ticks: { color: '#64748b',
+                    callback: function(value, index, values) {
+                        const label = this.getLabelForValue(value);
+                        if (label.length > 25) {
+                            return label.slice(0, 25) + '...';
+                        }
+                        return label;
+                    }
+                }}
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: { 
+                    backgroundColor: '#1e293b',
+                    callbacks: {
+                        label: function(context) {
+                            return ` Non-Pass Rate: ${context.raw}%`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    new Chart(document.getElementById('leveragedCompositionChart').getContext('2d'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Leveraged Loans (45%)', 'Non-Leveraged Loans (55%)'],
+            datasets: [{
+                data: [45, 55],
+                backgroundColor: [chartColors.blue, chartColors.slate],
+                borderColor: ['#ffffff'],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { color: '#475569' } },
+                tooltip: { backgroundColor: '#1e293b' }
+            }
+        }
+    });
+    
+    new Chart(document.getElementById('lenderRiskChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ['Special Mention', 'Classified'],
+            datasets: [{
+                label: 'U.S. Banks',
+                data: [100.8, 59.4],
+                backgroundColor: chartColors.blue,
+                borderColor: chartColors.border.blue,
+                borderWidth: 1
+            }, {
+                label: 'Foreign Banks',
+                data: [45.1, 23.3],
+                backgroundColor: chartColors.slate,
+                borderColor: chartColors.border.slate,
+                borderWidth: 1
+            },
+            {
+                label: 'Nonbanks',
+                data: [127.5, 77.9],
+                backgroundColor: chartColors.specialMention,
+                borderColor: chartColors.border.specialMention,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { 
+                    beginAtZero: true, 
+                    title: { display: true, text: 'Commitments ($ Billions)', color: '#475569' },
+                    grid: { color: '#e2e8f0' },
+                    ticks: { color: '#64748b' }
+                },
+                x: { grid: { display: false }, ticks: { color: '#64748b' } }
+            },
+            plugins: {
+                legend: { position: 'bottom', labels: { color: '#475569' }},
+                tooltip: { backgroundColor: '#1e293b' }
+            }
+        }
+    });
+    
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('main section');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === entry.target.id) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }, { threshold: 0.4 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+});
+</script>
+</body>
+</html>

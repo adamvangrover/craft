@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Financial Analysis Learning Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral Harmony -->
+    <!-- Application Structure Plan: The application is designed as a non-linear "Learning Hub" with four main sections: 1) Foundations of Financial Reporting (core concepts like GAAP/IFRS, the three statements), 2) The Analyst's Toolkit (practical steps like spreading and handling adjustments), 3) An Interactive Analysis Dashboard (the centerpiece, for hands-on analysis of Apple Inc. data), and 4) Decoding the Narrative (synthesizing insights from key metrics). This structure was chosen over a linear one to empower users to learn at their own pace and focus on topics of interest, moving from theory to practice seamlessly. The interactive dashboard is the core, designed to teach by doing, which is more effective for data-driven topics than passive reading. -->
+    <!-- Visualization & Content Choices: The application uses a mix of interactive cards, process flows (HTML/CSS), and a dynamic bar chart (Chart.js) to present information. Report Info -> Goal -> Viz/Presentation Method -> Interaction -> Justification -> Library/Method. 1) GAAP vs. IFRS -> Compare -> Two-column layout -> Hover tooltips -> Quick comparison -> HTML/CSS. 2) 3 Financial Statements -> Organize/Inform -> Click-to-expand cards -> Manages complexity -> HTML/JS. 3) Ratio Analysis -> Change/Compare -> Dropdown-controlled Bar Chart -> Active user exploration -> Chart.js/Canvas. 4) Ratio Interpretation -> Inform/Synthesize -> Dynamic text block -> Links data to narrative -> JS. This approach transforms the static report into an engaging learning tool. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #4A4A4A;
+        }
+        .nav-link {
+            transition: all 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #D35400;
+            border-bottom-color: #D35400;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.07);
+        }
+        .btn-primary {
+            background-color: #D35400;
+            color: #FFFFFF;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #E67E22;
+        }
+        .section-title {
+            color: #2C3E50;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-[#2C3E50]">
+                Financial Analysis Hub
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#foundations" class="nav-link text-lg font-medium">Foundations</a>
+                <a href="#toolkit" class="nav-link text-lg font-medium">Analyst's Toolkit</a>
+                <a href="#dashboard" class="nav-link text-lg font-medium">Interactive Dashboard</a>
+                <a href="#narrative" class="nav-link text-lg font-medium">Decoding the Narrative</a>
+            </div>
+            <div class="md:hidden">
+                <select id="mobile-nav" class="bg-white border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#D35400]">
+                    <option value="#foundations">Foundations</option>
+                    <option value="#toolkit">Toolkit</option>
+                    <option value="#dashboard">Dashboard</option>
+                    <option value="#narrative">Narrative</option>
+                </select>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        
+        <!-- Section 1: Foundations of Financial Reporting -->
+        <section id="foundations" class="mb-24 scroll-mt-20">
+            <h2 class="text-4xl font-bold text-center mb-4 section-title">Foundations of Financial Reporting</h2>
+            <p class="text-center text-lg text-gray-600 max-w-3xl mx-auto mb-12">Every analysis starts with understanding the language of business. This section breaks down the core principles and documents that form the bedrock of financial intelligence, from accounting standards to the three key financial statements.</p>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-16 items-start">
+                <div class="card p-6">
+                    <h3 class="text-2xl font-bold mb-4 section-title">GAAP vs. IFRS</h3>
+                    <p class="text-gray-600 mb-4">A look at the two dominant accounting standards. U.S. GAAP is a detailed, **rules-based** system, while IFRS is a broader, **principles-based** framework. This philosophical difference has major implications for analysis.</p>
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="py-2 text-gray-800">Feature</th>
+                                <th class="py-2 text-gray-800">U.S. GAAP</th>
+                                <th class="py-2 text-gray-800">IFRS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="py-2 font-medium">Inventory (LIFO)</td>
+                                <td class="py-2 text-green-600">Permitted</td>
+                                <td class="py-2 text-red-600">Prohibited</td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="py-2 font-medium">Inventory Reversals</td>
+                                <td class="py-2 text-red-600">Prohibited</td>
+                                <td class="py-2 text-green-600">Permitted</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-medium">R&D Costs</td>
+                                <td class="py-2">Expensed</td>
+                                <td class="py-2">Some can be capitalized</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                 <div class="card p-6">
+                    <h3 class="text-2xl font-bold mb-4 section-title">Fundamental Principles</h3>
+                    <p class="text-gray-600 mb-4">Certain principles ensure financial statements are reliable and consistent. Click on a principle to learn more.</p>
+                    <div class="space-y-2">
+                        <div class="accordion-item">
+                            <button class="accordion-header w-full text-left font-semibold text-lg p-3 bg-gray-100 rounded-md hover:bg-gray-200 transition">Accrual Basis</button>
+                            <div class="accordion-content p-3"><p>Revenues and expenses are recorded when earned or incurred, not when cash changes hands. This provides a more accurate picture of performance.</p></div>
+                        </div>
+                         <div class="accordion-item">
+                            <button class="accordion-header w-full text-left font-semibold text-lg p-3 bg-gray-100 rounded-md hover:bg-gray-200 transition">Matching Principle</button>
+                            <div class="accordion-content p-3"><p>Expenses are "matched" to the revenues they helped generate in the same accounting period, ensuring true profitability is reflected.</p></div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header w-full text-left font-semibold text-lg p-3 bg-gray-100 rounded-md hover:bg-gray-200 transition">Conservatism</button>
+                            <div class="accordion-content p-3"><p>When faced with uncertainty, accountants should choose the option that results in lower profit or asset value. This prevents overstatement of performance.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-3xl font-bold text-center mb-8 section-title">The Financial Trinity</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card p-6 text-center">
+                    <div class="text-5xl mb-4">📈</div>
+                    <h4 class="text-xl font-bold mb-2">Income Statement</h4>
+                    <p class="text-gray-600">Shows performance over time. Answers: "Did we make money?" It details revenues and expenses to arrive at the bottom line: Net Income.</p>
+                </div>
+                <div class="card p-6 text-center">
+                    <div class="text-5xl mb-4">💼</div>
+                    <h4 class="text-xl font-bold mb-2">Balance Sheet</h4>
+                    <p class="text-gray-600">A snapshot in time. Answers: "What do we own and owe?" It follows the core equation: Assets = Liabilities + Equity.</p>
+                </div>
+                <div class="card p-6 text-center">
+                    <div class="text-5xl mb-4">💧</div>
+                    <h4 class="text-xl font-bold mb-2">Cash Flow Statement</h4>
+                    <p class="text-gray-600">Tracks the movement of cash. Answers: "Where did cash come from and go?" It's the ultimate reality check for liquidity.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: The Analyst's Toolkit -->
+        <section id="toolkit" class="mb-24 scroll-mt-20">
+            <h2 class="text-4xl font-bold text-center mb-4 section-title">The Analyst's Toolkit</h2>
+            <p class="text-center text-lg text-gray-600 max-w-3xl mx-auto mb-12">Good analysis requires clean, comparable data. This section outlines the practical process analysts follow to transform raw financial reports into a powerful analytical foundation, navigating adjustments and restatements along the way.</p>
+            
+            <div class="relative w-full max-w-4xl mx-auto">
+                <div class="border-l-4 border-dashed border-[#E67E22] absolute h-full top-0 left-4 md:left-1/2 md:-ml-0.5"></div>
+                <div class="space-y-12">
+                    <div class="flex items-center w-full">
+                        <div class="hidden md:block w-1/2"></div>
+                        <div class="z-10 flex items-center bg-[#E67E22] shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-bold text-lg text-white">1</h1>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-md w-full md:w-1/2 ml-4 md:ml-8">
+                            <h3 class="font-bold text-xl text-[#D35400]">Source Data (10-K)</h3>
+                            <p class="text-gray-600 mt-2">The process starts with the company's official, audited annual report (Form 10-K for U.S. public companies). This is the ground truth for all analysis.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center w-full flex-row-reverse md:flex-row">
+                        <div class="hidden md:block w-1/2 text-right">
+                           <div class="bg-white p-6 rounded-lg shadow-md mr-8">
+                                <h3 class="font-bold text-xl text-[#D35400]">Financial Spreading</h3>
+                                <p class="text-gray-600 mt-2">Data is extracted and organized into a standardized template. This critical step enables "apples-to-apples" comparison across years and against competitors.</p>
+                            </div>
+                        </div>
+                         <div class="z-10 flex items-center bg-[#E67E22] shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-bold text-lg text-white">2</h1>
+                        </div>
+                        <div class="w-full md:w-1/2">
+                            <div class="block md:hidden bg-white p-6 rounded-lg shadow-md ml-4">
+                                <h3 class="font-bold text-xl text-[#D35400]">Financial Spreading</h3>
+                                <p class="text-gray-600 mt-2">Data is extracted and organized into a standardized template. This critical step enables "apples-to-apples" comparison across years and against competitors.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center w-full">
+                        <div class="hidden md:block w-1/2"></div>
+                         <div class="z-10 flex items-center bg-[#E67E22] shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-bold text-lg text-white">3</h1>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-md w-full md:w-1/2 ml-4 md:ml-8">
+                            <h3 class="font-bold text-xl text-[#D35400]">Normalize & Adjust</h3>
+                            <p class="text-gray-600 mt-2">Adjust for pro forma events (e.g., acquisitions) and one-time, non-recurring items to see the true, underlying operational performance. Handle any financial restatements by updating all historical data.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Interactive Analysis Dashboard -->
+        <section id="dashboard" class="mb-24 scroll-mt-20">
+            <h2 class="text-4xl font-bold text-center mb-4 section-title">Interactive Analysis Dashboard</h2>
+            <p class="text-center text-lg text-gray-600 max-w-3xl mx-auto mb-12">This is where theory meets practice. Explore the financial performance of Apple Inc. over three years. Select a key ratio from the dropdown to see how the company's performance has trended and what that story tells us.</p>
+            
+            <div class="card p-6 md:p-8">
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Controls and Chart -->
+                    <div class="lg:col-span-2">
+                        <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4 sm:mb-0">Apple Inc. Performance Analysis</h3>
+                            <div>
+                                <label for="ratioSelector" class="font-semibold mr-2">Select a Ratio:</label>
+                                <select id="ratioSelector" class="bg-white border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#D35400]">
+                                    <option value="grossProfitMargin" selected>Gross Profit Margin</option>
+                                    <option value="netProfitMargin">Net Profit Margin</option>
+                                    <option value="currentRatio">Current Ratio</option>
+                                    <option value="debtToEquity">Debt-to-Equity</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="ratioChart"></canvas>
+                        </div>
+                    </div>
+                    <!-- Interpretation -->
+                    <div class="lg:col-span-1 bg-gray-50 p-6 rounded-lg">
+                        <h4 id="interpretationTitle" class="text-xl font-bold mb-3 text-[#2C3E50]">Gross Profit Margin</h4>
+                        <p id="interpretationText" class="text-gray-700 leading-relaxed">This text will dynamically update.</p>
+                    </div>
+                </div>
+
+                <!-- Financial Data Table -->
+                <div class="mt-12 overflow-x-auto">
+                    <h4 class="text-xl font-bold mb-4 text-[#2C3E50]">Source Financial Data (in millions USD)</h4>
+                     <table class="w-full min-w-[600px] text-left">
+                        <thead>
+                            <tr class="border-b bg-gray-50">
+                                <th class="py-3 px-4 font-semibold">Line Item</th>
+                                <th class="py-3 px-4 font-semibold text-right">2023</th>
+                                <th class="py-3 px-4 font-semibold text-right">2022</th>
+                                <th class="py-3 px-4 font-semibold text-right">2021</th>
+                            </tr>
+                        </thead>
+                        <tbody id="financialsTable" class="divide-y divide-gray-200">
+                            <!-- Data will be populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Decoding the Narrative -->
+        <section id="narrative" class="scroll-mt-20">
+            <h2 class="text-4xl font-bold text-center mb-4 section-title">Decoding the Narrative</h2>
+            <p class="text-center text-lg text-gray-600 max-w-3xl mx-auto mb-12">Key metrics do more than just measure; they tell a story about a company's strategy, risks, and potential. Explore what Revenue, EBITDA, Free Cash Flow, and Leverage reveal about a business.</p>
+            <div class="max-w-4xl mx-auto space-y-4">
+                 <div class="accordion-item card">
+                    <button class="accordion-header w-full text-left font-bold text-xl p-6 flex justify-between items-center">
+                        <span>Revenue: The Story of Growth</span>
+                        <span class="transform transition-transform text-[#D35400] text-2xl">+</span>
+                    </button>
+                    <div class="accordion-content px-6 pb-6">
+                        <p class="text-gray-600">Revenue growth signals market demand and competitive position. Analysts look at its drivers (volume vs. price) and sustainability (recurring vs. one-time). Flattening growth for a large company like Apple can signal market saturation, increasing the pressure for new, innovative products to start the next growth cycle.</p>
+                    </div>
+                </div>
+                 <div class="accordion-item card">
+                    <button class="accordion-header w-full text-left font-bold text-xl p-6 flex justify-between items-center">
+                        <span>EBITDA: A Look at Core Operations</span>
+                        <span class="transform transition-transform text-[#D35400] text-2xl">+</span>
+                    </button>
+                    <div class="accordion-content px-6 pb-6">
+                        <p class="text-gray-600">EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization) shows core operational profitability, removing financing and accounting decisions. It's useful for comparing companies but is a poor proxy for cash flow because it ignores crucial cash uses like capital expenditures (CapEx) and changes in working capital.</p>
+                    </div>
+                </div>
+                <div class="accordion-item card">
+                    <button class="accordion-header w-full text-left font-bold text-xl p-6 flex justify-between items-center">
+                        <span>Free Cash Flow (FCF): The Ultimate Value Metric</span>
+                        <span class="transform transition-transform text-[#D35400] text-2xl">+</span>
+                    </button>
+                    <div class="accordion-content px-6 pb-6">
+                        <p class="text-gray-600">FCF (Cash from Operations - CapEx) is the cash a company generates that is truly "free" to be used for repaying debt, paying dividends, or reinvesting in the business. It's the ultimate measure of financial health and a company's ability to create value for shareholders, cutting through accrual accounting estimates.</p>
+                    </div>
+                </div>
+                <div class="accordion-item card">
+                    <button class="accordion-header w-full text-left font-bold text-xl p-6 flex justify-between items-center">
+                        <span>Leverage: Risk and Capital Structure</span>
+                        <span class="transform transition-transform text-[#D35400] text-2xl">+</span>
+                    </button>
+                    <div class="accordion-content px-6 pb-6">
+                        <p class="text-gray-600">Leverage measures a company's use of debt. While debt can amplify returns, it also increases risk, as interest payments are mandatory. For a mature, cash-rich company, high leverage might be a deliberate, tax-efficient strategy to fund share buybacks and boost shareholder returns, not a sign of distress.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-24">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>&copy; 2024 Interactive Financial Analysis Hub. An educational tool.</p>
+            <p class="text-sm text-gray-400 mt-2">Data based on Apple Inc. 10-K filings, simplified for illustrative purposes.</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Data ---
+    const appleFinancials = {
+        years: [2023, 2022, 2021],
+        incomeStatement: {
+            'Net Sales': [383285, 394328, 365817],
+            'Cost of Sales': [214137, 223546, 212981],
+            'Gross Margin': [169148, 170782, 152836],
+            'R&D': [29915, 26251, 21914],
+            'SG&A': [24932, 25094, 21973],
+            'Operating Income': [114301, 119437, 108949],
+            'Net Income': [96995, 99803, 94680],
+        },
+        balanceSheet: {
+            'Total Current Assets': [143566, 135405, 134836],
+            'Total Assets': [352583, 352755, 351002],
+            'Total Current Liabilities': [145308, 153982, 125481],
+            'Total Liabilities': [290437, 302083, 287912],
+            'Shareholders\' Equity': [62146, 50672, 63090],
+        }
+    };
+
+    const interpretations = {
+        grossProfitMargin: {
+            title: "Gross Profit Margin",
+            text: "This ratio measures the percentage of revenue left after accounting for the cost of goods sold. Apple's steadily increasing Gross Margin shows remarkable efficiency and pricing power, likely driven by a growing mix of high-margin services and premium product sales."
+        },
+        netProfitMargin: {
+            title: "Net Profit Margin",
+            text: "This shows the percentage of revenue left as profit after all expenses. Apple's exceptionally stable and high Net Margin (around 25%) indicates excellent overall cost control and a powerful, profitable business model."
+        },
+        currentRatio: {
+            title: "Current Ratio",
+            text: "This liquidity ratio (Current Assets / Current Liabilities) measures the ability to pay short-term debts. While a ratio below 1 can be a warning, for a cash-generating giant like Apple, it often reflects highly efficient cash management rather than a liquidity risk."
+        },
+        debtToEquity: {
+            title: "Debt-to-Equity Ratio",
+            text: "This leverage ratio (Total Liabilities / Shareholder's Equity) shows reliance on debt. Apple's high ratio is not a sign of distress, but a deliberate capital strategy to use low-cost debt to finance massive share buybacks, which reduces equity and boosts returns for shareholders."
+        }
+    };
+
+    // --- Chart Setup ---
+    const ctx = document.getElementById('ratioChart').getContext('2d');
+    let chart;
+
+    function calculateRatios(data) {
+        const netSales = data.incomeStatement['Net Sales'];
+        const grossMargin = data.incomeStatement['Gross Margin'];
+        const netIncome = data.incomeStatement['Net Income'];
+        const currentAssets = data.balanceSheet['Total Current Assets'];
+        const currentLiabilities = data.balanceSheet['Total Current Liabilities'];
+        const totalLiabilities = data.balanceSheet['Total Liabilities'];
+        const equity = data.balanceSheet['Shareholders\' Equity'];
+
+        return {
+            grossProfitMargin: grossMargin.map((gm, i) => (gm / netSales[i] * 100).toFixed(1)),
+            netProfitMargin: netIncome.map((ni, i) => (ni / netSales[i] * 100).toFixed(1)),
+            currentRatio: currentAssets.map((ca, i) => (ca / currentLiabilities[i]).toFixed(2)),
+            debtToEquity: totalLiabilities.map((tl, i) => (tl / equity[i]).toFixed(2))
+        };
+    }
+    
+    const ratios = calculateRatios(appleFinancials);
+
+    function createOrUpdateChart(ratioKey) {
+        const data = ratios[ratioKey];
+        const label = interpretations[ratioKey].title;
+        const isPercentage = ratioKey.toLowerCase().includes('margin');
+
+        if (chart) {
+            chart.data.datasets[0].data = data;
+            chart.data.datasets[0].label = label;
+            chart.options.scales.y.ticks.callback = function(value) {
+                return isPercentage ? value + '%' : value;
+            };
+            chart.update();
+        } else {
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: appleFinancials.years.map(String),
+                    datasets: [{
+                        label: label,
+                        data: data,
+                        backgroundColor: [
+                            'rgba(44, 62, 80, 0.7)',
+                            'rgba(211, 84, 0, 0.7)',
+                            'rgba(127, 140, 141, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgb(44, 62, 80)',
+                            'rgb(211, 84, 0)',
+                            'rgb(127, 140, 141)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y + (isPercentage ? '%' : '');
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(200, 200, 200, 0.2)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return isPercentage ? value + '%' : value;
+                                }
+                            }
+                        },
+                        x: {
+                             grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    // --- DOM Manipulation ---
+    function populateFinancialsTable() {
+        const tableBody = document.getElementById('financialsTable');
+        const allData = {...appleFinancials.incomeStatement, ...appleFinancials.balanceSheet};
+        
+        for (const [key, values] of Object.entries(allData)) {
+            const row = document.createElement('tr');
+            let cells = `<td class="py-2 px-4">${key}</td>`;
+            values.forEach(value => {
+                cells += `<td class="py-2 px-4 text-right">${value.toLocaleString()}</td>`;
+            });
+            row.innerHTML = cells;
+            if (key === 'Net Income' || key === 'Shareholders\' Equity') {
+                row.classList.add('font-bold', 'bg-gray-50');
+            }
+            tableBody.appendChild(row);
+        }
+    }
+
+    function updateInterpretation(ratioKey) {
+        document.getElementById('interpretationTitle').textContent = interpretations[ratioKey].title;
+        document.getElementById('interpretationText').textContent = interpretations[ratioKey].text;
+    }
+
+    // --- Event Listeners ---
+    document.getElementById('ratioSelector').addEventListener('change', function() {
+        const selectedRatio = this.value;
+        createOrUpdateChart(selectedRatio);
+        updateInterpretation(selectedRatio);
+    });
+
+    document.querySelectorAll('.accordion-header').forEach(button => {
+        button.addEventListener('click', () => {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('span:last-child');
+            
+            // Close other accordions
+            document.querySelectorAll('.accordion-content').forEach(item => {
+                if (item !== content) {
+                    item.style.maxHeight = null;
+                    const otherIcon = item.previousElementSibling.querySelector('span:last-child');
+                    if (otherIcon) {
+                        otherIcon.textContent = '+';
+                        otherIcon.classList.remove('rotate-45');
+                    }
+                }
+            });
+
+            // Toggle current accordion
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                icon.textContent = '+';
+                icon.classList.remove('rotate-45');
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.textContent = '+';
+                icon.classList.add('rotate-45');
+            } 
+        });
+    });
+
+    // Mobile navigation
+    document.getElementById('mobile-nav').addEventListener('change', function(e) {
+        window.location.hash = e.target.value;
+    });
+
+    // Smooth scrolling for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // --- Initial Load ---
+    populateFinancialsTable();
+    createOrUpdateChart('grossProfitMargin');
+    updateInterpretation('grossProfitMargin');
+
+});
+</script>
+
+</body>
+</html>

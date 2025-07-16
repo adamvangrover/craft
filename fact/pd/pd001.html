@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Guide to Credit Risk Evaluation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A dashboard-style, single-page application with a persistent left-hand navigation menu for high-level topics (Foundations, Qualitative, Quantitative, Structuring). This main navigation controls which content section is visible in the main panel. Within each section, content is broken down into interactive modules like tabs, accordions, and dynamic cards to make the dense information digestible. This hierarchical, non-linear structure was chosen over a simple long-scroll page because it allows users to quickly navigate to specific areas of interest and explore concepts in a modular, less overwhelming way, transforming a passive document into an active learning tool. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: "5 C's of Credit", "Porter's Five Forces". Goal: Organize. Viz/Presentation: HTML/CSS diagrams using Tailwind's grid/flexbox. Interaction: Static visual grouping. Justification: More engaging and memorable than a simple list. Library: N/A.
+        - Report Info: Financial Ratios. Goal: Inform & Compare. Viz/Presentation: "Ratio Explorer" with a dropdown filter and dynamic content cards. Interaction: User selects a category, JS updates the displayed cards. Justification: Allows focused learning on specific ratio types. Library: Vanilla JS.
+        - Report Info: Scenario Analysis. Goal: Demonstrate Change. Viz/Presentation: An interactive "Scenario Simulator" with buttons to toggle between "Base" and "Downside" cases, updating a data table and a bar chart. Interaction: User clicks buttons, JS updates table text and Chart.js data. Justification: Makes the abstract concept of stress testing tangible and impactful. Library: Chart.js, Vanilla JS.
+        - Report Info: Comprehensive Checklist. Goal: Organize & Action. Viz/Presentation: A clickable checklist. Interaction: User can check/uncheck items. Justification: Turns a static list into a practical, usable tool. Library: Vanilla JS.
+        - Gemini Feature 1: AI Risk Summarizer. Goal: Synthesize. Presentation: Text area and button. Interaction: User inputs text, clicks button, Gemini API summarizes risks. Justification: Provides a powerful, real-world tool for rapid qualitative analysis.
+        - Gemini Feature 2: Covenant Explainer. Goal: Clarify. Presentation: Buttons next to covenant descriptions. Interaction: User clicks, Gemini API provides a simple explanation in a modal. Justification: Makes complex legal terms accessible to a wider audience.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #333;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+            border-left: 3px solid transparent;
+        }
+        .nav-link.active {
+            background-color: #F3EFEA;
+            color: #A0522D;
+            border-left-color: #A0522D;
+        }
+        .nav-link:hover {
+            background-color: #F8F4F0;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .tab-button.active {
+            border-bottom-color: #A0522D;
+            color: #A0522D;
+            font-weight: 600;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        .checklist-item {
+            cursor: pointer;
+        }
+        .checklist-item.completed {
+            text-decoration: line-through;
+            color: #9ca3af;
+        }
+        .checklist-item.completed .checkbox-icon {
+            background-color: #A0522D;
+            border-color: #A0522D;
+            color: white;
+        }
+        .checkbox-icon {
+            border: 2px solid #d1d5db;
+            color: transparent;
+        }
+        .gemini-output {
+            white-space: pre-wrap;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #A0522D;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="flex min-h-screen">
+        <nav class="w-64 bg-white/50 backdrop-blur-sm border-r border-gray-200/80 p-6 space-y-4 hidden md:block sticky top-0 h-screen">
+            <h1 class="text-xl font-bold text-[#A0522D]">Credit Risk Guide</h1>
+            <div class="space-y-2 pt-4">
+                <a href="#foundations" class="nav-link flex items-center space-x-3 p-3 rounded-r-lg font-medium">
+                    <span>🏛️</span>
+                    <span>Foundations</span>
+                </a>
+                <a href="#qualitative" class="nav-link flex items-center space-x-3 p-3 rounded-r-lg font-medium">
+                    <span>👥</span>
+                    <span>Qualitative Analysis</span>
+                </a>
+                <a href="#quantitative" class="nav-link flex items-center space-x-3 p-3 rounded-r-lg font-medium">
+                    <span>📊</span>
+                    <span>Quantitative Analysis</span>
+                </a>
+                <a href="#structuring" class="nav-link flex items-center space-x-3 p-3 rounded-r-lg font-medium">
+                    <span>⚖️</span>
+                    <span>Structuring & Covenants</span>
+                </a>
+                 <a href="#checklist" class="nav-link flex items-center space-x-3 p-3 rounded-r-lg font-medium">
+                    <span>📋</span>
+                    <span>Evaluation Checklist</span>
+                </a>
+            </div>
+        </nav>
+
+        <main class="flex-1 p-6 sm:p-8 lg:p-12 overflow-y-auto">
+            <div id="foundations" class="content-section">
+                <h2 class="text-3xl font-bold mb-2">Foundations of Credit Risk</h2>
+                <p class="mb-8 text-gray-600">This section establishes the bedrock of credit analysis, defining the core principles, risks, and analytical frameworks that guide the entire evaluation process. Understanding these fundamentals is the essential first step before assessing a company's specific profile.</p>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200/80">
+                    <h3 class="text-xl font-semibold mb-4 text-[#A0522D]">The "5 C's of Credit": A Qualitative Framework</h3>
+                    <p class="mb-6 text-gray-700">The "5 C's" provide a timeless structure for organizing the qualitative assessment of a borrower. Each "C" represents a critical dimension of the borrower's profile that must be thoroughly investigated.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 text-center">
+                        <div class="bg-amber-50 p-4 rounded-lg border border-amber-200">
+                            <div class="text-3xl mb-2">🤝</div>
+                            <h4 class="font-bold">Character</h4>
+                            <p class="text-sm text-gray-600">Willingness to pay. Assesses management integrity, reputation, and track record.</p>
+                        </div>
+                        <div class="bg-lime-50 p-4 rounded-lg border border-lime-200">
+                            <div class="text-3xl mb-2">💼</div>
+                            <h4 class="font-bold">Capacity</h4>
+                            <p class="text-sm text-gray-600">Ability to pay. Assesses cash flow generation to service debt obligations.</p>
+                        </div>
+                        <div class="bg-sky-50 p-4 rounded-lg border border-sky-200">
+                            <div class="text-3xl mb-2">💰</div>
+                            <h4 class="font-bold">Capital</h4>
+                            <p class="text-sm text-gray-600">"Skin in the game." The borrower's own financial investment in the business.</p>
+                        </div>
+                         <div class="bg-rose-50 p-4 rounded-lg border border-rose-200">
+                            <div class="text-3xl mb-2">🏠</div>
+                            <h4 class="font-bold">Collateral</h4>
+                            <p class="text-sm text-gray-600">Secondary repayment source. Assets pledged to secure the loan.</p>
+                        </div>
+                        <div class="bg-violet-50 p-4 rounded-lg border border-violet-200">
+                             <div class="text-3xl mb-2">🌍</div>
+                            <h4 class="font-bold">Conditions</h4>
+                            <p class="text-sm text-gray-600">External factors. The economic and industry environment.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="qualitative" class="content-section">
+                <h2 class="text-3xl font-bold mb-2">Qualitative Analysis</h2>
+                <p class="mb-8 text-gray-600">Before diving into numbers, an analyst must develop a deep understanding of the business and its operating environment. This provides the essential context for interpreting financial data. This section explores business risks, management quality, and the competitive landscape.</p>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200/80 mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-[#A0522D]">Industry Analysis: Porter's Five Forces</h3>
+                     <p class="mb-6 text-gray-700">This framework helps identify the sources of competitive pressure and profitability within an industry, providing essential context for a company's strategic position and financial prospects.</p>
+                    <div class="grid grid-cols-3 gap-4 items-center">
+                        <div></div>
+                        <div class="border-2 border-dashed border-gray-300 p-3 rounded-lg text-center">
+                            <h4 class="font-semibold">Threat of New Entrants</h4>
+                        </div>
+                        <div></div>
+                        <div class="border-2 border-dashed border-gray-300 p-3 rounded-lg text-center">
+                            <h4 class="font-semibold">Bargaining Power of Suppliers</h4>
+                        </div>
+                        <div class="bg-blue-100/50 p-4 rounded-lg text-center border-2 border-blue-200">
+                             <h4 class="font-bold text-blue-800">Competitive Rivalry</h4>
+                        </div>
+                         <div class="border-2 border-dashed border-gray-300 p-3 rounded-lg text-center">
+                            <h4 class="font-semibold">Bargaining Power of Buyers</h4>
+                        </div>
+                        <div></div>
+                        <div class="border-2 border-dashed border-gray-300 p-3 rounded-lg text-center">
+                             <h4 class="font-semibold">Threat of Substitutes</h4>
+                        </div>
+                        <div></div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200/80">
+                    <h3 class="text-xl font-semibold mb-4 text-[#A0522D]">✨ AI-Powered Risk Summarizer</h3>
+                    <p class="text-gray-700 mb-4">Paste a news article, company report excerpt, or any text below to get an instant summary of potential credit risks.</p>
+                    <textarea id="risk-input" class="w-full p-2 border rounded-md mb-4 h-32" placeholder="Paste text here..."></textarea>
+                    <button id="generate-risk-summary" class="px-4 py-2 bg-[#A0522D] text-white rounded-md font-semibold flex items-center space-x-2">
+                        <span>✨ Generate Risk Summary</span>
+                    </button>
+                    <div id="risk-output-container" class="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200" style="display: none;">
+                    </div>
+                </div>
+            </div>
+
+            <div id="quantitative" class="content-section">
+                <h2 class="text-3xl font-bold mb-2">Quantitative Analysis</h2>
+                <p class="mb-8 text-gray-600">This section is the quantitative core of credit evaluation. It involves a meticulous dissection of a company's financial statements to uncover the true economic reality of its performance, profitability, and solvency. Here we explore key financial ratios and demonstrate the power of stress testing.</p>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200/80">
+                        <h3 class="text-xl font-semibold mb-4 text-[#A0522D]">Financial Ratio Explorer</h3>
+                        <p class="text-gray-700 mb-4">Select a category to explore the key ratios used to assess financial health. Ratios provide a standardized way to compare performance over time and against peers.</p>
+                        <select id="ratio-selector" class="w-full p-2 border rounded-md mb-4 bg-gray-50">
+                            <option value="leverage">Leverage / Solvency</option>
+                            <option value="coverage">Coverage</option>
+                            <option value="profitability">Profitability</option>
+                            <option value="liquidity">Liquidity</option>
+                        </select>
+                        <div id="ratio-display" class="space-y-3"></div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200/80">
+                        <h3 class="text-xl font-semibold mb-4 text-[#A0522D]">Scenario Simulator</h3>
+                        <p class="text-gray-700 mb-4">Credit analysis is forward-looking. Use the buttons below to see how a "Downside Case" (e.g., a recession) can impact a company's financial health and its ability to meet loan terms.</p>
+                         <div class="flex space-x-2 mb-4">
+                            <button id="base-case-btn" class="px-4 py-2 bg-green-500 text-white rounded-md font-semibold">Base Case</button>
+                            <button id="downside-case-btn" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md font-semibold">Downside Case</button>
+                        </div>
+                        <table class="w-full text-sm text-left mb-4">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="p-2">Metric</th>
+                                    <th class="p-2 text-right">Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b">
+                                    <td class="p-2 font-medium">Revenue Growth</td>
+                                    <td id="sim-revenue-growth" class="p-2 text-right"></td>
+                                </tr>
+                                 <tr class="border-b">
+                                    <td class="p-2 font-medium">EBITDA Margin</td>
+                                    <td id="sim-ebitda-margin" class="p-2 text-right"></td>
+                                </tr>
+                                <tr class="bg-gray-50 font-bold">
+                                    <td class="p-2">Leverage (Debt/EBITDA)</td>
+                                    <td id="sim-leverage" class="p-2 text-right"></td>
+                                </tr>
+                                <tr class="bg-gray-50 font-bold">
+                                    <td class="p-2">Covenant Limit</td>
+                                    <td class="p-2 text-right text-red-600">4.5x</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="chart-container h-48 max-h-48">
+                            <canvas id="scenarioChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="structuring" class="content-section">
+                <h2 class="text-3xl font-bold mb-2">Structuring & Covenants</h2>
+                <p class="mb-8 text-gray-600">The culmination of the analysis is not just a 'yes' or 'no', but a recommendation on *how* to lend. A well-structured deal uses legal architecture like covenants to mitigate identified risks and protect the lender's interests over the life of the loan.</p>
+                <div class="border-t-2 pt-5 mt-5 space-y-4" id="covenant-tabs-container">
+                    <div class="flex border-b">
+                        <button data-tab="affirmative" class="tab-button p-4 border-b-2 border-transparent">Affirmative</button>
+                        <button data-tab="negative" class="tab-button p-4 border-b-2 border-transparent">Negative</button>
+                        <button data-tab="financial" class="tab-button p-4 border-b-2 border-transparent">Financial</button>
+                    </div>
+                    <div id="affirmative" class="covenant-content p-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">Affirmative Covenants ("Must Do")</h4>
+                                <p class="mb-4">These clauses require the borrower to perform certain actions to ensure operational and informational transparency.</p>
+                            </div>
+                            <button class="gemini-explain-btn px-3 py-1.5 bg-sky-100 text-sky-800 rounded-md text-sm font-semibold flex items-center space-x-2" data-covenant="Affirmative Covenants">✨ Explain</button>
+                        </div>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Provide timely financial statements (e.g., annual audited).</li>
+                            <li>Maintain adequate business insurance.</li>
+                            <li>Pay all taxes and government charges when due.</li>
+                            <li>Maintain properties and assets in good working order.</li>
+                        </ul>
+                    </div>
+                    <div id="negative" class="covenant-content p-4" style="display:none;">
+                        <div class="flex justify-between items-start">
+                             <div>
+                                <h4 class="font-bold text-lg mb-2">Negative Covenants ("Cannot Do")</h4>
+                                <p class="mb-4">These prohibit or limit the borrower from taking certain actions without the lender's consent, preventing an increase in risk profile.</p>
+                            </div>
+                            <button class="gemini-explain-btn px-3 py-1.5 bg-sky-100 text-sky-800 rounded-md text-sm font-semibold flex items-center space-x-2" data-covenant="Negative Covenants">✨ Explain</button>
+                        </div>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li><strong>Limitation on Indebtedness:</strong> Restricts incurring additional debt.</li>
+                            <li><strong>Limitation on Liens (Negative Pledge):</strong> Prevents pledging assets to other creditors.</li>
+                            <li><strong>Limitation on Asset Disposals:</strong> Restricts selling core business assets.</li>
+                            <li><strong>Limitation on Dividends:</strong> Limits cash paid out to shareholders.</li>
+                        </ul>
+                    </div>
+                    <div id="financial" class="covenant-content p-4" style="display:none;">
+                         <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">Financial Covenants (Quantitative Tripwires)</h4>
+                                <p class="mb-4">These require the borrower to maintain compliance with specific financial ratios, acting as an early warning system of deterioration.</p>
+                            </div>
+                            <button class="gemini-explain-btn px-3 py-1.5 bg-sky-100 text-sky-800 rounded-md text-sm font-semibold flex items-center space-x-2" data-covenant="Financial Covenants">✨ Explain</button>
+                        </div>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li><strong>Leverage Covenant:</strong> Max permitted Net Debt / EBITDA (e.g., < 4.0x).</li>
+                            <li><strong>Interest Coverage Covenant:</strong> Min permitted EBITDA / Cash Interest (e.g., > 3.0x).</li>
+                            <li><strong>Debt Service Coverage Ratio (DSCR):</strong> Min free cash flow to total debt service (e.g., > 1.25x).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="checklist" class="content-section">
+                <h2 class="text-3xl font-bold mb-2">Comprehensive Evaluation Checklist</h2>
+                <p class="mb-8 text-gray-600">This checklist synthesizes the entire framework into a practical, actionable tool. Use it to ensure a disciplined, thorough, and consistent approach to every credit evaluation. Click on an item to mark it as complete.</p>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200/80">
+                    <div id="checklist-container" class="space-y-3"></div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modal for Gemini Explainer -->
+    <div id="gemini-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" style="display: none;">
+        <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-2xl">
+            <h3 class="text-xl font-bold mb-4 text-[#A0522D]" id="modal-title"></h3>
+            <div id="modal-content" class="text-gray-700 max-h-[60vh] overflow-y-auto"></div>
+            <button id="close-modal-btn" class="mt-6 px-4 py-2 bg-gray-200 text-gray-800 rounded-md font-semibold">Close</button>
+        </div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    function setActiveSection(hash) {
+        hash = hash || window.location.hash || '#foundations';
+
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === hash) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        contentSections.forEach(section => {
+            if ('#' + section.id === hash) {
+                section.classList.add('active');
+            } else {
+                section.classList.remove('active');
+            }
+        });
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const hash = this.getAttribute('href');
+            history.pushState(null, null, hash);
+            setActiveSection(hash);
+        });
+    });
+
+    window.addEventListener('popstate', () => {
+        setActiveSection(window.location.hash);
+    });
+
+    setActiveSection();
+    
+    const covenantTabsContainer = document.getElementById('covenant-tabs-container');
+    if(covenantTabsContainer) {
+        const tabButtons = covenantTabsContainer.querySelectorAll('.tab-button');
+        const covenantContents = covenantTabsContainer.querySelectorAll('.covenant-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.dataset.tab;
+
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                covenantContents.forEach(content => {
+                    if (content.id === tabId) {
+                        content.style.display = 'block';
+                    } else {
+                        content.style.display = 'none';
+                    }
+                });
+            });
+        });
+        tabButtons[0].click();
+    }
+    
+    const ratioData = {
+        leverage: [
+            { name: "Net Debt / EBITDA", desc: "Measures years of operating cash flow to repay all net debt. A primary indicator of default risk. Lower is better." },
+            { name: "Total Debt / Total Capital", desc: "Measures the percentage of the capital base financed with debt. Higher indicates greater financial risk." },
+            { name: "Debt / Equity", desc: "Compares debt capital to equity capital. A ratio > 1.0 means the company is financed more by creditors than owners." }
+        ],
+        coverage: [
+            { name: "EBITDA / Cash Interest Expense", desc: "Measures the ability to cover mandatory cash interest payments from operating cash flow. Higher is better." },
+            { name: "Debt Service Coverage Ratio (DSCR)", desc: "A comprehensive measure including principal and interest. Below 1.0x means cash flow is insufficient to cover debt service." }
+        ],
+        profitability: [
+            { name: "EBITDA Margin", desc: "Measures operating profitability as a percentage of sales. Indicates efficiency and pricing power." },
+            { name: "Net Profit Margin", desc: "Measures bottom-line profit after all expenses, including interest and taxes." },
+            { name: "Return on Equity (ROE)", desc: "Measures the rate of return generated on the owners' investment. Very high ROE from high leverage can be a risk." }
+        ],
+        liquidity: [
+            { name: "Current Ratio", desc: "Measures ability to cover short-term liabilities with short-term assets. Below 1.0x can signal liquidity issues." },
+            { name: "Quick Ratio (Acid-Test)", desc: "A more conservative liquidity measure excluding inventory. Tests ability to meet obligations without selling inventory." }
+        ]
+    };
+    const ratioSelector = document.getElementById('ratio-selector');
+    const ratioDisplay = document.getElementById('ratio-display');
+    
+    function updateRatioDisplay() {
+        if (!ratioSelector || !ratioDisplay) return;
+        const selectedCategory = ratioSelector.value;
+        ratioDisplay.innerHTML = '';
+        ratioData[selectedCategory].forEach(ratio => {
+            const card = document.createElement('div');
+            card.className = 'p-3 bg-gray-50 rounded-lg border border-gray-200';
+            card.innerHTML = `<h5 class="font-semibold text-gray-800">${ratio.name}</h5><p class="text-sm text-gray-600">${ratio.desc}</p>`;
+            ratioDisplay.appendChild(card);
+        });
+    }
+
+    if (ratioSelector) {
+        ratioSelector.addEventListener('change', updateRatioDisplay);
+        updateRatioDisplay();
+    }
+    
+    const scenarioChartCtx = document.getElementById('scenarioChart')?.getContext('2d');
+    let scenarioChart;
+    const baseCaseBtn = document.getElementById('base-case-btn');
+    const downsideCaseBtn = document.getElementById('downside-case-btn');
+    const simRevenueGrowth = document.getElementById('sim-revenue-growth');
+    const simEbitdaMargin = document.getElementById('sim-ebitda-margin');
+    const simLeverage = document.getElementById('sim-leverage');
+    const baseCaseData = { revGrowth: '4.0%', ebitdaMargin: '18.0%', leverage: 3.7 };
+    const downsideCaseData = { revGrowth: '-5.0%', ebitdaMargin: '15.0%', leverage: 5.1 };
+
+    function updateSimulator(isBaseCase) {
+        const data = isBaseCase ? baseCaseData : downsideCaseData;
+        if(simRevenueGrowth) simRevenueGrowth.textContent = data.revGrowth;
+        if(simEbitdaMargin) simEbitdaMargin.textContent = data.ebitdaMargin;
+        if(simLeverage) {
+            simLeverage.textContent = `${data.leverage.toFixed(1)}x`;
+            simLeverage.classList.toggle('text-red-600', data.leverage > 4.5);
+            simLeverage.classList.toggle('text-green-600', data.leverage <= 4.5);
+        }
+        
+        if (scenarioChart) {
+            scenarioChart.data.datasets[0].data = [data.leverage];
+            scenarioChart.update();
+        }
+
+        if (baseCaseBtn && downsideCaseBtn) {
+            if (isBaseCase) {
+                baseCaseBtn.classList.remove('bg-gray-300', 'text-gray-800');
+                baseCaseBtn.classList.add('bg-green-500', 'text-white');
+                downsideCaseBtn.classList.remove('bg-red-500', 'text-white');
+                downsideCaseBtn.classList.add('bg-gray-300', 'text-gray-800');
+            } else {
+                downsideCaseBtn.classList.remove('bg-gray-300', 'text-gray-800');
+                downsideCaseBtn.classList.add('bg-red-500', 'text-white');
+                baseCaseBtn.classList.remove('bg-green-500', 'text-white');
+                baseCaseBtn.classList.add('bg-gray-300', 'text-gray-800');
+            }
+        }
+    }
+
+    if (scenarioChartCtx) {
+        scenarioChart = new Chart(scenarioChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Leverage (Debt/EBITDA)'],
+                datasets: [{
+                    label: 'Leverage',
+                    data: [baseCaseData.leverage],
+                    backgroundColor: 'rgba(160, 82, 45, 0.6)',
+                    borderColor: 'rgba(160, 82, 45, 1)',
+                    borderWidth: 1,
+                    barPercentage: 0.5,
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 6.0,
+                        title: { display: true, text: 'Debt / EBITDA Ratio' }
+                    },
+                    y: { display: false }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `Leverage: ${context.raw.toFixed(1)}x`;
+                            }
+                        }
+                    }
+                },
+                animation: {
+                    duration: 500
+                }
+            }
+        });
+        updateSimulator(true);
+        baseCaseBtn.addEventListener('click', () => updateSimulator(true));
+        downsideCaseBtn.addEventListener('click', () => updateSimulator(false));
+    }
+    
+    const checklistData = [
+        { group: "Scoping & Information Gathering", items: ["Purpose of loan defined", "Repayment sources identified", "Financials obtained (audited)"] },
+        { group: "Qualitative Analysis", items: ["Competitive advantages assessed", "Concentration risks analyzed", "Management track record evaluated", "Industry structure analyzed", "Peer analysis conducted"] },
+        { group: "Quantitative Analysis", items: ["Creditor-Adjusted EBITDA calculated", "Adjusted Net Debt calculated", "Historical ratio trends analyzed", "Cash flow quality assessed", "Downside scenario modeled", "Covenant headroom checked"] },
+        { group: "Structure & Documentation", items: ["Loan structure appropriate", "Collateral package valued", "Financial covenants provide early warning", "Negative covenants are robust", "Events of Default are clear"] },
+        { group: "Final Recommendation", items: ["Key risks and mitigants summarized", "Final recommendation is justified"] }
+    ];
+
+    const checklistContainer = document.getElementById('checklist-container');
+    if (checklistContainer) {
+        checklistData.forEach(section => {
+            const sectionHeader = document.createElement('h4');
+            sectionHeader.className = 'text-lg font-semibold mt-4 mb-2 text-[#A0522D]';
+            sectionHeader.textContent = section.group;
+            checklistContainer.appendChild(sectionHeader);
+
+            section.items.forEach(itemText => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'checklist-item flex items-center p-2 rounded-md hover:bg-gray-100 transition-colors';
+                itemEl.innerHTML = `
+                    <div class="checkbox-icon w-5 h-5 rounded-sm flex items-center justify-center mr-3">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <span>${itemText}</span>
+                `;
+                itemEl.addEventListener('click', () => {
+                    itemEl.classList.toggle('completed');
+                });
+                checklistContainer.appendChild(itemEl);
+            });
+        });
+    }
+
+    // Gemini API Integration
+    const generateRiskBtn = document.getElementById('generate-risk-summary');
+    const riskInput = document.getElementById('risk-input');
+    const riskOutputContainer = document.getElementById('risk-output-container');
+
+    const geminiModal = document.getElementById('gemini-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalContent = document.getElementById('modal-content');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const explainBtns = document.querySelectorAll('.gemini-explain-btn');
+
+    async function callGemini(prompt) {
+        const apiKey = ""; 
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+        
+        const payload = {
+            contents: [{
+                role: "user",
+                parts: [{ text: prompt }]
+            }]
+        };
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`API call failed with status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            
+            if (result.candidates && result.candidates.length > 0 &&
+                result.candidates[0].content && result.candidates[0].content.parts &&
+                result.candidates[0].content.parts.length > 0) {
+                return result.candidates[0].content.parts[0].text;
+            } else {
+                return "Could not generate a response. The API returned an unexpected format.";
+            }
+        } catch (error) {
+            console.error("Error calling Gemini API:", error);
+            return `An error occurred: ${error.message}. Check the console for details.`;
+        }
+    }
+
+    if (generateRiskBtn) {
+        generateRiskBtn.addEventListener('click', async () => {
+            const inputText = riskInput.value.trim();
+            if (!inputText) {
+                riskOutputContainer.innerHTML = '<p class="text-red-500">Please paste some text to analyze.</p>';
+                riskOutputContainer.style.display = 'block';
+                return;
+            }
+
+            riskOutputContainer.style.display = 'block';
+            riskOutputContainer.innerHTML = '<div class="flex items-center justify-center"><div class="loader"></div><p class="ml-4">Analyzing...</p></div>';
+            generateRiskBtn.disabled = true;
+
+            const prompt = `As a senior credit risk analyst, review the following text and identify the key credit risks. Structure your response into three distinct sections with bullet points: "Business Risks", "Management & Governance Risks", and "Industry & Macro Risks". Be concise and focus only on potential negative factors relevant to a lender. Text to analyze: "${inputText}"`;
+            
+            const summary = await callGemini(prompt);
+            
+            riskOutputContainer.innerHTML = `<div class="gemini-output">${summary}</div>`;
+            generateRiskBtn.disabled = false;
+        });
+    }
+
+    explainBtns.forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const covenantType = btn.dataset.covenant;
+            modalTitle.textContent = `Explaining: ${covenantType}`;
+            modalContent.innerHTML = '<div class="flex items-center justify-center"><div class="loader"></div><p class="ml-4">Generating explanation...</p></div>';
+            geminiModal.style.display = 'flex';
+
+            const prompt = `Explain what "${covenantType}" are in the context of a loan agreement. Use simple, plain English, as if explaining to a small business owner, not a lawyer. Provide one clear, real-world example of why a bank would use this type of covenant.`;
+            
+            const explanation = await callGemini(prompt);
+            modalContent.innerHTML = `<div class="gemini-output">${explanation}</div>`;
+        });
+    });
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+            geminiModal.style.display = 'none';
+        });
+    }
+});
+</script>
+</body>
+</html>

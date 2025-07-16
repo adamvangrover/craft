@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Risk Evaluation Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="pd.css">
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <header class="bg-white shadow-md">
+        <nav class="container mx-auto px-6 py-4">
+            <h1 class="text-3xl font-bold text-gray-800">Credit Risk Evaluation Hub</h1>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <aside class="lg:col-span-1">
+                <div class="bg-white p-6 rounded-lg shadow-md sticky top-8">
+                    <h2 class="text-xl font-bold mb-4">Learning Path</h2>
+                    <ul id="learning-path" class="space-y-2">
+                        <li><a href="#section-1" class="block font-semibold text-lg text-gray-700 hover:text-blue-600">Foundations of Credit Risk</a></li>
+                        <li><a href="#section-2" class="block font-semibold text-lg text-gray-700 hover:text-blue-600">Qualitative Analysis</a></li>
+                        <li><a href="#section-3" class="block font-semibold text-lg text-gray-700 hover:text-blue-600">Quantitative Analysis</a></li>
+                        <li><a href="#section-4" class="block font-semibold text-lg text-gray-700 hover:text-blue-600">Structuring & Covenants</a></li>
+                        <li><a href="#section-5" class="block font-semibold text-lg text-gray-700 hover:text-blue-600">Writing the Narrative</a></li>
+                    </ul>
+                </div>
+            </aside>
+            <div id="content" class="lg:col-span-3">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <script src="pd.js"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNC Rating Guide</title>
+    <link rel="stylesheet" href="snc_rating_guide.css">
+</head>
+<body>
+    <div class="container">
+        <h1>SNC Rating Guide</h1>
+
+        <div id="introduction" class="section">
+            <h2>Introduction</h2>
+            <p>Welcome, financial analyst! This guide is designed to help you leverage our comprehensive JSON prompt library to conduct a thorough and standardized corporate credit risk review. The goal of this library is to provide a structured framework for your analysis, ensuring all critical aspects of credit risk are considered consistently and efficiently. By using these structured prompts, you can enhance the quality, depth, and consistency of your credit assessments, whether for a new underwriting, an annual review, or ongoing monitoring.</p>
+            <p>This guide provides a comprehensive framework for credit analysts to determine the regulatory rating of any credit. It incorporates SNC/OCC guidelines, quantitative and qualitative elements, and interactive checklists to help you classify, justify, and explain your rating conclusions.</p>
+        </div>
+
+        <div id="regulatory-guidelines" class="section">
+            <h2>Regulatory Guidelines</h2>
+            <div class="guideline">
+                <h3>Collateral Risk Assessment</h3>
+                <p><strong>Guideline:</strong> <span class="guideline-text" data-guideline="collateral_risk"></span></p>
+                <button class="guideline-toggle" data-guideline="collateral_risk">Show/Hide Guideline</button>
+            </div>
+            <div class="guideline">
+                <h3>Repayment Capacity</h3>
+                <p><strong>Guideline:</strong> <span class="guideline-text" data-guideline="repayment_capacity"></span></p>
+                <button class="guideline-toggle" data-guideline="repayment_capacity">Show/Hide Guideline</button>
+            </div>
+            <div class="guideline">
+                <h3>Non-Accrual Status Indication</h3>
+                <p><strong>Guideline:</strong> <span class="guideline-text" data-guideline="non_accrual_status"></span></p>
+                <button class="guideline-toggle" data-guideline="non_accrual_status">Show/Hide Guideline</button>
+            </div>
+        </div>
+
+        <div id="quantitative-analysis" class="section">
+            <h2>Quantitative Analysis</h2>
+            <form id="quantitative-form">
+                <div class="form-group">
+                    <label for="roe">Return on Equity (ROE)</label>
+                    <input type="number" id="roe" name="roe" step="0.01" value="0.15">
+                </div>
+                <div class="form-group">
+                    <label for="op_margin">Operating Margin</label>
+                    <input type="number" id="op_margin" name="op_margin" step="0.01" value="0.12">
+                </div>
+                <div class="form-group">
+                    <label for="net_debt_ebitda">Net Debt / EBITDA</label>
+                    <input type="number" id="net_debt_ebitda" name="net_debt_ebitda" step="0.1" value="3.0">
+                </div>
+                <div class="form-group">
+                    <label for="debt_capital">Total Debt / Capital</label>
+                    <input type="number" id="debt_capital" name="debt_capital" step="0.01" value="0.50">
+                </div>
+                <div class="form-group">
+                    <label for="ocfl_debt">Operating Cash Flow / Total Debt</label>
+                    <input type="number" id="ocfl_debt" name="ocfl_debt" step="0.01" value="0.25">
+                </div>
+                <div class="form-group">
+                    <label for="current_ratio">Current Ratio</label>
+                    <input type="number" id="current_ratio" name="current_ratio" step="0.1" value="1.8">
+                </div>
+                <div class="form-group">
+                    <label for="quick_ratio">Quick Ratio</label>
+                    <input type="number" id="quick_ratio" name="quick_ratio" step="0.1" value="1.0">
+                </div>
+                <div class="form-group">
+                    <label for="st_debt_pct">Short-Term Debt % of Total Debt</label>
+                    <input type="number" id="st_debt_pct" name="st_debt_pct" step="0.01" value="0.30">
+                </div>
+            </form>
+        </div>
+
+        <div id="qualitative-analysis" class="section">
+            <h2>Qualitative Analysis</h2>
+            <form id="qualitative-form">
+                <div class="form-group">
+                    <label>Net Income Trend</label>
+                    <div class="radio-group">
+                        <input type="radio" id="ni_trend_growing" name="ni_trend" value="Consistently Growing" checked>
+                        <label for="ni_trend_growing">Consistently Growing</label>
+                        <input type="radio" id="ni_trend_stable" name="ni_trend" value="Stable">
+                        <label for="ni_trend_stable">Stable</label>
+                        <input type="radio" id="ni_trend_declining" name="ni_trend" value="Declining">
+                        <label for="ni_trend_declining">Declining</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Free Cash Flow (FCF) Generation</label>
+                    <div class="radio-group">
+                        <input type="radio" id="fcf_gen_positive" name="fcf_gen" value="Consistently Positive" checked>
+                        <label for="fcf_gen_positive">Consistently Positive</label>
+                        <input type="radio" id="fcf_gen_volatile" name="fcf_gen" value="Volatile">
+                        <label for="fcf_gen_volatile">Volatile</label>
+                        <input type="radio" id="fcf_gen_negative" name="fcf_gen" value="Negative">
+                        <label for="fcf_gen_negative">Negative</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Debt Maturity Profile</label>
+                    <div class="radio-group">
+                        <input type="radio" id="maturity_profile_well_laddered" name="maturity_profile" value="Well-Laddered" checked>
+                        <label for="maturity_profile_well_laddered">Well-Laddered</label>
+                        <input type="radio" id="maturity_profile_concentrated" name="maturity_profile" value="Concentrated">
+                        <label for="maturity_profile_concentrated">Concentrated</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Industry Cyclicality</label>
+                    <div class="radio-group">
+                        <input type="radio" id="ind_cyclicality_low" name="ind_cyclicality" value="Low" checked>
+                        <label for="ind_cyclicality_low">Low</label>
+                        <input type="radio" id="ind_cyclicality_moderate" name="ind_cyclicality" value="Moderate">
+                        <label for="ind_cyclicality_moderate">Moderate</label>
+                        <input type="radio" id="ind_cyclicality_high" name="ind_cyclicality" value="High">
+                        <label for="ind_cyclicality_high">High</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Competitive Intensity</label>
+                    <div class="radio-group">
+                        <input type="radio" id="ind_competition_low" name="ind_competition" value="Low">
+                        <label for="ind_competition_low">Low</label>
+                        <input type="radio" id="ind_competition_moderate" name="ind_competition" value="Moderate" checked>
+                        <label for="ind_competition_moderate">Moderate</label>
+                        <input type="radio" id="ind_competition_high" name="ind_competition" value="High">
+                        <label for="ind_competition_high">High</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Product/Service Diversification</label>
+                    <div class="radio-group">
+                        <input type="radio" id="diversification_high" name="diversification" value="High" checked>
+                        <label for="diversification_high">High</label>
+                        <input type="radio" id="diversification_moderate" name="diversification" value="Moderate">
+                        <label for="diversification_moderate">Moderate</label>
+                        <input type="radio" id="diversification_low" name="diversification" value="Low">
+                        <label for="diversification_low">Low</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="indicative-rating-section" class="section">
+            <h2>Indicative Rating</h2>
+            <div id="indicative-rating">
+                <!-- The indicative rating will be displayed here -->
+                PASS
+            </div>
+        </div>
+    </div>
+
+    <script src="snc_rating_guide.js"></script>
+</body>
+</html>
