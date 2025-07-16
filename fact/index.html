@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Analysis and Credit Toolkit (FACT)</title>
     <link rel="stylesheet" href="fact.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <header>
         <h1>Financial Analysis and Credit Toolkit (FACT)</h1>
         <nav>
             <ul>
-                <li><a href="overview.md">Overview</a></li>
-                <li><a href="learning_path.md">Learning Path</a></li>
-                <li><a href="case_studies.md">Case Studies</a></li>
-                <li><a href="glossary.md">Glossary</a></li>
+                <li><a href="#overview" onclick="loadMarkdown('overview.md')">Overview</a></li>
+                <li><a href="#learning-path" onclick="loadMarkdown('learning_path.md')">Learning Path</a></li>
+                <li><a href="#case-studies" onclick="loadMarkdown('case_studies.md')">Case Studies</a></li>
+                <li><a href="#glossary" onclick="loadMarkdown('glossary.md')">Glossary</a></li>
             </ul>
         </nav>
     </header>
@@ -40,9 +41,79 @@
                 </div>
             </div>
         </section>
+
+        <section id="overviews">
+            <h2>Overviews</h2>
+            <ul>
+                <li><a href="#overview" onclick="loadMarkdown('overview.md')">FACT Overview</a></li>
+                <li><a href="fra/index.html" onclick="loadMarkdown('fra/index.md')">FRA Overview</a></li>
+                <li><a href="pd/index.html" onclick="loadMarkdown('pd/index.md')">PD Overview</a></li>
+                <li><a href="rr/index.html" onclick="loadMarkdown('rr/index.md')">RR Overview</a></li>
+            </ul>
+        </section>
+
+        <section id="development-paths">
+            <h2>Development Paths</h2>
+            <ul>
+                <li><a href="#learning-path" onclick="loadMarkdown('learning_path.md')">Analyst Development Program</a></li>
+            </ul>
+        </section>
+
+        <section id="key-learning-outcomes">
+            <h2>Key Learning Outcomes</h2>
+            <ul>
+                <li>Understand and interpret financial statements.</li>
+                <li>Assess credit risk and probability of default.</li>
+                <li>Navigate regulatory frameworks and ensure compliance.</li>
+            </ul>
+        </section>
+
+        <section id="link-repository">
+            <h2>Link Repository</h2>
+            <h3>Financial Reporting and Analysis (FRA)</h3>
+            <ul>
+                <li><a href="fra/index.html">FRA Main Page</a></li>
+                <li><a href="#fra-guide" onclick="loadMarkdown('fra/fra1.md')">Beginner's Guide to FRA</a></li>
+                <li><a href="#fra-comprehensive" onclick="loadMarkdown('fra/fra2.md')">Comprehensive FRA</a></li>
+                <li><a href="#fra-case-study" onclick="loadMarkdown('fra/fra3.md')">Apple Inc. Case Study</a></li>
+                <li><a href="#fra-real-world" onclick="loadMarkdown('fra/real_world_examples.md')">Real-World Examples</a></li>
+            </ul>
+            <h3>Probability of Default (PD)</h3>
+            <ul>
+                <li><a href="pd/index.html">PD Main Page</a></li>
+                <li><a href="#pd-intro" onclick="loadMarkdown('pd/pd0.md')">Introduction to Credit Risk</a></li>
+                <li><a href="#pd-guide" onclick="loadMarkdown('pd/pd1.md')">Fundamental Credit Risk Evaluation</a></li>
+                <li><a href="#pd-expert-guide" onclick="loadMarkdown('pd/pd2.md')">Expert's Guide to Credit Risk</a></li>
+                <li><a href="#pd-5cs" onclick="loadMarkdown('pd/pd3.md')">The 5 C's of Credit</a></li>
+                <li><a href="#pd-ratios" onclick="loadMarkdown('pd/pd4.md')">Financial Ratios for Credit Risk</a></li>
+                <li><a href="#pd-narrative" onclick="loadMarkdown('pd/pd5.md')">Writing a Credit Narrative</a></li>
+                <li><a href="#pd-models" onclick="loadMarkdown('pd/risk_assessment_models.md')">Risk Assessment Models</a></li>
+            </ul>
+            <h3>Regulatory Risk (RR)</h3>
+            <ul>
+                <li><a href="rr/index.html">RR Main Page</a></li>
+                <li><a href="rr/rr1.html">Detailed Guide to Regulatory Risk</a></li>
+                <li><a href="#rr-covenants" onclick="loadMarkdown('rr/rr2.md')">Understanding Loan Covenants</a></li>
+                <li><a href="#rr-frameworks" onclick="loadMarkdown('rr/regulatory_frameworks.md')">Regulatory Frameworks</a></li>
+                <li><a href="rr/snc_rating_guide.html">SNC Rating Guide</a></li>
+            </ul>
+        </section>
+
+        <section id="markdown-viewer">
+            <div id="markdown-content"></div>
+        </section>
     </main>
     <footer>
         <p>&copy; 2024 Your Company. All rights reserved.</p>
     </footer>
+    <script>
+        function loadMarkdown(file) {
+            fetch(file)
+                .then(response => response.text())
+                .then(text => {
+                    document.getElementById('markdown-content').innerHTML = marked(text);
+                });
+        }
+    </script>
 </body>
 </html>

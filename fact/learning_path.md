@@ -10,7 +10,7 @@ This level is designed for new analysts or those looking to solidify their under
     *   **Objective:** Understand the building blocks of financial statements and how to perform basic financial analysis.
     *   **Resources:**
         *   [Introduction to Financial Reporting and Analysis](./fra/index.html)
-        *   [Deep Dive: Analyzing Financial Statements](./fra/fra01.md)
+        *   [Deep Dive: Analyzing Financial Statements](./fra/fra1.md)
         *   [Case Study: Basic Company Analysis](./fra/fra02.md)
 
 *   **Step 2: Introduction to Credit Risk**
@@ -32,7 +32,7 @@ Building on the foundational knowledge from Level 1, this level introduces more 
     *   **Objective:** Explore the methodologies for assessing credit risk in greater detail.
     *   **Resources:**
         *   [Risk Assessment Models](./pd/risk_assessment_models.md)
-        *   [Case Study: Corporate Credit Rating](./pd/pd01.md)
+        *   [Case Study: Corporate Credit Rating](./pd/pd1.md)
 
 *   **Step 3: Introduction to Regulatory Frameworks**
     *   **Objective:** Become familiar with the regulatory landscape and its impact on financial analysis.
