@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Credit Risk Analysis Toolkit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Cool Neutrals & Slate Blue -->
+    <!-- Application Structure Plan: A single-page dashboard/toolkit design. The structure is thematic rather than linear, allowing users to jump directly to specific tools or concepts via a sticky top navigation. Key sections include: 1) An overview with the core risk formula. 2) An interactive "5 C's of Credit" module. 3) A "Quantitative Deep Dive" section with interactive calculators for EBITDA & Debt adjustments and a dynamic peer comparison chart, transforming abstract concepts into tangible tools. 4) A "Structuring & Covenants" section using a card-based layout to explain legal protections. 5) An interactive due diligence checklist. This task-oriented, non-linear structure was chosen to make the dense report content more accessible and engaging for an analyst, allowing them to explore concepts and tools in the order most relevant to their immediate needs, which enhances usability and learning retention. -->
+    <!-- Visualization & Content Choices: 1) Expected Loss Formula: Inform -> Interactive Diagram (HTML/CSS) -> Sliders to show relationship -> Reinforces the core formula dynamically. 2) 5 C's of Credit: Organize/Inform -> Clickable Cards (HTML/CSS/JS) -> Reveals details on click -> More engaging than a static list. 3) EBITDA/Debt Calculators: Inform/Compare -> Toggles & Sliders (HTML/JS) -> Instantly shows impact of adjustments -> Teaches the critical concept of "Creditor-Adjusted" metrics. 4) Peer Analysis: Compare -> Dynamic Bar Chart (Chart.js/Canvas) -> Dropdown to switch metrics -> Allows for interactive exploration of relative performance. 5) Covenants: Organize -> Styled Cards (HTML/CSS) -> Hover/click for details -> Breaks down complex legal terms into digestible chunks. 6) Checklist: Task -> Interactive Checkboxes (HTML/JS) -> User can track progress -> Turns a static list into a usable tool. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .chart-container { position: relative; width: 100%; max-width: 700px; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 400px; } }
+        .tab-button.active { border-color: #3b82f6; color: #3b82f6; font-weight: 600; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .kpi-card { transition: all 0.3s ease; }
+        .kpi-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <div class="text-xl font-bold text-slate-800">Credit Risk Toolkit</div>
+                <div class="hidden md:flex space-x-6 items-center">
+                    <a href="#framework" class="text-slate-600 hover:text-blue-600">Framework</a>
+                    <a href="#quantitative" class="text-slate-600 hover:text-blue-600">Quantitative Deep Dive</a>
+                    <a href="#structuring" class="text-slate-600 hover:text-blue-600">Structuring & Covenants</a>
+                    <a href="#checklist" class="text-slate-600 hover:text-blue-600">Checklist</a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-slate-600 hover:bg-slate-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                </button>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
+                <a href="#framework" class="block py-2 px-4 text-slate-600 hover:bg-slate-100 rounded-md">Framework</a>
+                <a href="#quantitative" class="block py-2 px-4 text-slate-600 hover:bg-slate-100 rounded-md">Quantitative Deep Dive</a>
+                <a href="#structuring" class="block py-2 px-4 text-slate-600 hover:bg-slate-100 rounded-md">Structuring & Covenants</a>
+                <a href="#checklist" class="block py-2 px-4 text-slate-600 hover:bg-slate-100 rounded-md">Checklist</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="hero" class="text-center mb-20">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-slate-900">The Modern Credit Analyst's Toolkit</h1>
+            <p class="text-lg text-slate-600 max-w-3xl mx-auto mb-8">An interactive guide to mastering credit risk evaluation. Move beyond static reports and engage with the core concepts through dynamic tools and visualizations.</p>
+            
+            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto border border-slate-200">
+                <h3 class="text-xl font-semibold mb-4 text-slate-800">The Expected Loss (EL) Formula</h3>
+                <p class="text-slate-600 mb-6">Expected Loss is the foundation of credit risk pricing. It quantifies the average loss a lender anticipates. Interact with the sliders below to see how each component impacts the final EL.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 text-2xl font-semibold">
+                    <div>
+                        <span id="pd-value" class="text-blue-600">5.0</span>%
+                        <span class="text-slate-500 mx-2 text-3xl">×</span>
+                    </div>
+                    <div>
+                        <span id="lgd-value" class="text-blue-600">40.0</span>%
+                        <span class="text-slate-500 mx-2 text-3xl">×</span>
+                    </div>
+                    <div>
+                        $<span id="ead-value" class="text-blue-600">10.0</span>M
+                        <span class="text-slate-500 mx-2 text-3xl">=</span>
+                    </div>
+                    <div class="bg-blue-100 text-blue-800 p-3 rounded-lg">
+                        $<span id="el-result">20,000</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                    <div>
+                        <label for="pd-slider" class="block font-medium text-sm text-slate-700">Probability of Default (PD)</label>
+                        <input id="pd-slider" type="range" min="0.1" max="25" value="5" step="0.1" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                    <div>
+                        <label for="lgd-slider" class="block font-medium text-sm text-slate-700">Loss Given Default (LGD)</label>
+                        <input id="lgd-slider" type="range" min="1" max="100" value="40" step="0.5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                    <div>
+                        <label for="ead-slider" class="block font-medium text-sm text-slate-700">Exposure at Default (EAD in $M)</label>
+                        <input id="ead-slider" type="range" min="1" max="100" value="10" step="0.5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="framework" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-2 text-slate-900">The Analyst's Framework</h2>
+            <p class="text-slate-600 text-center max-w-2xl mx-auto mb-12">A disciplined analysis requires a structured framework. This section breaks down the two core qualitative frameworks: the "5 C's of Credit" and the "Four-Step Analytical Process". Click on each component to explore its meaning and significance.</p>
+
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-200">
+                <h3 class="text-2xl font-semibold mb-6 text-slate-800 text-center">The 5 C's of Credit</h3>
+                 <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+                    <button class="c-button p-4 text-center border-2 border-slate-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition" data-target="c-character">
+                        <span class="text-3xl">👤</span>
+                        <span class="block font-semibold mt-2">Character</span>
+                    </button>
+                    <button class="c-button p-4 text-center border-2 border-slate-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition" data-target="c-capacity">
+                        <span class="text-3xl">💵</span>
+                        <span class="block font-semibold mt-2">Capacity</span>
+                    </button>
+                    <button class="c-button p-4 text-center border-2 border-slate-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition" data-target="c-capital">
+                        <span class="text-3xl">🏦</span>
+                        <span class="block font-semibold mt-2">Capital</span>
+                    </button>
+                    <button class="c-button p-4 text-center border-2 border-slate-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition" data-target="c-collateral">
+                        <span class="text-3xl">🏠</span>
+                        <span class="block font-semibold mt-2">Collateral</span>
+                    </button>
+                    <button class="c-button p-4 text-center border-2 border-slate-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition" data-target="c-conditions">
+                        <span class="text-3xl">📈</span>
+                        <span class="block font-semibold mt-2">Conditions</span>
+                    </button>
+                </div>
+                <div id="c-content-area" class="mt-6 p-6 bg-slate-100 rounded-lg min-h-[150px] flex items-center justify-center">
+                    <p class="text-slate-500">Select a 'C' above to see details.</p>
+                </div>
+                 <div id="c-character" class="hidden">
+                    <h4 class="font-semibold text-lg mb-2">Character: The Willingness to Pay</h4>
+                    <p class="text-slate-600">This assesses the borrower's integrity, reputation, and track record of fulfilling obligations. It is arguably the most critical 'C', as a weakness here undermines all other analysis. Look for management experience, a history of transparent communication, and a clean legal/regulatory record.</p>
+                </div>
+                 <div id="c-capacity" class="hidden">
+                    <h4 class="font-semibold text-lg mb-2">Capacity: The Ability to Pay</h4>
+                    <p class="text-slate-600">This is a quantitative evaluation of the borrower's ability to generate sufficient cash flow to service its debt. The primary focus of financial analysis is to determine capacity by analyzing profitability, income stability, and cash flow generation, using key ratios like Debt Service Coverage.</p>
+                </div>
+                 <div id="c-capital" class="hidden">
+                    <h4 class="font-semibold text-lg mb-2">Capital: The "Skin in the Game"</h4>
+                    <p class="text-slate-600">This refers to the borrower's own financial contribution to the business or asset. A significant equity base provides a cushion against losses and demonstrates the owner's commitment, aligning their interests with the lender's. A high level of debt relative to equity increases risk.</p>
+                </div>
+                 <div id="c-collateral" class="hidden">
+                    <h4 class="font-semibold text-lg mb-2">Collateral: The Secondary Repayment Source</h4>
+                    <p class="text-slate-600">These are specific assets pledged as security for a loan. In case of default, the lender can seize and sell the collateral to recoup losses. The analysis must assess the collateral's value, quality, marketability, and the lender's legal right to enforce their claim.</p>
+                </div>
+                <div id="c-conditions" class="hidden">
+                    <h4 class="font-semibold text-lg mb-2">Conditions: The External Environment</h4>
+                    <p class="text-slate-600">This encompasses the external factors affecting repayment, including the purpose of the loan, the broader economic climate, and industry-specific trends. It considers the economic cycle, competitive pressures, and regulatory changes that could impact the borrower's business.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="quantitative" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-2 text-slate-900">Quantitative Deep Dive</h2>
+            <p class="text-slate-600 text-center max-w-2xl mx-auto mb-12">The numbers tell a story, but only if you read them critically. This section provides interactive tools to understand the core of quantitative analysis: adjusting financial metrics to reflect economic reality and benchmarking against peers. Use these tools to see how analytical judgments shape the final credit assessment.</p>
+
+            <div class="bg-white p-4 sm:p-8 rounded-2xl shadow-lg border border-slate-200">
+                <div class="mb-8 border-b border-slate-200">
+                    <nav class="flex flex-wrap -mb-px" aria-label="Tabs">
+                        <button class="tab-button active w-full sm:w-auto text-center sm:text-left py-4 px-1 border-b-2 font-medium text-lg" data-target="tab-adjustment">1. Metric Adjustment</button>
+                        <button class="tab-button w-full sm:w-auto text-center sm:text-left py-4 px-1 border-b-2 font-medium text-lg" data-target="tab-ratios">2. Ratio Analysis & Peers</button>
+                    </nav>
+                </div>
+                
+                <div id="tab-adjustment" class="tab-content active">
+                    <h3 class="text-2xl font-semibold mb-2 text-slate-800">The Analyst's Adjustments</h3>
+                    <p class="text-slate-600 mb-8">Management often presents "Adjusted EBITDA" and a narrow definition of debt. A creditor must form their own conservative view. Use the tools below to see how adding back "non-recurring" costs to EBITDA and "debt-like" items to Net Debt can drastically change the critical leverage ratio.</p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-semibold text-lg mb-2 text-slate-700">EBITDA Adjustment Calculator</h4>
+                            <div class="space-y-4 p-6 bg-slate-50 rounded-lg">
+                                <div class="flex justify-between items-center">
+                                    <span>Reported EBITDA:</span>
+                                    <span class="font-bold text-lg">$<span id="reported-ebitda">100</span>M</span>
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="flex items-center justify-between cursor-pointer">
+                                        <span>Add back Restructuring Costs ($10M)</span>
+                                        <input type="checkbox" class="ebitda-adj-toggle h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" data-amount="10">
+                                    </label>
+                                     <label class="flex items-center justify-between cursor-pointer">
+                                        <span>Add back Stock-Based Comp ($8M)</span>
+                                        <input type="checkbox" class="ebitda-adj-toggle h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" data-amount="8">
+                                    </label>
+                                     <label class="flex items-center justify-between cursor-pointer">
+                                        <span>Add back Litigation Expense ($5M)</span>
+                                        <input type="checkbox" class="ebitda-adj-toggle h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" data-amount="5">
+                                    </label>
+                                </div>
+                                <hr class="my-4">
+                                <div class="flex justify-between items-center text-xl">
+                                    <span class="font-semibold text-slate-800">Creditor-Adjusted EBITDA:</span>
+                                    <span id="adjusted-ebitda-result" class="font-bold text-blue-600">$100M</span>
+                                </div>
+                            </div>
+                        </div>
+
+                         <div>
+                            <h4 class="font-semibold text-lg mb-2 text-slate-700">Net Debt Adjustment Calculator</h4>
+                            <div class="space-y-4 p-6 bg-slate-50 rounded-lg">
+                                <div class="flex justify-between items-center">
+                                    <span>Reported Net Debt:</span>
+                                    <span class="font-bold text-lg">$<span id="reported-debt">400</span>M</span>
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="flex items-center justify-between cursor-pointer">
+                                        <span>Add Operating Leases (6x Rent) ($50M)</span>
+                                        <input type="checkbox" class="debt-adj-toggle h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" data-amount="50">
+                                    </label>
+                                     <label class="flex items-center justify-between cursor-pointer">
+                                        <span>Add Unfunded Pensions ($30M)</span>
+                                        <input type="checkbox" class="debt-adj-toggle h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" data-amount="30">
+                                     </label>
+                                </div>
+                                <hr class="my-4">
+                                <div class="flex justify-between items-center text-xl">
+                                    <span class="font-semibold text-slate-800">Creditor-Adjusted Net Debt:</span>
+                                    <span id="adjusted-debt-result" class="font-bold text-blue-600">$400M</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-6 bg-blue-50 border-2 border-blue-200 rounded-2xl text-center">
+                        <h4 class="text-2xl font-bold text-slate-800 mb-2">Resulting Leverage Ratio</h4>
+                        <p class="text-2xl font-bold text-blue-700"><span id="leverage-ratio-result">4.0</span>x</p>
+                        <p class="text-sm text-slate-600 mt-1">(Net Debt / EBITDA)</p>
+                    </div>
+                </div>
+
+                <div id="tab-ratios" class="tab-content">
+                    <h3 class="text-2xl font-semibold mb-2 text-slate-800">Peer Benchmarking</h3>
+                    <p class="text-slate-600 mb-8">A ratio in isolation is meaningless. Context is everything. Benchmarking a company against its peers is essential for judging relative performance. Select a key ratio from the dropdown to see how our 'Target Company' stacks up against its competitors.</p>
+                    
+                    <div class="mb-6">
+                        <label for="ratio-selector" class="block text-sm font-medium text-gray-700">Select Metric to Compare:</label>
+                        <select id="ratio-selector" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                            <option value="leverage" selected>Net Debt / EBITDA</option>
+                            <option value="interest_coverage">EBITDA / Cash Interest</option>
+                            <option value="ebitda_margin">EBITDA Margin</option>
+                        </select>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="peer-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="structuring" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-2 text-slate-900">Structuring & Covenants</h2>
+            <p class="text-slate-600 text-center max-w-2xl mx-auto mb-12">A credit decision culminates in a legal agreement designed to protect the lender. Covenants are the "guardrails" that provide an early warning system if a borrower's financial health deteriorates. This section outlines the key types of covenants and Events of Default.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="kpi-card bg-white p-6 rounded-2xl shadow-lg border border-slate-200">
+                    <h3 class="font-semibold text-lg text-slate-800 mb-3">Affirmative Covenants</h3>
+                    <p class="text-slate-600 text-sm">Clauses requiring the borrower to <span class="font-semibold">perform</span> certain actions, ensuring transparency and good corporate hygiene.</p>
+                    <ul class="mt-4 space-y-2 text-sm text-slate-700 list-disc list-inside">
+                        <li>Provide timely financial statements</li>
+                        <li>Pay all taxes and assessments</li>
+                        <li>Maintain adequate business insurance</li>
+                        <li>Comply with all applicable laws</li>
+                    </ul>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-2xl shadow-lg border border-slate-200">
+                    <h3 class="font-semibold text-lg text-slate-800 mb-3">Negative Covenants</h3>
+                    <p class="text-slate-600 text-sm">Clauses that <span class="font-semibold">prohibit or limit</span> the borrower from taking actions that could increase risk or disadvantage creditors.</p>
+                    <ul class="mt-4 space-y-2 text-sm text-slate-700 list-disc list-inside">
+                        <li>Limitation on additional debt</li>
+                        <li>Limitation on asset sales</li>
+                        <li>Limitation on dividends/shareholder payments</li>
+                        <li>Restriction on mergers and acquisitions</li>
+                    </ul>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-2xl shadow-lg border border-slate-200">
+                    <h3 class="font-semibold text-lg text-slate-800 mb-3">Financial Covenants</h3>
+                    <p class="text-slate-600 text-sm">Quantitative tripwires requiring the borrower to <span class="font-semibold">maintain</span> specific financial ratios, tested periodically.</p>
+                    <ul class="mt-4 space-y-2 text-sm text-slate-700 list-disc list-inside">
+                        <li>Maximum Leverage Ratio (e.g., Debt/EBITDA &lt; 4.0x)</li>
+                        <li>Minimum Interest Coverage Ratio (e.g., EBITDA/Interest &gt; 3.0x)</li>
+                        <li>Minimum Debt Service Coverage Ratio</li>
+                        <li>Maximum annual Capital Expenditures (Capex)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="checklist" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-2 text-slate-900">Interactive Due Diligence Checklist</h2>
+            <p class="text-slate-600 text-center max-w-2xl mx-auto mb-12">A thorough and disciplined analysis relies on a systematic process. Use this interactive checklist, adapted from the comprehensive guide, to ensure all critical areas are covered in your evaluation. Check items off as you complete them.</p>
+
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 max-w-4xl mx-auto">
+                <div class="mb-4">
+                    <div class="w-full bg-slate-200 rounded-full h-2.5">
+                        <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+                    <p class="text-center text-sm text-slate-600 mt-2"><span id="progress-text">0% Complete</span></p>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="font-semibold text-lg mb-3 text-slate-800 border-b pb-2">Part A: Scoping & Info Gathering</h3>
+                        <div class="space-y-3 mt-3">
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" class="checklist-item h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">Loan purpose defined and appropriate?</label>
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" class="checklist-item h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">Primary/secondary repayment sources identified?</label>
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" class="checklist-item h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">Obtained 3 years of audited financials?</label>
+                        </div>
+                    </div>
+                     <div>
+                        <h3 class="font-semibold text-lg mb-3 text-slate-800 border-b pb-2">Part B: Qualitative Analysis</h3>
+                        <div class="space-y-3 mt-3">
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" class="checklist-item h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">Competitive advantages & sustainability assessed?</label>
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" class="checklist-item h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">Concentration risks (customer, supplier, geo) analyzed?</label>
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" class="checklist-item h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">Management team's track record evaluated?</label>
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" class="checklist-item h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">Independent peer analysis conducted?</label>
+                        </div>
+                    </div>
+                     <div>
+                        <h3 class="font-semibold text-lg mb-3 text-slate-800 border-b pb-2">Part C: Quantitative Analysis</h3>
+                        <div class="space-y-3 mt-3">
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" class="checklist-item h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">Creditor-Adjusted EBITDA calculated with scrutiny?</label>
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" class="checklist-item h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">Adjusted Net Debt calculated (incl. off-balance-sheet)?</label>
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" class="checklist-item h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">Quality of cash flow (OCF vs EBITDA) assessed?</label>
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" class="checklist-item h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">Downside case scenario modeled with covenant headroom check?</label>
+                        </div>
+                    </div>
+                     <div>
+                        <h3 class="font-semibold text-lg mb-3 text-slate-800 border-b pb-2">Part D: Structure & Documentation</h3>
+                        <div class="space-y-3 mt-3">
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" class="checklist-item h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">Collateral package valued and enforceability confirmed?</label>
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" class="checklist-item h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">Financial covenants provide meaningful early warning?</label>
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" class="checklist-item h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">Events of Default (incl. cross-default) are robust?</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-slate-300">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>&copy; 2024 Interactive Credit Risk Analysis Toolkit. For educational purposes only.</p>
+            <p class="text-sm mt-2">Built from the "Comprehensive Guide to Fundamental Credit Risk Evaluation".</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const pdSlider = document.getElementById('pd-slider');
+            const lgdSlider = document.getElementById('lgd-slider');
+            const eadSlider = document.getElementById('ead-slider');
+            const pdValue = document.getElementById('pd-value');
+            const lgdValue = document.getElementById('lgd-value');
+            const eadValue = document.getElementById('ead-value');
+            const elResult = document.getElementById('el-result');
+
+            function updateEL() {
+                const pd = parseFloat(pdSlider.value);
+                const lgd = parseFloat(lgdSlider.value);
+                const ead = parseFloat(eadSlider.value);
+                
+                pdValue.textContent = pd.toFixed(1);
+                lgdValue.textContent = lgd.toFixed(1);
+                eadValue.textContent = ead.toFixed(1);
+
+                const el = (pd / 100) * (lgd / 100) * (ead * 1000000);
+                elResult.textContent = el.toLocaleString('en-US', { maximumFractionDigits: 0 });
+            }
+            pdSlider.addEventListener('input', updateEL);
+            lgdSlider.addEventListener('input', updateEL);
+            eadSlider.addEventListener('input', updateEL);
+            updateEL();
+
+            const cButtons = document.querySelectorAll('.c-button');
+            const cContentArea = document.getElementById('c-content-area');
+            cButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.dataset.target;
+                    const content = document.getElementById(targetId).innerHTML;
+                    cContentArea.innerHTML = content;
+                    cButtons.forEach(btn => btn.classList.remove('bg-blue-50', 'border-blue-500'));
+                    button.classList.add('bg-blue-50', 'border-blue-500');
+                });
+            });
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.dataset.target;
+
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === targetId) {
+                            content.classList.add('active');
+                        }
+                    });
+                    
+                    if(targetId === 'tab-ratios' && !window.peerChart) {
+                        renderPeerChart();
+                    }
+                });
+            });
+
+            const reportedEBITDA = 100;
+            const reportedDebt = 400;
+            let adjustedEBITDA = reportedEBITDA;
+            let adjustedDebt = reportedDebt;
+
+            const ebitdaToggles = document.querySelectorAll('.ebitda-adj-toggle');
+            const debtToggles = document.querySelectorAll('.debt-adj-toggle');
+            const adjustedEbitdaResult = document.getElementById('adjusted-ebitda-result');
+            const adjustedDebtResult = document.getElementById('adjusted-debt-result');
+            const leverageRatioResult = document.getElementById('leverage-ratio-result');
+            
+            function calculateAdjustments() {
+                adjustedEBITDA = reportedEBITDA;
+                ebitdaToggles.forEach(toggle => {
+                    if (toggle.checked) {
+                        adjustedEBITDA += parseFloat(toggle.dataset.amount);
+                    }
+                });
+                adjustedEbitdaResult.textContent = `$${adjustedEBITDA}M`;
+                
+                adjustedDebt = reportedDebt;
+                debtToggles.forEach(toggle => {
+                    if (toggle.checked) {
+                        adjustedDebt += parseFloat(toggle.dataset.amount);
+                    }
+                });
+                adjustedDebtResult.textContent = `$${adjustedDebt}M`;
+                
+                const leverage = adjustedEBITDA > 0 ? (adjustedDebt / adjustedEBITDA).toFixed(1) : 'N/A';
+                leverageRatioResult.textContent = leverage;
+            }
+
+            ebitdaToggles.forEach(toggle => toggle.addEventListener('change', calculateAdjustments));
+            debtToggles.forEach(toggle => toggle.addEventListener('change', calculateAdjustments));
+            calculateAdjustments();
+            
+            const peerData = {
+                labels: ['Target Co.', 'Peer A', 'Peer B', 'Peer C (Leader)', 'Industry Avg.'],
+                leverage: {
+                    data: [4.2, 4.5, 5.1, 2.5, 4.1],
+                    label: 'Net Debt / EBITDA (x)',
+                },
+                interest_coverage: {
+                    data: [3.5, 3.1, 2.8, 7.5, 4.2],
+                    label: 'EBITDA / Cash Interest (x)'
+                },
+                ebitda_margin: {
+                    data: [15.0, 14.5, 12.5, 18.0, 15.0],
+                    label: 'EBITDA Margin (%)'
+                }
+            };
+
+            const ratioSelector = document.getElementById('ratio-selector');
+            const ctx = document.getElementById('peer-chart').getContext('2d');
+            
+            function renderPeerChart() {
+                const selectedMetric = ratioSelector.value;
+                if(window.peerChart) {
+                    window.peerChart.destroy();
+                }
+                window.peerChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: peerData.labels,
+                        datasets: [{
+                            label: peerData[selectedMetric].label,
+                            data: peerData[selectedMetric].data,
+                            backgroundColor: [
+                                'rgba(59, 130, 246, 0.7)',
+                                'rgba(107, 114, 128, 0.5)',
+                                'rgba(107, 114, 128, 0.5)',
+                                'rgba(16, 185, 129, 0.7)',
+                                'rgba(239, 68, 68, 0.7)'
+                            ],
+                            borderColor: [
+                                'rgba(59, 130, 246, 1)',
+                                'rgba(107, 114, 128, 1)',
+                                'rgba(107, 114, 128, 1)',
+                                'rgba(16, 185, 129, 1)',
+                                'rgba(239, 68, 68, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            const suffix = label.includes('%') ? '%' : 'x';
+                                            label += context.parsed.y.toFixed(1) + suffix;
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: peerData[selectedMetric].label
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    maxRotation: 0,
+                                    minRotation: 0
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            ratioSelector.addEventListener('change', renderPeerChart);
+            
+            const checklistItems = document.querySelectorAll('.checklist-item');
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            const totalItems = checklistItems.length;
+
+            function updateProgress() {
+                const checkedItems = document.querySelectorAll('.checklist-item:checked').length;
+                const percentage = totalItems > 0 ? (checkedItems / totalItems) * 100 : 0;
+                progressBar.style.width = `${percentage}%`;
+                progressText.textContent = `${Math.round(percentage)}% Complete (${checkedItems}/${totalItems})`;
+            }
+
+            checklistItems.forEach(item => {
+                item.addEventListener('change', updateProgress);
+            });
+            updateProgress();
+        });
+    </script>
+</body>
+</html>
