@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Analysis and Credit Toolkit (FACT)</title>
     <link rel="stylesheet" href="fact.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <header>
         <h1>Financial Analysis and Credit Toolkit (FACT)</h1>
         <nav>
             <ul>
-                <li><a href="overview.md">Overview</a></li>
-                <li><a href="learning_path.md">Learning Path</a></li>
-                <li><a href="case_studies.md">Case Studies</a></li>
-                <li><a href="glossary.md">Glossary</a></li>
+                <li><a href="#overview" onclick="loadMarkdown('overview.md')">Overview</a></li>
+                <li><a href="#learning-path" onclick="loadMarkdown('learning_path.md')">Learning Path</a></li>
+                <li><a href="#case-studies" onclick="loadMarkdown('case_studies.md')">Case Studies</a></li>
+                <li><a href="#glossary" onclick="loadMarkdown('glossary.md')">Glossary</a></li>
             </ul>
         </nav>
     </header>
@@ -40,9 +41,106 @@
                 </div>
             </div>
         </section>
+
+        <section id="overviews">
+            <h2>Overviews</h2>
+            <ul>
+                <li><a href="#overview" onclick="loadMarkdown('overview.md')">FACT Overview</a></li>
+                <li><a href="fra/index.html" onclick="loadMarkdown('fra/index.md')">FRA Overview</a></li>
+                <li><a href="pd/index.html" onclick="loadMarkdown('pd/index.md')">PD Overview</a></li>
+                <li><a href="rr/index.html" onclick="loadMarkdown('rr/index.md')">RR Overview</a></li>
+            </ul>
+        </section>
+
+        <section id="development-paths">
+            <h2>Development Paths</h2>
+            <ul>
+                <li><a href="#learning-path" onclick="loadMarkdown('learning_path.md')">Analyst Development Program</a></li>
+            </ul>
+        </section>
+
+        <section id="key-learning-outcomes">
+            <h2>Key Learning Outcomes</h2>
+            <ul>
+                <li>Understand and interpret financial statements.</li>
+                <li>Assess credit risk and probability of default.</li>
+                <li>Navigate regulatory frameworks and ensure compliance.</li>
+            </ul>
+        </section>
+
+        <section id="link-repository">
+            <h2>Link Repository</h2>
+            <h3>Financial Reporting and Analysis (FRA)</h3>
+            <ul>
+                <li><a href="fra/index.html">FRA Main Page</a></li>
+                <li><a href="fra/fra002.html">Interactive Financial Analysis Learning Hub</a></li>
+                <li><a href="fra/fra01.md" onclick="loadMarkdown('fra/fra01.md')">A Beginner's Guide to Financial Reporting and Analysis</a></li>
+                <li><a href="fra/fra02.html">Interactive Financial Analysis Learning Hub 2</a></li>
+                <li><a href="fra/fra02.md" onclick="loadMarkdown('fra/fra02.md')">Comprehensive Financial Analysis</a></li>
+                <li><a href="fra/fra03.md" onclick="loadMarkdown('fra/fra03.md')">Advanced Financial Statement Analysis</a></li>
+                <li><a href="fra/fra1.md" onclick="loadMarkdown('fra/fra1.md')">Beginner's Guide to FRA</a></li>
+                <li><a href="fra/fra2.html">Comprehensive Financial Analysis 2</a></li>
+                <li><a href="fra/fra3.md" onclick="loadMarkdown('fra/fra3.md')">Case Study: Analyzing Apple Inc.'s Financials</a></li>
+                <li><a href="fra/guide.html">Interactive Financial Analysis Guide</a></li>
+                <li><a href="fra/guide2.html">Comprehensive Interactive Guide to Regulatory Risk Ratings</a></li>
+                <li><a href="fra/index.md" onclick="loadMarkdown('fra/index.md')">FRA Index</a></li>
+                <li><a href="fra/index2.html">FRA Index 2</a></li>
+                <li><a href="fra/real_world_examples.md" onclick="loadMarkdown('fra/real_world_examples.md')">Real-World Examples</a></li>
+            </ul>
+            <h3>Probability of Default (PD)</h3>
+            <ul>
+                <li><a href="pd/index.html">PD Main Page</a></li>
+                <li><a href="pd/pd.js">PD JS</a></li>
+                <li><a href="pd/pd.css">PD CSS</a></li>
+                <li><a href="pd/pd0.md" onclick="loadMarkdown('pd/pd0.md')">Company Analysis - Assessing Credit Risk</a></li>
+                <li><a href="pd/pd001.html">Interactive Guide to Credit Risk Evaluation</a></li>
+                <li><a href="pd/pd01.html">A Comprehensive Guide to Fundamental Credit Risk Evaluation</a></li>
+                <li><a href="pd/pd02.html">The Expert Credit Analyst's Guide to Comprehensive Credit Risk Evaluation</a></li>
+                <li><a href="pd/pd1.html">A Comprehensive Guide to Fundamental Credit Risk Evaluation 2</a></li>
+                <li><a href="pd/pd1.md" onclick="loadMarkdown('pd/pd1.md')">A Comprehensive Guide to Fundamental Credit Risk Evaluation</a></li>
+                <li><a href="pd/pd2.html">The Expert Credit Analyst's Guide to Comprehensive Credit Risk Evaluation 2</a></li>
+                <li><a href="pd/pd2.md" onclick="loadMarkdown('pd/pd2.md')">The Expert Credit Analyst's Guide to Comprehensive Credit Risk Evaluation</a></li>
+                <li><a href="pd/pd3.md" onclick="loadMarkdown('pd/pd3.md')">The 5 C's of Credit</a></li>
+                <li><a href="pd/pd4.md" onclick="loadMarkdown('pd/pd4.md')">Financial Ratio Analysis for Credit Risk</a></li>
+                <li><a href="pd/pd5.md" onclick="loadMarkdown('pd/pd5.md')">Writing a Compelling Credit Narrative</a></li>
+                <li><a href="pd/risk_assessment_models.md" onclick="loadMarkdown('pd/risk_assessment_models.md')">Risk Assessment Models</a></li>
+            </ul>
+            <h3>Regulatory Risk (RR)</h3>
+            <ul>
+                <li><a href="rr/index.html">RR Main Page</a></li>
+                <li><a href="rr/rr.js">RR JS</a></li>
+                <li><a href="rr/rr.css">RR CSS</a></li>
+                <li><a href="rr/snc_rating_guide.js">SNC Rating Guide JS</a></li>
+                <li><a href="rr/snc_rating_guide.css">SNC Rating Guide CSS</a></li>
+                <li><a href="rr/calc.html">Regulatory Risk Rating Calculator</a></li>
+                <li><a href="rr/guide.html">Comprehensive Interactive Guide to Regulatory Risk Ratings</a></li>
+                <li><a href="rr/index.md" onclick="loadMarkdown('rr/index.md')">RR Index</a></li>
+                <li><a href="rr/index2.html">RR Index 2</a></li>
+                <li><a href="rr/regulatory_frameworks.md" onclick="loadMarkdown('rr/regulatory_frameworks.md')">Regulatory Frameworks</a></li>
+                <li><a href="rr/rr001.html">Interactive Guide to Regulatory Risk Ratings & SNC</a></li>
+                <li><a href="rr/rr01.html">Regulatory Risk Rating Hub</a></li>
+                <li><a href="rr/rr1.html">Detailed Guide to Determining Regulatory Risk Ratings and the Shared National Credit Process</a></li>
+                <li><a href="rr/rr1.md" onclick="loadMarkdown('rr/rr1.md')">Detailed Guide to Determining Regulatory Risk Ratings and the Shared National Credit Process</a></li>
+                <li><a href="rr/rr2.md" onclick="loadMarkdown('rr/rr2.md')">Understanding Loan Covenants</a></li>
+                <li><a href="rr/snc_rating_guide.html">SNC Rating Guide</a></li>
+            </ul>
+        </section>
+
+        <section id="markdown-viewer">
+            <div id="markdown-content"></div>
+        </section>
     </main>
     <footer>
         <p>&copy; 2024 Your Company. All rights reserved.</p>
     </footer>
+    <script>
+        function loadMarkdown(file) {
+            fetch(file)
+                .then(response => response.text())
+                .then(text => {
+                    document.getElementById('markdown-content').innerHTML = marked(text);
+                });
+        }
+    </script>
 </body>
 </html>
