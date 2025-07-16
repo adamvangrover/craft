@@ -83,6 +83,9 @@ Justification: [Detailed justification for your assessment, referencing specific
     const quantitativeForm = document.getElementById('quantitative-form');
     const qualitativeForm = document.getElementById('qualitative-form');
     const indicativeRatingElement = document.getElementById('indicative-rating');
+    const justificationTextElement = document.getElementById('justification-text');
+    const inputMapTableBody = document.querySelector('#input-map-table tbody');
+    const runScriptButton = document.getElementById('run-script-button');
 
     function calculateRating() {
         const quantitativeData = new FormData(quantitativeForm);
@@ -98,28 +101,73 @@ Justification: [Detailed justification for your assessment, referencing specific
             qualitativeValues[key] = value;
         }
 
-        // This is a simplified version of the decision tree logic.
-        // A more complete implementation would parse the JSON file and
-        // dynamically build the decision tree.
         let score = 50; // Starting score
+        let justification = '';
+        let inputMap = [];
 
         // Quantitative factors
-        if (quantitativeValues.roe >= 0.15) score += 5; else score -= 5;
-        if (quantitativeValues.op_margin >= 0.12) score += 5; else score -= 5;
-        if (quantitativeValues.net_debt_ebitda <= 3.0) score += 5; else score -= 5;
-        if (quantitativeValues.debt_capital <= 0.50) score += 5; else score -= 5;
-        if (quantitativeValues.ocfl_debt >= 0.25) score += 5; else score -= 5;
-        if (quantitativeValues.current_ratio >= 1.8) score += 5; else score -= 5;
-        if (quantitativeValues.quick_ratio >= 1.0) score += 5; else score -= 5;
-        if (quantitativeValues.st_debt_pct <= 0.30) score += 5; else score -= 5;
+        const quantitativeFactors = [
+            { key: 'roe', label: 'Return on Equity (ROE)', threshold: 0.15, operator: '>=' },
+            { key: 'op_margin', label: 'Operating Margin', threshold: 0.12, operator: '>=' },
+            { key: 'net_debt_ebitda', label: 'Net Debt / EBITDA', threshold: 3.0, operator: '<=' },
+            { key: 'debt_capital', label: 'Total Debt / Capital', threshold: 0.50, operator: '<=' },
+            { key: 'ocfl_debt', label: 'Operating Cash Flow / Total Debt', threshold: 0.25, operator: '>=' },
+            { key: 'current_ratio', label: 'Current Ratio', threshold: 1.8, operator: '>=' },
+            { key: 'quick_ratio', label: 'Quick Ratio', threshold: 1.0, operator: '>=' },
+            { key: 'st_debt_pct', label: 'Short-Term Debt % of Total Debt', threshold: 0.30, operator: '<=' },
+        ];
+
+        quantitativeFactors.forEach(factor => {
+            const value = quantitativeValues[factor.key];
+            let impact = 'Negative';
+            let conditionMet = false;
+            if (factor.operator === '>=') {
+                conditionMet = value >= factor.threshold;
+            } else {
+                conditionMet = value <= factor.threshold;
+            }
+
+            if (conditionMet) {
+                score += 5;
+                impact = 'Positive';
+                justification += `${factor.label} of ${value} is favorable. `;
+            } else {
+                score -= 5;
+                justification += `${factor.label} of ${value} is unfavorable. `;
+            }
+            inputMap.push({ metric: factor.label, value: value, impact: impact });
+        });
 
         // Qualitative factors
-        if (qualitativeValues.ni_trend === 'Consistently Growing') score += 5; else score -= 5;
-        if (qualitativeValues.fcf_gen === 'Consistently Positive') score += 5; else score -= 5;
-        if (qualitativeValues.maturity_profile === 'Well-Laddered') score += 5; else score -= 5;
-        if (qualitativeValues.ind_cyclicality === 'Low') score += 5; else score -= 5;
-        if (qualitativeValues.ind_competition === 'Low' || qualitativeValues.ind_competition === 'Moderate') score += 5; else score -= 5;
-        if (qualitativeValues.diversification === 'High') score += 5; else score -= 5;
+        const qualitativeFactors = [
+            { key: 'ni_trend', label: 'Net Income Trend', favorableValue: 'Consistently Growing' },
+            { key: 'fcf_gen', label: 'Free Cash Flow (FCF) Generation', favorableValue: 'Consistently Positive' },
+            { key: 'maturity_profile', label: 'Debt Maturity Profile', favorableValue: 'Well-Laddered' },
+            { key: 'ind_cyclicality', label: 'Industry Cyclicality', favorableValue: 'Low' },
+            { key: 'ind_competition', label: 'Competitive Intensity', favorableValues: ['Low', 'Moderate'] },
+            { key: 'diversification', label: 'Product/Service Diversification', favorableValue: 'High' },
+        ];
+
+        qualitativeFactors.forEach(factor => {
+            const value = qualitativeValues[factor.key];
+            let impact = 'Negative';
+            let conditionMet = false;
+            if (factor.favorableValues) {
+                conditionMet = factor.favorableValues.includes(value);
+            } else {
+                conditionMet = value === factor.favorableValue;
+            }
+
+            if (conditionMet) {
+                score += 5;
+                impact = 'Positive';
+                justification += `${factor.label} of "${value}" is favorable. `;
+            } else {
+                score -= 5;
+                justification += `${factor.label} of "${value}" is unfavorable. `;
+            }
+            inputMap.push({ metric: factor.label, value: value, impact: impact });
+        });
         
         let rating = 'PASS';
         if (score < 30) {
@@ -132,12 +180,27 @@ Justification: [Detailed justification for your assessment, referencing specific
             rating = 'PASS';
         }
 
-
         indicativeRatingElement.textContent = rating;
+        justificationTextElement.textContent = justification;
+
+        // Update visual element
+        inputMapTableBody.innerHTML = '';
+        inputMap.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${item.metric}</td>
+                <td>${item.value}</td>
+                <td class="${item.impact.toLowerCase()}">${item.impact}</td>
+            `;
+            inputMapTableBody.appendChild(row);
+        });
     }
 
-    quantitativeForm.addEventListener('input', calculateRating);
-    qualitativeForm.addEventListener('change', calculateRating);
+    runScriptButton.addEventListener('click', calculateRating);
+
+    // Remove automatic calculation on input change
+    // quantitativeForm.addEventListener('input', calculateRating);
+    // qualitativeForm.addEventListener('change', calculateRating);
 
     calculateRating(); // Calculate initial rating
 
