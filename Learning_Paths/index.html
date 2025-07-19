@@ -1,115 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Paths for Financial Professionals</title>
+    <title>Learning Paths Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/global_nav.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/shared-readme-styles.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+        }
+        .content-card {
+            @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 ease-in-out p-8;
+        }
+        .card-link {
+            @apply block bg-sky-600 text-white font-semibold py-3 px-5 rounded-lg hover:bg-sky-700 transition-colors duration-200 text-center mt-auto;
+        }
+    </style>
 </head>
-<body style="display: flex; min-height: 100vh;">
-    <div id="global-nav-placeholder"></div>
-    <div style="flex-grow: 1; overflow-y: auto;"> <!-- Wrapper for existing content -->
-        <header class="viewer-header">
-            <h1>Learning Paths</h1>
-            <a href="../home.html" class="back-to-home">&laquo; Back to Main Hub</a>
+<body class="flex">
+
+    <!-- Global Navigation Sidebar -->
+    <div id="global-nav-placeholder" class="fixed top-0 left-0 h-full z-30"></div>
+
+    <!-- Main Content Area -->
+    <div id="main-content-wrapper" class="flex-grow overflow-y-auto ml-0 md:ml-[280px] transition-all duration-300 ease-in-out">
+
+        <!-- Header -->
+        <header class="bg-slate-800 text-white py-16 px-6 md:px-8 text-center">
+            <div class="max-w-4xl mx-auto">
+                <i class="fas fa-map-signs text-5xl text-sky-400 mb-4"></i>
+                <h1 class="text-4xl md:text-5xl font-bold">Learning Paths</h1>
+                <p class="mt-4 text-xl opacity-90">Curated journeys to guide you through the learning hub.</p>
+            </div>
         </header>
-        <div class="viewer-container">
-            <nav class="viewer-nav" style="flex-shrink: 0;"> <!-- ensure nav doesn't shrink too much -->
-                <h2>Available Learning Paths</h2>
-                <!-- <p>Select a path to view its details and recommended resources.</p> -->
-            <ul id="learning-path-nav-list">
-                <li>
-                    <a href="#" class="path-link" data-md-src="Credit_Analyst_Foundational_Path.md">Credit Analyst Foundational Path</a>
-                    <!-- <p style="font-size:0.9em; color:#555;">For individuals new to credit analysis or seeking to build a solid foundational understanding.</p> -->
-                </li>
-                <li>
-                    <a href="#" class="path-link" data-md-src="Understanding_Fintech_for_Analysts.md">Understanding Fintech for Analysts</a>
-                    <!-- <p style="font-size:0.9em; color:#555;">For professionals looking to gain a foundational understanding of the Fintech landscape.</p> -->
-                </li>
-                <li>
-                    <a href="#" class="path-link" data-md-src="CFA_Level_1_Prep_Focus_Areas.md">CFA Level 1 Prep Focus Areas</a>
-                    <!-- <p style="font-size:0.9em; color:#555;">To guide CFA Level 1 candidates in using repository resources for key topic areas.</p> -->
-                </li>
-            </ul>
-            <hr style="margin: 1rem 0;">
-            <h3>Future Learning Paths</h3>
-            <ul id="future-learning-path-list" style="opacity: 0.6;">
-                <li><a href="#">Advanced Credit Risk Analysis</a></li>
-                <li><a href="#">CFA Level 2 Prep Focus</a></li>
-                <li><a href="#">CFA Level 3 Prep Focus</a></li>
-                <li><a href="#">Financial Modeling Mastery</a></li>
-                <li><a href="#">Risk Management Professional</a></li>
-                <li><a href="#">Intro to Capital Markets</a></li>
-            </ul>
-            <hr style="margin: 1rem 0;">
-            <h3>How to Use</h3>
-             <ol style="font-size: 0.85em; padding-left: 1.2em;">
-                <li><strong>Identify Goal:</strong> What do you want to achieve?</li>
-                <li><strong>Select Path:</strong> Choose a path that aligns.</li>
-                <li><strong>Follow Sequence:</strong> Resources are structured progressively.</li>
-                <li><strong>Engage Actively:</strong> Take notes, work examples.</li>
-                <li><strong>Supplement:</strong> These paths guide you through repository content.</li>
-            </ol>
-        </nav>
-        <main id="learning-path-content-display" class="viewer-content">
-            <p>Select a learning path from the list to view its content here.</p>
+
+        <!-- Main Content -->
+        <main class="py-16 px-6 md:px-8">
+            <div class="max-w-6xl mx-auto">
+
+                <div class="content-card mb-12">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Chart Your Course</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Our learning paths are designed to provide a structured approach to learning. Each path is a curated sequence of resources from across the hub, designed to help you achieve a specific learning objective.
+                    </p>
+                </div>
+
+                <h2 class="text-3xl font-bold text-center mb-12 text-slate-700">Available Learning Paths</h2>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Credit Analyst Foundational Path</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">For individuals new to credit analysis or seeking to build a solid foundational understanding.</p>
+                        <a href="/global_markdown_viewer.html?mdfile=Learning_Paths/Credit_Analyst_Foundational_Path.md" class="card-link">View Path</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Understanding Fintech for Analysts</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">For professionals looking to gain a foundational understanding of the Fintech landscape.</p>
+                        <a href="/global_markdown_viewer.html?mdfile=Learning_Paths/Understanding_Fintech_for_Analysts.md" class="card-link">View Path</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">CFA Level 1 Prep Focus Areas</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">To guide CFA Level 1 candidates in using repository resources for key topic areas.</p>
+                        <a href="/global_markdown_viewer.html?mdfile=Learning_Paths/CFA_Level_1_Prep_Focus_Areas.md" class="card-link">View Path</a>
+                    </div>
+                </div>
+            </div>
         </main>
+
+        <!-- Related Topics -->
+        <section class="py-16 px-6 md:px-8 bg-slate-50">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12 text-slate-700">Explore Individual Topics</h2>
+                <p class="text-center text-slate-600 mb-8 -mt-8">
+                    Prefer to explore on your own? Dive into any of our topic hubs.
+                </p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="content-card text-center">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Core Financial Topics</h3>
+                        <a href="../Financial_Modeling/index.html" class="card-link">Explore</a>
+                    </div>
+                    <div class="content-card text-center">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Career & Exams</h3>
+                        <a href="../CFA/index.html" class="card-link">Explore</a>
+                    </div>
+                    <div class="content-card text-center">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">AI, Coding & Tech</h3>
+                        <a href="../AI_and_Coding/index.html" class="card-link">Explore</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-10 px-6 md:px-8 text-center text-sm text-slate-100 bg-slate-800 mt-12">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub. All Rights Reserved.</p>
+        </footer>
+
     </div>
-    </div> <!-- End of wrapper -->
+
     <script src="../js/nav_data.js" defer></script>
     <script src="../js/global_nav.js" defer></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const pathLinks = document.querySelectorAll('#learning-path-nav-list a.path-link'); // Corrected selector
-            const contentDisplay = document.getElementById('learning-path-content-display');
-
-            async function loadAndDisplayPath(mdSrcFile, clickedLink) {
-                if (!mdSrcFile || !contentDisplay) {
-                    console.error("Markdown source or display element missing.");
-                    if(contentDisplay) contentDisplay.innerHTML = "<p>Error: Could not load content.</p>";
-                    return;
-                }
-
-                contentDisplay.innerHTML = "<p>Loading learning path...</p>";
-
-                pathLinks.forEach(link => link.classList.remove('active-path'));
-                if(clickedLink) clickedLink.classList.add('active-path');
-
-                try {
-                    const response = await fetch(mdSrcFile);
-                    if (!response.ok) {
-                        throw new Error(`Failed to fetch ${mdSrcFile}: ${response.status} ${response.statusText}`);
-                    }
-                    const markdownText = await response.text();
-                    if (typeof marked !== 'undefined') {
-                        contentDisplay.innerHTML = marked.parse(markdownText);
-                    } else {
-                        console.error("marked.js library not found.");
-                        contentDisplay.innerHTML = "<p>Error: Markdown renderer not available.</p>";
-                    }
-                } catch (error) {
-                    console.error("Error loading or parsing Markdown:", error);
-                    contentDisplay.innerHTML = `<p>Error loading content for ${mdSrcFile}.</p><p><small>${error.message}</small></p>`;
-                }
-            }
-
-            pathLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const mdSrc = this.dataset.mdSrc;
-                    if (mdSrc) {
-                        loadAndDisplayPath(mdSrc, this);
-                    }
-                });
-            });
-
-            // Optional: Load the first path by default
-            // if (pathLinks.length > 0 && pathLinks[0].dataset.mdSrc) {
-            //    loadAndDisplayPath(pathLinks[0].dataset.mdSrc, pathLinks[0]);
-            // }
-        });
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>

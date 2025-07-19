@@ -1,147 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Directory Viewer - Professional_Development</title>
+    <title>Professional Development Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/global_nav.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/simple_viewer.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+        }
+        .content-card {
+            @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 ease-in-out p-8;
+        }
+        .card-link {
+            @apply block bg-sky-600 text-white font-semibold py-3 px-5 rounded-lg hover:bg-sky-700 transition-colors duration-200 text-center mt-auto;
+        }
+    </style>
 </head>
-<body style="display: flex; min-height: 100vh;">
-    <div id="global-nav-placeholder"></div>
-    <div id="sidebar" style="flex-shrink: 0;">
-        <div id="up-link-container">
-            <!-- Up link will be dynamically generated -->
-        </div>
-        <h3>Navigation</h3>
-        <ul id="file-list">
-            <!-- File list will be populated by JavaScript -->
-        </ul>
+<body class="flex">
+
+    <!-- Global Navigation Sidebar -->
+    <div id="global-nav-placeholder" class="fixed top-0 left-0 h-full z-30"></div>
+
+    <!-- Main Content Area -->
+    <div id="main-content-wrapper" class="flex-grow overflow-y-auto ml-0 md:ml-[280px] transition-all duration-300 ease-in-out">
+
+        <!-- Header -->
+        <header class="bg-slate-800 text-white py-16 px-6 md:px-8 text-center">
+            <div class="max-w-4xl mx-auto">
+                <i class="fas fa-user-tie text-5xl text-sky-400 mb-4"></i>
+                <h1 class="text-4xl md:text-5xl font-bold">Professional Development</h1>
+                <p class="mt-4 text-xl opacity-90">Sharpen the soft skills that drive career success in finance.</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="py-16 px-6 md:px-8">
+            <div class="max-w-6xl mx-auto">
+
+                <div class="content-card mb-12">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Beyond the Numbers</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Technical skills are essential, but soft skills are what set you apart. This section focuses on the professional skills that will help you communicate your analysis, influence decisions, and build a successful career.
+                    </p>
+                </div>
+
+                <h2 class="text-3xl font-bold text-center mb-12 text-slate-700">Develop Your Skills</h2>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Effective Communication</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Learn how to communicate complex financial information clearly and concisely.</p>
+                        <a href="/global_markdown_viewer.html?mdfile=Professional_Development/Effective_Communication_for_Analysts.md" class="card-link">Improve Communication</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Critical Thinking</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Develop the skills to analyze information, identify biases, and make sound judgments.</p>
+                        <a href="/global_markdown_viewer.html?mdfile=Professional_Development/Critical_Thinking_in_Financial_Analysis.md" class="card-link">Think Critically</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Presentation Skills</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Master the art of presenting financial information in a compelling and persuasive way.</p>
+                        <a href="/global_markdown_viewer.html?mdfile=Professional_Development/Presentation_Skills_for_Financial_Information.md" class="card-link">Present with Impact</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Negotiation Skills</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Learn the art of negotiation to achieve better outcomes in your professional life.</p>
+                        <a href="/global_markdown_viewer.html?mdfile=Professional_Development/Negotiation_Skills_for_Analysts.md" class="card-link">Negotiate Effectively</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Ethical Decision Making</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Explore frameworks for making ethical decisions in the complex world of finance.</p>
+                        <a href="/global_markdown_viewer.html?mdfile=Professional_Development/Ethical_Decision_Making_in_Practice.md" class="card-link">Uphold Ethics</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Related Topics -->
+        <section class="py-16 px-6 md:px-8 bg-slate-50">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12 text-slate-700">Related Topics</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Behavioral Finance</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Understanding your own biases is a key part of professional development. Explore our Behavioral Finance hub to learn more.</p>
+                        <a href="../Behavioral_Finance/index.html" class="card-link">Explore Behavioral Finance</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Toolkits & Checklists</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Put your skills into practice with our collection of practical toolkits and checklists.</p>
+                        <a href="../Toolkits_and_Checklists/index.html" class="card-link">Access Toolkits</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-10 px-6 md:px-8 text-center text-sm text-slate-100 bg-slate-800 mt-12">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub. All Rights Reserved.</p>
+        </footer>
+
     </div>
-    <div id="content-area" class="markdown-body" style="flex-grow: 1; overflow-y: auto; padding: 20px;"> <!-- Added padding for consistency -->
-        <p>Loading content...</p>
-    </div>
+
     <script src="../js/nav_data.js" defer></script>
     <script src="../js/global_nav.js" defer></script>
     <script>
-        const contentDisplay = document.getElementById('content-area');
-        const fileListDisplay = document.getElementById('file-list');
-        const pageTitle = document.querySelector('title');
-
-        const directoryName = "Professional_Development";
-        const filesInDir = [
-            "AGENTS.MD",
-            "Critical_Thinking_in_Financial_Analysis.md",
-            "Effective_Communication_for_Analysts.md",
-            "README.md",
-            "Negotiation_Skills_for_Analysts.md",
-            "Presentation_Skills_for_Financial_Information.md",
-            "Ethical_Decision_Making_in_Practice.md"
-        ];
-        const subDirsInfo = [];
-        const relativePathToRoot = "../";
-        const parentIndexExists = true;
-
-        document.addEventListener('DOMContentLoaded', async function() {
-            pageTitle.textContent = `Viewer - ${directoryName}`;
-            let fileLinksHtml = '';
-
-            const readmeFile = filesInDir.find(f => f.toLowerCase() === 'readme.md');
-            if (readmeFile) {
-                fileLinksHtml += `<li>
-                                    <a href="${readmeFile}" target="_blank" class="nav-link raw-md-link">README.md (Raw)</a>
-                                    <a href="#" data-md-src="${readmeFile}" class="nav-link view-formatted-link active" title="View formatted content in pane">(View Formatted)</a>
-                                 </li>`;
-            }
-
-            const sortedFiles = filesInDir.sort((a, b) => {
-                // README already handled, sort others
-                if (a.toLowerCase() === 'readme.md' || a.toLowerCase() === 'agents.md') return 1;
-                if (b.toLowerCase() === 'readme.md' || b.toLowerCase() === 'agents.md') return -1;
-                return a.localeCompare(b);
-            });
-
-            sortedFiles.forEach(file => {
-                if (file.toLowerCase() !== 'readme.md' && file.toLowerCase() !== 'agents.md' && file.endsWith('.md')) {
-                    fileLinksHtml += `<li>
-                                        <a href="${file}" target="_blank" class="nav-link raw-md-link">${file} (Raw)</a>
-                                        <a href="#" data-md-src="${file}" class="nav-link view-formatted-link" title="View formatted content in pane">(View Formatted)</a>
-                                     </li>`;
-                }
-            });
-
-            subDirsInfo.forEach(subdir => {
-                if (subdir.readmePath) {
-                     fileLinksHtml += `<li class="subdirectory-group"><h4>${subdir.name}/</h4></li>`;
-                     fileLinksHtml += `<li>
-                                        <a href="${subdir.readmePath}" target="_blank" class="nav-link raw-md-link">&nbsp;&nbsp;&nbsp;README.md (Raw)</a>
-                                        <a href="#" data-md-src="${subdir.readmePath}" class="nav-link view-formatted-link" title="View formatted content in pane">&nbsp;&nbsp;&nbsp;(View Formatted)</a>
-                                     </li>`;
-                }
-            });
-            fileListDisplay.innerHTML = fileLinksHtml;
-
-            const upLinkContainer = document.getElementById('up-link-container');
-            let upLink = '';
-            if (relativePathToRoot === "../") {
-                upLink = `<a href="${relativePathToRoot}home.html">&laquo; Back to Main Hub</a>`;
-            } else if (parentIndexExists) {
-                 upLink = `<a href="${relativePathToRoot}index.html">&laquo; Up to Parent Directory</a>`;
-            } else {
-                upLink = `<a href="${relativePathToRoot}home.html">&laquo; Back to Main Hub (Fallback)</a>`;
-            }
-            upLinkContainer.innerHTML = upLink;
-
-            fileListDisplay.querySelectorAll('.view-formatted-link').forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    document.querySelectorAll('#file-list .view-formatted-link').forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                    const mdSrc = this.getAttribute('data-md-src');
-                    loadMarkdown(mdSrc);
-                });
-            });
-
-            const initialFormattedLink = fileListDisplay.querySelector('.view-formatted-link.active');
-            if (initialFormattedLink) {
-                await loadMarkdown(initialFormattedLink.getAttribute('data-md-src'));
-            } else {
-                const firstFormattedLink = fileListDisplay.querySelector('.view-formatted-link');
-                if (firstFormattedLink) {
-                    firstFormattedLink.classList.add('active');
-                    await loadMarkdown(firstFormattedLink.getAttribute('data-md-src'));
-                } else {
-                    contentDisplay.innerHTML = "<p>No Markdown files found to display.</p>";
-                }
-            }
-        });
-
-        async function loadMarkdown(mdPath) {
-            if (!contentDisplay) {
-                console.error("Content display element not found.");
-                return;
-            }
-            if (typeof marked === 'undefined') {
-                console.error("Marked.js library not found.");
-                contentDisplay.innerHTML = "<p>Error: Markdown renderer not available.</p>";
-                return;
-            }
-
-            try {
-                const response = await fetch(mdPath);
-                if (!response.ok) {
-                    throw new Error(`Failed to fetch ${mdPath}: ${response.status} ${response.statusText}`);
-                }
-                const markdownText = await response.text();
-                contentDisplay.innerHTML = marked.parse(markdownText);
-                contentDisplay.scrollTop = 0;
-            } catch (error) {
-                console.error("Error loading or parsing Markdown:", error);
-                contentDisplay.innerHTML = `<p>Error loading content for ${mdPath}.</p><p><small>${error.message}</small></p>`;
-            }
-        }
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>

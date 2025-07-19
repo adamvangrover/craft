@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Analysis Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/global_nav.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+        }
+        .content-card {
+            @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 ease-in-out p-8;
+        }
+        .card-link {
+            @apply block bg-sky-600 text-white font-semibold py-3 px-5 rounded-lg hover:bg-sky-700 transition-colors duration-200 text-center mt-auto;
+        }
+    </style>
+</head>
+<body class="flex">
+
+    <!-- Global Navigation Sidebar -->
+    <div id="global-nav-placeholder" class="fixed top-0 left-0 h-full z-30"></div>
+
+    <!-- Main Content Area -->
+    <div id="main-content-wrapper" class="flex-grow overflow-y-auto ml-0 md:ml-[280px] transition-all duration-300 ease-in-out">
+
+        <!-- Header -->
+        <header class="bg-slate-800 text-white py-16 px-6 md:px-8 text-center">
+            <div class="max-w-4xl mx-auto">
+                <i class="fas fa-gavel text-5xl text-sky-400 mb-4"></i>
+                <h1 class="text-4xl md:text-5xl font-bold">Legal Analysis</h1>
+                <p class="mt-4 text-xl opacity-90">Dissecting legal documents and understanding their implications for credit analysis.</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="py-16 px-6 md:px-8">
+            <div class="max-w-6xl mx-auto">
+
+                <div class="content-card mb-12">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Navigating the Legal Landscape</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        A thorough understanding of legal documentation is a critical component of credit analysis. This hub provides resources to help you read, understand, and analyze legal documents such as credit agreements.
+                    </p>
+                </div>
+
+                <h2 class="text-3xl font-bold text-center mb-12 text-slate-700">Explore Legal Topics</h2>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">How to Read Legal Documents</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">A guide to effectively reading and interpreting credit agreements and other legal documents.</p>
+                        <a href="/global_markdown_viewer.html?mdfile=legal_analysis/how_to_read_legal_documents/guide_to_reading_credit_agreements.md" class="card-link">Learn to Read</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Key Terms and Definitions</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">A glossary of common legal terms and definitions you'll encounter in credit agreements.</p>
+                        <a href="/global_markdown_viewer.html?mdfile=legal_analysis/key_terms_and_definitions/common_loan_and_party_terms.md" class="card-link">View Glossary</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Covenant Compliance</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">An in-depth look at financial covenants, including their types, calculation, and monitoring.</p>
+                        <a href="/global_markdown_viewer.html?mdfile=legal_analysis/covenant_compliance_and_reporting/types_of_covenants.md" class="card-link">Understand Covenants</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Security and Collateral</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Learn about security packages, guarantees, and the priority of claims in a credit agreement.</p>
+                        <a href="/global_markdown_viewer.html?mdfile=legal_analysis/security_and_collateral_analysis/overview_of_security_packages.md" class="card-link">Analyze Security</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">LME Strategies & Case Studies</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Explore Liability Management Exercises (LMEs) and their impact through real-world case studies.</p>
+                        <a href="/global_markdown_viewer.html?mdfile=legal_analysis/miscellaneous_credit_analysis_topics/lme_strategies_and_case_studies/lme_overview.md" class="card-link">Study LMEs</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Related Topics -->
+        <section class="py-16 px-6 md:px-8 bg-slate-50">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12 text-slate-700">Related Topics</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Risk Management</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">A deep understanding of legal agreements is crucial for managing credit risk. Visit our Risk Management hub.</p>
+                        <a href="../Risk_Management/index.html" class="card-link">Explore Risk Management</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Toolkits & Checklists</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Use our checklists to ensure you've covered all the key legal aspects in your analysis.</p>
+                        <a href="../Toolkits_and_Checklists/index.html" class="card-link">Access Toolkits</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-10 px-6 md:px-8 text-center text-sm text-slate-100 bg-slate-800 mt-12">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub. All Rights Reserved.</p>
+        </footer>
+
+    </div>
+
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

@@ -1,31 +1,11 @@
 // Assuming navData is globally available from nav_data.js, loaded before this script.
 // If not, we would need to fetch it or ensure proper script loading order.
 
-// Function to determine the base path for link construction.
-// Handles GitHub Pages deployment in a subdirectory (e.g., username.github.io/repo-name/).
-function getBasePath() {
-    // For a site at 'https://username.github.io/repo-name/', pathname is '/repo-name/path/to/page.html'
-    // We want to extract '/repo-name/'
-    const pathname = window.location.pathname;
-    const parts = pathname.split('/');
-    if (parts.length > 1 && parts[1] !== "") {
-        // Check if the first significant part of the path might be a repo name.
-        // This is a heuristic. For more complex scenarios, a config variable might be better.
-        // It assumes that if there's a segment like '/craft/' or '/repo-name/', it's the base.
-        // This might need adjustment if the repo name itself has multiple segments or other deployment structures.
-        // For now, assuming a simple "username.github.io/repo-name/" structure.
-        // If hosted at root (e.g. custom domain), this will effectively return "/" or "".
-        const potentialRepoName = parts[1];
-        // A simple check: if the repoName is "craft", use it.
-        // This could be made more robust, e.g. by a global variable set by the build process or a config file.
-        if (potentialRepoName === "craft") { // Hardcoding 'craft' as per example URL
-            return `/${potentialRepoName}/`;
-        }
-    }
-    return "/"; // Fallback for root deployment or if repo name can't be determined
-}
-
-const SITE_BASE_PATH = getBasePath(); // Initialize once
+// Determine the base path for link construction.
+// This handles deployment in a subdirectory on GitHub Pages.
+const repoName = "craft"; // CHANGE THIS TO YOUR REPO NAME
+const isGitHubPages = window.location.hostname.includes('github.io');
+const SITE_BASE_PATH = isGitHubPages ? `/${repoName}/` : '/';
 
 /**
  * Creates an HTML element with specified attributes and children.
