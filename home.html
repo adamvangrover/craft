@@ -6,6 +6,7 @@
     <!-- DEVELOPER NOTE: Version 3.0 - Static Site Navigation -->
     <title>Comprehensive Financial Training Hub - Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/global_nav.css">
     <style>
@@ -61,6 +62,107 @@
                     <a href="#learning-paths" class="bg-white text-blue-700 font-bold py-3 px-8 rounded-lg text-lg hover:bg-slate-100 transition-colors duration-200 shadow-md">
                         Chart Your Course
                     </a>
+    <!-- Main Content Area -->
+    <div id="main-content-wrapper" class="flex-grow overflow-y-auto ml-0 md:ml-[280px] transition-all duration-300 ease-in-out"> <!-- Adjust ml based on global-nav-placeholder width -->
+        <div class="md:hidden p-4">
+            <button id="menu-toggle-button" class="text-slate-700">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- 1. Hero Section -->
+        <section id="hero" class="hero-gradient py-20 px-6 md:px-8 text-center text-white">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Unlock Your Financial Expertise</h1>
+                <p class="text-xl md:text-2xl mb-10 opacity-90">
+                    Explore in-depth resources for CFA® preparation, credit risk analysis, financial modeling, and more. Start your journey to mastery today.
+                </p>
+                <a href="#learning-paths" class="bg-white text-blue-700 font-bold py-3 px-8 rounded-lg text-lg hover:bg-slate-100 transition-colors duration-200 shadow-md">
+                    Chart Your Course
+                </a>
+            </div>
+        </section>
+
+        <!-- 2. "Get Started: Choose Your Path" Section -->
+        <section id="learning-paths" class="py-16 px-6 md:px-8 bg-slate-50">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="section-title">Personalized Learning Journeys</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Path Card 1: Credit Analyst -->
+                    <div class="card flex flex-col p-6">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-magnifying-glass-chart text-4xl text-emerald-500"></i>
+                        </div>
+                        <h3 class="card-title text-center">Future Credit Analyst</h3>
+                        <p class="card-description text-center">
+                            Dive into our comprehensive CRAFT program, from foundational principles to advanced credit analysis techniques.
+                        </p>
+                        <a href="corporate-credit-risk-analyst-training/index.html" class="path-card-link">Start CRAFT Program</a>
+                    </div>
+
+                    <!-- Path Card 2: CFA Candidate -->
+                    <div class="card flex flex-col p-6">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-graduation-cap text-4xl text-emerald-500"></i>
+                        </div>
+                        <h3 class="card-title text-center">Aspiring CFA® Charterholder</h3>
+                        <p class="card-description text-center">
+                            Access extensive study materials, practice exams, and deep dives for all three CFA® program levels.
+                        </p>
+                        <a href="CFA/index.html" class="path-card-link">Go to CFA Hub</a>
+                    </div>
+
+                    <!-- Path Card 3: Finance Explorer -->
+                    <div class="card flex flex-col p-6">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-compass text-4xl text-emerald-500"></i>
+                        </div>
+                        <h3 class="card-title text-center">Finance Explorer & Skill Builder</h3>
+                        <p class="card-description text-center">
+                            Browse diverse topics like financial modeling, fintech, market analysis, or specific industry primers at your own pace.
+                        </p>
+                        <a href="#key-pillars" class="path-card-link">Explore Topics</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. "Explore Key Learning Pillars" Section -->
+        <section id="key-pillars" class="py-16 px-6 md:px-8">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="section-title">Explore Key Learning Pillars</h2>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Pillar Card 1: Core Financial Topics -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-landmark text-3xl"></i></div>
+                        <h3 class="card-title">Core Financial Topics</h3>
+                        <p class="card-description">Build your foundation with in-depth content on Financial Modeling, Risk Management, Industry Analysis, and more.</p>
+                        <a href="Financial_Modeling/index.html" class="pillar-card-link">Explore Core Topics</a>
+                    </div>
+
+                    <!-- Pillar Card 2: Career & Exams -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-briefcase text-3xl"></i></div>
+                        <h3 class="card-title">Career & Exams</h3>
+                        <p class="card-description">Prepare for success with dedicated resources for the CFA® Program, CRAFT certification, and professional development.</p>
+                        <a href="CFA/index.html" class="pillar-card-link">Advance Your Career</a>
+                    </div>
+
+                    <!-- Pillar Card 3: AI, Coding & Tech -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-laptop-code text-3xl"></i></div>
+                        <h3 class="card-title">AI, Coding & Tech</h3>
+                        <p class="card-description">Explore the intersection of finance and technology, including Fintech, AI, coding, prompt libraries, and agent libraries.</p>
+                        <a href="AI_and_Coding/index.html" class="pillar-card-link">Explore Tech</a>
+                    </div>
+
+                    <!-- Pillar Card 4: Learning Hub -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-book-open-reader text-3xl"></i></div>
+                        <h3 class="card-title">Learning Hub</h3>
+                        <p class="card-description">Engage with interactive notebooks, follow guided learning paths, and explore market analysis and our extensive glossary.</p>
+                        <a href="Learning_Paths/index.html" class="pillar-card-link">Start Learning</a>
+                    </div>
                 </div>
             </section>
         </div>
@@ -81,6 +183,64 @@
                 sidebarBackdrop.addEventListener('click', () => {
                     sidebar.classList.remove('open');
                     sidebarBackdrop.classList.add('hidden');
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Basic logic for sidebar interaction (if it's not always fixed open on larger screens)
+        const globalNav = document.getElementById('global-nav-placeholder');
+        const mainContentWrapper = document.getElementById('main-content-wrapper');
+
+        const menuToggleButton = document.getElementById('menu-toggle-button');
+        if (menuToggleButton) {
+            menuToggleButton.addEventListener('click', () => {
+                globalNav.classList.toggle('hidden');
+                mainContentWrapper.classList.toggle('ml-0');
+            });
+        }
+
+        // AI Concept Explainer JavaScript
+        const aiPromptInput = document.getElementById('ai-prompt-input');
+        const aiExplainBtn = document.getElementById('ai-explain-btn');
+        const aiBtnText = document.getElementById('ai-btn-text');
+        const aiBtnLoader = document.getElementById('ai-btn-loader');
+        const aiResponseContainer = document.getElementById('ai-response-container');
+
+        const handleAIExplain = async () => {
+            const promptText = aiPromptInput.value.trim();
+            if (!promptText) {
+                aiResponseContainer.innerHTML = '<p class="text-red-500">Please enter a financial term to explain.</p>';
+                return;
+            }
+
+            aiBtnText.classList.add('hidden');
+            aiBtnLoader.classList.remove('hidden');
+            aiExplainBtn.disabled = true;
+            aiResponseContainer.innerHTML = '<p class="text-slate-500">Generating explanation...</p>';
+
+            const GEMINI_API_KEY = "YOUR_API_KEY_HERE"; // IMPORTANT: Replace with your actual API key
+            
+            if (GEMINI_API_KEY === "YOUR_API_KEY_HERE") {
+                aiResponseContainer.innerHTML = '<p class="text-red-500">AI Explainer requires an API key. Please configure it in the script.</p>';
+                aiBtnText.classList.remove('hidden');
+                aiBtnLoader.classList.add('hidden');
+                aiExplainBtn.disabled = false;
+                return;
+            }
+
+            const prompt = `Explain the financial concept of "${promptText}" in simple terms, as if you were explaining it to a beginner. Keep it concise and clear. Focus on the core meaning and avoid jargon where possible, or explain it if necessary.`;
+            const payload = {
+              contents: [{ role: "user", parts: [{ text: prompt }] }],
+              // Optional: Add safetySettings if needed
+              // generationConfig: { temperature: 0.7, topK: 40, topP: 0.95 }
+            };
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
+
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
                 });
             }
         });
