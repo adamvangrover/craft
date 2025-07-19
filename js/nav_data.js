@@ -5,15 +5,14 @@ const navData = [
     type: "html",
   },
   {
-    text: "Site Overview Presentation",
-    href: "presentation.html",
-    type: "html",
-  },
-  {
-    text: "CFA Program",
+    text: "Learning Hub",
     type: "category",
     children: [
       {
+        text: "All Learning Paths",
+        href: "Learning_Paths/index.html",
+        type: "section_viewer"
+
         text: "CFA Study Hub",
         href: "CFA/index.html",
         type: "html_hub", // Interactive hub
@@ -24,26 +23,21 @@ const navData = [
         type: "html_hub_section",
       },
       {
-        text: "Level II Materials",
-        href: "CFA/index.html#materials-library",
-        type: "html_hub_section",
+        text: "Interactive Notebooks",
+        href: "Interactive_Notebooks/index.html",
+        type: "html_hub"
       },
       {
-        text: "Level III Materials",
-        href: "CFA/index.html#materials-library",
-        type: "html_hub_section",
+        text: "Market Analysis Quick Start",
+        href: "Market_Analysis_Quick_Start/index.html",
+        type: "section_viewer"
       },
-    ],
-  },
-  {
-    text: "Credit Risk Analyst Training (CRAFT)",
-    type: "category",
-    children: [
       {
-        text: "CRAFT Program Hub",
-        href: "corporate-credit-risk-analyst-training/index.html",
-        type: "html_hub", // Interactive hub
+        text: "Interactive Glossary",
+        href: "view_glossary.html",
+        type: "html"
       },
+
       { text: "Module 1: Foundations", href: "corporate-credit-risk-analyst-training/modules/01-foundations/index.html", type: "craft_module_viewer" },
       { text: "Module 2: Understanding the Market", href: "corporate-credit-risk-analyst-training/modules/02-understanding-the-market/index.html", type: "craft_module_viewer" },
       { text: "Module 3: The Analyst's Craft", href: "corporate-credit-risk-analyst-training/modules/03-the-analysts-craft/index.html", type: "craft_module_viewer" },
@@ -92,9 +86,19 @@ const navData = [
     ]
   },
   {
-    text: "Interactive Notebooks",
+    text: "Core Financial Topics",
     type: "category",
     children: [
+      {
+        text: "Financial Modeling",
+        href: "Financial_Modeling/index.html",
+        type: "html_hub"
+      },
+      {
+        text: "Risk Management",
+        href: "Risk_Management/index.html",
+        type: "html_hub"
+        
       { text: "Notebooks Overview", href: "Interactive_Notebooks/index.html", type: "html_hub" },
       { text: "Equity Valuation Notebook Guide", href: "Interactive_Notebooks/Financial_Modeling/README.md", type: "jupyter_guide" },
       { text: "LBO Model Basics Guide", href: "Interactive_Notebooks/Financial_Modeling/LBO_Model_Basics/README.md", type: "jupyter_guide" },
@@ -133,22 +137,19 @@ const navData = [
         ]
       },
       {
-        text: "Operational Risk",
-        href: "Risk_Management/Operational_Risk/index.html",
-        type: "section_viewer",
-        children: [
-          { text: "Introduction to Operational Risk", href: "Risk_Management/Operational_Risk/ORM_01_Introduction_to_Operational_Risk.md", type: "markdown_viewer", viewer: "global"}
-        ]
+        text: "Industry Primers",
+        href: "primers/index.html",
+        type: "section_viewer"
       },
       {
-        text: "Liquidity Risk",
-        href: "Risk_Management/Liquidity_Risk/index.html",
-        type: "section_viewer",
-        children: [
-          { text: "Introduction to Liquidity Risk", href: "Risk_Management/Liquidity_Risk/LRM_01_Introduction_to_Liquidity_Risk.md", type: "markdown_viewer", viewer: "global"}
-        ]
+        text: "Behavioral Finance",
+        href: "Behavioral_Finance/index.html",
+        type: "section_viewer"
       },
       {
+        text: "Legal Analysis",
+        href: "legal_analysis/index.html",
+        type: "section_viewer"
         text: "Enterprise Risk Management (ERM)",
         href: "Risk_Management/Enterprise_Risk_Management/index.html",
         type: "section_viewer",
@@ -159,9 +160,10 @@ const navData = [
     ],
   },
   {
-    text: "Fintech",
+    text: "Career & Exams",
     type: "category",
     children: [
+
       { text: "Fintech Hub", href: "Fintech/index.html", type: "html_hub" },
       { text: "Introduction to Fintech", href: "Fintech/Introduction_to_Fintech.md", type: "markdown_viewer", viewer: "global" },
       { text: "AI in Finance", href: "Fintech/AI_in_Finance.md", type: "markdown_viewer", viewer: "global" },
@@ -181,27 +183,51 @@ const navData = [
     children: [
       { text: "All Learning Paths", href: "Learning_Paths/index.html", type: "section_viewer" },
       {
-        text: "Credit Analyst Foundational Path",
-        href: "Learning_Paths/Credit_Analyst_Foundational_Path.md",
-        type: "learning_path_definition",
-        path_id: "credit_analyst_foundational"
+        text: "CFA Program",
+        href: "CFA/index.html",
+        type: "html_hub",
       },
       {
-        text: "CFA Level 1 Prep Focus Areas",
-        href: "Learning_Paths/CFA_Level_1_Prep_Focus_Areas.md",
-        type: "learning_path_definition",
-        path_id: "cfa_l1_focus"
+        text: "Credit Risk Analyst (CRAFT)",
+        href: "corporate-credit-risk-analyst-training/index.html",
+        type: "html_hub",
       },
       {
-        text: "Understanding Fintech for Analysts",
-        href: "Learning_Paths/Understanding_Fintech_for_Analysts.md",
-        type: "learning_path_definition",
-        path_id: "fintech_for_analysts"
+        text: "Professional Development",
+        href: "Professional_Development/index.html",
+        type: "section_viewer"
+      },
+      {
+        text: "Toolkits & Checklists",
+        href: "Toolkits_and_Checklists/index.html",
+        type: "section_viewer"
       }
-    ],
-    isLearningPathSection: true
+    ]
   },
   {
+    text: "AI, Coding & Tech",
+    type: "category",
+    children: [
+      {
+        text: "AI & Coding Hub",
+        href: "AI_and_Coding/index.html",
+        type: "html_hub"
+      },
+      {
+        text: "Fintech",
+        href: "Fintech/index.html",
+        type: "html_hub"
+      },
+      {
+        text: "Prompt Libraries",
+        href: "AI_and_Coding/Prompt_Libraries/index.html",
+        type: "section_viewer"
+      },
+      {
+        text: "Agent Libraries",
+        href: "AI_and_Coding/Agent_Libraries/index.html",
+        type: "section_viewer"
+      }
     text: "Additional Resources",
     type: "category",
     children: [
@@ -223,5 +249,5 @@ const navData = [
         },
         { text: "Interactive Glossary", href: "view_glossary.html", type: "html"},
     ]
-  }
+  },
 ];

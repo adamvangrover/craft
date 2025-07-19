@@ -1,196 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Directory Viewer - Risk_Management</title>
+    <title>Risk Management Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/global_nav.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/simple_viewer.css">
-</head>
-<body style="display: flex; min-height: 100vh;">
-    <div id="global-nav-placeholder"></div>
-    <!-- Wrapper for existing page content to live alongside global nav -->
-    <div class="page-content-wrapper" style="display: flex; flex-grow: 1; min-height: 100vh; overflow-y: hidden;">
     <style>
-        /* Additional styles for iframe container if simple_viewer.css is not enough */
-        #iframe-container {
-            flex-grow: 1;
-            height: 100%; /* Ensure it takes full height of flex container */
-            overflow: hidden; /* Hide scrollbars if iframe content fits */
-            display: none; /* Initially hidden */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
         }
-        #iframe-container.active {
-            display: block;
+        .content-card {
+            @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 ease-in-out p-8;
         }
-        #module-content-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        /* Ensure #content-area (for direct MD) and #iframe-container are mutually exclusive */
-        #content-area.hidden-by-iframe {
-            display: none;
+        .card-link {
+            @apply block bg-sky-600 text-white font-semibold py-3 px-5 rounded-lg hover:bg-sky-700 transition-colors duration-200 text-center mt-auto;
         }
     </style>
-    <div id="sidebar" style="flex-shrink: 0;">
-        <div id="up-link-container">
-             <a href="../home.html">&laquo; Back to Main Hub</a>
-        </div>
-        <h3>Risk Management Navigation</h3>
-        <ul id="file-list">
-            <!-- File list will be populated by JavaScript -->
-        </ul>
+</head>
+<body class="flex">
+
+    <!-- Global Navigation Sidebar -->
+    <div id="global-nav-placeholder" class="fixed top-0 left-0 h-full z-30"></div>
+
+    <!-- Main Content Area -->
+    <div id="main-content-wrapper" class="flex-grow overflow-y-auto ml-0 md:ml-[280px] transition-all duration-300 ease-in-out">
+
+        <!-- Header -->
+        <header class="bg-slate-800 text-white py-16 px-6 md:px-8 text-center">
+            <div class="max-w-4xl mx-auto">
+                <i class="fas fa-shield-alt text-5xl text-sky-400 mb-4"></i>
+                <h1 class="text-4xl md:text-5xl font-bold">Risk Management</h1>
+                <p class="mt-4 text-xl opacity-90">Identifying, assessing, and mitigating financial risks.</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="py-16 px-6 md:px-8">
+            <div class="max-w-6xl mx-auto">
+
+                <div class="content-card mb-12">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">A Comprehensive Approach to Risk</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Effective risk management is crucial for the stability and success of any financial institution. This hub provides a comprehensive overview of the key risk categories and the frameworks used to manage them.
+                    </p>
+                </div>
+
+                <h2 class="text-3xl font-bold text-center mb-12 text-slate-700">Explore Risk Categories</h2>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Introduction to Risk Management</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">An overview of the principles and importance of risk management.</p>
+                        <a href="../global_markdown_viewer.html?mdfile=Risk_Management/01_Introduction_to_Risk_Management.md" class="card-link">Read Introduction</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Credit Risk</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">The risk of loss arising from a borrower's failure to meet their obligations.</p>
+                        <a href="Credit_Risk/index.html" class="card-link">Explore Credit Risk</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Market Risk</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">The risk of losses arising from movements in market prices.</p>
+                        <a href="Market_Risk/index.html" class="card-link">Explore Market Risk</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Operational Risk</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">The risk of loss resulting from inadequate or failed internal processes, people, and systems.</p>
+                        <a href="Operational_Risk/index.html" class="card-link">Explore Operational Risk</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Liquidity Risk</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">The risk that a firm will not be able to meet its short-term financial demands.</p>
+                        <a href="Liquidity_Risk/index.html" class="card-link">Explore Liquidity Risk</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Enterprise Risk Management</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">A holistic, top-down approach to managing risk across an entire organization.</p>
+                        <a href="Enterprise_Risk_Management/index.html" class="card-link">Explore ERM</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Related Topics -->
+        <section class="py-16 px-6 md:px-8 bg-slate-50">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12 text-slate-700">Related Topics</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Behavioral Finance</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Understanding behavioral biases is a key component of managing risk. Explore our Behavioral Finance hub to learn more.</p>
+                        <a href="../Behavioral_Finance/index.html" class="card-link">Explore Behavioral Finance</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Legal Analysis</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">A deep understanding of legal agreements is crucial for managing credit risk. Visit our Legal Analysis hub.</p>
+                        <a href="../legal_analysis/index.html" class="card-link">Explore Legal Analysis</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-10 px-6 md:px-8 text-center text-sm text-slate-100 bg-slate-800 mt-12">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub. All Rights Reserved.</p>
+        </footer>
+
     </div>
 
-    <!-- Area for direct Markdown rendering -->
-    <div id="content-area" class="markdown-body active" style="flex-grow: 1; overflow-y: auto; padding: 20px;">
-        <p>Loading content...</p>
-    </div>
-
-    <!-- Area for iframe -->
-    <div id="iframe-container" style="flex-grow: 1; overflow-y: auto;">
-        <iframe id="module-content-frame" title="Sub-module Content"></iframe>
-    </div>
-    </div> <!-- End of page-content-wrapper -->
     <script src="../js/nav_data.js" defer></script>
     <script src="../js/global_nav.js" defer></script>
     <script>
-        const directContentDisplay = document.getElementById('content-area');
-        const iframeContainer = document.getElementById('iframe-container');
-        const moduleIframe = document.getElementById('module-content-frame');
-        const fileListDisplay = document.getElementById('file-list');
-        const pageTitle = document.querySelector('title');
-        
-        const directoryName = "Risk_Management"; 
-        // Files directly in Risk_Management/
-        const localFiles = ["README.md", "01_Introduction_to_Risk_Management.md", "02_Risk_Identification_and_Assessment_Frameworks.md", "03_Risk_Reporting_and_Dashboards.md", "04_Risk_Governance_and_Culture.md", "Model_Risk_Management.md", "AGENTS.MD"];
-        // Sub-directories that have their own index.html (to be iframed)
-        const subDirectoryModulesToIframe = [
-            {"name": "Credit_Risk", "indexPath": "Credit_Risk/index.html"},
-            {"name": "Market_Risk", "indexPath": "Market_Risk/index.html"},
-            {"name": "Operational_Risk", "indexPath": "Operational_Risk/index.html"},
-            {"name": "Enterprise_Risk_Management", "indexPath": "Enterprise_Risk_Management/index.html"}
-        ];
-        // Sub-directories that contain markdown files to be loaded directly
-        // Note: Liquidity_Risk might eventually get its own index.html and move to the above array.
-        const subDirectoryMarkdownModules = [
-            {
-                "name": "Liquidity_Risk",
-                "path": "Liquidity_Risk/",
-                "files": ["README.md", "LRM_01_Introduction_to_Liquidity_Risk.md"]
-            }
-        ];
-
-        document.addEventListener('DOMContentLoaded', async function() {
-            pageTitle.textContent = `Viewer - ${directoryName}`;
-            let fileLinksHtml = '';
-
-            // Handle direct .md files (README.md, AGENTS.MD, etc.)
-            const readmeFile = localFiles.find(f => f.toLowerCase() === 'readme.md');
-            if (readmeFile) {
-                 fileLinksHtml += `<li>
-                                    <a href="${readmeFile}" target="_blank" class="nav-link raw-md-link">README.md (Raw Overview)</a>
-                                    <a href="#" data-md-src="${readmeFile}" class="nav-link view-formatted-link direct-md-link active" title="View formatted content in pane">(View Formatted)</a>
-                                 </li>`;
-            }
-            localFiles.forEach(file => {
-                // Exclude README (already handled) and AGENTS.MD
-                if (file.toLowerCase() !== 'readme.md' && file.toLowerCase() !== 'agents.md' && file.endsWith('.md')) {
-                    const linkText = file;
-                    fileLinksHtml += `<li>
-                                        <a href="${file}" target="_blank" class="nav-link raw-md-link">${linkText} (Raw)</a>
-                                        <a href="#" data-md-src="${file}" class="nav-link view-formatted-link direct-md-link" title="View formatted content in pane">(View Formatted)</a>
-                                     </li>`;
-                }
-            });
-
-            // Handle sub-directory modules (iframe links)
-            subDirectoryModulesToIframe.forEach(subdir => { // Corrected variable name here
-
-                fileLinksHtml += `<li class="subdirectory-group"><h4>${subdir.name}/</h4></li>`;
-                fileLinksHtml += `<li><a href="#" data-iframe-src="${subdir.indexPath}" class="nav-link iframe-link">&nbsp;&nbsp;&nbsp;Explore ${subdir.name} Module (Interactive Hub)</a></li>`;
-            });
-            fileListDisplay.innerHTML = fileLinksHtml;
-
-            // Add event listeners
-            fileListDisplay.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    document.querySelectorAll('#file-list .nav-link').forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-
-                    if (this.classList.contains('direct-md-link')) {
-                        const mdSrc = this.getAttribute('data-md-src');
-                        loadMdDirectly(mdSrc);
-                    } else if (this.classList.contains('iframe-link')) {
-                        const iframeSrc = this.getAttribute('data-iframe-src');
-                        loadSubdirectoryInIframe(iframeSrc);
-                    }
-                    // Raw links will just navigate due to no preventDefault for them here if they were separate elements.
-                });
-            });
-            
-            // Initial load logic
-            const initialFormattedReadmeLink = fileListDisplay.querySelector('a.view-formatted-link.direct-md-link[data-md-src="README.md"]');
-            if (initialFormattedReadmeLink) {
-                await loadMdDirectly('README.md');
-            } else {
-                const firstDirectFormattedLink = fileListDisplay.querySelector('a.view-formatted-link.direct-md-link');
-                if (firstDirectFormattedLink) {
-                    firstDirectFormattedLink.classList.add('active');
-                    await loadMdDirectly(firstDirectFormattedLink.dataset.mdSrc);
-                } else {
-                    const firstIframeLink = fileListDisplay.querySelector('a.iframe-link');
-                    if (firstIframeLink) {
-                        firstIframeLink.classList.add('active');
-                        loadSubdirectoryInIframe(firstIframeLink.dataset.iframeSrc);
-                    } else {
-                        directContentDisplay.innerHTML = "<p>No content found. Select an item from the navigation.</p>";
-                    }
-                }
-            } else {
-                directContentDisplay.innerHTML = "<p>No local Markdown files found. Select a module from the subdirectories.</p>";
-            }
-        });
-
-        function showDirectContentArea() {
-            directContentDisplay.classList.add('active');
-            directContentDisplay.classList.remove('hidden-by-iframe');
-            iframeContainer.classList.remove('active');
-            moduleIframe.src = 'about:blank'; // Clear iframe
-        }
-
-        function showIframeArea() {
-            directContentDisplay.classList.remove('active');
-            directContentDisplay.classList.add('hidden-by-iframe');
-            iframeContainer.classList.add('active');
-        }
-
-        async function loadMdDirectly(mdPath) {
-            showDirectContentArea();
-            if (!directContentDisplay) return;
-            if (typeof marked === 'undefined') {
-                directContentDisplay.innerHTML = "<p>Error: Markdown renderer not available.</p>";
-                return;
-            }
-            directContentDisplay.innerHTML = "<p>Loading content...</p>";
-            try {
-                const response = await fetch(mdPath);
-                if (!response.ok) throw new Error(`Failed to fetch ${mdPath}: ${response.status}`);
-                const markdownText = await response.text();
-                directContentDisplay.innerHTML = marked.parse(markdownText);
-                directContentDisplay.scrollTop = 0; 
-            } catch (error) {
-                console.error("Error loading direct Markdown:", error);
-                directContentDisplay.innerHTML = `<p>Error loading content for ${mdPath}.</p><p><small>${error.message}</small></p>`;
-            }
-        }
-
-        function loadSubdirectoryInIframe(indexPath) {
-            showIframeArea();
-            moduleIframe.src = indexPath;
-        }
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
