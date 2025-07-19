@@ -3,208 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Industry Primers - Two-Pane Viewer</title>
+    <title>Industry Primers Hub</title>
     <link rel="stylesheet" href="../css/global_nav.css">
     <link rel="stylesheet" href="styles.css">
-    <!-- Adding Marked.js for Markdown rendering -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body style="display: flex; min-height: 100vh;">
     <div id="global-nav-placeholder"></div>
-    <div class="page-container primers-two-pane-layout" style="flex-grow: 1; display: flex; flex-direction: column;">
+    <div class="page-container" style="flex-grow: 1;">
         <header class="page-header">
-            <h1>Industry Primers Deep Dive</h1>
+            <h1>Industry Primers</h1>
             <input type="text" id="mainIndexSearch" placeholder="Search primers by title or keywords...">
-            <p style="margin-top: 8px;"><a href="../home.html" class="text-slate-200 hover:text-white hover:underline transition-colors duration-150 ease-in-out text-sm">&larr; Back to Main Financial Learning Hub</a></p>
         </header>
-        <nav class="top-nav">
-            <ul id="top-nav-list">
-                <!-- Top navigation links will be populated by script.js -->
-            </ul>
-        </nav>
-        <div class="primers-two-pane-main-content" style="flex-grow: 1; display: flex; overflow-y: hidden;">
-            <nav class="primers-nav-pane" style="flex-shrink: 0; overflow-y: auto;">
-                <!-- This will list the primer cards as navigation items -->
-                <div class="primers-list-container">
-                    <!-- Aerospace & Defense Primer Card -->
-                    <article class="primer-summary-card"
-                             data-title="Aerospace & Defense"
-                             data-keywords="aviation aircraft military space oem mro c4isr r&d gdp covid supply chain geopolitical fms cyclical roic defense spending government contracts Boeing Airbus Lockheed Martin RTX General Dynamics commercial aerospace suppliers"
-                             data-md-src="aerospace_defense.md">
-                        <h3><a href="aerospace_defense.md" class="view-markdown-link-alt" title="View original Markdown file (opens new tab)" target="_blank">Aerospace & Defense</a></h3>
-                        <div class="primer-initial-summary">
-                            <p>The Aerospace & Defense (A&D) sector comprises companies that research, design, manufacture, and support aircraft, spacecraft, defense systems, and related components and services. Key subsectors include commercial aerospace and defense.</p>
-                            <p><em>Tip: Focus on backlog quality, program execution, and government budget trends for defense; for commercial, watch air traffic demand and airline profitability.</em></p>
-                        </div>
-                        <a href="#" class="view-details-link" data-md-src-override="aerospace_defense.md">Read Primer &raquo;</a>
-                        <a href="html/aerospace_defense.html" class="view-html-link" target="_blank" style="margin-top: 5px; display: inline-block; font-size: 0.85em; color: #555;">View Enhanced HTML &raquo;</a>
-                    </article>
 
-                    <article class="primer-summary-card"
-                             data-title="Automotive"
-                             data-keywords="cars EVs autonomous vehicles OEMs cyclical electrification ADAS COGS FCF Ford GM Toyota VW Stellantis Tesla electric vehicles supply chain semiconductors"
-                             data-md-src="automotive.md">
-                        <h3><a href="automotive.md" class="view-markdown-link-alt" title="View original Markdown file (opens new tab)" target="_blank">Automotive</a></h3>
-                        <div class="primer-initial-summary">
-                            <p>The automotive industry encompasses the design, development, manufacturing, marketing, and selling of motor vehicles. Highly cyclical and undergoing a major transition towards electrification and autonomous driving.</p>
-                            <p><em>Rule of Thumb: Unit sales, inventory levels, and regional market share are critical metrics. High fixed costs mean profitability is sensitive to volume.</em></p>
-                        </div>
-                         <a href="#" class="view-details-link" data-md-src-override="automotive.md">Read Primer &raquo;</a>
-                        <a href="html/automotive.html" class="view-html-link" target="_blank" style="margin-top: 5px; display: inline-block; font-size: 0.85em; color: #555;">View Enhanced HTML &raquo;</a>
-                    </article>
-
-                    <article class="primer-summary-card"
-                             data-title="Consumer Products"
-                             data-keywords="retail staples discretionary brands CPG e-commerce DTC FCF Procter & Gamble Unilever Nestle Coca-Cola PepsiCo consumer packaged goods branding supply chain inflation"
-                             data-md-src="consumer_products.md">
-                        <h3><a href="consumer_products.md" class="view-markdown-link-alt" title="View original Markdown file (opens new tab)" target="_blank">Consumer Products</a></h3>
-                        <div class="primer-initial-summary">
-                            <p>Covers Consumer Staples (less cyclical food, beverages) and Consumer Discretionary (more cyclical apparel, luxury goods). Key drivers: brand strength, distribution, e-commerce, input costs.</p>
-                            <p><em>Historical Analysis: Track shifts in consumer preferences (e.g., health & wellness, sustainability) and the impact of private labels.</em></p>
-                        </div>
-                        <a href="#" class="view-details-link" data-md-src-override="consumer_products.md">Read Primer &raquo;</a>
-                        <a href="html/consumer_products.html" class="view-html-link" target="_blank" style="margin-top: 5px; display: inline-block; font-size: 0.85em; color: #555;">View Enhanced HTML &raquo;</a>
-                    </article>
-
-                    <article class="primer-summary-card"
-                             data-title="Corporate Credit Rating Fundamentals"
-                             data-keywords="ratings S&P Moody's Fitch investment grade speculative bonds FFO EBITDA leverage coverage default risk creditworthiness financial ratios methodology bond ratings"
-                             data-md-src="corporate_credit_rating_fundamentals.md">
-                        <h3><a href="corporate_credit_rating_fundamentals.md" class="view-markdown-link-alt" title="View original Markdown file (opens new tab)" target="_blank">Corporate Credit Rating Fundamentals</a></h3>
-                        <div class="primer-initial-summary">
-                            <p>Explains credit ratings from agencies like S&P, Moody's, Fitch. Covers default probability assessment, methodologies, and impact on borrowing costs.</p>
-                            <p><em>Teacher Note: Emphasize issuer vs. issue-specific ratings, and impact on bond yields.</em></p>
-                        </div>
-                        <a href="#" class="view-details-link" data-md-src-override="corporate_credit_rating_fundamentals.md">Read Primer &raquo;</a>
-                        <a href="html/corporate_credit_rating_fundamentals.html" class="view-html-link" target="_blank" style="margin-top: 5px; display: inline-block; font-size: 0.85em; color: #555;">View Enhanced HTML &raquo;</a>
-                    </article>
-
-                    <article class="primer-summary-card"
-                             data-title="Energy Oil Gas"
-                             data-keywords="oil gas E&P midstream downstream drilling WTI Brent LNG FCF EBITDAX reserves commodity prices OPEC ExxonMobil Chevron Shell BP exploration production refining pipelines"
-                             data-md-src="energy_oil_gas.md">
-                        <h3><a href="energy_oil_gas.md" class="view-markdown-link-alt" title="View original Markdown file (opens new tab)" target="_blank">Energy Oil & Gas</a></h3>
-                        <div class="primer-initial-summary">
-                            <p>Covers exploration & production (upstream), transportation (midstream), and refining & marketing (downstream). Sensitive to commodity prices, geopolitics, and energy transition.</p>
-                            <p><em>Guided Learning: Analyze oil price scenario impacts on E&P vs. midstream operators.</em></p>
-                        </div>
-                        <a href="#" class="view-details-link" data-md-src-override="energy_oil_gas.md">Read Primer &raquo;</a>
-                        <a href="html/energy_oil_gas.html" class="view-html-link" target="_blank" style="margin-top: 5px; display: inline-block; font-size: 0.85em; color: #555;">View Enhanced HTML &raquo;</a>
-                    </article>
-
-                    <article class="primer-summary-card"
-                             data-title="Financial Institutions"
-                             data-keywords="banks insurance asset management fintech regulation NPLs NIM CET1 LCR interest rates capital adequacy JPMorgan Chase Bank of America Citigroup Wells Fargo non-performing loans net interest margin"
-                             data-md-src="financial_institutions.md">
-                        <h3><a href="financial_institutions.md" class="view-markdown-link-alt" title="View original Markdown file (opens new tab)" target="_blank">Financial Institutions</a></h3>
-                        <div class="primer-initial-summary">
-                            <p>Includes banks, insurance, asset managers. Highly regulated, sensitive to interest rates, credit cycles. Key bank metrics: NIM, NPLs, CET1.</p>
-                            <p><em>Case Study: Compare balance sheet and risks of a commercial bank vs. P&C insurer.</em></p>
-                        </div>
-                        <a href="#" class="view-details-link" data-md-src-override="financial_institutions.md">Read Primer &raquo;</a>
-                        <a href="html/financial_institutions.html" class="view-html-link" target="_blank" style="margin-top: 5px; display: inline-block; font-size: 0.85em; color: #555;">View Enhanced HTML &raquo;</a>
-                    </article>
-
-                    <article class="primer-summary-card"
-                             data-title="Healthcare"
-                             data-keywords="pharma biotech medical devices hospitals insurers FDA MLR R&D patent drug pipeline reimbursement Johnson & Johnson Pfizer Merck AbbVie pharmaceuticals biotechnology healthcare providers managed care"
-                             data-md-src="healthcare.md">
-                        <h3><a href="healthcare.md" class="view-markdown-link-alt" title="View original Markdown file (opens new tab)" target="_blank">Healthcare</a></h3>
-                        <div class="primer-initial-summary">
-                            <p>Pharmaceuticals, biotech, medical devices, providers, insurers. Driven by R&D, drug pipelines, demographics, reimbursement. Patent cliffs are a major risk.</p>
-                            <p><em>Peer Comparison: Analyze R&D productivity and pipeline diversification.</em></p>
-                        </div>
-                        <a href="#" class="view-details-link" data-md-src-override="healthcare.md">Read Primer &raquo;</a>
-                        <a href="html/healthcare.html" class="view-html-link" target="_blank" style="margin-top: 5px; display: inline-block; font-size: 0.85em; color: #555;">View Enhanced HTML &raquo;</a>
-                    </article>
-
-                    <article class="primer-summary-card"
-                             data-title="Industrials"
-                             data-keywords="manufacturing machinery construction logistics aerospace cyclical capex ROIC GDP PMI General Electric Honeywell Caterpillar Siemens industrial production capital expenditures"
-                             data-md-src="industrials.md">
-                        <h3><a href="industrials.md" class="view-markdown-link-alt" title="View original Markdown file (opens new tab)" target="_blank">Industrials</a></h3>
-                        <div class="primer-initial-summary">
-                            <p>Broad sector: machinery, construction, aerospace components, transportation. Cyclical, tied to GDP & capex. Key metrics: backlogs, capacity utilization, ROIC.</p>
-                            <p><em>Trends Overview: Monitor PMI as leading indicators for industrial activity.</em></p>
-                        </div>
-                        <a href="#" class="view-details-link" data-md-src-override="industrials.md">Read Primer &raquo;</a>
-                        <a href="html/industrials.html" class="view-html-link" target="_blank" style="margin-top: 5px; display: inline-block; font-size: 0.85em; color: #555;">View Enhanced HTML &raquo;</a>
-                    </article>
-
-                    <article class="primer-summary-card"
-                             data-title="Media"
-                             data-keywords="broadcasting publishing streaming advertising gaming SVOD ARPU DTC FCF content creation intellectual property Disney Netflix Comcast Warner Bros Discovery traditional media digital media subscription video on demand average revenue per user"
-                             data-md-src="media.md">
-                        <h3><a href="media.md" class="view-markdown-link-alt" title="View original Markdown file (opens new tab)" target="_blank">Media</a></h3>
-                        <div class="primer-initial-summary">
-                            <p>Traditional (broadcasters, publishers) and digital (streaming, gaming). Shifting from advertising to subscription (SVOD) and DTC. Content is king.</p>
-                            <p><em>Developer Note: Overlaps with Technology (streaming) and Telecom (cable).</em></p>
-                        </div>
-                        <a href="#" class="view-details-link" data-md-src-override="media.md">Read Primer &raquo;</a>
-                        <a href="html/media.html" class="view-html-link" target="_blank" style="margin-top: 5px; display: inline-block; font-size: 0.85em; color: #555;">View Enhanced HTML &raquo;</a>
-                    </article>
-
-                    <article class="primer-summary-card"
-                             data-title="Real Estate"
-                             data-keywords="REITs property development commercial residential office retail industrial NOI FFO WALE LTV cap rates interest rates property types Simon Property Group Prologis CBRE Real Estate Investment Trusts Net Operating Income Funds From Operations"
-                             data-md-src="real_estate.md">
-                        <h3><a href="real_estate.md" class="view-markdown-link-alt" title="View original Markdown file (opens new tab)" target="_blank">Real Estate</a></h3>
-                        <div class="primer-initial-summary">
-                            <p>REITs, developers, operators. Sensitive to interest rates, economic growth. Key metrics: NOI, FFO, occupancy, cap rates.</p>
-                            <p><em>Student Note: Understand different types of REITs (equity vs. mortgage).</em></p>
-                        </div>
-                        <a href="#" class="view-details-link" data-md-src-override="real_estate.md">Read Primer &raquo;</a>
-                        <a href="html/real_estate.html" class="view-html-link" target="_blank" style="margin-top: 5px; display: inline-block; font-size: 0.85em; color: #555;">View Enhanced HTML &raquo;</a>
-                    </article>
-
-                    <article class="primer-summary-card"
-                             data-title="Technology"
-                             data-keywords="software hardware IT services internet cloud AI cybersecurity SaaS IoT FCF R&D innovation disruption Apple Microsoft Alphabet Amazon Meta Nvidia Software as a Service Internet of Things artificial intelligence"
-                             data-md-src="technology.md">
-                        <h3><a href="technology.md" class="view-markdown-link-alt" title="View original Markdown file (opens new tab)" target="_blank">Technology</a></h3>
-                        <div class="primer-initial-summary">
-                            <p>Rapid innovation, short product lifecycles. Software (SaaS), hardware, semiconductors, IT services, internet, cloud, AI, cybersecurity. High R&D, growth focus.</p>
-                            <p><em>Tips & Tricks: For SaaS, focus on ARR, CAC, LTV, and churn rate.</em></p>
-                        </div>
-                        <a href="#" class="view-details-link" data-md-src-override="technology.md">Read Primer &raquo;</a>
-                        <a href="html/technology.html" class="view-html-link" target="_blank" style="margin-top: 5px; display: inline-block; font-size: 0.85em; color: #555;">View Enhanced HTML &raquo;</a>
-                    </article>
-
-                    <article class="primer-summary-card"
-                             data-title="Telecommunications"
-                             data-keywords="telecom wireless wireline 5G broadband towers ARPU spectrum FCF capex regulation Verizon AT&T T-Mobile Comcast fixed line mobile infrastructure Average Revenue Per User capital intensity"
-                             data-md-src="telecommunications.md">
-                        <h3><a href="telecommunications.md" class="view-markdown-link-alt" title="View original Markdown file (opens new tab)" target="_blank">Telecommunications</a></h3>
-                        <div class="primer-initial-summary">
-                            <p>Wireless/wireline voice/data, broadband, towers, fiber. High capex (5G), competition, regulation. Key metrics: ARPU, churn, subscriber growth.</p>
-                            <p><em>Teacher Note: Discuss impact of spectrum auctions and regulatory policies.</em></p>
-                        </div>
-                        <a href="#" class="view-details-link" data-md-src-override="telecommunications.md">Read Primer &raquo;</a>
-                        <a href="html/telecommunications.html" class="view-html-link" target="_blank" style="margin-top: 5px; display: inline-block; font-size: 0.85em; color: #555;">View Enhanced HTML &raquo;</a>
-                    </article>
-
-                    <article class="primer-summary-card"
-                             data-title="Utilities"
-                             data-keywords="electricity gas water power generation T&D regulated ROE FFO rate base capex renewable energy NextEra Energy Duke Energy Southern Company Exelon regulated utilities independent power producers (IPPs) energy transition"
-                             data-md-src="utilities.md">
-                        <h3><a href="utilities.md" class="view-markdown-link-alt" title="View original Markdown file (opens new tab)" target="_blank">Utilities</a></h3>
-                        <div class="primer-initial-summary">
-                            <p>Electricity, gas, water. Often regulated, stable returns (ROE on rate base). Significant capex for infrastructure and renewables.</p>
-                            <p><em>Guided Learning: Examine rate case filings to understand tariff setting.</em></p>
-                        </div>
-                        <a href="#" class="view-details-link" data-md-src-override="utilities.md">Read Primer &raquo;</a>
-                        <a href="html/utilities.html" class="view-html-link" target="_blank" style="margin-top: 5px; display: inline-block; font-size: 0.85em; color: #555;">View Enhanced HTML &raquo;</a>
-                    </article>
+        <main class="main-index-container">
+            <!-- Primer cards will be dynamically generated or listed here -->
+            <article class="primer-summary-card" data-title="Technology" data-keywords="software hardware IT services internet cloud AI cybersecurity SaaS IoT FCF R&D innovation disruption Apple Microsoft Alphabet Amazon Meta Nvidia Software as a Service Internet of Things artificial intelligence">
+                <h3><a href="html/technology.html">Technology</a></h3>
+                <div class="primer-initial-summary">
+                    <p>Analysis of companies in software, hardware, IT services, and internet sectors. Characterized by rapid innovation, high R&D spending, and disruptive business models.</p>
+                    <p><em>Deep Dive: Explores SaaS metrics, cloud infrastructure, and the impact of AI.</em></p>
                 </div>
-            </nav>
+                <a href="html/technology.html" class="view-details-link">View Primer &raquo;</a>
+            </article>
 
-            <main id="primer-content-display" class="primers-content-pane">
-                <!-- Markdown content will be loaded here by script.js -->
-                <p>Select a primer from the list to view its content here. The <a href="html/aerospace_defense.html">original HTML versions</a> are also available if you prefer that format.</p>
-            </main>
-        </div>
+            <article class="primer-summary-card" data-title="Healthcare" data-keywords="pharma biotech medical devices hospitals insurers FDA MLR R&D patent drug pipeline reimbursement Johnson & Johnson Pfizer Merck AbbVie pharmaceuticals biotechnology healthcare providers managed care">
+                <h3><a href="html/healthcare.html">Healthcare</a></h3>
+                <div class="primer-initial-summary">
+                    <p>Covers pharmaceuticals, biotech, medical devices, and healthcare providers. Key drivers include drug pipelines, regulatory approvals (FDA), and reimbursement policies.</p>
+                    <p><em>Deep Dive: Contrasts business models of large pharma vs. speculative biotech.</em></p>
+                </div>
+                <a href="html/healthcare.html" class="view-details-link">View Primer &raquo;</a>
+            </article>
+
+            <article class="primer-summary-card" data-title="Aerospace & Defense" data-keywords="aviation aircraft military space oem mro c4isr r&d gdp covid supply chain geopolitical fms cyclical roic defense spending government contracts Boeing Airbus Lockheed Martin RTX General Dynamics commercial aerospace suppliers">
+                <h3><a href="html/aerospace_defense.html">Aerospace & Defense</a></h3>
+                <div class="primer-initial-summary">
+                    <p>Analysis of companies in commercial aviation and defense contracting. Key drivers include passenger and freight traffic, geopolitics, and government spending.</p>
+                    <p><em>Deep Dive: Explores commercial vs. defense segments.</em></p>
+                </div>
+                <a href="html/aerospace_defense.html" class="view-details-link">View Primer &raquo;</a>
+            </article>
+
+            <article class="primer-summary-card" data-title="Automotive" data-keywords="cars EVs autonomous vehicles OEMs cyclical electrification ADAS COGS FCF Ford GM Toyota VW Stellantis Tesla electric vehicles supply chain semiconductors">
+                <h3><a href="html/automotive.html">Automotive</a></h3>
+                <div class="primer-initial-summary">
+                    <p>Covers auto manufacturers (OEMs) and suppliers. A highly cyclical industry undergoing a secular shift towards electric vehicles (EVs) and autonomous driving technology.</p>
+                    <p><em>Deep Dive: Examines the transition to EVs and the autonomous driving landscape.</em></p>
+                </div>
+                <a href="html/automotive.html" class="view-details-link">View Primer &raquo;</a>
+            </article>
+
+            <article class="primer-summary-card" data-title="Consumer Products" data-keywords="retail staples discretionary brands CPG e-commerce DTC FCF Procter & Gamble Unilever Nestle Coca-Cola PepsiCo consumer packaged goods branding supply chain inflation">
+                <h3><a href="html/consumer_products.html">Consumer Products</a></h3>
+                <div class="primer-initial-summary">
+                    <p>Analysis of companies that produce and sell goods to consumers. This primer distinguishes between consumer discretionary and consumer staples sectors.</p>
+                    <p><em>Deep Dive: Explores brand power, supply chain, and direct-to-consumer (DTC) trends.</em></p>
+                </div>
+                <a href="html/consumer_products.html" class="view-details-link">View Primer &raquo;</a>
+            </article>
+
+            <article class="primer-summary-card" data-title="Energy Oil Gas" data-keywords="oil gas E&P midstream downstream drilling WTI Brent LNG FCF EBITDAX reserves commodity prices OPEC ExxonMobil Chevron Shell BP exploration production refining pipelines">
+                <h3><a href="html/energy_oil_gas.html">Energy: Oil & Gas</a></h3>
+                <div class="primer-initial-summary">
+                    <p>Covers the entire oil and gas value chain, from upstream (exploration and production) to midstream (pipelines and storage) and downstream (refining and marketing).</p>
+                    <p><em>Deep Dive: Analyzes the impact of commodity price volatility on different sub-sectors.</em></p>
+                </div>
+                <a href="html/energy_oil_gas.html" class="view-details-link">View Primer &raquo;</a>
+            </article>
+
+            <article class="primer-summary-card" data-title="Financial Institutions" data-keywords="banks insurance asset management fintech regulation NPLs NIM CET1 LCR interest rates capital adequacy JPMorgan Chase Bank of America Citigroup Wells Fargo non-performing loans net interest margin">
+                <h3><a href="html/financial_institutions.html">Financial Institutions</a></h3>
+                <div class="primer-initial-summary">
+                    <p>Analysis of banks, insurance companies, and other financial services firms. A highly regulated sector sensitive to interest rates and credit cycles.</p>
+                    <p><em>Deep Dive: Compares business models of universal banks vs. insurance underwriters.</em></p>
+                </div>
+                <a href="html/financial_institutions.html" class="view-details-link">View Primer &raquo;</a>
+            </article>
+
+            <article class="primer-summary-card" data-title="Industrials" data-keywords="manufacturing machinery construction logistics aerospace cyclical capex ROIC GDP PMI General Electric Honeywell Caterpillar Siemens industrial production capital expenditures">
+                <h3><a href="html/industrials.html">Industrials</a></h3>
+                <div class="primer-initial-summary">
+                    <p>A broad and cyclical sector that includes machinery, construction, and transportation. Performance is closely tied to economic growth and capital investment cycles.</p>
+                    <p><em>Deep Dive: Focuses on the importance of backlog and book-to-bill ratios.</em></p>
+                </div>
+                <a href="html/industrials.html" class="view-details-link">View Primer &raquo;</a>
+            </article>
+
+            <article class="primer-summary-card" data-title="Media" data-keywords="broadcasting publishing streaming advertising gaming SVOD ARPU DTC FCF content creation intellectual property Disney Netflix Comcast Warner Bros Discovery traditional media digital media subscription video on demand average revenue per user">
+                <h3><a href="html/media.html">Media</a></h3>
+                <div class="primer-initial-summary">
+                    <p>Covers traditional media (broadcasting, publishing) and new media (streaming, gaming). The industry is undergoing a structural shift from advertising to subscription models.</p>
+                    <p><em>Deep Dive: Examines the "streaming wars" and content monetization strategies.</em></p>
+                </div>
+                <a href="html/media.html" class="view-details-link">View Primer &raquo;</a>
+            </article>
+
+            <article class="primer-summary-card" data-title="Real Estate" data-keywords="REITs property development commercial residential office retail industrial NOI FFO WALE LTV cap rates interest rates property types Simon Property Group Prologis CBRE Real Estate Investment Trusts Net Operating Income Funds From Operations">
+                <h3><a href="html/real_estate.html">Real Estate</a></h3>
+                <div class="primer-initial-summary">
+                    <p>Analysis of Real Estate Investment Trusts (REITs) and property developers. The sector is sensitive to interest rates, economic growth, and property-specific fundamentals.</p>
+                    <p><em>Deep Dive: Explores different REIT sub-sectors (e.g., office, retail, industrial).</em></p>
+                </div>
+                <a href="html/real_estate.html" class="view-details-link">View Primer &raquo;</a>
+            </article>
+
+            <article class="primer-summary-card" data-title="Telecommunications" data-keywords="telecom wireless wireline 5G broadband towers ARPU spectrum FCF capex regulation Verizon AT&T T-Mobile Comcast fixed line mobile infrastructure Average Revenue Per User capital intensity">
+                <h3><a href="html/telecommunications.html">Telecommunications</a></h3>
+                <div class="primer-initial-summary">
+                    <p>Covers wireless and wireline service providers. A capital-intensive industry characterized by intense competition, regulation, and high subscriber acquisition costs.</p>
+                    <p><em>Deep Dive: Discusses the 5G rollout and its implications for the sector.</em></p>
+                </div>
+                <a href="html/telecommunications.html" class="view-details-link">View Primer &raquo;</a>
+            </article>
+
+            <article class="primer-summary-card" data-title="Utilities" data-keywords="electricity gas water power generation T&D regulated ROE FFO rate base capex renewable energy NextEra Energy Duke Energy Southern Company Exelon regulated utilities independent power producers (IPPs) energy transition">
+                <h3><a href="html/utilities.html">Utilities</a></h3>
+                <div class="primer-initial-summary">
+                    <p>Analysis of electric, gas, and water utilities. A defensive sector with stable, regulated returns, facing a long-term transition to renewable energy sources.</p>
+                    <p><em>Deep Dive: Explains the regulated utility model and the impact of renewable energy investments.</em></p>
+                </div>
+                <a href="html/utilities.html" class="view-details-link">View Primer &raquo;</a>
+            </article>
+
+            <article class="primer-summary-card" data-title="Corporate Credit Rating Fundamentals" data-keywords="ratings S&P Moody's Fitch investment grade speculative bonds FFO EBITDA leverage coverage default risk creditworthiness financial ratios methodology bond ratings">
+                <h3><a href="html/corporate_credit_rating_fundamentals.html">Corporate Credit Rating Fundamentals</a></h3>
+                <div class="primer-initial-summary">
+                    <p>An essential guide to understanding corporate credit ratings from agencies like S&P, Moody's, and Fitch. It covers methodologies and key financial ratios.</p>
+                    <p><em>A foundational resource for all credit analysts.</em></p>
+                </div>
+                <a href="html/corporate_credit_rating_fundamentals.html" class="view-details-link">View Primer &raquo;</a>
+            </article>
+
+        </main>
         <footer class="page-footer">
-            <p>&copy; <span id="currentYear"></span> Primer Analysis Tool - Credit Risk Development Program</p>
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
         </footer>
     </div>
     <script src="../js/nav_data.js" defer></script>
