@@ -12,7 +12,8 @@ const navData = [
         text: "All Learning Paths",
         href: "Learning_Paths/index.html",
         type: "section_viewer"
-
+      },
+      {
         text: "CFA Study Hub",
         href: "CFA/index.html",
         type: "html_hub", // Interactive hub
