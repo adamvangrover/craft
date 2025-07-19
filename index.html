@@ -160,17 +160,43 @@
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="flex">
 
-    <!-- Custom Alert Modal -->
-    <div id="custom-modal" class="modal-backdrop">
-        <div class="modal-content">
-            <h3 id="modal-title" class="text-xl font-bold text-slate-800 mb-4">Notification</h3>
-            <p id="modal-message" class="text-slate-600 mb-6">This is a message.</p>
-            <button id="modal-close-btn" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition">Close</button>
-        </div>
+    <div id="global-nav-placeholder" class="sidebar fixed top-0 left-0 h-full w-64 bg-white border-r border-slate-200 z-40 lg:relative lg:translate-x-0" data-include="_includes/navigation.html">
+        <!-- Static navigation will be loaded here -->
     </div>
 
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/30 z-30 hidden lg:hidden"></div>
+
+    <div class="flex-1 flex flex-col">
+        <header class="lg:hidden sticky top-0 bg-white/80 backdrop-blur-md z-30 flex items-center justify-between p-4 border-b border-slate-200">
+            <h2 class="font-bold text-lg text-slate-800">Financial Hub</h2>
+            <button id="menu-toggle" class="p-2 rounded-md hover:bg-slate-100" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+        </header>
+        
+        <div class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+            <nav class="flex justify-center border-b border-slate-300 mb-8" role="tablist" aria-label="Learning Paths">
+                <div class="flex flex-wrap justify-center space-x-2 md:space-x-6">
+                    <button role="tab" id="tab-dashboard" data-view="dashboard" class="nav-button active">Dashboard</button>
+                    <button role="tab" id="tab-creditAnalyst" data-view="creditAnalyst" class="nav-button">Credit Analyst Path</button>
+                    <button role="tab" id="tab-cfaCandidate" data-view="cfaCandidate" class="nav-button">CFA® Candidate Path</button>
+                    <a href="copilot_hub.html" class="nav-button">AI Copilot Hub</a>
+                </div>
+            </nav>
+
+            <main id="mainContent">
+                <!-- 1. DASHBOARD VIEW -->
+                <section id="view-dashboard" class="content-section active space-y-8" role="tabpanel" aria-labelledby="tab-dashboard">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2 content-card p-8 flex flex-col justify-center bg-indigo-700 text-white">
+                            <h2 class="text-3xl font-bold mb-2">Welcome Back!</h2>
+                            <p class="text-indigo-200 text-lg">Let's continue your journey to mastering finance.</p>
+                            <a href="#" id="continue-last-module-btn" class="mt-6 bg-white text-indigo-700 font-bold py-2 px-5 rounded-lg self-start hover:bg-indigo-50 transition-all">Continue Last Module</a>
+                        </div>
+                        <div class="content-card p-6">
+                            <h3 class="font-semibold text-lg mb-4 text-slate-800">Your Progress</h3>
+                            <div id="dashboard-progress" class="space-y-4"></div>
+                        </div>
     <div class="relative min-h-screen lg:flex">
         <!-- Global Navigation Sidebar -->
         <div id="global-nav-placeholder" class="sidebar fixed top-0 left-0 h-full w-64 bg-white border-r border-slate-200 z-40 lg:relative lg:translate-x-0">
