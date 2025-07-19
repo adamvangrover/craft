@@ -22,11 +22,6 @@ const navData = [
         text: "Level I Materials",
         href: "CFA/index.html#materials-library", // Link to specific section in hub
         type: "html_hub_section",
-        // Or, alternatively, directly link to READMEs if preferred for some items
-        // children: [
-        //   { text: "L1 Main Guide", href: "CFA/Level_1/README.md", type: "markdown_viewer", viewer: "global" },
-        //   { text: "L1 Cheat Sheets", href: "CFA/Level_1/Cheat_Sheets/README.md", type: "markdown_viewer", viewer: "global" },
-        // ]
       },
       {
         text: "Level II Materials",
@@ -49,9 +44,6 @@ const navData = [
         href: "corporate-credit-risk-analyst-training/index.html",
         type: "html_hub", // Interactive hub
       },
-      // Individual modules could be listed here, linking to the CRAFT hub with parameters
-      // e.g., href: "corporate-credit-risk-analyst-training/index.html?module=m1"
-      // or directly to their specific index.html if the global nav should bypass the hub's own nav for deep links
       { text: "Module 1: Foundations", href: "corporate-credit-risk-analyst-training/modules/01-foundations/index.html", type: "craft_module_viewer" },
       { text: "Module 2: Understanding the Market", href: "corporate-credit-risk-analyst-training/modules/02-understanding-the-market/index.html", type: "craft_module_viewer" },
       { text: "Module 3: The Analyst's Craft", href: "corporate-credit-risk-analyst-training/modules/03-the-analysts-craft/index.html", type: "craft_module_viewer" },
@@ -82,35 +74,34 @@ const navData = [
   {
     text: "Industry Primers",
     href: "primers/index.html",
-    type: "section_viewer", // This is the main link to the primers viewer page
-    children: [ // Optional: Direct links to specific primers if desired in nav.
-                // These would load within primers/index.html via its internal JS.
-      { text: "Aerospace & Defense", href: "primers/index.html?load=aerospace_defense.md", type: "section_viewer_item"},
-      { text: "Automotive", href: "primers/index.html?load=automotive.md", type: "section_viewer_item"},
-      { text: "Consumer Products", href: "primers/index.html?load=consumer_products.md", type: "section_viewer_item"},
-      { text: "Energy Oil & Gas", href: "primers/index.html?load=energy_oil_gas.md", type: "section_viewer_item"},
-      { text: "Financial Institutions", href: "primers/index.html?load=financial_institutions.md", type: "section_viewer_item"},
-      { text: "Healthcare", href: "primers/index.html?load=healthcare.md", type: "section_viewer_item"},
-      { text: "Industrials", href: "primers/index.html?load=industrials.md", type: "section_viewer_item"},
-      { text: "Media", href: "primers/index.html?load=media.md", type: "section_viewer_item"},
-      { text: "Real Estate", href: "primers/index.html?load=real_estate.md", type: "section_viewer_item"},
-      { text: "Technology", href: "primers/index.html?load=technology.md", type: "section_viewer_item"},
-      { text: "Telecommunications", href: "primers/index.html?load=telecommunications.md", type: "section_viewer_item"},
-      { text: "Utilities", href: "primers/index.html?load=utilities.md", type: "section_viewer_item"},
-      { text: "Corporate Credit Rating Fundamentals", href: "primers/index.html?load=corporate_credit_rating_fundamentals.md", type: "section_viewer_item"}
+    type: "section_viewer",
+    children: [
+      { text: "Technology", href: "primers/html/technology.html", type: "html"},
+      { text: "Healthcare", href: "primers/html/healthcare.html", type: "html"},
+      { text: "Aerospace & Defense", href: "primers/html/aerospace_defense.html", type: "html"},
+      { text: "Automotive", href: "primers/html/automotive.html", type: "html"},
+      { text: "Consumer Products", href: "primers/html/consumer_products.html", type: "html"},
+      { text: "Energy Oil & Gas", href: "primers/html/energy_oil_gas.html", type: "html"},
+      { text: "Financial Institutions", href: "primers/html/financial_institutions.html", type: "html"},
+      { text: "Industrials", href: "primers/html/industrials.html", type: "html"},
+      { text: "Media", href: "primers/html/media.html", type: "html"},
+      { text: "Real Estate", href: "primers/html/real_estate.html", type: "html"},
+      { text: "Telecommunications", href: "primers/html/telecommunications.html", type: "html"},
+      { text: "Utilities", href: "primers/html/utilities.html", type: "html"},
+      { text: "Corporate Credit Rating Fundamentals", href: "primers/html/corporate_credit_rating_fundamentals.html", type: "html"}
     ]
   },
   {
     text: "Interactive Notebooks",
     type: "category",
     children: [
-      { text: "Notebooks Overview", href: "Interactive_Notebooks/index.html", type: "html_hub" }, // Main page for notebooks
-      { text: "Equity Valuation Notebook Guide", href: "Interactive_Notebooks/Financial_Modeling/README.md", type: "jupyter_guide" }, // # This might need to point to a more specific guide if LBO is also under Financial_Modeling
+      { text: "Notebooks Overview", href: "Interactive_Notebooks/index.html", type: "html_hub" },
+      { text: "Equity Valuation Notebook Guide", href: "Interactive_Notebooks/Financial_Modeling/README.md", type: "jupyter_guide" },
       { text: "LBO Model Basics Guide", href: "Interactive_Notebooks/Financial_Modeling/LBO_Model_Basics/README.md", type: "jupyter_guide" },
       { text: "Credit Agreement Analysis Guide", href: "Interactive_Notebooks/Legal_Analysis/README.md", type: "jupyter_guide" },
       { text: "WACC Calculator Guide", href: "Interactive_Notebooks/Valuation_Components/README.md", type: "jupyter_guide" },
       { text: "VaR Calculation Notebook Guide", href: "Interactive_Notebooks/Risk_Management/README.md", type: "jupyter_guide" },
-      { text: "Interactive TVM Solver Guide", href: "Interactive_Notebooks/CFA_Quant_Methods/README.md", type: "jupyter_guide" }, // # Assuming this exists or is planned
+      { text: "Interactive TVM Solver Guide", href: "Interactive_Notebooks/CFA_Quant_Methods/README.md", type: "jupyter_guide" },
       { text: "Fixed Income Bond Math Guide", href: "Interactive_Notebooks/Fixed_Income/README.md", type: "jupyter_guide" },
     ],
   },
@@ -125,8 +116,8 @@ const navData = [
       { text: "Risk Governance & Culture", href: "Risk_Management/04_Risk_Governance_and_Culture.md", type: "markdown_viewer", viewer: "global" },
       {
         text: "Credit Risk",
-        href: "Risk_Management/Credit_Risk/index.html", // Main page for Credit Risk section
-        type: "section_viewer", // It's a viewer for its own content
+        href: "Risk_Management/Credit_Risk/index.html",
+        type: "section_viewer",
         children: [
           { text: "Fundamentals of Credit Risk", href: "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md", type: "markdown_viewer", viewer: "global"},
           { text: "Credit Analysis Process", href: "Risk_Management/Credit_Risk/CRM_02_Credit_Analysis_Process_and_Tools.md", type: "markdown_viewer", viewer: "global"},
@@ -135,11 +126,10 @@ const navData = [
       },
       {
         text: "Market Risk",
-        href: "Risk_Management/Market_Risk/index.html", // Main page for Market Risk section
+        href: "Risk_Management/Market_Risk/index.html",
         type: "section_viewer",
         children: [
           { text: "Introduction to Market Risk", href: "Risk_Management/Market_Risk/MRM_01_Introduction_to_Market_Risk.md", type: "markdown_viewer", viewer: "global"}
-          // Add more Market Risk .md files here if they exist
         ]
       },
       {
@@ -164,8 +154,6 @@ const navData = [
         type: "section_viewer",
         children: [
             { text: "ERM Overview", href: "Risk_Management/Enterprise_Risk_Management/README.md", type: "markdown_viewer", viewer: "global" }
-            // Add links to specific ERM documents as they are created, e.g.,
-            // { text: "COSO Framework Deep Dive", href: "Risk_Management/Enterprise_Risk_Management/ERM_01_COSO_Framework_Deep_Dive.md", type: "markdown_viewer", viewer: "global" }
         ]
       }
     ],
@@ -174,7 +162,7 @@ const navData = [
     text: "Fintech",
     type: "category",
     children: [
-      { text: "Fintech Hub", href: "Fintech/index.html", type: "html_hub" }, // Links to Fintech/index.html
+      { text: "Fintech Hub", href: "Fintech/index.html", type: "html_hub" },
       { text: "Introduction to Fintech", href: "Fintech/Introduction_to_Fintech.md", type: "markdown_viewer", viewer: "global" },
       { text: "AI in Finance", href: "Fintech/AI_in_Finance.md", type: "markdown_viewer", viewer: "global" },
       { text: "Blockchain in Finance", href: "Fintech/Blockchain_in_Finance.md", type: "markdown_viewer", viewer: "global" },
@@ -214,7 +202,7 @@ const navData = [
     isLearningPathSection: true
   },
   {
-    text: "Additional Resources", // Renamed from "Other Resources" for clarity
+    text: "Additional Resources",
     type: "category",
     children: [
         { text: "Market Analysis Quick Start", href: "Market_Analysis_Quick_Start/index.html", type: "section_viewer"},
@@ -224,8 +212,8 @@ const navData = [
           text: "Professional Development",
           href: "Professional_Development/index.html",
           type: "section_viewer",
-          children: [ // Adding direct links to new articles
-              {text: "Overview", href: "Professional_Development/README.md", type: "markdown_viewer", viewer: "global"}, // Assuming README is the overview
+          children: [
+              {text: "Overview", href: "Professional_Development/README.md", type: "markdown_viewer", viewer: "global"},
               {text: "Effective Communication", href: "Professional_Development/Effective_Communication_for_Analysts.md", type: "markdown_viewer", viewer: "global"},
               {text: "Critical Thinking", href: "Professional_Development/Critical_Thinking_in_Financial_Analysis.md", type: "markdown_viewer", viewer: "global"},
               {text: "Negotiation Skills", href: "Professional_Development/Negotiation_Skills_for_Analysts.md", type: "markdown_viewer", viewer: "global"},
@@ -237,35 +225,3 @@ const navData = [
     ]
   }
 ];
-
-// Example of how a learning path definition might look if stored separately or fetched:
-// This part remains as a comment for conceptual reference.
-// const learningPaths = {
-//   "credit_analyst_foundational": {
-//     name: "Credit Analyst Foundational Path",
-//     description: "A curated path to build foundational skills for credit analysis.",
-//     steps: [
-//       { text: "CRAFT Module 1: Foundations", nav_data_ref_text: "Module 1: Foundations" }, // Points to an item in navData
-//       { text: "Understanding Financial Statements (Toolkit)", internal_anchor: "#toolkit_financial_statements" }, // Points to a conceptual anchor in home.html or other hub
-//       { text: "Industry Primer: Technology", href: "primers/index.html?load=technology.md", type: "section_viewer_item" },
-//       // ... more steps
-//     ]
-//   }
-// };
-
-/**
- * Types definition:
- * - html: A standard HTML page.
- * - html_hub: An interactive HTML page that serves as a central point for a section (e.g., CFA/index.html).
- * - html_hub_section: A link to a specific part/anchor within an html_hub.
- * - category: A non-linkable item that groups other items in its `children` array.
- * - markdown_viewer: A Markdown file that should be opened using a dedicated viewer.
- *   - viewer: "global" (use `global_markdown_viewer.html`) or "section_specific_viewer_url" (e.g. primers/index.html). The `href` for a `markdown_viewer` type should be the path to the .md file itself if using the `global_markdown_viewer.html`, or the path to the specific viewer with appropriate query params.
- * - section_viewer: An HTML page that is itself a viewer for a collection of content (e.g., primers/index.html). If it has children, they are specific items viewable by this section_viewer or direct markdown files related to it.
- * - section_viewer_item: A link that loads specific content into a section_viewer, often using URL parameters.
- * - jupyter_guide: A link to a README.md file that explains a Jupyter notebook.
- * - craft_module_viewer: A link to the index.html of a CRAFT module, intended to be loaded by the CRAFT hub.
- * - learning_path_definition: A Markdown file that defines a learning path.
- *   - path_id: A unique identifier for this path.
- * - isLearningPathSection: A boolean flag for the top-level "Learning Paths" category.
- */

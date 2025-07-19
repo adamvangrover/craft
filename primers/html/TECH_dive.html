@@ -9,14 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Slate & Amber Neutrals -->
-    <!-- Application Structure Plan: A thematic, single-page dashboard. The structure is non-linear, allowing users to jump to sections of interest via a sticky navigation bar. The core sections are: 1) A high-level Overview of trends. 2) An interactive Sub-Sector Explorer that dynamically updates content based on user selection, making relationships between sectors and their characteristics clear. 3) A Credit Deep Dive that uses a radar chart for intuitive comparison of financial profiles. 4) A Risks & Ratings section using interactive cards and accordions for digestible information. This structure was chosen to transform a static report into an exploratory tool, ideal for an analyst who needs to find specific information quickly and understand comparative differences. -->
-    <!-- Visualization & Content Choices: 
-        - Industry Trends: Goal: Inform. Method: Styled cards with hover effects. Justification: More engaging than a list.
-        - Sub-Sector Explorer: Goal: Compare/Organize. Method: Buttons trigger JS updates to text and a Chart.js bar chart showing business cycle resilience. Justification: Creates a powerful, interactive link between concepts.
-        - Credit Metrics: Goal: Compare. Method: A Chart.js radar chart comparing "Software Co." vs. "Hardware Co." profiles. Interaction: Toggling profiles on the chart. Justification: Makes multi-dimensional financial profiles visually intuitive and easy to compare.
-        - Risk Factors: Goal: Organize/Inform. Method: Interactive grid of cards and expandable accordions. Justification: Breaks down long lists into manageable, user-driven chunks. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -72,14 +64,14 @@
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex-shrink-0">
-                    <h1 class="text-xl font-bold text-slate-800">Tech Industry Primer</h1>
+                    <h1 class="text-xl font-bold text-slate-800">Tech Deep Dive</h1>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="#overview" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 border-b-2 border-transparent">Overview</a>
                         <a href="#sectors" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 border-b-2 border-transparent">Sub-Sectors</a>
-                        <a href="#credit" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 border-b-2 border-transparent">Credit Deep Dive</a>
-                        <a href="#risks" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 border-b-2 border-transparent">Risks & Ratings</a>
+                        <a href="#credit" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 border-b-2 border-transparent">Credit Profiles</a>
+                        <a href="#underwriting" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 border-b-2 border-transparent">Underwriting</a>
                     </div>
                 </div>
             </div>
@@ -90,33 +82,21 @@
 
         <section id="overview" class="mb-16 scroll-mt-20">
             <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Industry Overview</h2>
-                <p class="mt-4 text-lg leading-8 text-slate-600 max-w-3xl mx-auto">The technology sector is defined by rapid innovation and intense competition. This section outlines the key long-term trends shaping the industry's trajectory, from the enterprise-wide push for modernization to the foundational shifts in business models.</p>
+                <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Mega-Trends Shaping the Tech Landscape</h2>
+                <p class="mt-4 text-lg leading-8 text-slate-600 max-w-3xl mx-auto">The technology sector is driven by several powerful, long-term trends. Understanding these forces is key to identifying both opportunities and risks.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-lg font-semibold text-slate-900">Digital Transformation</h3>
-                    <p class="mt-2 text-slate-600">Businesses are adopting new technologies to improve efficiency, enhance customer engagement, and create novel business models.</p>
+                    <h3 class="text-lg font-semibold text-slate-900">Artificial Intelligence</h3>
+                    <p class="mt-2 text-slate-600">The current defining trend. Generative AI is fueling a massive investment cycle in specialized semiconductors (GPUs), cloud infrastructure, and new software applications.</p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
                     <h3 class="text-lg font-semibold text-slate-900">Cloud Computing</h3>
-                    <p class="mt-2 text-slate-600">The ongoing migration from on-premise infrastructure to scalable and flexible cloud-based services (IaaS, PaaS, SaaS) continues to accelerate.</p>
+                    <p class="mt-2 text-slate-600">The fundamental shift from on-premise hardware to scalable cloud services (IaaS, PaaS, SaaS) continues, providing durable growth for hyperscalers and cloud-native software firms.</p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-lg font-semibold text-slate-900">Data Analytics & AI</h3>
-                    <p class="mt-2 text-slate-600">The use of data to derive insights and automate processes is increasing, with AI and Machine Learning becoming integral to products.</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-lg font-semibold text-slate-900">Cybersecurity</h3>
-                    <p class="mt-2 text-slate-600">Its importance is growing due to the increasing frequency and sophistication of cyber threats against a widening attack surface.</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-lg font-semibold text-slate-900">Subscription Models</h3>
-                    <p class="mt-2 text-slate-600">A major shift from one-time license sales to predictable, recurring revenue models (e.g., SaaS) is enhancing financial stability.</p>
-                </div>
-                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-lg font-semibold text-slate-900">Geopolitical Factors</h3>
-                    <p class="mt-2 text-slate-600">Increased scrutiny of supply chains, data privacy regulations (GDPR, CCPA), and trade tensions impact the entire value chain.</p>
+                    <h3 class="text-lg font-semibold text-slate-900">Digital Transformation</h3>
+                    <p class="mt-2 text-slate-600">The broader, economy-wide adoption of technology to modernize business operations. This provides a steady, long-term demand base for software and IT services.</p>
                 </div>
             </div>
         </section>
@@ -124,13 +104,13 @@
         <section id="sectors" class="mb-16 scroll-mt-20">
             <div class="text-center mb-10">
                 <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Interactive Sub-Sector Analysis</h2>
-                <p class="mt-4 text-lg leading-8 text-slate-600 max-w-3xl mx-auto">The technology industry is not monolithic. Select a sub-sector below to explore its unique characteristics, business cycle sensitivity, and key credit considerations. This interactive module helps visualize how different parts of the industry behave under various economic conditions.</p>
+                <p class="mt-4 text-lg leading-8 text-slate-600 max-w-3xl mx-auto">Tech is not monolithic. Select a sub-sector to explore its unique business model, cyclicality, and key success factors. The chart visualizes each sector's resilience to economic downturns.</p>
             </div>
             <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
                 <button class="sector-btn px-4 py-2 bg-white border border-slate-300 text-slate-700 rounded-full shadow-sm transition-all duration-300 ease-in-out hover:bg-slate-100" data-sector="hardware">Hardware</button>
-                <button class="sector-btn px-4 py-2 bg-white border border-slate-300 text-slate-700 rounded-full shadow-sm transition-all duration-300 ease-in-out hover:bg-slate-100" data-sector="software">Software</button>
+                <button class="sector-btn px-4 py-2 bg-white border border-slate-300 text-slate-700 rounded-full shadow-sm transition-all duration-300 ease-in-out hover:bg-slate-100" data-sector="software">Software (SaaS)</button>
+                <button class="sector-btn px-4 py-2 bg-white border border-slate-300 text-slate-700 rounded-full shadow-sm transition-all duration-300 ease-in-out hover:bg-slate-100" data-sector="semiconductors">Semiconductors</button>
                 <button class="sector-btn px-4 py-2 bg-white border border-slate-300 text-slate-700 rounded-full shadow-sm transition-all duration-300 ease-in-out hover:bg-slate-100" data-sector="it_services">IT Services</button>
-                <button class="sector-btn px-4 py-2 bg-white border border-slate-300 text-slate-700 rounded-full shadow-sm transition-all duration-300 ease-in-out hover:bg-slate-100" data-sector="internet">Internet & E-commerce</button>
             </div>
             <div class="bg-white rounded-lg shadow-xl p-6 md:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                 <div id="sector-details">
@@ -153,7 +133,7 @@
         <section id="credit" class="mb-16 scroll-mt-20">
             <div class="text-center mb-10">
                 <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Credit Profile Deep Dive</h2>
-                <p class="mt-4 text-lg leading-8 text-slate-600 max-w-3xl mx-auto">Not all tech companies are alike from a credit perspective. This section visualizes the typical financial DNA of different company types. Use the toggles to compare the profiles and understand the nuances in profitability, leverage, and cash flow that drive credit ratings.</p>
+                <p class="mt-4 text-lg leading-8 text-slate-600 max-w-3xl mx-auto">From a credit perspective, a software company and a hardware company are entirely different. The radar chart below visualizes their typical financial profiles. Toggle the datasets to see how they compare on key credit factors.</p>
             </div>
              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
@@ -174,124 +154,63 @@
                 </div>
                 <div class="space-y-4">
                     <div class="bg-white rounded-lg shadow-lg p-6">
-                        <h4 class="font-semibold text-slate-800">Profitability & Margins</h4>
-                        <ul class="mt-2 list-disc list-inside text-slate-600 space-y-1">
-                            <li>Gross Margin: Key indicator, varies widely by sub-sector.</li>
-                            <li>EBITDA Margin: Reflects core operating profitability.</li>
-                            <li>R&D as % of Revenue: A crucial investment in innovation.</li>
-                        </ul>
-                    </div>
-                    <div class="bg-white rounded-lg shadow-lg p-6">
-                        <h4 class="font-semibold text-slate-800">Leverage & Cash Flow</h4>
-                        <ul class="mt-2 list-disc list-inside text-slate-600 space-y-1">
-                            <li>Debt/EBITDA: Permissible levels depend on revenue stability.</li>
-                            <li>Recurring Revenue %: Higher is better for credit quality.</li>
-                            <li>Free Cash Flow (FCF): Critical for funding innovation and debt service.</li>
-                        </ul>
-                    </div>
-                     <div class="bg-white rounded-lg shadow-lg p-6">
-                        <h4 class="font-semibold text-slate-800">Other Key Factors</h4>
-                        <ul class="mt-2 list-disc list-inside text-slate-600 space-y-1">
-                            <li>Market Position & Scale: Leadership provides a buffer.</li>
-                            <li>Product & Customer Diversification: Reduces concentration risk.</li>
-                            <li>Intellectual Property (IP): Defensibility of patents and code.</li>
+                        <h4 class="font-semibold text-slate-800">Key Takeaways from Profile Comparison</h4>
+                        <ul class="mt-2 list-disc list-inside text-slate-600 space-y-2">
+                            <li><strong>Software's Superior Model:</strong> The software profile is larger because of its high-margin, recurring-revenue model, which is less cyclical and requires lower capex. This results in stronger, more predictable cash flow, allowing for higher leverage.</li>
+                            <li><strong>Hardware's Cyclicality:</strong> The hardware profile is smaller, reflecting its lower margins, one-time sales model, and higher sensitivity to economic cycles. This demands lower leverage and a stronger liquidity profile to navigate downturns.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
         
-        <section id="risks" class="scroll-mt-20">
+        <section id="underwriting" class="scroll-mt-20">
             <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Risks & Rating Agency Views</h2>
-                <p class="mt-4 text-lg leading-8 text-slate-600 max-w-3xl mx-auto">The industry's dynamism presents unique risks. Flip the cards below to see key risk factors. Below that, explore how rating agencies typically assess Business and Financial risk profiles, a critical component in their methodologies.</p>
+                <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Key Underwriting Considerations</h2>
+                <p class="mt-4 text-lg leading-8 text-slate-600 max-w-3xl mx-auto">When analyzing a tech company, focus on these critical questions to cut through the noise and assess the true underlying credit risk.</p>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                <div class="risk-card h-48" data-risk="obsolescence">
-                    <div class="front absolute w-full h-full bg-white rounded-lg shadow-lg p-6 flex flex-col justify-center items-center text-center cursor-pointer">
-                        <h4 class="font-semibold text-slate-800">Technological Obsolescence</h4>
-                        <p class="text-xs text-slate-500 mt-2">Click to learn more</p>
-                    </div>
-                    <div class="back absolute w-full h-full bg-amber-100 rounded-lg shadow-lg p-4 flex flex-col justify-center items-center text-center cursor-pointer">
-                        <p class="text-sm text-amber-900">New tech can quickly render products outdated. A primary risk for Hardware and certain Software segments.</p>
-                    </div>
-                </div>
-                <div class="risk-card h-48" data-risk="competition">
-                    <div class="front absolute w-full h-full bg-white rounded-lg shadow-lg p-6 flex flex-col justify-center items-center text-center cursor-pointer">
-                        <h4 class="font-semibold text-slate-800">Intense Competition</h4>
-                         <p class="text-xs text-slate-500 mt-2">Click to learn more</p>
-                    </div>
-                     <div class="back absolute w-full h-full bg-amber-100 rounded-lg shadow-lg p-4 flex flex-col justify-center items-center text-center cursor-pointer">
-                        <p class="text-sm text-amber-900">Risk from established players, new entrants, and disruptors. Low barriers to entry in many software niches.</p>
-                    </div>
-                </div>
-                 <div class="risk-card h-48" data-risk="execution">
-                    <div class="front absolute w-full h-full bg-white rounded-lg shadow-lg p-6 flex flex-col justify-center items-center text-center cursor-pointer">
-                        <h4 class="font-semibold text-slate-800">Execution & M&A Risk</h4>
-                         <p class="text-xs text-slate-500 mt-2">Click to learn more</p>
-                    </div>
-                     <div class="back absolute w-full h-full bg-amber-100 rounded-lg shadow-lg p-4 flex flex-col justify-center items-center text-center cursor-pointer">
-                        <p class="text-sm text-amber-900">Challenges in bringing products to market, integrating acquisitions, or funding aggressive M&A with debt.</p>
-                    </div>
-                </div>
-                <div class="risk-card h-48" data-risk="cyber">
-                    <div class="front absolute w-full h-full bg-white rounded-lg shadow-lg p-6 flex flex-col justify-center items-center text-center cursor-pointer">
-                        <h4 class="font-semibold text-slate-800">Cybersecurity & Data</h4>
-                         <p class="text-xs text-slate-500 mt-2">Click to learn more</p>
-                    </div>
-                     <div class="back absolute w-full h-full bg-amber-100 rounded-lg shadow-lg p-4 flex flex-col justify-center items-center text-center cursor-pointer">
-                        <p class="text-sm text-amber-900">Both a business opportunity and a direct corporate risk. Data breaches and privacy violations are financially damaging.</p>
-                    </div>
-                </div>
-                 <div class="risk-card h-48" data-risk="regulatory">
-                    <div class="front absolute w-full h-full bg-white rounded-lg shadow-lg p-6 flex flex-col justify-center items-center text-center cursor-pointer">
-                        <h4 class="font-semibold text-slate-800">Regulatory & Geopolitical</h4>
-                         <p class="text-xs text-slate-500 mt-2">Click to learn more</p>
-                    </div>
-                     <div class="back absolute w-full h-full bg-amber-100 rounded-lg shadow-lg p-4 flex flex-col justify-center items-center text-center cursor-pointer">
-                        <p class="text-sm text-amber-900">Scrutiny on data privacy, antitrust, and AI ethics is increasing. Supply chain disruptions from trade tensions are a key risk.</p>
-                    </div>
-                </div>
-                 <div class="risk-card h-48" data-risk="talent">
-                    <div class="front absolute w-full h-full bg-white rounded-lg shadow-lg p-6 flex flex-col justify-center items-center text-center cursor-pointer">
-                        <h4 class="font-semibold text-slate-800">Talent & IP Risk</h4>
-                         <p class="text-xs text-slate-500 mt-2">Click to learn more</p>
-                    </div>
-                     <div class="back absolute w-full h-full bg-amber-100 rounded-lg shadow-lg p-4 flex flex-col justify-center items-center text-center cursor-pointer">
-                        <p class="text-sm text-amber-900">Fierce competition for skilled engineers. Risk of IP infringement claims or inability to defend patents.</p>
-                    </div>
-                </div>
-            </div>
-
             <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">Rating Agency Framework</h3>
                 <div class="space-y-4">
                     <details class="group bg-slate-50 p-4 rounded-lg cursor-pointer">
                         <summary class="flex justify-between items-center font-semibold text-slate-800">
-                            Business Risk Profile
+                            1. What is the Competitive Moat?
                             <span class="group-open:rotate-180 transition-transform duration-300">▼</span>
                         </summary>
                         <div class="mt-4 text-slate-600">
-                            <p>Agencies view industry risk as high due to rapid change. They focus heavily on:</p>
+                            <p>What protects the company from competition? A strong moat is the single most important factor for long-term credit stability.</p>
                             <ul class="mt-2 list-disc list-inside space-y-1">
-                                <li><strong>Competitive Position:</strong> Market share, brand, tech leadership, and barriers to entry (e.g., switching costs, network effects).</li>
-                                <li><strong>Profitability:</strong> Emphasis on sustainability and quality of earnings, not just top-line growth. Scrutiny of non-GAAP adjustments.</li>
-                                <li><strong>Diversification:</strong> Assessed across products, customers, and geography to gauge resilience.</li>
+                                <li><strong>High Switching Costs:</strong> Is it difficult or expensive for customers to leave? (e.g., deeply embedded enterprise software from Oracle).</li>
+                                <li><strong>Network Effects:</strong> Does the product become more valuable as more people use it? (e.g., social networks like Meta, marketplaces like Amazon).</li>
+                                <li><strong>Intellectual Property:</strong> Does the company have defensible patents or proprietary technology that is hard to replicate? (e.g., NVIDIA's AI chip architecture).</li>
                             </ul>
                         </div>
                     </details>
                     <details class="group bg-slate-50 p-4 rounded-lg cursor-pointer">
                         <summary class="flex justify-between items-center font-semibold text-slate-800">
-                            Financial Risk Profile
+                            2. How Strong is the Recurring Revenue? (For Software)
                             <span class="group-open:rotate-180 transition-transform duration-300">▼</span>
                         </summary>
                          <div class="mt-4 text-slate-600">
-                            <p>Financial policy and cash flow are paramount. Key areas of focus include:</p>
+                            <p>For any software or subscription business, the quality of its recurring revenue is paramount.</p>
                              <ul class="mt-2 list-disc list-inside space-y-1">
-                                <li><strong>Leverage:</strong> Companies with strong recurring revenue (Software) can tolerate higher leverage than cyclical ones (Hardware).</li>
-                                <li><strong>Cash Flow:</strong> Strong FCF generation is essential to fund R&D and capex internally without relying on capital markets.</li>
-                                <li><strong>Financial Policy:</strong> Approach to M&A, share buybacks, and dividends. Aggressive, debt-funded M&A is a significant risk factor.</li>
+                                <li><strong>Net Revenue Retention (NRR):</strong> What is the growth from the existing customer base? NRR > 100% means existing customers are spending more, offsetting any churn. A NRR below 100% is a red flag.</li>
+                                <li><strong>Customer Churn:</strong> What percentage of customers cancel their subscription each year? High churn indicates a weak product or intense competition.</li>
+                                <li><strong>Billings vs. Revenue:</strong> Billings (or Remaining Performance Obligation - RPO) is a leading indicator of future revenue growth. Is it growing faster than recognized revenue?</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="group bg-slate-50 p-4 rounded-lg cursor-pointer">
+                        <summary class="flex justify-between items-center font-semibold text-slate-800">
+                            3. Is the Financial Policy Prudent?
+                            <span class="group-open:rotate-180 transition-transform duration-300">▼</span>
+                        </summary>
+                         <div class="mt-4 text-slate-600">
+                            <p>How does management allocate capital? This reveals their attitude towards credit risk.</p>
+                             <ul class="mt-2 list-disc list-inside space-y-1">
+                                <li><strong>M&A Appetite:</strong> Is the company pursuing large, debt-funded acquisitions? These are a major source of event risk and can quickly lead to credit downgrades if not executed perfectly.</li>
+                                <li><strong>Shareholder Returns:</strong> Is the company prioritizing share buybacks over debt reduction, even when leverage is high?</li>
+                                <li><strong>Commitment to Ratings:</strong> Does management have a stated leverage target and a credible plan to maintain it?</li>
                             </ul>
                         </div>
                     </details>
@@ -303,11 +222,11 @@
     
     <footer class="bg-white mt-16">
         <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
-            <p>This interactive primer is for informational purposes only. Data synthesized from the Technology Industry Primer report.</p>
+            <p>This interactive primer is for informational purposes only.</p>
         </div>
     </footer>
 
-    </div> <!-- End of main-primer-content -->
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -315,26 +234,26 @@
             const sectorData = {
                 hardware: {
                     title: "Hardware",
-                    description: "Encompasses physical technology components like PCs, servers, networking gear, semiconductors, and mobile devices. Characterized by tangible products and complex global supply chains.",
-                    cycle: "Often cyclical. Sensitive to enterprise IT spending, consumer confidence, and new product releases. The semiconductor sub-sector is notoriously volatile.",
+                    description: "Encompasses physical tech components like PCs, servers, and mobile devices. Characterized by complex global supply chains and one-time sales models.",
+                    cycle: "Highly cyclical. Demand is tied to enterprise and consumer spending cycles. Capex-heavy.",
                     resilience: 2, 
                 },
                 software: {
-                    title: "Software",
-                    description: "Includes enterprise software, OS, applications, cybersecurity, and cloud computing (SaaS, PaaS, IaaS). High-margin business models are common.",
-                    cycle: "Generally more resilient than hardware. Recurring revenue from subscriptions and maintenance provides stability, though new license sales can slow in a recession.",
-                    resilience: 4,
+                    title: "Software (SaaS)",
+                    description: "Develops and sells IP as a service. Includes enterprise software, cloud applications, and cybersecurity. High-margin, recurring revenue models are the standard.",
+                    cycle: "Highly resilient. Mission-critical software with subscription models provides stable, predictable cash flow, even during recessions.",
+                    resilience: 5,
+                },
+                semiconductors: {
+                    title: "Semiconductors",
+                    description: "Designs and manufactures the 'brains' of all modern electronics. A highly specialized, R&D-intensive, and capital-intensive industry.",
+                    cycle: "Extremely cyclical (the 'chip cycle'). Prone to sharp boom-and-bust periods driven by supply/demand imbalances.",
+                    resilience: 1,
                 },
                 it_services: {
                     title: "IT Services",
-                    description: "Covers consulting, systems integration, outsourcing, and managed services. Labor-intensive and project-based work is common.",
-                    cycle: "Resilient, but new project demand can be deferred during recessions. Mission-critical managed services tend to be stable.",
-                    resilience: 3,
-                },
-                internet: {
-                    title: "Internet & E-commerce",
-                    description: "Includes search engines, social media, online retail, and digital advertising. Often relies on user growth, engagement, and data monetization.",
-                    cycle: "Can be sensitive to consumer spending and advertising budgets, which often contract during recessions. However, long-term secular growth trends can offset some cyclicality.",
+                    description: "Provides consulting, integration, and outsourcing services. More labor-intensive and lower-margin than software.",
+                    cycle: "Resilient, but large new projects can be deferred during recessions. Long-term contracts for managed services provide a stable base.",
                     resilience: 3,
                 }
             };
@@ -344,7 +263,7 @@
                 datasets: [
                     {
                         label: 'Typical Software Co.',
-                        data: [4, 5, 4, 4, 5],
+                        data: [5, 5, 4, 4, 5],
                         fill: true,
                         backgroundColor: 'rgba(56, 189, 248, 0.2)',
                         borderColor: 'rgb(56, 189, 248)',
@@ -390,23 +309,10 @@
                         responsive: true,
                         maintainAspectRatio: false,
                         scales: {
-                            x: {
-                                beginAtZero: true,
-                                max: 5,
-                                grid: { display: false },
-                            },
-                             y: {
-                                grid: { display: false }
-                            }
+                            x: { beginAtZero: true, max: 5, grid: { display: false } },
+                            y: { grid: { display: false } }
                         },
-                        plugins: {
-                            legend: {
-                                display: false
-                            },
-                            tooltip: {
-                                enabled: false
-                            }
-                        }
+                        plugins: { legend: { display: false }, tooltip: { enabled: false } }
                     }
                 });
             }
@@ -415,7 +321,7 @@
                 const data = sectorData[sectorKey];
                 if (!resilienceChart) return;
                 resilienceChart.data.datasets[0].data = [data.resilience];
-                const color = data.resilience > 3 ? '#22c55e' : (data.resilience > 2 ? '#f59e0b' : '#ef4444');
+                const color = data.resilience >= 4 ? '#22c55e' : (data.resilience >= 2 ? '#f59e0b' : '#ef4444');
                 resilienceChart.data.datasets[0].backgroundColor = [color+'40'];
                 resilienceChart.data.datasets[0].borderColor = [color];
                 resilienceChart.update();
@@ -425,52 +331,25 @@
                 const ctx = document.getElementById('credit-radar-chart').getContext('2d');
                 creditRadarChart = new Chart(ctx, {
                     type: 'radar',
-                    data: creditProfileData,
+                    data: JSON.parse(JSON.stringify(creditProfileData)), // Deep copy
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        elements: {
-                            line: {
-                                borderWidth: 3
-                            }
-                        },
+                        elements: { line: { borderWidth: 3 } },
                         scales: {
                             r: {
-                                angleLines: {
-                                    display: true
-                                },
+                                angleLines: { display: true },
                                 suggestedMin: 0,
                                 suggestedMax: 5,
-                                pointLabels: {
-                                    font: {
-                                        size: 11
-                                    }
-                                }
+                                pointLabels: { font: { size: 11 } }
                             }
                         },
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.dataset.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
-                                        label += context.raw;
-                                        return label;
-                                    }
-                                }
-                            }
-                        }
+                        plugins: { legend: { position: 'bottom' } }
                     },
                 });
             }
             
-            const sectorBtns = document.querySelectorAll('.sector-btn');
-            sectorBtns.forEach(btn => {
+            document.querySelectorAll('.sector-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const sectorKey = btn.dataset.sector;
                     const data = sectorData[sectorKey];
@@ -479,44 +358,26 @@
                     document.getElementById('sector-description').textContent = data.description;
                     document.getElementById('sector-cycle').textContent = data.cycle;
                     
-                    sectorBtns.forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.sector-btn').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
 
                     updateResilienceChart(sectorKey);
                 });
             });
 
-            const profileToggles = document.querySelectorAll('.profile-toggle');
-            profileToggles.forEach(toggle => {
-                toggle.addEventListener('click', () => {
-                    const profile = toggle.dataset.profile;
-                    const isChecked = toggle.checked;
+            document.querySelectorAll('.profile-toggle').forEach(toggle => {
+                toggle.addEventListener('change', () => {
+                    const hardwareVisible = document.querySelector('[data-profile="hardware"]').checked;
+                    const softwareVisible = document.querySelector('[data-profile="software"]').checked;
                     
-                    creditRadarChart.data.datasets.forEach(dataset => {
-                        if (dataset.label.toLowerCase().includes(profile)) {
-                             creditRadarChart.setDatasetVisibility(dataset.label, isChecked);
-                        }
-                    });
-                    
-                    const visibleDatasets = creditRadarChart.data.datasets.filter(ds => creditRadarChart.isDatasetVisible(ds.label));
-                    
-                    let originalDatasets = [];
-                    if(document.querySelector('.profile-toggle[data-profile="hardware"]').checked){
-                        originalDatasets.push(creditProfileData.datasets[1]);
+                    creditRadarChart.data.datasets = [];
+                    if (hardwareVisible) {
+                        creditRadarChart.data.datasets.push(creditProfileData.datasets.find(d => d.label.includes('Hardware')));
                     }
-                     if(document.querySelector('.profile-toggle[data-profile="software"]').checked){
-                        originalDatasets.push(creditProfileData.datasets[0]);
+                    if (softwareVisible) {
+                        creditRadarChart.data.datasets.push(creditProfileData.datasets.find(d => d.label.includes('Software')));
                     }
-                    
-                    creditRadarChart.data.datasets = originalDatasets;
                     creditRadarChart.update();
-                });
-            });
-
-            const riskCards = document.querySelectorAll('.risk-card');
-            riskCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    card.classList.toggle('is-flipped');
                 });
             });
             
@@ -532,12 +393,11 @@
                 });
                 navLinks.forEach(link => {
                     link.classList.remove('active');
-                    if (link.getAttribute('href').includes(current)) {
+                    if (link.getAttribute('href').substring(1) === current) {
                         link.classList.add('active');
                     }
                 });
             });
-
 
             initResilienceChart();
             initCreditRadarChart();
