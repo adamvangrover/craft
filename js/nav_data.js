@@ -12,7 +12,8 @@ const navData = [
         text: "All Learning Paths",
         href: "Learning_Paths/index.html",
         type: "section_viewer"
-
+      },
+      {
         text: "CFA Study Hub",
         href: "CFA/index.html",
         type: "html_hub", // Interactive hub
@@ -98,7 +99,7 @@ const navData = [
         text: "Risk Management",
         href: "Risk_Management/index.html",
         type: "html_hub"
-        
+      },
       { text: "Notebooks Overview", href: "Interactive_Notebooks/index.html", type: "html_hub" },
       { text: "Equity Valuation Notebook Guide", href: "Interactive_Notebooks/Financial_Modeling/README.md", type: "jupyter_guide" },
       { text: "LBO Model Basics Guide", href: "Interactive_Notebooks/Financial_Modeling/LBO_Model_Basics/README.md", type: "jupyter_guide" },
@@ -146,10 +147,13 @@ const navData = [
         href: "Behavioral_Finance/index.html",
         type: "section_viewer"
       },
+      },
       {
         text: "Legal Analysis",
         href: "legal_analysis/index.html",
         type: "section_viewer"
+      },
+      {
         text: "Enterprise Risk Management (ERM)",
         href: "Risk_Management/Enterprise_Risk_Management/index.html",
         type: "section_viewer",
@@ -223,11 +227,15 @@ const navData = [
         href: "AI_and_Coding/Prompt_Libraries/index.html",
         type: "section_viewer"
       },
+      },
       {
         text: "Agent Libraries",
         href: "AI_and_Coding/Agent_Libraries/index.html",
         type: "section_viewer"
       }
+    ]
+  },
+  {
     text: "Additional Resources",
     type: "category",
     children: [
