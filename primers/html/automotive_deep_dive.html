@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Dive: EV vs. ICE - Automotive Primer</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../../css/global_nav.css">
+</head>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="main-primer-content" style="flex-grow: 1; padding: 1rem; overflow-y: auto;">
+    <div class="page-container detail-page-container">
+        <header class="detail-page-header page-header">
+            <h1>Deep Dive: Electric vs. ICE Vehicles</h1>
+            <nav class="detail-page-nav">
+                <a href="automotive.html" class="back-to-index-link">&laquo; Back to Automotive Primer</a>
+                <a href="../index.html" class="back-to-index-link">&laquo; Back to Main Index</a>
+            </nav>
+        </header>
+        <main class="primer-detail-content">
+            <section class="primer-initial-summary-detailed-page">
+                <p>The transition from Internal Combustion Engine (ICE) vehicles to Electric Vehicles (EVs) is not just a change in powertrain; it's a fundamental shift in vehicle architecture, supply chains, cost structure, and business models. This deep dive explores the key credit-relevant differences.</p>
+            </section>
+            <div class="primer-content-sections">
+
+                <details class="primer-section-accordion section-type-metrics open">
+                    <summary class="primer-section-title"><span class="section-icon section-icon-metrics">📊</span> Comparative Financials & Cost Structure</summary>
+                    <div class="primer-section-content">
+                        <h4>Bill of Materials (BOM) & Margins</h4>
+                        <ul>
+                            <li><strong>ICE Vehicles:</strong> Mature and highly optimized supply chains. The engine, transmission, and exhaust systems are major cost centers. Gross margins are well-understood and can be strong, especially on large trucks and SUVs which are highly profitable for US-based OEMs.</li>
+                            <li><strong>EVs:</strong> The battery pack is the single largest cost component, often accounting for 25-40% of the total vehicle cost. This significantly pressures gross margins. Achieving margin parity with ICE vehicles is a primary goal for all OEMs and is heavily dependent on falling battery prices (e.g., from cheaper LFP chemistries), manufacturing scale, and software-enabled features.</li>
+                        </ul>
+                        <h4>Capital Expenditures (Capex)</h4>
+                        <ul>
+                            <li><strong>ICE-related Capex:</strong> Primarily maintenance and minor upgrades for existing plants. Investment in all-new ICE platforms is rapidly declining ("peak ICE").</li>
+                            <li><strong>EV-related Capex:</strong> Massive investment required for all-new dedicated EV platforms ("skateboard" architectures), battery pack assembly plants (gigafactories), and retooling existing assembly plants to handle EV production. This creates a huge capital burden during the transition.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="primer-section-accordion section-type-risks open">
+                    <summary class="primer-section-title"><span class="section-icon section-icon-risks">❗</span> Supply Chain & Manufacturing Differences</summary>
+                    <div class="primer-section-content">
+                        <h4>Supply Chain</h4>
+                        <ul>
+                            <li><strong>ICE Supply Chain:</strong> Extremely complex, with thousands of specialized parts. Relies on a long-established global network of suppliers for components like pistons, fuel injectors, and catalytic converters.</li>
+                            <li><strong>EV Supply Chain:</strong> Simpler in terms of part count, but creates new, critical dependencies.
+                                <ul>
+                                    <li><strong>Battery Raw Materials:</strong> Relies on the mining and processing of lithium, cobalt, nickel, and manganese. These supply chains are geographically concentrated and have volatile pricing. Securing long-term supply is a key strategic challenge.</li>
+                                    <li><strong>Semiconductors & Software:</strong> EVs are "computers on wheels" and use significantly more semiconductors than ICE vehicles to manage the battery, motors, and advanced software. This creates a dependency on chip foundries.</li>
+                                    <li><strong>Vertical Integration:</strong> Many OEMs (like Tesla and GM with its Ultium platform) are vertically integrating into battery and motor production to control cost and supply, a reversal of the decades-long trend of outsourcing.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="primer-section-accordion section-type-general open">
+                    <summary class="primer-section-title"><span class="section-icon section-icon-default">🔄</span> Aftermarket & Residual Value Implications</summary>
+                    <div class="primer-section-content">
+                        <h4>Aftermarket & Maintenance</h4>
+                        <ul>
+                            <li><strong>ICE Vehicles:</strong> Provide a steady, high-margin stream of parts and service revenue for dealers and suppliers (oil changes, spark plugs, exhaust systems, transmission service). This is a critical profit center for dealers.</li>
+                            <li><strong>EVs:</strong> Have far fewer moving parts and require significantly less routine maintenance. This poses a long-term structural threat to the traditional dealer service model. The main service items are tires, brakes, and potential battery health checks and software updates.</li>
+                        </ul>
+                        <h4>Residual Value (RV)</h4>
+                        <ul>
+                            <li><strong>ICE Vehicles:</strong> RVs are well understood and relatively predictable.</li>
+                            <li><strong>EVs:</strong> RVs are a major uncertainty and credit risk. Rapid technological improvements (e.g., new battery chemistries, longer range, faster charging) could make older EVs obsolete faster, leading to lower-than-expected resale values. This is a significant risk for OEM captive finance arms that write leases on EVs.</li>
+                        </ul>
+                    </div>
+                </details>
+
+            </div>
+        </main>
+        <footer class="page-footer">
+            <p>&copy; <span id="currentYear"></span> Primer Analysis Tool</p>
+        </footer>
+    </div>
+    </div>
+    <script src="../script.js"></script>
+    <script src="../../js/nav_data.js" defer></script>
+    <script src="../../js/global_nav.js" defer></script>
+</body>
+</html>

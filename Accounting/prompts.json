@@ -1,0 +1,38 @@
+[
+    {
+        "prompt": "Explain the purpose and structure of the Income Statement, including key line items like Revenue, COGS, Gross Profit, Operating Expenses, Operating Income, Non-Operating Items, EBT, Taxes, and Net Income. Detail the principle of revenue recognition.",
+        "completion": "The Income Statement, also known as the Profit and Loss (P&L) statement, summarizes a company's financial performance over a specific period (e.g., a quarter or a year). Its primary purpose is to show the company's profitability. It starts with Revenue at the top and subtracts various costs and expenses to arrive at Net Income at the bottom. Key line items are... The principle of revenue recognition dictates that revenue is recorded when it is earned and realized, regardless of when cash is received..."
+    },
+    {
+        "prompt": "Describe the Balance Sheet, explaining the fundamental accounting equation (Assets = Liabilities + Shareholders' Equity). Define and provide examples of Current Assets, Non-Current Assets, Current Liabilities, Non-Current Liabilities, and Shareholders' Equity components like Common Stock and Retained Earnings.",
+        "completion": "The Balance Sheet provides a snapshot of a company's financial position at a single point in time. It is based on the fundamental accounting equation: Assets = Liabilities + Shareholders' Equity. Assets are what a company owns... Liabilities are what a company owes... Shareholders' Equity represents the owners' residual claim on assets after deducting liabilities..."
+    },
+    {
+        "prompt": "Detail the Cash Flow Statement, breaking down its three sections: Cash Flow from Operating Activities (CFO), Cash Flow from Investing Activities (CFI), and Cash Flow from Financing Activities (CFF). Explain the difference between the direct and indirect methods for calculating CFO.",
+        "completion": "The Cash Flow Statement tracks the movement of cash and cash equivalents into and out of a company over a period. It is crucial for assessing a company's ability to generate cash and meet its obligations. It is divided into three sections... Cash Flow from Operating Activities (CFO) includes transactions from the company's principal revenue-producing activities... The indirect method, which is more common, starts with Net Income and adjusts for non-cash items and changes in working capital..."
+    },
+    {
+        "prompt": "Explain how the three core financial statements (Income Statement, Balance Sheet, and Cash Flow Statement) are interconnected. Use Net Income, Depreciation, and Retained Earnings as examples to trace the links.",
+        "completion": "The three financial statements are intricately linked. Net Income from the Income Statement is the starting point for the Cash Flow from Operations section on the Cash Flow Statement. It also flows into the Retained Earnings account within Shareholders' Equity on the Balance Sheet. Depreciation is added back to Net Income in the CFO calculation because it's a non-cash expense. The ending cash balance on the Cash Flow Statement becomes the cash balance on the next period's Balance Sheet..."
+    },
+    {
+        "prompt": "Define Working Capital and its components (Current Assets - Current Liabilities). Explain its importance in assessing a company's short-term liquidity and operational efficiency.",
+        "completion": "Working Capital is a measure of a company's operational liquidity available to run its day-to-day business. It is calculated as Current Assets minus Current Liabilities. Positive working capital indicates a company can cover its short-term liabilities with its short-term assets. Analysts monitor the change in working capital to understand how a company is managing its short-term financing and operations..."
+    },
+    {
+        "prompt": "Explain common financial ratio analysis categories: Liquidity Ratios (e.g., Current Ratio, Quick Ratio), Profitability Ratios (e.g., Gross Margin, Net Profit Margin, ROE, ROA), Solvency Ratios (e.g., Debt-to-Equity, Interest Coverage Ratio), and Efficiency Ratios (e.g., Asset Turnover, Inventory Turnover).",
+        "completion": "Financial ratio analysis is used to evaluate a company's performance and financial health. Liquidity ratios measure a company's ability to meet its short-term obligations... Profitability ratios assess a company's ability to generate profits from its sales and assets... Solvency ratios examine a company's ability to meet its long-term debt obligations... Efficiency ratios evaluate how well a company uses its assets and liabilities to generate sales..."
+    },
+    {
+        "prompt": "Describe the process of building a 3-statement financial model, including setting up assumptions, forecasting the Income Statement, Balance Sheet, and Cash Flow Statement, and balancing the model.",
+        "completion": "A 3-statement financial model projects a company's financial performance into the future. The process begins with gathering historical data and setting up key assumptions about future growth and profitability. You then forecast the Income Statement, followed by the supporting schedules for the Balance Sheet (like PP&E and Debt). The Cash Flow Statement is then derived from the changes in the Income Statement and Balance Sheet. The final step is to ensure the model balances, where the closing cash on the CFS links to the cash account on the Balance Sheet, and the Balance Sheet itself balances (Assets = Liabilities + Equity)."
+    },
+    {
+        "prompt": "Explain different valuation methodologies, focusing on Discounted Cash Flow (DCF) analysis, Comparable Company Analysis (Comps), and Precedent Transaction Analysis. Detail the steps involved in a DCF model, including projecting free cash flow, determining a terminal value, and calculating the weighted average cost of capital (WACC).",
+        "completion": "Valuation is the process of determining the current worth of a company. DCF analysis forecasts a company's future free cash flow and discounts it back to the present day using the WACC. Comps value a company by comparing it to similar publicly traded companies and their valuation multiples (e.g., P/E, EV/EBITDA). Precedent Transaction Analysis values a company by looking at the prices paid for similar companies in past M&A deals..."
+    },
+    {
+        "prompt": "Explain advanced accounting topics relevant to an analyst, such as deferred revenue, deferred tax assets/liabilities, stock-based compensation, and goodwill and intangible assets.",
+        "completion": "Deferred Revenue is a liability that represents cash received from customers for services or goods that have not yet been delivered. Deferred Tax Assets/Liabilities arise from timing differences between accounting income and taxable income. Stock-Based Compensation is a non-cash expense representing the value of equity awards given to employees. Goodwill is an intangible asset created during an acquisition, representing the excess of the purchase price over the fair value of the net assets acquired."
+    }
+]
