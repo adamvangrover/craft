@@ -224,11 +224,21 @@ function initGlobalNav() {
 
 // Initialize the navigation when the DOM is ready.
 // Using a simple DOMContentLoaded listener for broad compatibility.
+function tryInitNav() {
+    if (typeof navData !== 'undefined' && navData !== null) {
+        initGlobalNav();
+    } else {
+        // If navData isn't loaded yet, wait a bit and try again.
+        // This is a fallback for race conditions.
+        setTimeout(tryInitNav, 50);
+    }
+}
+
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initGlobalNav);
+    document.addEventListener('DOMContentLoaded', tryInitNav);
 } else {
     // DOMContentLoaded has already fired
-    initGlobalNav();
+    tryInitNav();
 }
 
 // Future enhancements:
