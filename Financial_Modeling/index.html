@@ -1,100 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Modeling Resources</title>
+    <title>Financial Modeling Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/global_nav.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/shared-readme-styles.css"> <!-- Using a common viewer style -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+        }
+        .content-card {
+            @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 ease-in-out p-8;
+        }
+        .card-link {
+            @apply block bg-sky-600 text-white font-semibold py-3 px-5 rounded-lg hover:bg-sky-700 transition-colors duration-200 text-center mt-auto;
+        }
+    </style>
 </head>
-<body style="display: flex; min-height: 100vh;">
-    <div id="global-nav-placeholder"></div>
-    <div style="flex-grow: 1; overflow-y: auto;"> <!-- Wrapper for existing content -->
-        <header class="viewer-header">
-            <h1>Financial Modeling Resources</h1>
-            <a href="../home.html" class="back-to-home">&laquo; Back to Main Hub</a>
+<body class="flex">
+
+    <!-- Global Navigation Sidebar -->
+    <div id="global-nav-placeholder" class="fixed top-0 left-0 h-full z-30"></div>
+
+    <!-- Main Content Area -->
+    <div id="main-content-wrapper" class="flex-grow overflow-y-auto ml-0 md:ml-[280px] transition-all duration-300 ease-in-out">
+
+        <!-- Header -->
+        <header class="bg-slate-800 text-white py-16 px-6 md:px-8 text-center">
+            <div class="max-w-4xl mx-auto">
+                <i class="fas fa-table-cells text-5xl text-sky-400 mb-4"></i>
+                <h1 class="text-4xl md:text-5xl font-bold">Financial Modeling</h1>
+                <p class="mt-4 text-xl opacity-90">Building robust and insightful financial models from the ground up.</p>
+            </div>
         </header>
-        <div class="viewer-container">
-            <nav class="viewer-nav">
-                <h2>Topics</h2>
-            <ul id="fm-navigation-list">
-                <li><a href="#" data-md-src="README.md">Financial Modeling Overview</a></li>
-                <li><a href="#" data-md-src="Best_Practices/FM_Best_Practices.md">Best Practices</a></li>
-                <li><a href="#" data-md-src="Forecasting_Techniques/Revenue_Forecasting_Approaches.md">Revenue Forecasting</a></li>
-                <li><a href="#" data-md-src="Templates/Basic_3_Statement_Model_Structure.md">3 Statement Model Structure</a></li>
-                <li><a href="#" data-md-src="Templates/Excel_Financial_Model_Best_Practices.md">Excel Best Practices</a></li>
-                <li><a href="#" data-md-src="Valuation_Applications/DCF_Modeling_Overview.md">DCF Modeling Overview</a></li>
-                <li><a href="#" data-md-src="Advanced_Topics/Real_Estate_Waterfall_Models.md">Real Estate Waterfall Models</a></li>
-                <li><a href="Excel_Tips/index.html">Excel Tips & Techniques</a></li>
-                <li><a href="../quiz_viewer.html?quiz=Financial_Modeling/Quizzes/FM_Best_Practices_Quiz.md" target="_blank">Quiz: Best Practices</a></li>
-            </ul>
-        </nav>
-        <main id="markdown-display-area" class="viewer-content">
-            <p>Select a topic from the list to view its content.</p>
+
+        <!-- Main Content -->
+        <main class="py-16 px-6 md:px-8">
+            <div class="max-w-6xl mx-auto">
+
+                <div class="content-card mb-12">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">The Art and Science of Financial Modeling</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Financial modeling is a critical skill in finance, used for decision-making, valuation, and planning. This hub provides resources to master everything from foundational best practices to advanced applications like LBOs and complex forecasting.
+                    </p>
+                </div>
+
+                <h2 class="text-3xl font-bold text-center mb-12 text-slate-700">Explore Modeling Topics</h2>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Best Practices</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Learn the essential principles of building clear, robust, and flexible financial models.</p>
+                        <a href="../global_markdown_viewer.html?mdfile=Financial_Modeling/Best_Practices/FM_Best_Practices.md" class="card-link">View Best Practices</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Templates</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Access structures for common models, including a basic 3-statement model.</p>
+                        <a href="../global_markdown_viewer.html?mdfile=Financial_Modeling/Templates/Basic_3_Statement_Model_Structure.md" class="card-link">See Templates</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Forecasting Techniques</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Explore different approaches to forecasting revenues and other key financial items.</p>
+                        <a href="../global_markdown_viewer.html?mdfile=Financial_Modeling/Forecasting_Techniques/Revenue_Forecasting_Approaches.md" class="card-link">Learn Forecasting</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Valuation Applications</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Understand how to apply financial models to valuation, with a focus on DCF analysis.</p>
+                        <a href="../global_markdown_viewer.html?mdfile=Financial_Modeling/Valuation_Applications/DCF_Modeling_Overview.md" class="card-link">Explore Valuation</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Advanced Topics</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Dive into more complex subjects like LBO modeling and real estate waterfalls.</p>
+                        <a href="../global_markdown_viewer.html?mdfile=Financial_Modeling/Advanced_Topics/LBO_Modeling_Deep_Dive.md" class="card-link">Go Advanced</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Excel Tips</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Improve your efficiency and model-building skills with powerful Excel tips and functions like XLOOKUP.</p>
+                        <a href="../global_markdown_viewer.html?mdfile=Financial_Modeling/Excel_Tips/01_XLOOKUP_Guide.md" class="card-link">Get Excel Tips</a>
+                    </div>
+                </div>
+            </div>
         </main>
+
+        <!-- Related Topics -->
+        <section class="py-16 px-6 md:px-8 bg-slate-50">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12 text-slate-700">Related Topics</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Interactive Notebooks</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Apply your modeling skills in a hands-on environment with our interactive notebooks.</p>
+                        <a href="../Interactive_Notebooks/index.html" class="card-link">Explore Notebooks</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Toolkits & Checklists</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Use our checklists to ensure your financial models are robust and error-free.</p>
+                        <a href="../Toolkits_and_Checklists/index.html" class="card-link">Access Toolkits</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-10 px-6 md:px-8 text-center text-sm text-slate-100 bg-slate-800 mt-12">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub. All Rights Reserved.</p>
+        </footer>
+
     </div>
-    </div> <!-- End of wrapper div -->
+
     <script src="../js/nav_data.js" defer></script>
     <script src="../js/global_nav.js" defer></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const navList = document.getElementById('fm-navigation-list');
-            const contentDisplay = document.getElementById('markdown-display-area');
-            const defaultPath = 'README.md'; // Default file to load
-
-            if (!navList || !contentDisplay) {
-                console.error("Navigation list or content display area not found.");
-                return;
-            }
-            if (typeof marked === 'undefined') {
-                console.error("Marked.js library not found.");
-                contentDisplay.innerHTML = "<p>Error: Markdown renderer not available.</p>";
-                return;
-            }
-
-            async function loadAndDisplayMarkdown(mdPath, clickedLink) {
-                contentDisplay.innerHTML = "<p>Loading content...</p>";
-                document.querySelectorAll('#fm-navigation-list a').forEach(link => link.classList.remove('active'));
-                if (clickedLink) {
-                    clickedLink.classList.add('active');
-                }
-
-                try {
-                    // Paths are relative to this Financial_Modeling/index.html file
-                    const response = await fetch(mdPath);
-                    if (!response.ok) {
-                        throw new Error(`Failed to fetch ${mdPath}: ${response.status} ${response.statusText}`);
-                    }
-                    const markdownText = await response.text();
-                    contentDisplay.innerHTML = marked.parse(markdownText);
-                } catch (error) {
-                    console.error("Error loading or parsing Markdown:", error);
-                    contentDisplay.innerHTML = `<p>Error loading content for ${mdPath}.</p><p><small>${error.message}</small></p>`;
-                }
-            }
-
-            navList.addEventListener('click', function(event) {
-                const targetLink = event.target.closest('a[data-md-src]');
-                if (targetLink) {
-                    event.preventDefault();
-                    const mdSrc = targetLink.dataset.mdSrc;
-                    if (mdSrc) {
-                        loadAndDisplayMarkdown(mdSrc, targetLink);
-                    }
-                }
-            });
-
-            // Load the default content (README.md)
-            const defaultLink = navList.querySelector(`a[data-md-src="${defaultPath}"]`);
-            if (defaultLink) {
-                 loadAndDisplayMarkdown(defaultPath, defaultLink);
-            } else if (navList.querySelector('a[data-md-src]')) {
-                // Fallback to the first available link if default isn't found
-                const firstLink = navList.querySelector('a[data-md-src]');
-                loadAndDisplayMarkdown(firstLink.dataset.mdSrc, firstLink);
-            }
-        });
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>

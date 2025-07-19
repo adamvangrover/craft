@@ -1,205 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Directory Viewer - Interactive_Notebooks</title>
+    <title>Interactive Notebooks Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/global_nav.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/simple_viewer.css">
-</head>
-<body style="display: flex; min-height: 100vh;">
-    <div id="global-nav-placeholder"></div>
-    <!-- Wrapper for existing page content to live alongside global nav -->
-    <div class="page-content-wrapper" style="display: flex; flex-grow: 1; min-height: 100vh; overflow-y: hidden;">
     <style>
-        /* Additional styles for iframe container if simple_viewer.css is not enough */
-        #iframe-container {
-            flex-grow: 1;
-            height: 100%; /* Ensure it takes full height of flex container */
-            overflow: hidden; /* Hide scrollbars if iframe content fits */
-            display: none; /* Initially hidden */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
         }
-        #iframe-container.active {
-            display: block;
+        .content-card {
+            @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 ease-in-out p-8;
         }
-        #module-content-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        /* Ensure #content-area (for direct MD) and #iframe-container are mutually exclusive */
-        #content-area.hidden-by-iframe {
-            display: none;
+        .card-link {
+            @apply block bg-sky-600 text-white font-semibold py-3 px-5 rounded-lg hover:bg-sky-700 transition-colors duration-200 text-center mt-auto;
         }
     </style>
-    <div id="sidebar" style="flex-shrink: 0;">
-        <div id="up-link-container">
-             <a href="../home.html">&laquo; Back to Main Hub</a>
-        </div>
-        <h3>Interactive Notebooks Navigation</h3>
+</head>
+<body class="flex">
 
-        <ul id="file-list">
-            <!-- File list will be populated by JavaScript -->
-        </ul>
+    <!-- Global Navigation Sidebar -->
+    <div id="global-nav-placeholder" class="fixed top-0 left-0 h-full z-30"></div>
+
+    <!-- Main Content Area -->
+    <div id="main-content-wrapper" class="flex-grow overflow-y-auto ml-0 md:ml-[280px] transition-all duration-300 ease-in-out">
+
+        <!-- Header -->
+        <header class="bg-slate-800 text-white py-16 px-6 md:px-8 text-center">
+            <div class="max-w-4xl mx-auto">
+                <i class="fab fa-python text-5xl text-sky-400 mb-4"></i>
+                <h1 class="text-4xl md:text-5xl font-bold">Interactive Notebooks</h1>
+                <p class="mt-4 text-xl opacity-90">Engage with finance concepts through hands-on coding and analysis.</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="py-16 px-6 md:px-8">
+            <div class="max-w-6xl mx-auto">
+
+                <div class="content-card mb-12">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Learn by Doing</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Our Jupyter Notebooks provide an interactive way to explore financial models, analyze data, and understand complex topics. Each notebook comes with a guide (README.md) that explains the concepts and how to use the notebook.
+                    </p>
+                </div>
+
+                <h2 class="text-3xl font-bold text-center mb-12 text-slate-700">Explore Our Notebooks</h2>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Equity Valuation</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">An interactive notebook for performing equity valuation using various models.</p>
+                        <a href="../global_markdown_viewer.html?mdfile=Interactive_Notebooks/Financial_Modeling/README.md" class="card-link">View Guide</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">LBO Model Basics</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">A step-by-step guide to building a basic Leveraged Buyout (LBO) model.</p>
+                        <a href="../global_markdown_viewer.html?mdfile=Interactive_Notebooks/Financial_Modeling/LBO_Model_Basics/README.md" class="card-link">View Guide</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Credit Agreement Analysis</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Analyze sample credit agreement clauses with this interactive notebook.</p>
+                        <a href="../global_markdown_viewer.html?mdfile=Interactive_Notebooks/Legal_Analysis/README.md" class="card-link">View Guide</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">WACC Calculator</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">An interactive calculator for determining the Weighted Average Cost of Capital (WACC).</p>
+                        <a href="../global_markdown_viewer.html?mdfile=Interactive_Notebooks/Valuation_Components/README.md" class="card-link">View Guide</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Value at Risk (VaR)</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">A notebook for calculating and understanding Value at Risk (VaR).</p>
+                        <a href="../global_markdown_viewer.html?mdfile=Interactive_Notebooks/Risk_Management/README.md" class="card-link">View Guide</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Fixed Income Bond Math</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Explore the mathematics behind fixed income securities with this interactive notebook.</p>
+                        <a href="../global_markdown_viewer.html?mdfile=Interactive_Notebooks/Fixed_Income/README.md" class="card-link">View Guide</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Related Topics -->
+        <section class="py-16 px-6 md:px-8 bg-slate-50">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12 text-slate-700">Related Topics</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Financial Modeling</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Many of our notebooks are designed to complement our financial modeling content. Explore our Financial Modeling hub to learn more.</p>
+                        <a href="../Financial_Modeling/index.html" class="card-link">Explore Financial Modeling</a>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-semibold text-xl mb-3 text-slate-800">AI & Coding</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">Our interactive notebooks are a great way to learn how to apply coding skills to financial analysis. Explore our AI & Coding hub to learn more.</p>
+                        <a href="../AI_and_Coding/index.html" class="card-link">Explore AI & Coding</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-10 px-6 md:px-8 text-center text-sm text-slate-100 bg-slate-800 mt-12">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub. All Rights Reserved.</p>
+        </footer>
+
     </div>
 
-    <!-- Area for direct Markdown rendering -->
-    <div id="content-area" class="markdown-body active" style="flex-grow: 1; overflow-y: auto; padding: 20px;">
-        <p>Loading content...</p>
-    </div>
-
-    <!-- Area for iframe -->
-    <div id="iframe-container" style="flex-grow: 1; overflow-y: auto;">
-        <iframe id="module-content-frame" title="Sub-module Content"></iframe>
-    </div>
-    </div> <!-- End of page-content-wrapper -->
     <script src="../js/nav_data.js" defer></script>
     <script src="../js/global_nav.js" defer></script>
     <script>
-        const directContentDisplay = document.getElementById('content-area');
-        const iframeContainer = document.getElementById('iframe-container');
-        const moduleIframe = document.getElementById('module-content-frame');
-
-        const fileListDisplay = document.getElementById('file-list');
-        const pageTitle = document.querySelector('title');
-
-        const directoryName = "Interactive_Notebooks";
-        const localFiles = ["README.md", "AGENTS.MD"]; // Files directly in Interactive_Notebooks/
-        const subDirectoryModules = [
-            {"name": "CFA_Quant_Methods", "indexPath": "CFA_Quant_Methods/index.html", "readmePath": "CFA_Quant_Methods/README.md"},
-            {"name": "Financial_Modeling", "indexPath": "Financial_Modeling/index.html", "readmePath": "Financial_Modeling/README.md"},
-            {"name": "Fixed_Income", "indexPath": "Fixed_Income/index.html", "readmePath": "Fixed_Income/README.md"},
-            {"name": "Legal_Analysis", "indexPath": "Legal_Analysis/index.html", "readmePath": "Legal_Analysis/README.md"},
-            {"name": "Market_Analysis", "indexPath": "Market_Analysis/index.html", "readmePath": "Market_Analysis/README.md"},
-            {"name": "Risk_Management", "indexPath": "Risk_Management/index.html", "readmePath": "Risk_Management/README.md"},
-            {"name": "Valuation_Components", "indexPath": "Valuation_Components/index.html", "readmePath": "Valuation_Components/README.md"}
-        ];
-
-
-        document.addEventListener('DOMContentLoaded', async function() {
-            pageTitle.textContent = `Viewer - ${directoryName}`;
-            let fileLinksHtml = '';
-
-            // Handle direct .md files (README.md, AGENTS.MD)
-            const readmeFile = localFiles.find(f => f.toLowerCase() === 'readme.md');
-            if (readmeFile) {
-                 fileLinksHtml += `<li>
-                                    <a href="${readmeFile}" target="_blank" class="nav-link raw-md-link">README.md (Raw Overview)</a>
-                                    <a href="#" data-md-src="${readmeFile}" class="nav-link view-formatted-link direct-md-link active" title="View formatted content in pane">(View Formatted)</a>
-                                 </li>`;
-            }
-            localFiles.forEach(file => {
-                if (file.toLowerCase() !== 'readme.md' && file.toLowerCase() !== 'agents.md' && file.endsWith('.md')) {
-                    const linkText = file; // Keep it simple
-                    fileLinksHtml += `<li>
-                                        <a href="${file}" target="_blank" class="nav-link raw-md-link">${linkText} (Raw)</a>
-                                        <a href="#" data-md-src="${file}" class="nav-link view-formatted-link direct-md-link" title="View formatted content in pane">(View Formatted)</a>
-                                     </li>`;
-                }
-            });
-
-            // Handle sub-directory modules (iframe links)
-            subDirectoryModules.forEach(subdir => {
-                fileLinksHtml += `<li class="subdirectory-group"><h4>${subdir.name}/</h4></li>`;
-                // These links load an index.html into iframe, so no "raw" link needed in the same way.
-                // The target index.html itself should be robust.
-                fileLinksHtml += `<li><a href="#" data-iframe-src="${subdir.indexPath}" class="nav-link iframe-link">&nbsp;&nbsp;&nbsp;Explore ${subdir.name} Notebooks</a></li>`;
-            });
-            fileListDisplay.innerHTML = fileLinksHtml;
-
-            fileListDisplay.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    // Deactivate all types of links first
-                    document.querySelectorAll('#file-list .nav-link').forEach(l => l.classList.remove('active'));
-                     // Activate the specific clicked link (could be raw-md-link, view-formatted-link, or iframe-link)
-                    this.classList.add('active');
-
-                    // If it's a view-formatted-link, also activate its corresponding raw-md-link for visual grouping if desired (optional)
-                    if (this.classList.contains('view-formatted-link')) {
-                        const rawLink = this.previousElementSibling;
-                        if(rawLink && rawLink.classList.contains('raw-md-link')) {
-                            // rawLink.classList.add('active'); // Or some other visual cue
-                        }
-                    }
-
-
-                    if (this.classList.contains('direct-md-link')) {
-                        const mdSrc = this.getAttribute('data-md-src');
-                        loadMdDirectly(mdSrc);
-                    } else if (this.classList.contains('iframe-link')) {
-                        const iframeSrc = this.getAttribute('data-iframe-src');
-                        loadSubdirectoryInIframe(iframeSrc);
-                    }
-                    // Clicks on 'raw-md-link' will just follow href due to no event.preventDefault() specifically for them here.
-                });
-            });
-
-            // Initial load logic
-            const initialFormattedReadmeLink = fileListDisplay.querySelector('a.view-formatted-link.direct-md-link[data-md-src="README.md"]');
-            if (initialFormattedReadmeLink) {
-                // No need to add 'active' again, it's set in HTML generation
-                await loadMdDirectly('README.md');
-            } else {
-                const firstDirectFormattedLink = fileListDisplay.querySelector('a.view-formatted-link.direct-md-link');
-                if (firstDirectFormattedLink) {
-                    firstDirectFormattedLink.classList.add('active');
-                    await loadMdDirectly(firstDirectFormattedLink.dataset.mdSrc);
-                } else {
-                     // If no direct markdown files, maybe load first iframe or show message
-                    const firstIframeLink = fileListDisplay.querySelector('a.iframe-link');
-                    if (firstIframeLink) {
-                        firstIframeLink.classList.add('active');
-                        loadSubdirectoryInIframe(firstIframeLink.dataset.iframeSrc);
-                    } else {
-                        directContentDisplay.innerHTML = "<p>No content found. Select an item from the navigation.</p>";
-                    }
-                }
-            } else {
-                directContentDisplay.innerHTML = "<p>No local Markdown files found. Select a notebook category from the subdirectories.</p>";
-            }
-        });
-
-        function showDirectContentArea() {
-            directContentDisplay.classList.add('active');
-            directContentDisplay.classList.remove('hidden-by-iframe');
-            iframeContainer.classList.remove('active');
-            moduleIframe.src = 'about:blank';
-        }
-
-        function showIframeArea() {
-            directContentDisplay.classList.remove('active');
-            directContentDisplay.classList.add('hidden-by-iframe');
-            iframeContainer.classList.add('active');
-        }
-
-        async function loadMdDirectly(mdPath) {
-            showDirectContentArea();
-            if (!directContentDisplay) return;
-            if (typeof marked === 'undefined') {
-                directContentDisplay.innerHTML = "<p>Error: Markdown renderer not available.</p>";
-                return;
-            }
-            directContentDisplay.innerHTML = "<p>Loading content...</p>";
-            try {
-                const response = await fetch(mdPath);
-                if (!response.ok) throw new Error(`Failed to fetch ${mdPath}: ${response.status}`);
-                const markdownText = await response.text();
-                directContentDisplay.innerHTML = marked.parse(markdownText);
-                directContentDisplay.scrollTop = 0;
-            } catch (error) {
-                console.error("Error loading direct Markdown:", error);
-                directContentDisplay.innerHTML = `<p>Error loading content for ${mdPath}.</p><p><small>${error.message}</small></p>`;
-            }
-        }
-
-        function loadSubdirectoryInIframe(indexPath) {
-            showIframeArea();
-            moduleIframe.src = indexPath;
-        }
-
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
