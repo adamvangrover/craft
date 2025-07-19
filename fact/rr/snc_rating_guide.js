@@ -101,81 +101,74 @@ Justification: [Detailed justification for your assessment, referencing specific
             qualitativeValues[key] = value;
         }
 
-        let score = 50; // Starting score
+        let score = 100; // Starting score
         let justification = '';
         let inputMap = [];
 
         // Quantitative factors
         const quantitativeFactors = [
-            { key: 'roe', label: 'Return on Equity (ROE)', threshold: 0.15, operator: '>=' },
-            { key: 'op_margin', label: 'Operating Margin', threshold: 0.12, operator: '>=' },
-            { key: 'net_debt_ebitda', label: 'Net Debt / EBITDA', threshold: 3.0, operator: '<=' },
-            { key: 'debt_capital', label: 'Total Debt / Capital', threshold: 0.50, operator: '<=' },
-            { key: 'ocfl_debt', label: 'Operating Cash Flow / Total Debt', threshold: 0.25, operator: '>=' },
-            { key: 'current_ratio', label: 'Current Ratio', threshold: 1.8, operator: '>=' },
-            { key: 'quick_ratio', label: 'Quick Ratio', threshold: 1.0, operator: '>=' },
-            { key: 'st_debt_pct', label: 'Short-Term Debt % of Total Debt', threshold: 0.30, operator: '<=' },
+            { key: 'roe', label: 'Return on Equity (ROE)', thresholds: [0.10, 0.15], weights: [-10, 0, 10] },
+            { key: 'op_margin', label: 'Operating Margin', thresholds: [0.10, 0.15], weights: [-10, 0, 10] },
+            { key: 'net_debt_ebitda', label: 'Net Debt / EBITDA', thresholds: [4.0, 3.0], weights: [10, 0, -10] },
+            { key: 'debt_capital', label: 'Total Debt / Capital', thresholds: [0.6, 0.4], weights: [10, 0, -10] },
+            { key: 'ocfl_debt', label: 'Operating Cash Flow / Total Debt', thresholds: [0.15, 0.25], weights: [-10, 0, 10] },
+            { key: 'current_ratio', label: 'Current Ratio', thresholds: [1.0, 1.5], weights: [-10, 0, 10] },
+            { key: 'quick_ratio', label: 'Quick Ratio', thresholds: [0.8, 1.0], weights: [-10, 0, 10] },
+            { key: 'st_debt_pct', label: 'Short-Term Debt % of Total Debt', thresholds: [0.5, 0.3], weights: [10, 0, -10] },
         ];
 
         quantitativeFactors.forEach(factor => {
             const value = quantitativeValues[factor.key];
-            let impact = 'Negative';
-            let conditionMet = false;
-            if (factor.operator === '>=') {
-                conditionMet = value >= factor.threshold;
-            } else {
-                conditionMet = value <= factor.threshold;
+            let scoreChange = 0;
+            let impact = 'Neutral';
+
+            if (factor.weights[0] > 0) { // Higher is worse
+                if (value > factor.thresholds[0]) scoreChange = factor.weights[0];
+                else if (value < factor.thresholds[1]) scoreChange = factor.weights[2];
+                else scoreChange = factor.weights[1];
+            } else { // Higher is better
+                if (value < factor.thresholds[0]) scoreChange = factor.weights[0];
+                else if (value > factor.thresholds[1]) scoreChange = factor.weights[2];
+                else scoreChange = factor.weights[1];
             }
 
-            if (conditionMet) {
-                score += 5;
-                impact = 'Positive';
-                justification += `${factor.label} of ${value} is favorable. `;
-            } else {
-                score -= 5;
-                justification += `${factor.label} of ${value} is unfavorable. `;
-            }
+            score += scoreChange;
+            if (scoreChange > 0) impact = 'Positive';
+            if (scoreChange < 0) impact = 'Negative';
+
+            justification += `${factor.label} of ${value} resulted in a score change of ${scoreChange}. `;
             inputMap.push({ metric: factor.label, value: value, impact: impact });
         });
 
         // Qualitative factors
         const qualitativeFactors = [
-            { key: 'ni_trend', label: 'Net Income Trend', favorableValue: 'Consistently Growing' },
-            { key: 'fcf_gen', label: 'Free Cash Flow (FCF) Generation', favorableValue: 'Consistently Positive' },
-            { key: 'maturity_profile', label: 'Debt Maturity Profile', favorableValue: 'Well-Laddered' },
-            { key: 'ind_cyclicality', label: 'Industry Cyclicality', favorableValue: 'Low' },
-            { key: 'ind_competition', label: 'Competitive Intensity', favorableValues: ['Low', 'Moderate'] },
-            { key: 'diversification', label: 'Product/Service Diversification', favorableValue: 'High' },
+            { key: 'ni_trend', label: 'Net Income Trend', values: ['Declining', 'Stable', 'Consistently Growing'], weights: [-10, 0, 10] },
+            { key: 'fcf_gen', label: 'Free Cash Flow (FCF) Generation', values: ['Negative', 'Volatile', 'Consistently Positive'], weights: [-15, -5, 10] },
+            { key: 'maturity_profile', label: 'Debt Maturity Profile', values: ['Concentrated', 'Well-Laddered'], weights: [-10, 5] },
+            { key: 'ind_cyclicality', label: 'Industry Cyclicality', values: ['High', 'Moderate', 'Low'], weights: [-10, 0, 10] },
+            { key: 'ind_competition', label: 'Competitive Intensity', values: ['High', 'Moderate', 'Low'], weights: [-10, 0, 10] },
+            { key: 'diversification', label: 'Product/Service Diversification', values: ['Low', 'Moderate', 'High'], weights: [-10, 0, 10] },
         ];
 
         qualitativeFactors.forEach(factor => {
             const value = qualitativeValues[factor.key];
-            let impact = 'Negative';
-            let conditionMet = false;
-            if (factor.favorableValues) {
-                conditionMet = factor.favorableValues.includes(value);
-            } else {
-                conditionMet = value === factor.favorableValue;
-            }
+            const index = factor.values.indexOf(value);
+            const scoreChange = factor.weights[index];
+            score += scoreChange;
 
-            if (conditionMet) {
-                score += 5;
-                impact = 'Positive';
-                justification += `${factor.label} of "${value}" is favorable. `;
-            } else {
-                score -= 5;
-                justification += `${factor.label} of "${value}" is unfavorable. `;
-            }
+            let impact = 'Neutral';
+            if (scoreChange > 0) impact = 'Positive';
+            if (scoreChange < 0) impact = 'Negative';
+
+            justification += `${factor.label} of "${value}" resulted in a score change of ${scoreChange}. `;
             inputMap.push({ metric: factor.label, value: value, impact: impact });
         });
         
         let rating = 'PASS';
-        if (score < 30) {
+        if (score < 60) {
             rating = 'Substandard';
-        } else if (score < 50) {
+        } else if (score < 80) {
             rating = 'Special Mention';
-        } else if (score < 70) {
-            rating = 'PASS';
         } else {
             rating = 'PASS';
         }
