@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comprehensive Financial Training Hub - New</title>
+    <!-- DEVELOPER NOTE: Version 2.1 - Home page with enhanced sections and sidebar integration. -->
+    <title>Comprehensive Financial Training Hub - Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- External Libraries & Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -54,6 +56,11 @@
 
     <!-- Main Content Area -->
     <div id="main-content-wrapper" class="flex-grow overflow-y-auto ml-0 md:ml-[280px] transition-all duration-300 ease-in-out"> <!-- Adjust ml based on global-nav-placeholder width -->
+        <div class="md:hidden p-4">
+            <button id="menu-toggle-button" class="text-slate-700">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
 
         <!-- 1. Hero Section -->
         <section id="hero" class="hero-gradient py-20 px-6 md:px-8 text-center text-white">
@@ -247,17 +254,13 @@
         const globalNav = document.getElementById('global-nav-placeholder');
         const mainContentWrapper = document.getElementById('main-content-wrapper');
 
-        // This is a placeholder for more sophisticated sidebar toggle logic if needed.
-        // For now, it assumes global-nav-placeholder has a fixed width and main-content-wrapper has margin.
-        // A real toggle would add/remove classes to collapse the sidebar and adjust main content margin.
-        // Example:
-        // const menuToggle = document.getElementById('menu-toggle-button'); // Assuming a button exists
-        // if (menuToggle) {
-        //    menuToggle.addEventListener('click', () => {
-        //        globalNav.classList.toggle('collapsed'); // You'd define .collapsed in global_nav.css
-        //        mainContentWrapper.classList.toggle('full-width'); // Adjust margin
-        //    });
-        // }
+        const menuToggleButton = document.getElementById('menu-toggle-button');
+        if (menuToggleButton) {
+            menuToggleButton.addEventListener('click', () => {
+                globalNav.classList.toggle('hidden');
+                mainContentWrapper.classList.toggle('ml-0');
+            });
+        }
 
         // AI Concept Explainer JavaScript
         const aiPromptInput = document.getElementById('ai-prompt-input');

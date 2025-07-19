@@ -3,94 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- DEVELOPER NOTE: Merge conflict resolved.
-         This root index.html is now a very simple landing page.
-         The primary, feature-rich entry point for the entire repository is `home.html`.
-         The complex CRAFT SPA that was previously part of a conflict in this file will be moved to `corporate-credit-risk-analyst-training/index.html`.
-         The original simpler CRAFT loader (sidebar + markdown viewer) is kept here as a basic fallback,
-         but its primary purpose is now to redirect to home.html.
-         The large commented-out CRAFT SPA block has been removed as of [current date/change] as it now resides in corporate-credit-risk-analyst-training/index.html.
-    -->
-    <title>Financial Learning Repository - Welcome</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <style>
-        body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 90vh; text-align: center; }
-        .redirect-container { padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9; }
-        .redirect-container h1 { margin-bottom: 15px; }
-        .redirect-container p { margin-bottom: 20px; }
-        .redirect-link {
-            display: inline-block;
-            padding: 12px 25px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-            transition: background-color 0.3s;
-        }
-        .redirect-link:hover {
-            background-color: #0056b3;
-        }
-        .fallback-content { margin-top: 30px; padding-top: 20px; border-top: 1px dashed #eee; }
-    </style>
-</head>
-<body>
-    <div class="redirect-container">
-        <h1>Welcome to the Financial Learning Repository</h1>
-        <p>This site hosts a comprehensive collection of resources for financial education, including credit risk analysis, CFA program preparation, financial modeling, and more.</p>
-        <p><strong>For the best experience and full site navigation, please visit our main dashboard:</strong></p>
-        <a href="home.html" class="redirect-link">Go to Main Dashboard (home.html)</a>
-    </div>
-
-    <div class="fallback-content container" style="display:none;"> <!-- Initially hide fallback -->
-        <header>
-            <h1>CRAFT – Credit Risk Analyst Foundations Training (Fallback View)</h1>
-        </header>
-        <nav id="sidebar">
-            <h2>Course Modules</h2>
-            <ul id="module-navigation-list">
-                <!-- Dynamically populated by script.js if this part becomes active -->
-                <li><a href="#" data-path="corporate-credit-risk-analyst-training/README.md">Course Overview (CRAFT README)</a></li>
-                 <li><a href="corporate-credit-risk-analyst-training/index.html">Go to Interactive CRAFT Hub</a></li>
-            </ul>
-        </nav>
-        <main id="content-area">
-            <p>Please use the <a href="home.html">Main Dashboard</a> for full site access. If you intended to view the CRAFT program, its interactive hub is at <a href="corporate-credit-risk-analyst-training/index.html">corporate-credit-risk-analyst-training/index.html</a>.</p>
-        </main>
-        <footer>
-            <p>&copy; <span id="current-year"></span> Financial Learning Hub. Placeholder.</p>
-        </footer>
-    </div>
-
-    <!-- Marked.js for Markdown to HTML conversion (for fallback) -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- Custom JavaScript (for fallback) -->
-    <script src="assets/js/script.js"></script>
-    <script>
-        // Adding a simple current year for the fallback footer.
-        const currentYearSpan = document.getElementById('current-year');
-        if (currentYearSpan) {
-            currentYearSpan.textContent = new Date().getFullYear();
-        }
-        // Auto-redirect to home.html immediately
-        setTimeout(function() {
-            if (window.location.pathname.endsWith('/') || window.location.pathname.endsWith('index.html')) {
-                 window.location.href = 'home.html';
-                 // console.log("Redirecting to home.html"); // Keep for debugging if needed, remove for production
-            }
-        }, 0); // Set delay to 0 for immediate redirect
-    </script>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Financial Learning Hub</title>
+    <!-- DEVELOPER NOTE: Version 2.0 - Comprehensive Hub with Integrated Navigation -->
+    <!-- This version of index.html serves as a fully functional hub, parallel to home.html, with a robust sidebar and content sections. -->
+    <title>Dynamic Financial Learning Hub - Main</title>
     
-    <!-- Tailwind CSS for utility-first styling -->
+    <!-- External Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Chart.js for data visualization -->
@@ -100,6 +17,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global_nav.css">
     
     <style>
         /* --- Base Styles & Modern Color Palette --- */
@@ -253,106 +172,102 @@
     </div>
 
     <div class="relative min-h-screen lg:flex">
-        <!-- === MOBILE HEADER & SIDEBAR TOGGLE === -->
-        <header class="lg:hidden sticky top-0 bg-white/80 backdrop-blur-md z-30 flex items-center justify-between p-4 border-b border-slate-200">
-            <h2 class="font-bold text-lg text-slate-800">Financial Hub</h2>
-            <button id="menu-toggle" class="p-2 rounded-md hover:bg-slate-100" aria-label="Open menu"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
-        </header>
-
-        <!-- === SIDEBAR === -->
-        <aside id="sidebar" class="sidebar fixed top-0 left-0 h-full w-64 bg-white border-r border-slate-200 z-40 lg:relative lg:translate-x-0">
-            <div class="p-6 flex flex-col h-full">
-                <h1 class="text-2xl font-bold text-slate-900">Learning Hubs</h1>
-                <nav class="mt-8 space-y-2 flex-1">
-                    <a href="#" class="flex items-center px-4 py-2.5 text-white bg-indigo-600 rounded-lg font-semibold" aria-current="page"><svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01"></path></svg>Finance Hub</a>
-                    <a href="#" class="flex items-center px-4 py-2.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 rounded-lg font-medium"><svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>Data Science Hub</a>
-                    <a href="#" class="flex items-center px-4 py-2.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 rounded-lg font-medium"><svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>Cloud Computing Hub</a>
-                </nav>
-                <div class="mt-4 text-center text-xs text-slate-400" id="user-id-display"></div>
-            </div>
-        </aside>
+        <!-- Global Navigation Sidebar -->
+        <div id="global-nav-placeholder" class="sidebar fixed top-0 left-0 h-full w-64 bg-white border-r border-slate-200 z-40 lg:relative lg:translate-x-0">
+            <!-- Global navigation will be injected here by js/global_nav.js -->
+        </div>
         
         <div id="sidebar-backdrop" class="fixed inset-0 bg-black/30 z-30 hidden lg:hidden"></div>
 
-        <div class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
-            <nav class="flex justify-center border-b border-slate-300 mb-8" role="tablist" aria-label="Learning Paths">
-                <div class="flex flex-wrap justify-center space-x-2 md:space-x-6">
-                    <button role="tab" id="tab-dashboard" data-view="dashboard" class="nav-button active">Dashboard</button>
-                    <button role="tab" id="tab-creditAnalyst" data-view="creditAnalyst" class="nav-button">Credit Analyst Path</button>
-                    <button role="tab" id="tab-cfaCandidate" data-view="cfaCandidate" class="nav-button">CFA® Candidate Path</button>
-                    <a href="copilot_hub.html" class="nav-button">AI Copilot Hub</a>
-                </div>
-            </nav>
+        <div class="flex-1 flex flex-col">
+            <!-- === MOBILE HEADER & SIDEBAR TOGGLE === -->
+            <header class="lg:hidden sticky top-0 bg-white/80 backdrop-blur-md z-30 flex items-center justify-between p-4 border-b border-slate-200">
+                <h2 class="font-bold text-lg text-slate-800">Financial Hub</h2>
+                <button id="menu-toggle" class="p-2 rounded-md hover:bg-slate-100" aria-label="Open menu"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+            </header>
 
-            <main id="mainContent">
-                <!-- 1. DASHBOARD VIEW -->
-                <section id="view-dashboard" class="content-section active space-y-8" role="tabpanel" aria-labelledby="tab-dashboard">
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <div class="lg:col-span-2 content-card p-8 flex flex-col justify-center bg-indigo-700 text-white">
-                            <h2 class="text-3xl font-bold mb-2">Welcome Back!</h2>
-                            <p class="text-indigo-200 text-lg">Let's continue your journey to mastering finance.</p>
-                            <a href="#" id="continue-last-module-btn" class="mt-6 bg-white text-indigo-700 font-bold py-2 px-5 rounded-lg self-start hover:bg-indigo-50 transition-all">Continue Last Module</a>
-                        </div>
-                        <div class="content-card p-6">
-                            <h3 class="font-semibold text-lg mb-4 text-slate-800">Your Progress</h3>
-                            <div id="dashboard-progress" class="space-y-4"></div>
-                        </div>
+            <div class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+                <nav class="flex justify-center border-b border-slate-300 mb-8" role="tablist" aria-label="Learning Paths">
+                    <div class="flex flex-wrap justify-center space-x-2 md:space-x-6">
+                        <button role="tab" id="tab-dashboard" data-view="dashboard" class="nav-button active">Dashboard</button>
+                        <button role="tab" id="tab-creditAnalyst" data-view="creditAnalyst" class="nav-button">Credit Analyst Path</button>
+                        <button role="tab" id="tab-cfaCandidate" data-view="cfaCandidate" class="nav-button">CFA® Candidate Path</button>
+                        <a href="copilot_hub.html" class="nav-button">AI Copilot Hub</a>
                     </div>
-                    
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <div class="content-card p-6">
-                            <h3 class="font-semibold text-lg mb-4 text-slate-800">Explore Learning Resources</h3>
-                            <div id="resource-filters" class="flex flex-wrap gap-2 mb-6"></div>
-                            <div id="resource-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-                        </div>
+                </nav>
 
-                        <div class="content-card p-6">
-                            <h3 class="font-semibold text-lg mb-4 text-slate-800">AI Concept Explainer</h3>
-                            <p class="text-sm text-slate-500 mb-4">Enter a financial term (e.g., "Quantitative Easing", "Derivatives") to get a simple explanation.</p>
-                            <div class="flex gap-2">
-                                <input type="text" id="ai-prompt-input" placeholder="Enter a financial term..." class="w-full text-slate-700 bg-slate-100 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 py-2 px-3">
-                                <button id="ai-explain-btn" class="bg-indigo-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center">
-                                    <span id="ai-btn-text">Explain</span>
-                                    <div id="ai-btn-loader" class="loader hidden"></div>
-                                </button>
+                <main id="mainContent">
+                    <!-- 1. DASHBOARD VIEW -->
+                    <section id="view-dashboard" class="content-section active space-y-8" role="tabpanel" aria-labelledby="tab-dashboard">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div class="lg:col-span-2 content-card p-8 flex flex-col justify-center bg-indigo-700 text-white">
+                                <h2 class="text-3xl font-bold mb-2">Welcome Back!</h2>
+                                <p class="text-indigo-200 text-lg">Let's continue your journey to mastering finance.</p>
+                                <a href="#" id="continue-last-module-btn" class="mt-6 bg-white text-indigo-700 font-bold py-2 px-5 rounded-lg self-start hover:bg-indigo-50 transition-all">Continue Last Module</a>
                             </div>
-                            <div id="ai-response-container" class="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200 min-h-[100px] text-slate-700 text-sm">
-                                AI responses will appear here...
+                            <div class="content-card p-6">
+                                <h3 class="font-semibold text-lg mb-4 text-slate-800">Your Progress</h3>
+                                <div id="dashboard-progress" class="space-y-4"></div>
                             </div>
                         </div>
-                    </div>
-                </section>
 
-                <!-- 2. CREDIT ANALYST PATH VIEW -->
-                <section id="view-creditAnalyst" class="content-section" role="tabpanel" aria-labelledby="tab-creditAnalyst">
-                    <div class="text-center max-w-3xl mx-auto mb-12">
-                        <h2 class="text-3xl font-bold text-slate-800 mb-4">Credit Analyst Learning Path (CRAFT)</h2>
-                        <p class="text-slate-600 text-lg">A comprehensive, 11-module program taking you from foundational principles to advanced, specialized topics.</p>
-                    </div>
-                    <div class="lg:flex gap-8">
-                        <aside class="lg:w-2/5 mb-8 lg:mb-0">
-                            <h3 class="font-semibold text-xl mb-4 text-slate-800">CRAFT Program Modules</h3>
-                            <div id="creditRiskModules" class="space-y-2"></div>
-                        </aside>
-                        <div class="lg:w-3/5"><div id="creditRiskModuleDetail" class="content-card p-6 lg:sticky top-8"></div></div>
-                    </div>
-                </section>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div class="content-card p-6">
+                                <h3 class="font-semibold text-lg mb-4 text-slate-800">Explore Learning Resources</h3>
+                                <div id="resource-filters" class="flex flex-wrap gap-2 mb-6"></div>
+                                <div id="resource-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+                            </div>
 
-                <!-- 3. CFA CANDIDATE PATH VIEW -->
-                <section id="view-cfaCandidate" class="content-section" role="tabpanel" aria-labelledby="tab-cfaCandidate">
-                    <div class="text-center max-w-3xl mx-auto mb-12"><h2 class="text-3xl font-bold text-slate-800 mb-4">CFA® Candidate Path</h2><p class="text-slate-600 text-lg">Navigate your CFA journey with a toolkit designed for success. Explore focused resources below.</p></div>
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <div class="content-card p-6 lg:col-span-2">
-                            <h3 class="font-semibold text-xl mb-6 text-slate-800">Resource Toolkit</h3>
-                             <div id="cfa-resource-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+                            <div class="content-card p-6">
+                                <h3 class="font-semibold text-lg mb-4 text-slate-800">AI Concept Explainer</h3>
+                                <p class="text-sm text-slate-500 mb-4">Enter a financial term (e.g., "Quantitative Easing", "Derivatives") to get a simple explanation.</p>
+                                <div class="flex gap-2">
+                                    <input type="text" id="ai-prompt-input" placeholder="Enter a financial term..." class="w-full text-slate-700 bg-slate-100 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 py-2 px-3">
+                                    <button id="ai-explain-btn" class="bg-indigo-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center">
+                                        <span id="ai-btn-text">Explain</span>
+                                        <div id="ai-btn-loader" class="loader hidden"></div>
+                                    </button>
+                                </div>
+                                <div id="ai-response-container" class="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200 min-h-[100px] text-slate-700 text-sm">
+                                    AI responses will appear here...
+                                </div>
+                            </div>
                         </div>
-                        <div class="content-card p-6"><h3 class="font-semibold text-xl mb-4 text-center text-slate-800">Ethics Exam Weighting</h3><p class="text-slate-600 text-center text-sm mb-4">Ethics holds significant weight (10-15%) on all exams.</p><div class="relative h-64"><canvas id="ethicsChart"></canvas></div></div>
-                    </div>
-                </section>
-            </main>
+                    </section>
+
+                    <!-- 2. CREDIT ANALYST PATH VIEW -->
+                    <section id="view-creditAnalyst" class="content-section" role="tabpanel" aria-labelledby="tab-creditAnalyst">
+                        <div class="text-center max-w-3xl mx-auto mb-12">
+                            <h2 class="text-3xl font-bold text-slate-800 mb-4">Credit Analyst Learning Path (CRAFT)</h2>
+                            <p class="text-slate-600 text-lg">A comprehensive, 11-module program taking you from foundational principles to advanced, specialized topics.</p>
+                        </div>
+                        <div class="lg:flex gap-8">
+                            <aside class="lg:w-2/5 mb-8 lg:mb-0">
+                                <h3 class="font-semibold text-xl mb-4 text-slate-800">CRAFT Program Modules</h3>
+                                <div id="creditRiskModules" class="space-y-2"></div>
+                            </aside>
+                            <div class="lg:w-3/5"><div id="creditRiskModuleDetail" class="content-card p-6 lg:sticky top-8"></div></div>
+                        </div>
+                    </section>
+
+                    <!-- 3. CFA CANDIDATE PATH VIEW -->
+                    <section id="view-cfaCandidate" class="content-section" role="tabpanel" aria-labelledby="tab-cfaCandidate">
+                        <div class="text-center max-w-3xl mx-auto mb-12"><h2 class="text-3xl font-bold text-slate-800 mb-4">CFA® Candidate Path</h2><p class="text-slate-600 text-lg">Navigate your CFA journey with a toolkit designed for success. Explore focused resources below.</p></div>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div class="content-card p-6 lg:col-span-2">
+                                <h3 class="font-semibold text-xl mb-6 text-slate-800">Resource Toolkit</h3>
+                                 <div id="cfa-resource-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+                            </div>
+                            <div class="content-card p-6"><h3 class="font-semibold text-xl mb-4 text-center text-slate-800">Ethics Exam Weighting</h3><p class="text-slate-600 text-center text-sm mb-4">Ethics holds significant weight (10-15%) on all exams.</p><div class="relative h-64"><canvas id="ethicsChart"></canvas></div></div>
+                        </div>
+                    </section>
+                </main>
+            </div>
         </div>
     </div>
 
+    <script src="js/nav_data.js" defer></script>
+    <script src="js/global_nav.js" defer></script>
     <script type="module">
         // Firebase Imports
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -430,7 +345,7 @@
                 creditRiskModuleDetailContainer: document.getElementById('creditRiskModuleDetail'),
                 cfaResourceGrid: document.getElementById('cfa-resource-grid'),
                 ethicsChartCanvas: document.getElementById('ethicsChart'),
-                sidebar: document.getElementById('sidebar'),
+                sidebar: document.getElementById('global-nav-placeholder'),
                 menuToggle: document.getElementById('menu-toggle'),
                 sidebarBackdrop: document.getElementById('sidebar-backdrop'),
                 dashboardProgress: document.getElementById('dashboard-progress'),
@@ -799,4 +714,3 @@
     </script>
 </body>
 </html>
-
