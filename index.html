@@ -241,39 +241,20 @@
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="flex">
 
-    <!-- Custom Alert Modal -->
-    <div id="custom-modal" class="modal-backdrop">
-        <div class="modal-content">
-            <h3 id="modal-title" class="text-xl font-bold text-slate-800 mb-4">Notification</h3>
-            <p id="modal-message" class="text-slate-600 mb-6">This is a message.</p>
-            <button id="modal-close-btn" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition">Close</button>
-        </div>
+    <div id="global-nav-placeholder" class="sidebar fixed top-0 left-0 h-full w-64 bg-white border-r border-slate-200 z-40 lg:relative lg:translate-x-0" data-include="_includes/navigation.html">
+        <!-- Static navigation will be loaded here -->
     </div>
 
-    <div class="relative min-h-screen lg:flex">
-        <!-- === MOBILE HEADER & SIDEBAR TOGGLE === -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/30 z-30 hidden lg:hidden"></div>
+
+    <div class="flex-1 flex flex-col">
         <header class="lg:hidden sticky top-0 bg-white/80 backdrop-blur-md z-30 flex items-center justify-between p-4 border-b border-slate-200">
             <h2 class="font-bold text-lg text-slate-800">Financial Hub</h2>
-            <button id="menu-toggle" class="p-2 rounded-md hover:bg-slate-100" aria-label="Open menu"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+            <button id="menu-toggle" class="p-2 rounded-md hover:bg-slate-100" aria-label="Open menu"><i class="fas fa-bars"></i></button>
         </header>
-
-        <!-- === SIDEBAR === -->
-        <aside id="sidebar" class="sidebar fixed top-0 left-0 h-full w-64 bg-white border-r border-slate-200 z-40 lg:relative lg:translate-x-0">
-            <div class="p-6 flex flex-col h-full">
-                <h1 class="text-2xl font-bold text-slate-900">Learning Hubs</h1>
-                <nav class="mt-8 space-y-2 flex-1">
-                    <a href="#" class="flex items-center px-4 py-2.5 text-white bg-indigo-600 rounded-lg font-semibold" aria-current="page"><svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01"></path></svg>Finance Hub</a>
-                    <a href="#" class="flex items-center px-4 py-2.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 rounded-lg font-medium"><svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>Data Science Hub</a>
-                    <a href="#" class="flex items-center px-4 py-2.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 rounded-lg font-medium"><svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>Cloud Computing Hub</a>
-                </nav>
-                <div class="mt-4 text-center text-xs text-slate-400" id="user-id-display"></div>
-            </div>
-        </aside>
         
-        <div id="sidebar-backdrop" class="fixed inset-0 bg-black/30 z-30 hidden lg:hidden"></div>
-
         <div class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
             <nav class="flex justify-center border-b border-slate-300 mb-8" role="tablist" aria-label="Learning Paths">
                 <div class="flex flex-wrap justify-center space-x-2 md:space-x-6">
