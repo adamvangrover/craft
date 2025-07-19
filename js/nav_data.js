@@ -7,6 +7,7 @@ const navData = [
         text: "Home Dashboard",
         href: "home.html",
         type: "html_hub",
+
       },
       {
         text: "Financial Learning Hub",
@@ -65,6 +66,7 @@ const navData = [
         text: "Risk Management",
         href: "Risk_Management/index.html",
         type: "html_hub"
+
       },
       {
         text: "Industry Primers",
@@ -76,10 +78,12 @@ const navData = [
         href: "Behavioral_Finance/index.html",
         type: "section_viewer"
       },
+      },
       {
         text: "Legal Analysis",
         href: "legal_analysis/index.html",
         type: "section_viewer"
+
       }
     ],
   },
@@ -101,6 +105,7 @@ const navData = [
         text: "Prompt Libraries",
         href: "AI_and_Coding/Prompt_Libraries/index.html",
         type: "section_viewer"
+      },
       },
       {
         text: "Agent Libraries",
