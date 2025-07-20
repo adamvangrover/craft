@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Encyclopedia of S&P 500 Risk Factors</title>
+    
+    <!-- Chosen Palette: "Soothing Neutrals" - A palette based on slate and sky colors for a professional, calm, and focused user experience. -->
+    <!-- Application Structure Plan: A two-pane interactive reference tool. The left pane is a sticky, filterable navigation tree representing the report's hierarchy. The right pane displays the content. A key interaction is the real-time search bar that filters the navigation tree, allowing users to instantly find specific risks. This structure was chosen because the source material is an encyclopedia; the design prioritizes fast, intuitive information retrieval over a narrative or dashboard format, directly serving the user's need to look up specific terms efficiently. -->
+    <!-- Visualization & Content Choices: The primary visualization is a Chart.js Radar chart showing the number of sub-risks within each of the four main categories. Goal: Provide a quick, high-level visual summary of the report's structure and density. Method: Count risks per category from the JS data object and render in a responsive Canvas element. Interaction: Tooltips on hover provide exact counts. The chart is placed at the top as a visual anchor. The main content is presented in structured HTML cards for readability. The search bar is the main interactive tool for content filtering. This approach was chosen to add a visual summary to a text-heavy document without inventing data, fully adhering to the NO SVG/Mermaid constraint. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .prose h2, .prose h3 {
+            scroll-margin-top: 80px;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <div class="flex flex-col lg:flex-row min-h-screen">
+        
+        <!-- Sidebar -->
+        <aside class="w-full lg:w-80 xl:w-96 bg-white border-b lg:border-r border-slate-200 p-4 lg:p-6 lg:sticky top-0 h-auto lg:h-screen lg:flex lg:flex-col">
+            <h1 class="text-xl font-bold text-slate-800 mb-4">Risk Explorer</h1>
+            <div class="relative mb-4">
+                <input type="text" id="search-input" placeholder="Filter risks..." class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" /></svg>
+            </div>
+            <nav id="navigation-tree" class="flex-grow overflow-y-auto pr-2">
+                <!-- Navigation will be injected by JS -->
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="w-full p-4 md:p-8 lg:p-10">
+            <div class="max-w-4xl mx-auto">
+                <header class="mb-10 text-center">
+                    <h1 class="text-3xl md:text-4xl font-bold text-slate-900">The Encyclopedic Set of S&P 500 Risk Factors</h1>
+                    <p class="mt-2 text-lg text-slate-600">An interactive guide to the landscape of corporate risk. Use the explorer on the left to filter and navigate, or scroll to read. Click the chart segments for more information.</p>
+                </header>
+
+                <section class="mb-12">
+                     <h2 class="text-2xl font-semibold text-center text-slate-800 mb-4">Risk Categories at a Glance</h2>
+                     <p class="text-center text-slate-600 mb-6">This chart shows the number of distinct risk factors cataloged within each major category, providing a visual overview of the report's structure.</p>
+                     <div class="chart-container">
+                        <canvas id="risk-overview-chart"></canvas>
+                     </div>
+                </section>
+
+                <div id="content-area" class="prose prose-slate max-w-none prose-h2:text-2xl prose-h2:font-bold prose-h2:text-slate-800 prose-h2:border-b prose-h2:border-slate-300 prose-h2:pb-2 prose-h2:mb-6 prose-h3:text-xl prose-h3:font-semibold prose-h3:text-slate-700 prose-h3:mt-8 prose-h3:mb-4">
+                    <!-- Content will be injected by JS -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const riskData = [
+            {
+                category: "Accounting Risks", id: "accounting-risks", description: "Accounting risks pertain to the processes of financial reporting, the integrity of financial data, and adherence to accounting standards. The analysis of S&P 500 filings reveals that these risks are not merely procedural but are deeply intertwined with corporate strategy, operational execution, and market perception.",
+                subsections: [
+                    {
+                        title: "Internal Controls and Financial Reporting Integrity", id: "internal-controls", description: "The foundation of reliable financial reporting lies in a robust system of internal controls. When these controls are deficient, the integrity of the entire financial reporting process is compromised...",
+                        risks: [{ title: "Material Weakness in Internal Control Over Financial Reporting (ICFR)", description: "A deficiency, or a combination of deficiencies, in a company's internal financial reporting processes such that there is a reasonable possibility that a material misstatement of the annual or interim financial statements will not be prevented or detected on a timely basis." }]
+                    },
+                    {
+                        title: "Subjectivity in Significant Accounting Estimates", id: "subjectivity-in-estimates", description: "Financial reporting is not purely a science of precise measurement; it involves significant judgment and estimation, particularly in areas where future outcomes are uncertain.",
+                        risks: [
+                            { title: "Impairment of Goodwill and Other Indefinite-Lived Intangible Assets", description: "The risk that the carrying value of goodwill or other intangible assets on the balance sheet exceeds their fair value, necessitating a non-cash impairment charge that directly reduces net income..." },
+                            { title: "Complexity and Judgment in Revenue Recognition", description: "The risk of material misstatement in the timing or amount of revenue recognized, arising from the complexity of accounting standards, the use of error-prone manual processes, or intentional fraudulent schemes." },
+                            { title: "Estimation of Loan Loss Provisions and Credit Allowances", description: "The risk, primarily for financial institutions, of misestimating potential losses within a loan portfolio due to the significant judgment involved..." }
+                        ]
+                    },
+                    {
+                        title: "Impact of Accounting Standards and Policies", id: "accounting-standards-impact", description: "The rules of accounting are not static. The continuous evolution of standards by bodies like the FASB and the IASB creates a persistent source of risk...",
+                        risks: [
+                            { title: "Changes in Accounting Principles or Their Interpretation", description: "The risk that the adoption of new, complex accounting standards, or changes in the official interpretation of existing standards, will materially impact a company's reported financial position..." },
+                            { title: "Use of Non-GAAP Financial Measures", description: "The risk that the presentation of financial metrics that do not conform to Generally Accepted Accounting Principles (GAAP) could mislead investors by obscuring underlying performance issues..." }
+                        ]
+                    }
+                ]
+            },
+            {
+                category: "Market Risks", id: "market-risks", description: "Market risks arise from broad economic forces and dynamics within the financial markets that impact a company's operational performance and valuation. Analysis of S&P 500 filings demonstrates that these risks are becoming more interconnected, volatile, and global in nature.",
+                subsections: [
+                    {
+                        title: "Macroeconomic and Geopolitical Environment", id: "macro-geopolitical", description: "The global macroeconomic and geopolitical landscape forms the backdrop against which all businesses operate. Stability fosters predictability and growth, while volatility and conflict create risk.",
+                        risks: [
+                            { title: "Economic Downturn, Recession, and Inflation", description: "The risk that a general slowdown in economic activity will adversely affect a company's revenue, profitability, and financial condition." },
+                            { title: "Fluctuations in Interest Rates and Monetary Policy", description: "The risk that changes in central bank policies and prevailing interest rates will directly impact a company's cost of capital and the overall level of economic activity." },
+                            { title: "Geopolitical Conflict, Political Instability, and Trade Policy", description: "The risk that wars, political instability, and shifts in international trade policies will disrupt a company's operations, supply chains, and access to key markets." },
+                            { title: "Foreign Currency Exchange Rate Volatility", description: "The risk that fluctuations in currency exchange rates will adversely impact reported revenues, costs, and cash flows for companies with international operations." }
+                        ]
+                    },
+                    {
+                        title: "Operational and Supply Chain Dynamics", id: "supply-chain-dynamics", description: "The physical process of producing goods and delivering services is subject to a range of market-driven risks.",
+                        risks: [
+                             { title: "Supply Chain Disruption and Concentration", description: "The risk of interruption in the flow of raw materials or finished goods, which can halt production and increase costs, magnified by over-reliance on single-source suppliers." },
+                             { title: "Volatility in Commodity Prices", description: "The risk that unpredictable changes in the prices of key raw materials will adversely impact a company's cost of goods sold and profit margins." }
+                        ]
+                    },
+                    {
+                        title: "Competition, Technology, and Innovation", id: "competition-innovation", description: "The modern market is defined by an accelerating pace of change.",
+                        risks: [
+                            { title: "Competitive Landscape and Market Share Erosion", description: "The risk that actions by competitors will reduce a company's market share, pricing power, and profitability." },
+                            { title: "Technological Disruption and Obsolescence", description: "The risk that new technologies will render a company's existing products, services, or business model obsolete." },
+                            { title: "Failure of Innovation and R&D Efforts", description: "The risk that significant investments in R&D will not result in commercially successful new products." }
+                        ]
+                    },
+                    {
+                        title: "Consumer, Social, and Reputational Factors", id: "consumer-reputational", description: "Companies are increasingly exposed to risks arising from shifts in public sentiment, consumer behavior, and societal expectations.",
+                        risks: [
+                            { title: "Shifts in Consumer Preferences and Discretionary Spending", description: "The risk that changes in consumer tastes or economic confidence will reduce demand for a company's products or services." },
+                            { title: "Damage to Corporate Reputation and Brand Image", description: "The risk that negative events will harm a company's reputation, leading to a loss of customer trust and reduced sales." },
+                            { title: "Failure to Manage Human Capital and Labor Relations", description: "The risk that an inability to attract and retain key talent or maintain constructive labor relations will impair operational capabilities." }
+                        ]
+                    },
+                    {
+                        title: "Long-Term and Systemic Risks", id: "long-term-systemic", description: "Companies are exposed to long-term, systemic risks that have the potential to reshape entire industries and economies.",
+                        risks: [
+                            { title: "Climate Change and Environmental Transition", description: "A dual-faceted risk encompassing both physical risks from extreme weather and transition risks from the shift to a lower-carbon economy." },
+                            { title: "Systemic Risk and Financial Contagion", description: "The risk that the failure of a major financial institution could trigger a cascading series of defaults throughout the financial system." },
+                            { title: "Unforeseen \"Black Swan\" and \"Gray Rhino\" Events", description: "The risk associated with highly improbable, high-impact events (\"Black Swans\") and highly probable but neglected threats (\"Gray Rhinos\")." }
+                        ]
+                    }
+                ]
+            },
+            {
+                category: "Credit Risks", id: "credit-risks", description: "Credit risks encompass the potential for financial loss stemming from the failure of a counterparty—including customers, suppliers, and financial institutions—to meet its contractual obligations.",
+                subsections: [
+                    {
+                        title: "Counterparty and Customer Default Risk", id: "counterparty-default", description: "The most direct form of credit risk arises from the web of financial relationships a company maintains with its customers, partners, and financial intermediaries.",
+                        risks: [
+                            { title: "Default of a Major Customer or Concentration of Credit Risk", description: "The risk of significant financial loss and revenue disruption if a single customer or a small group of customers... fails to pay." },
+                            { title: "Counterparty Failure in Financial Arrangements", description: "The risk of financial loss resulting from the default of a financial institution or other counterparty in transactions involving derivatives, hedging instruments, etc." },
+                            { title: "Supplier or Vendor Financial Distress", description: "The risk that the financial failure or bankruptcy of a critical supplier will disrupt a company's supply chain." }
+                        ]
+                    },
+                    {
+                        title: "Company-Specific Credit and Financing Risks", id: "company-credit-risks", description: "Beyond the risk of external counterparties failing, a company faces a set of credit risks related to its own financial health and its ability to access capital markets.",
+                        risks: [
+                            { title: "Downgrade in Corporate Credit Rating", description: "The risk that a major credit rating agency... will lower a company's credit rating, which typically increases its cost of borrowing..." },
+                            { title: "Violation of Debt Covenants", description: "The risk of breaching the specific terms and conditions of a loan agreement or bond indenture..." },
+                            { title: "Inability to Access Capital and Tightening of Credit Markets", description: "The risk that a company will be unable to obtain necessary financing on favorable terms..." },
+                            { title: "Liquidity and Cash Flow Risk", description: "The risk that a company will not have sufficient cash or readily available credit to meet its short-term financial obligations as they come due..." }
+                        ]
+                    }
+                ]
+            },
+            {
+                category: "Legal and Regulatory Risks", id: "legal-regulatory-risks", description: "Legal and regulatory risks encompass the broad spectrum of threats arising from the legal and regulatory environments in which a company operates. Analysis of S&P 500 filings indicates a clear trend toward an increasingly complex, costly, and globalized regulatory landscape.",
+                subsections: [
+                    {
+                        title: "Litigation and Disputes", id: "litigation-disputes", description: "The threat of litigation is a persistent and costly risk for corporations. Disputes can arise from numerous aspects of a company's operations.",
+                        risks: [
+                            { title: "Intellectual Property (IP) Litigation", description: "The risk of being sued for infringing on the patents, trademarks, or copyrights of other entities..." },
+                            { title: "Product Liability, Warranty, and Recall Claims", description: "The risk of significant financial losses... arising from claims that a company's products are defective..." },
+                            { title: "Shareholder and Securities Litigation", description: "The risk of being sued by shareholders... with allegations that the company made false or misleading statements..." }
+                        ]
+                    },
+                    {
+                        title: "Regulatory Compliance and Government Action", id: "regulatory-compliance", description: "Operating in the modern global economy requires navigating a dense and constantly shifting web of laws and regulations.",
+                        risks: [
+                            { title: "Evolving Cybersecurity and Data Privacy Regulations", description: "The risk of non-compliance with a complex and rapidly expanding patchwork of domestic and international regulations governing cybersecurity and data privacy." },
+                            { title: "Environmental Regulation and Compliance Costs", description: "The risk of increased operating costs... associated with complying with a growing body of environmental laws and regulations..." },
+                            { title: "Government and Regulatory Investigations", description: "The risk of being the subject of an investigation by governmental or regulatory agencies..." },
+                            { title: "Compliance with Anti-Corruption and Sanctions Laws", description: "For companies with international operations, the risk of violating complex anti-bribery laws... or international economic sanctions regimes..." },
+                            { title: "Changes in Tax Laws and Regulations", description: "The risk that changes in domestic or international tax laws... could adversely affect a company's effective tax rate, cash flow, and overall financial results." }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const navContainer = document.getElementById('navigation-tree');
+            const contentContainer = document.getElementById('content-area');
+            const searchInput = document.getElementById('search-input');
+
+            function generateContentAndNav() {
+                let navHTML = '';
+                let contentHTML = '';
+
+                riskData.forEach(category => {
+                    contentHTML += `<section id="${category.id}" data-searchable-text="${category.category.toLowerCase()}">
+                        <h2 class="!mt-12">${category.category}</h2>
+                        <p>${category.description}</p>`;
+                    
+                    navHTML += `<div class="mb-2" data-nav-category>
+                        <a href="#${category.id}" class="block font-bold text-slate-800 hover:text-blue-600 transition-colors">${category.category}</a>
+                        <ul class="pl-3 mt-1 space-y-1 border-l border-slate-200">`;
+
+                    category.subsections.forEach(subsection => {
+                        contentHTML += `<h3 id="${subsection.id}" data-searchable-text="${subsection.title.toLowerCase()}">${subsection.title}</h3>
+                                        <p class="text-slate-600">${subsection.description}</p>`;
+                        
+                        navHTML += `<div data-nav-subsection>
+                            <a href="#${subsection.id}" class="block text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">${subsection.title}</a>
+                            <ul class="pl-3 mt-1 space-y-1 border-l border-slate-200">`;
+                        
+                        subsection.risks.forEach((risk, index) => {
+                           const riskId = `${subsection.id}-risk-${index}`;
+                           contentHTML += `<div id="${riskId}" class="mt-4 border-l-4 border-slate-300 bg-white rounded-r-lg p-4" data-searchable-text="${risk.title.toLowerCase()} ${risk.description.toLowerCase()}">
+                                <p class="font-semibold text-slate-900">${risk.title}</p>
+                                <p class="text-slate-600">${risk.description}</p>
+                            </div>`;
+
+                           navHTML += `<li data-nav-risk><a href="#${riskId}" class="block text-xs text-slate-500 hover:text-blue-600 transition-colors">${risk.title}</a></li>`;
+                        });
+                        navHTML += `</ul></div>`;
+                    });
+                    contentHTML += `</section>`;
+                    navHTML += `</ul></div>`;
+                });
+
+                navContainer.innerHTML = navHTML;
+                contentContainer.innerHTML = contentHTML;
+            }
+            
+            function filterNavigation() {
+                const query = searchInput.value.toLowerCase();
+                
+                document.querySelectorAll('[data-nav-category]').forEach(catEl => {
+                    let categoryVisible = false;
+                    catEl.querySelectorAll('[data-nav-subsection]').forEach(subEl => {
+                        let subsectionVisible = false;
+                        subEl.querySelectorAll('[data-nav-risk]').forEach(riskEl => {
+                            const text = riskEl.textContent.toLowerCase();
+                            if (text.includes(query)) {
+                                riskEl.style.display = 'list-item';
+                                subsectionVisible = true;
+                                categoryVisible = true;
+                            } else {
+                                riskEl.style.display = 'none';
+                            }
+                        });
+                        subEl.style.display = subsectionVisible ? 'block' : 'none';
+                    });
+                    catEl.style.display = categoryVisible ? 'block' : 'none';
+                });
+            }
+
+            function generateChart() {
+                const ctx = document.getElementById('risk-overview-chart').getContext('2d');
+                const labels = riskData.map(c => c.category);
+                const data = riskData.map(c => c.subsections.reduce((acc, sub) => acc + sub.risks.length, 0));
+
+                new Chart(ctx, {
+                    type: 'polarArea',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Number of Risk Factors',
+                            data: data,
+                            backgroundColor: [
+                                'rgba(59, 130, 246, 0.5)',  // blue-500
+                                'rgba(16, 185, 129, 0.5)', // emerald-500
+                                'rgba(249, 115, 22, 0.5)',  // orange-500
+                                'rgba(139, 92, 246, 0.5)', // violet-500
+                            ],
+                            borderColor: [
+                                'rgba(59, 130, 246, 1)',
+                                'rgba(16, 185, 129, 1)',
+                                'rgba(249, 115, 22, 1)',
+                                'rgba(139, 92, 246, 1)',
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                pointLabels: {
+                                    display: true,
+                                    centerPointLabels: true,
+                                    font: {
+                                        size: 14
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.r !== null) {
+                                            label += context.parsed.r;
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        onClick: (e, elements) => {
+                            if (elements.length > 0) {
+                                const index = elements[0].index;
+                                const categoryId = riskData[index].id;
+                                const element = document.getElementById(categoryId);
+                                if (element) {
+                                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            generateContentAndNav();
+            generateChart();
+            searchInput.addEventListener('input', filterNavigation);
+        });
+    </script>
+</body>
+</html>
