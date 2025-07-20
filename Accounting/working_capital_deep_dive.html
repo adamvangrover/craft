@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Working Capital Deep Dive</title>
+    <link rel="stylesheet" href="../css/global_nav.css">
+    <link rel="stylesheet" href="../assets/css/shared-readme-styles.css">
+</head>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="readme-container">
+        <div class="readme-content">
+            <h1>Working Capital Deep Dive</h1>
+
+            <h2>Introduction</h2>
+            <p>Working capital is a critical measure of a company's short-term liquidity and operational efficiency. It represents the difference between a company's current assets and its current liabilities.</p>
+            <pre><code>Working Capital = Current Assets - Current Liabilities</code></pre>
+            <p>A positive working capital balance indicates that a company has enough short-term assets to cover its short-term liabilities. A negative balance can be a sign of liquidity risk.</p>
+
+            <hr>
+
+            <h2>Components of Working Capital</h2>
+            <ul>
+                <li>
+                    <strong>Current Assets:</strong> Assets that are expected to be converted into cash within one year. Key examples include:
+                    <ul>
+                        <li>Cash and cash equivalents</li>
+                        <li>Accounts receivable (money owed by customers)</li>
+                        <li>Inventory</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Current Liabilities:</strong> Liabilities and obligations that are due within one year. Key examples include:
+                    <ul>
+                        <li>Accounts payable (money owed to suppliers)</li>
+                        <li>Accrued expenses (expenses incurred but not yet paid)</li>
+                        <li>Short-term debt</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <hr>
+
+            <h2>Working Capital Management</h2>
+            <p>Effective working capital management is essential for a company's financial health. It involves managing the components of working capital to optimize liquidity and profitability.</p>
+            <ul>
+                <li><strong>Cash Management:</strong> Ensuring the company has enough cash on hand to pay its bills without holding excessive, non-productive cash balances.</li>
+                <li><strong>Accounts Receivable Management:</strong> Collecting cash from customers as quickly as possible without harming customer relationships.</li>
+                <li><strong>Inventory Management:</strong> Minimizing the amount of cash tied up in inventory while still meeting customer demand.</li>
+                <li><strong>Accounts Payable Management:</strong> Paying suppliers as slowly as possible without damaging relationships or incurring late fees.</li>
+            </ul>
+
+            <hr>
+
+            <h2>The Cash Conversion Cycle (CCC)</h2>
+            <p>The cash conversion cycle (CCC) is a key metric that measures the number of days it takes for a company to convert its investments in inventory and other resources into cash flows from sales.</p>
+            <pre><code>CCC = Days Inventory Outstanding (DIO) + Days Sales Outstanding (DSO) - Days Payable Outstanding (DPO)</code></pre>
+            <p>A shorter CCC is generally better, as it indicates that the company is able to convert its investments into cash more quickly, reducing the need for external financing for operations.</p>
+        </div>
+        <footer class="readme-footer">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
+        </footer>
+    </div>
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

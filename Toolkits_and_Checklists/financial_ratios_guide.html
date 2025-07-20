@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Financial Ratios Calculator Guide</title>
+    <link rel="stylesheet" href="../css/global_nav.css">
+    <link rel="stylesheet" href="../assets/css/shared-readme-styles.css">
+</head>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="readme-container">
+        <div class="readme-content">
+            <h1>Guide: Building a Basic Financial Ratios Calculator in Excel</h1>
+
+            <h2>Introduction</h2>
+            <p>Financial ratio analysis is a cornerstone of financial statement analysis, providing insights into a company's liquidity, solvency, profitability, efficiency, and coverage capabilities. While sophisticated software exists, building a basic ratio calculator in Excel is an excellent way to understand the formulas and their components.</p>
+            <p>This guide provides a step-by-step approach to setting up a simple Excel template for calculating key financial ratios commonly used by credit analysts and financial analysts.</p>
+            <p><strong>Purpose:</strong> To empower users to create their own basic ratio calculation tool for quick analysis and learning.</p>
+            <p><strong>Audience:</strong> Students of finance, junior analysts, anyone looking to understand ratio calculations practically.</p>
+            <p><strong>Note:</strong> This guide describes how to build the calculator; it does not provide a downloadable Excel file.</p>
+
+            <hr>
+
+            <h2>I. Setting Up Your Excel Workbook</h2>
+            <ol>
+                <li><strong>Create Sheets:</strong>
+                    <ul>
+                        <li><strong><code>Input_IS</code>:</strong> For inputting Income Statement data.</li>
+                        <li><strong><code>Input_BS</code>:</strong> For inputting Balance Sheet data.</li>
+                        <li><strong><code>Ratios_Output</code>:</strong> Where the calculated ratios will be displayed.</li>
+                        <li><strong>(Optional) <code>Assumptions</code>:</strong> For any specific assumptions like tax rate if not directly derivable.</li>
+                    </ul>
+                </li>
+                <li><strong>Basic Formatting (Refer to Excel Best Practices Guide):</strong>
+                    <ul>
+                        <li>Use clear labels for rows (financial statement line items) and columns (periods - e.g., Year 1, Year 2, TTM).</li>
+                        <li>Color-code input cells (e.g., blue font or light yellow fill) to distinguish them from formula cells (black font).</li>
+                        <li>Ensure consistent number formatting.</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <hr>
+
+            <h2>II. Inputting Financial Statement Data</h2>
+
+            <h3>A. <code>Input_IS</code> Sheet (Income Statement)</h3>
+            <p>Structure this sheet to mirror a standard Income Statement. Below are essential line items. Add more as needed.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Line Item</th>
+                        <th>Period 1 (e.g., Year 1)</th>
+                        <th>Period 2 (e.g., Year 2)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Revenue (Sales)</td><td>[Input]</td><td>[Input]</td></tr>
+                    <tr><td>Cost of Goods Sold (COGS)</td><td>[Input]</td><td>[Input]</td></tr>
+                    <tr><td><strong>Gross Profit</strong></td><td><code>=B2-B3</code></td><td><code>=C2-C3</code></td></tr>
+                    <tr><td>SG&A Expenses</td><td>[Input]</td><td>[Input]</td></tr>
+                    <tr><td>Depreciation & Amortization</td><td>[Input]</td><td>[Input]</td></tr>
+                    <tr><td>Other Operating Expenses/Income</td><td>[Input]</td><td>[Input]</td></tr>
+                    <tr><td><strong>Operating Income (EBIT)</strong></td><td><code>=B4-B5-B6-B7</code></td><td><code>=C4-C5-C6-C7</code></td></tr>
+                    <tr><td>Interest Expense</td><td>[Input]</td><td>[Input]</td></tr>
+                    <tr><td>Interest Income</td><td>[Input]</td><td>[Input]</td></tr>
+                    <tr><td>Pre-Tax Income (EBT)</td><td><code>=B8-B9+B10</code></td><td><code>=C8-C9+C10</code></td></tr>
+                    <tr><td>Income Tax Expense</td><td>[Input]</td><td>[Input]</td></tr>
+                    <tr><td><strong>Net Income</strong></td><td><code>=B11-B12</code></td><td><code>=C11-C12</code></td></tr>
+                    <tr><td><em>(Optional for EBITDA)</em></td><td></td><td></td></tr>
+                    <tr><td><strong>EBITDA</strong></td><td><code>=B8+B6</code></td><td><code>=C8+C6</code></td></tr>
+                </tbody>
+            </table>
+            <p><em>(Assume B2 is Revenue for Period 1, B3 is COGS for Period 1, etc. Adjust cell references based on your actual layout.)</em></p>
+
+            <h3>B. <code>Input_BS</code> Sheet (Balance Sheet)</h3>
+            <p>Structure for two periods (current and prior) to calculate averages and changes for some ratios and the Cash Flow Statement (if you extend this).</p>
+            <!-- A full balance sheet table would be very long. A descriptive list is better for HTML. -->
+            <p>Your balance sheet should be structured with sections for Current Assets, Non-Current Assets, Current Liabilities, Non-Current Liabilities, and Equity. Ensure you have line items for:</p>
+            <ul>
+                <li>Cash & Cash Equivalents, Accounts Receivable, Inventory</li>
+                <li>Property, Plant & Equipment, Goodwill & Intangibles</li>
+                <li>Accounts Payable, Short-Term Debt, Long-Term Debt</li>
+                <li>Common Stock, Retained Earnings</li>
+            </ul>
+            <p>Crucially, include a <strong>Balance Check</strong> row at the bottom: <code>= Total Assets - (Total Liabilities + Total Equity)</code>. This should always be zero.</p>
+            <p>For ratios requiring averages (e.g., Avg. Total Assets), you'll use <code>(Current_Period_Balance + Prior_Period_Balance)/2</code>.</p>
+
+            <hr>
+
+            <h2>III. <code>Ratios_Output</code> Sheet: Calculating and Interpreting Ratios</h2>
+            <p>This sheet will pull data from <code>Input_IS</code> and <code>Input_BS</code> to calculate ratios. Below is a sample structure with conceptual formulas and interpretations.</p>
+
+            <h4>Liquidity Ratios</h4>
+            <ul>
+                <li><strong>Current Ratio:</strong> <code>= Total Current Assets / Total Current Liabilities</code>. Measures ability to cover short-term liabilities.</li>
+                <li><strong>Quick Ratio:</strong> <code>= (Current Assets - Inventory) / Total Current Liabilities</code>. A stricter liquidity measure.</li>
+                <li><strong>Cash Ratio:</strong> <code>= Cash & Equivalents / Total Current Liabilities</code>. The most conservative liquidity measure.</li>
+            </ul>
+
+            <h4>Solvency/Leverage Ratios</h4>
+            <ul>
+                <li><strong>Debt-to-Equity:</strong> <code>= Total Debt / Total Equity</code>. Measures leverage; higher is more risky.</li>
+                <li><strong>Debt-to-Capital:</strong> <code>= Total Debt / (Total Debt + Total Equity)</code>. Proportion of capital financed by debt.</li>
+                <li><strong>Total Debt / EBITDA:</strong> <code>= Total Debt / EBITDA</code>. A key leverage metric often used in credit agreements.</li>
+            </ul>
+
+            <h4>Coverage Ratios</h4>
+            <ul>
+                <li><strong>Interest Coverage (TIE):</strong> <code>= EBIT / Interest Expense</code>. Ability to cover interest payments from operating income.</li>
+                <li><strong>EBITDA Coverage:</strong> <code>= EBITDA / Interest Expense</code>. An alternative coverage metric.</li>
+            </ul>
+
+            <h4>Profitability Ratios</h4>
+            <ul>
+                <li><strong>Gross Profit Margin:</strong> <code>= Gross Profit / Revenue</code>.</li>
+                <li><strong>Operating Profit Margin:</strong> <code>= Operating Income (EBIT) / Revenue</code>.</li>
+                <li><strong>Net Profit Margin:</strong> <code>= Net Income / Revenue</code>.</li>
+                <li><strong>Return on Assets (ROA):</strong> <code>= Net Income / Average Total Assets</code>.</li>
+                <li><strong>Return on Equity (ROE):</strong> <code>= Net Income / Average Total Equity</code>.</li>
+            </ul>
+
+            <h4>Activity/Efficiency Ratios</h4>
+            <ul>
+                <li><strong>Days Sales Outstanding (DSO):</strong> <code>= (Average Accounts Receivable / Revenue) * 365</code>.</li>
+                <li><strong>Days Inventory Held (DIH):</strong> <code>= (Average Inventory / COGS) * 365</code>.</li>
+                <li><strong>Days Payables Outstanding (DPO):</strong> <code>= (Average Accounts Payable / COGS) * 365</code>.</li>
+                <li><strong>Cash Conversion Cycle (CCC):</strong> <code>= DSO + DIH - DPO</code>.</li>
+                <li><strong>Asset Turnover:</strong> <code>= Revenue / Average Total Assets</code>.</li>
+            </ul>
+
+            <p><strong>Note on Averages:</strong> For ratios using balance sheet items (like ROA, ROE, Turnover, DSO, etc.), it is best practice to use <strong>average</strong> balances from the beginning and end of the period.</p>
+
+            <hr>
+
+            <h2>IV. Enhancements & Further Steps</h2>
+            <ul>
+                <li><strong>Trend Analysis:</strong> Calculate ratios for multiple periods to observe trends.</li>
+                <li><strong>Common-Size Analysis:</strong> Express IS items as % of Revenue and BS items as % of Total Assets.</li>
+                <li><strong>Peer Comparison:</strong> Add columns for peer company ratios for benchmarking.</li>
+                <li><strong>Charts:</strong> Create charts to visualize key trends.</li>
+                <li><strong>DuPont Analysis:</strong> Decompose ROE into its components (Profitability x Efficiency x Leverage).</li>
+            </ul>
+
+        </div>
+        <footer class="readme-footer">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
+        </footer>
+    </div>
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

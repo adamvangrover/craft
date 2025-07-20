@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Statement Deep Dive</title>
+    <link rel="stylesheet" href="../css/global_nav.css">
+    <link rel="stylesheet" href="../assets/css/shared-readme-styles.css">
+</head>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="readme-container">
+        <div class="readme-content">
+            <h1>Part I: Mastering the Income Statement</h1>
+            <p>The Income Statement, also known as the Profit and Loss (P&L) Statement, reports a company's financial performance over a specific accounting period, such as a quarter or a year. It is the primary document for assessing a company's profitability.</p>
+
+            <hr>
+
+            <h2>1.1 Revenue (Sales Revenue)</h2>
+
+            <h3>Definition</h3>
+            <p>Revenue is the total income generated from the sale of goods and services that are related to a business's primary, or core, operations. It is frequently referred to as the "top line" because it is positioned at the top of the income statement. This figure represents the gross proceeds a company collects before any expenses are subtracted.</p>
+
+            <h3>Purpose and Significance</h3>
+            <p>Revenue is often considered the lifeblood of a business, serving as a key indicator of its size, market position, and growth potential. For analysts, scrutinizing revenue trends is critical for gauging a company's ability to attract customers, compete within its industry, and sustain growth.</p>
+
+            <h3>Common Pitfalls and Nuances: The Complexity of Revenue Recognition</h3>
+            <p>While the concept of revenue seems simple, its recognition is a complex and judgment-intensive process. Under accrual accounting (required by GAAP and IFRS), revenue is recognized when it is <strong>earned</strong>—that is, when the control of goods or services is transferred to the customer—not necessarily when the cash payment is received. This creates timing differences that give rise to important balance sheet accounts like Accounts Receivable and Deferred Revenue.</p>
+            <p>To standardize this, accounting bodies introduced ASC 606 and IFRS 15, which are based on a five-step model:</p>
+            <ol>
+                <li>Identify the contract with the customer.</li>
+                <li>Identify the performance obligations in the contract.</li>
+                <li>Determine the transaction price.</li>
+                <li>Allocate the transaction price to the performance obligations.</li>
+                <li>Recognize revenue as each performance obligation is satisfied.</li>
+            </ol>
+            <p>The judgment involved in these steps means revenue is a high-level accounting estimate, and a primary risk area for financial fraud. An analyst's primary question should shift from "What is the revenue?" to "How was this revenue figure constructed?"</p>
+
+            <hr>
+
+            <h2>1.2 Cost of Goods Sold (COGS)</h2>
+
+            <h3>Definition</h3>
+            <p>Cost of Goods Sold (COGS), or Cost of Sales, represents the direct costs attributable to the production of the goods or services a company sells. This includes expenses for raw materials and direct labor but explicitly excludes indirect costs like marketing or administrative salaries.</p>
+
+            <h3>Common Pitfalls and Nuances: The Impact of Inventory Costing Methods</h3>
+            <p>The accounting method used to value inventory has a direct and significant impact on the COGS calculation. The two most common methods are:</p>
+            <ul>
+                <li><strong>FIFO (First-In, First-Out):</strong> Assumes the first items purchased are the first ones sold. In a period of rising prices, FIFO results in a <strong>lower COGS</strong> and higher reported profit.</li>
+                <li><strong>LIFO (Last-In, First-Out):</strong> Assumes the last items purchased are the first ones sold. In a period of rising prices, LIFO results in a <strong>higher COGS</strong> and lower reported profit, which can lead to tax savings. (Note: LIFO is prohibited under IFRS).</li>
+            </ul>
+            <p>An analyst cannot meaningfully compare the profitability of two companies without first checking which inventory costing method each uses.</p>
+
+            <hr>
+
+            <h2>1.3 Gross Profit</h2>
+
+            <h3>Definition</h3>
+            <p>Gross Profit is the profit a company makes after deducting the direct costs associated with producing and selling its products or services. The calculation is:</p>
+            <pre><code>Gross Profit = Net Revenue - Cost of Goods Sold (COGS)</code></pre>
+
+            <h3>Purpose and Significance</h3>
+            <p>Gross Profit serves as the first level of profitability analysis, measuring how efficiently a company utilizes its labor and materials. It is often expressed as the Gross Profit Margin (`Gross Profit / Revenue`), which is crucial for comparing performance over time and against industry peers.</p>
+
+            <hr>
+
+            <h2>1.4 Net Income</h2>
+
+            <h3>Definition</h3>
+            <p>Net Income, also known as net profit or the "bottom line," is the residual profit of a company after all expenses—including COGS, operating expenses, non-operating expenses like interest, and taxes—have been deducted from total revenue.</p>
+
+            <h3>Interrelationships</h3>
+            <p>Net Income is a crucial linking item in financial statements:</p>
+            <ul>
+                <li><strong>Link to Balance Sheet:</strong> Net Income increases Shareholders' Equity through the Retained Earnings account (`Ending RE = Beginning RE + Net Income - Dividends`).</li>
+                <li><strong>Link to Cash Flow Statement:</strong> Net Income is the starting point for calculating Cash Flow from Operations using the indirect method.</li>
+            </ul>
+
+            <h3>Common Pitfalls and Nuances</h3>
+            <p>The most significant pitfall is equating profit with cash. Net Income is <strong>not</strong> the same as cash flow due to accrual accounting principles. A company can be profitable but still face a liquidity crisis. Furthermore, Net Income is susceptible to manipulation through accounting choices and can be skewed by one-time events. Analysts often calculate an "adjusted" or "normalized" net income to assess core, ongoing profitability.</p>
+        </div>
+        <footer class="readme-footer">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
+        </footer>
+    </div>
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

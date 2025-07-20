@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance Sheet Deep Dive</title>
+    <link rel="stylesheet" href="../css/global_nav.css">
+    <link rel="stylesheet" href="../assets/css/shared-readme-styles.css">
+</head>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="readme-container">
+        <div class="readme-content">
+            <h1>Part II: Deconstructing the Balance Sheet</h1>
+            <p>The Balance Sheet provides a snapshot of a company's financial position—what it owns (Assets) and what it owes (Liabilities)—at a single point in time. The difference between these two represents the owners' stake, known as Shareholders' Equity.</p>
+            <p>It is structured around the fundamental accounting equation, which must always remain in balance:</p>
+            <pre><code>Assets = Liabilities + Shareholders’ Equity</code></pre>
+
+            <hr>
+
+            <h2>2.1 Shareholders' Equity</h2>
+            <h3>Definition</h3>
+            <p>Shareholders' Equity represents the residual value of a company's assets after subtracting all of its liabilities. It is the net worth of the company from the owners' perspective, often referred to as the company's "book value".</p>
+
+            <h3>Components of Equity</h3>
+            <ul>
+                <li><strong>Share Capital (or Contributed Capital):</strong> The total amount of money raised from issuing stock to investors.</li>
+                <li><strong>Retained Earnings:</strong> The cumulative net income the company has earned over its history, less all dividends paid out.</li>
+                <li><strong>Treasury Stock:</strong> Shares that the company has repurchased from the open market. It is shown as a deduction from total equity.</li>
+            </ul>
+
+            <h3>Common Pitfalls and Nuances</h3>
+            <p>A common misunderstanding is confusing book value with market value. Shareholders' Equity is the book value, based on historical costs. This is often vastly different from the company's market capitalization, which reflects investors' expectations about future performance.</p>
+
+            <hr>
+
+            <h2>2.2 Cash (and Cash Equivalents)</h2>
+            <h3>Definition</h3>
+            <p>Cash and Cash Equivalents (CCE) represent the most liquid assets a company owns.</p>
+            <ul>
+                <li><strong>Cash:</strong> Funds held in checking and savings accounts.</li>
+                <li><strong>Cash Equivalents:</strong> Short-term, highly liquid investments with an original maturity of three months or less (e.g., U.S. Treasury bills).</li>
+            </ul>
+
+            <h3>Purpose and Significance</h3>
+            <p>Liquidity is paramount for a company's day-to-day survival. CCE represents the funds immediately available to meet short-term obligations like payroll, rent, and debt payments. A company can be profitable but still fail if it runs out of cash.</p>
+
+            <h3>Interrelationships</h3>
+            <p>The Cash account on the Balance Sheet is the ultimate destination for the entire Cash Flow Statement. The ending cash balance from the CFS must equal the cash balance on the period-end Balance Sheet.</p>
+
+            <hr>
+
+            <h2>2.3 Retained Earnings</h2>
+            <h3>Definition</h3>
+            <p>Retained Earnings (RE) is the accumulated portion of a company's net profits that have been kept or "retained" in the business over time, rather than being distributed to shareholders as dividends.</p>
+
+            <h3>Interrelationships: The Critical Bridge</h3>
+            <p>Retained Earnings serves as one of the most important links connecting the Income Statement to the Balance Sheet. The calculation is as follows:</p>
+            <pre><code>Ending RE = Beginning RE + Net Income - Dividends</code></pre>
+            <p>Each component links the statements: Beginning RE is from the prior Balance Sheet, Net Income is from the Income Statement, and Dividends are from the Cash Flow Statement.</p>
+
+            <h3>Common Pitfalls and Nuances</h3>
+            <p>A frequent mistake is to think of Retained Earnings as a cash account. A large RE balance does not mean the company has a large pile of cash. Those past earnings have been reinvested over the years into various assets—such as factories, machinery, and inventory.</p>
+
+        </div>
+        <footer class="readme-footer">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
+        </footer>
+    </div>
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

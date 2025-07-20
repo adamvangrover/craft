@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accounting Hub</title>
+    <link rel="stylesheet" href="../css/global_nav.css">
+    <link rel="stylesheet" href="../primers/styles.css"> <!-- Re-using primer styles for consistency -->
+</head>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="page-container" style="flex-grow: 1;">
+        <header class="page-header">
+            <h1>Accounting Fundamentals</h1>
+            <p class="page-subtitle">A comprehensive resource for understanding the core principles of accounting and financial statement analysis.</p>
+        </header>
+
+        <main class="main-index-container">
+            <article class="primer-summary-card" data-title="Three Core Financial Statements">
+                <h3><a href="three_statements.html">The Three Core Financial Statements</a></h3>
+                <div class="primer-initial-summary">
+                    <p>An overview of the Income Statement, Balance Sheet, and Cash Flow Statement, and how they interconnect to provide a holistic view of a company's financial health.</p>
+                </div>
+                <a href="three_statements.html" class="view-details-link">Read Overview &raquo;</a>
+            </article>
+
+            <article class="primer-summary-card" data-title="Income Statement">
+                <h3><a href="income_statement_deep_dive.html">Income Statement Deep Dive</a></h3>
+                <div class="primer-initial-summary">
+                    <p>A detailed look at the components of the income statement, from revenue recognition to net income calculation.</p>
+                </div>
+                <a href="income_statement_deep_dive.html" class="view-details-link">View Details &raquo;</a>
+            </article>
+
+            <article class="primer-summary-card" data-title="Balance Sheet">
+                <h3><a href="balance_sheet_deep_dive.html">Balance Sheet Deep Dive</a></h3>
+                <div class="primer-initial-summary">
+                    <p>Explore the structure of the balance sheet, including assets, liabilities, and equity, and what each component signifies.</p>
+                </div>
+                <a href="balance_sheet_deep_dive.html" class="view-details-link">View Details &raquo;</a>
+            </article>
+
+            <article class="primer-summary-card" data-title="Cash Flow Statement">
+                <h3><a href="cash_flow_statement_deep_dive.html">Cash Flow Statement Deep Dive</a></h3>
+                <div class="primer-initial-summary">
+                    <p>Understand the three sections of the cash flow statement: operating, investing, and financing activities.</p>
+                </div>
+                <a href="cash_flow_statement_deep_dive.html" class="view-details-link">View Details &raquo;</a>
+            </article>
+
+            <article class="primer-summary-card" data-title="Working Capital">
+                <h3><a href="working_capital_deep_dive.html">Working Capital Deep Dive</a></h3>
+                <div class="primer-initial-summary">
+                    <p>An exploration of working capital components (e.g., accounts receivable, inventory, accounts payable) and their impact on liquidity.</p>
+                </div>
+                <a href="working_capital_deep_dive.html" class="view-details-link">View Details &raquo;</a>
+            </article>
+
+            <article class="primer-summary-card" data-title="EBITDA Reconciliation">
+                <h3><a href="ebitda_reconciliation_deep_dive.html">EBITDA Reconciliation Deep Dive</a></h3>
+                <div class="primer-initial-summary">
+                    <p>Learn how to calculate and reconcile EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization) from Net Income or Operating Income.</p>
+                </div>
+                <a href="ebitda_reconciliation_deep_dive.html" class="view-details-link">View Details &raquo;</a>
+            </article>
+
+        </main>
+        <footer class="page-footer">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
+        </footer>
+    </div>
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

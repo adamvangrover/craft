@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debiasing Checklist for Analysis</title>
+    <link rel="stylesheet" href="../css/global_nav.css">
+    <link rel="stylesheet" href="../assets/css/shared-readme-styles.css">
+</head>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="readme-container">
+        <div class="readme-content">
+            <h1>Toolkit: Debiasing Checklist for Financial Analysis</h1>
+
+            <h2>Introduction</h2>
+            <p>This checklist is a practical job aid designed to be used before finalizing a financial analysis, credit memorandum, or investment recommendation. Its purpose is to force a conscious review of potential behavioral biases that may have influenced the analysis.</p>
+            <p>It is a companion to the <a href="../Behavioral_Finance/Debiasing_Techniques_for_Analysts.md">Debiasing Techniques for Analysts guide</a>, which provides more detail on the concepts below.</p>
+
+            <h2>How to Use This Checklist</h2>
+            <p>Before finalizing your recommendation, go through these questions honestly. This is not about finding the "right" answer but about promoting self-awareness and more robust thinking.</p>
+
+            <hr>
+
+            <h3>Section 1: Challenging Your Thesis (Countering Belief Perseverance)</h3>
+            <ul>
+                <li><code>[ ]</code> <strong>Confirmation Bias:</strong> Have I actively sought out and given fair consideration to information that <em>contradicts</em> my thesis? What are the top 3 strongest arguments <em>against</em> my recommendation?</li>
+                <li><code>[ ]</code> <strong>Conservatism Bias:</strong> Is my analysis overly anchored to my prior view? If I were looking at this company for the first time today with the latest information, would my conclusion be the same?</li>
+                <li><code>[ ]</code> <strong>Anchoring Bias:</strong> Is my valuation or conclusion heavily influenced by an initial number (e.g., the 52-week high, a previous target price, the deal's announcement price)? What would my valuation be if I ignored that anchor?</li>
+                <li><code>[ ]</code> <strong>Hindsight Bias:</strong> Am I overestimating my ability to have predicted past events? Am I giving management too much or too little credit based on outcomes that may have been due to luck?</li>
+            </ul>
+
+            <h3>Section 2: Evaluating Your Information & Framing</h3>
+            <ul>
+                <li><code>[ ]</code> <strong>Availability Heuristic:</strong> Is my thesis based on a vivid, recent news story or a memorable anecdote? Have I grounded my analysis in a systematic review of long-term data rather than what is easiest to recall?</li>
+                <li><code>[ ]</code> <strong>Framing Bias:</strong> Have I framed the decision in multiple ways? (e.g., "reasons to sell" vs. "reasons to buy"; "potential loss" vs. "potential gain").</li>
+                <li><code>[ ]</code> <strong>Representativeness Bias:</strong> Am I categorizing this company as "the next Amazon" or "another Enron" based on superficial similarities? Have I considered the base rates of success/failure for companies in this situation?</li>
+                <li><code>[ ]</code> <strong>Illusion of Control:</strong> Am I overestimating my ability to predict complex variables (e.g., macroeconomic trends, competitive responses)? Have I considered a range of outcomes?</li>
+            </ul>
+
+            <h3>Section 3: Checking Your Emotional Discipline</h3>
+            <ul>
+                <li><code>[ ]</code> <strong>Overconfidence Bias:</strong> Have I performed a "pre-mortem"? (i.e., Imagined this decision has failed and listed all the reasons why). What is the probability that I am wrong, and what are the consequences?</li>
+                <li><code>[ ]</code> <strong>Loss Aversion:</strong> Am I holding onto this position to avoid realizing a loss, even though the fundamentals have deteriorated? Am I selling a winner too early to lock in a gain? Does my decision align with my pre-defined process?</li>
+                <li><code>[ ]</code> <strong>Self-Control Bias:</strong> Is this decision driven by short-term market noise or emotion, rather than my long-term strategy and discipline (e.g., as outlined in an Investment Policy Statement)?</li>
+                <li><code>[ ]</code> <strong>Status Quo Bias:</strong> Am I holding this position simply out of inertia? If this were a new investment opportunity today, would I still allocate capital to it based on its merits versus other available opportunities?</li>
+                <li><code>[ ]</code> <strong>Endowment Effect:</strong> Am I overvaluing this asset simply because I (or the firm) already own it?</li>
+            </ul>
+
+            <h3>Section 4: Final Sanity Check</h3>
+            <ul>
+                <li><code>[ ]</code> Have I had a colleague with a different viewpoint review my analysis and challenge my assumptions (a "red team" review)?</li>
+                <li><code>[ ]</code> Is my recommendation documented with the key evidence and rationale <em>before</em> knowing the outcome?</li>
+                <li><code>[ ]</code> Have I clearly distinguished between facts, reasoned assumptions, and speculation in my analysis?</li>
+            </ul>
+
+        </div>
+        <footer class="readme-footer">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
+        </footer>
+    </div>
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

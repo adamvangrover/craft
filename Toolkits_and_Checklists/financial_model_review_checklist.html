@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Model Review Checklist</title>
+    <link rel="stylesheet" href="../css/global_nav.css">
+    <link rel="stylesheet" href="../assets/css/shared-readme-styles.css">
+</head>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="readme-container">
+        <div class="readme-content">
+            <h1>Toolkit: Financial Model Review Checklist</h1>
+
+            <h2>Introduction</h2>
+            <p>This checklist provides a structured approach to reviewing financial models for accuracy, robustness, and clarity. A thorough model review is crucial before relying on its outputs for decision-making (e.g., investment, credit assessment, strategic planning). This checklist is intended as a guide and may need to be adapted based on the model's complexity and purpose.</p>
+
+            <h2>How to Use This Checklist</h2>
+            <p>Go through each section and item. Mark items as:</p>
+            <ul>
+                <li><code>[x]</code> - Satisfactory / Complete / N/A</li>
+                <li><code>[ ]</code> - Unsatisfactory / Needs Improvement / Further Investigation Required</li>
+            </ul>
+            <p>Add comments for any items marked as unsatisfactory.</p>
+
+            <hr>
+
+            <h2>I. Model Structure & Formatting</h2>
+            <h4>Overall Clarity & Organization:</h4>
+            <ul>
+                <li><code>[ ]</code> Is the model's purpose clearly stated?</li>
+                <li><code>[ ]</code> Is there a clear table of contents or navigation guide for larger models?</li>
+                <li><code>[ ]</code> Are sheets clearly and consistently named?</li>
+                <li><code>[ ]</code> Is there a logical flow between sheets (e.g., inputs -> calculations -> outputs)?</li>
+            </ul>
+
+            <h4>Inputs, Calculations, Outputs Separation:</h4>
+            <ul>
+                <li><code>[ ]</code> Are input cells clearly distinguished (e.g., color-coded, specific sheet)?</li>
+                <li><code>[ ]</code> Are calculations separated from inputs and outputs?</li>
+                <li><code>[ ]</code> Are outputs clearly presented and easy to find?</li>
+            </ul>
+
+            <h4>Formatting & Readability:</h4>
+            <ul>
+                <li><code>[ ]</code> Is formatting consistent (fonts, number formats, colors)?</li>
+                <li><code>[ ]</code> Are units clearly stated (e.g., $, millions, %, etc.)?</li>
+                <li><code>[ ]</code> Is there adequate spacing and clear labeling for rows and columns?</li>
+                <li><code>[ ]</code> Are formulas reasonably simple and broken down if complex? Avoid mega-formulas where possible.</li>
+            </ul>
+
+            <h4>No Hardcoding in Formulas:</h4>
+            <ul>
+                <li><code>[ ]</code> Are all assumptions and drivers in input cells, not embedded directly in formulas? (Exception: genuinely fixed constants like days in year if not an input).</li>
+            </ul>
+            <p><strong>Comments - Structure & Formatting:</strong></p>
+            <pre><code>(Add comments here)</code></pre>
+
+            <hr>
+
+            <h2>II. Inputs & Assumptions</h2>
+            <h4>Source & Documentation:</h4>
+            <ul>
+                <li><code>[ ]</code> Are sources for all historical data and key assumptions clearly documented?</li>
+                <li><code>[ ]</code> Are assumptions clearly labeled and easy to understand?</li>
+            </ul>
+
+            <h4>Reasonableness & Support:</h4>
+            <ul>
+                <li><code>[ ]</code> Are key assumptions (growth rates, margins, discount rates, etc.) reasonable and supportable (e.g., by historical trends, industry research, management guidance)?</li>
+                <li><code>[ ]</code> Has the basis for each key assumption been challenged or reviewed?</li>
+            </ul>
+
+            <h4>Sensitivity & Scenario Analysis:</h4>
+            <ul>
+                <li><code>[ ]</code> Are key assumptions designed to be easily sensitized?</li>
+                <li><code>[ ]</code> Is there functionality for scenario analysis (base, upside, downside)? Are scenarios clearly defined?</li>
+            </ul>
+
+            <h4>Historical Data Accuracy:</h4>
+            <ul>
+                <li><code>[ ]</code> If historical data is used, has it been checked against audited financial statements or reliable sources?</li>
+                <li><code>[ ]</code> Are historical calculations consistent with reported figures?</li>
+            </ul>
+            <p><strong>Comments - Inputs & Assumptions:</strong></p>
+            <pre><code>(Add comments here)</code></pre>
+
+            <hr>
+
+            <h2>III. Calculations & Logic</h2>
+            <h4>Formula Correctness & Integrity:</h4>
+            <ul>
+                <li><code>[ ]</code> Spot-check key formulas for logical correctness.</li>
+                <li><code>[ ]</code> Trace precedents and dependents for critical calculations.</li>
+                <li><code>[ ]</code> Are time periods handled consistently (e.g., start/end of period, annualization/de-annualization)?</li>
+                <li><code>[ ]</code> Are signs correct (e.g., costs negative, revenues positive)?</li>
+            </ul>
+
+            <h4>Linking & Dependencies:</h4>
+            <ul>
+                <li><code>[ ]</code> Are links between sheets correct and not broken?</li>
+                <li><code>[ ]</code> Are there any unintended external links to other files?</li>
+            </ul>
+
+            <h4>Circular References:</h4>
+            <ul>
+                <li><code>[ ]</code> Are there any unintended circular references?</li>
+                <li><code>[ ]</code> If intentional circularities exist (e.g., interest on debt calculation), are they properly controlled with iterative calculations enabled and understood? Is there a circuit breaker or manual override?</li>
+            </ul>
+
+            <h4>Financial Statement Integrity:</h4>
+            <ul>
+                <li><code>[ ]</code> <strong>Balance Sheet Balances? (Assets = Liabilities + Equity)</strong> This is critical.</li>
+                <li><code>[ ]</code> Does the Cash Flow Statement correctly reconcile opening and closing cash balances?</li>
+                <li><code>[ ]</code> Do changes in Balance Sheet items correctly flow through the Cash Flow Statement (e.g., working capital changes, capex, debt drawdowns/repayments)?</li>
+                <li><code>[ ]</code> Is Net Income from the Income Statement correctly linked to Retained Earnings on the Balance Sheet and the start of the Cash Flow Statement?</li>
+            </ul>
+
+            <h4>Consistency Checks:</h4>
+            <ul>
+                <li><code>[ ]</code> Are calculations consistent across different parts of the model?</li>
+                <li><code>[ ]</code> Are totals and subtotals correctly calculated? (e.g., does sum of individual expense lines equal total OpEx?)</li>
+            </ul>
+            <p><strong>Comments - Calculations & Logic:</strong></p>
+            <pre><code>(Add comments here)</code></pre>
+
+            <hr>
+
+            <h2>IV. Outputs & Presentation</h2>
+            <h4>Key Outputs Clarity:</h4>
+            <ul>
+                <li><code>[ ]</code> Are the primary outputs of the model (e.g., valuation, credit metrics, forecast financials) clearly displayed and easy to interpret?</li>
+                <li><code>[ ]</code> Is there a summary sheet or dashboard for key results?</li>
+            </ul>
+
+            <h4>Charts & Tables:</h4>
+            <ul>
+                <li><code>[ ]</code> Are charts and tables clear, correctly labeled, and effectively visualizing the intended information?</li>
+                <li><code>[ ]</code> Do they update correctly when inputs change?</li>
+            </ul>
+
+            <h4>Scenario & Sensitivity Display:</h4>
+            <ul>
+                <li><code>[ ]</code> If scenarios/sensitivities are run, are the results clearly presented and comparable?</li>
+            </ul>
+
+            <h4>Professionalism:</h4>
+            <ul>
+                <li><code>[ ]</code> Is the overall presentation professional and suitable for its intended audience?</li>
+            </ul>
+            <p><strong>Comments - Outputs & Presentation:</strong></p>
+            <pre><code>(Add comments here)</code></pre>
+
+            <hr>
+
+            <h2>V. Error Checks & Robustness</h2>
+            <h4>Built-in Error Checks:</h4>
+            <ul>
+                <li><code>[ ]</code> Does the model include explicit error checks (e.g., balance sheet check, cash flow check, flags for negative equity/revenue)?</li>
+                <li><code>[ ]</code> Are these error checks clearly visible?</li>
+            </ul>
+
+            <h4>Stress Testing:</h4>
+            <ul>
+                <li><code>[ ]</code> Has the model been stress-tested with extreme (but plausible) inputs to see if it behaves as expected or breaks?</li>
+            </ul>
+
+            <h4>Protection & Version Control:</h4>
+            <ul>
+                <li><code>[ ]</code> Are input cells unlocked and calculation/output cells locked (if model is to be shared)?</li>
+                <li><code>[ ]</code> Is there any version control or log of changes if the model is complex and iterative? (More of a process point)</li>
+            </ul>
+            <p><strong>Comments - Error Checks & Robustness:</strong></p>
+            <pre><code>(Add comments here)</code></pre>
+
+        </div>
+        <footer class="readme-footer">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
+        </footer>
+    </div>
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
