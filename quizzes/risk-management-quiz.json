@@ -1,0 +1,35 @@
+{
+  "title": "Risk Management Quiz",
+  "questions": [
+    {
+      "question": "Which of the following is NOT a type of financial risk?",
+      "options": [
+        "Credit risk",
+        "Market risk",
+        "Operational risk",
+        "Reputational risk"
+      ],
+      "answer": "Reputational risk"
+    },
+    {
+      "question": "What is the most common measure of market risk?",
+      "options": [
+        "Value at Risk (VaR)",
+        "Beta",
+        "Standard deviation",
+        "Sharpe ratio"
+      ],
+      "answer": "Value at Risk (VaR)"
+    },
+    {
+      "question": "Which of the following is NOT a common method for managing credit risk?",
+      "options": [
+        "Collateral",
+        "Covenants",
+        "Credit derivatives",
+        "Cash"
+      ],
+      "answer": "Cash"
+    }
+  ]
+}

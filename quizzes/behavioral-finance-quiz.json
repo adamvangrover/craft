@@ -1,0 +1,35 @@
+{
+  "title": "Behavioral Finance Quiz",
+  "questions": [
+    {
+      "question": "Which of the following is NOT a common cognitive bias in finance?",
+      "options": [
+        "Confirmation bias",
+        "Anchoring bias",
+        "Hindsight bias",
+        "Sunshine bias"
+      ],
+      "answer": "Sunshine bias"
+    },
+    {
+      "question": "What is the tendency for investors to hold on to losing investments for too long and sell winning investments too soon?",
+      "options": [
+        "Disposition effect",
+        "Endowment effect",
+        "Regret aversion",
+        "Loss aversion"
+      ],
+      "answer": "Disposition effect"
+    },
+    {
+      "question": "What is the tendency for investors to be overconfident in their own abilities?",
+      "options": [
+        "Overconfidence bias",
+        "Self-attribution bias",
+        "Illusion of control bias",
+        "All of the above"
+      ],
+      "answer": "All of the above"
+    }
+  ]
+}

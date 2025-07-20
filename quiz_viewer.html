@@ -4,43 +4,144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Viewer</title>
-    <link rel="stylesheet" href="assets/css/style.css"> <!-- General site styles -->
-    <link rel="stylesheet" href="assets/css/quiz_viewer.css"> <!-- Quiz-specific styles -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global_nav.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <!-- Placeholder for global navigation or a link back to home -->
-        <nav>
-            <a href="home.html" class="nav-logo">Financial Learning Hub</a>
-            <!-- More navigation links if needed -->
-        </nav>
-    </header>
+<body class="flex">
 
-    <main class="container">
-        <h1 id="quiz-title">Quiz</h1>
-        <div id="quiz-container">
-            <!-- Quiz questions will be loaded here by JavaScript -->
-            <p>Loading quiz...</p>
-        </div>
-        <button id="submit-quiz-button" style="display: none;">Submit Answers</button>
-        <div id="quiz-results-container" style="display: none;">
-            <h2>Results</h2>
-            <p id="quiz-score"></p>,
-            <div id="quiz-feedback"></div>
-            <button id="retry-quiz-button">Retry Quiz</button>
-            <button id="show-answers-button" style="display: none;">Show Answers</button>
-            <div id="quiz-answers-display" style="display: none;">
-                <!-- Answers will be loaded here -->
+    <!-- Global Navigation Sidebar -->
+    <div id="global-nav-placeholder" class="fixed top-0 left-0 h-full z-30"></div>
+
+    <!-- Main Content Area -->
+    <div id="main-content-wrapper" class="flex-grow overflow-y-auto ml-0 md:ml-[280px] transition-all duration-300 ease-in-out">
+
+        <!-- Header -->
+        <header class="bg-slate-800 text-white py-16 px-6 md:px-8 text-center">
+            <div class="max-w-4xl mx-auto">
+                <i class="fas fa-question-circle text-5xl text-sky-400 mb-4"></i>
+                <h1 class="text-4xl md:text-5xl font-bold">Quiz Viewer</h1>
+                <p class="mt-4 text-xl opacity-90">Test your knowledge with our interactive quizzes.</p>
             </div>
-        </div>
-    </main>
+        </header>
 
-    <footer>
-        <p>&copy; <span id="current-year"></span> Financial Learning Hub. All rights reserved.</p>
-        <script>document.getElementById('current-year').textContent = new Date().getFullYear();</script>
-    </footer>
+        <!-- Main Content -->
+        <main class="py-16 px-6 md:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div id="quiz-selection" class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <h2 class="text-3xl font-bold mb-8">Select a Quiz</h2>
+                    <div id="quiz-links" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Quiz links will be loaded here -->
+                    </div>
+                </div>
+                <div id="quiz-container" class="bg-white rounded-xl shadow-lg p-8 hidden">
+                    <!-- Quiz content will be loaded here -->
+                </div>
+            </div>
+        </main>
 
-    <script src="assets/js/quiz_loader.js"></script>
+        <!-- Footer -->
+        <footer class="py-10 px-6 md:px-8 text-center text-sm text-slate-100 bg-slate-800 mt-12">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub. All Rights Reserved.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const quizSelection = document.getElementById('quiz-selection');
+        const quizContainer = document.getElementById('quiz-container');
+        const quizLinks = document.getElementById('quiz-links');
+
+        const quizzes = [
+            'quizzes/accounting-quiz.json',
+            'quizzes/financial-modeling-quiz.json',
+            'quizzes/fintech-quiz.json',
+            'quizzes/risk-management-quiz.json',
+            'quizzes/behavioral-finance-quiz.json'
+        ];
+
+        async function loadQuizLinks() {
+            for (const quizFile of quizzes) {
+                const response = await fetch(quizFile);
+                const quizData = await response.json();
+                const link = document.createElement('a');
+                link.href = '#';
+                link.classList.add('w-full', 'bg-blue-600', 'hover:bg-blue-700', 'text-white', 'font-semibold', 'py-3', 'px-4', 'rounded-lg', 'transition-colors', 'duration-300', 'text-center');
+                link.innerText = quizData.title;
+                link.onclick = (e) => {
+                    e.preventDefault();
+                    loadQuiz(quizFile);
+                };
+                quizLinks.appendChild(link);
+            }
+        }
+
+        async function loadQuiz(quizFile) {
+            quizSelection.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+
+            const response = await fetch(quizFile);
+            const quizData = await response.json();
+
+            let quizHtml = `<h2 class="text-3xl font-bold mb-8">${quizData.title}</h2>`;
+
+            quizData.questions.forEach((question, index) => {
+                quizHtml += `
+                    <div class="mb-8">
+                        <p class="text-xl font-semibold mb-4">${index + 1}. ${question.question}</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            ${question.options.map(option => `
+                                <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-4 rounded-lg transition-colors duration-300" onclick="checkAnswer(this, '${option}', '${question.answer}')">${option}</button>
+                            `).join('')}
+                        </div>
+                        <p class="mt-4 text-green-500 font-bold hidden">Correct!</p>
+                        <p class="mt-4 text-red-500 font-bold hidden">Incorrect. The correct answer is ${question.answer}.</p>
+                    </div>
+                `;
+            });
+
+            quizContainer.innerHTML = quizHtml;
+        }
+
+        function checkAnswer(button, selectedOption, correctAnswer) {
+            const parent = button.parentElement.parentElement;
+            const correctText = parent.querySelector('.text-green-500');
+            const incorrectText = parent.querySelector('.text-red-500');
+
+            if (selectedOption === correctAnswer) {
+                correctText.classList.remove('hidden');
+                incorrectText.classList.add('hidden');
+            } else {
+                correctText.classList.add('hidden');
+                incorrectText.classList.remove('hidden');
+            }
+
+            // Disable all buttons in the question
+            const buttons = parent.querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if (btn.innerText === correctAnswer) {
+                    btn.classList.add('bg-green-500', 'text-white');
+                } else if (btn.innerText === selectedOption) {
+                    btn.classList.add('bg-red-500', 'text-white');
+                }
+            });
+        }
+
+        loadQuizLinks();
+    </script>
+    <script src="js/nav_data.js" defer></script>
+    <script src="js/global_nav.js" defer></script>
 </body>
 </html>
