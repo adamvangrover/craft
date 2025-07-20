@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Chosen Palette: Calm Neutrals -->
+    <!-- Application Structure Plan: The application is structured as a guided, multi-section learning path. A persistent sidebar navigation allows users to either progress linearly or jump to specific topics. This design was chosen over a simple document because learning financial concepts is sequential. Each concept is a self-contained interactive module with tabs for 'Definition', 'Example', 'Pitfalls', and 'Test Yourself', preventing information overload and promoting active engagement. The final 'Synthesis' section uses an animated diagram to visually connect the statements, providing a memorable capstone experience that directly addresses the user's goal of understanding interrelationships. -->
+    <!-- Visualization & Content Choices:
+        - Report Info: Income Statement components (Revenue, COGS, Net Income). Goal: Show calculation flow. Viz: Interactive Bar Chart (Chart.js). Interaction: Sliders to change Revenue/COGS values dynamically update the chart and Net Income calculation, demonstrating the cause-and-effect relationship. Justification: More engaging than a static formula.
+        - Report Info: Accounting Equation & Balance Sheet items. Goal: Illustrate balance. Viz: Two synchronized Bar Charts (Chart.js). Interaction: A button simulates a transaction (e.g., 'Add Net Income'), which animates updates to both 'Assets' (Cash) and 'Equity' (Retained Earnings), visually reinforcing that the equation must always balance.
+        - Report Info: Connecting the three financial statements. Goal: Show data flow. Viz: HTML/CSS/JS animated diagram. Interaction: A 'Run Scenario' button triggers a visual flow of data (Net Income -> Retained Earnings -> Cash), clarifying the connections in a way static text cannot. Justification: This is the core learning objective and a dynamic visualization makes the abstract concept concrete and easy to grasp.
+        - Report Info: Practical Exercises. Goal: Test understanding. Method: Interactive quiz forms (HTML/JS). Interaction: User selects an answer, receives immediate feedback. Justification: Solidifies learning through active recall.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <title>Analyst's Interactive Accounting Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+            border-left: 3px solid transparent;
+        }
+        .nav-link.active {
+            background-color: #e9ecef;
+            color: #005A9C;
+            border-left-color: #005A9C;
+        }
+        .nav-link:hover {
+            background-color: #e9ecef;
+            border-left-color: #ced4da;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .module-tab {
+            transition: all 0.2s ease-in-out;
+        }
+        .module-tab.active {
+            background-color: #005A9C;
+            color: white;
+        }
+        .module-tab-content {
+            display: none;
+        }
+        .module-tab-content.active {
+            display: block;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+        .flow-diagram-box {
+            border: 1px solid #dee2e6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .flow-line {
+            position: absolute;
+            background-color: #0077b6;
+            transition: all 1s ease-in-out;
+        }
+        .flow-value {
+            position: absolute;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #005A9C;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2px 6px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out 1s;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <aside class="w-full md:w-64 bg-white border-r border-gray-200 flex-shrink-0">
+            <div class="p-6">
+                <h2 class="text-xl font-bold text-gray-800">Accounting Guide</h2>
+                <p class="text-sm text-gray-500 mt-1">Interactive Training</p>
+            </div>
+            <nav id="main-nav" class="flex flex-col p-3">
+                <a href="#intro" class="nav-link text-gray-700 font-medium px-4 py-2.5 rounded-md">Introduction</a>
+                <a href="#income-statement" class="nav-link text-gray-700 font-medium px-4 py-2.5 rounded-md">Income Statement</a>
+                <a href="#balance-sheet" class="nav-link text-gray-700 font-medium px-4 py-2.5 rounded-md">Balance Sheet</a>
+                <a href="#cash-flow" class="nav-link text-gray-700 font-medium px-4 py-2.5 rounded-md">Cash Flow & Dividends</a>
+                <a href="#synthesis" class="nav-link text-gray-700 font-medium px-4 py-2.5 rounded-md">Synthesis</a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-6 md:p-10 overflow-y-auto">
+            
+            <div id="intro" class="content-section">
+                <h1 class="text-3xl font-bold text-gray-800">Financial Accounting Fundamentals</h1>
+                <p class="mt-4 text-lg text-gray-600">Welcome, Analyst! This interactive guide is designed to provide a deep, practical understanding of core accounting concepts. We'll explore the three primary financial statements, understand how they work together, and test your knowledge along the way. Use the navigation on the left to move between sections or follow the prompts to proceed sequentially. The goal is to see how the story of a business is told through its financials.</p>
+                <div class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg">
+                    <h3 class="font-semibold text-blue-800">How it Works</h3>
+                    <p class="mt-2 text-blue-700">Each topic is broken down into tabs: definitions, examples, common pitfalls, and a practical exercise. Engage with each one to build a solid foundation before moving to the next. The final Synthesis section will bring everything together with an interactive visualization.</p>
+                </div>
+                 <button onclick="navigateToSection('income-statement')" class="mt-8 bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Start with the Income Statement &rarr;</button>
+            </div>
+
+            <div id="income-statement" class="content-section space-y-12">
+                <h1 class="text-3xl font-bold text-gray-800">I. Income Statement Fundamentals</h1>
+                <p class="mt-2 text-lg text-gray-600">The Income Statement, also known as the Profit & Loss (P&L) statement, tells you about a company's financial performance over a specific period (e.g., a quarter or a year). It summarizes revenues, expenses, gains, and losses, ultimately arriving at the crucial 'bottom line': Net Income.</p>
+                
+                <!-- Revenue Module -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-700">1. Revenue (Sales)</h2>
+                    <div class="flex border-b mt-4">
+                        <button class="module-tab p-3 font-medium text-sm text-gray-600" data-target="revenue-def">Definition</button>
+                        <button class="module-tab p-3 font-medium text-sm text-gray-600" data-target="revenue-ex">Example</button>
+                        <button class="module-tab p-3 font-medium text-sm text-gray-600" data-target="revenue-pitfall">Pitfalls</button>
+                        <button class="module-tab p-3 font-medium text-sm text-gray-600" data-target="revenue-quiz">Test Yourself</button>
+                    </div>
+                    <div class="mt-4 space-y-4">
+                        <div class="module-tab-content" id="revenue-def"><p class="text-gray-700">Revenue is the total amount of money a business generates from the sale of its goods or services. It's the "top line" of the income statement and represents the gross income figure from which costs are subtracted to determine net income. <br><br> A key concept is the <strong>Revenue Recognition Principle</strong>, which states that revenue should be recognized (recorded) when it is earned and realizable, regardless of when cash is actually received.</p></div>
+                        <div class="module-tab-content" id="revenue-ex"><p class="text-gray-700">A coffee shop sells 100 cups of coffee at $4 each in a day. Its revenue for that day is $400 (100 cups * $4/cup), even if 20 of those sales were on credit and will be paid later.</p></div>
+                        <div class="module-tab-content" id="revenue-pitfall"><p class="text-gray-700">A common complexity is dealing with long-term contracts or subscriptions. Companies can't book all the revenue from a 12-month subscription upfront. They must recognize 1/12th of the revenue each month as the service is delivered. Misinterpreting this can lead to an inflated view of current performance.</p></div>
+                        <div class="module-tab-content" id="revenue-quiz">
+                            <p class="font-semibold text-gray-800">A software company sells a 1-year license for $1200 on January 1st. How much revenue should it recognize for the first quarter (Jan-Mar)?</p>
+                            <div class="mt-2 space-y-2 quiz-options" data-correct="300">
+                                <button class="block w-full text-left p-2 border rounded hover:bg-gray-100">$1200</button>
+                                <button class="block w-full text-left p-2 border rounded hover:bg-gray-100">$100</button>
+                                <button class="block w-full text-left p-2 border rounded hover:bg-gray-100">$300</button>
+                            </div>
+                            <p class="mt-2 text-sm quiz-feedback"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COGS & Gross Profit Module -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-700">2. Cost of Goods Sold (COGS) & Gross Profit</h2>
+                     <div class="flex border-b mt-4">
+                        <button class="module-tab p-3 font-medium text-sm text-gray-600" data-target="cogs-def">Definition</button>
+                        <button class="module-tab p-3 font-medium text-sm text-gray-600" data-target="cogs-ex">Example</button>
+                        <button class="module-tab p-3 font-medium text-sm text-gray-600" data-target="cogs-pitfall">Pitfalls</button>
+                        <button class="module-tab p-3 font-medium text-sm text-gray-600" data-target="cogs-quiz">Test Yourself</button>
+                    </div>
+                    <div class="mt-4 space-y-4">
+                        <div class="module-tab-content" id="cogs-def">
+                            <p class="text-gray-700"><strong>COGS:</strong> Represents the direct costs attributable to the production of the goods sold by a company. This includes material costs and direct labor costs. It does NOT include indirect expenses like marketing or rent.</p>
+                            <p class="text-gray-700 mt-2"><strong>Gross Profit:</strong> The profit a company makes after deducting the costs associated with making and selling its products. The calculation is simple and powerful: <strong class="text-indigo-600">Gross Profit = Revenue - COGS</strong>.</p>
+                        </div>
+                        <div class="module-tab-content" id="cogs-ex"><p class="text-gray-700">Our coffee shop (Revenue: $400) spends $1 on coffee beans and a cup for each coffee sold. Its COGS for the day is $100 (100 cups * $1/cup). Its Gross Profit is $300 ($400 Revenue - $100 COGS).</p></div>
+                        <div class="module-tab-content" id="cogs-pitfall"><p class="text-gray-700">The choice of inventory costing method (e.g., FIFO - First-In, First-Out vs. LIFO - Last-In, First-Out) can significantly impact COGS during periods of changing prices. In an inflationary environment, LIFO results in a higher COGS (and lower profit) because it assumes the most recently purchased, more expensive inventory is sold first.</p></div>
+                        <div class="module-tab-content" id="cogs-quiz">
+                            <p class="font-semibold text-gray-800">A bookstore has revenue of $10,000. It spent $4,000 on books, $1,000 on rent, and $500 on marketing. What is its Gross Profit?</p>
+                             <div class="mt-2 space-y-2 quiz-options" data-correct="6000">
+                                <button class="block w-full text-left p-2 border rounded hover:bg-gray-100">$4,500</button>
+                                <button class="block w-full text-left p-2 border rounded hover:bg-gray-100">$6,000</button>
+                                <button class="block w-full text-left p-2 border rounded hover:bg-gray-100">$10,000</button>
+                            </div>
+                            <p class="mt-2 text-sm quiz-feedback"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Net Income Module & Chart -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-700">3. Net Income ("The Bottom Line")</h2>
+                    <p class="text-gray-600 mt-2">Net Income is the most famous metric. It's what's left after ALL expenses (COGS, operating expenses, interest, taxes) are subtracted from all revenues. It represents a company's pure profit for the period and is a critical driver of value.</p>
+                    <p class="text-gray-600 mt-2"><strong>Its most important interrelationship:</strong> Net Income directly links the Income Statement to the Balance Sheet. A portion of Net Income is added to Retained Earnings on the Balance Sheet, increasing the company's equity.</p>
+                    <div class="mt-6">
+                        <h3 class="font-semibold text-center text-gray-700">Interactive Income Statement</h3>
+                        <p class="text-sm text-center text-gray-500 mb-4">Adjust the sliders to see how Net Income changes.</p>
+                        <div class="chart-container">
+                            <canvas id="incomeStatementChart"></canvas>
+                        </div>
+                        <div class="flex justify-around mt-4 max-w-lg mx-auto">
+                            <div>
+                                <label for="revenueSlider" class="text-sm font-medium">Revenue: $<span id="revenueValue">1000</span></label>
+                                <input type="range" id="revenueSlider" min="500" max="2000" value="1000" class="w-full">
+                            </div>
+                            <div>
+                                <label for="cogsSlider" class="text-sm font-medium">COGS: $<span id="cogsValue">400</span></label>
+                                <input type="range" id="cogsSlider" min="100" max="800" value="400" class="w-full">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <button onclick="navigateToSection('balance-sheet')" class="mt-8 bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Continue to Balance Sheet &rarr;</button>
+            </div>
+            
+            <div id="balance-sheet" class="content-section space-y-12">
+                <h1 class="text-3xl font-bold text-gray-800">II. Balance Sheet Fundamentals</h1>
+                <p class="mt-2 text-lg text-gray-600">The Balance Sheet provides a snapshot of a company's financial health at a single point in time. It follows the fundamental accounting equation: <strong class="text-indigo-600">Assets = Liabilities + Shareholders' Equity</strong>. It shows what a company owns (Assets) and what it owes (Liabilities), and the difference, which belongs to the owners (Equity).</p>
+
+                <!-- Equity & Cash Module -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-700">1. Shareholders' Equity & Cash</h2>
+                    <div class="flex border-b mt-4">
+                        <button class="module-tab p-3 font-medium text-sm text-gray-600" data-target="equity-def">Definition</button>
+                        <button class="module-tab p-3 font-medium text-sm text-gray-600" data-target="equity-ex">Example</button>
+                        <button class="module-tab p-3 font-medium text-sm text-gray-600" data-target="equity-pitfall">Pitfalls</button>
+                        <button class="module-tab p-3 font-medium text-sm text-gray-600" data-target="equity-quiz">Test Yourself</button>
+                    </div>
+                    <div class="mt-4 space-y-4">
+                        <div class="module-tab-content" id="equity-def">
+                            <p class="text-gray-700"><strong>Shareholders' Equity:</strong> Represents the net worth of a company—the amount that would be returned to shareholders if all assets were liquidated and all debts repaid. Key components include common stock and retained earnings.</p>
+                            <p class="text-gray-700 mt-2"><strong>Cash & Cash Equivalents:</strong> This is the most liquid asset on the balance sheet. It includes currency, bank deposits, and short-term, highly liquid investments that are readily convertible to a known amount of cash (e.g., money market funds).</p>
+                        </div>
+                        <div class="module-tab-content" id="equity-ex"><p class="text-gray-700">A company has a building worth $500k (Asset) and a bank loan of $300k (Liability). Its Shareholders' Equity is $200k ($500k - $300k). If it also has $50k in a bank account, its total Assets are $550k ($500k building + $50k cash).</p></div>
+                        <div class="module-tab-content" id="equity-pitfall"><p class="text-gray-700">Don't confuse Equity with a company's market capitalization. Equity (or "book value") is an accounting measure based on historical costs. Market cap is based on the current stock price and reflects future expectations, which can be vastly different.</p></div>
+                        <div class="module-tab-content" id="equity-quiz">
+                            <p class="font-semibold text-gray-800">A company has Total Assets of $1,000 and Total Liabilities of $700. What is its Shareholders' Equity?</p>
+                             <div class="mt-2 space-y-2 quiz-options" data-correct="300">
+                                <button class="block w-full text-left p-2 border rounded hover:bg-gray-100">$1,700</button>
+                                <button class="block w-full text-left p-2 border rounded hover:bg-gray-100">$700</button>
+                                <button class="block w-full text-left p-2 border rounded hover:bg-gray-100">$300</button>
+                            </div>
+                            <p class="mt-2 text-sm quiz-feedback"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Retained Earnings Module & Chart -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-700">2. Retained Earnings: The Crucial Link</h2>
+                    <p class="text-gray-600 mt-2">Retained Earnings (RE) are the cumulative portion of a company's profits that are not distributed to shareholders as dividends but are instead reinvested in the business. RE is the bridge between the Income Statement and the Balance Sheet.</p>
+                    <p class="text-gray-600 mt-2">The formula is: <strong class="text-indigo-600">Ending RE = Beginning RE + Net Income - Dividends</strong>.</p>
+                    
+                    <div class="mt-6">
+                        <h3 class="font-semibold text-center text-gray-700">Interactive Balance Sheet Equation</h3>
+                        <p class="text-sm text-center text-gray-500 mb-4">Click the button to simulate adding Net Income and see how the balance is maintained.</p>
+                        <div class="grid grid-cols-2 gap-8">
+                           <div class="chart-container !h-80"><canvas id="assetsChart"></canvas></div>
+                           <div class="chart-container !h-80"><canvas id="liabilitiesEquityChart"></canvas></div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button id="addIncomeBtn" class="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Add $100 Net Income</button>
+                             <button id="resetBalanceBtn" class="ml-4 bg-gray-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                 <button onclick="navigateToSection('cash-flow')" class="mt-8 bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Explore Cash Flow & Dividends &rarr;</button>
+            </div>
+            
+            <div id="cash-flow" class="content-section">
+                <h1 class="text-3xl font-bold text-gray-800">III. Cash Flow & Related Concepts</h1>
+                <p class="mt-2 text-lg text-gray-600">While the Income Statement can show a profit, it doesn't mean the company has cash. The Cash Flow Statement (CFS) tracks the actual movement of cash into and out of a company. This is vital for assessing a company's ability to pay its bills and fund operations. It's broken into three activities: Operating, Investing, and Financing.</p>
+
+                 <!-- Dividends Module -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mt-12">
+                    <h2 class="text-xl font-bold text-gray-700">Dividends</h2>
+                     <div class="flex border-b mt-4">
+                        <button class="module-tab p-3 font-medium text-sm text-gray-600" data-target="div-def">Definition</button>
+                        <button class="module-tab p-3 font-medium text-sm text-gray-600" data-target="div-ex">Example</button>
+                        <button class="module-tab p-3 font-medium text-sm text-gray-600" data-target="div-pitfall">Distinctions</button>
+                        <button class="module-tab p-3 font-medium text-sm text-gray-600" data-target="div-quiz">Test Yourself</button>
+                    </div>
+                    <div class="mt-4 space-y-4">
+                        <div class="module-tab-content" id="div-def"><p class="text-gray-700">A dividend is a distribution of a portion of a company's earnings to its shareholders, as decided by the board of directors. It's a way to reward investors for their ownership. Paying dividends is a cash outflow and appears in the Financing Activities section of the Cash Flow Statement. It also reduces Retained Earnings on the Balance Sheet.</p></div>
+                        <div class="module-tab-content" id="div-ex"><p class="text-gray-700">A company with $1,000 in Retained Earnings decides to pay a $200 dividend. On the payment date, its Cash decreases by $200 and its Retained Earnings decrease by $200. The accounting equation remains in balance.</p></div>
+                        <div class="module-tab-content" id="div-pitfall"><p class="text-gray-700"><strong>Dividends vs. Share Buybacks:</strong> Both return capital to shareholders. Dividends are a direct cash payment. Share buybacks involve the company repurchasing its own shares from the open market. This reduces the number of outstanding shares, which can increase earnings per share (EPS) and the stock price.</p></div>
+                        <div class="module-tab-content" id="div-quiz">
+                            <p class="font-semibold text-gray-800">A company reports Net Income of $500 and pays Dividends of $100. By how much will its Retained Earnings increase?</p>
+                             <div class="mt-2 space-y-2 quiz-options" data-correct="400">
+                                <button class="block w-full text-left p-2 border rounded hover:bg-gray-100">$500</button>
+                                <button class="block w-full text-left p-2 border rounded hover:bg-gray-100">$100</button>
+                                <button class="block w-full text-left p-2 border rounded hover:bg-gray-100">$400</button>
+                            </div>
+                            <p class="mt-2 text-sm quiz-feedback"></p>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="navigateToSection('synthesis')" class="mt-8 bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Bring It All Together: Synthesis &rarr;</button>
+            </div>
+
+            <div id="synthesis" class="content-section">
+                <h1 class="text-3xl font-bold text-gray-800">IV. Synthesizing the Financial Statements</h1>
+                <p class="mt-2 text-lg text-gray-600">This is where it all connects. The three statements are not independent; they are intrinsically linked and tell a cohesive story. Net Income from the Income Statement flows into Retained Earnings on the Balance Sheet. The change in the Cash balance on the Balance Sheet is explained by the Cash Flow Statement. This interactive diagram will show you how a simple business scenario flows through the financials.</p>
+
+                <div class="mt-8 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-700 text-center">Interactive Data Flow</h2>
+                     <div class="my-4 p-4 bg-gray-50 rounded-lg border">
+                        <p class="text-center font-medium"><strong>Scenario:</strong> A small bakery starts the year with $500 in Cash and $500 in Equity. During the year, it has Revenue of $1,000 and COGS of $600. It pays no dividends.</p>
+                        <p class="text-center text-sm text-gray-600">Click the button below to see how the financials update.</p>
+                     </div>
+                    <div class="text-center mb-6">
+                        <button id="runScenarioBtn" class="bg-purple-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-purple-700 transition-colors">Run Scenario</button>
+                    </div>
+
+                    <div id="flow-container" class="relative grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+                        <!-- Income Statement -->
+                        <div class="flow-diagram-box">
+                            <h3 class="font-bold text-center">Income Statement</h3>
+                            <table class="w-full mt-2 text-sm">
+                                <tbody>
+                                    <tr><td>Revenue</td><td class="text-right" id="flow-revenue">$0</td></tr>
+                                    <tr><td>COGS</td><td class="text-right" id="flow-cogs">($0)</td></tr>
+                                    <tr class="border-t"><td class="font-semibold">Net Income</td><td class="font-semibold text-right" id="flow-net-income">$0</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Retained Earnings Rollforward -->
+                        <div class="flow-diagram-box">
+                             <h3 class="font-bold text-center">Retained Earnings</h3>
+                            <table class="w-full mt-2 text-sm">
+                                <tbody>
+                                    <tr><td>Beginning RE</td><td class="text-right">$0</td></tr>
+                                    <tr><td>+ Net Income</td><td class="text-right" id="flow-re-ni">$0</td></tr>
+                                    <tr><td>- Dividends</td><td class="text-right">($0)</td></tr>
+                                    <tr class="border-t"><td class="font-semibold">Ending RE</td><td class="font-semibold text-right" id="flow-ending-re">$0</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Balance Sheet -->
+                        <div class="flow-diagram-box">
+                            <h3 class="font-bold text-center">Balance Sheet</h3>
+                            <table class="w-full mt-2 text-sm">
+                                <thead><tr><th class="text-left">Assets</th><th class="text-right">Liabilities & Equity</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Cash</td><td></td></tr>
+                                    <tr class="align-top">
+                                        <td class="text-right" id="flow-cash">$500</td>
+                                        <td>
+                                            <table class="w-full">
+                                                <tbody>
+                                                     <tr><td>Liabilities</td><td class="text-right">$0</td></tr>
+                                                     <tr><td>Equity</td><td class="text-right" id="flow-equity">$500</td></tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t">
+                                        <td class="font-semibold text-right" id="flow-total-assets">$500</td>
+                                        <td class="font-semibold text-right" id="flow-total-liab-equity">$500</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Connecting Lines -->
+                        <div id="line1" class="flow-line"></div>
+                        <div id="value1" class="flow-value"></div>
+                        <div id="line2" class="flow-line"></div>
+                        <div id="value2" class="flow-value"></div>
+                    </div>
+                </div>
+
+                <div class="mt-12 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-700">Final Quiz: Case Study</h2>
+                    <p class="font-semibold text-gray-800 mt-4">An investor wants to analyze a company. Match the question to the primary financial statement they should use.</p>
+                    <div id="case-study-quiz" class="mt-4 space-y-4">
+                        <div>
+                            <p class="text-gray-700">1. How profitable was the company over the last year?</p>
+                            <select class="w-full mt-1 p-2 border rounded">
+                                <option>Select a statement...</option>
+                                <option value="correct">Income Statement</option>
+                                <option>Balance Sheet</option>
+                                <option>Cash Flow Statement</option>
+                            </select>
+                        </div>
+                         <div>
+                            <p class="text-gray-700">2. Does the company have enough assets to cover its short-term debts?</p>
+                            <select class="w-full mt-1 p-2 border rounded">
+                                <option>Select a statement...</option>
+                                <option>Income Statement</option>
+                                <option value="correct">Balance Sheet</option>
+                                <option>Cash Flow Statement</option>
+                            </select>
+                        </div>
+                         <div>
+                            <p class="text-gray-700">3. Where did the company's cash come from and where did it go?</p>
+                            <select class="w-full mt-1 p-2 border rounded">
+                                <option>Select a statement...</option>
+                                <option>Income Statement</option>
+                                <option>Balance Sheet</option>
+                                <option value="correct">Cash Flow Statement</option>
+                            </select>
+                        </div>
+                        <button id="checkCaseStudy" class="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Check Answers</button>
+                        <p id="caseStudyFeedback" class="mt-2 text-sm font-medium"></p>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const navLinks = document.querySelectorAll('#main-nav a');
+    const contentSections = document.querySelectorAll('.content-section');
+    const moduleTabs = document.querySelectorAll('.module-tab');
+    const quizOptions = document.querySelectorAll('.quiz-options button');
+
+    function navigateToSection(hash) {
+        const targetHash = hash.startsWith('#') ? hash : '#' + hash;
+        
+        contentSections.forEach(section => {
+            section.classList.remove('active');
+        });
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+        });
+
+        const targetSection = document.querySelector(targetHash);
+        const targetLink = document.querySelector(`a[href="${targetHash}"]`);
+
+        if (targetSection) {
+            targetSection.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+        if (targetLink) {
+            targetLink.classList.add('active');
+        }
+
+        if (window.location.hash !== targetHash) {
+           history.pushState(null, null, targetHash);
+        }
+    }
+
+    window.navigateToSection = navigateToSection;
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetHash = link.getAttribute('href');
+            navigateToSection(targetHash);
+        });
+    });
+
+    moduleTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const parent = tab.closest('div');
+            const targetId = tab.dataset.target;
+
+            parent.querySelectorAll('.module-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            parent.nextElementSibling.querySelectorAll('.module-tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(targetId).classList.add('active');
+        });
+    });
+    
+    document.querySelectorAll('.bg-white.p-6').forEach(module => {
+        const firstTab = module.querySelector('.module-tab');
+        if (firstTab) {
+            firstTab.click();
+        }
+    });
+
+    quizOptions.forEach(button => {
+        button.addEventListener('click', () => {
+            const parent = button.parentElement;
+            const feedbackEl = parent.nextElementSibling;
+            const correctValue = parent.dataset.correct;
+            const selectedValue = button.textContent.replace(/\$/g, '').replace(/,/g, '');
+
+            parent.querySelectorAll('button').forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('bg-red-200', 'bg-green-200');
+            });
+
+            if (selectedValue === correctValue) {
+                button.classList.add('bg-green-200');
+                feedbackEl.textContent = "Correct! Well done.";
+                feedbackEl.className = 'mt-2 text-sm text-green-700 font-medium';
+            } else {
+                button.classList.add('bg-red-200');
+                feedbackEl.textContent = `Not quite. The correct answer is $${correctValue}.`;
+                feedbackEl.className = 'mt-2 text-sm text-red-700 font-medium';
+                parent.querySelector(`button:not(.bg-red-200)`).classList.add('bg-green-200');
+            }
+        });
+    });
+
+    const initialHash = window.location.hash || '#intro';
+    navigateToSection(initialHash);
+    
+    let incomeStatementChart;
+    function renderIncomeStatementChart() {
+        const ctx = document.getElementById('incomeStatementChart').getContext('2d');
+        const revenue = parseFloat(document.getElementById('revenueSlider').value);
+        const cogs = parseFloat(document.getElementById('cogsSlider').value);
+        const opEx = 200;
+        const taxes = 50;
+
+        const grossProfit = revenue - cogs;
+        const opIncome = grossProfit - opEx;
+        const netIncome = opIncome - taxes;
+
+        const data = {
+            labels: ['Revenue', 'Gross Profit', 'Operating Income', 'Net Income'],
+            datasets: [{
+                label: 'Amount ($)',
+                data: [revenue, grossProfit, opIncome, netIncome],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(255, 99, 132, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        if(incomeStatementChart) {
+            incomeStatementChart.data = data;
+            incomeStatementChart.update();
+        } else {
+             incomeStatementChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+    }
+
+    document.getElementById('revenueSlider').addEventListener('input', (e) => {
+        document.getElementById('revenueValue').textContent = e.target.value;
+        renderIncomeStatementChart();
+    });
+    document.getElementById('cogsSlider').addEventListener('input', (e) => {
+        document.getElementById('cogsValue').textContent = e.target.value;
+        renderIncomeStatementChart();
+    });
+    renderIncomeStatementChart();
+
+    let assetsChart, liabilitiesEquityChart;
+    let balanceSheetData = {
+        assets: [500, 200], // Cash, Other Assets
+        liabilities: [300], // Liabilities
+        equity: [400] // Equity
+    };
+    
+    function renderBalanceSheetCharts() {
+        const assetsCtx = document.getElementById('assetsChart').getContext('2d');
+        const liabEqCtx = document.getElementById('liabilitiesEquityChart').getContext('2d');
+
+        if (assetsChart) assetsChart.destroy();
+        if (liabilitiesEquityChart) liabilitiesEquityChart.destroy();
+
+        const totalAssets = balanceSheetData.assets.reduce((a, b) => a + b, 0);
+        const totalLiabEq = balanceSheetData.liabilities.reduce((a, b) => a + b, 0) + balanceSheetData.equity.reduce((a, b) => a + b, 0);
+
+        assetsChart = new Chart(assetsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Assets'],
+                datasets: [{ label: 'Cash', data: [balanceSheetData.assets[0]], backgroundColor: '#34d399' }, { label: 'Other Assets', data: [balanceSheetData.assets[1]], backgroundColor: '#a7f3d0' }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', scales: { x: { stacked: true, max: Math.max(totalAssets, totalLiabEq) + 100 }, y: { stacked: true } }, plugins: { title: { display: true, text: 'Total Assets: $' + totalAssets } } }
+        });
+        liabilitiesEquityChart = new Chart(liabEqCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Liab. & Equity'],
+                datasets: [{ label: 'Liabilities', data: [balanceSheetData.liabilities[0]], backgroundColor: '#f87171' }, { label: 'Equity', data: [balanceSheetData.equity[0]], backgroundColor: '#fca5a5' }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', scales: { x: { stacked: true, max: Math.max(totalAssets, totalLiabEq) + 100 }, y: { stacked: true } }, plugins: { title: { display: true, text: 'Total Liab & Equity: $' + totalLiabEq } } }
+        });
+    }
+    
+    document.getElementById('addIncomeBtn').addEventListener('click', () => {
+        balanceSheetData.assets[0] += 100;
+        balanceSheetData.equity[0] += 100;
+        renderBalanceSheetCharts();
+    });
+
+    document.getElementById('resetBalanceBtn').addEventListener('click', () => {
+        balanceSheetData = { assets: [500, 200], liabilities: [300], equity: [400] };
+        renderBalanceSheetCharts();
+    });
+    renderBalanceSheetCharts();
+    
+    const runScenarioBtn = document.getElementById('runScenarioBtn');
+    runScenarioBtn.addEventListener('click', runFlowScenario);
+
+    function resetFlowScenario() {
+        const fields = ['revenue', 'cogs', 'net-income', 're-ni', 'ending-re', 'cash', 'equity', 'total-assets', 'total-liab-equity'];
+        fields.forEach(f => {
+            const el = document.getElementById(`flow-${f}`);
+            if (el) {
+                if (f === 'cash' || f === 'equity' || f === 'total-assets' || f === 'total-liab-equity') {
+                    el.textContent = f.includes('total') ? '$500' : '$500';
+                } else if (f.includes('cogs')) {
+                    el.textContent = '($0)';
+                } else {
+                    el.textContent = '$0';
+                }
+                el.style.transition = 'none';
+                el.style.fontWeight = 'normal';
+                el.style.color = '';
+            }
+        });
+        document.getElementById('line1').style.width = '0px';
+        document.getElementById('line2').style.width = '0px';
+        document.getElementById('value1').style.opacity = '0';
+        document.getElementById('value2').style.opacity = '0';
+    }
+    
+    function runFlowScenario() {
+        resetFlowScenario();
+        runScenarioBtn.disabled = true;
+
+        const timeouts = [];
+        
+        function updateField(id, value, isNegative=false) {
+            const el = document.getElementById(id);
+            el.style.transition = 'color 0.5s ease, transform 0.5s ease';
+            el.style.color = '#e11d48';
+            el.style.fontWeight = 'bold';
+            el.style.transform = 'scale(1.1)';
+            el.textContent = isNegative ? `($${value})` : `$${value}`;
+            timeouts.push(setTimeout(() => {
+                el.style.color = '';
+                el.style.fontWeight = 'normal';
+                el.style.transform = 'scale(1)';
+            }, 1000));
+        }
+
+        timeouts.push(setTimeout(() => updateField('flow-revenue', 1000), 500));
+        timeouts.push(setTimeout(() => updateField('flow-cogs', 600, true), 1000));
+        timeouts.push(setTimeout(() => updateField('flow-net-income', 400), 1500));
+
+        timeouts.push(setTimeout(() => {
+            const niEl = document.getElementById('flow-net-income');
+            const reNiEl = document.getElementById('flow-re-ni');
+            const line1 = document.getElementById('line1');
+            const value1 = document.getElementById('value1');
+            
+            const rect1 = niEl.getBoundingClientRect();
+            const rect2 = reNiEl.getBoundingClientRect();
+            const containerRect = document.getElementById('flow-container').getBoundingClientRect();
+            
+            line1.style.left = `${rect1.right - containerRect.left}px`;
+            line1.style.top = `${rect1.top - containerRect.top + rect1.height / 2}px`;
+            line1.style.height = '3px';
+            line1.style.width = `${rect2.left - rect1.right}px`;
+
+            value1.textContent = '$400';
+            value1.style.left = `${rect1.right - containerRect.left + (rect2.left - rect1.right) / 2 - 20}px`;
+            value1.style.top = `${rect1.top - containerRect.top + rect1.height / 2 - 25}px`;
+            value1.style.opacity = '1';
+
+            updateField('flow-re-ni', 400);
+        }, 2500));
+        
+        timeouts.push(setTimeout(() => updateField('flow-ending-re', 400), 3000));
+
+        timeouts.push(setTimeout(() => {
+            const reEl = document.getElementById('flow-ending-re');
+            const eqEl = document.getElementById('flow-equity');
+            const line2 = document.getElementById('line2');
+            const value2 = document.getElementById('value2');
+            
+            const rect1 = reEl.getBoundingClientRect();
+            const rect2 = eqEl.getBoundingClientRect();
+            const containerRect = document.getElementById('flow-container').getBoundingClientRect();
+
+            line2.style.left = `${rect1.right - containerRect.left}px`;
+            line2.style.top = `${rect1.top - containerRect.top + rect1.height / 2}px`;
+            line2.style.height = '3px';
+            line2.style.width = `${rect2.left - rect1.right}px`;
+
+            value2.textContent = '$400';
+            value2.style.left = `${rect1.right - containerRect.left + (rect2.left - rect1.right) / 2 - 20}px`;
+            value2.style.top = `${rect1.top - containerRect.top + rect1.height / 2 - 25}px`;
+            value2.style.opacity = '1';
+            
+            updateField('flow-equity', 500 + 400);
+            updateField('flow-cash', 500 + 400);
+        }, 4000));
+
+        timeouts.push(setTimeout(() => {
+            updateField('flow-total-assets', 900);
+            updateField('flow-total-liab-equity', 900);
+            runScenarioBtn.disabled = false;
+        }, 5000));
+    }
+    
+    document.getElementById('checkCaseStudy').addEventListener('click', () => {
+        const selects = document.querySelectorAll('#case-study-quiz select');
+        let correctCount = 0;
+        selects.forEach(select => {
+            select.classList.remove('border-green-500', 'border-red-500');
+            select.classList.add('border-2');
+            if (select.options[select.selectedIndex].value === 'correct') {
+                select.classList.add('border-green-500');
+                correctCount++;
+            } else {
+                 select.classList.add('border-red-500');
+            }
+        });
+        const feedback = document.getElementById('caseStudyFeedback');
+        if (correctCount === 3) {
+            feedback.textContent = 'Excellent! You correctly identified all three. You understand the purpose of each statement.';
+            feedback.className = 'mt-2 text-sm font-medium text-green-700';
+        } else {
+            feedback.textContent = `You got ${correctCount} out of 3 correct. Review the purpose of each statement and try again.`;
+            feedback.className = 'mt-2 text-sm font-medium text-amber-700';
+        }
+    });
+
+});
+</script>
+</body>
+</html>
