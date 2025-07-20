@@ -95,7 +95,7 @@
 
     <div class="flex flex-col md:flex-row min-h-screen">
         <!-- Sidebar Navigation -->
-        <aside id="sidebar" class="w-full md:w-64 bg-[#F1EEEA] border-r border-gray-200 flex-shrink-0">
+        <aside id="sidebar" class="w-full md:w-72 bg-[#F1EEEA] border-r border-gray-200 flex-shrink-0">
             <div class="p-5 border-b border-gray-200">
                 <h1 class="text-xl font-bold text-[#D57A66]">Prompt Library</h1>
                 <p class="text-sm text-gray-500">Explorer</p>
@@ -113,6 +113,10 @@
                     <span class="w-5 h-5">👥</span>
                     <span>Customer Service</span>
                 </a>
+                 <a href="#wealth-manager" data-target="wealth-manager" class="nav-item text-left p-4 text-sm font-medium text-gray-700 flex items-center space-x-3">
+                    <span class="w-5 h-5">💼</span>
+                    <span>Wealth Manager</span>
+                </a>
                 <a href="#developer" data-target="developer" class="nav-item text-left p-4 text-sm font-medium text-gray-700 flex items-center space-x-3">
                     <span class="w-5 h-5">💻</span>
                     <span>Developer</span>
@@ -121,9 +125,21 @@
                     <span class="w-5 h-5">📣</span>
                     <span>Marketing</span>
                 </a>
+                 <a href="#risk-compliance" data-target="risk-compliance" class="nav-item text-left p-4 text-sm font-medium text-gray-700 flex items-center space-x-3">
+                    <span class="w-5 h-5">🛡️</span>
+                    <span>Risk & Compliance</span>
+                </a>
+                 <a href="#it-security" data-target="it-security" class="nav-item text-left p-4 text-sm font-medium text-gray-700 flex items-center space-x-3">
+                    <span class="w-5 h-5">🔒</span>
+                    <span>IT Security Analyst</span>
+                </a>
                  <a href="#ml-orchestrator" data-target="ml-orchestrator" class="nav-item text-left p-4 text-sm font-medium text-gray-700 flex items-center space-x-3">
                     <span class="w-5 h-5">🤖</span>
                     <span>ML Orchestrator</span>
+                </a>
+                <a href="#agentic-workflows" data-target="agentic-workflows" class="nav-item text-left p-4 text-sm font-medium text-gray-700 flex items-center space-x-3">
+                    <span class="w-5 h-5">⚙️</span>
+                    <span>Agentic Workflows</span>
                 </a>
                 <a href="#advanced-engineering" data-target="advanced-engineering" class="nav-item text-left p-4 text-sm font-medium text-gray-700 flex items-center space-x-3">
                     <span class="w-5 h-5">🧠</span>
@@ -228,6 +244,13 @@
                         description: "Summarizes a financial transcript and extracts key insights.",
                         template: `**Persona:** You are a seasoned financial analyst at a top-tier investment bank. Your expertise lies in distilling complex financial information into actionable insights for our clients. You are meticulous, insightful, and focused on material information.\n\n**Task:** I will provide you with the transcript of a company's quarterly earnings call. Your task is to:\n\n1.  **Executive Summary:** Provide a concise, one-paragraph executive summary of the key highlights and lowlights of the call.\n2.  **Key Financial Metrics:** Extract and present in a table the following key financial metrics: Revenue, Net Income, Earnings Per Share (EPS), and Operating Margin. Compare these to the same quarter last year and to analyst expectations if mentioned.\n3.  **Management Tone and Sentiment:** Analyze the tone of the management team during the Q&A session. Was it confident, cautious, or defensive? Provide specific examples.\n4.  **Forward-Looking Guidance:** Summarize the company's financial guidance for the upcoming quarter and full year.\n5.  **Key Risks and Opportunities:** Based on the call, identify the top 3 risks and top 3 opportunities for the company.\n6.  **Actionable Insight:** What is the single most important takeaway from this call for an investor?\n\n**Input Data:**\n\`\`\`\n{transcript}\n\`\`\``
                     }]
+                }, {
+                    name: "M&A Target Screening",
+                    prompts: [{
+                        id: "FA-002-MAScreening",
+                        description: "Analyzes a list of companies against predefined M&A criteria.",
+                        template: `**Persona:** You are a mergers and acquisitions (M&A) analyst. Your goal is to identify potential acquisition targets that fit our strategic criteria. You are detail-oriented and focused on quantitative and qualitative fit.\n\n**Task:** I will provide you with a list of companies in the fintech sector and our strategic acquisition criteria. For each company, evaluate it against the criteria and provide a "Fit Score" from 1 (poor fit) to 5 (excellent fit). Justify your score in a brief paragraph.\n\n**Strategic Criteria:**\n- Revenue Growth > 20% YoY\n- Gross Margin > 60%\n- Market: North America or Europe\n- Technology: AI-driven credit scoring or payment processing\n\n**Input Data:**\n\`\`\`json\n[\n  {\n    "company_name": "FinTech Innovations Inc.",\n    "revenue_growth_yoy": "25%",\n    "gross_margin": "65%",\n    "market": "North America",\n    "technology": "AI-driven credit scoring"\n  },\n  {\n    "company_name": "EuroPay Solutions",\n    "revenue_growth_yoy": "18%",\n    "gross_margin": "70%",\n    "market": "Europe",\n    "technology": "Payment processing"\n  }\n]\n\`\`\``
+                    }]
                 }]
             },
             "customer-service": {
@@ -242,6 +265,18 @@
                     }]
                 }]
             },
+            "wealth-manager": {
+                name: "Wealth Manager",
+                description: "Prompts designed to help wealth managers with client communication, portfolio analysis, and generating personalized market insights, enhancing the client experience.",
+                use_cases: [{
+                    name: "Weekly Client Market Commentary",
+                    prompts: [{
+                        id: "WM-001-MarketCommentary",
+                        description: "Generates a personalized weekly market summary for a client.",
+                        template: `**Persona:** You are a trusted wealth manager communicating with a long-term client. Your tone should be knowledgeable, reassuring, and tailored to the client's specific interests and portfolio holdings.\n\n**Task:** Based on the provided market data and client portfolio summary, draft a concise weekly market commentary email. The email should:\n\n1.  Start with a personalized greeting.\n2.  Briefly summarize the week's key market movements (e.g., S&P 500, NASDAQ).\n3.  Provide specific commentary on one or two key holdings in the client's portfolio.\n4.  Offer a forward-looking statement of reassurance and long-term perspective.\n\n**Input Data:**\n* Client Name: {client_name}\n* Key Holdings: {list_of_key_holdings}\n* Market Data Summary: {summary_of_weekly_market_data}`
+                    }]
+                }]
+            },
             "developer": {
                 name: "Developer & Data Scientist",
                 description: "To accelerate innovation, the library provides technical prompts to assist developers and data scientists. These prompts aid in tasks like code generation, debugging, and complex data exploration.",
@@ -251,6 +286,13 @@
                         id: "DEV-001-DataAnonymization",
                         description: "Generates a Python script to anonymize sensitive customer data.",
                         template: `**Persona:** You are a senior Python developer with expertise in data security and privacy.\n\n**Task:** Write a Python script that reads a CSV file named \`customer_data.csv\` and anonymizes the following columns: 'FirstName', 'LastName', 'Address', and 'Email'. Use the 'Faker' library to generate realistic but fake data for these columns. The script should write the anonymized data to a new CSV file named \`anonymized_customer_data.csv\`. Include comments in the code to explain each step.`
+                    }]
+                }, {
+                    name: "Legacy Code Refactoring (COBOL to Java)",
+                    prompts: [{
+                        id: "DEV-002-CobolRefactor",
+                        description: "Translates a COBOL code snippet to modern, object-oriented Java.",
+                        template: `**Persona:** You are an expert software engineer specializing in mainframe modernization. You have deep knowledge of both COBOL and modern Java frameworks. Your goal is to produce clean, readable, and maintainable Java code that is functionally equivalent to the original COBOL.\n\n**Task:** I will provide you with a COBOL code snippet. Your task is to:\n\n1.  Translate the COBOL code into a functionally equivalent Java class.\n2.  Use modern Java features (e.g., streams, optionals) where appropriate.\n3.  Add comments to the Java code explaining how it maps back to the original COBOL logic.\n4.  Identify any potential modernization improvements (e.g., replacing a batch process with a real-time API call).\n\n**Input Data:**\n\`\`\`cobol\n{cobol_code_snippet}\n\`\`\``
                     }]
                 }]
             },
@@ -263,6 +305,30 @@
                         id: "MKT-001-CampaignBrainstorm",
                         description: "Generates creative concepts for a new product launch.",
                         template: `**Persona:** You are a creative and strategic marketing manager at a bank.\n\n**Task:** We are launching a new high-yield savings account targeted at millennials. Brainstorm three distinct marketing campaign concepts. For each concept, provide:\n\n1.  A catchy slogan.\n2.  The core messaging.\n3.  Key channels to reach the target audience (e.g., social media platforms, influencer collaborations, etc.).\n4.  A brief description of the visual identity.\n\nEnsure all concepts are compliant with financial advertising regulations by avoiding promises of guaranteed returns and using clear, non-misleading language.`
+                    }]
+                }]
+            },
+            "risk-compliance": {
+                name: "Risk & Compliance Officer",
+                description: "Prompts for analyzing regulations, generating compliance reports, and identifying potential risks in new products or processes.",
+                use_cases: [{
+                    name: "Regulatory Change Impact Analysis",
+                    prompts: [{
+                        id: "RC-001-RegImpact",
+                        description: "Summarizes a new regulation and identifies its potential impact on bank policies.",
+                        template: `**Persona:** You are a meticulous compliance officer. Your primary responsibility is to interpret new financial regulations and assess their impact on the bank's operations and policies. Your analysis must be precise, objective, and actionable.\n\n**Task:** I will provide you with the text of a new financial regulation. Your task is to:\n\n1.  **Executive Summary:** Provide a one-paragraph summary of the regulation's purpose and key requirements.\n2.  **Impacted Policies:** Identify which of the bank's internal policies (e.g., 'Data Governance Policy', 'Anti-Money Laundering Policy', 'Credit Risk Policy') are most likely to be affected.\n3.  **Required Actions:** For each impacted policy, recommend specific actions that must be taken to ensure compliance (e.g., 'Update section 4.2 of the AML Policy to include new reporting thresholds').\n4.  **Presents as a structured JSON object.**\n\n**Input Data:**\n\`\`\`\n{regulatory_text}\n\`\`\``
+                    }]
+                }]
+            },
+            "it-security": {
+                name: "IT Security Analyst",
+                description: "Prompts for threat intelligence analysis, incident report generation, and drafting security policies to protect the bank's digital assets.",
+                use_cases: [{
+                    name: "Threat Intelligence Report Summarization",
+                    prompts: [{
+                        id: "SEC-001-ThreatIntel",
+                        description: "Summarizes a technical threat intelligence report and extracts actionable indicators.",
+                        template: `**Persona:** You are a senior cybersecurity analyst at a major financial institution. You are an expert at parsing dense, technical threat intelligence reports to extract actionable insights for the Security Operations Center (SOC).\n\n**Task:** I will provide you with a threat intelligence report concerning a new malware variant targeting the financial sector. Your task is to:\n\n1.  **Threat Summary:** Provide a concise summary of the threat actor, their motives, and their primary Tactics, Techniques, and Procedures (TTPs).\n2.  **Actionable Indicators:** Extract all Indicators of Compromise (IoCs) and present them in a structured format. This must include file hashes (MD5, SHA256), malicious IP addresses, and C2 domains.\n3.  **Recommended Mitigations:** Suggest 3-5 immediate mitigation steps for the SOC team to implement (e.g., 'Block all outbound traffic to the listed C2 domains', 'Create a new detection rule for the provided file hashes').\n\n**Input Data:**\n\`\`\`\n{threat_intelligence_report_text}\n\`\`\``
                     }]
                 }]
             },
@@ -351,12 +417,129 @@ context:
                     }]
                 }]
             },
+            "agentic-workflows": {
+                name: "Agentic Workflows",
+                description: "This section moves beyond single prompts to define multi-step, multi-agent workflows. These YAML files are conceptual blueprints for an orchestration engine (like LangGraph or AutoGen) to execute complex, automated processes.",
+                use_cases: []
+            },
             "advanced-engineering": {
                 name: "Advanced Prompt Engineering",
                 description: "A detailed walkthrough of complex prompting techniques to build robust, reliable, and sophisticated agentic workflows. This section goes beyond simple templates to explain the 'why' behind advanced prompt design.",
                 use_cases: [] // Populated by JS
             }
         };
+
+        const agenticWorkflows = [
+            {
+                name: "Automated Market News Analysis Workflow",
+                description: "A multi-agent system that scrapes financial news, analyzes it, and generates a daily briefing.",
+                template: `# WORKFLOW METADATA
+workflow_id: "AGENTIC-MKT-NEWS-001"
+workflow_name: "DailyMarketNewsAnalyzer"
+version: "1.1.0"
+description: "An automated workflow that scrapes, summarizes, and analyzes financial news to produce a daily market briefing."
+trigger: "Scheduled (Daily at 08:00 UTC)"
+
+# AGENT DEFINITIONS
+agents:
+  - agent_id: "news_scraper"
+    role: "Financial News Scraper"
+    prompt_id: "TOOL-USE-001-ScrapeAPI" # A prompt that instructs the agent how to use a web scraping tool
+    tools: ["web_scraper_api"]
+    output: "List of article URLs"
+
+  - agent_id: "article_summarizer"
+    role: "Content Summarizer"
+    prompt_id: "FA-001-EarningsSummary" # Reuses a prompt from the Financial Analyst persona
+    input: "article_content"
+    output: "Structured summary with key points"
+
+  - agent_id: "sentiment_analyzer"
+    role: "Sentiment Analyst"
+    prompt_id: "NLP-005-SentimentScoring" # A prompt designed for sentiment classification
+    input: "article_summary"
+    output: "Sentiment score (e.g., -1.0 to 1.0)"
+
+  - agent_id: "report_generator"
+    role: "Briefing Compiler"
+    prompt_id: "REPORT-001-DailyBriefing" # A prompt that formats multiple inputs into a coherent report
+    input: ["list_of_summaries", "list_of_sentiments"]
+    output: "Formatted HTML report"
+
+  - agent_id: "notification_agent"
+    role: "Notifier"
+    prompt_id: "TOOL-USE-002-SendEmail" # A prompt that instructs how to use a notification tool
+    tools: ["email_api"]
+    input: "html_report"
+
+# WORKFLOW GRAPH
+graph:
+  - from: "start"
+    to: "news_scraper"
+  - from: "news_scraper"
+    to: "article_summarizer" # This implies a map/reduce pattern over the list of URLs
+  - from: "article_summarizer"
+    to: "sentiment_analyzer"
+  - from: "sentiment_analyzer"
+    to: "report_generator" # This implies an aggregation step
+  - from: "report_generator"
+    to: "notification_agent"
+  - from: "notification_agent"
+    to: "end"`
+            },
+            {
+                name: "Compliance Policy Verification Workflow",
+                description: "A multi-agent system that cross-references internal policies with external regulations to find gaps.",
+                template: `# WORKFLOW METADATA
+workflow_id: "AGENTIC-COMPLIANCE-CHECK-001"
+workflow_name: "ComplianceGapAnalysis"
+version: "1.0.0"
+description: "An automated workflow that analyzes new internal policies against a corpus of external regulations to identify potential compliance gaps."
+trigger: "Event-driven (On new document in policy_repository)"
+
+# AGENT DEFINITIONS
+agents:
+  - agent_id: "policy_ingestor"
+    role: "Document Ingestor"
+    prompt_id: "TOOL-USE-003-ReadDocument"
+    tools: ["document_repository_api"]
+    input: "new_document_event"
+    output: "policy_text"
+
+  - agent_id: "regulation_retriever"
+    role: "Regulatory Research Assistant"
+    prompt_id: "TOOL-USE-004-VectorSearch" # Prompt to formulate a query and search a vector DB
+    tools: ["regulatory_vector_db"]
+    input: "policy_text"
+    output: "List of relevant regulatory excerpts"
+
+  - agent_id: "gap_analyzer"
+    role: "Compliance Gap Analyst"
+    prompt_id: "RC-002-GapAnalysis" # A sophisticated ReAct prompt for comparison
+    input: ["policy_text", "relevant_regulatory_excerpts"]
+    output: "Structured gap analysis report (JSON)"
+
+  - agent_id: "task_creator"
+    role: "Workflow Coordinator"
+    prompt_id: "TOOL-USE-005-CreateTask"
+    tools: ["task_management_api"]
+    input: "gap_analysis_report"
+    output: "Task ID"
+
+# WORKFLOW GRAPH
+graph:
+  - from: "start"
+    to: "policy_ingestor"
+  - from: "policy_ingestor"
+    to: "regulation_retriever"
+  - from: "regulation_retriever"
+    to: "gap_analyzer"
+  - from: "gap_analyzer"
+    to: "task_creator"
+  - from: "task_creator"
+    to: "end"`
+            }
+        ];
 
         const advancedTechniques = [
             {
@@ -377,33 +560,50 @@ A: Let's think step by step.
 The final answer is 600.`
             },
             {
-                name: "Self-Consistency",
-                description: "Self-Consistency improves upon CoT by sampling multiple, diverse reasoning paths (thoughts) and then selecting the most consistent answer through a majority vote. This makes the final result more robust and less susceptible to errors from a single flawed reasoning chain.",
-                template: `Q: A client has a portfolio of $500k. They want to allocate 20% to bonds, 50% to stocks, and the rest to cash. How much is allocated to cash?
+                name: "ReAct (Reason + Act)",
+                description: "ReAct extends prompting to create true agents. The model reasons about a task, decides on an action (like using a tool), executes it, observes the result, and then reasons again to decide the next action. This allows models to interact with external systems (like APIs or databases) to solve problems they couldn't solve with their internal knowledge alone.",
+                template: `Question: What was the stock price of the parent company of Google on its first day of trading?
 
---- Reasoning Path 1 ---
-1. Total portfolio: $500,000
-2. Bonds: 20% of $500k = $100,000
-3. Stocks: 50% of $500k = $250,000
-4. Total allocated: $100k + $250k = $350,000
-5. Cash: $500k - $350k = $150,000
-Final Answer: $150,000
+Thought 1: I need to find the parent company of Google and its IPO date. I will use a search tool.
+Action 1: search("parent company of Google")
+Observation 1: The parent company of Google is Alphabet Inc. (GOOGL).
 
---- Reasoning Path 2 ---
-1. Total portfolio: $500,000
-2. Percentage for cash: 100% - 20% (bonds) - 50% (stocks) = 30%
-3. Cash allocation: 30% of $500k = 0.3 * 500,000 = $150,000
-Final Answer: $150,000
+Thought 2: Now I need to find the IPO date and price for Google (before it became Alphabet).
+Action 2: search("Google IPO date and price")
+Observation 2: Google's initial public offering (IPO) took place on August 19, 2004. The initial price was $85 per share.
 
---- Reasoning Path 3 ---
-1. Total portfolio: $500,000
-2. Bonds + Stocks percentage: 20% + 50% = 70%
-3. Cash percentage: 100% - 70% = 30%
-4. Cash value: $500,000 * 0.30 = $150,000
-Final Answer: $150,000
+Thought 3: I have found the answer. The price was $85 on August 19, 2004.
+Action 3: finish("The stock price of Google on its IPO date, August 19, 2004, was $85 per share.")`
+            },
+            {
+                name: "Self-Correction / Reflection",
+                description: "This technique involves instructing the model to critique and refine its own work. After generating an initial response, the model is prompted to act as a critic, identify flaws or areas for improvement, and then generate a revised, higher-quality version.",
+                template: `[Initial Prompt]
+"Draft a short marketing email for a new credit card with a low introductory APR."
 
---- Final Aggregated Answer ---
-The most consistent answer across all reasoning paths is $150,000.`
+[Initial Response from LLM]
+"Subject: New Card! Get our new credit card now. It has a low APR. Click here to apply."
+
+[Self-Correction Prompt]
+"You are a quality assurance expert. Review the email draft above. Is it persuasive? Is it professional? Does it contain a clear call to action? Identify 3 weaknesses and suggest improvements. Then, rewrite the email incorporating your suggestions."
+
+[Final, Corrected Response from LLM]
+Weaknesses:
+1. The subject line is generic and unprofessional.
+2. "Low APR" is vague; it should be specific.
+3. The call to action is weak.
+
+Rewritten Email:
+Subject: A Smarter Way to Borrow: Introducing the new Platinum Card
+
+Dear [Customer Name],
+
+Take control of your finances with the new Platinum Card from our bank. For a limited time, enjoy an introductory APR of just 1.99% for the first 12 months.
+
+Whether you're planning a large purchase or consolidating debt, our new card offers the flexibility you need.
+
+Learn more and apply in minutes.
+[Link to Application]`
             },
             {
                 name: "Tree of Thoughts (ToT)",
@@ -458,57 +658,60 @@ Task: 'Create a comprehensive risk assessment report for a new fintech lending p
                 let html = '';
                 for (const key in promptData) {
                     const persona = promptData[key];
+                    let contentHtml = '';
+                    
                     if (key === 'advanced-engineering') {
-                        html += `
-                        <div id="${key}" class="content-section hidden">
-                             <header class="mb-10">
-                                <h2 class="text-3xl font-bold text-gray-800">${persona.name}</h2>
-                                <p class="mt-2 text-lg text-gray-600">${persona.description}</p>
-                            </header>
-                            <div>
-                                ${advancedTechniques.map(tech => `
-                                    <div class="technique-card">
-                                        <h3 class="text-xl font-semibold text-gray-800 mb-2">${tech.name}</h3>
-                                        <p class="text-gray-600 mb-4">${tech.description}</p>
-                                        <div class="code-block">${tech.template.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
-                                    </div>
-                                `).join('')}
+                        contentHtml = advancedTechniques.map(tech => `
+                            <div class="technique-card">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">${tech.name}</h3>
+                                <p class="text-gray-600 mb-4">${tech.description}</p>
+                                <div class="code-block">${tech.template.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
                             </div>
-                        </div>`;
+                        `).join('');
+                    } else if (key === 'agentic-workflows') {
+                        contentHtml = agenticWorkflows.map(wf => `
+                            <div class="technique-card">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">${wf.name}</h3>
+                                <p class="text-gray-600 mb-4">${wf.description}</p>
+                                <div class="code-block">${wf.template.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
+                            </div>
+                        `).join('');
                     } else {
-                         html += `
+                         contentHtml = persona.use_cases.map((useCase, i) => `
+                            <div class="bg-white rounded-lg shadow-sm border border-gray-200/50">
+                                <div class="accordion-header flex justify-between items-center p-4">
+                                    <h3 class="font-semibold text-gray-800">${useCase.name}</h3>
+                                    <span class="transform transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="p-4 border-t border-gray-200/80">
+                                        ${useCase.prompts.map(prompt => `
+                                            <div class="mb-4">
+                                                <div class="flex justify-between items-center mb-2">
+                                                    <p class="text-sm font-semibold text-gray-500">${prompt.id}</p>
+                                                    <button class="copy-btn text-sm bg-[#6B7A8F] text-white px-3 py-1 rounded-md hover:bg-[#59687D] transition-colors" data-prompt-id="${prompt.id}">Copy</button>
+                                                </div>
+                                                <p class="text-sm text-gray-600 mb-3">${prompt.description}</p>
+                                                <div class="code-block" id="prompt-text-${prompt.id}">${prompt.template.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+
+                    html += `
                         <div id="${key}" class="content-section hidden">
                              <header class="mb-10">
                                 <h2 class="text-3xl font-bold text-gray-800">${persona.name}</h2>
                                 <p class="mt-2 text-lg text-gray-600">${persona.description}</p>
                             </header>
                             <div class="space-y-4">
-                                ${persona.use_cases.map((useCase, i) => `
-                                    <div class="bg-white rounded-lg shadow-sm border border-gray-200/50">
-                                        <div class="accordion-header flex justify-between items-center p-4">
-                                            <h3 class="font-semibold text-gray-800">${useCase.name}</h3>
-                                            <span class="transform transition-transform duration-300">▼</span>
-                                        </div>
-                                        <div class="accordion-content">
-                                            <div class="p-4 border-t border-gray-200/80">
-                                                ${useCase.prompts.map(prompt => `
-                                                    <div class="mb-4">
-                                                        <div class="flex justify-between items-center mb-2">
-                                                            <p class="text-sm font-semibold text-gray-500">${prompt.id}</p>
-                                                            <button class="copy-btn text-sm bg-[#6B7A8F] text-white px-3 py-1 rounded-md hover:bg-[#59687D] transition-colors" data-prompt-id="${prompt.id}">Copy</button>
-                                                        </div>
-                                                        <p class="text-sm text-gray-600 mb-3">${prompt.description}</p>
-                                                        <div class="code-block" id="prompt-text-${prompt.id}">${prompt.template.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
-                                                    </div>
-                                                `).join('')}
-                                            </div>
-                                        </div>
-                                    </div>
-                                `).join('')}
+                                ${contentHtml}
                             </div>
                         </div>
                     `;
-                    }
                 }
                 personaContainer.innerHTML = html;
             }
@@ -582,7 +785,7 @@ Task: 'Create a comprehensive risk assessment report for a new fintech lending p
 
             function renderPersonaChart() {
                 const ctx = document.getElementById('personaChart').getContext('2d');
-                const chartData = Object.keys(promptData).filter(key => key !== 'advanced-engineering');
+                const chartData = Object.keys(promptData).filter(key => !['advanced-engineering', 'agentic-workflows'].includes(key));
                 const personaNames = chartData.map(key => promptData[key].name);
                 const useCaseCounts = chartData.map(key => promptData[key].use_cases.length);
 
@@ -596,18 +799,12 @@ Task: 'Create a comprehensive risk assessment report for a new fintech lending p
                             backgroundColor: [
                                 'rgba(54, 162, 235, 0.7)',
                                 'rgba(75, 192, 192, 0.7)',
+                                'rgba(255, 206, 86, 0.7)',
                                 'rgba(153, 102, 255, 0.7)',
                                 'rgba(255, 159, 64, 0.7)',
                                 'rgba(255, 99, 132, 0.7)',
-                                'rgba(255, 206, 86, 0.7)'
-                            ],
-                            borderColor: [
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(255, 206, 86, 1)'
+                                'rgba(100, 149, 237, 0.7)',
+                                'rgba(46, 204, 113, 0.7)'
                             ],
                             borderWidth: 1
                         }]
