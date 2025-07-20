@@ -32,3 +32,24 @@ The Accounting section is organized into the following subdirectories:
 *   When adding new content, be sure to update the `Accounting/index.html` file to include a link to the new content.
 *   Use a consistent style for all content in this section.
 *   Add a roadmap to this section to outline future plans in more detail.
+
+## 6. Roadmap
+
+### Q3 2024: Deeper Dives & More Practice
+
+*   **Content:**
+    *   **New Deep Dives:** Add deep dives on topics such as inventory, property, plant, and equipment (PP&E), and intangible assets.
+    *   **More Case Studies:** Add more case studies on topics such as revenue recognition, lease accounting, and business combinations.
+    *   **More Interactive Notebooks:** Add more interactive notebooks on topics such as financial statement analysis, ratio analysis, and forecasting.
+*   **Features:**
+    *   **Interactive Exercises:** Add interactive exercises to the deep dives to help users practice what they've learned.
+    *   **Video Tutorials:** Create video tutorials to supplement the text-based content.
+
+### Q4 2024: Advanced Topics & IFRS
+
+*   **Content:**
+    *   **Advanced Topics:** Add content on more advanced topics, such as pensions, derivatives, and foreign currency translation.
+    *   **IFRS:** Add a section on International Financial Reporting Standards (IFRS) and how they differ from U.S. GAAP.
+*   **Features:**
+    *   **IFRS vs. GAAP Comparison Tool:** Create a tool that allows users to compare and contrast IFRS and U.S. GAAP.
+    *   **Expert Interviews:** Interview accounting experts to get their insights on the latest trends in the industry.
