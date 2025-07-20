@@ -26,3 +26,10 @@ The Accounting section is organized into the following subdirectories:
 *   Expand the `Case_Studies` section with more real-world examples.
 *   Create more interactive notebooks for the `Interactive_Notebooks` section.
 *   Add more templates to the `Templates` section.
+
+## 5. Developer Notes
+
+*   When adding new content, be sure to update the `Accounting/index.html` file to include a link to the new content.
+*   Use a consistent style for all content in this section.
+*   Add a roadmap to this section to outline future plans in more detail.
+
