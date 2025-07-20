@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Banking Prompt Library Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: The application is designed as a single-page dashboard with a fixed sidebar for primary navigation between an 'Overview' section and different 'Personas'. This structure was chosen because the source report is inherently role-based. It allows a user to immediately self-identify with a persona and directly access relevant tools (prompts), which is more efficient than reading a linear document. The 'Overview' section provides foundational context on the framework's principles and governance, setting the stage for the practical tools in the persona sections. Interactions like accordions for use cases and a 'copy' button for prompts are designed to make the library immediately functional and usable, directly translating the report's purpose into an active tool. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Framework Pillars (Scalable, Flexible, Governed) -> Goal: Inform -> Viz: Styled HTML cards -> Interaction: Hover effects -> Justification: More engaging and visually distinct than a bullet list. Method: Tailwind CSS.
+        - Report Info: Contribution Process -> Goal: Organize -> Viz: Numbered step diagram -> Interaction: None -> Justification: Clearly visualizes the sequential workflow in a more digestible format than plain text. Method: HTML/Tailwind.
+        - Report Info: Persona Distribution -> Goal: Compare -> Viz: Donut Chart -> Interaction: Hover for tooltips -> Justification: Provides a quick quantitative overview of the library's scope across different roles. Library: Chart.js.
+        - Report Info: Use Cases & Prompts -> Goal: Organize/Inform -> Viz: Accordion -> Interaction: Click to expand/collapse -> Justification: Hides complexity and prevents information overload, allowing users to focus on a single prompt. Method: Vanilla JS.
+        - Report Info: Prompt Templates -> Goal: Enable -> Viz: Styled code block -> Interaction: "Copy to Clipboard" button -> Justification: The key user action. Makes the prompts immediately usable. Method: Vanilla JS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #383838;
+        }
+        .code-block {
+            background-color: #FDFCFB;
+            border: 1px solid #EAE8E3;
+            border-radius: 8px;
+            padding: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            color: #505050;
+        }
+        .code-block strong {
+            color: #2c5282;
+        }
+        .code-block .token-key {
+            color: #9B59B6;
+        }
+        .code-block .token-value {
+            color: #2ECC71;
+        }
+        .nav-item {
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-item.active {
+            background-color: #EAE8E3;
+            color: #D57A66;
+            border-right: 3px solid #D57A66;
+        }
+        .nav-item:not(.active):hover {
+            background-color: #F3F1ED;
+        }
+        .accordion-header {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .accordion-header:hover {
+            background-color: #F3F1ED;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .chart-container {
+            position: relative; 
+            width: 100%; 
+            max-width: 400px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="w-full md:w-64 bg-[#F1EEEA] border-r border-gray-200 flex-shrink-0">
+            <div class="p-5 border-b border-gray-200">
+                <h1 class="text-xl font-bold text-[#D57A66]">Prompt Library</h1>
+                <p class="text-sm text-gray-500">Explorer</p>
+            </div>
+            <nav id="main-nav" class="flex flex-row md:flex-col overflow-x-auto">
+                <a href="#overview" data-target="overview" class="nav-item active text-left p-4 text-sm font-medium text-gray-700 flex items-center space-x-3">
+                    <span class="w-5 h-5">📊</span>
+                    <span>Overview</span>
+                </a>
+                <a href="#financial-analyst" data-target="financial-analyst" class="nav-item text-left p-4 text-sm font-medium text-gray-700 flex items-center space-x-3">
+                    <span class="w-5 h-5">📈</span>
+                    <span>Financial Analyst</span>
+                </a>
+                <a href="#customer-service" data-target="customer-service" class="nav-item text-left p-4 text-sm font-medium text-gray-700 flex items-center space-x-3">
+                    <span class="w-5 h-5">👥</span>
+                    <span>Customer Service</span>
+                </a>
+                <a href="#developer" data-target="developer" class="nav-item text-left p-4 text-sm font-medium text-gray-700 flex items-center space-x-3">
+                    <span class="w-5 h-5">💻</span>
+                    <span>Developer</span>
+                </a>
+                <a href="#marketing" data-target="marketing" class="nav-item text-left p-4 text-sm font-medium text-gray-700 flex items-center space-x-3">
+                    <span class="w-5 h-5">📣</span>
+                    <span>Marketing</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 sm:p-10 bg-[#F8F7F4]">
+            
+            <!-- Overview Section -->
+            <div id="overview" class="content-section">
+                <header class="mb-10">
+                    <h2 class="text-3xl font-bold text-gray-800">Global Banking Prompt Library Framework</h2>
+                    <p class="mt-2 text-lg text-gray-600">A structured and governed approach to interacting with large language models.</p>
+                </header>
+                
+                <div class="bg-white/80 p-6 rounded-lg shadow-sm mb-10">
+                     <h3 class="text-xl font-semibold text-gray-700 mb-2">Framework Introduction</h3>
+                     <p class="text-gray-600">This section provides a high-level introduction to the Global Banking Prompt Library. Explore the core principles that guide its design, understand the structured governance and contribution process, and see a visual breakdown of the library's foundational components. This will give you the context needed to effectively use the prompts in the explorer.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <h4 class="font-bold text-lg text-blue-800">Scalable</h4>
+                        <p class="text-sm text-gray-600 mt-1">Designed to grow with the bank's needs and new AI use cases.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <h4 class="font-bold text-lg text-green-800">Flexible</h4>
+                        <p class="text-sm text-gray-600 mt-1">Adapts to various roles, departments, and LLMs.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <h4 class="font-bold text-lg text-purple-800">Governed</h4>
+                        <p class="text-sm text-gray-600 mt-1">Ensures compliance, quality, and security through clear processes.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <h4 class="font-bold text-lg text-orange-800">Usable</h4>
+                        <p class="text-sm text-gray-600 mt-1">Empowers all employees with easy-to-find, vetted prompts.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                    <div class="lg:col-span-3 bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">Governance & Contribution Process</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#6B7A8F] text-white flex items-center justify-center font-bold">1</div>
+                                <div class="ml-4">
+                                    <h4 class="font-semibold">Propose</h4>
+                                    <p class="text-gray-600 text-sm">Submit a new prompt or modification via a pull request in the internal version control system.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#6B7A8F] text-white flex items-center justify-center font-bold">2</div>
+                                <div class="ml-4">
+                                    <h4 class="font-semibold">Review</h4>
+                                    <p class="text-gray-600 text-sm">Prompt engineering specialists and domain experts review the proposal for effectiveness, clarity, and efficiency.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#6B7A8F] text-white flex items-center justify-center font-bold">3</div>
+                                <div class="ml-4">
+                                    <h4 class="font-semibold">Approve</h4>
+                                    <p class="text-gray-600 text-sm">Stewards from the AI Center of Excellence and Compliance & Risk Management provide final approval.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#6B7A8F] text-white flex items-center justify-center font-bold">4</div>
+                                <div class="ml-4">
+                                    <h4 class="font-semibold">Merge</h4>
+                                    <p class="text-gray-600 text-sm">The approved prompt is merged into the main library, making it available for use across the institution.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4 text-center">Use Cases by Persona</h3>
+                        <div class="chart-container">
+                            <canvas id="personaChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Persona Sections -->
+            <div id="persona-sections-container">
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        const promptData = {
+            "financial-analyst": {
+                name: "Financial Analyst",
+                description: "For the Financial Analyst, precision in inquiry is paramount. These prompts are designed to assist in a range of analytical tasks, from summarizing earnings calls to identifying market trends, ensuring meticulous and insightful outputs.",
+                use_cases: [{
+                    name: "Earnings Call Summary and Analysis",
+                    prompts: [{
+                        id: "FA-001-EarningsSummary",
+                        description: "Summarizes a financial transcript and extracts key insights.",
+                        template: `**Persona:** You are a seasoned financial analyst at a top-tier investment bank. Your expertise lies in distilling complex financial information into actionable insights for our clients. You are meticulous, insightful, and focused on material information.\n\n**Task:** I will provide you with the transcript of a company's quarterly earnings call. Your task is to:\n\n1.  **Executive Summary:** Provide a concise, one-paragraph executive summary of the key highlights and lowlights of the call.\n2.  **Key Financial Metrics:** Extract and present in a table the following key financial metrics: Revenue, Net Income, Earnings Per Share (EPS), and Operating Margin. Compare these to the same quarter last year and to analyst expectations if mentioned.\n3.  **Management Tone and Sentiment:** Analyze the tone of the management team during the Q&A session. Was it confident, cautious, or defensive? Provide specific examples.\n4.  **Forward-Looking Guidance:** Summarize the company's financial guidance for the upcoming quarter and full year.\n5.  **Key Risks and Opportunities:** Based on the call, identify the top 3 risks and top 3 opportunities for the company.\n6.  **Actionable Insight:** What is the single most important takeaway from this call for an investor?\n\n**Input Data:**\n\`\`\`\n{transcript}\n\`\`\``
+                    }]
+                }]
+            },
+            "customer-service": {
+                name: "Customer Service Agent",
+                description: "To enhance client interactions, these prompts help agents provide faster, more accurate, and more empathetic responses. They are crafted to resolve customer issues efficiently while making them feel heard and valued.",
+                use_cases: [{
+                    name: "Responding to a Disputed Transaction",
+                    prompts: [{
+                        id: "CSA-001-DisputeResponse",
+                        description: "Drafts a clear and empathetic email to a customer regarding a disputed transaction.",
+                        template: `**Persona:** You are a helpful and empathetic customer service professional at our bank. Your goal is to resolve customer issues efficiently while making them feel heard and valued.\n\n**Task:** A customer has disputed a transaction. Draft an email to the customer that:\n\n1.  Acknowledges their concern and the specific transaction in question.\n2.  Clearly explains the next steps in the dispute investigation process.\n3.  Provides an estimated timeline for resolution.\n4.  Reassures them that we are taking their concern seriously.\n5.  Maintains a professional and empathetic tone throughout.\n\n**Input Data:**\n* Customer Name: {customer_name}\n* Transaction Date: {transaction_date}\n* Merchant: {merchant_name}\n* Amount: {transaction_amount}`
+                    }]
+                }]
+            },
+            "developer": {
+                name: "Developer & Data Scientist",
+                description: "To accelerate innovation, the library provides technical prompts to assist developers and data scientists. These prompts aid in tasks like code generation, debugging, and complex data exploration.",
+                use_cases: [{
+                    name: "Generating a Python Script for Data Anonymization",
+                    prompts: [{
+                        id: "DEV-001-DataAnonymization",
+                        description: "Generates a Python script to anonymize sensitive customer data.",
+                        template: `**Persona:** You are a senior Python developer with expertise in data security and privacy.\n\n**Task:** Write a Python script that reads a CSV file named \`customer_data.csv\` and anonymizes the following columns: 'FirstName', 'LastName', 'Address', and 'Email'. Use the 'Faker' library to generate realistic but fake data for these columns. The script should write the anonymized data to a new CSV file named \`anonymized_customer_data.csv\`. Include comments in the code to explain each step.`
+                    }]
+                }]
+            },
+            "marketing": {
+                name: "Marketing Professional",
+                description: "For crafting compliant and creative campaigns, these prompts help marketing teams generate innovative copy and concepts while adhering to strict financial advertising regulations and brand guidelines.",
+                use_cases: [{
+                    name: "Brainstorming a New Product Launch Campaign",
+                    prompts: [{
+                        id: "MKT-001-CampaignBrainstorm",
+                        description: "Generates creative concepts for a new product launch.",
+                        template: `**Persona:** You are a creative and strategic marketing manager at a bank.\n\n**Task:** We are launching a new high-yield savings account targeted at millennials. Brainstorm three distinct marketing campaign concepts. For each concept, provide:\n\n1.  A catchy slogan.\n2.  The core messaging.\n3.  Key channels to reach the target audience (e.g., social media platforms, influencer collaborations, etc.).\n4.  A brief description of the visual identity.\n\nEnsure all concepts are compliant with financial advertising regulations by avoiding promises of guaranteed returns and using clear, non-misleading language.`
+                    }]
+                }]
+            }
+        };
+
+        function initializeApp() {
+            const personaContainer = document.getElementById('persona-sections-container');
+            const navLinks = document.querySelectorAll('#main-nav a');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            function buildPersonaSections() {
+                let html = '';
+                for (const key in promptData) {
+                    const persona = promptData[key];
+                    html += `
+                        <div id="${key}" class="content-section hidden">
+                             <header class="mb-10">
+                                <h2 class="text-3xl font-bold text-gray-800">${persona.name}</h2>
+                                <p class="mt-2 text-lg text-gray-600">${persona.description}</p>
+                            </header>
+                            ${key === 'financial-analyst' ? `
+                            <div class="bg-white/80 p-6 rounded-lg shadow-sm mb-10">
+                                <h3 class="text-xl font-semibold text-gray-700 mb-2">Prompt Explorer</h3>
+                                <p class="text-gray-600">This is the interactive core of the framework. Here, you can explore prompts tailored to specific roles within the bank. Select a use case below to view its corresponding prompt template. You can directly copy any prompt to use in your AI-powered workflows, accelerating your tasks while ensuring compliance and quality.</p>
+                            </div>` : ''}
+                            <div class="space-y-4">
+                                ${persona.use_cases.map((useCase, i) => `
+                                    <div class="bg-white rounded-lg shadow-sm border border-gray-200/50">
+                                        <div class="accordion-header flex justify-between items-center p-4">
+                                            <h3 class="font-semibold text-gray-800">${useCase.name}</h3>
+                                            <span class="transform transition-transform duration-300">▼</span>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="p-4 border-t border-gray-200/80">
+                                                ${useCase.prompts.map(prompt => `
+                                                    <div class="mb-4">
+                                                        <div class="flex justify-between items-center mb-2">
+                                                            <p class="text-sm font-semibold text-gray-500">${prompt.id}</p>
+                                                            <button class="copy-btn text-sm bg-[#6B7A8F] text-white px-3 py-1 rounded-md hover:bg-[#59687D] transition-colors" data-prompt-id="${prompt.id}">Copy</button>
+                                                        </div>
+                                                        <p class="text-sm text-gray-600 mb-3">${prompt.description}</p>
+                                                        <div class="code-block" id="prompt-text-${prompt.id}">${prompt.template.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
+                                                    </div>
+                                                `).join('')}
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+                personaContainer.innerHTML = html;
+            }
+
+            function setupNavigation() {
+                navLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = link.getAttribute('data-target');
+
+                        document.querySelectorAll('.content-section').forEach(section => {
+                            section.classList.add('hidden');
+                        });
+                        document.getElementById(targetId).classList.remove('hidden');
+
+                        navLinks.forEach(nav => nav.classList.remove('active'));
+                        link.classList.add('active');
+                        
+                        window.scrollTo(0,0);
+                    });
+                });
+            }
+
+            function setupAccordions() {
+                document.querySelectorAll('.accordion-header').forEach(header => {
+                    header.addEventListener('click', () => {
+                        const content = header.nextElementSibling;
+                        const icon = header.querySelector('span');
+                        
+                        if (content.style.maxHeight) {
+                            content.style.maxHeight = null;
+                            icon.style.transform = 'rotate(0deg)';
+                        } else {
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                            icon.style.transform = 'rotate(-180deg)';
+                        }
+                    });
+                });
+            }
+
+            function setupCopyButtons() {
+                document.querySelectorAll('.copy-btn').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const promptId = button.getAttribute('data-prompt-id');
+                        const promptText = document.getElementById(`prompt-text-${promptId}`).innerText;
+                        
+                        navigator.clipboard.writeText(promptText).then(() => {
+                            button.textContent = 'Copied!';
+                            setTimeout(() => {
+                                button.textContent = 'Copy';
+                            }, 2000);
+                        }).catch(err => {
+                            console.error('Failed to copy text: ', err);
+                            // Fallback for older browsers
+                            const textArea = document.createElement("textarea");
+                            textArea.value = promptText;
+                            document.body.appendChild(textArea);
+                            textArea.focus();
+                            textArea.select();
+                            try {
+                                document.execCommand('copy');
+                                button.textContent = 'Copied!';
+                                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+                            } catch (err) {
+                                console.error('Fallback copy failed: ', err);
+                            }
+                            document.body.removeChild(textArea);
+                        });
+                    });
+                });
+            }
+
+            function renderPersonaChart() {
+                const ctx = document.getElementById('personaChart').getContext('2d');
+                const personaNames = Object.values(promptData).map(p => p.name);
+                const useCaseCounts = Object.values(promptData).map(p => p.use_cases.length);
+
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: personaNames,
+                        datasets: [{
+                            label: 'Use Cases',
+                            data: useCaseCounts,
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.7)',
+                                'rgba(75, 192, 192, 0.7)',
+                                'rgba(153, 102, 255, 0.7)',
+                                'rgba(255, 159, 64, 0.7)'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += context.parsed + ' use case(s)';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            buildPersonaSections();
+            setupNavigation();
+            setupAccordions();
+            setupCopyButtons();
+            renderPersonaChart();
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeApp);
+
+    </script>
+</body>
+</html>
