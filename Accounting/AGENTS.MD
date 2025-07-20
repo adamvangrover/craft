@@ -32,3 +32,4 @@ The Accounting section is organized into the following subdirectories:
 *   When adding new content, be sure to update the `Accounting/index.html` file to include a link to the new content.
 *   Use a consistent style for all content in this section.
 *   Add a roadmap to this section to outline future plans in more detail.
+
