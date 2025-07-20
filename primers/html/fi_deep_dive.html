@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Dive: Bank vs. Insurer - FI Primer</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../../css/global_nav.css">
+</head>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="main-primer-content" style="flex-grow: 1; padding: 1rem; overflow-y: auto;">
+    <div class="page-container detail-page-container">
+        <header class="detail-page-header page-header">
+            <h1>Deep Dive: Bank vs. Insurer Business Models</h1>
+            <nav class="detail-page-nav">
+                <a href="financial_institutions.html" class="back-to-index-link">&laquo; Back to Financial Institutions Primer</a>
+                <a href="../index.html" class="back-to-index-link">&laquo; Back to Main Index</a>
+            </nav>
+        </header>
+        <main class="primer-detail-content">
+            <section class="primer-initial-summary-detailed-page">
+                <p>While both are highly regulated financial intermediaries, the core business models, balance sheets, and risk exposures of banks and insurance companies are fundamentally different. Understanding these differences is crucial for analysis.</p>
+            </section>
+            <div class="primer-content-sections">
+
+                <details class="primer-section-accordion section-type-metrics open">
+                    <summary class="primer-section-title"><span class="section-icon section-icon-metrics">📊</span> Core Business Model Comparison</summary>
+                    <div class="primer-section-content">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Factor</th>
+                                        <th>Commercial Bank</th>
+                                        <th>P&C Insurance Company</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Primary Liability</strong></td>
+                                        <td>Deposits (short-term, callable on demand).</td>
+                                        <td>Policyholder Reserves (uncertain timing and amount; "long-tail" for liability lines).</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Primary Asset</strong></td>
+                                        <td>Loans (long-term, illiquid, subject to credit risk).</td>
+                                        <td>Investment Portfolio (typically liquid, high-quality bonds, subject to market risk).</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Source of Profit</strong></td>
+                                        <td>Net Interest Margin (spread income).</td>
+                                        <td>Underwriting Profit + Investment Income.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Key Risk</strong></td>
+                                        <td><strong>Credit Risk</strong> (borrowers defaulting) & <strong>Liquidity Risk</strong> (deposit runs).</td>
+                                        <td><strong>Underwriting Risk</strong> (mispricing risk) & <strong>Reserve Risk</strong> (reserves being inadequate for future claims).</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Revenue Cycle</strong></td>
+                                        <td>Lends money first, earns interest income over time.</td>
+                                        <td>Receives cash (premiums) upfront, pays claims later. This creates "float".</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="primer-section-accordion section-type-risks open">
+                    <summary class="primer-section-title"><span class="section-icon section-icon-risks">❗</span> Balance Sheet and Risk Deep Dive</summary>
+                    <div class="primer-section-content">
+                        <h4>The Bank's Balance Sheet Challenge: Asset-Liability Mismatch</h4>
+                        <p>A bank's core challenge is managing a fundamental <span class="key-term">asset-liability mismatch</span>. It "borrows short" (deposits that can be withdrawn at any time) to "lend long" (multi-year, illiquid loans). This creates two major, interconnected risks:</p>
+                        <ul>
+                            <li><strong>Interest Rate Risk:</strong> If interest rates rise sharply, the bank's cost of deposits can increase faster than the yield on its fixed-rate loan portfolio, crushing its Net Interest Margin (NIM). This also creates unrealized losses on any securities it holds.</li>
+                            <li><strong>Liquidity Risk:</strong> If depositors lose confidence (perhaps due to concerns about those unrealized losses) and withdraw their money en masse (a "bank run"), the bank cannot easily sell its illiquid loans to meet redemptions. This is exactly what caused the failure of Silicon Valley Bank in 2023.</li>
+                        </ul>
+                        <p>Therefore, a bank's credit analysis hinges on the quality of its loan book (asset quality) and the stability of its funding base (a high percentage of insured, retail deposits is best).</p>
+
+                        <h4>The Insurer's Advantage: Float</h4>
+                        <p>An insurer's model is the inverse. It receives cash upfront in the form of premiums and holds this cash (called <span class="key-term">"float"</span>) before paying it out for future claims. It invests this float, primarily in a diversified portfolio of high-quality bonds, to earn income.</p>
+                        <ul>
+                            <li><strong>Underwriting Profit/Loss:</strong> The goal is to price policies correctly so that premiums collected exceed claims and expenses paid. A <span class="key-term">Combined Ratio</span> below 100% signifies an underwriting profit. Consistently achieving this is the hallmark of a high-quality insurer.</li>
+                            <li><strong>Investment Income:</strong> The income earned on the float is a second, and often larger, source of profit.</li>
+                        </ul>
+                        <p>An insurer's credit analysis, therefore, focuses on its underwriting discipline (is the combined ratio consistently low and stable?) and the quality and performance of its investment portfolio.</p>
+                    </div>
+                </details>
+
+            </div>
+        </main>
+        <footer class="page-footer">
+            <p>&copy; <span id="currentYear"></span> Primer Analysis Tool</p>
+        </footer>
+    </div>
+    </div>
+    <script src="../script.js"></script>
+    <script src="../../js/nav_data.js" defer></script>
+    <script src="../../js/global_nav.js" defer></script>
+</body>
+</html>
