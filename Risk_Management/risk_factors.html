@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Encyclopedic Set of S&P 500 Risk Factors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+        .prose h2 {
+            scroll-margin-top: 80px; /* Offset for fixed header */
+        }
+        .prose h3 {
+            scroll-margin-top: 80px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="w-1/4 max-w-xs bg-white border-r border-slate-200 p-6 sticky top-0 h-screen overflow-y-auto hidden lg:block">
+            <h1 class="text-lg font-bold text-slate-900 mb-6">Risk Categories</h1>
+            <nav id="desktop-nav">
+                <!-- Navigation links will be injected here by JavaScript -->
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="w-full lg:w-3/4 p-6 md:p-10">
+            <div class="max-w-4xl mx-auto">
+                <header class="mb-10 pb-4 border-b border-slate-300">
+                    <h1 class="text-4xl font-bold text-slate-900">The Encyclopedic Set of S&P 500 Risk Factors</h1>
+                    <p class="mt-2 text-lg text-slate-600">A comprehensive reference guide to corporate risks disclosed in S&P 500 filings.</p>
+                </header>
+                
+                <!-- Mobile Navigation Dropdown -->
+                <div class="lg:hidden mb-6">
+                    <select id="mobile-nav" class="w-full p-3 border border-slate-300 rounded-lg bg-white shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <!-- Options will be injected here by JavaScript -->
+                    </select>
+                </div>
+
+                <article id="content" class="prose prose-slate max-w-none prose-h2:text-2xl prose-h2:font-semibold prose-h2:text-slate-800 prose-h2:border-b prose-h2:pb-2 prose-h2:mb-6 prose-h3:text-xl prose-h3:font-semibold prose-h3:text-slate-700 prose-h3:mt-8 prose-h3:mb-4">
+                    <!-- Content will be injected here by JavaScript -->
+                </article>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Data structure for the content
+        const riskData = [
+            {
+                category: "Accounting Risks",
+                id: "accounting-risks",
+                description: "Accounting risks pertain to the processes of financial reporting, the integrity of financial data, and adherence to accounting standards...",
+                subsections: [
+                    {
+                        title: "Internal Controls and Financial Reporting Integrity",
+                        id: "internal-controls",
+                        risks: [
+                            { title: "Material Weakness in Internal Control Over Financial Reporting (ICFR)", description: "A deficiency, or a combination of deficiencies, in a company's internal financial reporting processes..." }
+                        ]
+                    },
+                    {
+                        title: "Subjectivity in Significant Accounting Estimates",
+                        id: "subjectivity-in-estimates",
+                        risks: [
+                            { title: "Impairment of Goodwill and Other Indefinite-Lived Intangible Assets", description: "The risk that the carrying value of goodwill or other intangible assets on the balance sheet exceeds their fair value..." },
+                            { title: "Complexity and Judgment in Revenue Recognition", description: "The risk of material misstatement in the timing or amount of revenue recognized..." },
+                            { title: "Estimation of Loan Loss Provisions and Credit Allowances", description: "The risk, primarily for financial institutions, of misestimating potential losses within a loan portfolio..." }
+                        ]
+                    },
+                    {
+                        title: "Impact of Accounting Standards and Policies",
+                        id: "accounting-standards-impact",
+                        risks: [
+                            { title: "Changes in Accounting Principles or Their Interpretation", description: "The risk that the adoption of new, complex accounting standards will materially impact a company's reported financial position..." },
+                            { title: "Use of Non-GAAP Financial Measures", description: "The risk that the presentation of financial metrics that do not conform to GAAP could mislead investors..." }
+                        ]
+                    }
+                ]
+            },
+            {
+                category: "Market Risks",
+                id: "market-risks",
+                description: "Market risks arise from broad economic forces and dynamics within the financial markets that impact a company's operational performance and valuation...",
+                subsections: [
+                    {
+                        title: "Macroeconomic and Geopolitical Environment",
+                        id: "macro-geopolitical",
+                        risks: [
+                            { title: "Economic Downturn, Recession, and Inflation", description: "The risk that a general slowdown in economic activity will adversely affect a company's revenue, profitability, and financial condition..." },
+                            { title: "Fluctuations in Interest Rates and Monetary Policy", description: "The risk that changes in central bank policies and prevailing interest rates will directly impact a company's cost of capital..." },
+                            { title: "Geopolitical Conflict, Political Instability, and Trade Policy", description: "The risk that wars, political instability, and shifts in international trade policies will create uncertainty and disrupt operations..." },
+                            { title: "Foreign Currency Exchange Rate Volatility", description: "The risk that for companies with international operations, fluctuations in currency exchange rates will adversely impact reported financial results..." }
+                        ]
+                    },
+                    {
+                        title: "Operational and Supply Chain Dynamics",
+                        id: "supply-chain-dynamics",
+                        risks: [
+                             { title: "Supply Chain Disruption and Concentration", description: "The risk of interruption in the flow of raw materials, components, or finished goods, which can halt production..." },
+                             { title: "Volatility in Commodity Prices", description: "The risk that unpredictable and significant changes in the prices of key raw materials will adversely impact a company's cost of goods sold..." }
+                        ]
+                    },
+                    {
+                        title: "Competition, Technology, and Innovation",
+                        id: "competition-innovation",
+                        risks: [
+                            { title: "Competitive Landscape and Market Share Erosion", description: "The risk that actions by existing or new competitors will reduce a company's market share, pricing power, and profitability." },
+                            { title: "Technological Disruption and Obsolescence", description: "The risk that new technologies or radical innovations will render a company's existing products, services, or entire business model obsolete." },
+                            { title: "Failure of Innovation and R&D Efforts", description: "The risk that a company's significant investments in research and development (R&D) will not result in commercially successful new products." }
+                        ]
+                    },
+                    {
+                        title: "Consumer, Social, and Reputational Factors",
+                        id: "consumer-reputational",
+                        risks: [
+                            { title: "Shifts in Consumer Preferences and Discretionary Spending", description: "The risk that changes in consumer tastes, behaviors, values, or overall economic confidence will reduce demand for a company's products or services." },
+                            { title: "Damage to Corporate Reputation and Brand Image", description: "The risk that negative events will significantly harm a company's reputation and brand, leading to a loss of customer trust and reduced sales." },
+                            { title: "Failure to Manage Human Capital and Labor Relations", description: "The risk that a company's inability to attract, develop, and retain key talent will impair its operational capabilities." }
+                        ]
+                    },
+                    {
+                        title: "Long-Term and Systemic Risks",
+                        id: "long-term-systemic",
+                        risks: [
+                            { title: "Climate Change and Environmental Transition", description: "A dual-faceted risk encompassing both the physical risks to a company's assets and the transition risks associated with the global shift to a lower-carbon economy." },
+                            { title: "Systemic Risk and Financial Contagion", description: "The risk that the failure of a single major financial institution could trigger a cascading series of defaults throughout the interconnected financial system." },
+                            { title: "Unforeseen \"Black Swan\" and \"Gray Rhino\" Events", description: "The risk associated with highly improbable, high-impact events (\"Black Swans\"), as well as highly probable, high-impact threats that are neglected (\"Gray Rhinos\")." }
+                        ]
+                    }
+                ]
+            },
+            {
+                category: "Credit Risks",
+                id: "credit-risks",
+                description: "Credit risks encompass the potential for financial loss stemming from the failure of a counterparty to meet its contractual obligations.",
+                subsections: [
+                    {
+                        title: "Counterparty and Customer Default Risk",
+                        id: "counterparty-default",
+                        risks: [
+                            { title: "Default of a Major Customer or Concentration of Credit Risk", description: "The risk of significant financial loss and revenue disruption if a single customer or a small group of customers fails to pay." },
+                            { title: "Counterparty Failure in Financial Arrangements", description: "The risk of financial loss resulting from the default of a financial institution or other counterparty in transactions involving derivatives or hedging instruments." },
+                            { title: "Supplier or Vendor Financial Distress", description: "The risk that the financial failure or bankruptcy of a critical supplier will disrupt a company's supply chain." }
+                        ]
+                    },
+                    {
+                        title: "Company-Specific Credit and Financing Risks",
+                        id: "company-credit-risks",
+                        risks: [
+                            { title: "Downgrade in Corporate Credit Rating", description: "The risk that a major credit rating agency will lower a company's credit rating, which typically increases its cost of borrowing." },
+                            { title: "Violation of Debt Covenants", description: "The risk of breaching the specific terms and conditions of a loan agreement, which can allow lenders to declare a default." },
+                            { title: "Inability to Access Capital and Tightening of Credit Markets", description: "The risk that a company will be unable to obtain necessary financing on favorable terms." },
+                            { title: "Liquidity and Cash Flow Risk", description: "The risk that a company will not have sufficient cash or readily available credit to meet its short-term financial obligations." }
+                        ]
+                    }
+                ]
+            },
+            {
+                category: "Legal and Regulatory Risks",
+                id: "legal-regulatory-risks",
+                description: "Legal and regulatory risks encompass the broad spectrum of threats arising from the legal and regulatory environments in which a company operates.",
+                subsections: [
+                    {
+                        title: "Litigation and Disputes",
+                        id: "litigation-disputes",
+                        risks: [
+                            { title: "Intellectual Property (IP) Litigation", description: "The risk of being sued for infringing on the patents, trademarks, or copyrights of other entities." },
+                            { title: "Product Liability, Warranty, and Recall Claims", description: "The risk of significant financial losses, legal liabilities, and reputational damage arising from claims that a company's products are defective." },
+                            { title: "Shareholder and Securities Litigation", description: "The risk of being sued by shareholders, typically following a significant drop in the company's stock price." }
+                        ]
+                    },
+                    {
+                        title: "Regulatory Compliance and Government Action",
+                        id: "regulatory-compliance",
+                        risks: [
+                            { title: "Evolving Cybersecurity and Data Privacy Regulations", description: "The risk of non-compliance with a complex and rapidly expanding patchwork of domestic and international regulations governing cybersecurity and data privacy." },
+                            { title: "Environmental Regulation and Compliance Costs", description: "The risk of increased operating costs and potential legal liabilities associated with complying with a growing body of environmental laws." },
+                            { title: "Government and Regulatory Investigations", description: "The risk of being the subject of an investigation by governmental or regulatory agencies, which can result in significant legal costs, fines, and penalties." },
+                            { title: "Compliance with Anti-Corruption and Sanctions Laws", description: "The risk of violating complex anti-bribery laws, such as the U.S. Foreign Corrupt Practices Act (FCPA), or international economic sanctions." },
+                            { title: "Changes in Tax Laws and Regulations", description: "The risk that changes in domestic or international tax laws could adversely affect a company's effective tax rate and cash flow." }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // Function to generate the content and navigation
+        function generateContent() {
+            const contentContainer = document.getElementById('content');
+            const desktopNavContainer = document.getElementById('desktop-nav');
+            const mobileNavContainer = document.getElementById('mobile-nav');
+            
+            let contentHTML = '';
+            let desktopNavHTML = '<ul class="space-y-2">';
+            let mobileNavHTML = '<option value="" disabled selected>Select a section...</option>';
+
+            riskData.forEach(category => {
+                // Add to main content
+                contentHTML += `<section id="${category.id}">
+                    <h2 class="!mt-12">${category.category}</h2>
+                    <p>${category.description}</p>`;
+
+                // Add to navigation
+                desktopNavHTML += `<li><a href="#${category.id}" class="font-semibold text-slate-700 hover:text-blue-600">${category.category}</a><ul class="pl-4 mt-2 space-y-1">`;
+                mobileNavHTML += `<optgroup label="${category.category}">`;
+
+                category.subsections.forEach(subsection => {
+                    contentHTML += `<h3 id="${subsection.id}">${subsection.title}</h3>`;
+                    
+                    desktopNavHTML += `<li><a href="#${subsection.id}" class="text-sm text-slate-600 hover:text-blue-600">${subsection.title}</a></li>`;
+                    mobileNavHTML += `<option value="#${subsection.id}">${subsection.title}</option>`;
+
+                    subsection.risks.forEach(risk => {
+                        contentHTML += `<div class="mt-4 border-l-4 border-slate-200 pl-4 py-2">
+                            <p class="font-semibold text-slate-800">${risk.title}</p>
+                            <p class="text-sm text-slate-600">${risk.description}</p>
+                        </div>`;
+                    });
+                });
+
+                contentHTML += `</section>`;
+                desktopNavHTML += `</ul></li>`;
+                mobileNavHTML += `</optgroup>`;
+            });
+
+            desktopNavHTML += '</ul>';
+
+            contentContainer.innerHTML = contentHTML;
+            desktopNavContainer.innerHTML = desktopNavHTML;
+            mobileNavContainer.innerHTML = mobileNavHTML;
+        }
+
+        // Handle mobile navigation changes
+        document.getElementById('mobile-nav').addEventListener('change', function() {
+            if (this.value) {
+                window.location.hash = this.value;
+            }
+        });
+
+        // Initial generation of content
+        generateContent();
+    </script>
+</body>
+</html>
