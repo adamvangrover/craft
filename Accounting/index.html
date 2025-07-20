@@ -1,78 +1,284 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accounting Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/global_nav.css">
-    <link rel="stylesheet" href="../primers/styles.css"> <!-- Re-using primer styles for consistency -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+            color: #3D352E;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #4A90E2 0%, #3B73C4 100%);
+        }
+        .section-title {
+            @apply text-3xl font-bold text-center mb-12 text-slate-700;
+        }
+        .card {
+            @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 ease-in-out;
+        }
+        .card:hover {
+            @apply transform -translate-y-1 shadow-2xl;
+        }
+        .card-title {
+            @apply text-xl font-semibold mb-2 text-slate-800;
+        }
+        .card-description {
+            @apply text-slate-600 text-sm mb-4 flex-grow;
+        }
+        .card-link {
+            @apply inline-block bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm;
+        }
+    </style>
 </head>
-<body style="display: flex; min-height: 100vh;">
-    <div id="global-nav-placeholder"></div>
-    <div class="page-container" style="flex-grow: 1;">
-        <header class="page-header">
-            <h1>Accounting Fundamentals</h1>
-            <p class="page-subtitle">A comprehensive resource for understanding the core principles of accounting and financial statement analysis.</p>
-        </header>
+<body class="flex">
 
-        <main class="main-index-container">
-            <article class="primer-summary-card" data-title="Three Core Financial Statements">
-                <h3><a href="three_statements.html">The Three Core Financial Statements</a></h3>
-                <div class="primer-initial-summary">
-                    <p>An overview of the Income Statement, Balance Sheet, and Cash Flow Statement, and how they interconnect to provide a holistic view of a company's financial health.</p>
-                </div>
-                <a href="three_statements.html" class="view-details-link">Read Overview &raquo;</a>
-            </article>
-
-            <article class="primer-summary-card" data-title="Income Statement">
-                <h3><a href="income_statement_deep_dive.html">Income Statement Deep Dive</a></h3>
-                <div class="primer-initial-summary">
-                    <p>A detailed look at the components of the income statement, from revenue recognition to net income calculation.</p>
-                </div>
-                <a href="income_statement_deep_dive.html" class="view-details-link">View Details &raquo;</a>
-            </article>
-
-            <article class="primer-summary-card" data-title="Balance Sheet">
-                <h3><a href="balance_sheet_deep_dive.html">Balance Sheet Deep Dive</a></h3>
-                <div class="primer-initial-summary">
-                    <p>Explore the structure of the balance sheet, including assets, liabilities, and equity, and what each component signifies.</p>
-                </div>
-                <a href="balance_sheet_deep_dive.html" class="view-details-link">View Details &raquo;</a>
-            </article>
-
-            <article class="primer-summary-card" data-title="Cash Flow Statement">
-                <h3><a href="cash_flow_statement_deep_dive.html">Cash Flow Statement Deep Dive</a></h3>
-                <div class="primer-initial-summary">
-                    <p>Understand the three sections of the cash flow statement: operating, investing, and financing activities.</p>
-                </div>
-                <a href="cash_flow_statement_deep_dive.html" class="view-details-link">View Details &raquo;</a>
-            </article>
-
-            <article class="primer-summary-card" data-title="Working Capital">
-                <h3><a href="working_capital_deep_dive.html">Working Capital Deep Dive</a></h3>
-                <div class="primer-initial-summary">
-                    <p>An exploration of working capital components (e.g., accounts receivable, inventory, accounts payable) and their impact on liquidity.</p>
-                </div>
-                <a href="working_capital_deep_dive.html" class="view-details-link">View Details &raquo;</a>
-            </article>
-
-            <article class="primer-summary-card" data-title="EBITDA Reconciliation">
-                <h3><a href="ebitda_reconciliation_deep_dive.html">EBITDA Reconciliation Deep Dive</a></h3>
-                <div class="primer-initial-summary">
-                    <p>Learn how to calculate and reconcile EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization) from Net Income or Operating Income.</p>
-                </div>
-                <a href="ebitda_reconciliation_deep_dive.html" class="view-details-link">View Details &raquo;</a>
-            </article>
-
-        </main>
-        <footer class="page-footer">
-            <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
-        </footer>
+    <!-- Global Navigation Sidebar -->
+    <div id="global-nav-placeholder" class="fixed top-0 left-0 h-full z-30">
     </div>
-    <script src="../js/nav_data.js" defer></script>
-    <script src="../js/global_nav.js" defer></script>
+
+    <!-- Main Content Area -->
+    <div id="main-content-wrapper" class="flex-grow overflow-y-auto ml-0 md:ml-[280px] transition-all duration-300 ease-in-out">
+
+        <!-- Hero Section -->
+        <section id="hero" class="hero-gradient py-20 px-6 md:px-8 text-center text-white">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Accounting Hub</h1>
+                <p class="text-xl md:text-2xl mb-10 opacity-90">
+                    Your central resource for understanding accounting principles and their application in financial analysis.
+                </p>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section id="content" class="py-16 px-6 md:px-8">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="section-title">Key Accounting Topics</h2>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <!-- Core Concepts -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-book text-3xl"></i></div>
+                        <h3 class="card-title">Core Concepts</h3>
+                        <p class="card-description">Build your foundation with in-depth content on the three financial statements, debits and credits, and more.</p>
+                        <a href="Core_Concepts_Interrelationships.md" class="card-link">Explore Core Concepts</a>
+                    </div>
+
+                    <!-- Deep Dives -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-search-plus text-3xl"></i></div>
+                        <h3 class="card-title">Deep Dives</h3>
+                        <p class="card-description">Explore complex topics like revenue recognition, leases, and EBITDA reconciliations in detail.</p>
+                        <a href="balance_sheet_deep_dive.html" class="card-link">Explore Deep Dives</a>
+                    </div>
+
+                    <!-- Case Studies -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-file-alt text-3xl"></i></div>
+                        <h3 class="card-title">Case Studies</h3>
+                        <p class="card-description">Apply your knowledge with real-world case studies on topics like deferred revenue.</p>
+                        <a href="Case_Studies/deferred_revenue_case_study.md" class="card-link">Explore Case Studies</a>
+                    </div>
+
+                    <!-- Interactive Notebooks -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-flask text-3xl"></i></div>
+                        <h3 class="card-title">Interactive Notebooks</h3>
+                        <p class="card-description">Engage with interactive Jupyter Notebooks for hands-on practice with accounting concepts.</p>
+                        <a href="Interactive_Notebooks/working_capital_analysis.ipynb" class="card-link">Explore Notebooks</a>
+                    </div>
+
+                    <!-- Templates -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-clipboard-list text-3xl"></i></div>
+                        <h3 class="card-title">Templates</h3>
+                        <p class="card-description">Download reusable templates for common accounting tasks like EBITDA reconciliations.</p>
+                        <a href="Templates/ebitda_reconciliation_template.md" class="card-link">Explore Templates</a>
+                    </div>
+
+                    <!-- Audits and Opinions -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-gavel text-3xl"></i></div>
+                        <h3 class="card-title">Audits and Opinions</h3>
+                        <p class="card-description">Learn about the different types of audit opinions and what they mean for financial analysis.</p>
+                        <a href="audits_and_opinions.md" class="card-link">Explore Audits and Opinions</a>
+                    </div>
+
+                    <!-- Balancing -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-balance-scale text-3xl"></i></div>
+                        <h3 class="card-title">Balancing</h3>
+                        <p class="card-description">Understand the fundamental accounting equation and how it ensures that the balance sheet always balances.</p>
+                        <a href="balancing.md" class="card-link">Explore Balancing</a>
+                    </div>
+
+                    <!-- Capitalization -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-building text-3xl"></i></div>
+                        <h3 class="card-title">Capitalization</h3>
+                        <p class="card-description">Learn about the rules for capitalizing costs and how they affect the financial statements.</p>
+                        <a href="capitalization.md" class="card-link">Explore Capitalization</a>
+                    </div>
+
+                    <!-- Debits and Credits -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-exchange-alt text-3xl"></i></div>
+                        <h3 class="card-title">Debits and Credits</h3>
+                        <p class="card-description">Master the rules of debits and credits, the foundation of double-entry bookkeeping.</p>
+                        <a href="debits_and_credits.md" class="card-link">Explore Debits and Credits</a>
+                    </div>
+
+                    <!-- Deferred Revenue -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-calendar-alt text-3xl"></i></div>
+                        <h3 class="card-title">Deferred Revenue</h3>
+                        <p class="card-description">Understand how to account for deferred revenue and its impact on the financial statements.</p>
+                        <a href="deferred_revenue.md" class="card-link">Explore Deferred Revenue</a>
+                    </div>
+
+                    <!-- Dividends and Share Buybacks -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-money-bill-wave text-3xl"></i></div>
+                        <h3 class="card-title">Dividends and Share Buybacks</h3>
+                        <p class="card-description">Learn how to account for dividends and share buybacks and their impact on equity.</p>
+                        <a href="dividends_and_share_buybacks.md" class="card-link">Explore Dividends and Share Buybacks</a>
+                    </div>
+
+                    <!-- FCF Walk -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-walking text-3xl"></i></div>
+                        <h3 class="card-title">FCF Walk</h3>
+                        <p class="card-description">Learn how to build a free cash flow walk to understand the drivers of a company's cash flow.</p>
+                        <a href="fcf_walk.md" class="card-link">Explore FCF Walk</a>
+                    </div>
+
+                    <!-- Financial Statement Interrelationships -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-link text-3xl"></i></div>
+                        <h3 class="card-title">Financial Statement Interrelationships</h3>
+                        <p class="card-description">Understand how the three financial statements are linked together and how they tell a cohesive story about a company's financial performance.</p>
+                        <a href="financial_statement_interrelationships.md" class="card-link">Explore Interrelationships</a>
+                    </div>
+
+                    <!-- Going Concern -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-exclamation-triangle text-3xl"></i></div>
+                        <h3 class="card-title">Going Concern</h3>
+                        <p class="card-description">Learn about the going concern assumption and its implications for financial reporting.</p>
+                        <a href="going_concern.md" class="card-link">Explore Going Concern</a>
+                    </div>
+
+                    <!-- Leases -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-file-signature text-3xl"></i></div>
+                        <h3 class="card-title">Leases</h3>
+                        <p class="card-description">Understand the new lease accounting standards and their impact on the financial statements.</p>
+                        <a href="leases.md" class="card-link">Explore Leases</a>
+                    </div>
+
+                    <!-- Matching Principle -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-equals text-3xl"></i></div>
+                        <h3 class="card-title">Matching Principle</h3>
+                        <p class="card-description">Learn about the matching principle and how it ensures that expenses are recognized in the same period as the revenues they help to generate.</p>
+                        <a href="matching_principle.md" class="card-link">Explore Matching Principle</a>
+                    </div>
+
+                    <!-- Revenue Recognition -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-handshake text-3xl"></i></div>
+                        <h3 class="card-title">Revenue Recognition</h3>
+                        <p class="card-description">Understand the new revenue recognition standards and their impact on financial reporting.</p>
+                        <a href="revenue_recognition.md" class="card-link">Explore Revenue Recognition</a>
+                    </div>
+
+                    <!-- Balance Sheet Deep Dive -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-balance-scale-right text-3xl"></i></div>
+                        <h3 class="card-title">Balance Sheet Deep Dive</h3>
+                        <p class="card-description">An in-depth look at the components of the balance sheet.</p>
+                        <a href="balance_sheet_deep_dive.html" class="card-link">Explore Deep Dive</a>
+                    </div>
+
+                    <!-- Cash Flow Statement Deep Dive -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-money-bill-wave-alt text-3xl"></i></div>
+                        <h3 class="card-title">Cash Flow Statement Deep Dive</h3>
+                        <p class="card-description">An in-depth look at the components of the cash flow statement.</p>
+                        <a href="cash_flow_statement_deep_dive.html" class="card-link">Explore Deep Dive</a>
+                    </div>
+
+                    <!-- EBITDA Reconciliation Deep Dive -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-calculator text-3xl"></i></div>
+                        <h3 class="card-title">EBITDA Reconciliation Deep Dive</h3>
+                        <p class="card-description">An in-depth look at how to calculate and reconcile EBITDA.</p>
+                        <a href="ebitda_reconciliation_deep_dive.html" class="card-link">Explore Deep Dive</a>
+                    </div>
+
+                    <!-- Financial Statements -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-file-invoice-dollar text-3xl"></i></div>
+                        <h3 class="card-title">Financial Statements</h3>
+                        <p class="card-description">An overview of the three core financial statements.</p>
+                        <a href="fin_st.html" class="card-link">Explore Financial Statements</a>
+                    </div>
+
+                    <!-- Guide -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-book-reader text-3xl"></i></div>
+                        <h3 class="card-title">Guide</h3>
+                        <p class="card-description">A guide to the accounting section of the repository.</p>
+                        <a href="guide.html" class="card-link">Explore Guide</a>
+                    </div>
+
+                    <!-- Income Statement Deep Dive -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-chart-pie text-3xl"></i></div>
+                        <h3 class="card-title">Income Statement Deep Dive</h3>
+                        <p class="card-description">An in-depth look at the components of the income statement.</p>
+                        <a href="income_statement_deep_dive.html" class="card-link">Explore Deep Dive</a>
+                    </div>
+
+                    <!-- Three Statements -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-copy text-3xl"></i></div>
+                        <h3 class="card-title">Three Statements</h3>
+                        <p class="card-description">An overview of the three core financial statements.</p>
+                        <a href="three_statements.html" class="card-link">Explore Three Statements</a>
+                    </div>
+
+                    <!-- Working Capital Deep Dive -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-wallet text-3xl"></i></div>
+                        <h3 class="card-title">Working Capital Deep Dive</h3>
+                        <p class="card-description">An in-depth look at the components of working capital.</p>
+                        <a href="working_capital_deep_dive.html" class="card-link">Explore Deep Dive</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-10 px-6 md:px-8 text-center text-sm text-slate-100 bg-slate-800">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub. For educational purposes.</p>
+        </footer>
+
+    </div>
+
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
 </body>
 </html>

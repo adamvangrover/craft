@@ -1,0 +1,35 @@
+{
+  "title": "Financial Modeling Quiz",
+  "questions": [
+    {
+      "question": "Which of the following is NOT a core financial statement?",
+      "options": [
+        "Income Statement",
+        "Balance Sheet",
+        "Statement of Retained Earnings",
+        "Cash Flow Statement"
+      ],
+      "answer": "Statement of Retained Earnings"
+    },
+    {
+      "question": "What is the most common type of financial model?",
+      "options": [
+        "LBO Model",
+        "DCF Model",
+        "Three-Statement Model",
+        "M&A Model"
+      ],
+      "answer": "Three-Statement Model"
+    },
+    {
+      "question": "Which of the following is NOT a common valuation method?",
+      "options": [
+        "Discounted Cash Flow (DCF)",
+        "Comparable Company Analysis (CCA)",
+        "Precedent Transaction Analysis (PTA)",
+        "Net Present Value (NPV)"
+      ],
+      "answer": "Net Present Value (NPV)"
+    }
+  ]
+}
