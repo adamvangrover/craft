@@ -48,6 +48,28 @@
             opacity: 1;
             transform: translateY(0);
         }
+        .accordion-header {
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .accordion-header:hover {
+            background-color: #f0f2f5;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .accordion-content.open {
+            max-height: 2000px; /* Adjust as needed */
+        }
+        .accordion-header .icon::before {
+            content: '+';
+            transition: transform 0.3s ease;
+        }
+        .accordion-header.open .icon::before {
+            transform: rotate(45deg);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -179,64 +201,141 @@
 
             <section id="agreements" class="mb-16">
                  <h2 class="text-3xl font-bold text-center mb-8 text-[#3D405B]">Core Agreements & Frameworks</h2>
-                 <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">These legal documents form the bedrock of lending and trading relationships. They define the rights, obligations, and priorities of all parties involved. This section explores the purpose and key features of the most common agreements.</p>
+                 <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">These legal documents form the bedrock of lending and trading relationships. Use the tabs and expandable sections below to dive deep into the purpose, common clauses, and underwriting standards of each key agreement.</p>
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <div class="flex flex-wrap justify-center border-b-2 border-gray-200 mb-6">
                         <button data-target="lending" class="tab-btn active px-4 py-2 -mb-px border-b-2 border-transparent hover:border-[#4A5B8A] focus:outline-none">Lending Agreements</button>
-                        <button data-target="derivatives" class="tab-btn px-4 py-2 -mb-px border-b-2 border-transparent hover:border-[#4A5B8A] focus:outline-none">Derivatives Agreements</button>
                         <button data-target="security" class="tab-btn px-4 py-2 -mb-px border-b-2 border-transparent hover:border-[#4A5B8A] focus:outline-none">Security & Priority</button>
+                        <button data-target="derivatives" class="tab-btn px-4 py-2 -mb-px border-b-2 border-transparent hover:border-[#4A5B8A] focus:outline-none">Derivatives Agreements</button>
                     </div>
 
-                    <div id="lending" class="content-section active">
-                        <h3 class="text-2xl font-semibold mb-4 text-[#4A5B8A]">Lending Agreements</h3>
-                        <p class="text-gray-700 mb-4">These documents govern the borrowing and lending of money. The LSTA (Loan Syndications and Trading Association) and LMA (Loan Market Association) provide standardized templates for the US and European markets, respectively, which streamlines the process for syndicated loans involving multiple lenders.</p>
-                        <div class="space-y-4">
-                            <div>
-                                <h4 class="font-bold">Credit Agreement (LSTA / LMA)</h4>
-                                <p class="text-gray-600">The master document for a loan. It details the interest rate, repayment schedule, covenants (rules the borrower must follow), and events of default.</p>
-                            </div>
-                            <div>
-                                <h4 class="font-bold">Notes and Bonds</h4>
-                                <p class="text-gray-600">These are debt instruments. A <span class="font-semibold">Note</span> is typically a loan from a single lender or a small group, while a <span class="font-semibold">Bond</span> is a loan sold to many different public investors. Both represent a promise to repay a principal amount with interest.</p>
+                    <div id="lending" class="content-section active space-y-6">
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-2 text-[#4A5B8A]">Credit Agreement (Senior Secured)</h3>
+                            <p class="text-gray-700 mb-4">The master document for most corporate loans, establishing the core lending relationship. It governs every aspect of the loan's lifecycle: funding, interest payments, operating rules (covenants), and remedies for default.</p>
+                            
+                            <div class="space-y-2">
+                                <div class="accordion-header bg-gray-100 p-3 rounded flex justify-between items-center">
+                                    <h4 class="font-semibold">Common Clauses & Negotiation Points</h4>
+                                    <span class="icon font-bold text-lg"></span>
+                                </div>
+                                <div class="accordion-content border-l-4 border-gray-200 pl-4">
+                                    <ul class="list-disc list-inside text-gray-600 space-y-3 p-4">
+                                        <li><strong>"EBITDA" Definition:</strong> The most heavily negotiated definition. Borrowers push for "add-backs" for anticipated cost savings and non-recurring items to inflate EBITDA, making it easier to meet financial covenants.</li>
+                                        <li><strong>Negative Covenants ("Baskets"):</strong> The core negotiation is around the exceptions, or "baskets," that allow the borrower to incur additional debt, make payments to equity holders, or sell assets.</li>
+                                        <li><strong>"Material Adverse Effect" (MAE):</strong> Defines what constitutes a severe negative event allowing lenders to refuse funding or call a default. Lenders want a broad definition; borrowers want it narrow.</li>
+                                        <li><strong>"Yank-a-Bank":</strong> Gives the borrower the right to forcibly prepay and remove a single non-consenting lender from the syndicate, preventing a holdout from blocking amendments.</li>
+                                    </ul>
+                                </div>
+
+                                <div class="accordion-header bg-gray-100 p-3 rounded flex justify-between items-center">
+                                    <h4 class="font-semibold">Underwriting Standards (What Lenders Look For)</h4>
+                                    <span class="icon font-bold text-lg"></span>
+                                </div>
+                                <div class="accordion-content border-l-4 border-gray-200 pl-4">
+                                     <ul class="list-disc list-inside text-gray-600 space-y-3 p-4">
+                                        <li><strong>Leverage Ratio (Debt/EBITDA):</strong> The primary metric. Lenders typically look for a ratio of 3.0x to 5.0x depending on the industry.</li>
+                                        <li><strong>Interest Coverage Ratio (EBITDA/Interest Expense):</strong> A minimum ratio of at least 2.5x is often required to ensure cash flow can comfortably cover interest payments.</li>
+                                        <li><strong>Collateral Quality:</strong> An independent appraisal determines the "Net Orderly Liquidation Value" (NOLV) of collateral, and the loan amount will be a percentage of this value.</li>
+                                        <li><strong>Management & Sponsor:</strong> The quality and track record of the management team and private equity sponsor are critical qualitative factors.</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="accordion-header bg-gray-100 p-3 rounded flex justify-between items-center">
+                                    <h4 class="font-semibold">Borrower's Review Checklist</h4>
+                                    <span class="icon font-bold text-lg"></span>
+                                </div>
+                                <div class="accordion-content border-l-4 border-gray-200 pl-4">
+                                     <ul class="list-disc list-inside text-gray-600 space-y-3 p-4">
+                                        <li>Are the "baskets" for debt, liens, and restricted payments large enough for our 3-5 year business plan?</li>
+                                        <li>Is there at least a 15-20% cushion between our projections and the required financial covenant levels?</li>
+                                        <li>Can our finance team realistically produce the required financial reports on time?</li>
+                                        <li>Are we required to prepay the loan with excess cash flow? Can we make voluntary prepayments without penalty?</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div id="derivatives" class="content-section">
-                        <h3 class="text-2xl font-semibold mb-4 text-[#4A5B8A]">Derivatives Agreements</h3>
-                        <p class="text-gray-700 mb-4">Derivatives are financial contracts whose value is derived from an underlying asset. They are used for hedging risks (like changes in interest rates or foreign exchange rates) or for speculation. The ISDA framework governs these over-the-counter trades.</p>
-                         <div class="space-y-4">
-                            <div>
-                                <h4 class="font-bold">ISDA Master Agreement</h4>
-                                <p class="text-gray-600">A standardized contract that governs all over-the-counter derivatives transactions between two parties. It sets out the general terms, reducing the need to negotiate a full contract for every single trade.</p>
-                            </div>
-                             <div>
-                                <h4 class="font-bold">Credit Support Annex (CSA)</h4>
-                                <p class="text-gray-600">An ancillary document to the ISDA Master Agreement. It requires one or both parties to post collateral (cash or securities) to mitigate credit risk if the value of their derivative positions moves against them.</p>
-                            </div>
-                             <div>
-                                <h4 class="font-bold">Interest Rate Caps & FX Swaps</h4>
-                                <p class="text-gray-600"><span class="font-semibold">Interest Rate Caps</span> are contracts that protect borrowers with floating-rate loans from rising interest rates. An <span class="font-semibold">FX Swap</span> is an agreement to exchange principal and/or interest payments in one currency for equivalent payments in another currency, hedging against foreign exchange risk.</p>
+                    <div id="security" class="content-section space-y-6">
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-2 text-[#4A5B8A]">Intercreditor Agreement</h3>
+                            <p class="text-gray-700 mb-4">The "rulebook" for how different groups of creditors will behave towards each other when they share a common borrower and collateral. It contractually overrides statutory priority rules to establish a clear pecking order.</p>
+                             <div class="space-y-2">
+                                <div class="accordion-header bg-gray-100 p-3 rounded flex justify-between items-center">
+                                    <h4 class="font-semibold">Key Negotiation Points (Senior vs. Junior)</h4>
+                                    <span class="icon font-bold text-lg"></span>
+                                </div>
+                                <div class="accordion-content border-l-4 border-gray-200 pl-4">
+                                     <ul class="list-disc list-inside text-gray-600 space-y-3 p-4">
+                                        <li><strong>Standstill Period:</strong> Prohibits the junior lender from taking enforcement action for a set period (e.g., 180 days), giving the senior lender exclusive control over a workout strategy.</li>
+                                        <li><strong>DIP Financing Waivers:</strong> Senior lenders demand that junior lenders waive their right to object to a DIP financing provided by the senior lender in bankruptcy.</li>
+                                        <li><strong>Purchase Option:</strong> The junior lender's key defensive right to buy out the senior lenders' entire claim at par upon a default, allowing them to take control.</li>
+                                        <li><strong>Release of Liens:</strong> Junior lender must agree that its liens are automatically released if the senior lender forecloses on the collateral.</li>
+                                    </ul>
+                                </div>
+                                <div class="accordion-header bg-gray-100 p-3 rounded flex justify-between items-center">
+                                    <h4 class="font-semibold">Junior Lender's Checklist</h4>
+                                    <span class="icon font-bold text-lg"></span>
+                                </div>
+                                <div class="accordion-content border-l-4 border-gray-200 pl-4">
+                                     <ul class="list-disc list-inside text-gray-600 space-y-3 p-4">
+                                        <li>Is the standstill period limited and does it terminate if seniors aren't actively pursuing remedies?</li>
+                                        <li>Is our right to purchase the senior debt clear and exercisable for a reasonable period?</li>
+                                        <li>Do we have the right to cure payment defaults on the senior debt to prevent an acceleration?</li>
+                                        <li>How extensive are the bankruptcy rights we are waiving? Have we retained the right to vote on a plan?</li>
+                                    </ul>
+                                </div>
+                             </div>
+                        </div>
+                        <hr>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 text-[#4A5B8A]">Other Key Documents</h3>
+                            <div class="space-y-4 mt-4">
+                                <div>
+                                    <h4 class="font-bold">Security Agreement</h4>
+                                    <p class="text-gray-600">The contract that grants a lender a "security interest" in specific assets pledged as collateral. It gives the lender the right to seize and sell those assets if the borrower defaults.</p>
+                                </div>
+                                 <div>
+                                    <h4 class="font-bold">UCC Filings (Uniform Commercial Code)</h4>
+                                    <p class="text-gray-600">In the US, a UCC-1 financing statement is a public notice filed with a state office to "perfect" the security interest. This public filing puts other creditors on notice of the existing claim.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div id="security" class="content-section">
-                         <h3 class="text-2xl font-semibold mb-4 text-[#4A5B8A]">Security & Priority Agreements</h3>
-                        <p class="text-gray-700 mb-4">When a loan is "secured," these are the documents that create and define the lender's claim on the borrower's assets. They are critical for establishing priority among different groups of creditors.</p>
-                         <div class="space-y-4">
-                            <div>
-                                <h4 class="font-bold">Security Agreement</h4>
-                                <p class="text-gray-600">The contract that grants a lender a "security interest" in specific assets pledged as collateral. It gives the lender the right to seize and sell those assets if the borrower defaults.</p>
+                    <div id="derivatives" class="content-section space-y-6">
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-2 text-[#4A5B8A]">ISDA Master Agreement & CSA</h3>
+                            <p class="text-gray-700 mb-4">The framework governing derivatives trading. The ISDA creates a "single agreement" that nets all transactions into one close-out amount upon default. The Credit Support Annex (CSA) is the collateral agreement that mitigates this net exposure.</p>
+                            <div class="space-y-2">
+                                <div class="accordion-header bg-gray-100 p-3 rounded flex justify-between items-center">
+                                    <h4 class="font-semibold">Common Clauses & Negotiation Points</h4>
+                                    <span class="icon font-bold text-lg"></span>
+                                </div>
+                                <div class="accordion-content border-l-4 border-gray-200 pl-4">
+                                     <ul class="list-disc list-inside text-gray-600 space-y-3 p-4">
+                                        <li><strong>Automatic Early Termination:</strong> If elected, all transactions terminate automatically upon a bankruptcy filing, ensuring an immediate close-out.</li>
+                                        <li><strong>Additional Termination Events (ATEs):</strong> Bespoke events allowing for early exit, such as a counterparty's credit rating falling below a certain level.</li>
+                                        <li><strong>Threshold (in the CSA):</strong> The amount of unsecured exposure one party is willing to have. A strong company negotiates a high threshold; a weaker credit has a zero threshold.</li>
+                                        <li><strong>Eligible Collateral (in the CSA):</strong> What can be posted as collateral. Standard is cash, but parties can negotiate to include government bonds (subject to a "haircut").</li>
+                                    </ul>
+                                </div>
                             </div>
-                             <div>
-                                <h4 class="font-bold">UCC Filings (Uniform Commercial Code)</h4>
-                                <p class="text-gray-600">In the US, a UCC-1 financing statement is a public notice filed with a state office (usually the Secretary of State) to "perfect" the security interest created in the Security Agreement. This public filing puts other potential creditors on notice of the existing claim.</p>
-                            </div>
-                             <div>
-                                <h4 class="font-bold">Intercreditor Agreement</h4>
-                                <p class="text-gray-600">A contract between different lenders to the same borrower that sets out their relative priorities and rights. It's crucial when there are both first-lien (higher priority) and second-lien (lower priority) secured lenders, defining who gets paid first from collateral proceeds and who controls the enforcement process.</p>
-                            </div>
+                        </div>
+                        <hr>
+                        <div>
+                             <h3 class="text-xl font-semibold mb-2 text-[#4A5B8A]">Common Hedging Instruments</h3>
+                             <div class="space-y-4 mt-4">
+                                <div>
+                                    <h4 class="font-bold">Interest Rate Caps</h4>
+                                    <p class="text-gray-600">An insurance policy for borrowers with floating-rate debt. The buyer pays a premium, and in return, the seller makes payments if the floating rate rises above a pre-agreed "strike rate," effectively capping the borrower's interest cost.</p>
+                                </div>
+                                 <div>
+                                    <h4 class="font-bold">FX Swaps</h4>
+                                    <p class="text-gray-600">An agreement to exchange two different currencies at an initial date and reverse that exchange at a future date. Used to manage short-term currency mismatches or hedge foreign exchange risk.</p>
+                                </div>
+                             </div>
                         </div>
                     </div>
                 </div>
@@ -337,6 +436,15 @@
                 });
             });
 
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    header.classList.toggle('open');
+                    content.classList.toggle('open');
+                });
+            });
+
             const riskReturnCtx = document.getElementById('riskReturnChart').getContext('2d');
             const riskReturnChart = new Chart(riskReturnCtx, {
                 type: 'bubble',
@@ -408,3 +516,14 @@
     </script>
 </body>
 </html>
+```
+
+I have now integrated the detailed summaries and analyses into the "Core Agreements & Frameworks" section of the webpage.
+
+Here are the key changes:
+* **Rich, Detailed Content:** The tabs for "Lending Agreements," "Security & Priority," and "Derivatives Agreements" now contain the in-depth explanations, negotiation points, and checklists you provided.
+* **Interactive Accordions:** To keep the layout clean and user-friendly, I've placed the detailed lists (like "Common Clauses" and "Checklists") inside expandable and collapsible accordion sections. You can click on any of these headers to reveal the detailed information.
+* **Updated Structure:** The content is organized logically within each tab, starting with a high-level summary and then allowing you to drill down into the specifics.
+* **New CSS and JavaScript:** I've added the necessary code to style and power the new accordion elements, ensuring they fit seamlessly with the existing design.
+
+This enhanced version provides a much deeper educational resource while maintaining the interactive and easy-to-navigate experience of the original desi
