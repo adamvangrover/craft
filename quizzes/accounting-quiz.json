@@ -1,0 +1,35 @@
+{
+  "title": "Accounting Fundamentals Quiz",
+  "questions": [
+    {
+      "question": "Which of the following is NOT one of the three core financial statements?",
+      "options": [
+        "Income Statement",
+        "Balance Sheet",
+        "Statement of Retained Earnings",
+        "Cash Flow Statement"
+      ],
+      "answer": "Statement of Retained Earnings"
+    },
+    {
+      "question": "The accounting equation is Assets = Liabilities + ?",
+      "options": [
+        "Revenue",
+        "Expenses",
+        "Equity",
+        "Net Income"
+      ],
+      "answer": "Equity"
+    },
+    {
+      "question": "Which of the following is an example of a non-cash expense?",
+      "options": [
+        "Salaries",
+        "Rent",
+        "Depreciation",
+        "Interest"
+      ],
+      "answer": "Depreciation"
+    }
+  ]
+}
