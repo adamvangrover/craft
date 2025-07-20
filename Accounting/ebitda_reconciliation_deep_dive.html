@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBITDA Reconciliation Deep Dive</title>
+    <link rel="stylesheet" href="../css/global_nav.css">
+    <link rel="stylesheet" href="../assets/css/shared-readme-styles.css">
+</head>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="readme-container">
+        <div class="readme-content">
+            <h1>EBITDA Reconciliation Deep Dive</h1>
+
+            <h2>Introduction</h2>
+            <p>EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization) is a non-GAAP financial measure commonly used to assess a company's operating performance. It is intended to provide a cleaner view of core operational profitability by removing the effects of financing decisions (interest), accounting decisions (depreciation and amortization), and tax jurisdictions.</p>
+
+            <hr>
+
+            <h2>Calculation</h2>
+            <p>EBITDA is typically calculated by starting with Net Income and adding back interest, taxes, depreciation, and amortization. An alternative method is to start with Operating Income (EBIT) and add back Depreciation and Amortization.</p>
+            <pre><code>EBITDA = Net Income + Interest + Taxes + Depreciation + Amortization</code></pre>
+            <p>Or:</p>
+            <pre><code>EBITDA = EBIT + Depreciation + Amortization</code></pre>
+
+            <hr>
+
+            <h2>Reconciliation to Net Income</h2>
+            <p>Because EBITDA is a non-GAAP metric, companies that report it are required by regulators like the SEC to provide a reconciliation of EBITDA to the most directly comparable GAAP measure, which is typically Net Income. This reconciliation is crucial for transparency and helps investors understand the differences between the two measures.</p>
+
+            <h3>Example Reconciliation</h3>
+            <table>
+                <thead>
+                    <tr><th>Line Item</th><th>Amount</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Net Income</td><td>$100,000</td></tr>
+                    <tr><td><strong>Add Back:</strong></td><td></td></tr>
+                    <tr><td style="padding-left: 2em;">Interest Expense</td><td>$20,000</td></tr>
+                    <tr><td style="padding-left: 2em;">Tax Expense</td><td>$30,000</td></tr>
+                    <tr><td style="padding-left: 2em;">Depreciation</td><td>$40,000</td></tr>
+                    <tr><td style="padding-left: 2em;">Amortization</td><td>$10,000</td></tr>
+                    <tr><td><strong>EBITDA</strong></td><td><strong>$200,000</strong></td></tr>
+                </tbody>
+            </table>
+
+            <hr>
+
+            <h2>Uses and Limitations of EBITDA</h2>
+
+            <h3>Uses:</h3>
+            <ul>
+                <li><strong>Comparability:</strong> It can be used to compare the core operating performance of companies in the same industry, as it removes the effects of different capital structures and tax rates.</li>
+                <li><strong>Credit Analysis:</strong> It is frequently used in leverage ratios (e.g., Debt/EBITDA) to assess a company's ability to service its debt.</li>
+            </ul>
+
+            <h3>Limitations:</h3>
+            <ul>
+                <li><strong>Ignores Working Capital:</strong> EBITDA does not account for changes in working capital, which can have a significant impact on cash flow.</li>
+                <li><strong>Ignores Capital Expenditures:</strong> By adding back depreciation, EBITDA ignores the ongoing cash requirement for capital expenditures needed to maintain a company's asset base. This is one of its most criticized flaws.</li>
+                <li><strong>Not a Proxy for Cash Flow:</strong> EBITDA is not a substitute for Cash Flow from Operations. A company can have positive EBITDA but negative cash flow.</li>
+                <li><strong>Potential for Manipulation:</strong> Companies may present an "Adjusted EBITDA" figure that also adds back items like stock-based compensation or restructuring costs, which can be misleading if not scrutinized.</li>
+            </ul>
+        </div>
+        <footer class="readme-footer">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
+        </footer>
+    </div>
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

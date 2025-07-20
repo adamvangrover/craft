@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started Guide</title>
+    <link rel="stylesheet" href="css/global_nav.css">
+    <link rel="stylesheet" href="assets/css/shared-readme-styles.css">
+</head>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="readme-container">
+        <div class="readme-content">
+            <h1>Getting Started with the Financial Learning Hub</h1>
+            <p>Welcome! This guide is designed to help you navigate this comprehensive repository and find the resources most relevant to your goals.</p>
+
+            <h2>Where Should I Start?</h2>
+            <p>Your starting point depends on your background and what you want to achieve. Find the profile below that best matches you.</p>
+
+            <hr>
+
+            <h3>If you are a Student or Aspiring Financial Analyst...</h3>
+            <p>Your goal is to build a strong foundation. We recommend a structured approach:</p>
+            <ol>
+                <li><strong>Start with the Core Concepts:</strong> Begin with our new <strong><a href="./Accounting/index.html">Accounting Hub</a></strong>. A solid understanding of the three financial statements is non-negotiable.</li>
+                <li><strong>Learn to Model:</strong> Move on to the <strong><a href="./Financial_Modeling/index.html">Financial Modeling Hub</a></strong>. Work through the <em>Best Practices</em> and <em>Templates</em> to understand how financial statements are projected.</li>
+                <li><strong>Follow a Learning Path:</strong> For a guided experience, begin the <strong><a href="./Learning_Paths/Credit_Analyst_Foundational_Path.md">Credit Analyst Foundational Path</a></strong>. This path will walk you through the essential skills for a career in credit.</li>
+                <li><strong>Explore the Lingo:</strong> Use the <strong><a href="./Market_Analysis_Quick_Start/index.html">Market Analysis Quick Start</a></strong> guide to get up to speed on common market terms and concepts.</li>
+            </ol>
+
+            <hr>
+
+            <h3>If you are preparing for the CFA® Exam...</h3>
+            <p>Your focus is on targeted, efficient studying.</p>
+            <ol>
+                <li><strong>Go to the Hub:</strong> Your primary resource is the <strong><a href="./CFA/index.html">CFA Program Hub</a></strong>. This is your portal to all CFA-related materials.</li>
+                <li><strong>Identify Your Level:</strong> Navigate to the specific materials for Level 1, 2, or 3.</li>
+                <li><strong>Use the Tools:</strong> Leverage the <em>Topic Deep Dives</em> for complex areas, review the <em>Cheat Sheets</em> for quick revision, and test your knowledge with the <em>Practice Exams</em>.</li>
+                <li><strong>Master Ethics:</strong> Don't neglect the <em>Ethics</em> sections; they are a significant part of every exam level.</li>
+            </ol>
+
+            <hr>
+
+            <h3>If you are a Current Professional looking to upskill...</h3>
+            <p>You likely need specific, practical information.</p>
+            <ol>
+                <li><strong>Dive into Industry Primers:</strong> If you need to get up to speed on a specific sector for a new deal or client, head to the <strong><a href="./primers/index.html">Industry Primers Hub</a></strong>.</li>
+                <li><strong>Refine Your Process:</strong> Use the <strong><a href="./Toolkits_and_Checklists/index.html">Toolkits & Checklists</a></strong> for practical job aids like the <em>Financial Model Review Checklist</em> or the <em>Due Diligence Checklist</em>.</li>
+                <li><strong>Explore Advanced Topics:</strong> Deepen your expertise by exploring sections like <strong><a href="./legal_analysis/index.html">Legal Analysis</a></strong> for understanding credit agreements, or <strong><a href="./Fintech/index.html">Fintech</a></strong> to stay current on market trends.</li>
+                <li><strong>Engage with Interactive Notebooks:</strong> Use the <strong><a href="./Interactive_Notebooks/index.html">Interactive Notebooks</a></strong> for hands-on analysis of topics like LBO models or credit agreement clauses.</li>
+            </ol>
+
+            <hr>
+
+            <h3>If you are an AI Agent or Developer...</h3>
+            <p>You are here to understand the structure and contribute.</p>
+            <ol>
+                <li><strong>Read the <code>AGENTS.MD</code> files:</strong> Start with the root <strong><a href="./AGENTS.MD">AGENTS.MD</a></strong> to understand the overall architecture and guiding principles. Then, review the <code>AGENTS.MD</code> file within the specific directory you are working in.</li>
+                <li><strong>Understand the Navigation:</strong> The global navigation is driven by <strong><a href="./js/nav_data.js">js/nav_data.js</a></strong>. This is the primary file to modify when adding or changing top-level navigation.</li>
+                <li><strong>Follow Existing Patterns:</strong> When adding new content, follow the established patterns. For example, creating sectional hubs (like in <code>/primers</code> or <code>/Accounting</code>) with individual HTML wrappers for markdown content is the preferred approach.</li>
+                <li><strong>Use the <code>global_markdown_viewer.html</code> Sparingly:</strong> This viewer is a fallback. For core content, creating a styled HTML wrapper provides a better and more robust user experience.</li>
+            </ol>
+            <p>We hope this guide helps you make the most of the Financial Learning Hub!</p>
+        </div>
+        <footer class="readme-footer">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
+        </footer>
+    </div>
+    <script src="js/nav_data.js" defer></script>
+    <script src="js/global_nav.js" defer></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

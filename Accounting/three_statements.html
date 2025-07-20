@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Three Core Financial Statements</title>
+    <link rel="stylesheet" href="../css/global_nav.css">
+    <link rel="stylesheet" href="../assets/css/shared-readme-styles.css">
+</head>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="readme-container">
+        <div class="readme-content">
+            <h1>The Three Core Financial Statements</h1>
+
+            <h2>Introduction</h2>
+            <p>There are three main financial statements that companies use to report their financial performance and position: the income statement, the balance sheet, and the cash flow statement. Together, they provide a comprehensive view of a company's financial health.</p>
+
+            <hr>
+
+            <h2>1. Income Statement</h2>
+            <p>The income statement, also known as the Profit & Loss (P&L) statement, shows a company's financial performance over a period of time (e.g., a quarter or a year). It is calculated as follows:</p>
+            <pre><code>Revenues - Expenses = Net Income</code></pre>
+            <p>It tells the story of a company's profitability during that period.</p>
+
+            <hr>
+
+            <h2>2. Balance Sheet</h2>
+            <p>The balance sheet presents a snapshot of a company's financial position at a specific point in time. It is based on the fundamental accounting equation:</p>
+            <pre><code>Assets = Liabilities + Equity</code></pre>
+            <p>This means a company's resources (assets) are funded by either debt (liabilities) or its owners' capital (equity).</p>
+
+            <hr>
+
+            <h2>3. Cash Flow Statement</h2>
+            <p>The cash flow statement (CFS) shows how a company's cash has changed over a period of time. It reconciles the net income (from the income statement) to the actual change in cash (on the balance sheet). It is divided into three sections:</p>
+            <ul>
+                <li><strong>Cash Flow from Operating Activities:</strong> Cash generated from a company's normal business operations.</li>
+                <li><strong>Cash Flow from Investing Activities:</strong> Cash used for or generated from investments in assets (like property, plant, and equipment).</li>
+                <li><strong>Cash Flow from Financing Activities:</strong> Cash used for or generated from financing activities, such as issuing debt or equity, or paying dividends.</li>
+            </ul>
+
+            <hr>
+
+            <h2>How the Three Statements are Linked</h2>
+            <p>The three financial statements are intrinsically linked:</p>
+            <ul>
+                <li><strong>Net income</strong> from the income statement is the starting point for the cash flow from operating activities section on the cash flow statement.</li>
+                <li><strong>Net income</strong> (less any dividends paid) also flows into the Retained Earnings account within Equity on the balance sheet.</li>
+                <li>The <strong>ending cash balance</strong> on the cash flow statement becomes the cash balance on the balance sheet for that period.</li>
+                <li><strong>Changes in balance sheet accounts</strong>, such as working capital (e.g., accounts receivable, inventory), directly impact the cash flow statement.</li>
+            </ul>
+        </div>
+        <footer class="readme-footer">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
+        </footer>
+    </div>
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

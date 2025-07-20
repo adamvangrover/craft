@@ -9,6 +9,11 @@ const navData = [
     type: "category",
     children: [
       {
+        text: "Getting Started Guide",
+        href: "Getting_Started.html",
+        type: "html"
+      },
+      {
         text: "All Learning Paths",
         href: "Learning_Paths/index.html",
         type: "section_viewer"
@@ -34,6 +39,11 @@ const navData = [
     text: "Core Financial Topics",
     type: "category",
     children: [
+      {
+        text: "Accounting",
+        href: "Accounting/index.html",
+        type: "html_hub"
+      },
       {
         text: "Financial Modeling",
         href: "Financial_Modeling/index.html",
@@ -83,7 +93,7 @@ const navData = [
       {
         text: "Toolkits & Checklists",
         href: "Toolkits_and_Checklists/index.html",
-        type: "section_viewer"
+        type: "html_hub"
       }
     ]
   },
