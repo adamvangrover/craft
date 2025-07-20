@@ -114,6 +114,10 @@
                     <span class="w-5 h-5">📣</span>
                     <span>Marketing</span>
                 </a>
+                 <a href="#ml-orchestrator" data-target="ml-orchestrator" class="nav-item text-left p-4 text-sm font-medium text-gray-700 flex items-center space-x-3">
+                    <span class="w-5 h-5">🤖</span>
+                    <span>ML Orchestrator</span>
+                </a>
             </nav>
         </aside>
 
@@ -250,6 +254,135 @@
                         template: `**Persona:** You are a creative and strategic marketing manager at a bank.\n\n**Task:** We are launching a new high-yield savings account targeted at millennials. Brainstorm three distinct marketing campaign concepts. For each concept, provide:\n\n1.  A catchy slogan.\n2.  The core messaging.\n3.  Key channels to reach the target audience (e.g., social media platforms, influencer collaborations, etc.).\n4.  A brief description of the visual identity.\n\nEnsure all concepts are compliant with financial advertising regulations by avoiding promises of guaranteed returns and using clear, non-misleading language.`
                     }]
                 }]
+            },
+            "ml-orchestrator": {
+                name: "ML Orchestrator",
+                description: "For orchestrating complex, distributed AI/ML systems. These prompts are machine-readable protocols that define agent interaction, network configuration, and federated learning tasks.",
+                use_cases: [{
+                    name: "Federated Spam Detection Orchestration",
+                    prompts: [{
+                        id: "MLO-001-SpamOrchestrator",
+                        description: "Defines the operational parameters for a master orchestrator agent in a distributed, federated system.",
+                        template: `# ===================================================================
+# == Versioned Indexed Protocol (VIP) for Agent Orchestration      ==
+# == ------------------------------------------------------------- ==
+# == This file defines the operational parameters for a master     ==
+# == orchestrator agent in a distributed, federated system.        ==
+# ===================================================================
+
+# METADATA: Core identification and versioning for the prompt protocol.
+# Ensures traceability and compatibility within the agent library.
+# -------------------------------------------------------------------
+protocol_id: "FL-SPAM-ORCH-001"
+protocol_name: "FederatedSpamDetectionOrchestrator"
+version: "1.0.1" # MAJOR.MINOR.PATCH (Semantic Versioning)
+schema_version: "2.0" # Version of the VIP schema itself
+description: "Orchestrates a federated learning network to train a global spam detection model across distributed email server agents without sharing raw data."
+author: "Gemini AI"
+timestamp: "2025-07-18T21:54:20Z"
+tags: [federated-learning, nlp, classification, security]
+
+# NETWORK_CONFIG: Defines the distributed environment and microservice APIs.
+# This makes the agent "API connected."
+# -------------------------------------------------------------------
+network_config:
+  protocol: "HTTP/S"
+  service_discovery_uri: "http://service-registry:8500/v1/catalog/services"
+  auth_method: "OAuth2"
+  auth_token_endpoint: "http://auth-server:9090/token"
+  default_timeout_seconds: 60
+
+# PERSONA: The core identity and unchanging directive of the agent.
+# -------------------------------------------------------------------
+persona:
+  role: "Federated Learning Orchestrator (FLO)"
+  traits: [secure, methodical, efficient, fault-tolerant, automated]
+  core_mandate: "My purpose is to manage the end-to-end lifecycle of a federated learning process, ensuring model convergence while preserving data privacy across all participating nodes."
+
+# TASK: Defines the primary, high-level orchestration flows the agent executes.
+# This section is machine-readable logic, not just instructions.
+# -------------------------------------------------------------------
+task:
+  orchestration_flows:
+    - flow_name: "Federated_Training_Round"
+      description: "Executes a single round of federated training, from model distribution to global aggregation."
+      steps:
+        - "1. SELECT_ACTIVE_NODES"
+        - "2. DISTRIBUTE_GLOBAL_MODEL"
+        - "3. INITIATE_LOCAL_TRAINING"
+        - "4. COLLECT_MODEL_UPDATES"
+        - "5. AGGREGATE_UPDATES"
+        - "6. UPDATE_GLOBAL_MODEL"
+        - "7. LOG_METRICS"
+    - flow_name: "System_Health_Check"
+      description: "Periodically polls all registered trainer agents to ensure they are online and healthy."
+      steps:
+        - "1. QUERY_SERVICE_REGISTRY"
+        - "2. PING_AGENT_HEALTH_ENDPOINT"
+        - "3. REPORT_STATUS"
+
+# CONTEXT: The operational context, including roles, rules, and specific protocols.
+# -------------------------------------------------------------------
+context:
+  # FEDERATED_LEARNING_PROTOCOL: The core logic for the distributed learning task.
+  federated_learning_protocol:
+    strategy: "FederatedAveraging (FedAvg)"
+    global_model_id: "spam-classifier-gm-v3.2"
+    hyperparameters:
+      global_rounds: 50
+      nodes_per_round: 10 # Number of clients to participate in each round
+      local_epochs: 5
+      batch_size: 32
+      learning_rate: 0.01
+    aggregation_server: "http://aggregation-service:5000/aggregate"
+    privacy_protocol:
+      # Defines privacy-enhancing techniques to be used.
+      technique: "DifferentialPrivacy"
+      epsilon: 1.0 # Privacy budget parameter
+      delta: 1e-5
+
+  # AGENT_ROLES: Defines the specialized sub-agents in the network and their API contracts.
+  agent_roles:
+    - role: "trainer_node"
+      service_name: "email-server-agent"
+      description: "A distributed agent residing on an email server. It trains the model on local data upon request."
+      api_endpoints:
+        - name: "health_check"
+          path: "/health"
+          method: "GET"
+          expected_response_schema: { status: "string" }
+        - name: "train_model"
+          path: "/train"
+          method: "POST"
+          request_schema: { model_id: "string", hyperparameters: "object" }
+          response_schema: { model_update_id: "string", metrics: "object" }
+
+    - role: "model_aggregator"
+      service_name: "aggregation-service"
+      description: "A centralized service that aggregates model updates to produce a new global model."
+      api_endpoints:
+        - name: "aggregate_updates"
+          path: "/aggregate"
+          method: "POST"
+          request_schema: { global_model_id: "string", update_ids: "array" }
+          response_schema: { new_global_model_id: "string", performance_metrics: "object" }
+
+# DELIVERABLE: Defines the final output or state upon completion of a major task.
+# -------------------------------------------------------------------
+deliverable:
+  on_completion: "Federated_Training_Round"
+  type: "ModelRegistryUpdate"
+  payload:
+    - target_registry: "http://model-registry:8080/models"
+    - new_model_id: "{{new_global_model_id}}" # Variable to be populated from the aggregation step
+    - performance_metrics: "{{performance_metrics}}"
+    - training_log_id: "{{log_id}}"
+  notification:
+    - channel: "slack"
+    - webhook_url: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    - message: "✅ Federated Training Round {{current_round}}/{{total_rounds}} complete. New global model \`{{new_global_model_id}}\` registered. Accuracy: {{performance_metrics.accuracy}}."`
+                    }]
+                }]
             }
         };
 
@@ -268,7 +401,7 @@
                                 <h2 class="text-3xl font-bold text-gray-800">${persona.name}</h2>
                                 <p class="mt-2 text-lg text-gray-600">${persona.description}</p>
                             </header>
-                            ${key === 'financial-analyst' ? `
+                            ${key === 'financial-analyst' || key === 'ml-orchestrator' ? `
                             <div class="bg-white/80 p-6 rounded-lg shadow-sm mb-10">
                                 <h3 class="text-xl font-semibold text-gray-700 mb-2">Prompt Explorer</h3>
                                 <p class="text-gray-600">This is the interactive core of the framework. Here, you can explore prompts tailored to specific roles within the bank. Select a use case below to view its corresponding prompt template. You can directly copy any prompt to use in your AI-powered workflows, accelerating your tasks while ensuring compliance and quality.</p>
@@ -387,13 +520,15 @@
                                 'rgba(54, 162, 235, 0.7)',
                                 'rgba(75, 192, 192, 0.7)',
                                 'rgba(153, 102, 255, 0.7)',
-                                'rgba(255, 159, 64, 0.7)'
+                                'rgba(255, 159, 64, 0.7)',
+                                'rgba(255, 99, 132, 0.7)'
                             ],
                             borderColor: [
                                 'rgba(54, 162, 235, 1)',
                                 'rgba(75, 192, 192, 1)',
                                 'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(255, 99, 132, 1)'
                             ],
                             borderWidth: 1
                         }]
