@@ -1,62 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toolkits & Checklists Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/global_nav.css">
-    <link rel="stylesheet" href="../primers/styles.css"> <!-- Re-using primer styles for consistency -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+            color: #3D352E;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #4A90E2 0%, #3B73C4 100%);
+        }
+        .section-title {
+            @apply text-3xl font-bold text-center mb-12 text-slate-700;
+        }
+        .card {
+            @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 ease-in-out;
+        }
+        .card:hover {
+            @apply transform -translate-y-1 shadow-2xl;
+        }
+        .card-title {
+            @apply text-xl font-semibold mb-2 text-slate-800;
+        }
+        .card-description {
+            @apply text-slate-600 text-sm mb-4 flex-grow;
+        }
+        .card-link {
+            @apply inline-block bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm;
+        }
+    </style>
 </head>
-<body style="display: flex; min-height: 100vh;">
-    <div id="global-nav-placeholder"></div>
-    <div class="page-container" style="flex-grow: 1;">
-        <header class="page-header">
-            <h1>Toolkits & Checklists</h1>
-            <p class="page-subtitle">A collection of practical job aids, templates, and checklists to support financial analysis and decision-making.</p>
-        </header>
+<body class="flex">
 
-        <main class="main-index-container">
-            <article class="primer-summary-card" data-title="Credit Analysis Due Diligence Checklist">
-                <h3><a href="credit_analysis_checklist.html">Credit Analysis Due Diligence Checklist</a></h3>
-                <div class="primer-initial-summary">
-                    <p>A comprehensive checklist for conducting due diligence in credit analysis, covering business, financial, industry, and management factors.</p>
-                </div>
-                <a href="credit_analysis_checklist.html" class="view-details-link">View Checklist &raquo;</a>
-            </article>
-
-            <article class="primer-summary-card" data-title="Financial Model Review Checklist">
-                <h3><a href="financial_model_review_checklist.html">Financial Model Review Checklist</a></h3>
-                <div class="primer-initial-summary">
-                    <p>A step-by-step guide to reviewing financial models for accuracy, integrity, and best practices. Essential for ensuring model reliability.</p>
-                </div>
-                <a href="financial_model_review_checklist.html" class="view-details-link">View Checklist &raquo;</a>
-            </article>
-
-            <article class="primer-summary-card" data-title="Debiasing Checklist for Analysis">
-                <h3><a href="debiasing_checklist.html">Debiasing Checklist for Analysis</a></h3>
-                <div class="primer-initial-summary">
-                    <p>A tool to help analysts identify and mitigate common cognitive biases (e.g., confirmation bias, anchoring) in their research and analysis process.</p>
-                </div>
-                <a href="debiasing_checklist.html" class="view-details-link">View Checklist &raquo;</a>
-            </article>
-
-            <article class="primer-summary-card" data-title="Basic Financial Ratios Calculator Guide">
-                <h3><a href="financial_ratios_guide.html">Basic Financial Ratios Calculator Guide</a></h3>
-                <div class="primer-initial-summary">
-                    <p>A guide and conceptual template for building a basic financial ratios calculator. Explains key liquidity, profitability, and leverage ratios.</p>
-                </div>
-                <a href="financial_ratios_guide.html" class="view-details-link">View Guide &raquo;</a>
-            </article>
-
-        </main>
-        <footer class="page-footer">
-            <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
-        </footer>
+    <!-- Global Navigation Sidebar -->
+    <div id="global-nav-placeholder" class="fixed top-0 left-0 h-full z-30">
     </div>
-    <script src="../js/nav_data.js" defer></script>
-    <script src="../js/global_nav.js" defer></script>
+
+    <!-- Main Content Area -->
+    <div id="main-content-wrapper" class="flex-grow overflow-y-auto ml-0 md:ml-[280px] transition-all duration-300 ease-in-out">
+
+        <!-- Hero Section -->
+        <section id="hero" class="hero-gradient py-20 px-6 md:px-8 text-center text-white">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Toolkits & Checklists Hub</h1>
+                <p class="text-xl md:text-2xl mb-10 opacity-90">
+                    A collection of practical job aids, templates, and checklists to support financial analysis and decision-making.
+                </p>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section id="content" class="py-16 px-6 md:px-8">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="section-title">Explore Our Toolkits</h2>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <!-- Credit Analysis Due Diligence Checklist -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-tasks text-3xl"></i></div>
+                        <h3 class="card-title">Credit Analysis Due Diligence Checklist</h3>
+                        <p class="card-description">A comprehensive checklist for conducting due diligence in credit analysis, covering business, financial, industry, and management factors.</p>
+                        <a href="credit_analysis_checklist.html" class="card-link">View Checklist</a>
+                    </div>
+
+                    <!-- Financial Model Review Checklist -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-check-double text-3xl"></i></div>
+                        <h3 class="card-title">Financial Model Review Checklist</h3>
+                        <p class="card-description">A step-by-step guide to reviewing financial models for accuracy, integrity, and best practices. Essential for ensuring model reliability.</p>
+                        <a href="financial_model_review_checklist.html" class="card-link">View Checklist</a>
+                    </div>
+
+                    <!-- Debiasing Checklist for Analysis -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-brain text-3xl"></i></div>
+                        <h3 class="card-title">Debiasing Checklist for Analysis</h3>
+                        <p class="card-description">A tool to help analysts identify and mitigate common cognitive biases (e.g., confirmation bias, anchoring) in their research and analysis process.</p>
+                        <a href="debiasing_checklist.html" class="card-link">View Checklist</a>
+                    </div>
+
+                    <!-- Basic Financial Ratios Calculator Guide -->
+                    <div class="card flex flex-col p-6">
+                        <div class="mb-4 text-sky-500"><i class="fas fa-calculator text-3xl"></i></div>
+                        <h3 class="card-title">Basic Financial Ratios Calculator Guide</h3>
+                        <p class="card-description">A guide and conceptual template for building a basic financial ratios calculator. Explains key liquidity, profitability, and leverage ratios.</p>
+                        <a href="financial_ratios_guide.html" class="card-link">View Guide</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-10 px-6 md:px-8 text-center text-sm text-slate-100 bg-slate-800">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub. For educational purposes.</p>
+        </footer>
+
+    </div>
+
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
 </body>
 </html>

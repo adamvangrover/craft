@@ -33,6 +33,18 @@ const navData = [
         text: "Site Presentation",
         href: "presentation.html",
         type: "html"
+      },
+      {
+        text: "Contributing",
+        href: "CONTRIBUTING.md",
+        type: "markdown_viewer",
+        viewer: "global"
+      },
+      {
+        text: "Roadmap",
+        href: "ROADMAP.md",
+        type: "markdown_viewer",
+        viewer: "global"
       }
     ]
   },
