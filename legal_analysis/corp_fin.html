@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Guide to Corporate Finance Agreements</title>
+    <!-- Chosen Palette: Corporate Neutral -->
+    <!-- Application Structure Plan: The application is designed as a guided educational tool, not a raw data dashboard. The structure is thematic and hierarchical to facilitate learning. It starts with a high-level, interactive "Capital Stack" as the central hub. Clicking a layer of the stack dynamically updates a detail panel, explaining the concept and linking to relevant agreements. This is more intuitive than a linear list. Subsequent sections are organized by function: 1) Core Lending Agreements, 2) Derivatives/Trading, 3) Security & Priority. This logical grouping helps users build a mental model of how different pieces of corporate finance fit together. The flow is designed for exploration, allowing users to drill down from a high-level concept (the stack) into specific documents and mechanics (like the payment waterfall). This non-linear, curiosity-driven approach is optimal for understanding complex, interconnected topics. -->
+    <!-- Visualization & Content Choices: 
+        - Capital Stack (HTML/CSS Divs): Goal: Show seniority/risk hierarchy. Method: Interactive styled divs. Interaction: Click to update detail panel. Justification: More tactile and directly integrated with text content than a static chart. Confirms NO SVG/Mermaid.
+        - Risk/Return Chart (Chart.js Bubble Chart): Goal: Compare instruments. Method: Canvas-based bubble chart. Interaction: Hover for tooltips. Justification: Provides a familiar, quantitative visual anchor for risk-return tradeoffs. Confirms NO SVG/Mermaid. Library: Chart.js.
+        - Payment Waterfall (HTML/CSS Divs): Goal: Explain priority of payments. Method: A flow diagram built with styled divs and Unicode arrows. Interaction: Hover to see descriptions. Justification: Visually explains a complex process without requiring images or complex libraries. Confirms NO SVG/Mermaid.
+        - Content Tabs (HTML/JS): Goal: Organize detailed text. Method: Buttons controlling content visibility. Interaction: Click to switch content. Justification: Standard, clean UI for managing dense information without clutter. Confirms NO SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #3D405B;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        .tab-btn.active {
+            background-color: #4A5B8A;
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .stack-item {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .stack-item.active, .stack-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+        .waterfall-step {
+            transition: all 0.3s ease;
+        }
+        .waterfall-step:hover .waterfall-desc {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#3D405B] mb-2">An Interactive Guide to Corporate Finance</h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">Explore the essential agreements, instruments, and structures that shape modern lending and capital markets. Click on the elements below to learn more.</p>
+        </header>
+
+        <main>
+            <section id="capital-stack" class="mb-16">
+                <h2 class="text-3xl font-bold text-center mb-2 text-[#3D405B]">The Capital Stack</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">The capital stack represents the hierarchy of a company's funding sources, from the safest to the riskiest. In a bankruptcy, claims are paid from the top down. Click on each layer to see its characteristics and associated agreements.</p>
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    
+                    <div class="w-full md:w-1/3 space-y-2">
+                        <div id="stack-super-priority" data-target="desc-super-priority" class="stack-item active border-l-8 border-red-500 bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-bold text-lg">Super Priority / DIP Financing</h3>
+                            <p class="text-sm text-gray-500">Highest priority, often in distress</p>
+                        </div>
+                        <div id="stack-abl" data-target="desc-abl" class="stack-item border-l-8 border-orange-500 bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-bold text-lg">Asset-Based Lending (ABL)</h3>
+                            <p class="text-sm text-gray-500">Secured by specific current assets</p>
+                        </div>
+                        <div id="stack-senior-secured" data-target="desc-senior-secured" class="stack-item border-l-8 border-yellow-500 bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-bold text-lg">Senior Secured Debt</h3>
+                            <p class="text-sm text-gray-500">Loans, Notes, Bonds with collateral</p>
+                        </div>
+                        <div id="stack-unsecured" data-target="desc-unsecured" class="stack-item border-l-8 border-green-500 bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-bold text-lg">Senior Unsecured Debt</h3>
+                            <p class="text-sm text-gray-500">No specific collateral backing</p>
+                        </div>
+                         <div id="stack-subordinated" data-target="desc-subordinated" class="stack-item border-l-8 border-blue-500 bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-bold text-lg">Subordinated Debt</h3>
+                            <p class="text-sm text-gray-500">Lower priority than senior debt</p>
+                        </div>
+                        <div id="stack-equity" data-target="desc-equity" class="stack-item border-l-8 border-purple-500 bg-white p-4 rounded-lg shadow">
+                            <h3 class="font-bold text-lg">Equity</h3>
+                            <p class="text-sm text-gray-500">Ownership stake, highest risk</p>
+                        </div>
+                    </div>
+
+                    <div id="stack-details" class="w-full md:w-2/3 bg-white p-6 rounded-lg shadow-lg min-h-[300px]">
+                        <div id="desc-super-priority" class="stack-content active">
+                            <h3 class="text-2xl font-bold mb-3 text-[#4A5B8A]">Super Priority / Debtor-in-Possession (DIP) Financing</h3>
+                            <p class="mb-4 text-gray-700">This is a special type of financing for companies in bankruptcy (Chapter 11). It is granted "super-priority" status by a court, meaning it must be repaid before all other pre-existing debts, even senior secured lenders. This is done to incentivize new lenders to provide capital to keep the distressed company operating.</p>
+                            <h4 class="font-semibold mb-2">Key Characteristics:</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><strong>Priority:</strong> Highest possible claim on assets.</li>
+                                <li><strong>Context:</strong> Used during bankruptcy proceedings.</li>
+                                <li><strong>Purpose:</strong> Provides liquidity for restructuring.</li>
+                            </ul>
+                            <h4 class="font-semibold mt-4 mb-2">Typical Agreements:</h4>
+                            <span class="inline-block bg-gray-200 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">DIP Credit Agreement</span>
+                            <span class="inline-block bg-gray-200 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">Security Agreement</span>
+                        </div>
+                        <div id="desc-abl" class="stack-content hidden">
+                            <h3 class="text-2xl font-bold mb-3 text-[#4A5B8A]">Asset-Based Lending (ABL)</h3>
+                            <p class="mb-4 text-gray-700">ABL is a type of senior secured financing where the loan amount is determined by the value of specific current assets, such as accounts receivable and inventory. It's common for companies in retail, distribution, and manufacturing with significant working capital assets. The "borrowing base" fluctuates with the value of the collateral.</p>
+                             <h4 class="font-semibold mb-2">Key Characteristics:</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><strong>Collateral:</strong> Primarily accounts receivable and inventory.</li>
+                                <li><strong>Structure:</strong> Often a revolving line of credit.</li>
+                                <li><strong>Monitoring:</strong> Lenders closely monitor collateral value.</li>
+                            </ul>
+                             <h4 class="font-semibold mt-4 mb-2">Typical Agreements:</h4>
+                            <span class="inline-block bg-gray-200 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">ABL Credit Agreement</span>
+                            <span class="inline-block bg-gray-200 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">Security Agreement</span>
+                             <span class="inline-block bg-gray-200 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">UCC Filings</span>
+                        </div>
+                        <div id="desc-senior-secured" class="stack-content hidden">
+                            <h3 class="text-2xl font-bold mb-3 text-[#4A5B8A]">Senior Secured Debt</h3>
+                            <p class="mb-4 text-gray-700">This form of debt is backed by a pledge of specific collateral (assets) from the borrower. In case of default, these lenders have the first claim on those assets. This seniority and security reduce risk, typically resulting in lower interest rates compared to unsecured debt. It can be structured as term loans, notes, or bonds.</p>
+                            <h4 class="font-semibold mb-2">Key Characteristics:</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><strong>Collateral:</strong> Backed by specific assets (e.g., property, equipment, IP).</li>
+                                <li><strong>Priority:</strong> Paid before unsecured creditors from collateral proceeds.</li>
+                                <li><strong>Cost:</strong> Generally lower interest rates.</li>
+                            </ul>
+                            <h4 class="font-semibold mt-4 mb-2">Typical Agreements:</h4>
+                             <span class="inline-block bg-gray-200 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">Credit Agreement (LSTA/LMA)</span>
+                             <span class="inline-block bg-gray-200 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">Security Agreement</span>
+                             <span class="inline-block bg-gray-200 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">Intercreditor Agreement</span>
+                        </div>
+                         <div id="desc-unsecured" class="stack-content hidden">
+                            <h3 class="text-2xl font-bold mb-3 text-[#4A5B8A]">Senior Unsecured Debt</h3>
+                            <p class="mb-4 text-gray-700">Unsecured debt is not backed by any specific collateral. Lenders are relying on the overall creditworthiness and cash flow of the company for repayment. In a liquidation, they are paid from remaining assets only after all secured creditors have been satisfied from their collateral. This higher risk commands higher interest rates.</p>
+                             <h4 class="font-semibold mb-2">Key Characteristics:</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><strong>Collateral:</strong> None. Backed only by the company's promise to pay.</li>
+                                <li><strong>Priority:</strong> Below all secured debt.</li>
+                                <li><strong>Cost:</strong> Higher interest rates to compensate for risk.</li>
+                            </ul>
+                            <h4 class="font-semibold mt-4 mb-2">Typical Instruments:</h4>
+                             <span class="inline-block bg-gray-200 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">Notes</span>
+                             <span class="inline-block bg-gray-200 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">Bonds</span>
+                        </div>
+                         <div id="desc-subordinated" class="stack-content hidden">
+                            <h3 class="text-2xl font-bold mb-3 text-[#4A5B8A]">Subordinated Debt</h3>
+                            <p class="mb-4 text-gray-700">Also known as junior debt, this ranks below other, more senior loans or securities. Its claim on assets is "subordinated" to senior debt. It is riskier than senior debt and therefore pays a higher rate of interest. It is often used to finance acquisitions or for growth capital.</p>
+                             <h4 class="font-semibold mb-2">Key Characteristics:</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><strong>Priority:</strong> Explicitly ranks below senior debt classes.</li>
+                                <li><strong>Risk:</strong> High risk of non-payment in distress scenarios.</li>
+                                <li><strong>Return:</strong> High interest rates.</li>
+                            </ul>
+                             <h4 class="font-semibold mt-4 mb-2">Typical Instruments:</h4>
+                             <span class="inline-block bg-gray-200 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">High-Yield Bonds</span>
+                             <span class="inline-block bg-gray-200 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">Mezzanine Debt</span>
+                        </div>
+                        <div id="desc-equity" class="stack-content hidden">
+                            <h3 class="text-2xl font-bold mb-3 text-[#4A5B8A]">Equity</h3>
+                            <p class="mb-4 text-gray-700">Equity represents ownership in a company (e.g., common stock). Equity holders have a claim on the company's profits (dividends) and assets, but only after all debt holders have been paid. This makes it the riskiest position in the capital stack, but it also has the highest potential for return through capital appreciation.</p>
+                             <h4 class="font-semibold mb-2">Key Characteristics:</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><strong>Priority:</strong> Last in line for payment.</li>
+                                <li><strong>Return:</strong> Potentially unlimited through stock price growth and dividends.</li>
+                                <li><strong>Control:</strong> Often comes with voting rights.</li>
+                            </ul>
+                             <h4 class="font-semibold mt-4 mb-2">Typical Instruments:</h4>
+                             <span class="inline-block bg-gray-200 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">Common Stock</span>
+                             <span class="inline-block bg-gray-200 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">Preferred Stock</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="agreements" class="mb-16">
+                 <h2 class="text-3xl font-bold text-center mb-8 text-[#3D405B]">Core Agreements & Frameworks</h2>
+                 <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">These legal documents form the bedrock of lending and trading relationships. They define the rights, obligations, and priorities of all parties involved. This section explores the purpose and key features of the most common agreements.</p>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="flex flex-wrap justify-center border-b-2 border-gray-200 mb-6">
+                        <button data-target="lending" class="tab-btn active px-4 py-2 -mb-px border-b-2 border-transparent hover:border-[#4A5B8A] focus:outline-none">Lending Agreements</button>
+                        <button data-target="derivatives" class="tab-btn px-4 py-2 -mb-px border-b-2 border-transparent hover:border-[#4A5B8A] focus:outline-none">Derivatives Agreements</button>
+                        <button data-target="security" class="tab-btn px-4 py-2 -mb-px border-b-2 border-transparent hover:border-[#4A5B8A] focus:outline-none">Security & Priority</button>
+                    </div>
+
+                    <div id="lending" class="content-section active">
+                        <h3 class="text-2xl font-semibold mb-4 text-[#4A5B8A]">Lending Agreements</h3>
+                        <p class="text-gray-700 mb-4">These documents govern the borrowing and lending of money. The LSTA (Loan Syndications and Trading Association) and LMA (Loan Market Association) provide standardized templates for the US and European markets, respectively, which streamlines the process for syndicated loans involving multiple lenders.</p>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-bold">Credit Agreement (LSTA / LMA)</h4>
+                                <p class="text-gray-600">The master document for a loan. It details the interest rate, repayment schedule, covenants (rules the borrower must follow), and events of default.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Notes and Bonds</h4>
+                                <p class="text-gray-600">These are debt instruments. A <span class="font-semibold">Note</span> is typically a loan from a single lender or a small group, while a <span class="font-semibold">Bond</span> is a loan sold to many different public investors. Both represent a promise to repay a principal amount with interest.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="derivatives" class="content-section">
+                        <h3 class="text-2xl font-semibold mb-4 text-[#4A5B8A]">Derivatives Agreements</h3>
+                        <p class="text-gray-700 mb-4">Derivatives are financial contracts whose value is derived from an underlying asset. They are used for hedging risks (like changes in interest rates or foreign exchange rates) or for speculation. The ISDA framework governs these over-the-counter trades.</p>
+                         <div class="space-y-4">
+                            <div>
+                                <h4 class="font-bold">ISDA Master Agreement</h4>
+                                <p class="text-gray-600">A standardized contract that governs all over-the-counter derivatives transactions between two parties. It sets out the general terms, reducing the need to negotiate a full contract for every single trade.</p>
+                            </div>
+                             <div>
+                                <h4 class="font-bold">Credit Support Annex (CSA)</h4>
+                                <p class="text-gray-600">An ancillary document to the ISDA Master Agreement. It requires one or both parties to post collateral (cash or securities) to mitigate credit risk if the value of their derivative positions moves against them.</p>
+                            </div>
+                             <div>
+                                <h4 class="font-bold">Interest Rate Caps & FX Swaps</h4>
+                                <p class="text-gray-600"><span class="font-semibold">Interest Rate Caps</span> are contracts that protect borrowers with floating-rate loans from rising interest rates. An <span class="font-semibold">FX Swap</span> is an agreement to exchange principal and/or interest payments in one currency for equivalent payments in another currency, hedging against foreign exchange risk.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="security" class="content-section">
+                         <h3 class="text-2xl font-semibold mb-4 text-[#4A5B8A]">Security & Priority Agreements</h3>
+                        <p class="text-gray-700 mb-4">When a loan is "secured," these are the documents that create and define the lender's claim on the borrower's assets. They are critical for establishing priority among different groups of creditors.</p>
+                         <div class="space-y-4">
+                            <div>
+                                <h4 class="font-bold">Security Agreement</h4>
+                                <p class="text-gray-600">The contract that grants a lender a "security interest" in specific assets pledged as collateral. It gives the lender the right to seize and sell those assets if the borrower defaults.</p>
+                            </div>
+                             <div>
+                                <h4 class="font-bold">UCC Filings (Uniform Commercial Code)</h4>
+                                <p class="text-gray-600">In the US, a UCC-1 financing statement is a public notice filed with a state office (usually the Secretary of State) to "perfect" the security interest created in the Security Agreement. This public filing puts other potential creditors on notice of the existing claim.</p>
+                            </div>
+                             <div>
+                                <h4 class="font-bold">Intercreditor Agreement</h4>
+                                <p class="text-gray-600">A contract between different lenders to the same borrower that sets out their relative priorities and rights. It's crucial when there are both first-lien (higher priority) and second-lien (lower priority) secured lenders, defining who gets paid first from collateral proceeds and who controls the enforcement process.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="visualizations" class="mb-16">
+                 <h2 class="text-3xl font-bold text-center mb-8 text-[#3D405B]">Visualizing Concepts</h2>
+                 <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Some financial concepts are best understood visually. The following diagrams illustrate the flow of payments in a bankruptcy and the fundamental relationship between risk and potential return across different asset classes.</p>
+                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                     <div class="bg-white p-6 rounded-lg shadow-lg">
+                         <h3 class="text-xl font-bold mb-4 text-center text-[#4A5B8A]">Payment Waterfall in Liquidation</h3>
+                         <div class="space-y-4 text-center">
+                             <div class="waterfall-step relative bg-gray-50 p-3 rounded-lg">
+                                <p class="font-semibold">Debtor's Assets Sold</p>
+                                <div class="waterfall-desc opacity-0 absolute -top-12 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 pointer-events-none">Proceeds from selling all company assets.</div>
+                             </div>
+                             <div class="text-2xl text-gray-400">↓</div>
+                             <div class="waterfall-step relative bg-red-100 p-3 rounded-lg border border-red-200">
+                                <p class="font-semibold">Super Priority / DIP Lenders</p>
+                                <div class="waterfall-desc opacity-0 absolute -top-12 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 pointer-events-none">Paid first and in full.</div>
+                             </div>
+                              <div class="text-2xl text-gray-400">↓</div>
+                             <div class="waterfall-step relative bg-orange-100 p-3 rounded-lg border border-orange-200">
+                                <p class="font-semibold">Senior Secured Lenders</p>
+                                <div class="waterfall-desc opacity-0 absolute -top-12 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 pointer-events-none">Paid from their collateral proceeds.</div>
+                             </div>
+                              <div class="text-2xl text-gray-400">↓</div>
+                              <div class="waterfall-step relative bg-green-100 p-3 rounded-lg border border-green-200">
+                                <p class="font-semibold">Senior Unsecured Lenders</p>
+                                <div class="waterfall-desc opacity-0 absolute -top-12 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 pointer-events-none">Paid from remaining unpledged assets.</div>
+                             </div>
+                              <div class="text-2xl text-gray-400">↓</div>
+                             <div class="waterfall-step relative bg-purple-100 p-3 rounded-lg border border-purple-200">
+                                <p class="font-semibold">Equity Holders</p>
+                                <div class="waterfall-desc opacity-0 absolute -top-12 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 pointer-events-none">Receive whatever is left (often nothing).</div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col">
+                          <h3 class="text-xl font-bold mb-4 text-center text-[#4A5B8A]">Risk vs. Potential Return</h3>
+                          <div class="chart-container relative w-full h-80 md:h-96 max-h-[400px] max-w-xl mx-auto">
+                              <canvas id="riskReturnChart"></canvas>
+                          </div>
+                     </div>
+                 </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-12 pt-6 border-t border-gray-300">
+            <p class="text-sm text-gray-500">This interactive guide is for educational purposes only and does not constitute financial or legal advice. The structures and agreements shown are simplified for clarity.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const stackItems = document.querySelectorAll('.stack-item');
+            const stackContents = document.querySelectorAll('.stack-content');
+
+            stackItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const targetId = item.getAttribute('data-target');
+                    const targetContent = document.getElementById(targetId);
+
+                    stackItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+
+                    stackContents.forEach(content => {
+                        content.classList.add('hidden');
+                        content.classList.remove('active');
+                    });
+                    
+                    if(targetContent) {
+                        targetContent.classList.remove('hidden');
+                        targetContent.classList.add('active');
+                    }
+                });
+            });
+
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-target');
+
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    contentSections.forEach(section => {
+                        if (section.id === targetId) {
+                            section.classList.add('active');
+                        } else {
+                            section.classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+            const riskReturnCtx = document.getElementById('riskReturnChart').getContext('2d');
+            const riskReturnChart = new Chart(riskReturnCtx, {
+                type: 'bubble',
+                data: {
+                    datasets: [{
+                        label: 'Senior Secured Debt',
+                        data: [{ x: 2, y: 3, r: 15 }],
+                        backgroundColor: 'rgba(234, 179, 8, 0.7)',
+                        borderColor: 'rgba(234, 179, 8, 1)',
+                    }, {
+                        label: 'Unsecured Bonds',
+                        data: [{ x: 4, y: 5, r: 18 }],
+                        backgroundColor: 'rgba(34, 197, 94, 0.7)',
+                        borderColor: 'rgba(34, 197, 94, 1)',
+                    }, {
+                        label: 'Subordinated Debt',
+                        data: [{ x: 6, y: 7, r: 20 }],
+                        backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                    }, {
+                        label: 'Equity',
+                        data: [{ x: 8, y: 9, r: 25 }],
+                        backgroundColor: 'rgba(168, 85, 247, 0.7)',
+                        borderColor: 'rgba(168, 85, 247, 1)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Perceived Risk →',
+                                font: { size: 14 }
+                            },
+                             min: 0,
+                             max: 10
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Potential Return →',
+                                font: { size: 14 }
+                            },
+                            min: 0,
+                            max: 10
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+             if (stackItems.length > 0) {
+                stackItems[0].click();
+            }
+        });
+    </script>
+</body>
+</html>
