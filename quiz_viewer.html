@@ -44,6 +44,7 @@
                     </div>
                 </div>
                 <div id="quiz-container" class="bg-white rounded-xl shadow-lg p-8 hidden">
+
                     <!-- Quiz content will be loaded here -->
                 </div>
             </div>
@@ -69,6 +70,7 @@
             'quizzes/fintech-quiz.json',
             'quizzes/risk-management-quiz.json',
             'quizzes/behavioral-finance-quiz.json'
+
         ];
 
         async function loadQuizLinks() {
@@ -90,6 +92,7 @@
         async function loadQuiz(quizFile) {
             quizSelection.classList.add('hidden');
             quizContainer.classList.remove('hidden');
+
 
             const response = await fetch(quizFile);
             const quizData = await response.json();
@@ -140,6 +143,7 @@
         }
 
         loadQuizLinks();
+
     </script>
     <script src="js/nav_data.js" defer></script>
     <script src="js/global_nav.js" defer></script>
