@@ -37,7 +37,14 @@
         <!-- Main Content -->
         <main class="py-16 px-6 md:px-8">
             <div class="max-w-4xl mx-auto">
-                <div id="quiz-container" class="bg-white rounded-xl shadow-lg p-8">
+                <div id="quiz-selection" class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <h2 class="text-3xl font-bold mb-8">Select a Quiz</h2>
+                    <div id="quiz-links" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Quiz links will be loaded here -->
+                    </div>
+                </div>
+                <div id="quiz-container" class="bg-white rounded-xl shadow-lg p-8 hidden">
+
                     <!-- Quiz content will be loaded here -->
                 </div>
             </div>
@@ -53,9 +60,38 @@
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
+        const quizSelection = document.getElementById('quiz-selection');
         const quizContainer = document.getElementById('quiz-container');
+        const quizLinks = document.getElementById('quiz-links');
+
+        const quizzes = [
+            'quizzes/accounting-quiz.json',
+            'quizzes/financial-modeling-quiz.json',
+            'quizzes/fintech-quiz.json',
+            'quizzes/risk-management-quiz.json'
+        ];
+
+        async function loadQuizLinks() {
+            for (const quizFile of quizzes) {
+                const response = await fetch(quizFile);
+                const quizData = await response.json();
+                const link = document.createElement('a');
+                link.href = '#';
+                link.classList.add('w-full', 'bg-blue-600', 'hover:bg-blue-700', 'text-white', 'font-semibold', 'py-3', 'px-4', 'rounded-lg', 'transition-colors', 'duration-300', 'text-center');
+                link.innerText = quizData.title;
+                link.onclick = (e) => {
+                    e.preventDefault();
+                    loadQuiz(quizFile);
+                };
+                quizLinks.appendChild(link);
+            }
+        }
 
         async function loadQuiz(quizFile) {
+            quizSelection.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+
+
             const response = await fetch(quizFile);
             const quizData = await response.json();
 
@@ -104,7 +140,8 @@
             });
         }
 
-        loadQuiz('quizzes/accounting-quiz.json');
+        loadQuizLinks();
+
     </script>
     <script src="js/nav_data.js" defer></script>
     <script src="js/global_nav.js" defer></script>
