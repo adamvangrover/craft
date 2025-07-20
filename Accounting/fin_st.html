@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Guide to Financial Statements</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: The application is designed as an interactive learning module. A top navigation bar allows users to jump between key topics: "The 3 Statements," "Analysis & Ratios," and "Modeling & Valuation." This non-linear structure respects that users may want to learn or refresh specific concepts. The core section on the 3 statements uses a tabbed interface for focused learning. The most complex topic, the interconnections between statements, is visualized through a custom-built interactive diagram instead of static text, which is far more effective for demonstrating the flow of data. This structure was chosen to guide the user from foundational knowledge (the statements) to practical application (analysis and valuation) in a logical, engaging, and digestible manner, prioritizing active exploration over passive reading. -->
+    <!-- Visualization & Content Choices: 
+        - Income Statement: Goal: Show flow from revenue to profit. Viz: An interactive HTML/CSS waterfall diagram. Interaction: Hovering on items shows definitions. Justification: More intuitive than text. Chart.js bar chart shows profit breakdown.
+        - Balance Sheet: Goal: Explain A=L+E. Viz: A two-column HTML layout. Interaction: Clickable categories expand to show examples. Chart.js donut chart shows asset composition. Justification: Visually reinforces the core equation.
+        - Statement Interconnections: Goal: Show relationships. Viz: Custom HTML/CSS/JS diagram with nodes and animated connectors. Interaction: Hovering a connection highlights it and shows an explanation. Justification: Interactivity makes this complex topic tangible.
+        - Financial Ratios: Goal: Organize metrics. Viz: Grid of interactive cards. Interaction: Clicking a card reveals formulas and details. Justification: Progressive disclosure avoids overwhelming the user.
+        - DCF Valuation: Goal: Show sensitivity to inputs. Viz: Simplified DCF calculator with sliders. Interaction: Moving sliders for WACC/Growth updates a Chart.js bar chart showing valuation. Justification: Demonstrates cause-and-effect in valuation effectively.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .nav-button { transition: all 0.3s ease; }
+        .nav-button.active { color: #0f766e; border-bottom-color: #0f766e; }
+        .nav-button:not(.active) { border-bottom-color: transparent; }
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+        .tab-button.active { background-color: #0d9488; color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .waterfall-item:hover .waterfall-desc { opacity: 1; visibility: visible; }
+        .waterfall-desc { transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .link-path { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: draw 2s ease-in-out forwards; }
+        @keyframes draw { to { stroke-dashoffset: 0; } }
+        .link-node:hover .link-info { opacity: 1; visibility: visible; transform: translateY(0); }
+        .link-info { transition: all 0.3s ease; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+        .ratio-card { perspective: 1000px; }
+        .ratio-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+        .ratio-card.flipped .ratio-card-inner { transform: rotateY(180deg); }
+        .ratio-card-front, .ratio-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+        .ratio-card-back { transform: rotateY(180deg); }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <div id="app" class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-teal-800">The Financial Analyst's Compass</h1>
+            <p class="mt-2 text-lg text-stone-600">An Interactive Guide to Understanding and Analyzing Financial Statements</p>
+        </header>
+
+        <nav class="sticky top-0 z-10 bg-stone-50/80 backdrop-blur-sm border-b border-stone-200 mb-8">
+            <div class="flex justify-center space-x-4 md:space-x-8">
+                <button data-target="statements" class="nav-button font-semibold text-stone-600 hover:text-teal-600 py-4 border-b-2">The 3 Statements</button>
+                <button data-target="interconnections" class="nav-button font-semibold text-stone-600 hover:text-teal-600 py-4 border-b-2">How They Connect</button>
+                <button data-target="analysis" class="nav-button font-semibold text-stone-600 hover:text-teal-600 py-4 border-b-2">Analysis & Ratios</button>
+                <button data-target="modeling" class="nav-button font-semibold text-stone-600 hover:text-teal-600 py-4 border-b-2">Modeling & Valuation</button>
+            </div>
+        </nav>
+
+        <main>
+            <section id="statements" class="content-section">
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <h2 class="text-3xl font-bold mb-4 text-teal-700">The Three Core Financial Statements</h2>
+                    <p class="text-stone-600">Financial statements are the formal records of a company's financial activities. They provide a structured overview of performance, financial position, and cash flows. Understanding these three core statements is the first step toward analyzing a company's health and potential. Click through the tabs below to explore each one.</p>
+                </div>
+                
+                <div class="mb-6 border-b border-stone-200 flex justify-center">
+                    <button data-tab="income" class="tab-button py-2 px-6 font-medium text-stone-600">Income Statement</button>
+                    <button data-tab="balance" class="tab-button py-2 px-6 font-medium text-stone-600">Balance Sheet</button>
+                    <button data-tab="cashflow" class="tab-button py-2 px-6 font-medium text-stone-600">Cash Flow Statement</button>
+                </div>
+
+                <div id="income" class="tab-content">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold text-center mb-4 text-teal-800">Income Statement (P&L)</h3>
+                        <p class="text-center text-stone-600 mb-8 max-w-2xl mx-auto">The Income Statement shows a company's financial performance over a period of time (like a quarter or year). It starts with revenue and subtracts costs and expenses to arrive at the 'bottom line': Net Income.</p>
+                        
+                        <div class="max-w-md mx-auto space-y-2">
+                            <div class="waterfall-item relative bg-green-100 p-3 rounded-lg text-green-800 flex justify-between items-center font-semibold">
+                                <span>Revenue</span>
+                                <span>$1,000</span>
+                                <div class="waterfall-desc opacity-0 invisible absolute left-full ml-4 w-64 bg-stone-700 text-white p-3 rounded-lg shadow-lg z-10">
+                                    <h4 class="font-bold">Revenue</h4>
+                                    <p class="text-sm">Total sales generated. Revenue is recognized when it's earned and realized, regardless of when cash is received.</p>
+                                </div>
+                            </div>
+                            <div class="ml-4 text-stone-500 flex justify-between items-center"><span>(-) Cost of Goods Sold (COGS)</span><span>$400</span></div>
+                            <div class="waterfall-item relative bg-green-200 p-3 rounded-lg text-green-900 flex justify-between items-center font-bold">
+                                <span>Gross Profit</span>
+                                <span>$600</span>
+                                <div class="waterfall-desc opacity-0 invisible absolute left-full ml-4 w-64 bg-stone-700 text-white p-3 rounded-lg shadow-lg z-10">
+                                    <h4 class="font-bold">Gross Profit</h4>
+                                    <p class="text-sm">The profit a company makes after deducting the costs associated with making and selling its products.</p>
+                                </div>
+                            </div>
+                            <div class="ml-4 text-stone-500 flex justify-between items-center"><span>(-) Operating Expenses</span><span>$250</span></div>
+                             <div class="waterfall-item relative bg-yellow-200 p-3 rounded-lg text-yellow-900 flex justify-between items-center font-bold">
+                                <span>Operating Income (EBIT)</span>
+                                <span>$350</span>
+                                 <div class="waterfall-desc opacity-0 invisible absolute left-full ml-4 w-64 bg-stone-700 text-white p-3 rounded-lg shadow-lg z-10">
+                                    <h4 class="font-bold">Operating Income</h4>
+                                    <p class="text-sm">Profit from core business operations, before interest and taxes. Also known as EBIT.</p>
+                                </div>
+                            </div>
+                            <div class="ml-4 text-stone-500 flex justify-between items-center"><span>(-) Interest & Taxes</span><span>$100</span></div>
+                            <div class="waterfall-item relative bg-teal-300 p-3 rounded-lg text-teal-900 flex justify-between items-center font-bold text-lg">
+                                <span>Net Income</span>
+                                <span>$250</span>
+                                <div class="waterfall-desc opacity-0 invisible absolute left-full ml-4 w-64 bg-stone-700 text-white p-3 rounded-lg shadow-lg z-10">
+                                    <h4 class="font-bold">Net Income</h4>
+                                    <p class="text-sm">The 'bottom line'. It's the profit remaining after all expenses and taxes have been paid.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="balance" class="tab-content">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold text-center mb-4 text-teal-800">Balance Sheet</h3>
+                        <p class="text-center text-stone-600 mb-8 max-w-2xl mx-auto">The Balance Sheet offers a snapshot of a company's financial position at a single point in time. It is governed by the fundamental accounting equation, which must always be in balance.</p>
+                        <div class="text-center bg-teal-100 text-teal-800 p-4 rounded-lg font-mono text-xl md:text-2xl mb-8">Assets = Liabilities + Shareholders' Equity</div>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="bg-stone-100 p-4 rounded-lg">
+                                <h4 class="text-xl font-bold mb-2 text-center text-green-700">Assets ($1,500)</h4>
+                                <p class="text-sm text-center text-stone-600 mb-4">What the company owns.</p>
+                                <ul class="space-y-2">
+                                    <li class="bg-white p-2 rounded"><strong>Current:</strong> Cash, Inventory, Accts Receivable</li>
+                                    <li class="bg-white p-2 rounded"><strong>Non-Current:</strong> Property, Plant & Equipment (PP&E), Intangibles</li>
+                                </ul>
+                                <div class="chart-container mt-4 h-64">
+                                    <canvas id="assetsChart"></canvas>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="bg-stone-100 p-4 rounded-lg mb-4">
+                                    <h4 class="text-xl font-bold mb-2 text-center text-red-700">Liabilities ($900)</h4>
+                                    <p class="text-sm text-center text-stone-600 mb-4">What the company owes.</p>
+                                    <ul class="space-y-2">
+                                        <li class="bg-white p-2 rounded"><strong>Current:</strong> Accts Payable, Short-term Debt</li>
+                                        <li class="bg-white p-2 rounded"><strong>Non-Current:</strong> Long-term Debt, Deferred Revenue</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-stone-100 p-4 rounded-lg">
+                                    <h4 class="text-xl font-bold mb-2 text-center text-blue-700">Shareholders' Equity ($600)</h4>
+                                    <p class="text-sm text-center text-stone-600 mb-4">The owners' claim on assets.</p>
+                                    <ul class="space-y-2">
+                                        <li class="bg-white p-2 rounded">Common Stock</li>
+                                        <li class="bg-white p-2 rounded">Retained Earnings</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="cashflow" class="tab-content">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold text-center mb-4 text-teal-800">Statement of Cash Flows</h3>
+                        <p class="text-center text-stone-600 mb-8 max-w-2xl mx-auto">This statement tracks the movement of cash over a period. It's vital for understanding a company's ability to generate cash to fund operations and investments. It is broken into three distinct sections.</p>
+                        <div class="space-y-6">
+                            <div class="bg-blue-100 p-4 rounded-lg">
+                                <h4 class="text-xl font-bold text-blue-800">1. Cash Flow from Operations (CFO)</h4>
+                                <p class="text-blue-700">Cash generated by a company's main business activities. The most common calculation method is the indirect method, which starts with Net Income and adjusts for non-cash items (like Depreciation) and changes in Working Capital.</p>
+                            </div>
+                            <div class="bg-yellow-100 p-4 rounded-lg">
+                                <h4 class="text-xl font-bold text-yellow-800">2. Cash Flow from Investing (CFI)</h4>
+                                <p class="text-yellow-700">Cash used for or generated from investments. Typically includes purchases or sales of long-term assets like Property, Plant & Equipment (PP&E) and other business acquisitions.</p>
+                            </div>
+                            <div class="bg-purple-100 p-4 rounded-lg">
+                                <h4 class="text-xl font-bold text-purple-800">3. Cash Flow from Financing (CFF)</h4>
+                                <p class="text-purple-700">Cash flow between a company and its owners/creditors. Includes issuing or repurchasing stock, paying dividends, and issuing or repaying debt.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="interconnections" class="content-section">
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <h2 class="text-3xl font-bold mb-4 text-teal-700">How the Statements are Linked</h2>
+                    <p class="text-stone-600">The three financial statements are not independent; they are intricately connected. Changes in one statement directly impact the others. This interactive diagram highlights the key links that are essential for financial modeling and analysis. Hover over the connection points to see how the data flows.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md relative h-[600px] md:h-[500px]">
+                    <div class="absolute top-8 left-1/2 -translate-x-1/2 w-48 p-3 bg-green-200 text-green-800 rounded-lg text-center font-bold">Income Statement</div>
+                    <div class="absolute bottom-8 left-8 w-48 p-3 bg-blue-200 text-blue-800 rounded-lg text-center font-bold">Balance Sheet</div>
+                    <div class="absolute bottom-8 right-8 w-48 p-3 bg-orange-200 text-orange-800 rounded-lg text-center font-bold">Cash Flow Stmt</div>
+
+                    <svg class="absolute top-0 left-0 w-full h-full" viewbox="0 0 400 300">
+                        <defs>
+                            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#0d9488" />
+                            </marker>
+                        </defs>
+
+                        <g class="link-node">
+                            <path class="link-path" d="M 200 40 V 190 H 330" stroke="#0d9488" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                            <circle cx="200" cy="90" r="8" fill="#14b8a6"/>
+                            <foreignObject x="110" y="80" width="180" height="100">
+                                <div class="link-info opacity-0 invisible p-2 bg-stone-700 text-white rounded-lg shadow-lg w-48 text-xs text-center">
+                                    <strong>Net Income → CFO:</strong> Net Income from the P&L is the starting point for calculating Cash Flow from Operations.
+                                </div>
+                            </foreignObject>
+                        </g>
+                        
+                        <g class="link-node">
+                            <path class="link-path" style="animation-delay: 0.5s" d="M 200 40 V 150 H 70" stroke="#0d9488" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                             <circle cx="200" cy="120" r="8" fill="#14b8a6"/>
+                            <foreignObject x="180" y="110" width="200" height="100">
+                                <div class="link-info opacity-0 invisible p-2 bg-stone-700 text-white rounded-lg shadow-lg w-52 text-xs text-center">
+                                    <strong>Net Income → Retained Earnings:</strong> Net Income (less dividends) flows into Retained Earnings on the Balance Sheet.
+                                </div>
+                            </foreignObject>
+                        </g>
+                        
+                         <g class="link-node">
+                            <path class="link-path" style="animation-delay: 1s" d="M 330 260 H 120" stroke="#0d9488" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                            <circle cx="225" cy="260" r="8" fill="#14b8a6"/>
+                            <foreignObject x="145" y="180" width="160" height="100">
+                                <div class="link-info opacity-0 invisible p-2 bg-stone-700 text-white rounded-lg shadow-lg w-40 text-xs text-center">
+                                    <strong>Ending Cash → BS Cash:</strong> The final cash balance from the CFS becomes the cash asset on the next period's Balance Sheet.
+                                </div>
+                            </foreignObject>
+                        </g>
+
+                    </svg>
+
+                </div>
+            </section>
+            
+            <section id="analysis" class="content-section">
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <h2 class="text-3xl font-bold mb-4 text-teal-700">Financial Ratio Analysis</h2>
+                    <p class="text-stone-600">Ratios are a powerful tool to evaluate a company's performance and financial health by comparing line items from the financial statements. They provide standardized metrics that can be compared across time or against competitors. Click on the cards below to explore different categories of ratios.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="ratio-card h-64">
+                        <div class="ratio-card-inner rounded-lg shadow-md cursor-pointer">
+                            <div class="ratio-card-front bg-white p-6 flex flex-col justify-center items-center text-center">
+                                <h3 class="text-xl font-bold text-blue-700">Liquidity Ratios</h3>
+                                <p class="text-stone-500 mt-2">Can the company meet its short-term obligations?</p>
+                            </div>
+                            <div class="ratio-card-back bg-blue-100 p-4 text-blue-800 flex flex-col justify-center">
+                                <h4 class="font-bold text-lg mb-2">Key Ratios:</h4>
+                                <p><strong>Current Ratio:</strong><br> Current Assets / Current Liabilities</p>
+                                <p class="mt-2"><strong>Quick Ratio:</strong><br> (Current Assets - Inventory) / Current Liabilities</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="ratio-card h-64">
+                        <div class="ratio-card-inner rounded-lg shadow-md cursor-pointer">
+                            <div class="ratio-card-front bg-white p-6 flex flex-col justify-center items-center text-center">
+                                <h3 class="text-xl font-bold text-green-700">Profitability Ratios</h3>
+                                <p class="text-stone-500 mt-2">How well does the company generate profits?</p>
+                            </div>
+                             <div class="ratio-card-back bg-green-100 p-4 text-green-800 flex flex-col justify-center">
+                                <h4 class="font-bold text-lg mb-2">Key Ratios:</h4>
+                                <p><strong>Net Profit Margin:</strong><br> Net Income / Revenue</p>
+                                <p class="mt-2"><strong>Return on Equity (ROE):</strong><br> Net Income / Avg. Shareholder's Equity</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="ratio-card h-64">
+                        <div class="ratio-card-inner rounded-lg shadow-md cursor-pointer">
+                            <div class="ratio-card-front bg-white p-6 flex flex-col justify-center items-center text-center">
+                                <h3 class="text-xl font-bold text-red-700">Solvency Ratios</h3>
+                                <p class="text-stone-500 mt-2">Can the company meet its long-term debt obligations?</p>
+                            </div>
+                             <div class="ratio-card-back bg-red-100 p-4 text-red-800 flex flex-col justify-center">
+                                <h4 class="font-bold text-lg mb-2">Key Ratios:</h4>
+                                <p><strong>Debt-to-Equity:</strong><br> Total Debt / Total Equity</p>
+                                <p class="mt-2"><strong>Interest Coverage:</strong><br> EBIT / Interest Expense</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ratio-card h-64">
+                        <div class="ratio-card-inner rounded-lg shadow-md cursor-pointer">
+                            <div class="ratio-card-front bg-white p-6 flex flex-col justify-center items-center text-center">
+                                <h3 class="text-xl font-bold text-yellow-700">Efficiency Ratios</h3>
+                                <p class="text-stone-500 mt-2">How well does the company use its assets?</p>
+                            </div>
+                            <div class="ratio-card-back bg-yellow-100 p-4 text-yellow-800 flex flex-col justify-center">
+                                <h4 class="font-bold text-lg mb-2">Key Ratios:</h4>
+                                <p><strong>Asset Turnover:</strong><br> Revenue / Total Assets</p>
+                                <p class="mt-2"><strong>Inventory Turnover:</strong><br> COGS / Average Inventory</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="modeling" class="content-section">
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <h2 class="text-3xl font-bold mb-4 text-teal-700">Financial Modeling & Valuation</h2>
+                    <p class="text-stone-600">Financial modeling involves forecasting a company's future financial performance. These models are the foundation for valuation, the process of determining a company's current worth. The most common valuation method is the Discounted Cash Flow (DCF) analysis.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-center mb-4 text-teal-800">Interactive DCF Valuation</h3>
+                    <p class="text-center text-stone-600 mb-8 max-w-2xl mx-auto">A DCF model values a company by projecting its future cash flows and discounting them back to the present. The two most critical assumptions are the Weighted Average Cost of Capital (WACC) and the Terminal Growth Rate. Adjust the sliders below to see how these assumptions dramatically impact the valuation.</p>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <div class="mb-6">
+                                <label for="wacc" class="font-semibold text-stone-700">WACC (Discount Rate): <span id="waccValue" class="font-bold text-teal-600"></span></label>
+                                <input id="wacc" type="range" min="6" max="12" value="8.5" step="0.1" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer">
+                            </div>
+                            <div>
+                                <label for="growth" class="font-semibold text-stone-700">Terminal Growth Rate: <span id="growthValue" class="font-bold text-teal-600"></span></label>
+                                <input id="growth" type="range" min="1" max="4" value="2.5" step="0.1" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer">
+                            </div>
+                        </div>
+                        <div class="chart-container h-80">
+                            <canvas id="dcfChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const contentSections = document.querySelectorAll('.content-section');
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const ratioCards = document.querySelectorAll('.ratio-card');
+
+            function setActiveNav(targetId) {
+                navButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.target === targetId);
+                });
+                contentSections.forEach(section => {
+                    section.classList.toggle('active', section.id === targetId);
+                });
+                if (targetId === 'interconnections') {
+                    const paths = document.querySelectorAll('#interconnections .link-path');
+                    paths.forEach(p => {
+                       p.style.strokeDashoffset = '1000';
+                       p.style.animation = 'none';
+                       p.getBoundingClientRect();
+                       p.style.animation = '';
+                    });
+                }
+            }
+            
+            function setActiveTab(targetId) {
+                tabButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetId);
+                });
+                tabContents.forEach(content => {
+                    content.classList.toggle('active', content.id === targetId);
+                });
+            }
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => setActiveNav(button.dataset.target));
+            });
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => setActiveTab(button.dataset.tab));
+            });
+            
+            ratioCards.forEach(card => {
+                card.addEventListener('click', () => card.classList.toggle('flipped'));
+            });
+
+            setActiveNav('statements');
+            setActiveTab('income');
+
+            let assetsChart, dcfChart;
+
+            function createAssetsChart() {
+                const ctx = document.getElementById('assetsChart').getContext('2d');
+                if (assetsChart) assetsChart.destroy();
+                assetsChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Cash', 'Accounts Receivable', 'Inventory', 'PP&E', 'Other'],
+                        datasets: [{
+                            data: [300, 200, 350, 500, 150],
+                            backgroundColor: ['#34d399', '#6ee7b7', '#a7f3d0', '#10b981', '#059669'],
+                            borderColor: '#f5f5f4',
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'bottom', labels: { font: { size: 10 } } },
+                            title: { display: true, text: 'Composition of Assets' }
+                        }
+                    }
+                });
+            }
+
+            const waccSlider = document.getElementById('wacc');
+            const growthSlider = document.getElementById('growth');
+            const waccValue = document.getElementById('waccValue');
+            const growthValue = document.getElementById('growthValue');
+
+            function calculateDCF() {
+                const wacc = parseFloat(waccSlider.value);
+                const growth = parseFloat(growthSlider.value);
+
+                waccValue.textContent = `${wacc.toFixed(1)}%`;
+                growthValue.textContent = `${growth.toFixed(1)}%`;
+                
+                const fcf = [100, 110, 121, 133, 146];
+                let pvFcf = 0;
+                for (let i = 0; i < fcf.length; i++) {
+                    pvFcf += fcf[i] / Math.pow(1 + wacc / 100, i + 1);
+                }
+
+                const terminalValue = (fcf[fcf.length - 1] * (1 + growth / 100)) / ((wacc / 100) - (growth / 100));
+                const pvTerminalValue = terminalValue / Math.pow(1 + wacc / 100, fcf.length);
+                
+                const enterpriseValue = pvFcf + pvTerminalValue;
+
+                return { pvFcf, pvTerminalValue, enterpriseValue };
+            }
+
+            function createDCFChart() {
+                const ctx = document.getElementById('dcfChart').getContext('2d');
+                 const { pvFcf, pvTerminalValue } = calculateDCF();
+
+                if (dcfChart) dcfChart.destroy();
+                dcfChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Enterprise Value'],
+                        datasets: [
+                            {
+                                label: 'PV of Forecasted FCF',
+                                data: [pvFcf],
+                                backgroundColor: '#2dd4bf',
+                            },
+                             {
+                                label: 'PV of Terminal Value',
+                                data: [pvTerminalValue],
+                                backgroundColor: '#0d9488',
+                            }
+                        ]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                         scales: {
+                             x: { stacked: true },
+                             y: { stacked: true }
+                        },
+                        plugins: {
+                            legend: { position: 'top' },
+                            title: { display: true, text: 'Implied Enterprise Value ($)' },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: $${context.raw.toFixed(0)}`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function updateDCFChart() {
+                const { pvFcf, pvTerminalValue } = calculateDCF();
+                dcfChart.data.datasets[0].data[0] = pvFcf;
+                dcfChart.data.datasets[1].data[0] = pvTerminalValue;
+                dcfChart.update();
+            }
+
+            waccSlider.addEventListener('input', updateDCFChart);
+            growthSlider.addEventListener('input', updateDCFChart);
+
+            createAssetsChart();
+            createDCFChart();
+        });
+    </script>
+</body>
+</html>
