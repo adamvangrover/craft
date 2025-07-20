@@ -17,31 +17,28 @@
             color: #3D352E; /* Dark brown text from original home.html */
         }
         .hero-gradient {
-            background: linear-gradient(135deg, #4A90E2 0%, #3B73C4 100%); /* Muted blue gradient */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
         .section-title {
-            @apply text-3xl font-bold text-center mb-12 text-slate-700;
+            @apply text-4xl font-bold text-center mb-16 text-gray-800;
         }
         .card {
-            @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 ease-in-out;
-        }
-        .card:hover {
-            @apply transform -translate-y-1 shadow-2xl;
+            @apply bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl;
         }
         .card-title {
-            @apply text-xl font-semibold mb-2 text-slate-800;
+            @apply text-2xl font-bold mb-4 text-gray-800;
         }
         .card-description {
-            @apply text-slate-600 text-sm mb-4 flex-grow;
+            @apply text-gray-600 text-base mb-6 flex-grow;
         }
         .card-link {
-            @apply inline-block bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm;
+            @apply inline-block bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg;
         }
         .path-card-link {
-             @apply block w-full text-center bg-emerald-600 text-white font-semibold py-3 px-5 rounded-lg hover:bg-emerald-700 transition-colors duration-200 mt-auto;
+             @apply block w-full text-center bg-teal-500 text-white font-bold py-4 px-6 rounded-lg hover:bg-teal-600 transition-colors duration-300 mt-auto text-xl;
         }
         .pillar-card-link {
-            @apply inline-block bg-sky-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-sky-700 transition-colors duration-200 text-sm mt-auto;
+            @apply inline-block bg-purple-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-purple-700 transition-colors duration-300 text-base mt-auto;
         }
     </style>
 </head>
@@ -69,41 +66,41 @@
         </section>
 
         <!-- 2. "Get Started: Choose Your Path" Section -->
-        <section id="learning-paths" class="py-16 px-6 md:px-8 bg-slate-50">
+        <section id="learning-paths" class="py-20 px-6 md:px-8 bg-gray-50">
             <div class="max-w-6xl mx-auto">
                 <h2 class="section-title">Personalized Learning Journeys</h2>
-                <div class="grid md:grid-cols-3 gap-8">
+                <div class="grid md:grid-cols-3 gap-10">
                     <!-- Path Card 1: Credit Analyst -->
-                    <div class="card flex flex-col p-6">
-                        <div class="text-center mb-4">
-                            <i class="fas fa-magnifying-glass-chart text-4xl text-emerald-500"></i>
+                    <div class="card flex flex-col p-8 text-center">
+                        <div class="text-center mb-6">
+                            <i class="fas fa-magnifying-glass-chart text-5xl text-teal-500"></i>
                         </div>
-                        <h3 class="card-title text-center">Future Credit Analyst</h3>
-                        <p class="card-description text-center">
+                        <h3 class="text-2xl font-bold mb-4">Future Credit Analyst</h3>
+                        <p class="text-gray-600 mb-6 flex-grow">
                             Dive into our comprehensive CRAFT program, from foundational principles to advanced credit analysis techniques.
                         </p>
                         <a href="corporate-credit-risk-analyst-training/index.html" class="path-card-link">Start CRAFT Program</a>
                     </div>
 
                     <!-- Path Card 2: CFA Candidate -->
-                    <div class="card flex flex-col p-6">
-                        <div class="text-center mb-4">
-                            <i class="fas fa-graduation-cap text-4xl text-emerald-500"></i>
+                    <div class="card flex flex-col p-8 text-center">
+                        <div class="text-center mb-6">
+                            <i class="fas fa-graduation-cap text-5xl text-teal-500"></i>
                         </div>
-                        <h3 class="card-title text-center">Aspiring CFA® Charterholder</h3>
-                        <p class="card-description text-center">
+                        <h3 class="text-2xl font-bold mb-4">Aspiring CFA® Charterholder</h3>
+                        <p class="text-gray-600 mb-6 flex-grow">
                             Access extensive study materials, practice exams, and deep dives for all three CFA® program levels.
                         </p>
                         <a href="CFA/index.html" class="path-card-link">Go to CFA Hub</a>
                     </div>
 
                     <!-- Path Card 3: Finance Explorer -->
-                    <div class="card flex flex-col p-6">
-                        <div class="text-center mb-4">
-                            <i class="fas fa-compass text-4xl text-emerald-500"></i>
+                    <div class="card flex flex-col p-8 text-center">
+                        <div class="text-center mb-6">
+                            <i class="fas fa-compass text-5xl text-teal-500"></i>
                         </div>
-                        <h3 class="card-title text-center">Finance Explorer & Skill Builder</h3>
-                        <p class="card-description text-center">
+                        <h3 class="text-2xl font-bold mb-4">Finance Explorer & Skill Builder</h3>
+                        <p class="text-gray-600 mb-6 flex-grow">
                             Browse diverse topics like financial modeling, fintech, market analysis, or specific industry primers at your own pace.
                         </p>
                         <a href="#key-pillars" class="path-card-link">Explore Topics</a>
@@ -113,39 +110,39 @@
         </section>
 
         <!-- 3. "Explore Key Learning Pillars" Section -->
-        <section id="key-pillars" class="py-16 px-6 md:px-8">
+        <section id="key-pillars" class="py-20 px-6 md:px-8">
             <div class="max-w-7xl mx-auto">
                 <h2 class="section-title">Explore Key Learning Pillars</h2>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
                     <!-- Pillar Card 1: Core Financial Topics -->
-                    <div class="card flex flex-col p-6">
-                        <div class="mb-4 text-sky-500"><i class="fas fa-landmark text-3xl"></i></div>
-                        <h3 class="card-title">Core Financial Topics</h3>
-                        <p class="card-description">Build your foundation with in-depth content on Financial Modeling, Risk Management, Industry Analysis, and more.</p>
+                    <div class="card flex flex-col p-8 text-center">
+                        <div class="mb-6 text-purple-500"><i class="fas fa-landmark text-5xl"></i></div>
+                        <h3 class="text-2xl font-bold mb-4">Core Financial Topics</h3>
+                        <p class="text-gray-600 mb-6 flex-grow">Build your foundation with in-depth content on Financial Modeling, Risk Management, Industry Analysis, and more.</p>
                         <a href="Financial_Modeling/index.html" class="pillar-card-link">Explore Core Topics</a>
                     </div>
 
                     <!-- Pillar Card 2: Career & Exams -->
-                    <div class="card flex flex-col p-6">
-                        <div class="mb-4 text-sky-500"><i class="fas fa-briefcase text-3xl"></i></div>
-                        <h3 class="card-title">Career & Exams</h3>
-                        <p class="card-description">Prepare for success with dedicated resources for the CFA® Program, CRAFT certification, and professional development.</p>
+                    <div class="card flex flex-col p-8 text-center">
+                        <div class="mb-6 text-purple-500"><i class="fas fa-briefcase text-5xl"></i></div>
+                        <h3 class="text-2xl font-bold mb-4">Career & Exams</h3>
+                        <p class="text-gray-600 mb-6 flex-grow">Prepare for success with dedicated resources for the CFA® Program, CRAFT certification, and professional development.</p>
                         <a href="CFA/index.html" class="pillar-card-link">Advance Your Career</a>
                     </div>
 
                     <!-- Pillar Card 3: AI, Coding & Tech -->
-                    <div class="card flex flex-col p-6">
-                        <div class="mb-4 text-sky-500"><i class="fas fa-laptop-code text-3xl"></i></div>
-                        <h3 class="card-title">AI, Coding & Tech</h3>
-                        <p class="card-description">Explore the intersection of finance and technology, including Fintech, AI, coding, prompt libraries, and agent libraries.</p>
+                    <div class="card flex flex-col p-8 text-center">
+                        <div class="mb-6 text-purple-500"><i class="fas fa-laptop-code text-5xl"></i></div>
+                        <h3 class="text-2xl font-bold mb-4">AI, Coding & Tech</h3>
+                        <p class="text-gray-600 mb-6 flex-grow">Explore the intersection of finance and technology, including Fintech, AI, coding, prompt libraries, and agent libraries.</p>
                         <a href="AI_and_Coding/index.html" class="pillar-card-link">Explore Tech</a>
                     </div>
 
                     <!-- Pillar Card 4: Learning Hub -->
-                    <div class="card flex flex-col p-6">
-                        <div class="mb-4 text-sky-500"><i class="fas fa-book-open-reader text-3xl"></i></div>
-                        <h3 class="card-title">Learning Hub</h3>
-                        <p class="card-description">Engage with interactive notebooks, follow guided learning paths, and explore market analysis and our extensive glossary.</p>
+                    <div class="card flex flex-col p-8 text-center">
+                        <div class="mb-6 text-purple-500"><i class="fas fa-book-open-reader text-5xl"></i></div>
+                        <h3 class="text-2xl font-bold mb-4">Learning Hub</h3>
+                        <p class="text-gray-600 mb-6 flex-grow">Engage with interactive notebooks, follow guided learning paths, and explore market analysis and our extensive glossary.</p>
                         <a href="Learning_Paths/index.html" class="pillar-card-link">Start Learning</a>
                     </div>
                 </div>
@@ -153,133 +150,134 @@
         </section>
 
         <!-- 4. "Discover Our Tools & Resources" Section -->
-        <section id="tools-resources" class="py-16 px-6 md:px-8 bg-slate-100">
+        <section id="tools-resources" class="py-20 px-6 md:px-8 bg-gray-50">
             <div class="max-w-6xl mx-auto">
                 <h2 class="section-title">Discover Our Tools & Resources</h2>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="card p-6 text-center">
-                        <i class="fas fa-book-atlas text-3xl text-indigo-500 mb-3"></i>
-                        <h3 class="card-title mb-2">Global Financial Glossary</h3>
-                        <p class="text-slate-600 text-xs mb-3 flex-grow">Your comprehensive A-Z dictionary for key financial terms and concepts used throughout the hub.</p>
-                        <a href="Global_Financial_Glossary.md" class="card-link !bg-indigo-600 hover:!bg-indigo-700">View Glossary</a>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                    <div class="card p-8 text-center">
+                        <i class="fas fa-book-atlas text-5xl text-indigo-500 mb-6"></i>
+                        <h3 class="text-2xl font-bold mb-4">Global Financial Glossary</h3>
+                        <p class="text-gray-600 mb-6">Your comprehensive A-Z dictionary for key financial terms and concepts.</p>
+                        <a href="Global_Financial_Glossary.md" class="card-link">View Glossary</a>
                     </div>
-                    <div class="card p-6 text-center">
-                        <i class="fas fa-check-double text-3xl text-indigo-500 mb-3"></i>
-                        <h3 class="card-title mb-2">Toolkits & Checklists</h3>
-                        <p class="text-slate-600 text-xs mb-3 flex-grow">Practical job aids, including due diligence checklists and financial ratio calculator guides.</p>
-                        <a href="Toolkits_and_Checklists/index.html" class="card-link !bg-indigo-600 hover:!bg-indigo-700">Access Toolkits</a>
+                    <div class="card p-8 text-center">
+                        <i class="fas fa-check-double text-5xl text-indigo-500 mb-6"></i>
+                        <h3 class="text-2xl font-bold mb-4">Toolkits & Checklists</h3>
+                        <p class="text-gray-600 mb-6">Practical job aids, including due diligence checklists and financial ratio guides.</p>
+                        <a href="Toolkits_and_Checklists/index.html" class="card-link">Access Toolkits</a>
                     </div>
-                    <div class="card p-6 text-center">
-                        <i class="fas fa-person-chalkboard text-3xl text-indigo-500 mb-3"></i>
-                        <h3 class="card-title mb-2">Site Overview Presentation</h3>
-                        <p class="text-slate-600 text-xs mb-3 flex-grow">A slide-based guided tour of this financial training repository and its diverse resources.</p>
-                        <a href="presentation.html" class="card-link !bg-indigo-600 hover:!bg-indigo-700">View Presentation</a>
+                    <div class="card p-8 text-center">
+                        <i class="fas fa-person-chalkboard text-5xl text-indigo-500 mb-6"></i>
+                        <h3 class="text-2xl font-bold mb-4">Site Overview Presentation</h3>
+                        <p class="text-gray-600 mb-6">A slide-based guided tour of this financial training repository and its diverse resources.</p>
+                        <a href="presentation.html" class="card-link">View Presentation</a>
                     </div>
-                    <div class="card p-6 text-center">
-                        <i class="fas fa-question-circle text-3xl text-indigo-500 mb-3"></i>
-                        <h3 class="card-title mb-2">Quizzes & Practice</h3>
-                        <p class="text-slate-600 text-xs mb-3 flex-grow">Test your understanding with quizzes integrated into CFA prep and CRAFT program modules.</p>
-                        <a href="quiz_viewer.html" class="card-link !bg-indigo-600 hover:!bg-indigo-700">General Quiz Viewer</a>
+                    <div class="card p-8 text-center">
+                        <i class="fas fa-question-circle text-5xl text-indigo-500 mb-6"></i>
+                        <h3 class="text-2xl font-bold mb-4">Quizzes & Practice</h3>
+                        <p class="text-gray-600 mb-6">Test your understanding with quizzes integrated into CFA prep and CRAFT program modules.</p>
+                        <a href="quiz_viewer.html" class="card-link">General Quiz Viewer</a>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- 5. "About This Repository" Section -->
-        <section id="about-repo" class="py-16 px-6 md:px-8 bg-white">
-            <div class="max-w-5xl mx-auto">
-                <h2 class="section-title">About The Financial Learning Hub</h2>
-                <div class="prose max-w-none text-slate-700">
-                    <p class="text-lg">Welcome to the Financial Learning Hub & Credit Risk Analyst Development Program, a comprehensive, open-source repository designed for finance professionals, students, and enthusiasts. Our goal is to create an interconnected learning environment that combines foundational knowledge with practical, real-world applications, with a special focus on developing top-tier credit risk analysts.</p>
+        <section id="about-repo" class="py-20 px-6 md:px-8">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="section-title">About This Repository</h2>
+                <div class="text-lg text-center text-gray-600 max-w-3xl mx-auto mb-16">
+                    <p>Welcome to the Financial Learning Hub & Credit Risk Analyst Development Program, a comprehensive, open-source repository designed for finance professionals, students, and enthusiasts. Our goal is to create an interconnected learning environment that combines foundational knowledge with practical, real-world applications, with a special focus on developing top-tier credit risk analysts.</p>
+                </div>
 
-                    <h3 class="text-2xl font-semibold mt-8 mb-4 text-slate-800">Repository Structure & Hierarchy</h3>
-                    <p>The content is organized into thematic pillars, each housed in its own directory. You can access all content through the **Global Navigation Sidebar** on the left. Key pillars include:</p>
-
-                    <div class="grid md:grid-cols-2 gap-x-8 gap-y-4 mt-6">
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <h4 class="font-bold text-slate-700">🏆 CFA® Program Study</h4>
-                            <p class="text-sm">Comprehensive notes, cheat sheets, and practice questions for all levels. ([Go to CFA Section](./CFA/index.html))</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+                    <div class="text-center">
+                        <div class="bg-red-100 rounded-full p-6 mb-6 inline-block">
+                            <i class="fas fa-graduation-cap text-4xl text-red-600"></i>
                         </div>
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <h4 class="font-bold text-slate-700">🛡️ Credit Risk Analyst Training (CRAFT)</h4>
-                            <p class="text-sm">A modular course covering accounting, financial analysis, capital markets, and more. ([Go to CRAFT Program](./corporate-credit-risk-analyst-training/index.html))</p>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <h4 class="font-bold text-slate-700">📊 Financial Modeling</h4>
-                            <p class="text-sm">Best practices, 3-statement models, Excel tips, and valuation applications. ([Go to Financial Modeling](./Financial_Modeling/index.html))</p>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <h4 class="font-bold text-slate-700">💡 Fintech Innovations</h4>
-                            <p class="text-sm">Covering AI in Finance, Blockchain, Robo-Advisors, and Open Banking. ([Go to Fintech](./Fintech/index.html))</p>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <h4 class="font-bold text-slate-700">🏭 Industry Primers</h4>
-                            <p class="text-sm">Credit analysis for 15+ diverse industries, from technology to aerospace. ([Go to Industry Primers](./primers/index.html))</p>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <h4 class="font-bold text-slate-700">🛠️ Interactive Notebooks</h4>
-                            <p class="text-sm">Hands-on Jupyter Notebooks for practical application of financial concepts. ([Go to Interactive Notebooks](./Interactive_Notebooks/index.html))</p>
-                        </div>
-                         <div class="bg-slate-50 p-4 rounded-lg">
-                            <h4 class="font-bold text-slate-700">🧠 Behavioral Finance</h4>
-                            <p class="text-sm">Explore the psychological influences on financial markets and decision-making. ([Go to Behavioral Finance](./Behavioral_Finance/index.html))</p>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <h4 class="font-bold text-slate-700">⚖️ Legal Analysis in Finance</h4>
-                            <p class="text-sm">Guides on reading credit agreements and understanding legal precedents. ([Go to Legal Analysis](./legal_analysis/index.html))</p>
-                        </div>
+                        <h3 class="font-bold text-xl mb-4 text-gray-800">CFA® Program Study</h3>
+                        <p class="text-gray-600">Comprehensive notes, cheat sheets, and practice questions for all levels.</p>
                     </div>
-
-                    <h3 class="text-2xl font-semibold mt-8 mb-4 text-slate-800">The Genesis of This Repository</h3>
-                    <p>This repository was significantly shaped by an initial, detailed prompt provided to a Large Language Model (LLM). The aim was to create a comprehensive learning resource for credit analysis and related financial topics. This approach allowed for the rapid creation of a broad and deep set of learning materials, which are now being continuously refined and expanded.</p>
-                    <p>You can view the foundational prompt that guided the AI in generating the initial structure here:
-                        <a href="example_initial_prompt.json" class="text-blue-600 font-semibold hover:underline">View the Example Initial Prompt</a>.
-                    </p>
+                    <div class="text-center">
+                        <div class="bg-green-100 rounded-full p-6 mb-6 inline-block">
+                            <i class="fas fa-shield-alt text-4xl text-green-600"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-4 text-gray-800">Credit Risk Analyst Training (CRAFT)</h3>
+                        <p class="text-gray-600">A modular course covering accounting, financial analysis, capital markets, and more.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-blue-100 rounded-full p-6 mb-6 inline-block">
+                            <i class="fas fa-table text-4xl text-blue-600"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-4 text-gray-800">Financial Modeling</h3>
+                        <p class="text-gray-600">Best practices, 3-statement models, Excel tips, and valuation applications.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-yellow-100 rounded-full p-6 mb-6 inline-block">
+                            <i class="fas fa-lightbulb text-4xl text-yellow-600"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-4 text-gray-800">Fintech Innovations</h3>
+                        <p class="text-gray-600">Covering AI in Finance, Blockchain, Robo-Advisors, and Open Banking.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- 6. "How to Use This Hub" Section -->
-        <section id="how-to-use" class="py-16 px-6 md:px-8">
-            <div class="max-w-4xl mx-auto">
-                <h2 class="section-title">Getting Started: Quick Tips</h2>
-                <div class="space-y-6 text-slate-700">
-                    <div class="card p-6">
-                        <h3 class="font-semibold text-lg mb-2 flex items-center"><i class="fas fa-sitemap text-xl text-sky-600 mr-3"></i>Use the Global Navigation</h3>
-                        <p>The sidebar on the left provides a comprehensive tree of all available content. Use it to jump directly to any section or document.</p>
+        <section id="how-to-use" class="py-20 px-6 md:px-8 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="section-title">How to Use This Hub</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 text-center">
+                    <div class="flex flex-col items-center">
+                        <div class="bg-indigo-100 rounded-full p-6 mb-6">
+                            <i class="fas fa-sitemap text-4xl text-indigo-600"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-4 text-gray-800">Use the Global Navigation</h3>
+                        <p class="text-gray-600">The sidebar on the left provides a comprehensive tree of all available content. Use it to jump directly to any section or document.</p>
                     </div>
-                    <div class="card p-6">
-                        <h3 class="font-semibold text-lg mb-2 flex items-center"><i class="fas fa-shoe-prints text-xl text-sky-600 mr-3"></i>Follow a Learning Path</h3>
-                        <p>If you have a specific goal (like CFA prep or credit analysis), start with one of the <a href="#learning-paths" class="text-blue-600 hover:underline">curated learning paths</a>.</p>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-teal-100 rounded-full p-6 mb-6">
+                            <i class="fas fa-shoe-prints text-4xl text-teal-600"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-4 text-gray-800">Follow a Learning Path</h3>
+                        <p class="text-gray-600">If you have a specific goal (like CFA prep or credit analysis), start with one of the curated learning paths.</p>
                     </div>
-                    <div class="card p-6">
-                        <h3 class="font-semibold text-lg mb-2 flex items-center"><i class="fas fa-mouse-pointer text-xl text-sky-600 mr-3"></i>Engage with Interactive Content</h3>
-                        <p>Many sections feature interactive hubs (CFA, CRAFT), Jupyter Notebooks for hands-on practice, and quizzes to test your knowledge.</p>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-purple-100 rounded-full p-6 mb-6">
+                            <i class="fas fa-mouse-pointer text-4xl text-purple-600"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-4 text-gray-800">Engage with Interactive Content</h3>
+                        <p class="text-gray-600">Many sections feature interactive hubs (CFA, CRAFT), Jupyter Notebooks for hands-on practice, and quizzes to test your knowledge.</p>
                     </div>
-                    <div class="card p-6">
-                        <h3 class="font-semibold text-lg mb-2 flex items-center"><i class="fas fa-search text-xl text-sky-600 mr-3"></i>Explore & Cross-Reference</h3>
-                        <p>Don't hesitate to explore. Use the <a href="Global_Financial_Glossary.md" class="text-blue-600 hover:underline">Global Glossary</a> for definitions and the repository's search features for specific terms.</p>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-pink-100 rounded-full p-6 mb-6">
+                            <i class="fas fa-search text-4xl text-pink-600"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-4 text-gray-800">Explore & Cross-Reference</h3>
+                        <p class="text-gray-600">Don't hesitate to explore. Use the Global Glossary for definitions and the repository's search features for specific terms.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- AI Concept Explainer Section (from original home.html) -->
-        <section id="ai-explainer-section" class="py-16 px-6 md:px-8 bg-slate-50">
-            <div class="max-w-3xl mx-auto content-card p-8">
-                <h2 class="text-2xl font-bold text-slate-800 mb-3 text-center">AI Financial Concept Explainer</h2>
-                <p class="text-sm text-slate-500 mb-6 text-center">
-                    Enter a financial term (e.g., "Quantitative Easing", "Derivatives", "WACC") to get a simplified explanation.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <input type="text" id="ai-prompt-input" placeholder="Enter a financial term..." class="w-full text-slate-700 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 py-3 px-4 shadow-sm">
-                    <button id="ai-explain-btn" class="bg-indigo-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center shadow-sm whitespace-nowrap">
-                        <span id="ai-btn-text">Explain Concept</span>
-                        <div id="ai-btn-loader" class="loader hidden w-5 h-5 border-2 border-white border-top-color-transparent rounded-full animate-spin"></div>
-                    </button>
-                </div>
-                <div id="ai-response-container" class="mt-6 p-4 bg-white rounded-lg border border-slate-200 min-h-[120px] text-slate-700 text-sm shadow-sm">
-                    AI-generated explanations will appear here...
+        <!-- AI Concept Explainer Section -->
+        <section id="ai-explainer-section" class="py-20 px-6 md:px-8">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="section-title">AI Financial Concept Explainer</h2>
+                <div class="card p-8">
+                    <p class="text-lg text-center text-gray-600 mb-8">
+                        Enter a financial term (e.g., "Quantitative Easing", "Derivatives", "WACC") to get a simplified explanation.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <input type="text" id="ai-prompt-input" placeholder="Enter a financial term..." class="w-full text-xl bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 py-4 px-6 shadow-inner">
+                        <button id="ai-explain-btn" class="bg-indigo-600 text-white font-bold px-8 py-4 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center shadow-lg whitespace-nowrap text-xl">
+                            <span id="ai-btn-text">Explain Concept</span>
+                            <div id="ai-btn-loader" class="loader hidden w-6 h-6 border-4 border-white border-top-color-transparent rounded-full animate-spin"></div>
+                        </button>
+                    </div>
+                    <div id="ai-response-container" class="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200 min-h-[150px] text-gray-700 text-lg shadow-inner">
+                        AI-generated explanations will appear here...
+                    </div>
                 </div>
             </div>
         </section>
