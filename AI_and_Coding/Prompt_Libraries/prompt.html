@@ -82,6 +82,13 @@
                 height: 350px;
             }
         }
+        .technique-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -117,6 +124,10 @@
                  <a href="#ml-orchestrator" data-target="ml-orchestrator" class="nav-item text-left p-4 text-sm font-medium text-gray-700 flex items-center space-x-3">
                     <span class="w-5 h-5">🤖</span>
                     <span>ML Orchestrator</span>
+                </a>
+                <a href="#advanced-engineering" data-target="advanced-engineering" class="nav-item text-left p-4 text-sm font-medium text-gray-700 flex items-center space-x-3">
+                    <span class="w-5 h-5">🧠</span>
+                    <span>Advanced Engineering</span>
                 </a>
             </nav>
         </aside>
@@ -262,150 +273,215 @@
                     name: "Federated Spam Detection Orchestration",
                     prompts: [{
                         id: "MLO-001-SpamOrchestrator",
-                        description: "Defines the operational parameters for a master orchestrator agent in a distributed, federated system.",
-                        template: `# ===================================================================
-# == Versioned Indexed Protocol (VIP) for Agent Orchestration      ==
-# == ------------------------------------------------------------- ==
-# == This file defines the operational parameters for a master     ==
-# == orchestrator agent in a distributed, federated system.        ==
-# ===================================================================
-
-# METADATA: Core identification and versioning for the prompt protocol.
-# Ensures traceability and compatibility within the agent library.
-# -------------------------------------------------------------------
+                        description: "Defines the operational parameters for a master orchestrator agent in a distributed, federated system for model training.",
+                        template: `# METADATA
 protocol_id: "FL-SPAM-ORCH-001"
 protocol_name: "FederatedSpamDetectionOrchestrator"
-version: "1.0.1" # MAJOR.MINOR.PATCH (Semantic Versioning)
-schema_version: "2.0" # Version of the VIP schema itself
+version: "1.0.1"
 description: "Orchestrates a federated learning network to train a global spam detection model across distributed email server agents without sharing raw data."
-author: "Gemini AI"
-timestamp: "2025-07-18T21:54:20Z"
-tags: [federated-learning, nlp, classification, security]
 
-# NETWORK_CONFIG: Defines the distributed environment and microservice APIs.
-# This makes the agent "API connected."
-# -------------------------------------------------------------------
-network_config:
-  protocol: "HTTP/S"
-  service_discovery_uri: "http://service-registry:8500/v1/catalog/services"
-  auth_method: "OAuth2"
-  auth_token_endpoint: "http://auth-server:9090/token"
-  default_timeout_seconds: 60
-
-# PERSONA: The core identity and unchanging directive of the agent.
-# -------------------------------------------------------------------
+# PERSONA
 persona:
   role: "Federated Learning Orchestrator (FLO)"
   traits: [secure, methodical, efficient, fault-tolerant, automated]
   core_mandate: "My purpose is to manage the end-to-end lifecycle of a federated learning process, ensuring model convergence while preserving data privacy across all participating nodes."
 
-# TASK: Defines the primary, high-level orchestration flows the agent executes.
-# This section is machine-readable logic, not just instructions.
-# -------------------------------------------------------------------
+# TASK
 task:
   orchestration_flows:
     - flow_name: "Federated_Training_Round"
-      description: "Executes a single round of federated training, from model distribution to global aggregation."
-      steps:
-        - "1. SELECT_ACTIVE_NODES"
-        - "2. DISTRIBUTE_GLOBAL_MODEL"
-        - "3. INITIATE_LOCAL_TRAINING"
-        - "4. COLLECT_MODEL_UPDATES"
-        - "5. AGGREGATE_UPDATES"
-        - "6. UPDATE_GLOBAL_MODEL"
-        - "7. LOG_METRICS"
+      steps: ["SELECT_ACTIVE_NODES", "DISTRIBUTE_GLOBAL_MODEL", "INITIATE_LOCAL_TRAINING", "COLLECT_MODEL_UPDATES", "AGGREGATE_UPDATES", "UPDATE_GLOBAL_MODEL", "LOG_METRICS"]
     - flow_name: "System_Health_Check"
-      description: "Periodically polls all registered trainer agents to ensure they are online and healthy."
-      steps:
-        - "1. QUERY_SERVICE_REGISTRY"
-        - "2. PING_AGENT_HEALTH_ENDPOINT"
-        - "3. REPORT_STATUS"
+      steps: ["QUERY_SERVICE_REGISTRY", "PING_AGENT_HEALTH_ENDPOINT", "REPORT_STATUS"]
 
-# CONTEXT: The operational context, including roles, rules, and specific protocols.
-# -------------------------------------------------------------------
+# CONTEXT
 context:
-  # FEDERATED_LEARNING_PROTOCOL: The core logic for the distributed learning task.
   federated_learning_protocol:
     strategy: "FederatedAveraging (FedAvg)"
     global_model_id: "spam-classifier-gm-v3.2"
-    hyperparameters:
-      global_rounds: 50
-      nodes_per_round: 10 # Number of clients to participate in each round
-      local_epochs: 5
-      batch_size: 32
-      learning_rate: 0.01
-    aggregation_server: "http://aggregation-service:5000/aggregate"
-    privacy_protocol:
-      # Defines privacy-enhancing techniques to be used.
-      technique: "DifferentialPrivacy"
-      epsilon: 1.0 # Privacy budget parameter
-      delta: 1e-5
+    hyperparameters: { global_rounds: 50, nodes_per_round: 10, local_epochs: 5, learning_rate: 0.01 }
+    privacy_protocol: { technique: "DifferentialPrivacy", epsilon: 1.0, delta: 1e-5 }`
+                    }]
+                }, {
+                    name: "Federated Prompt Refinement",
+                    prompts: [{
+                        id: "MLO-002-PromptRefinement",
+                        description: "Orchestrates the federated lifecycle of a governed prompt template, ensuring quality, compliance, and continuous improvement.",
+                        template: `# METADATA
+protocol_id: "GBL-PROMPT-ORCH-001"
+protocol_name: "GlobalBankingPromptOrchestrator"
+version: "1.0.0"
+description: "Orchestrates the federated lifecycle of a governed prompt template for a specific business use case, ensuring quality, compliance, and continuous improvement."
 
-  # AGENT_ROLES: Defines the specialized sub-agents in the network and their API contracts.
-  agent_roles:
-    - role: "trainer_node"
-      service_name: "email-server-agent"
-      description: "A distributed agent residing on an email server. It trains the model on local data upon request."
-      api_endpoints:
-        - name: "health_check"
-          path: "/health"
-          method: "GET"
-          expected_response_schema: { status: "string" }
-        - name: "train_model"
-          path: "/train"
-          method: "POST"
-          request_schema: { model_id: "string", hyperparameters: "object" }
-          response_schema: { model_update_id: "string", metrics: "object" }
+# USER_DEFINED_TASK
+user_defined_task:
+  task_name: "Financial Performance Analysis"
+  model_goal: "Generate a concise summary and structured table of a company's financial performance based on quarterly earnings data."
+  primary_metric: "factuality"
 
-    - role: "model_aggregator"
-      service_name: "aggregation-service"
-      description: "A centralized service that aggregates model updates to produce a new global model."
-      api_endpoints:
-        - name: "aggregate_updates"
-          path: "/aggregate"
-          method: "POST"
-          request_schema: { global_model_id: "string", update_ids: "array" }
-          response_schema: { new_global_model_id: "string", performance_metrics: "object" }
+# PERSONA
+persona:
+  role: "Global Prompt Library Orchestrator (GPLO)"
+  traits: [governed, auditable, collaborative, version-controlled, secure]
+  core_mandate: "My purpose is to manage the end-to-end lifecycle of governed prompt templates, ensuring they meet enterprise standards for quality and compliance while enabling distributed, expert-led innovation."
 
-# DELIVERABLE: Defines the final output or state upon completion of a major task.
-# -------------------------------------------------------------------
-deliverable:
-  on_completion: "Federated_Training_Round"
-  type: "ModelRegistryUpdate"
-  payload:
-    - target_registry: "http://model-registry:8080/models"
-    - new_model_id: "{{new_global_model_id}}" # Variable to be populated from the aggregation step
-    - performance_metrics: "{{performance_metrics}}"
-    - training_log_id: "{{log_id}}"
-  notification:
-    - channel: "slack"
-    - webhook_url: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-    - message: "✅ Federated Training Round {{current_round}}/{{total_rounds}} complete. New global model \`{{new_global_model_id}}\` registered. Accuracy: {{performance_metrics.accuracy}}."`
+# TASK
+task:
+  orchestration_flows:
+    - flow_name: "Federated_Prompt_Refinement_Round"
+      steps: ["SELECT_EVALUATOR_NODES", "DISTRIBUTE_CANDIDATE_PROMPT", "INITIATE_LOCAL_EVALUATION", "COLLECT_PERFORMANCE_METRICS_AND_SUGGESTIONS", "AGGREGATE_FEEDBACK", "UPDATE_GLOBAL_PROMPT", "LOG_METRICS_AND_LINTING_RESULTS"]
+    - flow_name: "Compliance_Health_Check"
+      steps: ["QUERY_PROMPT_REGISTRY", "VALIDATE_AGAINST_COMPLIANCE_API", "REPORT_STATUS"]
+
+# CONTEXT
+context:
+  federated_prompt_protocol:
+    strategy: "FederatedAveraging (for Prompt Refinement)"
+    prompt_hyperparameters:
+      persona_declaration: "You are a seasoned, meticulous, and insightful financial analyst. Your analysis must be objective and strictly based on the provided data."
+      task_instruction: "Analyze the provided quarterly earnings report. First, provide a 3-sentence executive summary of the overall performance. Then, populate the following table with key financial metrics."
+      output_format: |
+        | Metric                | Current Quarter | Previous Quarter | Change (%) |
+        |-----------------------|-----------------|------------------|------------|
+        | Total Revenue         | $XX.X B         | $XX.X B          | XX.X%      |
+        | Net Income            | $X.X B          | $X.X B           | XX.X%      |
+        | Earnings Per Share    | $X.XX           | $X.XX            | XX.X%      |
+      constraints: "CRITICAL: Do not include any information not present in the source text. Do not offer opinions, predictions, or investment advice."
+    privacy_protocol: { technique: "PII_Redaction", enforcement: "Strict" }`
                     }]
                 }]
+            },
+            "advanced-engineering": {
+                name: "Advanced Prompt Engineering",
+                description: "A detailed walkthrough of complex prompting techniques to build robust, reliable, and sophisticated agentic workflows. This section goes beyond simple templates to explain the 'why' behind advanced prompt design.",
+                use_cases: [] // Populated by JS
             }
         };
+
+        const advancedTechniques = [
+            {
+                name: "Chain-of-Thought (CoT) Prompting",
+                description: "Chain-of-Thought prompting guides the model to break down a complex problem into a series of intermediate reasoning steps before giving a final answer. This mimics a human thought process and significantly improves performance on tasks requiring arithmetic, commonsense, or symbolic reasoning.",
+                template: `Q: A trading desk has 5 traders. Each trader makes 15 trades per hour. The desk operates for 8 hours a day. How many total trades are made in one day?
+
+A: Let's think step by step.
+1. First, calculate the number of trades per trader per day.
+   - Each trader makes 15 trades/hour.
+   - The desk operates for 8 hours/day.
+   - So, one trader makes 15 * 8 = 120 trades per day.
+2. Next, calculate the total trades for all traders.
+   - There are 5 traders.
+   - Each trader makes 120 trades per day.
+   - So, the total number of trades is 120 * 5 = 600.
+
+The final answer is 600.`
+            },
+            {
+                name: "Self-Consistency",
+                description: "Self-Consistency improves upon CoT by sampling multiple, diverse reasoning paths (thoughts) and then selecting the most consistent answer through a majority vote. This makes the final result more robust and less susceptible to errors from a single flawed reasoning chain.",
+                template: `Q: A client has a portfolio of $500k. They want to allocate 20% to bonds, 50% to stocks, and the rest to cash. How much is allocated to cash?
+
+--- Reasoning Path 1 ---
+1. Total portfolio: $500,000
+2. Bonds: 20% of $500k = $100,000
+3. Stocks: 50% of $500k = $250,000
+4. Total allocated: $100k + $250k = $350,000
+5. Cash: $500k - $350k = $150,000
+Final Answer: $150,000
+
+--- Reasoning Path 2 ---
+1. Total portfolio: $500,000
+2. Percentage for cash: 100% - 20% (bonds) - 50% (stocks) = 30%
+3. Cash allocation: 30% of $500k = 0.3 * 500,000 = $150,000
+Final Answer: $150,000
+
+--- Reasoning Path 3 ---
+1. Total portfolio: $500,000
+2. Bonds + Stocks percentage: 20% + 50% = 70%
+3. Cash percentage: 100% - 70% = 30%
+4. Cash value: $500,000 * 0.30 = $150,000
+Final Answer: $150,000
+
+--- Final Aggregated Answer ---
+The most consistent answer across all reasoning paths is $150,000.`
+            },
+            {
+                name: "Tree of Thoughts (ToT)",
+                description: "Tree of Thoughts generalizes CoT by exploring multiple reasoning paths at each step, creating a tree structure. The model can evaluate the intermediate 'thoughts' and decide which path to explore further or backtrack, making it much more powerful for complex planning or search problems where the initial steps are not obvious.",
+                template: `/* Conceptual Workflow for Tree of Thoughts */
+
+Problem: "Devise a 3-step strategy to reduce credit card fraud for an online merchant."
+
+1.  **Generate Initial Thoughts (Level 1):**
+    - Thought 1.1: "Focus on transaction monitoring."
+    - Thought 1.2: "Focus on user authentication."
+    - Thought 1.3: "Focus on post-transaction analysis."
+
+2.  **Evaluate Thoughts (Level 1):**
+    - Evaluation 1.1: "Good, proactive. High potential." -> EXPLORE
+    - Evaluation 1.2: "Important, but can cause friction." -> EXPLORE
+    - Evaluation 1.3: "Reactive, not preventative." -> PRUNE
+
+3.  **Expand Promising Thoughts (Level 2):**
+    - From 1.1:
+        - Thought 2.1: "Use real-time velocity checks."
+        - Thought 2.2: "Implement AI-based anomaly detection."
+    - From 1.2:
+        - Thought 2.3: "Mandate Multi-Factor Authentication (MFA)."
+        - Thought 2.4: "Use 3D Secure 2.0 protocol."
+
+4.  **Continue process... evaluate, prune, and expand until a complete, coherent 3-step plan is formed.**
+    - e.g., Final Path: (1.1 -> 2.2 -> 3.x) -> "1. Implement AI anomaly detection. 2. Mandate MFA for suspicious transactions. 3. Use post-transaction analysis to refine AI models."`
+            },
+            {
+                name: "Expert Persona Prompting (Generated)",
+                description: "As noted in the GBL analysis, simple persona declarations can be ineffective. A more robust method is to have the model generate a detailed expert persona first, then use that generated persona to solve the actual task. This creates a much richer context for the model.",
+                template: `/* Two-Step Prompt Chain */
+
+--- Step 1: Persona Generation Prompt ---
+"Based on the following task, generate a detailed persona of the expert who would be best suited to complete it. Describe their skills, experience, and mindset.
+
+Task: 'Create a comprehensive risk assessment report for a new fintech lending product targeting subprime borrowers.'"
+
+--- Step 2: Task Execution Prompt ---
+"**Persona:** {Insert LLM-generated persona from Step 1 here. e.g., 'You are a Chief Risk Officer with 20 years of experience in credit risk, specializing in regulatory compliance (TILA, ECOA) and quantitative modeling of default risk for non-traditional credit products...'}
+
+**Task:** Now, using this persona, create the comprehensive risk assessment report for the new fintech lending product."`
+            }
+        ];
 
         function initializeApp() {
             const personaContainer = document.getElementById('persona-sections-container');
             const navLinks = document.querySelectorAll('#main-nav a');
-            const contentSections = document.querySelectorAll('.content-section');
 
             function buildPersonaSections() {
                 let html = '';
                 for (const key in promptData) {
                     const persona = promptData[key];
-                    html += `
+                    if (key === 'advanced-engineering') {
+                        html += `
                         <div id="${key}" class="content-section hidden">
                              <header class="mb-10">
                                 <h2 class="text-3xl font-bold text-gray-800">${persona.name}</h2>
                                 <p class="mt-2 text-lg text-gray-600">${persona.description}</p>
                             </header>
-                            ${key === 'financial-analyst' || key === 'ml-orchestrator' ? `
-                            <div class="bg-white/80 p-6 rounded-lg shadow-sm mb-10">
-                                <h3 class="text-xl font-semibold text-gray-700 mb-2">Prompt Explorer</h3>
-                                <p class="text-gray-600">This is the interactive core of the framework. Here, you can explore prompts tailored to specific roles within the bank. Select a use case below to view its corresponding prompt template. You can directly copy any prompt to use in your AI-powered workflows, accelerating your tasks while ensuring compliance and quality.</p>
-                            </div>` : ''}
+                            <div>
+                                ${advancedTechniques.map(tech => `
+                                    <div class="technique-card">
+                                        <h3 class="text-xl font-semibold text-gray-800 mb-2">${tech.name}</h3>
+                                        <p class="text-gray-600 mb-4">${tech.description}</p>
+                                        <div class="code-block">${tech.template.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>`;
+                    } else {
+                         html += `
+                        <div id="${key}" class="content-section hidden">
+                             <header class="mb-10">
+                                <h2 class="text-3xl font-bold text-gray-800">${persona.name}</h2>
+                                <p class="mt-2 text-lg text-gray-600">${persona.description}</p>
+                            </header>
                             <div class="space-y-4">
                                 ${persona.use_cases.map((useCase, i) => `
                                     <div class="bg-white rounded-lg shadow-sm border border-gray-200/50">
@@ -432,6 +508,7 @@ deliverable:
                             </div>
                         </div>
                     `;
+                    }
                 }
                 personaContainer.innerHTML = html;
             }
@@ -485,7 +562,6 @@ deliverable:
                             }, 2000);
                         }).catch(err => {
                             console.error('Failed to copy text: ', err);
-                            // Fallback for older browsers
                             const textArea = document.createElement("textarea");
                             textArea.value = promptText;
                             document.body.appendChild(textArea);
@@ -506,8 +582,9 @@ deliverable:
 
             function renderPersonaChart() {
                 const ctx = document.getElementById('personaChart').getContext('2d');
-                const personaNames = Object.values(promptData).map(p => p.name);
-                const useCaseCounts = Object.values(promptData).map(p => p.use_cases.length);
+                const chartData = Object.keys(promptData).filter(key => key !== 'advanced-engineering');
+                const personaNames = chartData.map(key => promptData[key].name);
+                const useCaseCounts = chartData.map(key => promptData[key].use_cases.length);
 
                 new Chart(ctx, {
                     type: 'doughnut',
@@ -521,14 +598,16 @@ deliverable:
                                 'rgba(75, 192, 192, 0.7)',
                                 'rgba(153, 102, 255, 0.7)',
                                 'rgba(255, 159, 64, 0.7)',
-                                'rgba(255, 99, 132, 0.7)'
+                                'rgba(255, 99, 132, 0.7)',
+                                'rgba(255, 206, 86, 0.7)'
                             ],
                             borderColor: [
                                 'rgba(54, 162, 235, 1)',
                                 'rgba(75, 192, 192, 1)',
                                 'rgba(153, 102, 255, 1)',
                                 'rgba(255, 159, 64, 1)',
-                                'rgba(255, 99, 132, 1)'
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 206, 86, 1)'
                             ],
                             borderWidth: 1
                         }]
@@ -564,6 +643,10 @@ deliverable:
             setupAccordions();
             setupCopyButtons();
             renderPersonaChart();
+            
+            // Set initial active state
+            document.querySelector('#main-nav a[data-target="overview"]').classList.add('active');
+            document.getElementById('overview').classList.remove('hidden');
         }
 
         document.addEventListener('DOMContentLoaded', initializeApp);
