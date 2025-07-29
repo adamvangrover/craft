@@ -4,6 +4,26 @@
 
 This report offers a comprehensive analysis of fundamental financial accounting concepts and the three primary financial statements: the Income Statement, the Balance Sheet, and the Cash Flow Statement. It is designed to provide a robust, practical, and in-depth understanding for financial analysts, emphasizing the definitions, purposes, practical implications, calculations, and critical interrelationships of these core components. A central theme is the recognition that no single financial statement provides a complete picture; their collective analysis is paramount for a holistic assessment of a company's financial health and performance. The report delves into key terms such as Revenue, Cost of Goods Sold (COGS), Gross Profit, Net Income, Shareholders' Equity, Cash and Cash Equivalents, Retained Earnings, and Dividends, highlighting their definitions, operational significance, and the nuances that influence their interpretation.
 
+### Table of Contents
+* [Introduction to Financial Accounting: The Foundation of Business Insight](#introduction-to-financial-accounting-the-foundation-of-business-insight)
+* [The Income Statement: Unveiling Profitability](#the-income-statement-unveiling-profitability)
+    * [Revenue: Definition, Recognition Principles, and Impact](#revenue-definition-recognition-principles-and-impact)
+    * [Cost of Goods Sold (COGS): Calculation, FIFO, LIFO, and Pitfalls](#cost-of-goods-sold-cogs-calculation-fifo-lifo-and-pitfalls)
+    * [Gross Profit: Significance, Calculation, and Limitations](#gross-profit-significance-calculation-and-limitations)
+    * [Net Income: The Ultimate Profitability Metric and Its Impact](#net-income-the-ultimate-profitability-metric-and-its-impact)
+* [The Balance Sheet: A Snapshot of Financial Position](#the-balance-sheet-a-snapshot-of-financial-position)
+    * [Assets: Definition, Classification, and Liquidity (Cash & Cash Equivalents)](#assets-definition-classification-and-liquidity-cash--cash-equivalents)
+    * [Liabilities: Current vs. Long-Term Obligations](#liabilities-current-vs-long-term-obligations)
+    * [Shareholders' Equity: Components, Accounting Equation, and Significance](#shareholders-equity-components-accounting-equation-and-significance)
+    * [Retained Earnings: Accumulation, Purpose, and Link to Net Income & Dividends](#retained-earnings-accumulation-purpose-and-link-to-net-income--dividends)
+* [The Cash Flow Statement: Tracking Cash Movements](#the-cash-flow-statement-tracking-cash-movements)
+    * [Overview of Operating, Investing, and Financing Activities](#overview-of-operating-investing-and-financing-activities)
+    * [Dividends: Definition, Purpose, Impact on Cash Flow, and Distinction from Share Buybacks](#dividends-definition-purpose-impact-on-cash-flow-and-distinction-from-share-buybacks)
+* [Interrelationships and Information Flow Among the Core Financial Statements](#interrelationships-and-information-flow-among-the-core-financial-statements)
+    * [Net Income's Journey: From Income Statement to Retained Earnings (Balance Sheet) and Operating Cash Flow (Cash Flow Statement)](#net-incomes-journey-from-income-statement-to-retained-earnings-balance-sheet-and-operating-cash-flow-cash-flow-statement)
+    * [Balance Sheet and Cash Flow Statement Connections](#balance-sheet-and-cash-flow-statement-connections)
+* [Conclusions](#conclusions)
+
 ## Introduction to Financial Accounting: The Foundation of Business Insight
 
 Financial statements serve as a series of reports that collectively summarize a business's financial results, condition, and cash flows. They narrate the story of a company's operations and financial health.1 It is crucial to understand that an individual financial statement should never be viewed in isolation; rather, it must always be considered as part of a complete set to gain a comprehensive understanding.1 Together, the Balance Sheet, Income Statement, and Cash Flow Statement form the bedrock for a comprehensive understanding of a company's financial situation, empowering owners and analysts to make informed decisions that can drive growth and profitability.3

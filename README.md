@@ -170,6 +170,12 @@ This repository is a collaborative effort, significantly bootstrapped using AI t
 We aim to make this a living resource that grows and adapts with the needs of the finance learning community.
 
 ---
+## References
+
+*   [Global Index](./global_index.md)
+*   [Global Financial Glossary](./Global_Financial_Glossary.md)
+*   [AGENTS.MD](./AGENTS.MD)
+
 *The very detailed excerpt from the CRAFT program (Module 1 & 2) has been moved to the `example_initial_prompt.json` file to keep this main README concise and focused on overall navigation and structure.*
 The "Works Cited" section previously at the end of this README was part of that excerpt and has also been moved.
-You can find the full, original detailed content within the [CRAFT program's modules](./corporate-credit-risk-analyst-training/modules/).
+You can find the full, original detailed content within the [CRAFT program's modules](./modules/Credit_Analysis/modules/).

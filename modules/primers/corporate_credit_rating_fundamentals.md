@@ -6,6 +6,15 @@ Credit ratings are opinions about the creditworthiness of an issuer (like a corp
 
 These ratings are not recommendations to buy, sell, or hold a security, nor do they comment on market price or suitability for a particular investor. Instead, they provide a standardized measure of credit risk, facilitating comparisons across different issuers and debt instruments.
 
+### Table of Contents
+* [Rating Scales](#rating-scales)
+* [Key Factors in Corporate Credit Ratings](#key-factors-in-corporate-credit-ratings)
+* [Rating Agency Methodologies: S&P vs. Moody's](#rating-agency-methodologies-sp-vs-moodys)
+* [Importance of Industry Context](#importance-of-industry-context)
+* [Sovereign Ratings and Corporate Ratings](#sovereign-ratings-and-corporate-ratings)
+* [Rating Outlooks and Credit Watches](#rating-outlooks-and-credit-watches)
+* [Conclusion](#conclusion)
+
 ## Rating Scales
 
 Both S&P and Moody's use alphanumeric scales to denote credit quality. While broadly similar, there are slight differences.
