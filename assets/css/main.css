@@ -1,0 +1,681 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.6;
+    background-color: #f8f9fa; /* Light gray background */
+    color: #212529; /* Dark text for readability */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header Styling */
+.viewer-header {
+    background-color: #343a40; /* Dark header background */
+    color: #ffffff; /* White text */
+    padding: 1rem 1.5rem;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #007bff; /* Accent color */
+}
+
+.viewer-header h1 {
+    font-size: 1.8em;
+    margin: 0;
+}
+
+.viewer-header .back-to-home {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9em;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.viewer-header .back-to-home:hover {
+    background-color: #ffffff;
+    color: #343a40;
+}
+
+/* Main Container for Two-Pane Layout */
+.viewer-container {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1400px; /* Max width for larger screens */
+    margin: 15px auto; /* Centering and space from header */
+    padding: 0 15px; /* Padding on the sides */
+    gap: 20px; /* Space between nav and content panes */
+}
+
+/* Navigation Pane (Left) */
+.viewer-nav {
+    flex: 0 0 280px; /* Fixed width for nav, adjust as needed */
+    background-color: #ffffff; /* White background for nav */
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow-y: auto; /* Scroll if content exceeds height */
+    max-height: calc(100vh - 120px); /* Adjust based on header/footer */
+}
+
+.viewer-nav h2 {
+    font-size: 1.4em;
+    color: #007bff; /* Accent color for heading */
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #dee2e6; /* Light border */
+}
+
+.viewer-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.viewer-nav ul li a {
+    display: block;
+    text-decoration: none;
+    color: #343a40; /* Dark link color */
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 0.3rem;
+    border-radius: 5px;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 0.95em;
+}
+
+.viewer-nav ul li a:hover {
+    background-color: #e9ecef; /* Light hover background */
+    color: #0056b3; /* Darker blue on hover */
+}
+
+.viewer-nav ul li a.active {
+    background-color: #007bff; /* Blue background for active link */
+    color: #ffffff; /* White text for active link */
+    font-weight: bold;
+}
+
+/* Content Pane (Right) */
+.viewer-content {
+    flex-grow: 1; /* Takes remaining space */
+    background-color: #ffffff; /* White background for content */
+    padding: 1.5rem 2rem; /* More padding for content */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow-y: auto; /* Scroll if content exceeds height */
+    max-height: calc(100vh - 120px); /* Adjust based on header/footer */
+}
+
+/* Basic Styling for Rendered Markdown in .viewer-content */
+.viewer-content h1, .viewer-content h2, .viewer-content h3, .viewer-content h4, .viewer-content h5, .viewer-content h6 {
+    color: #2c3e50;
+    margin-top: 2rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eaecef;
+}
+.viewer-content h1:first-child, .viewer-content h2:first-child, .viewer-content h3:first-child {
+    margin-top: 0.2rem;
+}
+.viewer-content h1 { font-size: 2em; }
+.viewer-content h2 { font-size: 1.7em; }
+.viewer-content h3 { font-size: 1.4em; }
+.viewer-content h4 { font-size: 1.2em; border-bottom: none; }
+.viewer-content h5 { font-size: 1.1em; border-bottom: none; }
+.viewer-content h6 { font-size: 1em; border-bottom: none; color: #6c757d; }
+
+.viewer-content p {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    color: #34495e;
+}
+
+.viewer-content a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.viewer-content a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+.viewer-content code {
+    background-color: #f3f4f6;
+    color: #e74c3c;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+}
+
+.viewer-content pre {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 1.2em;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+    line-height: 1.6;
+}
+
+.viewer-content ul, .viewer-content ol {
+    margin-left: 25px;
+    margin-bottom: 1.2rem;
+    padding-left: 10px;
+}
+
+.viewer-content li {
+    margin-bottom: 0.6rem;
+}
+
+.viewer-content code {
+    background-color: #e9ecef; /* Light background for inline code */
+    color: #c7254e; /* Bootstrap-like color for code */
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+}
+
+.viewer-content pre {
+    background-color: #282c34; /* Dark background for code blocks */
+    color: #abb2bf; /* Light text for dark background */
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin-bottom: 1.2rem;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+.viewer-content pre code {
+    background-color: transparent; /* Reset for code inside pre */
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+}
+
+.viewer-content table {
+    width: auto; /* Let table size itself, or 100% if preferred */
+    max-width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    font-size: 0.9em;
+}
+
+.viewer-content th, .viewer-content td {
+    border: 1px solid #dee2e6; /* Lighter border for tables */
+    padding: 0.8rem 1rem;
+    text-align: left;
+}
+
+.viewer-content th {
+    background-color: #f8f9fa; /* Very light gray for table headers */
+    font-weight: 600;
+}
+
+.viewer-content blockquote {
+    border-left: 5px solid #007bff; /* Blue accent for blockquotes */
+    padding: 0.8rem 1.2rem;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 1.2rem;
+    background-color: #f0f8ff; /* Light blue background */
+    color: #334155;
+    font-style: italic;
+}
+.viewer-content blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+.viewer-content a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.viewer-content a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+.viewer-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin: 0.5em 0 1em 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .viewer-container {
+        flex-direction: column;
+        margin-top: 10px;
+        padding: 0 10px;
+    }
+    .viewer-nav, .viewer-content {
+        flex: 1 1 auto; /* Allow them to grow and shrink */
+        max-height: none; /* Remove fixed height for stacked layout */
+        width: 100%;
+    }
+    .viewer-nav {
+        margin-bottom: 15px; /* Space between nav and content when stacked */
+        max-height: 40vh; /* Limit height when stacked */
+    }
+    .viewer-header {
+        padding: 0.8rem 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .viewer-header h1 {
+        font-size: 1.5em;
+    }
+}
+
+/* Print styles */
+@media print {
+    body {
+        background-color: #fff;
+        padding: 0;
+        margin: 0.5in;
+        font-size: 10pt;
+    }
+    .viewer-header, .viewer-nav {
+        display: none !important;
+    }
+    .viewer-container {
+        flex-direction: column !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        gap: 0 !important;
+    }
+    .viewer-content {
+        flex: 1 !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+    .viewer-content h1, .viewer-content h2, .viewer-content h3, .viewer-content h4, .viewer-content h5, .viewer-content h6 {
+        page-break-after: avoid;
+    }
+    .viewer-content table, .viewer-content blockquote, .viewer-content pre {
+        page-break-inside: avoid;
+    }
+    .viewer-content a {
+        color: #000 !important; /* Black links for print */
+        text-decoration: underline !important;
+    }
+    .viewer-content a[href^="http"]:after, .viewer-content a[href^="//"]:after {
+        content: " (" attr(href) ")"; /* Show full URLs for external links */
+        font-size: 0.9em;
+    }
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* Modern system font stack */
+    line-height: 1.6;
+    color: #212529; /* Darker text for better readability */
+    background-color: #f8f9fa; /* Lighter gray background */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background: #343a40; /* Consistent dark header */
+    color: #ffffff;
+    padding: 1rem 1.5rem; /* Adjusted padding */
+    text-align: center;
+    border-bottom: 3px solid #007bff; /* Accent color */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem; /* Kept original size, can be adjusted */
+}
+
+.container { /* This class might be used by older hub pages */
+    display: flex;
+    flex: 1;
+    width: 90%;
+    max-width: 1400px;
+    margin: 20px auto;
+    overflow: hidden;
+    gap: 20px; /* Added gap for consistency with shared-readme-styles */
+}
+
+#sidebar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    overflow-y: auto;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+#sidebar h3 {
+    margin-top: 0;
+    color: #fff;
+    border-bottom: 1px solid #555;
+    padding-bottom: 10px;
+}
+
+#sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#sidebar li a {
+    color: #ddd;
+    text-decoration: none;
+    display: block;
+    padding: 8px 0;
+    transition: background-color 0.2s;
+}
+
+#sidebar li a:hover, #sidebar li a.active {
+    color: #fff;
+    background-color: #555;
+}
+
+#sidebar .subdirectory-group {
+    margin-top: 10px;
+    padding-top: 5px;
+    border-top: 1px dashed #555;
+}
+
+#sidebar .subdirectory-group h4 {
+    color: #bbb;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+#sidebar h2 {
+    margin-top: 0;
+    font-size: 1.4em; /* Consistent with .viewer-nav h2 */
+    color: #007bff; /* Accent color */
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+#sidebar ul {
+    list-style: none;
+}
+
+#sidebar ul li {
+    margin-bottom: 0.3rem; /* Consistent with .viewer-nav */
+}
+
+#sidebar ul li a {
+    text-decoration: none;
+    color: #343a40; /* Dark link color */
+    display: block;
+    padding: 0.6rem 0.8rem; /* Consistent padding */
+    border-radius: 5px;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 0.95em;
+}
+
+#sidebar ul li a:hover,
+#sidebar ul li a.active {
+    background-color: #e9ecef; /* Light hover background */
+    color: #0056b3; /* Darker blue on hover */
+}
+#sidebar ul li a.active {
+    background-color: #007bff;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+
+/* Sub-navigation for module parts */
+#sidebar ul ul {
+    margin-left: 15px; /* Keep indentation */
+    margin-top: 5px;
+    font-size: 0.9em; /* Relative to parent */
+}
+
+#sidebar ul ul li a {
+    padding: 0.4rem 0.6rem; /* Slightly smaller padding for sub-items */
+    color: #495057; /* Slightly lighter than main links */
+}
+
+#sidebar ul ul li a:hover,
+#sidebar ul ul li a.active {
+    background-color: #dee2e6; /* Slightly darker hover for sub-items */
+}
+#sidebar ul ul li a.active {
+    background-color: #007bff; /* Keep active consistent */
+    color: #ffffff;
+}
+
+
+#content-area { /* Styles for a potential older content area */
+    background: #ffffff; /* Cleaner white background */
+    width: 75%;
+    padding: 1.5rem 2rem; /* Consistent padding */
+    overflow-y: auto;
+    border-radius: 8px; /* Added for consistency */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Subtle shadow */
+    /* max-height: calc(100vh - 120px); */
+}
+
+/* Styles for rendered Markdown content in #content-area, aligned with shared-readme-styles.css */
+#content-area h1, #content-area h2, #content-area h3, #content-area h4, #content-area h5, #content-area h6 {
+    color: #343a40;
+    margin-top: 1.8rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+#content-area h1:first-child, #content-area h2:first-child, #content-area h3:first-child {
+    margin-top: 0.2rem;
+}
+#content-area h1 { font-size: 2em; }
+#content-area h2 { font-size: 1.7em; }
+#content-area h3 { font-size: 1.4em; }
+#content-area h4 { font-size: 1.2em; border-bottom: none; }
+#content-area h5 { font-size: 1.1em; border-bottom: none; }
+#content-area h6 { font-size: 1em; border-bottom: none; color: #6c757d; }
+
+#content-area p {
+    margin-bottom: 1.2rem;
+    line-height: 1.7;
+}
+
+#content-area ul, #content-area ol {
+    margin-left: 25px;
+    margin-bottom: 1.2rem;
+    padding-left: 10px;
+}
+
+#content-area li {
+    margin-bottom: 0.6rem;
+}
+
+#content-area code { /* Inline code */
+    background-color: #e9ecef;
+    color: #c7254e;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+}
+
+#content-area pre { /* Code blocks */
+    background-color: #282c34;
+    color: #abb2bf;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin-bottom: 1.2rem;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+#content-area pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+}
+
+#content-area table {
+    width: auto;
+    max-width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    font-size: 0.9em;
+}
+
+#content-area th, #content-area td {
+    border: 1px solid #dee2e6;
+    padding: 0.8rem 1rem;
+    text-align: left;
+}
+
+#content-area th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+#content-area blockquote {
+    border-left: 5px solid #007bff;
+    padding: 0.8rem 1.2rem;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 1.2rem;
+    background-color: #f0f8ff;
+    color: #334155;
+    font-style: italic;
+}
+#content-area blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+#content-area a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#content-area a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem 1.5rem; /* Consistent padding */
+    background: #343a40; /* Consistent dark footer */
+    color: #ffffff;
+    margin-top: auto;
+}
+
+/* Basic responsiveness */
+.hub-card {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.hub-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.hub-card h2 {
+    color: #007bff;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.hub-card p {
+    color: #495057;
+    margin-bottom: 1rem;
+}
+
+.hub-card a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hub-card a:hover {
+    text-decoration: underline;
+}
+
+#scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: #3498db;
+    color: white;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s, background-color 0.3s;
+    cursor: pointer;
+    border: none;
+    z-index: 1000;
+}
+
+#scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+#scroll-to-top:hover {
+    background-color: #2980b9;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        width: 95%;
+    }
+
+    #sidebar, #content-area {
+        width: 100%;
+        height: auto; /* Adjust height for stacked layout */
+        max-height: 50vh; /* Example, can be adjusted */
+    }
+
+    #sidebar {
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 10px;
+    }
+}
