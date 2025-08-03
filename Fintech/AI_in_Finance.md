@@ -124,6 +124,8 @@ Despite the benefits, significant challenges exist:
 *   **Hyper-Personalization:** Even more tailored financial products and advice.
 *   **AI in DeFi:** Further integration of AI for risk management and automation in Decentralized Finance.
 *   **Increased focus on Responsible AI:** Development of ethical guidelines, XAI techniques, and robust governance frameworks.
+*   **Agentic Systems:** The combination of Large Language Models with autonomous workflow capabilities is leading to the development of "agentic" systems. These AI agents can decompose complex tasks, use tools, and collaborate to achieve sophisticated goals, such as continuous credit monitoring.
+    *   **Deep Dive:** For a comprehensive look at how such a system is designed, see the whitepaper on **[Architecting an Agentic Copilot for Credit Monitoring](./Advanced_Topics/Architecting_an_Agentic_Copilot_for_Credit_Monitoring.md)**.
 
 ## 6. Relevance to Credit Risk / Financial Analysis (Expanded)
 

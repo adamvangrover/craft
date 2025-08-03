@@ -1,0 +1,74 @@
+FUNCTION cassandra_regulatory_analyzer(request_packet):
+  // Deconstruct the input packet
+  doc_text = request_packet.document_text
+  metadata = request_packet.document_metadata
+
+  // Initialize the output object
+  brief = new RegulatoryImpactBrief()
+  brief.brief_summary.document_title = metadata.document_title
+  brief.brief_summary.source_name = metadata.source_name
+
+  // --- Core NLP and LLM Processing ---
+  // This is the main "thinking" part of the agent. It involves sending a
+  // carefully constructed prompt to a Large Language Model (LLM).
+
+  // 1. Construct the LLM Request Prompt
+  // This combines the system prompt instructions with the specific instance data.
+  llm_prompt = `
+    SYSTEM PROMPT: [Insert the full text of system_prompt.md here]
+    ---
+    INSTANCE INPUT:
+    DOCUMENT METADATA: ${toJson(metadata)}
+    DOCUMENT TEXT:
+    ---
+    ${doc_text}
+    ---
+    END OF DOCUMENT.
+
+    Please now generate the 'Regulatory Impact Brief' as a single, valid JSON object based on the instructions.
+  `
+
+  // 2. Send the request to the LLM/Generative AI Service
+  // In a real system, this is an API call to a service like OpenAI, Anthropic, Google AI, etc.
+  llm_response_string = callLLMService(llm_prompt)
+
+  // 3. Parse and Validate the LLM's JSON Output
+  // It is CRITICAL to treat the LLM output as untrusted and validate it.
+  TRY:
+    parsed_json_output = parseJson(llm_response_string)
+
+    // Validate the parsed JSON against the expected response schema
+    // (defined in api_schema.json)
+    is_valid = validateSchema(parsed_json_output, response_schema)
+
+    IF is_valid IS TRUE:
+      // If valid, the parsed JSON is our final brief.
+      brief = parsed_json_output
+    ELSE:
+      // Handle cases where the LLM returned valid JSON, but it doesn't match our schema.
+      // This might involve trying to re-prompt, or logging an error for human review.
+      brief = createErrorBrief("LLM output failed schema validation.")
+
+  CATCH JSONParseException:
+    // Handle cases where the LLM failed to produce a valid JSON object.
+    // This could trigger a retry with a stronger prompt instruction for JSON formatting.
+    brief = createErrorBrief("LLM failed to generate valid JSON.")
+
+  // 4. Return the final, validated (or error) brief
+  RETURN convertToJson(brief)
+
+END FUNCTION
+
+
+// Helper function to create a structured error response
+FUNCTION createErrorBrief(error_message):
+  error_brief = new RegulatoryImpactBrief()
+  error_brief.brief_summary.urgency_level = "High" // Errors need high urgency
+  error_brief.brief_summary.executive_summary = "Failed to process document due to a system error."
+  error_brief.impact_analysis.what_is_changing = [error_message]
+  error_brief.impact_analysis.so_what_business_impact = ["The automated analysis could not be completed."]
+  error_brief.impact_analysis.now_what_recommendations = ["1. Escalate to the AI support team for manual review.", "2. The original document should be analyzed manually immediately."]
+  error_brief.key_quotes = []
+  RETURN error_brief
+
+END FUNCTION
