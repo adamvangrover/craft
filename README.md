@@ -74,6 +74,16 @@ The content is organized into thematic pillars, each housed in its own directory
 5.  **Use the Search Function (GitHub):** If you're looking for specific keywords or topics, GitHub's built-in search functionality for this repository can be very effective.
 6.  **Consult the `Global_Financial_Glossary.md`:** For definitions of common financial terms encountered throughout the repository.
 
+### Navigating the Hub: Terminal vs. Interactive Views
+
+There are two primary ways to explore the content in this repository:
+
+1.  **Interactive HTML Hubs (Recommended):** The best way to experience this learning hub is through the interactive `.html` pages. Start with the main [Financial Learning Hub (home.html)](./home.html). These pages provide a rich, user-friendly interface with navigation menus, search functionality, and a polished reading experience. We recommend this method for most users.
+
+2.  **Raw Markdown Files (The "Terminal" View):** If you are a developer or prefer to read the content in its raw format, you can navigate the repository like any other code repository and read the `.md` files directly. This is a more "bare-bones" experience.
+
+**A Note on "Coming Soon" Features:** You may come across sections or features within the interactive hubs that are marked as "Coming Soon" or are not yet fully implemented (like the "Agent Libraries"). This repository is under active development, and we are continuously working to bring these new features to life.
+
 ### Understanding File Types (Helper Files Overview)
 
 *   **`.md` (Markdown Files):** The core content of the repository is written in Markdown. These files contain the textual information, explanations, case studies, and quiz questions.

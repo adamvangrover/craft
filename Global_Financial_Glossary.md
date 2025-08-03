@@ -4,6 +4,40 @@
 
 This glossary provides definitions for key terms used throughout this financial learning repository, covering topics from Credit Risk Analysis, CFA Program material, Financial Modeling, Fintech, Risk Management, Market Analysis, and Behavioral Finance. It aims to be a comprehensive and easily navigable reference.
 
+## A
+*   **Accretion/Dilution Analysis:** (M&A/Financial Modeling) An analysis to determine the impact of a merger or acquisition on the acquirer's earnings per share (EPS). An accretive transaction increases EPS, while a dilutive transaction decreases EPS. *See: `Financial_Modeling/Advanced_Topics/merger_and_acquisition_modeling.md`*
+
+## B
+*   **Biotechnology:** (Industry Primer) The exploitation of biological processes for industrial and other purposes, especially the genetic manipulation of microorganisms for the production of antibiotics, hormones, etc. *See: `modules/primers/biotechnology.md`*
+
+## E
+*   **ESG (Environmental, Social, and Governance):** (Sustainable Investing) A framework for considering environmental, social, and governance factors in investment decision-making. *See: `CFA/Level_3/Case_Studies_IPS/L3_Case_IPS_Private_Client.md`*
+
+## I
+*   **Investment Policy Statement (IPS):** (Portfolio Management) A document that outlines the investment goals, objectives, and constraints for a client's portfolio. It serves as a roadmap for the portfolio manager. *See: `CFA/Level_3/Case_Studies_IPS/L3_Case_IPS_Private_Client.md`*
+
+## L
+*   **Leveraged Buyout (LBO):** (Private Equity) The acquisition of a company using a significant amount of borrowed money (leverage) to meet the cost of acquisition. The assets of the company being acquired are often used as collateral for the loans, along with the assets of the acquiring company. *See: `Financial_Modeling/Advanced_Topics/LBO_Modeling_Deep_Dive.md`*
+*   **Liability Management Exercise (LME):** (Debt Restructuring) A transaction or series of transactions undertaken by a company to alter the terms of its existing debt, often to improve its financial position or to take advantage of favorable market conditions. *See: `legal_analysis/miscellaneous_credit_analysis_topics/lme_strategies_and_case_studies/lme_overview.md`*
+
+## M
+*   **Merger Model:** (Financial Modeling) A financial model used to evaluate the financial implications of a merger or acquisition. The primary output is an accretion/dilution analysis. *See: `Financial_Modeling/Advanced_Topics/merger_and_acquisition_modeling.md`*
+
+## P
+*   **Power Purchase Agreement (PPA):** (Renewable Energy) A long-term contract to sell electricity at a fixed price. *See: `modules/primers/renewable_energy.md`*
+
+## R
+*   **Renewable Energy:** (Industry Primer) Energy from a source that is not depleted when used, such as wind or solar power. *See: `modules/primers/renewable_energy.md`*
+
+## S
+*   **Sum-of-the-Parts (SOTP) Analysis:** (Valuation) A valuation methodology that involves valuing each division or segment of a company separately and then adding them together to arrive at a total value for the company. *See: `CFA/Level_2/Case_Studies/L2_Case_Complex_Company_Valuation_Advanced.md`*
+
+## T
+*   **Technology Sector:** (Industry Primer) The category of stocks relating to the research, development, and/or distribution of technologically based goods and services. *See: `modules/primers/technology_sector.md`*
+
+## W
+*   **Weighted Average Cost of Capital (WACC):** (Valuation) A calculation of a firm's cost of capital in which each category of capital is proportionately weighted. All sources of capital, including common stock, preferred stock, bonds, and any other long-term debt, are included in a WACC calculation. *See: `Interactive_Notebooks/Valuation_Components/InteractiveWACCCalculator.ipynb`*
+
 Terms are listed alphabetically. Placeholder sections for all letters are included for future expansion.
 
 ---

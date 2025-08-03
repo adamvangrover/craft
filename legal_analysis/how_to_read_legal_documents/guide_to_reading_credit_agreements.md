@@ -2,6 +2,22 @@
 
 Reading a leveraged loan credit agreement can be daunting due to its length and complexity. This guide provides a structured approach to help analysts and non-lawyers understand these critical documents, drawing heavily on insights from the "Leveraged Lending: A Comprehensive Legal Knowledge Base" (referred to as "Source Document" hereafter).
 
+## Table of Contents
+1.  [Preparation and Initial Overview](#i-preparation-and-initial-overview)
+2.  [Deep Dive into Key Sections](#ii-deep-dive-into-key-sections)
+    *   [Definitions](#1-definitions-usually-section-1-or-an-appendixschedule)
+    *   [Facility Terms](#2-facility-terms-eg-lma-section-2-the-facilities-section-4-repayment-section-5-costs)
+    *   [Conditions Precedent (CPs)](#3-conditions-precedent-cps-eg-lma-section-2-conditions-of-utilisation)
+    *   [Representations and Warranties (R&W)](#4-representations-and-warranties-rw-eg-lma-section-8)
+    *   [Covenants](#5-covenants-affirmative-negative-financial-eg-lma-sections-9-10-11)
+    *   [Events of Default (EoDs)](#6-events-of-default-eods-eg-lma-section-12)
+    *   [Lender Remedies](#7-lender-remedies-upon-eod)
+    *   [The Agents](#8-the-agents-facility-agent-security-agent-eg-lma-section-15)
+    *   [Guarantee and Security](#9-guarantee-and-security-eg-lma-section-7-often-references-separate-security-documents)
+    *   [Amendments and Waivers](#10-amendments-and-waivers-eg-lma-section-17)
+    *   [Governing Law and Jurisdiction](#11-governing-law-and-jurisdiction-eg-lma-section-19)
+3.  [General Tips for Reading](#iii-general-tips-for-reading)
+
 ## I. Preparation and Initial Overview
 
 1.  **Understand the Context:**

@@ -317,8 +317,12 @@ This section outlines broader ideas for repository improvement, technical debt, 
     *   Regularly review image sizes and consider optimizing large assets.
     *   Monitor JavaScript performance, especially for scripts that manipulate large amounts of content.
 *   **Content Gaps & Expansion:**
-    *   Regularly review `AGENTS.MD` files in subdirectories, as they often contain "Roadmap" or "Future Additions" sections that highlight specific content needs.
-    *   Encourage cross-linking to newly developed content to ensure it's well-integrated.
+    *   **Industry Primers:** The `modules/primers` directory is a key area for expansion. New primers on major industries (e.g., Automotive, Healthcare, Consumer Goods) would be valuable additions. Each primer should follow the existing structure: Introduction, Key Segments, Financial Analysis, Risks, and Further Reading.
+    *   **CFA Case Studies:** The `CFA` directory can be enhanced with more case studies, particularly for Level II and Level III, focusing on complex valuation, derivatives, and portfolio management topics.
+    *   **Interactive Notebooks:** The `Interactive_Notebooks` directory is a priority for new content. Notebooks that provide interactive calculators (e.g., for WACC, Black-Scholes), data visualizations, and simple models are highly desirable.
+    *   **Legal Analysis:** The `legal_analysis` section can be expanded with more case studies on recent LME transactions and in-depth guides on specific clauses in credit agreements.
+    *   **Quizzes:** New quizzes can be created for any section of the repository. Existing quizzes should be periodically updated with new questions.
+    *   **Cross-linking:** As new content is added, it is crucial to add links to it from other relevant parts of the repository to ensure it is discoverable.
 
 ## 12. Strategic Roadmap
 

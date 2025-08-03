@@ -1,0 +1,155 @@
+{
+  "title": "Legal Analysis in Finance Quiz",
+  "questions": [
+    {
+      "question": "What is the primary purpose of a 'covenant' in a credit agreement?",
+      "options": [
+        "To specify the interest rate and repayment schedule.",
+        "To restrict the borrower's activities to protect the lender's interests.",
+        "To outline the legal jurisdiction for any disputes.",
+        "To define the roles of the facility agent and security agent."
+      ],
+      "answer": "To restrict the borrower's activities to protect the lender's interests."
+    },
+    {
+      "question": "Which of the following is an example of a 'negative' covenant?",
+      "options": [
+        "The borrower must maintain a minimum EBITDA.",
+        "The borrower must provide annual audited financial statements.",
+        "The borrower cannot sell key assets without the lender's consent.",
+        "The borrower must comply with all applicable laws."
+      ],
+      "answer": "The borrower cannot sell key assets without the lender's consent."
+    },
+    {
+      "question": "In a syndicated loan, what is the role of the 'facility agent'?",
+      "options": [
+        "To provide the majority of the loan capital.",
+        "To hold the collateral on behalf of the lenders.",
+        "To provide legal advice to the borrower.",
+        "To administer the loan, managing payments and communications between the borrower and the syndicate."
+      ],
+      "answer": "To administer the loan, managing payments and communications between the borrower and the syndicate."
+    },
+    {
+      "question": "What does 'LME' stand for in the context of debt restructuring?",
+      "options": [
+        "Legal Mandated Equity",
+        "Liability Management Exercise",
+        "Lender Majority Enforcement",
+        "Loan Market Exchange"
+      ],
+      "answer": "Liability Management Exercise"
+    },
+    {
+      "question": "An 'event of default' clause in a loan agreement typically gives the lender the right to:",
+      "options": [
+        "Increase the interest rate on the loan.",
+        "Demand immediate repayment of the entire loan.",
+        "Take an equity stake in the borrower's company.",
+        "Both A and B."
+      ],
+      "answer": "Both A and B."
+    },
+    {
+      "question": "What is the main purpose of a 'security agreement'?",
+      "options": [
+        "To create a legal claim (a 'lien') over specific assets of the borrower (collateral).",
+        "To keep the terms of the loan confidential.",
+        "To outline the syndication process for the loan.",
+        "To define the financial reporting requirements."
+      ],
+      "answer": "To create a legal claim (a 'lien') over specific assets of the borrower (collateral)."
+    },
+    {
+      "question": "The concept of 'perfection' in relation to security refers to:",
+      "options": [
+        "The process of valuing the collateral.",
+        "The public registration of a security interest to make it effective against third parties.",
+        "The negotiation of the final loan terms.",
+        "The process of selling collateral after a default."
+      ],
+      "answer": "The public registration of a security interest to make it effective against third parties."
+    },
+    {
+      "question": "A 'guarantee' is a promise from a third party to:",
+      "options": [
+        "Act as the facility agent.",
+        "Provide additional financing if needed.",
+        "Repay the loan if the primary borrower defaults.",
+        "Monitor the borrower's compliance with covenants."
+      ],
+      "answer": "Repay the loan if the primary borrower defaults."
+    },
+    {
+      "question": "What is a 'drag-along' right in a shareholder agreement?",
+      "options": [
+        "A right that allows minority shareholders to block a sale of the company.",
+        "A right that allows majority shareholders to force minority shareholders to join in the sale of the company.",
+        "A right that allows shareholders to purchase additional shares to maintain their ownership percentage.",
+        "A right that allows shareholders to appoint members to the board of directors."
+      ],
+      "answer": "A right that allows majority shareholders to force minority shareholders to join in the sale of the company."
+    },
+    {
+      "question": "What is a 'tag-along' right in a shareholder agreement?",
+      "options": [
+        "A right that allows majority shareholders to force minority shareholders to join in the sale of the company.",
+        "A right that allows minority shareholders to sell their shares on the same terms as the majority shareholders.",
+        "A right that allows shareholders to purchase additional shares to maintain their ownership percentage.",
+        "A right that allows shareholders to appoint members to the board of directors."
+      ],
+      "answer": "A right that allows minority shareholders to sell their shares on the same terms as the majority shareholders."
+    },
+    {
+      "question": "What is a 'confidentiality undertaking'?",
+      "options": [
+        "An agreement to keep sensitive information about the borrower confidential.",
+        "An agreement to keep the terms of the loan confidential.",
+        "An agreement to keep the identities of the lenders confidential.",
+        "All of the above."
+      ],
+      "answer": "All of the above."
+    },
+    {
+      "question": "What is a 'material adverse change' (MAC) clause?",
+      "options": [
+        "A clause that allows the lender to terminate the loan if there is a significant negative change in the borrower's financial condition.",
+        "A clause that allows the borrower to terminate the loan if there is a significant negative change in the lender's financial condition.",
+        "A clause that allows the lender to increase the interest rate if there is a significant negative change in the borrower's financial condition.",
+        "A clause that allows the borrower to increase the interest rate if there is a significant negative change in the lender's financial condition."
+      ],
+      "answer": "A clause that allows the lender to terminate the loan if there is a significant negative change in the borrower's financial condition."
+    },
+    {
+      "question": "What is a 'pro rata' sharing clause?",
+      "options": [
+        "A clause that requires the borrower to share any asset sale proceeds with the lenders.",
+        "A clause that requires the lenders to share any payments received from the borrower on a proportional basis.",
+        "A clause that requires the borrower to share any equity issuance proceeds with the lenders.",
+        "A clause that requires the lenders to share any legal expenses on a proportional basis."
+      ],
+      "answer": "A clause that requires the lenders to share any payments received from the borrower on a proportional basis."
+    },
+    {
+      "question": "What is a 'waiver' in the context of a loan agreement?",
+      "options": [
+        "A permanent amendment to the loan agreement.",
+        "A temporary agreement by the lenders not to enforce their rights in respect of a specific breach of the loan agreement.",
+        "A notice from the borrower that it is in breach of the loan agreement.",
+        "A notice from the lender that it is terminating the loan agreement."
+      ],
+      "answer": "A temporary agreement by the lenders not to enforce their rights in respect of a specific breach of the loan agreement."
+    },
+    {
+      "question": "What is an 'amendment' in the context of a loan agreement?",
+      "options": [
+        "A temporary agreement by the lenders not to enforce their rights in respect of a specific breach of the loan agreement.",
+        "A permanent change to the terms of the loan agreement.",
+        "A notice from the borrower that it is in breach of the loan agreement.",
+        "A notice from the lender that it is terminating the loan agreement."
+      ],
+      "answer": "A permanent change to the terms of the loan agreement."
+    }
+  ]
+}

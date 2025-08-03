@@ -1,6 +1,15 @@
-# Financial Modeling Best Practices
+# Financial Modeling Best Practices: A Comprehensive Guide
 
-Building effective and reliable financial models is a crucial skill in finance. Adhering to best practices ensures models are accurate, understandable, flexible, and transparent. This guide outlines key principles for high-quality financial modeling.
+Building effective and reliable financial models is a crucial skill in finance. Adhering to best practices ensures models are accurate, understandable, flexible, and transparent (FAST). This guide outlines key principles for high-quality financial modeling.
+
+## Table of Contents
+1.  [Model Structure and Design](#i-model-structure-and-design)
+2.  [Assumptions and Inputs](#ii-assumptions-and-inputs)
+3.  [Formulas and Calculations](#iii-formulas-and-calculations)
+4.  [Financial Statement Modeling](#iv-financial-statement-modeling)
+5.  [Model Review and Error Checking](#v-model-review-and-error-checking)
+6.  [Presentation and Documentation](#vi-presentation-and-documentation)
+7.  [Common Pitfalls to Avoid](#vii-common-pitfalls-to-avoid)
 
 ## I. Model Structure and Design
 
@@ -10,7 +19,7 @@ Building effective and reliable financial models is a crucial skill in finance. 
     *   **Outputs Section:** Summarize key results, financial statements, ratios, valuations, and sensitivity analyses. Outputs should be clearly presented and easy to interpret.
 
 2.  **Logical Flow:**
-    *   Organize worksheets logically (e.g., Inputs -> Historicals -> Projections (IS, BS, CFS) -> Supporting Schedules (Debt, PPE, Working Capital) -> Valuation -> Sensitivity/Scenario Analysis -> Summary/Dashboard).
+    *   Organize worksheets logically (e.g., Cover Page -> Inputs -> Historicals -> Projections (IS, BS, CFS) -> Supporting Schedules (Debt, PPE, Working Capital) -> Valuation -> Sensitivity/Scenario Analysis -> Summary/Dashboard).
     *   Within worksheets, information should flow consistently (e.g., left to right for time periods, top to bottom for line items).
 
 3.  **Consistency and Simplicity:**
@@ -41,8 +50,9 @@ Building effective and reliable financial models is a crucial skill in finance. 
 4.  **Use of Color Coding:**
     *   Standard practice:
         *   **Blue font:** Hard-coded inputs/assumptions.
-        *   **Black font:** Formulas and calculations.
-        *   **Green font:** Links to other worksheets or files (use with caution for external links).
+        *   **Black font:** Formulas and calculations within the same sheet.
+        *   **Green font:** Links to other worksheets.
+        *   **Red font:** Links to external files (use with extreme caution).
     *   Consistent color coding enhances model readability and helps identify input cells quickly.
 
 ## III. Formulas and Calculations
@@ -62,7 +72,7 @@ Building effective and reliable financial models is a crucial skill in finance. 
     *   Ensure consistency in the definition of periods (e.g., year-end, mid-year).
 
 5.  **Units:**
-    *   Clearly state the units for all data (e.g., $, Millions, %, x).
+    *   Clearly state the units for all data (e.g., $, Millions, %, x) at the top of each column.
 
 ## IV. Financial Statement Modeling
 
@@ -74,7 +84,7 @@ Building effective and reliable financial models is a crucial skill in finance. 
     *   Changes in BS working capital accounts (AR, Inventory, AP, etc.) link to CFO.
     *   Debt and Equity financing from Debt/Equity schedules link to BS and CFF.
     *   Ending Cash from CFS links to Cash on BS for the current period.
-3.  **Balance Sheet Must Balance:** Assets = Liabilities + Equity. Include a "Balance Check" row.
+3.  **Balance Sheet Must Balance:** Assets = Liabilities + Equity. Include a "Balance Check" row that should always be zero.
 4.  **Supporting Schedules:**
     *   Use separate schedules for complex items like Debt, PP&E, Working Capital, Equity, and Taxes. This keeps the main financial statements cleaner.
     *   **Debt Schedule:** Tracks beginning debt, new borrowings, repayments, interest expense, ending debt.

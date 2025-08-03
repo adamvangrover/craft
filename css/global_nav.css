@@ -34,13 +34,19 @@
 #global-nav-placeholder a, #global-nav-placeholder .nav-category-title {
     display: flex;
     align-items: center;
-    padding: 10px 15px;
+    padding: 12px 18px;
     text-decoration: none;
-    color: #475569;
-    border-radius: 6px;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    font-size: 0.9rem;
+    color: #34495e;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    font-size: 0.95rem;
     font-weight: 500;
+}
+
+#global-nav-placeholder a:hover, #global-nav-placeholder .nav-category-title:hover {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    transform: translateX(5px);
 }
 
 #global-nav-placeholder a:hover, #global-nav-placeholder .nav-category-title:hover {
