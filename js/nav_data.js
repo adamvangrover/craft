@@ -225,7 +225,15 @@ const navData = [
         type: "category",
         children: [
           { text: "AI & Coding", href: "AI_and_Coding/index.html", type: "html_hub" },
-          { text: "Prompt Libraries", href: "AI_and_Coding/Prompt_Libraries/index.html", type: "section_viewer" },
+          {
+            text: "Prompt Libraries",
+            type: "category",
+            children: [
+              { text: "Hub", href: "AI_and_Coding/Prompt_Libraries/index.html", type: "section_viewer" },
+              { text: "Global Risk Control", href: "AI_and_Coding/Prompt_Libraries/Global_Risk_Control/README.md", type: "markdown_viewer", viewer: "global" },
+              { text: "Persona-Based Prompts", href: "AI_and_Coding/Prompt_Libraries/Persona_Based_Review_Prompts.md", type: "markdown_viewer", viewer: "global" }
+            ]
+          },
           { text: "Agent Libraries", href: "AI_and_Coding/Agent_Libraries/index.html", type: "section_viewer" }
         ]
       },
@@ -235,6 +243,7 @@ const navData = [
         children: [
             { text: "Fintech", href: "Fintech/index.html", type: "html_hub" },
             { text: "AI in Finance", href: "Fintech/AI_in_Finance.md", type: "markdown_viewer", viewer: "global" },
+            { text: "Agentic Copilot Architecture", href: "Fintech/Advanced_Topics/Architecting_an_Agentic_Copilot_for_Credit_Monitoring.md", type: "markdown_viewer", viewer: "global" },
             { text: "Blockchain in Finance", href: "Fintech/Blockchain_in_Finance.md", type: "markdown_viewer", viewer: "global" },
             { text: "Open Banking & APIs", href: "Fintech/Open_Banking_and_APIs.md", type: "markdown_viewer", viewer: "global" },
         ]

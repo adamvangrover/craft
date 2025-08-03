@@ -17,6 +17,7 @@ The goals of this section are to:
 This section currently includes:
 
 *   **[Decentralized Autonomous Organizations (DAOs)](./Decentralized_Autonomous_Organizations.md):** An exploration of what DAOs are, how they function, their governance models, potential applications in finance, and associated challenges.
+*   **[Architecting an Agentic Copilot for Credit Monitoring](./Architecting_an_Agentic_Copilot_for_Credit_Monitoring.md):** A detailed whitepaper and design framework for building a sophisticated, multi-agent AI system for intelligent credit risk analysis and monitoring.
 
 *(This section will be expanded with more advanced topics over time, such as advanced DeFi concepts, specific AI algorithms in trading, or detailed analyses of new regulatory frameworks for digital assets.)*
 

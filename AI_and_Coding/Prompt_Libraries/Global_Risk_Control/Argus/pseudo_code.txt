@@ -1,0 +1,94 @@
+FUNCTION argus_portfolio_monitor(request_packet):
+  // Deconstruct the input packet
+  portfolio_data = request_packet.portfolio_data
+  framework = request_packet.risk_appetite_framework
+
+  // Initialize the output object
+  dashboard = new RiskAppetiteDashboard()
+  dashboard.dashboard_summary.timestamp_utc = getCurrentUTCTime()
+
+  limit_results = []
+  ewi_results = []
+
+  // --- 1. Perform Portfolio Aggregations ---
+  // These calculations are the core of the analysis.
+  total_portfolio_exposure = sum(portfolio_data.exposure_usd)
+
+  // Example: Industry Concentration
+  industry_exposures = aggregate(portfolio_data by 'industry', sum 'exposure_usd')
+
+  // Example: Country Concentration
+  country_exposures = aggregate(portfolio_data by 'country', sum 'exposure_usd')
+
+  // Example: Quality Distribution
+  quality_distribution = aggregate(portfolio_data by 'internal_risk_rating', sum 'exposure_usd')
+
+  // --- 2. Evaluate Limits ---
+  FOR EACH limit IN framework.concentration_limits:
+    // Logic to check if any concentration limit is breached
+    // e.g., check industry_exposures against limit.threshold
+    current_val = calculate_current_value_for_limit(limit, industry_exposures)
+    status = determine_status(current_val, limit)
+    limit_results.add(createLimitResult(limit.name, "Concentration", limit.value, current_val, status))
+
+  FOR EACH limit IN framework.quality_limits:
+    // Logic to check if quality distribution is within limits
+    // e.g., check percentage of sub-investment grade holdings
+    current_val = calculate_current_value_for_limit(limit, quality_distribution)
+    status = determine_status(current_val, limit)
+    limit_results.add(createLimitResult(limit.name, "Quality", limit.value, current_val, status))
+
+  // --- 3. Evaluate Early Warning Indicators (EWIs) ---
+  FOR EACH ewi_def IN framework.ewi_definitions:
+    // Logic to check for trend-based warnings. This might require historical data not included
+    // in this simple request, or it could be based on the current state.
+    // Example: Check for significant rating migration.
+    is_triggered = check_ewi_trigger(ewi_def, portfolio_data)
+    IF is_triggered:
+      ewi_results.add(createEwiResult(ewi_def.name, ewi_def.description, ...))
+
+  // --- 4. Generate Risk Distribution Data ---
+  // Create a data structure suitable for rendering a heat map.
+  dashboard.risk_distribution = generateHeatMapData(industry_exposures, quality_distribution)
+
+  // --- 5. Determine Overall Dashboard Status ---
+  has_breach = any(limit.status == "BREACH" for limit in limit_results)
+  has_warning = any(limit.status == "Warning" for limit in limit_results)
+  has_ewi = length(ewi_results) > 0
+
+  IF has_breach:
+    dashboard.dashboard_summary.overall_status = "Red"
+    dashboard.dashboard_summary.summary_narrative = "Critical: One or more hard limits have been breached."
+  ELSE IF has_warning OR has_ewi:
+    dashboard.dashboard_summary.overall_status = "Amber"
+    dashboard.dashboard_summary.summary_narrative = "Warning: Approaching limits or Early Warning Indicators have been triggered."
+  ELSE:
+    dashboard.dashboard_summary.overall_status = "Green"
+    dashboard.dashboard_summary.summary_narrative = "Portfolio is operating within all established risk appetite limits."
+
+  // --- 6. Assemble the Final Dashboard ---
+  dashboard.limit_monitoring = limit_results
+  dashboard.early_warning_indicators = ewi_results
+
+  RETURN convertToJson(dashboard)
+
+END FUNCTION
+
+
+// Helper function to create a limit result object
+FUNCTION createLimitResult(name, type, limit_val, current_val, status):
+  result = new LimitResult()
+  result.limit_name = name
+  result.limit_type = type
+  result.limit_value = format(limit_val)
+  result.current_value = format(current_val)
+  result.status = status
+  RETURN result
+
+// Helper function to generate heat map data structure
+FUNCTION generateHeatMapData(industry_data, quality_data):
+  // Logic to transform aggregated data into a matrix/nested object format
+  // for a UI component to easily render.
+  // ...
+  RETURN heat_map_object
+END FUNCTION
