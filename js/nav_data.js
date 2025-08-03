@@ -83,8 +83,13 @@ const navData = [
       },
       {
         text: "Primers",
-        href: "modules/primers/index.html",
-        type: "section_viewer"
+        type: "category",
+        children: [
+            { text: "Primers Hub", href: "modules/primers/index.html", type: "section_viewer" },
+            { text: "Renewable Energy", href: "modules/primers/renewable_energy.md", type: "markdown_viewer", viewer: "global" },
+            { text: "Biotechnology", href: "modules/primers/biotechnology.md", type: "markdown_viewer", viewer: "global" },
+            { text: "Technology", href: "modules/primers/technology_sector.md", type: "markdown_viewer", viewer: "global" },
+        ]
       },
       {
         text: "Loan & Capital Market Terms",
@@ -115,8 +120,11 @@ const navData = [
             { text: "Best Practices", href: "Financial_Modeling/Best_Practices/FM_Best_Practices.md", type: "markdown_viewer", viewer: "global" },
             { text: "Forecasting Techniques", href: "Financial_Modeling/Forecasting_Techniques/Revenue_Forecasting_Approaches.md", type: "markdown_viewer", viewer: "global" },
             { text: "LBO Modeling Deep Dive", href: "Financial_Modeling/Advanced_Topics/LBO_Modeling_Deep_Dive.md", type: "markdown_viewer", viewer: "global" },
+            { text: "M&A Modeling", href: "Financial_Modeling/Advanced_Topics/merger_and_acquisition_modeling.md", type: "markdown_viewer", viewer: "global" },
             { text: "DCF Overview", href: "Financial_Modeling/Valuation_Applications/DCF_Modeling_Overview.md", type: "markdown_viewer", viewer: "global" },
             { text: "Excel Tips", href: "Financial_Modeling/Excel_Tips/01_XLOOKUP_Guide.md", type: "markdown_viewer", viewer: "global" },
+            { text: "Interactive M&A Model", href: "Interactive_Notebooks/Financial_Modeling/interactive_merger_model.ipynb", type: "jupyter_guide" },
+            { text: "Interactive WACC Calculator", href: "Interactive_Notebooks/Valuation_Components/InteractiveWACCCalculator.ipynb", type: "jupyter_guide" },
         ]
       },
       {
@@ -149,8 +157,20 @@ const navData = [
             { text: "Types of Covenants", href: "legal_analysis/covenant_compliance_and_reporting/types_of_covenants.md", type: "markdown_viewer", viewer: "global" },
             { text: "LME Overview", href: "legal_analysis/miscellaneous_credit_analysis_topics/lme_strategies_and_case_studies/lme_overview.md", type: "markdown_viewer", viewer: "global" },
             { text: "J. Crew Case Study", href: "legal_analysis/miscellaneous_credit_analysis_topics/lme_strategies_and_case_studies/j_crew_case_study.md", type: "markdown_viewer", viewer: "global" },
+            { text: "Acme Corp. Restructuring", href: "legal_analysis/miscellaneous_credit_analysis_topics/lme_strategies_and_case_studies/acme_corp_restructuring_case_study.md", type: "markdown_viewer", viewer: "global" },
+            { text: "Legal Analysis Quiz", href: "quiz_viewer.html?quiz=quizzes/legal-analysis-quiz.json", type: "html" },
         ]
-      }
+      },
+      {
+        text: "Behavioral Finance",
+        type: "category",
+        children: [
+            { text: "Behavioral Finance", href: "Behavioral_Finance/index.html", type: "section_viewer" },
+            { text: "Key Concepts", href: "Behavioral_Finance/Key_Concepts.md", type: "markdown_viewer", viewer: "global" },
+            { text: "Debiasing Techniques", href: "Behavioral_Finance/Debiasing_Techniques_for_Analysts.md", type: "markdown_viewer", viewer: "global" },
+            { text: "Meme Stock Case Study", href: "Behavioral_Finance/Case_Study_Herd_Mentality.md", type: "markdown_viewer", viewer: "global" },
+        ]
+      },
     ],
   },
   // Career & Exams
@@ -181,6 +201,7 @@ const navData = [
               { text: "Equity Valuation Models", href: "CFA/Level_2/Topic_Deep_Dives/L2_Advanced_Equity_Valuation_Models.md", type: "markdown_viewer", viewer: "global" },
               { text: "Fixed Income - Credit Risk", href: "CFA/Level_2/Topic_Deep_Dives/L2_Fixed_Income_Analysis_Credit_Risk.md", type: "markdown_viewer", viewer: "global" },
               { text: "Cheat Sheet: Equity Valuation", href: "CFA/Level_2/Cheat_Sheets/L2_CS_Equity_Valuation.md", type: "markdown_viewer", viewer: "global" },
+              { text: "Complex Company Valuation Case", href: "CFA/Level_2/Case_Studies/L2_Case_Complex_Company_Valuation_Advanced.md", type: "markdown_viewer", viewer: "global" },
             ]
           },
           {
@@ -190,6 +211,7 @@ const navData = [
                 { text: "IPS Construction", href: "CFA/Level_3/Topic_Deep_Dives/L3_DD_IPS_Construction_Private_Wealth.md", type: "markdown_viewer", viewer: "global" },
                 { text: "Behavioral Finance in PM", href: "CFA/Level_3/Topic_Deep_Dives/L3_Behavioral_Finance_in_Portfolio_Management.md", type: "markdown_viewer", viewer: "global" },
                 { text: "Cheat Sheet: Asset Allocation", href: "CFA/Level_3/Cheat_Sheets/L3_CS_Asset_Allocation.md", type: "markdown_viewer", viewer: "global" },
+                { text: "IPS Case Study", href: "CFA/Level_3/Case_Studies_IPS/L3_Case_IPS_Private_Client.md", type: "markdown_viewer", viewer: "global" },
             ]
           }
         ]
@@ -241,8 +263,11 @@ const navData = [
       },
       {
         text: "Data Science",
-        href: "Data_Science/index.html",
-        type: "html_hub"
+        type: "category",
+        children: [
+            { text: "Data Science Hub", href: "Data_Science/index.html", type: "html_hub" },
+            { text: "Time Series Forecasting", href: "Interactive_Notebooks/Data_Science/time_series_forecasting.ipynb", type: "jupyter_guide" },
+        ]
       },
       {
         text: "Financial Analysis Toolkit (FACT)",
