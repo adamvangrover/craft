@@ -190,6 +190,14 @@
             </div>
         </section>
 
+        <!-- New Table of Contents Section -->
+        <section id="table-of-contents" class="py-20 px-6 md:px-8 bg-gray-100">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="section-title">Table of Contents and Index</h2>
+                <div id="toc-container" class="prose max-w-none"></div>
+            </div>
+        </section>
+
         <!-- 5. "About This Repository" Section -->
         <section id="about-repo" class="py-20 px-6 md:px-8">
             <div class="max-w-6xl mx-auto">
@@ -299,6 +307,10 @@
         </footer>
 
     </div> <!-- End Main Content Wrapper -->
+
+    <button id="scroll-to-top" class="fixed bottom-8 right-8 bg-indigo-600 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-2xl opacity-0 transition-opacity duration-300">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
@@ -410,5 +422,7 @@
     </script>
     <script src="js/nav_data.js" defer></script>
     <script src="js/global_nav.js" defer></script>
+    <script src="js/toc.js" defer></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>
