@@ -30,6 +30,56 @@
         "Interest"
       ],
       "answer": "Depreciation"
+    },
+    {
+      "question": "An increase in Accounts Receivable on the cash flow statement represents a...",
+      "options": [
+        "Source of cash",
+        "Use of cash",
+        "Non-cash activity",
+        "Financing activity"
+      ],
+      "answer": "Use of cash"
+    },
+    {
+      "question": "Under ASC 606, when is revenue recognized?",
+      "options": [
+        "When the cash is received.",
+        "When the contract is signed.",
+        "When the performance obligation is satisfied.",
+        "When the invoice is sent."
+      ],
+      "answer": "When the performance obligation is satisfied."
+    },
+    {
+      "question": "Goodwill is typically recorded on the balance sheet after...",
+      "options": [
+        "A successfull marketing campaign.",
+        "A company acquires another company for more than the fair market value of its net assets.",
+        "A company issues new stock.",
+        "A company takes on new debt."
+      ],
+      "answer": "A company acquires another company for more than the fair market value of its net assets."
+    },
+    {
+      "question": "What is the primary purpose of the Cash Flow Statement?",
+      "options": [
+        "To show the company's profitability.",
+        "To provide a snapshot of the company's financial position.",
+        "To reconcile net income to cash flow.",
+        "To show how the company has generated and used cash."
+      ],
+      "answer": "To show how the company has generated and used cash."
+    },
+    {
+      "question": "Which of the following would be found in the Cash Flow from Investing Activities section?",
+      "options": [
+        "Payment of dividends.",
+        "Sale of common stock.",
+        "Purchase of new equipment.",
+        "Repayment of long-term debt."
+      ],
+      "answer": "Purchase of new equipment."
     }
   ]
 }

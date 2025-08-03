@@ -30,6 +30,56 @@
         "Cash"
       ],
       "answer": "Cash"
+    },
+    {
+      "question": "The 'Five Cs of Credit' are Character, Capacity, Capital, Collateral, and...?",
+      "options": [
+        "Cash",
+        "Country",
+        "Conditions",
+        "Covenants"
+      ],
+      "answer": "Conditions"
+    },
+    {
+      "question": "A bank having too many loans concentrated in a single industry is an example of what type of risk?",
+      "options": [
+        "Default Risk",
+        "Concentration Risk",
+        "Operational Risk",
+        "Market Risk"
+      ],
+      "answer": "Concentration Risk"
+    },
+    {
+      "question": "What is the primary purpose of a credit derivative?",
+      "options": [
+        "To speculate on the direction of interest rates.",
+        "To transfer credit risk from one party to another.",
+        "To hedge against foreign exchange risk.",
+        "To provide a source of long-term financing."
+      ],
+      "answer": "To transfer credit risk from one party to another."
+    },
+    {
+      "question": "Operational risk is the risk of loss resulting from...",
+      "options": [
+        "Changes in market prices.",
+        "A borrower's failure to repay a loan.",
+        "Inadequate or failed internal processes, people, and systems.",
+        "A sovereign state defaulting on its debt."
+      ],
+      "answer": "Inadequate or failed internal processes, people, and systems."
+    },
+    {
+      "question": "The term 'LGD' in credit risk modeling stands for:",
+      "options": [
+        "Loan Growth Demand",
+        "Loss Given Default",
+        "Legal Guidance Document",
+        "Leverage Growth Driver"
+      ],
+      "answer": "Loss Given Default"
     }
   ]
 }
