@@ -252,7 +252,9 @@ const navData = [
             type: "category",
             children: [
               { text: "Hub", href: "AI_and_Coding/Prompt_Libraries/index.html", type: "section_viewer" },
-              { text: "Global Risk Control", href: "AI_and_Coding/Prompt_Libraries/Global_Risk_Control/README.md", type: "markdown_viewer", viewer: "global" }
+              { text: "Global Risk Control", href: "AI_and_Coding/Prompt_Libraries/Global_Risk_Control/README.md", type: "markdown_viewer", viewer: "global" },
+              { text: "Persona-Based Prompts", href: "AI_and_Coding/Prompt_Libraries/Persona_Based_Review_Prompts.md", type: "markdown_viewer", viewer: "global" }
+
             ]
           },
           { text: "Agent Libraries", href: "AI_and_Coding/Agent_Libraries/index.html", type: "section_viewer" }
