@@ -1,3 +1,13 @@
+### **Executive Summary**
+
+A comprehensive analysis of regulatory guidance on rating credit risk reveals a detailed and structured methodology for assessing and managing credit risk within financial institutions.1 This framework is crucial for ensuring their safety and soundness. At its heart, credit risk is the primary financial risk for banks, and its accurate and timely rating is the foundation of effective management.1
+
+A well-structured credit risk rating system serves multiple critical functions, from informing credit approval and loan pricing to guiding portfolio management and determining capital adequacy.1 Regulatory bodies expect these systems to be comprehensive, accurate, and independently validated, with clear board oversight.1
+
+The evaluation of credit risk is a forward-looking exercise focused on the borrower's capacity to repay debt over the next 12 months, analyzing both quantitative financial data and qualitative factors like management quality.1 Regulators use a common scale for problem credits: **Special Mention (SM)** for potential weaknesses, **Substandard (SS)** for well-defined weaknesses, **Doubtful (D)** when collection is improbable, and **Loss (L)** for uncollectible assets.1
+
+For the largest and most complex syndicated loans, the **Shared National Credit (SNC) Program** provides a consistent, interagency approach to risk rating. Jointly run by the OCC, Federal Reserve, and FDIC, the SNC program assesses credits of $100 million or more shared by three or more institutions, assigning a uniform rating that is binding on all participants.1 This program is a critical tool for monitoring and mitigating systemic risk in the U.S. banking system.1 This guide provides a detailed examination of these principles, processes, and the mechanics of the SNC program.
+
 
 Detailed Guide to Determining Regulatory Risk Ratings and the Shared National Credit Process
 
