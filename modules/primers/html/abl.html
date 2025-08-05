@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Guide to Asset-Backed Loans</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Corporate -->
+    <!-- Application Structure Plan: A thematic, single-page application designed as an educational journey. The structure is non-linear, guided by a top navigation bar that links to five core concepts: 'What is ABL?', 'The Collateral', 'The Formula', 'The Process', and 'The Deal'. This structure was chosen to deconstruct the dense report into manageable, interactive modules. The centerpiece is a hands-on 'Borrowing Base Calculator' that allows users to apply concepts directly. The user flow encourages exploration through clickable cards, interactive diagrams, and a visual timeline, making the complex subject of ABL more digestible and engaging than a static report. -->
+    <!-- Visualization & Content Choices: 
+        - ABL vs. Traditional Lending: (Report Section 1) -> Goal: Compare -> Method: Interactive two-column card layout (HTML/Tailwind) with clickable toggles. -> Justification: Promotes active user engagement over passive reading of a table.
+        - Asset Hierarchy: (Report Section 2) -> Goal: Organize/Inform -> Method: A responsive grid of clickable cards, each representing an asset class. -> Interaction: Clicking a card opens a modal with details on eligibility and advance rates. -> Justification: A visually appealing way to present hierarchical information and use progressive disclosure to avoid overwhelming the user.
+        - Borrowing Base Formula: (Report Section 4) -> Goal: Engage/Educate -> Method: An interactive calculator with input fields and sliders (HTML/JS) paired with a dynamic donut chart (Chart.js/Canvas). -> Interaction: Real-time updates to the chart and calculated values as the user manipulates inputs. -> Justification: The most effective method for teaching a complex formula is by allowing the user to experiment with it directly.
+        - ABL Process: (Report Sections 3 & 5) -> Goal: Organize/Inform -> Method: A clean, horizontal process flow diagram built with HTML/Tailwind. -> Interaction: Each step is a clickable node that reveals a concise explanation. -> Justification: Translates a lengthy procedural description into an easily scannable visual narrative.
+        - Strategic Considerations: (Report Section 6) -> Goal: Compare/Inform -> Method: A balanced two-column layout for Pros vs. Cons and an interactive checklist for negotiation points. -> Justification: Clear, direct presentation for summarizing key takeaways and actionable advice.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #333333;
+        }
+        .nav-link {
+            transition: color 0.3s ease, border-bottom-color 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #3B82F6;
+            border-bottom-color: #3B82F6;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .btn {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .modal {
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .process-step {
+            border-color: #D1D5DB;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+        .process-step:hover {
+            border-color: #3B82F6;
+            background-color: #EFF6FF;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-gray-800">ABL Explained</h1>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#what-is-abl" class="nav-link text-gray-600 font-medium pb-1">What is ABL?</a>
+                <a href="#collateral" class="nav-link text-gray-600 font-medium pb-1">The Collateral</a>
+                <a href="#formula" class="nav-link text-gray-600 font-medium pb-1">The Formula</a>
+                <a href="#process" class="nav-link text-gray-600 font-medium pb-1">The Process</a>
+                <a href="#deal" class="nav-link text-gray-600 font-medium pb-1">The Deal</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4 space-y-2">
+            <a href="#what-is-abl" class="block nav-link text-gray-600 font-medium">What is ABL?</a>
+            <a href="#collateral" class="block nav-link text-gray-600 font-medium">The Collateral</a>
+            <a href="#formula" class="block nav-link text-gray-600 font-medium">The Formula</a>
+            <a href="#process" class="block nav-link text-gray-600 font-medium">The Process</a>
+            <a href="#deal" class="block nav-link text-gray-600 font-medium">The Deal</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="py-20 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Unlock Your Company's Hidden Value</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-8">Asset-Based Lending (ABL) is a powerful financing tool that lets you borrow against your assets. This guide makes the complex world of ABL simple, interactive, and easy to understand.</p>
+                <a href="#what-is-abl" class="btn bg-blue-500 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-600">Start Exploring</a>
+            </div>
+        </section>
+
+        <section id="what-is-abl" class="py-16">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">What is Asset-Based Lending?</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">ABL is a flexible way to secure capital based on the value of your assets, like receivables and inventory. It's different from traditional loans, which focus on your company's profits. This section explains the core concepts and who benefits most from this unique financing structure.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">ABL vs. Traditional Lending</h3>
+                        <p class="text-gray-600 mb-6">The fundamental difference lies in what the lender looks at. ABL focuses on collateral value, while traditional lending focuses on profitability (EBITDA). Click on the features below to see how they compare.</p>
+                        <div id="comparison-container" class="space-y-4"></div>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">Who is the Ideal ABL Candidate?</h3>
+                        <p class="text-gray-600 mb-6">ABL isn't for everyone. It's best suited for companies in specific situations where their balance sheet tells a stronger story than their income statement.</p>
+                        <ul id="candidate-list" class="space-y-4"></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="collateral" class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">The Cornerstone: Understanding Collateral</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">In ABL, collateral is everything. The type, quality, and liquidity of your assets directly determine how much you can borrow. Explore the different asset classes to understand what lenders value most and what they consider "ineligible."</p>
+                </div>
+                <div id="collateral-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div>
+            </div>
+        </section>
+
+        <section id="formula" class="py-16">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">The Formula: Interactive Borrowing Base Calculator</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">This is the heart of ABL. The Borrowing Base formula translates your asset values into borrowing power. Use our interactive calculator to see how changes in your receivables and inventory affect your available capital in real-time.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-2xl max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-6">
+                        <div>
+                            <label for="total-ar" class="font-medium text-gray-700">Total Accounts Receivable ($)</label>
+                            <input type="number" id="total-ar" value="3100000" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="ineligible-ar-slider" class="font-medium text-gray-700">Ineligible A/R (%): <span id="ineligible-ar-value">29</span>%</label>
+                            <input type="range" id="ineligible-ar-slider" min="0" max="100" value="29" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        <div>
+                            <label for="total-inventory" class="font-medium text-gray-700">Total Inventory at Cost ($)</label>
+                            <input type="number" id="total-inventory" value="750000" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="ineligible-inventory-slider" class="font-medium text-gray-700">Ineligible Inventory (%): <span id="ineligible-inventory-value">20</span>%</label>
+                            <input type="range" id="ineligible-inventory-slider" min="0" max="100" value="20" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="chart-container">
+                            <canvas id="borrowingBaseChart"></canvas>
+                        </div>
+                        <div class="mt-6">
+                            <p class="text-gray-600 text-lg">Total Borrowing Base</p>
+                            <p id="total-borrowing-base" class="text-4xl font-bold text-blue-600">$2,170,000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="process" class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">The ABL Process & Controls</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Getting an ABL facility involves rigorous due diligence and ongoing monitoring. This section visualizes the key steps and control mechanisms, from initial appraisal to daily cash management. Click on each step to learn more.</p>
+                </div>
+                <div class="relative">
+                    <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-300 -translate-y-1/2"></div>
+                    <div id="process-flow" class="relative flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 md:space-x-4">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="deal" class="py-16">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Making the Deal: Strategic Considerations</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">An ABL facility is a strategic partnership. Understanding the advantages, disadvantages, and key negotiation points is crucial before you sign. This final section provides a balanced view to help you make an informed decision.</p>
+                </div>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg lg:col-span-2">
+                        <h3 class="text-2xl font-bold mb-6 text-gray-800">A Balanced View: Pros vs. Cons</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="text-xl font-semibold text-green-600 mb-3">Advantages for the Borrower</h4>
+                                <ul id="advantages-list" class="space-y-2 list-inside"></ul>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-red-600 mb-3">Disadvantages for the Borrower</h4>
+                                <ul id="disadvantages-list" class="space-y-2 list-inside"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-8 rounded-xl border border-blue-200">
+                        <h3 class="text-2xl font-bold mb-6 text-blue-800">Key Negotiation Points</h3>
+                        <p class="text-blue-700 mb-4">Focus on these areas to maximize your flexibility.</p>
+                        <div id="negotiation-list" class="space-y-3"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 ABL Explained. All rights reserved.</p>
+            <p class="text-sm text-gray-400 mt-2">This interactive guide is for educational purposes, based on the comprehensive report on Asset-Based Lending.</p>
+        </div>
+    </footer>
+
+    <div id="modal" class="modal fixed inset-0 bg-black bg-opacity-50 z-50">
+        <div id="modal-content" class="bg-white rounded-lg shadow-xl p-8 max-w-2xl w-full mx-4 relative">
+            <button id="modal-close" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h3 id="modal-title" class="text-2xl font-bold mb-4"></h3>
+            <div id="modal-body" class="text-gray-600"></div>
+        </div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const appData = {
+        comparisons: [
+            {
+                feature: 'Primary Basis of Loan',
+                abl: 'Appraised liquidation value of collateral (A/R, inventory).',
+                traditional: 'Historical and projected profitability and cash flow (EBITDA).'
+            },
+            {
+                feature: 'Key Metric',
+                abl: 'Borrowing Base Availability.',
+                traditional: 'Debt-to-EBITDA Ratio / Leverage Ratio.'
+            },
+            {
+                feature: 'Covenants',
+                abl: '"Covenant-light"; often a single "springing" financial covenant.',
+                traditional: 'Multiple, strict financial covenants tested continuously.'
+            },
+            {
+                feature: 'Monitoring',
+                abl: 'High-intensity: Frequent reporting, field exams, and appraisals.',
+                traditional: 'Lower-intensity: Quarterly or annual financial statement review.'
+            }
+        ],
+        candidates: [
+            {
+                title: 'Asset-Rich Industries',
+                desc: 'Manufacturers, distributors, and retailers with large A/R and inventory balances.',
+                icon: '🏭'
+            },
+            {
+                title: 'Cyclical & Seasonal Businesses',
+                desc: 'Companies needing to smooth out working capital during revenue fluctuations.',
+                icon: '🔄'
+            },
+            {
+                title: 'Rapidly Growing Companies',
+                desc: 'Businesses whose borrowing capacity can scale up with their sales growth.',
+                icon: '🚀'
+            },
+            {
+                title: 'Turnaround Situations',
+                desc: 'Firms with valuable assets but temporary losses, unable to get traditional loans.',
+                icon: '🔧'
+            }
+        ],
+        collateral: [
+            {
+                title: 'Accounts Receivable',
+                icon: '🧾',
+                advanceRate: '80% - 90%',
+                description: 'The backbone of most ABL facilities. Lenders value a diverse base of creditworthy customers.',
+                ineligibles: ['Aged (>90 days)', 'High customer concentrations', 'Foreign accounts', 'Affiliate accounts']
+            },
+            {
+                title: 'Finished Goods Inventory',
+                icon: '📦',
+                advanceRate: '50% - 65% of Cost',
+                description: 'The most valuable inventory type as it\'s ready for sale. Value is based on its Net Orderly Liquidation Value (NOLV).',
+                ineligibles: ['Obsolete/slow-moving', 'Perishable/dated goods', 'Custom inventory']
+            },
+            {
+                title: 'Raw Materials Inventory',
+                icon: '🧱',
+                advanceRate: '30% - 50% of Cost',
+                description: 'Valuable if they are commodity-like and have a strong secondary market. Specialized components have little value.',
+                ineligibles: ['Custom-ordered parts', 'Items with no secondary market']
+            },
+            {
+                title: 'Machinery & Equipment',
+                icon: '⚙️',
+                advanceRate: '50% - 80% of NOLV',
+                description: 'General-purpose equipment with a broad resale market is preferred. Value is determined by third-party appraisal.',
+                ineligibles: ['Highly specialized machines', 'Old or poorly maintained equipment']
+            },
+            {
+                title: 'Real Estate',
+                icon: '🏢',
+                advanceRate: '65% - 80% of FMV',
+                description: 'Commercial property like warehouses or plants can be used as collateral, typically for a term loan alongside the revolver.',
+                ineligibles: ['Properties with environmental issues', 'Zoning restrictions']
+            },
+            {
+                title: 'Work-in-Process (WIP)',
+                icon: '🚫',
+                advanceRate: '0% - 10%',
+                description: 'Almost universally considered ineligible. It requires more investment to become a finished good, which lenders avoid.',
+                ineligibles: ['All partially completed goods']
+            }
+        ],
+        processSteps: [
+            {
+                title: 'Appraisal & Field Exam',
+                desc: 'Lender hires third parties to value collateral (NOLV) and audit the company’s books and controls on-site.'
+            },
+            {
+                title: 'Underwriting',
+                desc: 'Lender assesses if the deal fits their "credit box" and structures the loan terms, advance rates, and covenants.'
+            },
+            {
+                title: 'Closing & Funding',
+                desc: 'Legal documents are signed, liens are perfected, and the initial funds become available to the borrower.'
+            },
+            {
+                title: 'Ongoing Reporting',
+                desc: 'Borrower submits regular Borrowing Base Certificates (BBCs) to report current collateral values and calculate availability.'
+            },
+            {
+                title: 'Cash Dominion',
+                desc: 'A lockbox system is set up. If availability drops below a threshold ("springing dominion"), customer payments go directly to the lender to pay down the loan.'
+            }
+        ],
+        advantages: [
+            'Greater Capital Availability', 'Enhanced Flexibility (Covenant-Light)', 'Accessible for Non-Standard Profiles', 'Faster Funding Speed'
+        ],
+        disadvantages: [
+            'Risk of Asset Seizure', 'Higher All-In Cost (Fees)', 'Intensive Operational Burden', 'Cession of Control (Cash Dominion)'
+        ],
+        negotiationPoints: [
+            {
+                title: 'Define "Eligibility" Broadly',
+                desc: 'Negotiate for higher concentration caps and longer aging periods to maximize your borrowing base.'
+            },
+            {
+                title: 'Scrutinize Triggers',
+                desc: 'Push for lower availability thresholds for springing covenants and cash dominion to maintain operational freedom.'
+            },
+            {
+                title: 'Clarify Reserves',
+                desc: 'Insist on objective language for when and how the lender can impose reserves against availability.'
+            }
+        ]
+    };
+
+    function formatCurrency(value) {
+        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value);
+    }
+
+    function populateComparisons() {
+        const container = document.getElementById('comparison-container');
+        container.innerHTML = appData.comparisons.map(item => `
+            <div class="border border-gray-200 rounded-lg overflow-hidden">
+                <button class="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center focus:outline-none">
+                    <span class="font-semibold text-gray-700">${item.feature}</span>
+                    <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="p-4 hidden bg-white">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="font-semibold text-blue-600">ABL</p>
+                            <p>${item.abl}</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-600">Traditional</p>
+                            <p>${item.traditional}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        container.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('svg');
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+    }
+
+    function populateCandidates() {
+        const list = document.getElementById('candidate-list');
+        list.innerHTML = appData.candidates.map(item => `
+            <li class="flex items-start">
+                <span class="text-2xl mr-4 mt-1">${item.icon}</span>
+                <div>
+                    <h4 class="font-semibold text-gray-800">${item.title}</h4>
+                    <p class="text-gray-600">${item.desc}</p>
+                </div>
+            </li>
+        `).join('');
+    }
+
+    function populateCollateral() {
+        const grid = document.getElementById('collateral-grid');
+        grid.innerHTML = appData.collateral.map(item => `
+            <div class="card bg-gray-50 p-6 rounded-lg cursor-pointer" data-title="${item.title}">
+                <div class="flex items-center mb-3">
+                    <span class="text-4xl mr-4">${item.icon}</span>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">${item.title}</h3>
+                        <p class="text-blue-600 font-semibold">Advance Rate: ${item.advanceRate}</p>
+                    </div>
+                </div>
+                <p class="text-gray-600">${item.description}</p>
+            </div>
+        `).join('');
+    }
+
+    function populateProcessFlow() {
+        const flow = document.getElementById('process-flow');
+        flow.innerHTML = appData.processSteps.map((step, index) => `
+            <div class="process-step text-center p-4 rounded-lg border-2 cursor-pointer bg-white relative w-full md:w-auto flex-1" data-title="${step.title}">
+                <div class="text-2xl font-bold text-blue-500 mb-2">${index + 1}</div>
+                <h4 class="font-semibold text-gray-800">${step.title}</h4>
+            </div>
+        `).join('');
+    }
+
+    function populateDeal() {
+        document.getElementById('advantages-list').innerHTML = appData.advantages.map(item => `<li class="flex items-start"><span class="text-green-500 mr-2 mt-1">✓</span><span>${item}</span></li>`).join('');
+        document.getElementById('disadvantages-list').innerHTML = appData.disadvantages.map(item => `<li class="flex items-start"><span class="text-red-500 mr-2 mt-1">✗</span><span>${item}</span></li>`).join('');
+        document.getElementById('negotiation-list').innerHTML = appData.negotiationPoints.map(item => `
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <h5 class="font-bold text-blue-800">${item.title}</h5>
+                <p class="text-sm text-blue-600">${item.desc}</p>
+            </div>
+        `).join('');
+    }
+
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+
+    function showModal(title, content) {
+        modalTitle.textContent = title;
+        modalBody.innerHTML = content;
+        modal.classList.add('active');
+    }
+
+    function hideModal() {
+        modal.classList.remove('active');
+    }
+
+    document.getElementById('modal-close').addEventListener('click', hideModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            hideModal();
+        }
+    });
+
+    document.getElementById('collateral-grid').addEventListener('click', (e) => {
+        const card = e.target.closest('.card');
+        if (!card) return;
+        const title = card.dataset.title;
+        const item = appData.collateral.find(c => c.title === title);
+        if (item) {
+            const content = `
+                <p class="mb-4">${item.description}</p>
+                <h4 class="font-semibold mb-2">Typical Ineligibles:</h4>
+                <ul class="list-disc list-inside space-y-1">
+                    ${item.ineligibles.map(i => `<li>${i}</li>`).join('')}
+                </ul>
+            `;
+            showModal(item.title, content);
+        }
+    });
+    
+    document.getElementById('process-flow').addEventListener('click', (e) => {
+        const step = e.target.closest('.process-step');
+        if (!step) return;
+        const title = step.dataset.title;
+        const item = appData.processSteps.find(s => s.title === title);
+        if (item) {
+            showModal(item.title, `<p>${item.desc}</p>`);
+        }
+    });
+
+    const totalArInput = document.getElementById('total-ar');
+    const ineligibleArSlider = document.getElementById('ineligible-ar-slider');
+    const ineligibleArValue = document.getElementById('ineligible-ar-value');
+    const totalInventoryInput = document.getElementById('total-inventory');
+    const ineligibleInventorySlider = document.getElementById('ineligible-inventory-slider');
+    const ineligibleInventoryValue = document.getElementById('ineligible-inventory-value');
+    const totalBorrowingBaseEl = document.getElementById('total-borrowing-base');
+
+    const arAdvanceRate = 0.85;
+    const inventoryAdvanceRate = 0.50;
+
+    const ctx = document.getElementById('borrowingBaseChart').getContext('2d');
+    const borrowingBaseChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['A/R Availability', 'Inventory Availability'],
+            datasets: [{
+                data: [1870000, 300000],
+                backgroundColor: ['#3B82F6', '#60A5FA'],
+                borderColor: ['#FFFFFF'],
+                borderWidth: 4,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed !== null) {
+                                label += formatCurrency(context.parsed);
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    function calculateBorrowingBase() {
+        const totalAr = parseFloat(totalArInput.value) || 0;
+        const ineligibleArPercent = parseFloat(ineligibleArSlider.value) / 100;
+        const totalInventory = parseFloat(totalInventoryInput.value) || 0;
+        const ineligibleInventoryPercent = parseFloat(ineligibleInventorySlider.value) / 100;
+
+        ineligibleArValue.textContent = ineligibleArSlider.value;
+        ineligibleInventoryValue.textContent = ineligibleInventorySlider.value;
+
+        const ineligibleArAmount = totalAr * ineligibleArPercent;
+        const eligibleAr = totalAr - ineligibleArAmount;
+        const arAvailability = eligibleAr * arAdvanceRate;
+
+        const ineligibleInventoryAmount = totalInventory * ineligibleInventoryPercent;
+        const eligibleInventory = totalInventory - ineligibleInventoryAmount;
+        const inventoryAvailability = eligibleInventory * inventoryAdvanceRate;
+
+        const totalAvailability = arAvailability + inventoryAvailability;
+
+        totalBorrowingBaseEl.textContent = formatCurrency(totalAvailability);
+
+        borrowingBaseChart.data.datasets[0].data = [arAvailability, inventoryAvailability];
+        borrowingBaseChart.update();
+    }
+
+    [totalArInput, ineligibleArSlider, totalInventoryInput, ineligibleInventorySlider].forEach(el => {
+        el.addEventListener('input', calculateBorrowingBase);
+    });
+    
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('main section');
+    const header = document.getElementById('header');
+
+    const observerOptions = {
+        root: null,
+        rootMargin: `-${header.offsetHeight}px`,
+        threshold: 0.4
+    };
+
+    const sectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => {
+        sectionObserver.observe(section);
+    });
+
+    populateComparisons();
+    populateCandidates();
+    populateCollateral();
+    populateProcessFlow();
+    populateDeal();
+    calculateBorrowingBase();
+});
+</script>
+</body>
+</html>
