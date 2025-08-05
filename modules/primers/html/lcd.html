@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Leveraged Loan Primer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Neutrals -->
+    <!-- Application Structure Plan: The SPA is designed as a "learning journey" following the loan lifecycle. A persistent top navigation allows users to jump between key phases: Introduction, The Deal (Origination), The Loan (Structure), The Analysis (Risk), The Players (Investors), and Post-Launch. This structure is more intuitive and exploratory than the original six-module format. It supports both a linear, story-like progression for new learners and quick, topic-specific access for reference. Interactive diagrams, cards, and charts are used in each section to encourage active learning and make complex financial concepts more tangible and easier to understand. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Syndication Process -> Goal: Explain process -> Viz: Interactive HTML/CSS flowchart -> Interaction: Click steps to reveal details -> Justification: Visual flow is better than text; interaction promotes engagement -> Method: HTML/JS.
+        - Report Info: Loan Facilities -> Goal: Compare types -> Viz: Interactive cards -> Interaction: Click to expand/flip for details -> Justification: Digestible format for complex info -> Method: HTML/JS.
+        - Report Info: Credit Risk -> Goal: Show risk/reward -> Viz: Bubble Chart -> Interaction: Filter by covenant type to see pricing impact -> Justification: Visualizes 3 data dimensions, making abstract concepts tangible -> Library: Chart.js.
+        - Report Info: Investor Types -> Goal: Compare motivations -> Viz: Polar Area Chart -> Interaction: Select investor to see priorities -> Justification: Compares entities across qualitative traits visually -> Library: Chart.js.
+        - Report Info: Post-Launch Events -> Goal: Show events over time -> Viz: Interactive HTML/CSS timeline -> Interaction: Click events for explanations -> Justification: Logical way to show sequence; progressive disclosure prevents overload -> Method: HTML/JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #333333;
+        }
+        .nav-link {
+            transition: color 0.3s ease, border-bottom-color 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #4A90E2;
+            border-bottom-color: #4A90E2;
+        }
+        .section-card {
+            background-color: #FFFFFF;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .interactive-card {
+            cursor: pointer;
+            border: 1px solid #EAEAEA;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2rem;
+            border-left: 2px solid #D1D5DB;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.5rem;
+            top: 0;
+            height: 1rem;
+            width: 1rem;
+            background-color: #FFFFFF;
+            border: 2px solid #4A90E2;
+            border-radius: 9999px;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            max-width: 90%;
+            width: 600px;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-40 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-xl text-gray-800">Leveraged Loan Journey</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#intro" class="nav-link px-3 py-2 text-sm font-medium text-gray-600">Introduction</a>
+                        <a href="#deal" class="nav-link px-3 py-2 text-sm font-medium text-gray-600">The Deal</a>
+                        <a href="#loan" class="nav-link px-3 py-2 text-sm font-medium text-gray-600">The Loan</a>
+                        <a href="#analysis" class="nav-link px-3 py-2 text-sm font-medium text-gray-600">The Analysis</a>
+                        <a href="#players" class="nav-link px-3 py-2 text-sm font-medium text-gray-600">The Players</a>
+                        <a href="#post-launch" class="nav-link px-3 py-2 text-sm font-medium text-gray-600">Post-Launch</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="intro" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-gray-900">Foundations of the Syndicated Loan Market</h1>
+                <p class="mt-6 max-w-3xl mx-auto text-lg text-gray-600">This application provides a practical, interactive guide to the leveraged loan market. We'll move beyond simple definitions to explore how these complex financial instruments are structured, analyzed, and traded. Start your journey to understand the 'what' and the 'why' behind syndicated lending.</p>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="section-card p-8">
+                        <h3 class="text-xl font-semibold text-gray-900">What is a Syndicated Loan?</h3>
+                        <p class="mt-4 text-gray-600">A commercial credit provided to a borrower by a group of lenders. This structure allows lenders to share risk and provides borrowers access to large amounts of capital from a single, streamlined process.</p>
+                    </div>
+                    <div class="section-card p-8">
+                        <h3 class="text-xl font-semibold text-gray-900">Key Participants</h3>
+                        <p class="mt-4 text-gray-600">The ecosystem includes Issuers (borrowers), Arrangers (banks that structure the deal), and Investors (banks, CLOs, funds) who provide the capital, each with unique motivations.</p>
+                    </div>
+                    <div class="section-card p-8">
+                        <h3 class="text-xl font-semibold text-gray-900">Leveraged vs. Investment Grade</h3>
+                        <p class="mt-4 text-gray-600">Loans are categorized by borrower credit quality. Leveraged loans are higher-risk, higher-yield instruments for speculative-grade companies, while investment-grade loans are for more stable, highly-rated corporations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="deal" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">The Deal: Origination & Syndication</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Every loan begins as a deal. This section explores how a loan is born, from the initial mandate to the complex process of syndication where the loan is sold to investors. The process is a delicate balance of risk, pricing, and market demand.</p>
+                </div>
+                <div class="mt-12">
+                    <h3 class="text-2xl font-semibold text-center mb-8">The Syndication Process</h3>
+                    <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-0">
+                        <div class="syndication-step p-4 text-center" data-title="1. Mandate & Strategy" data-content="The borrower awards a mandate to a lead arranger. Three main strategies exist: <strong>Underwritten</strong> (arranger guarantees funds), <strong>Best-Efforts</strong> (arranger tries to sell the loan, no guarantee), or a <strong>Club Deal</strong> (pre-marketed to relationship lenders).">
+                            <div class="w-24 h-24 mx-auto bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-lg">Step 1</div>
+                            <p class="mt-2 font-semibold">Mandate & Strategy</p>
+                        </div>
+                        <div class="text-gray-400 text-2xl font-light mx-4 hidden md:block">&rarr;</div>
+                        <div class="syndication-step p-4 text-center" data-title="2. Book-Building" data-content="The arranger creates an Information Memorandum (IM) and gathers investor interest. This 'book-building' process gauges demand at various price points ('price talk').">
+                            <div class="w-24 h-24 mx-auto bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-lg">Step 2</div>
+                            <p class="mt-2 font-semibold">Book-Building</p>
+                        </div>
+                        <div class="text-gray-400 text-2xl font-light mx-4 hidden md:block">&rarr;</div>
+                        <div class="syndication-step p-4 text-center" data-title="3. Market Flex" data-content="Based on demand, the arranger uses 'market flex' to adjust terms. If oversubscribed, the interest rate may be 'flexed down'. If undersubscribed, it may be 'flexed up' to attract investors. Structure can also be flexed, shifting debt between tranches.">
+                            <div class="w-24 h-24 mx-auto bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-lg">Step 3</div>
+                            <p class="mt-2 font-semibold">Market Flex</p>
+                        </div>
+                        <div class="text-gray-400 text-2xl font-light mx-4 hidden md:block">&rarr;</div>
+                        <div class="syndication-step p-4 text-center" data-title="4. Allocation & Closing" data-content="Once terms are finalized, the loan is 'allocated' to the participating investors. The legal documentation is signed, and the deal is officially closed and funded.">
+                            <div class="w-24 h-24 mx-auto bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-lg">Step 4</div>
+                            <p class="mt-2 font-semibold">Allocation & Close</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="loan" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Deconstructing the Loan: Structure & Documentation</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Not all loans are created equal. They are comprised of different facilities, or tranches, each with unique features designed for specific investor types. Understanding this structure is key to understanding the loan market. Click on each facility type to learn more.</p>
+                </div>
+                <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="interactive-card section-card p-6" data-title="Revolving Credit Facility (Revolver)" data-content="Acts like a corporate credit card. Allows the borrower to draw, repay, and re-borrow funds. Typically used for working capital. Primarily held by banks.">
+                        <h3 class="text-xl font-semibold">Revolver</h3>
+                        <p class="mt-2 text-gray-500">Flexible credit line</p>
+                    </div>
+                    <div class="interactive-card section-card p-6" data-title="Term Loan A (TLA)" data-content="An installment loan that requires principal repayment (amortization) over its life, typically 5-7 years. Primarily held by banks.">
+                        <h3 class="text-xl font-semibold">Term Loan A</h3>
+                        <p class="mt-2 text-gray-500">Amortizing loan for banks</p>
+                    </div>
+                    <div class="interactive-card section-card p-6" data-title="Term Loan B (TLB)" data-content="Features little to no amortization with a 'bullet' payment at maturity. Longer tenor (7+ years). Primarily held by institutional investors like CLOs and funds.">
+                        <h3 class="text-xl font-semibold">Term Loan B</h3>
+                        <p class="mt-2 text-gray-500">Institutional bullet loan</p>
+                    </div>
+                    <div class="interactive-card section-card p-6" data-title="Second-Lien Loan" data-content="A term loan with a junior claim on the collateral, ranking behind first-lien debt. Carries higher risk and thus a higher interest rate.">
+                        <h3 class="text-xl font-semibold">Second-Lien</h3>
+                        <p class="mt-2 text-gray-500">Subordinated term loan</p>
+                    </div>
+                    <div class="interactive-card section-card p-6" data-title="Covenant-Lite (Cov-Lite)" data-content="A loan with bond-like incurrence covenants rather than traditional maintenance covenants. This gives the borrower more flexibility but offers lenders fewer early warnings of distress. Now the dominant form for institutional loans.">
+                        <h3 class="text-xl font-semibold">Covenant-Lite</h3>
+                        <p class="mt-2 text-gray-500">Flexible covenant structure</p>
+                    </div>
+                    <div class="interactive-card section-card p-6" data-title="Information Memorandum (IM)" data-content="The confidential 'bank book' prepared by arrangers. It contains the executive summary, investment considerations, term sheet, industry overview, and detailed financial models. It's the primary marketing document for the loan.">
+                        <h3 class="text-xl font-semibold">Information Memo</h3>
+                        <p class="mt-2 text-gray-500">The deal's blueprint</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="analysis" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">The Art of Credit Analysis</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Lenders must analyze two key risks: the likelihood of the borrower defaulting, and the potential loss if a default occurs. This analysis involves scrutinizing credit statistics, collateral, and the crucial protections embedded in the loan's covenants.</p>
+                </div>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4">Risk vs. Reward</h3>
+                        <p class="text-gray-600 mb-4">This chart illustrates the relationship between leverage (a key indicator of default risk) and the interest spread (the lender's reward). Generally, higher leverage demands a higher spread. Use the filter to see how covenant structures can impact this relationship.</p>
+                        <div class="mb-4">
+                            <label for="covenant-filter" class="block text-sm font-medium text-gray-700">Filter by Covenant Type:</label>
+                            <select id="covenant-filter" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                <option value="all">All Deals</option>
+                                <option value="maintenance">Maintenance Covenants</option>
+                                <option value="cov-lite">Covenant-Lite</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="creditRiskChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="players" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">The Investor Landscape</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">The loan market is a diverse ecosystem of investors, each with different strategies, risk appetites, and goals. Understanding these players is essential to understanding market dynamics.</p>
+                </div>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="chart-container">
+                        <canvas id="investorProfileChart"></canvas>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4">Investor Profiles</h3>
+                        <p class="text-gray-600 mb-4">This chart compares the primary investor types across key characteristics. Select an investor to see their typical profile. Notice how CLOs are return-focused while banks prioritize the overall relationship.</p>
+                        <div class="mb-4">
+                            <label for="investor-filter" class="block text-sm font-medium text-gray-700">Select Investor Profile:</label>
+                            <select id="investor-filter" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                <option value="0">Bank</option>
+                                <option value="1">CLO</option>
+                                <option value="2">Direct Lender</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="post-launch" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Post-Launch & Special Situations</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">A loan's life doesn't end at closing. It trades in the secondary market and can be changed through amendments. And when things go wrong, a structured process of restructuring and bankruptcy begins.</p>
+                </div>
+                <div class="mt-12 max-w-3xl mx-auto">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h3 class="text-xl font-semibold">Secondary Trading</h3>
+                        <p class="mt-2 text-gray-600">After closing, loans are traded between investors via assignments or participations, providing liquidity to the market.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h3 class="text-xl font-semibold">Amendments</h3>
+                        <p class="mt-2 text-gray-600">Borrowers may request changes to the loan agreement. Common amendments include repricing to a lower interest rate, seeking covenant relief during tough times, or executing an "amend-to-extend" to push out maturities.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h3 class="text-xl font-semibold">Default & Restructuring</h3>
+                        <p class="mt-2 text-gray-600">If a borrower misses a payment or breaches a key covenant, it enters default. This can lead to an out-of-court restructuring or a formal Chapter 11 bankruptcy filing.</p>
+                    </div>
+                     <div class="timeline-item" style="border-left: 2px solid transparent;">
+                        <div class="timeline-dot"></div>
+                        <h3 class="text-xl font-semibold">DIP Financing</h3>
+                        <p class="mt-2 text-gray-600">Debtor-in-Possession (DIP) loans are provided to companies in bankruptcy. They are 'super-senior' to all other debt, making them a relatively safe way for lenders to finance a company through its restructuring.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white">
+        <div class="container mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p>Interactive application designed to summarize the Leveraged Loan Primer.</p>
+            <p class="text-sm mt-2">Content based on S&P Global Market Intelligence LCD Loan Primer.</p>
+        </div>
+    </footer>
+
+    <div id="modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="modal-title" class="text-2xl font-bold mb-4"></h3>
+            <div id="modal-body" class="text-gray-700"></div>
+            <button id="modal-close" class="mt-6 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Close</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const modalClose = document.getElementById('modal-close');
+
+            function showModal(title, content) {
+                modalTitle.innerHTML = title;
+                modalBody.innerHTML = content;
+                modal.classList.add('visible');
+            }
+
+            function hideModal() {
+                modal.classList.remove('visible');
+            }
+
+            modalClose.addEventListener('click', hideModal);
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    hideModal();
+                }
+            });
+
+            document.querySelectorAll('.syndication-step, .interactive-card').forEach(item => {
+                item.addEventListener('click', function() {
+                    const title = this.dataset.title;
+                    const content = this.dataset.content;
+                    showModal(title, content);
+                });
+            });
+
+            const navLinks = document.querySelectorAll('nav a');
+            const sections = document.querySelectorAll('main section');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 80) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            navLinks.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            const creditRiskData = {
+                maintenance: [
+                    { x: 3.5, y: 300, r: 15 }, { x: 4.0, y: 350, r: 20 },
+                    { x: 4.5, y: 400, r: 25 }, { x: 5.0, y: 475, r: 18 },
+                    { x: 5.5, y: 550, r: 22 }
+                ],
+                'cov-lite': [
+                    { x: 4.2, y: 325, r: 30 }, { x: 4.8, y: 375, r: 35 },
+                    { x: 5.3, y: 425, r: 40 }, { x: 5.8, y: 500, r: 28 },
+                    { x: 6.2, y: 575, r: 38 }
+                ]
+            };
+            
+            const creditRiskCtx = document.getElementById('creditRiskChart').getContext('2d');
+            const creditRiskChart = new Chart(creditRiskCtx, {
+                type: 'bubble',
+                data: {
+                    datasets: [{
+                        label: 'Maintenance Covenant Deals',
+                        data: creditRiskData.maintenance,
+                        backgroundColor: 'rgba(74, 144, 226, 0.7)',
+                        borderColor: 'rgba(74, 144, 226, 1)',
+                    }, {
+                        label: 'Covenant-Lite Deals',
+                        data: creditRiskData['cov-lite'],
+                        backgroundColor: 'rgba(217, 120, 74, 0.7)',
+                        borderColor: 'rgba(217, 120, 74, 1)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Leverage (Total Debt / EBITDA)' }
+                        },
+                        y: {
+                            title: { display: true, text: 'Spread (bps over benchmark)' }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: Leverage ${context.raw.x}x, Spread L+${context.raw.y} bps`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('covenant-filter').addEventListener('change', function(e) {
+                const value = e.target.value;
+                if (value === 'all') {
+                    creditRiskChart.data.datasets[0].data = creditRiskData.maintenance;
+                    creditRiskChart.data.datasets[1].data = creditRiskData['cov-lite'];
+                } else if (value === 'maintenance') {
+                    creditRiskChart.data.datasets[0].data = creditRiskData.maintenance;
+                    creditRiskChart.data.datasets[1].data = [];
+                } else {
+                    creditRiskChart.data.datasets[0].data = [];
+                    creditRiskChart.data.datasets[1].data = creditRiskData['cov-lite'];
+                }
+                creditRiskChart.update();
+            });
+
+            const investorProfileData = {
+                labels: ['Return Focus', 'Risk Appetite', 'Relationship Importance', 'Liquidity Need', 'Hold Period'],
+                datasets: [
+                    {
+                        label: 'Bank',
+                        data: [3, 3, 9, 7, 5],
+                        backgroundColor: 'rgba(74, 144, 226, 0.2)',
+                        borderColor: 'rgba(74, 144, 226, 1)',
+                        pointBackgroundColor: 'rgba(74, 144, 226, 1)',
+                    },
+                    {
+                        label: 'CLO',
+                        data: [9, 7, 2, 8, 8],
+                        backgroundColor: 'rgba(80, 227, 194, 0.2)',
+                        borderColor: 'rgba(80, 227, 194, 1)',
+                        pointBackgroundColor: 'rgba(80, 227, 194, 1)',
+                    },
+                    {
+                        label: 'Direct Lender',
+                        data: [7, 5, 6, 2, 9],
+                        backgroundColor: 'rgba(217, 120, 74, 0.2)',
+                        borderColor: 'rgba(217, 120, 74, 1)',
+                        pointBackgroundColor: 'rgba(217, 120, 74, 1)',
+                    }
+                ]
+            };
+
+            const investorProfileCtx = document.getElementById('investorProfileChart').getContext('2d');
+            const investorProfileChart = new Chart(investorProfileCtx, {
+                type: 'polarArea',
+                data: {
+                    labels: investorProfileData.labels,
+                    datasets: [investorProfileData.datasets[0]]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 10,
+                             ticks: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                             callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            document.getElementById('investor-filter').addEventListener('change', function(e) {
+                const selectedIndex = e.target.value;
+                investorProfileChart.data.datasets = [investorProfileData.datasets[selectedIndex]];
+                investorProfileChart.update();
+            });
+        });
+    </script>
+</body>
+</html>
