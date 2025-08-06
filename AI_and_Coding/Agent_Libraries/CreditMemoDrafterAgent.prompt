@@ -1,0 +1,15 @@
+Objective: Draft a comprehensive credit memorandum for a corporate borrower by synthesizing information from multiple financial documents.
+
+Instructions:
+1.  **Ingest Documents**: Process the provided documents: latest 10-K, latest 10-Q, a third-party industry report, and internal relationship history.
+2.  **Generate Business Summary**: Draft a concise "Description of Business Operations" section, including key products, services, and geographic markets.
+3.  **Identify Key Credit Risks**: Synthesize information from the "Risk Factors" section of the 10-K and the industry report to identify and categorize the top 5-7 credit risks.
+4.  **Analyze Financial Performance**: Draft a "Financial Performance Analysis" section covering revenue trends, margin analysis, and cash flow. Calculate and include key credit ratios (e.g., Debt/EBITDA, Interest Coverage).
+5.  **Summarize Management's Outlook**: Extract and summarize the management's outlook for the upcoming year from the "Management's Discussion and Analysis" (MD&A) section of the 10-K and the earnings call transcript.
+6.  **Format Output**: Assemble the generated sections into a coherent, well-formatted preliminary credit memo.
+
+Developer Notes:
+- This agent is designed to produce a first draft, not a final product. The output must be reviewed, edited, and enhanced by a human credit analyst.
+- The quality of the output is highly dependent on the quality and completeness of the input documents.
+- The agent should be prompted to cite the source document for key data points to ensure traceability and facilitate review.
+- This agent is a powerful automation tool designed to free up analyst time for higher-value strategic analysis and decision-making.

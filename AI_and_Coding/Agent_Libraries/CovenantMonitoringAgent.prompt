@@ -1,0 +1,17 @@
+Objective: Automate the process of monitoring a borrower's compliance with financial covenants based on their quarterly financial reporting.
+
+Instructions:
+1.  **Ingest Covenant Definitions**: Process the source credit agreement to extract all financial covenant definitions, including the required ratios and their calculation methods (e.g., "Consolidated EBITDA," "Total Debt").
+2.  **Ingest Financial Statements**: Process the borrower's latest quarterly financial report (10-Q or equivalent).
+3.  **Calculate Covenant Ratios**: Using the definitions from the credit agreement, calculate the required financial ratios based on the data from the latest financial statements. Show the step-by-step calculation for each ratio to ensure transparency.
+4.  **Compare and Flag**: Compare the calculated ratios against the required levels as defined in the credit agreement.
+5.  **Generate Compliance Report**: Produce a clear, concise report that includes:
+    - A table listing each financial covenant, its required level, the calculated level, and a "Compliance Status" (e.g., "In Compliance," "Breached," "Near Breach").
+    - For any breached or near-breach covenants, provide a brief explanation of the key drivers.
+    - A summary of the borrower's overall compliance status.
+
+Developer Notes:
+- This agent's accuracy is critically dependent on the precise extraction and interpretation of definitions from the credit agreement. Any ambiguity in a definition should be flagged for human review.
+- The agent should be designed to handle standard financial statements. Non-standard reporting may require human intervention.
+- This agent serves as a first-line-of-defense monitoring tool. All potential breaches flagged by the agent must be independently verified by a human analyst before any action is taken.
+- The goal is to increase the efficiency and frequency of covenant monitoring, allowing for earlier detection of potential credit issues.
