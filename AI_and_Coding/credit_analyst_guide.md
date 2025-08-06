@@ -395,7 +395,7 @@ Inaccurate Regulatory Interpretation: AI hallucinates a compliance requirement o
 
 The institution may fail to meet a real regulatory obligation or waste resources complying with a non-existent one, exposing it to legal risk and penalties.
 
-Primary: Use RAG to ensure the AI's analysis is based solely on the provided, up-to-date regulatory texts.
+Primary: Use RAG to ensure the AI's analysis is based solely on the provided, up-to-date regulatory texts. 
 Secondary: All compliance-related outputs must be reviewed and verified by qualified legal and compliance professionals. Do not rely on AI as the sole source of legal advice.
 
 Part V: A Framework for Responsible AI and the Future of Credit Analysis
