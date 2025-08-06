@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Credit Analyst's AI Flight Manual</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: The application is structured as a "Flight Manual" or playbook, a single-page scrolling experience guided by a top navigation bar. This task-oriented design transforms the linear report into an interactive learning tool. Key sections include: 1) 'Mission Briefing' for a high-level intro with an interactive chart. 2) 'Core Toolkit' using tabs for different AI applications. 3) The centerpiece, a 'Prompting Flight School' with an interactive simulator for hands-on learning. 4) 'Advanced Maneuvers' using clickable cards for complex techniques. 5) 'Flight Regulations' for governance, presented as checklists and Do/Don't visuals. This structure was chosen to make the dense information more digestible, engaging, and practical for a credit analyst, prioritizing hands-on interaction over passive reading. -->
+    <!-- Visualization & Content Choices: 1. GenAI Adoption Stats -> Goal: Inform -> Viz: Doughnut Chart (Chart.js) -> Interaction: Hover for details -> Justification: More impactful visualization of key stats from Part I. 2. Core Applications -> Goal: Organize -> Viz: Tabbed Interface (HTML/JS) -> Interaction: Click tabs to switch content -> Justification: Breaks down Part II into manageable, user-driven sections. 3. Prompting Templates -> Goal: Teach/Compare -> Viz: Interactive "Prompt Simulator" (HTML/JS) -> Interaction: Select task, see weak/strong prompts and simulated output -> Justification: Provides a hands-on, practical way to learn prompt engineering from Part III. 4. Advanced Techniques -> Goal: Organize/Inform -> Viz: Clickable Cards/Accordion (HTML/JS) -> Interaction: Click to reveal details -> Justification: Makes the dense table from Part 3.3 more engaging and less overwhelming. 5. Risk Matrix -> Goal: Inform/Compare -> Viz: Styled Table (Tailwind CSS) -> Interaction: None -> Justification: Clearly presents critical risk information from Part 4.3 in a structured format. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F5F5F4;
+            color: #27374D;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #526D82;
+            border-bottom-color: #526D82;
+        }
+        .tab-button {
+            transition: all 0.3s;
+        }
+        .tab-button.active {
+            background-color: #526D82;
+            color: #F5F5F4;
+        }
+        .prompt-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .prompt-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-[#27374D]">
+                        <span class="text-[#526D82]">AI</span> Flight Manual
+                    </h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#briefing" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Mission Briefing</a>
+                        <a href="#toolkit" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Core Toolkit</a>
+                        <a href="#school" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Prompting School</a>
+                        <a href="#advanced" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Advanced Maneuvers</a>
+                        <a href="#regulations" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Flight Regulations</a>
+                        <a href="#copilot" class="nav-link px-3 py-2 rounded-md text-sm font-medium">The Co-Pilot</a>
+                    </div>
+                </div>
+                 <div class="md:hidden">
+                    <select id="mobile-nav" class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#526D82] focus:border-[#526D82] block w-full p-2.5">
+                        <option value="#briefing">Mission Briefing</option>
+                        <option value="#toolkit">Core Toolkit</option>
+                        <option value="#school">Prompting School</option>
+                        <option value="#advanced">Advanced Maneuvers</option>
+                        <option value="#regulations">Flight Regulations</option>
+                        <option value="#copilot">The Co-Pilot</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <!-- Section 1: Mission Briefing -->
+        <section id="briefing" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-[#526D82] mb-4 text-center">Mission Briefing: The GenAI Revolution</h2>
+            <p class="max-w-3xl mx-auto text-center text-lg text-gray-700 mb-12">
+                This guide serves as your flight manual for navigating the transformative landscape of Generative AI in credit analysis. We will move from core principles to advanced techniques, equipping you with the skills to leverage AI as a powerful co-pilot, enhancing efficiency, deepening insights, and securing a competitive edge.
+            </p>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-3 text-[#27374D]">A Competitive Necessity</h3>
+                    <p class="text-gray-600 mb-4">GenAI adoption is no longer optional. The technology is rapidly reshaping operations, with early adopters gaining significant advantages in speed and depth of analysis. GenAI can add <strong class="font-semibold text-[#526D82]">$200-$340 billion</strong> in value to banking annually, primarily through productivity gains.</p>
+                    <p class="text-gray-600">This shift democratizes data analysis, allowing analysts to derive complex insights using plain language, turning analytical tasks that took days into minutes.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-3 text-center text-[#27374D]">Early Adopter Landscape</h3>
+                    <p class="text-center text-gray-600 mb-4">A significant portion of the financial industry has already begun integrating GenAI.</p>
+                    <div class="chart-container">
+                        <canvas id="adoptionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <hr class="my-16 border-gray-300">
+
+        <!-- Section 2: Core Toolkit -->
+        <section id="toolkit" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-[#526D82] mb-4 text-center">Core Toolkit: Key AI Applications</h2>
+            <p class="max-w-3xl mx-auto text-center text-lg text-gray-700 mb-12">
+                Generative AI provides a powerful toolkit to automate and enhance core credit analysis tasks. By handling repetitive work, it frees you to focus on strategic evaluation and decision-making. Explore the tabs below to see how AI can be applied to different parts of your workflow.
+            </p>
+            <div>
+                <div class="mb-4 flex flex-wrap justify-center border-b border-gray-200">
+                    <button class="tab-button text-lg font-medium px-5 py-2.5 -mb-px border-b-2 border-transparent" data-tab="summarization">Summarization</button>
+                    <button class="tab-button text-lg font-medium px-5 py-2.5 -mb-px border-b-2 border-transparent" data-tab="memo">Memo Generation</button>
+                    <button class="tab-button text-lg font-medium px-5 py-2.5 -mb-px border-b-2 border-transparent" data-tab="risk">Risk Assessment</button>
+                    <button class="tab-button text-lg font-medium px-5 py-2.5 -mb-px border-b-2 border-transparent" data-tab="trends">Market Analysis</button>
+                </div>
+                <div id="tab-content" class="bg-white p-8 rounded-lg shadow-lg">
+                    <!-- Content will be injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-16 border-gray-300">
+
+        <!-- Section 3: Prompting Flight School -->
+        <section id="school" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-[#526D82] mb-4 text-center">Prompting Flight School</h2>
+            <p class="max-w-3xl mx-auto text-center text-lg text-gray-700 mb-12">
+                The quality of AI output depends entirely on the quality of your instructions. Mastering prompt engineering is the most critical skill for effective AI use. In this simulator, select a task to see how a weak, vague prompt compares to a strong, specific one.
+            </p>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="mb-6">
+                    <label for="prompt-task-selector" class="block mb-2 text-sm font-medium text-gray-900">Select an Analysis Task:</label>
+                    <select id="prompt-task-selector" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#526D82] focus:border-[#526D82] block w-full p-2.5">
+                        <option value="summary">Financial Report Summarization</option>
+                        <option value="variance">Variance Analysis</option>
+                        <option value="stress">Scenario Stress Testing</option>
+                        <option value="covenant">Covenant Analysis</option>
+                    </select>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Weak Prompt -->
+                    <div class="prompt-card border border-red-200 bg-red-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-red-800 mb-2">Weak Prompt 👎</h4>
+                        <pre class="bg-white p-3 rounded text-sm text-red-900 whitespace-pre-wrap font-mono"><code id="weak-prompt-code"></code></pre>
+                    </div>
+                    <!-- Strong Prompt -->
+                    <div class="prompt-card border border-green-200 bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-green-800 mb-2">Strong Prompt 👍</h4>
+                        <pre class="bg-white p-3 rounded text-sm text-green-900 whitespace-pre-wrap font-mono"><code id="strong-prompt-code"></code></pre>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <h4 class="font-semibold text-[#27374D] mb-2 text-lg">Simulated AI Output (from Strong Prompt)</h4>
+                    <div id="simulated-output" class="bg-gray-100 p-4 rounded-lg border border-gray-200 min-h-[200px] text-gray-800">
+                        <!-- Output injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-16 border-gray-300">
+
+        <!-- Section 4: Advanced Maneuvers -->
+        <section id="advanced" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-[#526D82] mb-4 text-center">Advanced Maneuvers</h2>
+            <p class="max-w-3xl mx-auto text-center text-lg text-gray-700 mb-12">
+                For complex analysis, basic prompts are not enough. These advanced techniques guide the AI's reasoning process, ensure accuracy, and maintain data security. Click on each technique to learn more about its application in credit analysis.
+            </p>
+            <div id="advanced-techniques-container" class="space-y-4">
+                <!-- Advanced techniques will be injected by JS -->
+            </div>
+        </section>
+        
+        <hr class="my-16 border-gray-300">
+
+        <!-- Section 5: Flight Regulations -->
+        <section id="regulations" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-[#526D82] mb-4 text-center">Flight Regulations: Security & Governance</h2>
+            <p class="max-w-3xl mx-auto text-center text-lg text-gray-700 mb-12">
+                Leveraging AI requires strict adherence to security and governance protocols. Protecting sensitive data is non-negotiable. This section outlines the critical checks for evaluating AI tools and the rules for managing risks like hallucinations and bias.
+            </p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4 text-[#27374D]">Vendor Due Diligence Checklist</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start"><span class="text-green-500 mr-2 mt-1">✓</span><div><strong>Security Certifications:</strong> Does the vendor have SOC 2 or SOC 3 compliance?</div></li>
+                        <li class="flex items-start"><span class="text-green-500 mr-2 mt-1">✓</span><div><strong>Data Encryption:</strong> Is all data encrypted end-to-end, both at rest and in transit?</div></li>
+                        <li class="flex items-start"><span class="text-green-500 mr-2 mt-1">✓</span><div><strong>Data Usage Guarantee:</strong> Does the vendor guarantee client data will not be used for public model training?</div></li>
+                        <li class="flex items-start"><span class="text-green-500 mr-2 mt-1">✓</span><div><strong>Access Controls:</strong> Does the platform support role-based access controls (RBAC)?</div></li>
+                        <li class="flex items-start"><span class="text-green-500 mr-2 mt-1">✓</span><div><strong>Audit Trails:</strong> Are detailed logs of user and model activity available?</div></li>
+                        <li class="flex items-start"><span class="text-green-500 mr-2 mt-1">✓</span><div><strong>Hallucination Mitigation:</strong> Does the tool use RAG to ground answers in your proprietary data?</div></li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4 text-[#27374D]">Managing Critical Risks</h3>
+                     <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-red-600">AI Hallucinations</h4>
+                            <p class="text-gray-600"><strong>Risk:</strong> AI invents facts, figures, or sources. <br><strong>Mitigation:</strong> Use Retrieval-Augmented Generation (RAG) to force AI to cite trusted internal documents. Always have a human-in-the-loop to validate critical outputs.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-red-600">Algorithmic Bias</h4>
+                            <p class="text-gray-600"><strong>Risk:</strong> AI perpetuates historical biases from training data, leading to unfair decisions. <br><strong>Mitigation:</strong> Conduct regular audits for bias. Use diverse and representative data for training and ensure model decisions are explainable.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-red-600">Data Leakage</h4>
+                            <p class="text-gray-600"><strong>Risk:</strong> Employees paste sensitive information into public AI tools. <br><strong>Mitigation:</strong> Enforce a strict policy against using public tools for proprietary data. Use only enterprise-grade, secure AI platforms.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-16 border-gray-300">
+
+        <!-- Section 6: The Co-Pilot -->
+        <section id="copilot" class="scroll-mt-24 text-center">
+            <h2 class="text-3xl font-bold text-[#526D82] mb-4">The Analyst as Co-Pilot</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-700 mb-6">
+                GenAI will not replace the credit analyst. It will elevate the role. The technology automates the routine "laundry" of data work, freeing you to focus on the "poetry"—strategic thinking, critical judgment, and nuanced communication.
+            </p>
+            <p class="max-w-3xl mx-auto text-lg text-gray-700 font-semibold">
+                Your value is redefined by your ability to work *with* AI, combining your domain expertise with the skill to orchestrate technology. You are not a calculator of ratios; you are the conductor of an analytical orchestra.
+            </p>
+        </section>
+
+    </main>
+    
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-sm">
+            <p>Generative AI Interactive Guide for Credit Analysts. For educational purposes only.</p>
+        </div>
+    </footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    
+    // Data for the application
+    const adoptionData = {
+        labels: ['Banks Integrating GenAI', 'Credit Unions Integrating GenAI', 'Other Banks', 'Other Credit Unions'],
+        datasets: [{
+            label: 'GenAI Adoption',
+            data: [16, 36, 84, 64],
+            backgroundColor: [
+                '#526D82',
+                '#9DB2BF',
+                '#DDE6ED',
+                '#F0F3F5'
+            ],
+            borderColor: '#F5F5F4',
+            borderWidth: 2
+        }]
+    };
+
+    const tabContentData = {
+        summarization: {
+            title: 'Automating Data Extraction and Summarization',
+            icon: '📄',
+            content: "GenAI can ingest unstructured documents like annual reports, legal agreements, and earnings call transcripts to automatically extract key data points (e.g., EBITDA, debt covenants) into structured formats. It also creates concise, customizable summaries of lengthy documents, allowing you to digest a 50-page report in minutes by focusing on what matters most to you, such as risk factors or management outlook."
+        },
+        memo: {
+            title: 'Streamlining Credit Memo Generation',
+            icon: '📝',
+            content: "GenAI can 'turbocharge' credit memo creation by auto-generating foundational sections like business descriptions, competitive landscape, and risk factor identification. This can save 30-40% of the time spent on memo creation, allowing you to focus on evaluation and recommendations. Advanced systems provide traceability, linking every generated statement back to its source document for validation."
+        },
+        risk: {
+            title: 'Enhancing Multi-faceted Risk Assessment',
+            icon: '🛡️',
+            content: "GenAI expands risk assessment by analyzing both traditional and alternative data (e.g., payment patterns, news sentiment) for a more holistic borrower profile. It can run thousands of market simulations for VaR calculations and use synthetic data to conduct more robust stress tests. However, for quantitative credit scoring, traditional statistical methods still currently outperform GenAI models."
+        },
+        trends: {
+            title: 'Real-Time Analysis of Market Trends',
+            icon: '📈',
+            content: "This is a key evolution from reactive to proactive risk management. GenAI analyzes text from news feeds, earnings calls, and regulatory filings in real time to detect emerging risks *before* they appear in financial statements. This provides early warning signals, allowing you to anticipate market shifts and understand the interconnection between different risk types."
+        }
+    };
+
+    const promptData = {
+        summary: {
+            weak: `Summarize the attached Q3 earnings report.`,
+            strong: `Act as a senior credit analyst. Your audience is the bank's credit committee.
+Generate a board-level executive summary of the attached Q3 2024 financial performance report for [Company Name].
+
+Focus specifically on:
+1. Revenue growth vs. Q3 2023.
+2. Gross margin variance vs. Q2 2024.
+3. Key trends in operating expenses.
+4. Management's outlook for the upcoming quarter.
+
+Output in concise bullet points, max 300 words.
+
+### ATTACHED REPORT ###
+[Paste text of report here]`,
+            output: `
+<h5 class="font-semibold text-gray-800 mb-2">Executive Summary: [Company Name] Q3 2024 Performance</h5>
+<ul class="list-disc list-inside space-y-2 text-gray-700">
+    <li><strong>Revenue Growth:</strong> Revenue increased by 8% year-over-year, driven by strong performance in the North American segment, slightly offset by a downturn in European markets.</li>
+    <li><strong>Gross Margin Variance:</strong> Gross margin compressed by 150 basis points from 45.5% in Q2 to 44.0% in Q3, primarily due to increased raw material costs.</li>
+    <li><strong>Operating Expenses:</strong> Operating expenses rose 5% sequentially, with a notable increase in marketing spend related to the new product launch.</li>
+    <li><strong>Management Outlook:</strong> Management provided a cautious outlook for Q4, forecasting flat revenue growth due to anticipated macroeconomic headwinds but expects margin improvement as cost-saving initiatives take effect.</li>
+</ul>`
+        },
+        variance: {
+            weak: `Explain the variance.`,
+            strong: `You are a financial analyst performing a variance analysis.
+Using the provided data, identify and explain the top three largest variances between Q1 2024 forecast and actuals for [Company Name].
+
+Instructions:
+1. Group variances by department (Sales, Marketing, R&D).
+2. Calculate dollar and percentage difference.
+3. Provide a brief explanation for each.
+
+Present as a markdown table with columns: "Department", "Variance ($)", "Variance (%)", "Likely Drivers".
+
+### FORECAST DATA ###
+[Paste forecast data]
+
+### ACTUALS DATA ###
+[Paste actuals data]`,
+            output: `
+<div class="overflow-x-auto">
+<table class="w-full text-sm text-left text-gray-500">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+        <tr>
+            <th scope="col" class="px-6 py-3">Department</th>
+            <th scope="col" class="px-6 py-3">Variance ($)</th>
+            <th scope="col" class="px-6 py-3">Variance (%)</th>
+            <th scope="col" class="px-6 py-3">Likely Operational Drivers</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="bg-white border-b">
+            <td class="px-6 py-4 font-medium">Marketing</td>
+            <td class="px-6 py-4 text-red-600">($150,000)</td>
+            <td class="px-6 py-4 text-red-600">(30%)</td>
+            <td class="px-6 py-4">Overspend on unsuccessful digital ad campaign.</td>
+        </tr>
+        <tr class="bg-white border-b">
+            <td class="px-6 py-4 font-medium">Sales</td>
+            <td class="px-6 py-4 text-green-600">$120,000</td>
+            <td class="px-6 py-4 text-green-600">15%</td>
+            <td class="px-6 py-4">Higher than expected commissions from enterprise deal closures.</td>
+        </tr>
+        <tr class="bg-white">
+            <td class="px-6 py-4 font-medium">R&D</td>
+            <td class="px-6 py-4 text-green-600">$80,000</td>
+            <td class="px-6 py-4 text-green-600">10%</td>
+            <td class="px-6 py-4">Delayed hiring for senior engineering roles resulted in salary underspend.</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+`
+        },
+        stress: {
+            weak: `What if interest rates go up?`,
+            strong: `Act as a credit risk modeler.
+Using the provided financial data for [Company Name], simulate a stress test scenario for the next fiscal year.
+
+Scenario Assumptions:
+- 200 bps increase in benchmark interest rate.
+- 5% decrease in projected sales revenue.
+- 7% increase in COGS.
+
+Calculate the estimated impact on:
+- EBITDA
+- Net Income
+- Debt Service Coverage Ratio (DSCR)
+
+### CURRENT FINANCIAL DATA ###
+[Paste relevant financial data]`,
+            output: `
+<h5 class="font-semibold text-gray-800 mb-2">Stress Test Scenario Impact Analysis</h5>
+<ul class="list-disc list-inside space-y-2 text-gray-700">
+    <li><strong>EBITDA Impact:</strong> Estimated to decrease by <strong>$1.2M</strong> (from $5.0M to $3.8M) due to lower revenue and higher costs.</li>
+    <li><strong>Net Income Impact:</strong> Projected to fall into a net loss of <strong>($250k)</strong> from a profit of $800k, factoring in higher interest expenses.</li>
+    <li><strong>DSCR Impact:</strong> The Debt Service Coverage Ratio is projected to fall from a healthy <strong>1.85x</strong> to a critical <strong>0.95x</strong>, indicating potential inability to cover debt payments from operating income.</li>
+</ul>`
+        },
+        covenant: {
+            weak: `Find the covenants in this loan agreement.`,
+            strong: `You are a legal analyst specializing in credit agreements.
+Review the attached loan agreement for [Company Name].
+
+Task:
+1. Extract all financial covenants.
+2. Identify the exact definition for each.
+3. Specify the required performance level or ratio.
+4. List any associated reporting requirements.
+
+Present the output in a structured table.
+
+### LOAN AGREEMENT ###
+[Paste text of loan agreement]`,
+            output: `
+<div class="overflow-x-auto">
+<table class="w-full text-sm text-left text-gray-500">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+        <tr>
+            <th scope="col" class="px-6 py-3">Covenant Name</th>
+            <th scope="col" class="px-6 py-3">Required Level</th>
+            <th scope="col" class="px-6 py-3">Reporting Frequency</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="bg-white border-b">
+            <td class="px-6 py-4 font-medium">Debt Service Coverage Ratio (DSCR)</td>
+            <td class="px-6 py-4">Must remain above 1.25x</td>
+            <td class="px-6 py-4">Quarterly</td>
+        </tr>
+        <tr class="bg-white border-b">
+            <td class="px-6 py-4 font-medium">Senior Leverage Ratio</td>
+            <td class="px-6 py-4">Must not exceed 3.00x</td>
+            <td class="px-6 py-4">Quarterly</td>
+        </tr>
+        <tr class="bg-white">
+            <td class="px-6 py-4 font-medium">Minimum Liquidity</td>
+            <td class="px-6 py-4">Must maintain at least $5M in cash</td>
+            <td class="px-6 py-4">Monthly</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+`
+        }
+    };
+    
+    const advancedTechniques = [
+        { 
+            title: 'Retrieval-Augmented Generation (RAG)', 
+            description: 'Connects the AI to a secure, private database (e.g., your bank\'s internal documents) and forces it to use only that data for its response. This is the most critical technique for preventing "hallucinations" and ensuring data privacy.',
+            useCase: 'Querying secure internal documents, analyzing proprietary research, and ensuring answers are grounded in verified facts.'
+        },
+        { 
+            title: 'Chain-of-Thought (CoT) Prompting', 
+            description: 'Instructs the AI to break down a complex problem and "think step-by-step," showing its reasoning before giving a final answer. This improves accuracy for multi-step calculations.',
+            useCase: 'Multi-step calculations, financial modeling, complex ratio analysis.'
+        },
+        { 
+            title: 'Few-Shot Prompting', 
+            description: 'Provides 2-3 examples of the desired input/output format directly within the prompt. This guides the AI to produce outputs in a consistent and specific structure.',
+            useCase: 'Enforcing a consistent output format (e.g., JSON), standardizing data extraction across many documents.'
+        },
+        { 
+            title: 'Tree of Thoughts (ToT)', 
+            description: 'An advanced technique where the AI explores multiple different reasoning paths simultaneously, evaluates the intermediate steps in each path, and pursues the most promising one.',
+            useCase: 'Complex strategic problem-solving, such as developing a turnaround strategy for a distressed company.'
+        }
+    ];
+
+    // Chart.js Initialization
+    const ctx = document.getElementById('adoptionChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: adoptionData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    display: false,
+                    text: 'GenAI Adoption in Financial Institutions'
+                }
+            }
+        }
+    });
+
+    // Tab Functionality
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContentContainer = document.getElementById('tab-content');
+
+    function updateTabContent(tabId) {
+        const data = tabContentData[tabId];
+        tabContentContainer.innerHTML = `
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-5xl">${data.icon}</div>
+                <div class="flex-1">
+                    <h3 class="text-2xl font-bold text-[#27374D] mb-2">${data.title}</h3>
+                    <p class="text-gray-700 leading-relaxed">${data.content}</p>
+                </div>
+            </div>
+        `;
+        tabButtons.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.tab === tabId);
+        });
+    }
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            updateTabContent(button.dataset.tab);
+        });
+    });
+
+    // Initialize first tab
+    updateTabContent('summarization');
+
+    // Prompt Simulator Functionality
+    const taskSelector = document.getElementById('prompt-task-selector');
+    const weakPromptCode = document.getElementById('weak-prompt-code');
+    const strongPromptCode = document.getElementById('strong-prompt-code');
+    const simulatedOutput = document.getElementById('simulated-output');
+
+    function updatePromptSimulator(taskId) {
+        const data = promptData[taskId];
+        weakPromptCode.textContent = data.weak;
+        strongPromptCode.textContent = data.strong;
+        simulatedOutput.innerHTML = data.output;
+    }
+
+    taskSelector.addEventListener('change', (e) => {
+        updatePromptSimulator(e.target.value);
+    });
+
+    // Initialize prompt simulator
+    updatePromptSimulator('summary');
+    
+    // Advanced Techniques Accordion
+    const advancedContainer = document.getElementById('advanced-techniques-container');
+    advancedTechniques.forEach(tech => {
+        const div = document.createElement('div');
+        div.className = 'bg-white rounded-lg shadow-md overflow-hidden';
+        div.innerHTML = `
+            <button class="w-full text-left p-4 flex justify-between items-center bg-gray-50 hover:bg-gray-100 focus:outline-none">
+                <h4 class="font-semibold text-lg text-[#27374D]">${tech.title}</h4>
+                <span class="transform transition-transform duration-300">▼</span>
+            </button>
+            <div class="p-4 border-t border-gray-200 hidden bg-white">
+                <p class="text-gray-600 mb-3">${tech.description}</p>
+                <p class="text-sm"><strong class="font-semibold text-[#526D82]">Ideal Use Case:</strong> ${tech.useCase}</p>
+            </div>
+        `;
+        advancedContainer.appendChild(div);
+
+        const button = div.querySelector('button');
+        const content = div.querySelector('div');
+        const arrow = button.querySelector('span');
+
+        button.addEventListener('click', () => {
+            const isHidden = content.classList.contains('hidden');
+            content.classList.toggle('hidden', !isHidden);
+            arrow.classList.toggle('rotate-180', isHidden);
+        });
+    });
+    
+    // Smooth scrolling for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Mobile navigation
+    document.getElementById('mobile-nav').addEventListener('change', function(e) {
+        window.location.hash = e.target.value;
+    });
+
+    // Active nav link highlighting on scroll
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - 80) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+});
+</script>
+
+</body>
+</html>

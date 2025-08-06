@@ -20,3 +20,13 @@ This module contains two major projects.
 
 ## Next Steps
 Congratulations on completing the GenAI for Credit Analysts learning path! We encourage you to continue exploring the other resources in this hub and apply these skills in your daily work.
+=======
+# Module 5: Interactive Case Studies
+
+This module provides hands-on case studies to apply your GenAI skills to real-world credit analysis scenarios.
+
+**Content to be added:**
+- Case Study: Comprehensive Analysis of a Public Company
+- Case Study: Stress Testing a Loan Portfolio
+- Case Study: Building a Simple Risk Monitoring Agent
+- Capstone Project: End-to-End Credit Assessment using AI tools

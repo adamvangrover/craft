@@ -20,3 +20,11 @@ This module contains the following articles. It is recommended to review them in
 
 ## Next Steps
 Once you have completed this module, please proceed to **Module 2: Mastering Prompt Engineering**.
+=======
+This module covers the core concepts of Generative AI and its applications in the financial industry.
+
+**Content to be added:**
+- Core Concepts of GenAI
+- Use Cases in Credit Analysis
+- The Difference Between Reasoning and Non-Reasoning Models
+- Understanding LLMs and Tokens

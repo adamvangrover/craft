@@ -20,3 +20,11 @@ This module is broken down into two key guides.
 
 ## Next Steps
 Once you have completed this module, please proceed to **Module 3: AI-Powered Workflow Automation**.
+=======
+This module provides a deep dive into prompt engineering, the most critical skill for effectively using Generative AI.
+
+**Content to be added:**
+- Foundational Principles of Effective Prompting
+- A Practical Prompting Toolkit for Credit Analysis
+- Advanced Prompting Techniques (CoT, RAG, etc.)
+- Hands-on Prompting Exercises

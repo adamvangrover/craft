@@ -17,3 +17,11 @@ This module contains the following guide. More content will be added here on top
 
 ## Next Steps
 Once you have completed this module, please proceed to **Module 5: Interactive Case Studies**.
+=======
+This module explores the transformative impact of AI on risk management practices.
+
+**Content to be added:**
+- AI in Predictive Risk Modeling
+- Detecting Fraud and Anomalies with AI
+- Ethical Considerations and Algorithmic Bias
+- The Evolving Role of the Credit Analyst
