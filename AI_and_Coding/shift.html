@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Guide to Two-Step Meta-Prompting (Gemini Enabled)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Slate & Amber -->
+    <!-- Application Structure Plan: The SPA is structured as a narrative journey. It starts with a high-level introduction (The Paradigm Shift), identifies the core problem (Why Single Prompts Fail), presents the solution visually (The Two-Step Framework), allows hands-on interaction (Interactive Demo), details the implementation (Core Code), and summarizes the guiding rules (Design Principles). This thematic flow is more intuitive than the report's chapter structure, guiding the user from concept to practice and reinforcing learning through active engagement with the demo. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: The core concept of the Strategist/Executor flow. -> Goal: Organize/Explain. -> Viz: A visual diagram made with HTML/Tailwind CSS, using flexbox, borders, and icons (Unicode) to create a clear, SVG-free flowchart. -> Interaction: Static visualization for clarity. -> Justification: A visual diagram is the most effective way to explain a process flow, making it instantly understandable.
+        - Report Info: The practical application of the template. -> Goal: Demonstrate/Engage. -> Viz: An interactive form with input/output text areas powered by the Gemini API. -> Interaction: User enters a goal and API key, clicks a button, and JS makes two sequential API calls to Gemini to populate the outputs. -> Justification: This provides a live, dynamic demonstration of the two-step process, making the abstract concept tangible and proving its value.
+        - Report Info: Principles for meta-prompt design. -> Goal: Inform/Organize. -> Viz: A grid of interactive cards. -> Interaction: Clicking a card header reveals detailed text. -> Justification: This "progressive disclosure" pattern keeps the UI clean and allows users to explore topics of interest without being overwhelmed by text.
+        - Report Info: The JavaScript implementation. -> Goal: Inform/Enable. -> Viz: A styled code block showing the core Gemini API call function. -> Interaction: A "Copy Code" button. -> Justification: This provides direct utility for developers by showing the exact code powering the demo.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #334155; /* slate-700 */
+        }
+        .nav-link {
+            transition: color 0.2s;
+        }
+        .nav-link:hover {
+            color: #f59e0b; /* amber-500 */
+        }
+        .active-nav {
+            color: #f59e0b; /* amber-500 */
+            font-weight: 600;
+        }
+        .section-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .code-block {
+            background-color: #1e293b; /* slate-800 */
+            color: #e2e8f0; /* slate-200 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .principle-card-header {
+            cursor: pointer;
+        }
+        .principle-card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .principle-card.open .principle-card-content {
+            max-height: 500px; /* Adjust as needed */
+        }
+        .arrow {
+            border: solid #64748b; /* slate-500 */
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 4px;
+            transition: transform 0.3s;
+        }
+        .down {
+            transform: rotate(45deg);
+        }
+        .principle-card.open .down {
+            transform: rotate(-135deg);
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #f59e0b;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-slate-800">
+                Meta-Prompting<span class="text-amber-500">.</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-slate-600 font-medium">
+                <a href="#framework" class="nav-link">Framework</a>
+                <a href="#demo" class="nav-link">Demo</a>
+                <a href="#code" class="nav-link">Code</a>
+                <a href="#principles" class="nav-link">Principles</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="intro" class="text-center mb-24">
+            <h1 class="text-4xl md:text-6xl font-bold text-slate-800 mb-4 leading-tight">A Paradigm Shift in Prompting</h1>
+            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">
+                Move beyond simple instructions. This guide introduces the Two-Step Meta-Prompting framework, a powerful technique to deconstruct complexity and unlock superior results from Large Language Models by separating strategic planning from task execution.
+            </p>
+        </section>
+
+        <section id="framework" class="mb-24 scroll-mt-20">
+            <div class="section-card p-8">
+                <h2 class="text-3xl font-bold text-center mb-2 text-slate-800">The Two-Step Framework</h2>
+                <p class="text-center text-slate-600 mb-12 max-w-2xl mx-auto">This architecture separates prompt creation from content generation. A "Strategist" LLM call first designs a highly-optimized prompt. Then, a second "Executor" LLM call uses that perfect prompt to produce the final, high-quality output.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8">
+                    <div class="text-center flex flex-col items-center p-6 border border-slate-200 rounded-lg bg-slate-50 w-full md:w-1/3">
+                        <div class="text-4xl mb-3">🎯</div>
+                        <h3 class="text-xl font-semibold text-slate-700">User Goal</h3>
+                        <p class="text-slate-500 text-sm">A simple, high-level objective.</p>
+                        <div class="code-block mt-4 text-left text-sm w-full">"Explain gravitational waves."</div>
+                    </div>
+                    <div class="text-5xl text-amber-400 font-sans transform rotate-90 md:rotate-0">→</div>
+                    <div class="relative text-center p-6 border-2 border-amber-400 rounded-lg bg-amber-50 w-full md:w-2/5">
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">STEP 1: STRATEGIST</div>
+                        <div class="text-4xl mb-3">🧠</div>
+                        <h3 class="text-xl font-semibold text-amber-800">Optimized Prompt</h3>
+                        <p class="text-amber-700 text-sm">A detailed, structured plan generated by the first LLM call.</p>
+                    </div>
+                    <div class="text-5xl text-amber-400 font-sans transform rotate-90 md:rotate-0">→</div>
+                    <div class="relative text-center p-6 border-2 border-slate-700 rounded-lg bg-slate-100 w-full md:w-2/5">
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-slate-700 text-white text-xs font-bold px-3 py-1 rounded-full">STEP 2: EXECUTOR</div>
+                        <div class="text-4xl mb-3">📄</div>
+                        <h3 class="text-xl font-semibold text-slate-800">Final Output</h3>
+                        <p class="text-slate-600 text-sm">The high-quality content generated by the second LLM call.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="demo" class="mb-24 scroll-mt-20">
+             <div class="section-card p-8">
+                <h2 class="text-3xl font-bold text-center mb-2 text-slate-800">✨ Live Gemini API Demo</h2>
+                <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">Experience the framework live. Enter a goal and your Gemini API key to see how the Strategist creates a superior prompt, leading to a more robust final output from the Executor.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <div>
+                            <label for="apiKey" class="block text-sm font-semibold text-slate-700 mb-1">1. Your Gemini API Key</label>
+                            <input type="password" id="apiKey" class="w-full p-3 border border-slate-300 rounded-md focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition" placeholder="Enter your API key">
+                            <p class="text-xs text-slate-500 mt-1">Your key is used only for this session and is not stored.</p>
+                        </div>
+                        <div>
+                            <label for="userGoal" class="block text-sm font-semibold text-slate-700 mb-1">2. Enter Your Goal</label>
+                            <textarea id="userGoal" class="w-full p-3 border border-slate-300 rounded-md focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition" placeholder="e.g., Explain the concept of recursion to a 10-year-old using a story" rows="3"></textarea>
+                        </div>
+                        <button id="runDemoBtn" class="w-full bg-amber-500 text-white font-bold py-3 px-4 rounded-md hover:bg-amber-600 transition-colors flex items-center justify-center space-x-2 disabled:bg-slate-400">
+                            <span>✨ Run with Gemini</span>
+                            <div id="loader" class="loader hidden"></div>
+                        </button>
+                    </div>
+                    <div id="demo-placeholder" class="text-center text-slate-400 border-2 border-dashed border-slate-300 rounded-lg flex items-center justify-center p-8">
+                        <p>Your live results will appear here...</p>
+                    </div>
+                    <div id="demo-results" class="hidden md:col-span-2">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">🧠 Step 1: Optimized Prompt (Output)</h3>
+                                <div id="optimizedPromptOutput" class="code-block h-96 overflow-y-auto"></div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">📄 Step 2: Final Content (Output)</h3>
+                                <div id="finalOutput" class="p-4 border border-slate-200 rounded-md h-96 overflow-y-auto bg-white"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="code" class="mb-24 scroll-mt-20">
+            <div class="section-card p-8">
+                <h2 class="text-3xl font-bold text-center mb-2 text-slate-800">Core Implementation</h2>
+                <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">This JavaScript function powers the live demo. It uses `fetch` to call the Gemini API. The key is the `metaPromptTemplate` which instructs the first LLM call how to behave.</p>
+                <div class="relative">
+                    <button id="copyCodeBtn" class="absolute top-4 right-4 bg-slate-600 text-slate-200 px-3 py-1 rounded-md text-sm hover:bg-slate-500 transition">Copy</button>
+                    <div id="codeForCopy" class="code-block text-sm overflow-x-auto">
+async function callGemini(prompt, apiKey) {
+    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+    
+    const payload = {
+        contents: [{
+            role: "user",
+            parts: [{ text: prompt }]
+        }],
+        generationConfig: {
+            temperature: 0.5,
+            topK: 1,
+            topP: 1,
+        }
+    };
+
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`API Error: ${response.status} - ${errorData.error?.message || 'Unknown error'}`);
+        }
+
+        const data = await response.json();
+        return data.candidates[0].content.parts[0].text;
+    } catch (error) {
+        console.error("Gemini API call failed:", error);
+        throw error; // Re-throw the error to be caught by the caller
+    }
+}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="principles" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-center mb-2 text-slate-800">Meta-Prompt Design Principles</h2>
+            <p class="text-center text-slate-600 mb-12 max-w-2xl mx-auto">Crafting the meta-prompt—the "brain" of the Strategist—is an art. Follow these principles to create instructions that lead to consistently high-quality results.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="principle-card bg-white p-6 rounded-lg shadow-sm">
+                    <div class="principle-card-header flex justify-between items-center">
+                        <h3 class="text-xl font-semibold text-slate-800">Extreme Specificity</h3><i class="arrow down"></i>
+                    </div>
+                    <div class="principle-card-content"><p class="text-slate-600 mt-4 pt-4 border-t border-slate-200">Vague requests like "make a good prompt" are ineffective. Be precise. Instruct the Strategist to "Generate a prompt that specifies a five-section structure using Markdown H3 headings," for example. The more detail you provide, the better the result.</p></div>
+                </div>
+                <div class="principle-card bg-white p-6 rounded-lg shadow-sm">
+                    <div class="principle-card-header flex justify-between items-center">
+                        <h3 class="text-xl font-semibold text-slate-800">Role-Prompt the Strategist</h3><i class="arrow down"></i>
+                    </div>
+                    <div class="principle-card-content"><p class="text-slate-600 mt-4 pt-4 border-t border-slate-200">Start the meta-prompt by assigning a clear, expert role. "You are an Expert Prompt Engineer" or "You are a Metacognitive Strategist" frames the interaction and sets a high standard for its performance. This ensures it understands its task is to architect a prompt, not answer the query itself.</p></div>
+                </div>
+                <div class="principle-card bg-white p-6 rounded-lg shadow-sm">
+                    <div class="principle-card-header flex justify-between items-center">
+                        <h3 class="text-xl font-semibold text-slate-800">Constrain the Output</h3><i class="arrow down"></i>
+                    </div>
+                    <div class="principle-card-content"><p class="text-slate-600 mt-4 pt-4 border-t border-slate-200">Mandate a strict output format. Instruct the model to produce *only* the prompt text, without preamble or commentary. Using clear delimiters like triple backticks (```) is essential for programmatically extracting the prompt for Step 2.</p></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 mt-24">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>An interactive visualization based on the report "A Guide to the Two-Step Meta-Prompting Template."</p>
+            <p class="text-sm mt-2">Designed to make advanced AI concepts accessible and understandable.</p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const runDemoBtn = document.getElementById('runDemoBtn');
+        const userGoalInput = document.getElementById('userGoal');
+        const apiKeyInput = document.getElementById('apiKey');
+        const placeholder = document.getElementById('demo-placeholder');
+        const resultsContainer = document.getElementById('demo-results');
+        const optimizedPromptOutput = document.getElementById('optimizedPromptOutput');
+        const finalOutput = document.getElementById('finalOutput');
+        const loader = document.getElementById('loader');
+
+        const META_PROMPT_TEMPLATE = `You are an expert Prompt Engineer and Metacognitive Strategist. Your sole task is to take a user's high-level goal and transform it into a detailed, structured, and highly effective prompt for another AI.
+
+**CRITICAL CONSTRAINTS:**
+- You MUST output ONLY the new prompt text.
+- Do NOT include any preamble, explanation, or conversational text like "Here is the prompt:".
+- The generated prompt must be designed to produce a comprehensive, clear, and well-structured response from a second AI.
+- The generated prompt must instruct the second AI to use Markdown for formatting (headings, bold text, lists) to improve readability.
+- The generated prompt must assign a clear, expert role to the second AI (e.g., "You are a professor of astrophysics...").
+
+**User Goal:**
+"{user_goal}"
+
+**Generated Prompt:**`;
+
+        async function callGemini(prompt, apiKey) {
+            const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ role: "user", parts: [{ text: prompt }] }],
+                generationConfig: { temperature: 0.4, topK: 1, topP: 1 }
+            };
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`API Error: ${response.status} - ${errorData.error?.message || 'Unknown error'}`);
+            }
+            const data = await response.json();
+            if (!data.candidates || !data.candidates[0].content.parts[0].text) {
+                throw new Error("Invalid response structure from API.");
+            }
+            return data.candidates[0].content.parts[0].text;
+        }
+
+        runDemoBtn.addEventListener('click', async () => {
+            const userGoal = userGoalInput.value.trim();
+            const apiKey = apiKeyInput.value.trim();
+
+            if (!apiKey) {
+                alert('Please enter your Gemini API key.');
+                return;
+            }
+            if (!userGoal) {
+                alert('Please enter a goal.');
+                return;
+            }
+
+            runDemoBtn.disabled = true;
+            loader.classList.remove('hidden');
+            placeholder.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            resultsContainer.classList.add('md:col-span-2');
+            
+            optimizedPromptOutput.textContent = '🧠 Generating optimized prompt with Gemini...';
+            finalOutput.innerHTML = '';
+
+            try {
+                // Step 1: Run Strategist
+                const strategistPrompt = META_PROMPT_TEMPLATE.replace('{user_goal}', userGoal);
+                const optimizedPrompt = await callGemini(strategistPrompt, apiKey);
+                optimizedPromptOutput.textContent = optimizedPrompt;
+                
+                finalOutput.innerHTML = '<p>📄 Generating final content with Gemini...</p>';
+
+                // Step 2: Run Executor
+                const finalContent = await callGemini(optimizedPrompt, apiKey);
+                // Basic markdown to HTML conversion
+                let htmlContent = finalContent
+                    .replace(/### (.*)/g, '<h3 class="text-lg font-semibold mt-4 mb-2">$1</h3>')
+                    .replace(/## (.*)/g, '<h2 class="text-xl font-bold mt-4 mb-2">$1</h2>')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\* (.*)/g, '<li class="ml-4 list-disc">$1</li>')
+                    .replace(/\n/g, '<br>');
+
+                finalOutput.innerHTML = htmlContent;
+
+            } catch (error) {
+                console.error("An error occurred:", error);
+                optimizedPromptOutput.textContent = `Error: ${error.message}`;
+                finalOutput.innerHTML = `<p class="text-red-500">Failed to get response. Please check your API key and network connection.</p>`;
+            } finally {
+                runDemoBtn.disabled = false;
+                loader.classList.add('hidden');
+            }
+        });
+
+        const copyCodeBtn = document.getElementById('copyCodeBtn');
+        const codeForCopy = document.getElementById('codeForCopy');
+        copyCodeBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(codeForCopy.innerText).then(() => {
+                copyCodeBtn.textContent = 'Copied!';
+                setTimeout(() => { copyCodeBtn.textContent = 'Copy'; }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                copyCodeBtn.textContent = 'Error';
+            });
+        });
+
+        const principleCards = document.querySelectorAll('.principle-card');
+        principleCards.forEach(card => {
+            const header = card.querySelector('.principle-card-header');
+            header.addEventListener('click', () => card.classList.toggle('open'));
+        });
+        
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                if (pageYOffset >= section.offsetTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active-nav');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active-nav');
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>
