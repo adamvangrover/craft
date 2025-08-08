@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecting Intelligence: An Interactive Guide to LLM Prompting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Slate & Amber -->
+    <!-- Application Structure Plan: The SPA is designed as a non-linear, thematic dashboard to maximize user exploration and understanding. The structure progresses from foundational concepts to advanced comparisons and future outlooks. A sticky navigation bar allows users to jump between key themes: 1) 'The Evolution' visually shows the paradigm shift. 2) 'Framework Deconstructed' uses an interactive master-detail view to let users dive into each of the 8 components. 3) 'Architectural Showdown' uses a radar chart for a direct, visual comparison of static, RAG, and agentic models. 4) 'Advanced Concepts' uses interactive cards to explain subtle biases. 5) 'The Future' uses a tabbed interface to present strategic blueprints. This structure was chosen over a linear report layout to empower users to learn at their own pace and focus on the areas most relevant to them, making the dense information more digestible and engaging. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Paradigm Shift (Sec II) -> Goal: Show Change -> Viz: HTML/CSS Flexbox Timeline -> Interaction: None, purely visual -> Justification: A simple, clear visual flow is more effective than a complex chart for this concept.
+        - Report Info: Modular Components (Table 1) -> Goal: Organize/Inform -> Viz: Two-panel master-detail layout -> Interaction: Clickable list updates detail panel -> Justification: Classic UI pattern for exploring a fixed set of items without overwhelming the user.
+        - Report Info: Architecture Comparison (Table 2) -> Goal: Compare -> Viz: Radar Chart -> Interaction: Hover for tooltips -> Justification: A radar chart is ideal for comparing multiple entities across multiple quantitative/qualitative axes (Predictability, Flexibility, Scalability), providing an instant visual summary. -> Library: Chart.js.
+        - Report Info: Methodological Artifacts (Sec V) -> Goal: Explain -> Viz: Interactive Cards -> Interaction: Click to reveal details -> Justification: Encourages user engagement and makes abstract concepts more tangible.
+        - Report Info: Strategic Blueprints (Sec VII) -> Goal: Organize -> Viz: Tabbed Interface -> Interaction: Click to switch tabs -> Justification: Standard method for organizing dense, related content into clean, manageable sections.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 400px; } }
+        .nav-link { transition: color 0.3s ease, border-bottom-color 0.3s ease; }
+        .nav-link:hover { color: #f59e0b; border-bottom-color: #f59e0b; }
+        .component-button.active { background-color: #f59e0b; color: #111827; }
+        .tab-button.active { border-color: #f59e0b; color: #f59e0b; }
+        .card-flip { perspective: 1000px; }
+        .card-flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+        .card-flip.flipped .card-flip-inner { transform: rotateY(180deg); }
+        .card-face { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+        .card-back { transform: rotateY(180deg); }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #f59e0b; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .gemini-feature-button { background-color: #1e293b; color: #f59e0b; }
+        .gemini-feature-button:hover { background-color: #334155; }
+        .gemini-feature-button:disabled { background-color: #475569; color: #94a3b8; cursor: not-allowed; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
+        <nav id="navbar" class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-amber-400">Architecting Intelligence</h1>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#deconstructor" class="nav-link border-b-2 border-transparent pb-1">✨Deconstructor</a>
+                <a href="#evolution" class="nav-link border-b-2 border-transparent pb-1">Evolution</a>
+                <a href="#framework" class="nav-link border-b-2 border-transparent pb-1">Framework</a>
+                <a href="#showdown" class="nav-link border-b-2 border-transparent pb-1">Showdown</a>
+                <a href="#future" class="nav-link border-b-2 border-transparent pb-1">Future</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-slate-300 hover:text-white hover:bg-slate-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+             <a href="#deconstructor" class="block py-2 text-slate-300 hover:text-amber-400">✨Deconstructor</a>
+            <a href="#evolution" class="block py-2 text-slate-300 hover:text-amber-400">The Evolution</a>
+            <a href="#framework" class="block py-2 text-slate-300 hover:text-amber-400">The Framework</a>
+            <a href="#showdown" class="block py-2 text-slate-300 hover:text-amber-400">The Showdown</a>
+            <a href="#concepts" class="block py-2 text-slate-300 hover:text-amber-400">Advanced Concepts</a>
+            <a href="#future" class="block py-2 text-slate-300 hover:text-amber-400">The Future</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="api-key-section" class="bg-amber-50 py-4 border-b border-amber-200">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-4">
+                <label for="apiKey" class="font-semibold text-slate-700">Enter Your Gemini API Key:</label>
+                <input type="password" id="apiKey" placeholder="Paste your API key here" class="p-2 border border-slate-300 rounded-md w-full md:w-1/3 shadow-sm">
+                <span id="apiKeyStatus" class="text-lg">🔴</span>
+            </div>
+        </section>
+
+        <section id="hero" class="bg-slate-800 text-white py-20 md:py-28">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl md:text-6xl font-bold leading-tight mb-4">From Prompt Crafting to Context Architecture</h2>
+                <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">
+                    This interactive guide, now enhanced with Gemini, explores the evolution of LLM interaction, deconstructs its components, and lets you apply these concepts in real-time.
+                </p>
+            </div>
+        </section>
+
+        <section id="deconstructor" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl md:text-4xl font-bold text-slate-900">✨ Live Prompt Deconstructor</h3>
+                    <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">Turn theory into practice. Enter a task in plain English, and Gemini will analyze it, breaking it down into the 8-component framework. This demonstrates how a simple request can be structured for a more reliable LLM response.</p>
+                </div>
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-slate-100 p-6 rounded-xl shadow-md">
+                        <textarea id="userInputPrompt" class="w-full p-3 border border-slate-300 rounded-md shadow-inner" rows="3" placeholder="e.g., Write a short, upbeat blog post about the benefits of morning walks for a general audience."></textarea>
+                        <button id="deconstructBtn" class="gemini-feature-button w-full mt-4 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center gap-2">
+                            Deconstruct Prompt
+                        </button>
+                    </div>
+                    <div id="deconstructorResult" class="mt-8">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="evolution" class="py-16 md:py-24 bg-slate-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl md:text-4xl font-bold text-slate-900">The Paradigm Shift</h3>
+                    <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">The discipline of interacting with LLMs has rapidly matured from an art into a structured engineering practice.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="p-6 bg-white rounded-xl shadow-md">
+                        <div class="text-4xl mb-4">🎨</div>
+                        <h4 class="text-xl font-semibold mb-2">1. Prompt Crafting</h4>
+                        <p class="text-slate-600">Early, intuitive phrasing of questions to coax desired responses.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-xl shadow-md">
+                        <div class="text-4xl mb-4">📜</div>
+                        <h4 class="text-xl font-semibold mb-2">2. Structured Prompts</h4>
+                        <p class="text-slate-600">Elaborate, single-inference prompts with explicit instructions, roles, and examples.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-xl shadow-md">
+                        <div class="text-4xl mb-4">🏗️</div>
+                        <h4 class="text-xl font-semibold mb-2">3. Context Architecture</h4>
+                        <p class="text-slate-600">The modern approach: programmatically assembling modular components.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="framework" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl md:text-4xl font-bold text-slate-900">Deconstructing the Framework</h3>
+                    <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">A modern prompt architecture is built from distinct, manageable components. Select a component to explore its function, benefits, and risks.</p>
+                </div>
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="w-full md:w-1/3">
+                        <div id="component-buttons" class="flex flex-col space-y-2">
+                        </div>
+                    </div>
+                    <div class="w-full md:w-2/3 bg-slate-50 p-6 md:p-8 rounded-xl shadow-lg">
+                        <div id="component-details">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="showdown" class="py-16 md:py-24 bg-slate-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl md:text-4xl font-bold text-slate-900">Architectural Showdown</h3>
+                    <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">The modular prompt is one of three dominant architectures. Here's how they compare in terms of predictability, flexibility, and scalability.</p>
+                </div>
+                <div class="chart-container bg-white p-4 rounded-xl shadow-md">
+                    <canvas id="architectureChart"></canvas>
+                </div>
+            </div>
+        </section>
+        
+        <section id="future" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl md:text-4xl font-bold text-slate-900">The Future: Strategic Blueprints</h3>
+                    <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">The most capable systems are hybrids. Use Gemini to generate starter code for these advanced architectures.</p>
+                </div>
+                <div>
+                    <div class="mb-6 border-b border-slate-200">
+                        <nav id="tab-buttons" class="-mb-px flex space-x-6" aria-label="Tabs">
+                        </nav>
+                    </div>
+                    <div id="tab-content">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>Interactive Application based on the report "Architecting Intelligence: An Analysis of Modular Prompting Frameworks for Advanced LLM Interaction".</p>
+            <p class="text-sm mt-2">Enhanced with generative features powered by the Gemini API.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let apiKey = '';
+            const apiKeyInput = document.getElementById('apiKey');
+            const apiKeyStatus = document.getElementById('apiKeyStatus');
+            const deconstructBtn = document.getElementById('deconstructBtn');
+
+            apiKeyInput.addEventListener('input', () => {
+                apiKey = apiKeyInput.value;
+                if (apiKey) {
+                    apiKeyStatus.textContent = '🟢';
+                    deconstructBtn.disabled = false;
+                } else {
+                    apiKeyStatus.textContent = '🔴';
+                    deconstructBtn.disabled = true;
+                }
+                document.querySelectorAll('.gemini-feature-button').forEach(btn => btn.disabled = !apiKey);
+            });
+            deconstructBtn.disabled = true;
+
+            const frameworkComponents = [
+                { id: 'persona', name: 'Persona', icon: '🎭', title: 'The Persona Directive', description: 'Sets the tone, style, and domain focus of the LLM.', benefit: 'Improves stylistic consistency and leverages domain-specific training data.', risk: 'Effectiveness is debated; can be ineffective if too generic or even harmful for some reasoning tasks.' },
+                { id: 'task', name: 'Task', icon: '📝', title: 'The Task Definition', description: 'Defines the specific, high-level goal for the LLM.', benefit: 'Provides a clear, unambiguous objective, reducing the chance of misinterpretation.', risk: 'Can be too high-level if not supported by other, more granular components.' },
+                { id: 'context', name: 'Context', icon: 'ℹ️', title: 'Situational Context', description: 'Provides background information and the user\'s direct query.', benefit: 'Grounds the LLM\'s response in the immediate circumstances of the request.', risk: 'Can be insufficient on its own without a broader knowledge base.' },
+                { id: 'ontology', name: 'Ontology', icon: '🧠', title: 'The Ontology (The "What")', description: 'Defines concepts, their types, and attributes.', benefit: 'Establishes a formal, shared vocabulary, reducing ambiguity in terminology.', risk: 'A manually created dictionary is static and not scalable for complex domains.' },
+                { id: 'knowledge_base', name: 'Knowledge Base', icon: '📚', title: 'The Knowledge Base (Facts)', description: 'Provides explicit, factual assertions the model must use.', benefit: 'Directly combats factual hallucination and grounds the model in a verifiable source of truth.', risk: 'Static knowledge becomes outdated; context window limits scalability.' },
+                { id: 'knowledge_graph', name: 'Knowledge Graph', icon: '🕸️', title: 'The Knowledge Graph (Relationships)', description: 'Represents entities and their relationships (the "how").', benefit: 'Enables reasoning over connections between data points, not just isolated facts.', risk: 'Static representation shares the same limitations as the Knowledge Base.' },
+                { id: 'decision_tree', name: 'Decision Tree', icon: '🌲', title: 'The Decision Tree (Logic)', description: 'Provides an explicit, human-authored logical flow.', benefit: 'Enforces deterministic business rules and ensures high predictability for critical workflows.', risk: 'Rigid and inflexible; cannot handle scenarios not explicitly defined in the tree.' },
+                { id: 'structured_output', name: 'Structured Output', icon: '📋', title: 'Structured Output Format', description: 'Mandates the exact output schema (e.g., JSON).', benefit: 'Ensures reliable, machine-readable output for programmatic use; simplifies validation.', risk: 'Overly complex schemas can be difficult for some models to adhere to perfectly.' }
+            ];
+
+            const futureTabs = [
+                { id: 'rag', name: 'Hybrid RAG System', description: `This hybrid system overcomes the limitations of static context by using Retrieval-Augmented Generation (RAG) to dynamically feed the modular prompt.`, content: `
+                    <ol class="list-decimal list-inside space-y-3 text-slate-700">
+                        <li><strong>Query Transformation:</strong> The user's query is rephrased by an LLM into an optimal search query.</li>
+                        <li><strong>Retrieval:</strong> The query is used to search a large, external vector database. The top N most relevant documents are retrieved.</li>
+                        <li><strong>Dynamic Population:</strong> The retrieved documents are used to dynamically populate the 'Knowledge Base' and 'Knowledge Graph' components of the modular prompt.</li>
+                        <li><strong>Synthesis & Generation:</strong> The fully populated, context-rich modular prompt is sent to the LLM, resulting in an answer that is both deeply reasoned and grounded in real-time data.</li>
+                    </ol>
+                `},
+                { id: 'agent', name: 'Hierarchical Agent', description: `For complex, multi-step tasks, the entire modular framework can be encapsulated as a highly reliable "tool" that a higher-level agent can call.`, content: `
+                    <ol class="list-decimal list-inside space-y-3 text-slate-700">
+                        <li><strong>Tool Definition:</strong> The modular prompt script is wrapped in a function and registered as a 'Structured_Analysis_Tool' for an agent.</li>
+                        <li><strong>Agent Orchestration:</strong> A high-level agent (the "Orchestrator") is given a complex goal and access to multiple tools (e.g., web search, database query, and our new tool).</li>
+                        <li><strong>Execution Flow:</strong> The agent first uses basic tools to gather data (e.g., search the web). It then passes this gathered data to the 'Structured_Analysis_Tool'.</li>
+                        <li><strong>Reliable Synthesis:</strong> Our tool executes its predictable, controlled workflow, returning a perfectly structured JSON analysis to the agent for its final steps. This combines agentic flexibility with workflow reliability.</li>
+                    </ol>
+                `},
+                { id: 'eval', name: 'Evaluation Framework', description: `To deploy with confidence, "it looks good" is not enough. A rigorous evaluation framework is essential.`, content: `
+                    <ol class="list-decimal list-inside space-y-3 text-slate-700">
+                        <li><strong>Golden Dataset:</strong> Create a test set of input scenarios with manually authored, "ideal" JSON outputs to serve as ground truth.</li>
+                        <li><strong>Quantitative Metrics:</strong> Automatically measure performance against the golden set. Metrics include Schema Compliance (Pass/Fail), Key Accuracy, and Value Accuracy (e.g., string similarity).</li>
+                        <li><strong>LLM-as-a-Judge:</strong> Use a powerful model like GPT-4 to act as an automated evaluator, scoring the generated output against the golden output on nuanced qualities like coherence and factuality.</li>
+                        <li><strong>Regression Testing:</strong> Integrate this evaluation suite into a CI/CD pipeline to run automatically, preventing regressions when the prompt architecture is changed.</li>
+                    </ol>
+                `}
+            ];
+            
+            async function callGemini(prompt) {
+                if (!apiKey) {
+                    alert('Please enter your Gemini API key.');
+                    return null;
+                }
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                
+                const payload = {
+                    contents: [{ role: "user", parts: [{ text: prompt }] }],
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                    }
+                };
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) {
+                        const errorBody = await response.json();
+                        throw new Error(`API Error: ${response.status} ${response.statusText} - ${errorBody.error.message}`);
+                    }
+                    const data = await response.json();
+                    if (data.candidates && data.candidates.length > 0) {
+                        const text = data.candidates[0].content.parts[0].text;
+                        return JSON.parse(text);
+                    }
+                    return null;
+                } catch (error) {
+                    console.error("Error calling Gemini API:", error);
+                    alert("An error occurred while calling the Gemini API. Check the console for details.");
+                    return null;
+                }
+            }
+            
+            deconstructBtn.addEventListener('click', async () => {
+                const userInput = document.getElementById('userInputPrompt').value;
+                if (!userInput) {
+                    alert('Please enter a prompt to deconstruct.');
+                    return;
+                }
+
+                const resultContainer = document.getElementById('deconstructorResult');
+                resultContainer.innerHTML = '<div class="flex justify-center"><div class="loader"></div></div>';
+                deconstructBtn.disabled = true;
+
+                const deconstructionPrompt = `
+                    Analyze the following user request and deconstruct it into the 8 components of a modular LLM prompt framework. For each component, provide a concise suggestion. If a component is not clearly implied, infer a reasonable default or state "Not specified".
+
+                    User Request: "${userInput}"
+
+                    Return a JSON object with the following keys: "persona", "task", "context", "ontology", "knowledge_base", "knowledge_graph", "decision_tree", "structured_output". Each key's value should be a string explaining the derived component.
+                `;
+                
+                const result = await callGemini(deconstructionPrompt);
+
+                if (result) {
+                    resultContainer.innerHTML = frameworkComponents.map(comp => `
+                        <div class="bg-white p-4 rounded-lg shadow mb-4">
+                            <h4 class="text-lg font-semibold text-slate-800 mb-2">${comp.icon} ${comp.name}</h4>
+                            <p class="text-slate-600">${result[comp.id] || 'No value returned.'}</p>
+                        </div>
+                    `).join('');
+                } else {
+                    resultContainer.innerHTML = '<p class="text-center text-red-500">Failed to get a response from the API.</p>';
+                }
+                deconstructBtn.disabled = false;
+            });
+
+            const componentButtonsContainer = document.getElementById('component-buttons');
+            const componentDetailsContainer = document.getElementById('component-details');
+
+            frameworkComponents.forEach((component, index) => {
+                const button = document.createElement('button');
+                button.className = 'component-button w-full text-left p-4 rounded-lg bg-white shadow hover:bg-amber-100 transition-colors duration-200';
+                button.innerHTML = `<span class="mr-3">${component.icon}</span> ${component.name}`;
+                button.dataset.componentId = component.id;
+                componentButtonsContainer.appendChild(button);
+
+                button.addEventListener('click', () => {
+                    displayComponentDetails(component.id);
+                    document.querySelectorAll('.component-button').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+
+                if (index === 0) {
+                    displayComponentDetails(component.id);
+                    button.classList.add('active');
+                }
+            });
+
+            function displayComponentDetails(componentId) {
+                const component = frameworkComponents.find(c => c.id === componentId);
+                if (component) {
+                    componentDetailsContainer.innerHTML = `
+                        <h4 class="text-2xl font-bold text-slate-900 mb-2">${component.icon} ${component.title}</h4>
+                        <p class="text-slate-600 italic mb-4">${component.description}</p>
+                        <div class="space-y-4">
+                            <div>
+                                <h5 class="font-semibold text-slate-800">Key Benefit</h5>
+                                <p class="text-slate-600">${component.benefit}</p>
+                            </div>
+                            <div>
+                                <h5 class="font-semibold text-slate-800">Primary Risk / Limitation</h5>
+                                <p class="text-slate-600">${component.risk}</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <button class="gemini-feature-button text-sm py-2 px-4 rounded-lg font-semibold transition-colors duration-200" onclick="explainELI5('${component.description}')" ${!apiKey ? 'disabled' : ''}>✨ Explain Like I'm 5</button>
+                            <div id="eli5-result" class="mt-4 text-slate-600 bg-amber-50 p-4 rounded-lg" style="display:none;"></div>
+                        </div>
+                    `;
+                }
+            }
+            
+            window.explainELI5 = async (description) => {
+                const eli5ResultContainer = document.getElementById('eli5-result');
+                eli5ResultContainer.style.display = 'block';
+                eli5ResultContainer.innerHTML = '<div class="flex justify-center"><div class="loader !w-6 !h-6"></div></div>';
+                
+                const prompt = `Explain the following concept using a simple analogy, as if you were explaining it to a 5-year-old: "${description}". Return a JSON object with a single key "explanation".`;
+                const result = await callGemini(prompt);
+                
+                if (result && result.explanation) {
+                    eli5ResultContainer.innerHTML = `<p><strong>Analogy:</strong> ${result.explanation}</p>`;
+                } else {
+                    eli5ResultContainer.innerHTML = '<p class="text-red-500">Could not generate an explanation.</p>';
+                }
+            }
+
+            const tabButtonsContainer = document.getElementById('tab-buttons');
+            const tabContentContainer = document.getElementById('tab-content');
+
+            futureTabs.forEach((tab, index) => {
+                const button = document.createElement('button');
+                button.className = 'tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-slate-500 hover:text-slate-700 hover:border-slate-300';
+                button.textContent = tab.name;
+                button.dataset.tabId = tab.id;
+                tabButtonsContainer.appendChild(button);
+
+                button.addEventListener('click', () => {
+                    displayTabContent(tab.id);
+                    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+
+                if (index === 0) {
+                    displayTabContent(tab.id);
+                    button.classList.add('active');
+                }
+            });
+
+            function displayTabContent(tabId) {
+                const tab = futureTabs.find(t => t.id === tabId);
+                if (tab) {
+                    tabContentContainer.innerHTML = `
+                    <div class="p-6 bg-slate-100 rounded-lg">
+                        <h4 class="text-2xl font-semibold text-slate-800 mb-2">Blueprint: ${tab.name}</h4>
+                        <p class="text-slate-600 mb-4">${tab.description}</p>
+                        ${tab.content}
+                        <div class="mt-6">
+                             <button class="gemini-feature-button w-full py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center gap-2" onclick="generateCode('${tab.name}')" ${!apiKey ? 'disabled' : ''}>
+                                ✨ Generate Code Skeleton
+                            </button>
+                            <div id="code-result-${tab.id}" class="mt-4" style="display:none;"></div>
+                        </div>
+                    </div>`;
+                }
+            }
+            
+            window.generateCode = async (blueprintName) => {
+                const tab = futureTabs.find(t => t.name === blueprintName);
+                const codeResultContainer = document.getElementById(`code-result-${tab.id}`);
+                codeResultContainer.style.display = 'block';
+                codeResultContainer.innerHTML = '<div class="flex justify-center"><div class="loader"></div></div>';
+                
+                const prompt = `Generate a high-level, illustrative Python code skeleton for a "${blueprintName}" system. The code should be simple, well-commented, and focus on showing the logical flow rather than being a complete, runnable application. Use placeholder functions where appropriate. Return a JSON object with a single key "code" containing the Python code as a string.`;
+                const result = await callGemini(prompt);
+                
+                if (result && result.code) {
+                    codeResultContainer.innerHTML = `<pre class="bg-slate-800 text-white p-4 rounded-lg overflow-x-auto text-sm"><code>${result.code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`;
+                } else {
+                    codeResultContainer.innerHTML = '<p class="text-red-500">Could not generate code.</p>';
+                }
+            }
+
+
+            const ctx = document.getElementById('architectureChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Scalability', 'Flexibility', 'Predictability', 'Controllability', 'Data Freshness'],
+                    datasets: [
+                        { label: 'Modular Prompt', data: [3, 2, 9, 9, 2], backgroundColor: 'rgba(245, 158, 11, 0.2)', borderColor: 'rgba(245, 158, 11, 1)', pointBackgroundColor: 'rgba(245, 158, 11, 1)', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: 'rgba(245, 158, 11, 1)' },
+                        { label: 'RAG', data: [9, 6, 6, 5, 9], backgroundColor: 'rgba(51, 65, 85, 0.2)', borderColor: 'rgba(51, 65, 85, 1)', pointBackgroundColor: 'rgba(51, 65, 85, 1)', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: 'rgba(51, 65, 85, 1)' },
+                        { label: 'Agentic Framework', data: [8, 9, 3, 3, 8], backgroundColor: 'rgba(100, 116, 139, 0.2)', borderColor: 'rgba(100, 116, 139, 1)', pointBackgroundColor: 'rgba(100, 116, 139, 1)', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: 'rgba(100, 116, 139, 1)' }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { r: { angleLines: { color: 'rgba(0, 0, 0, 0.1)' }, grid: { color: 'rgba(0, 0, 0, 0.1)' }, pointLabels: { font: { size: 14 } }, suggestedMin: 0, suggestedMax: 10, ticks: { backdropColor: 'rgba(255, 255, 255, 0.75)', stepSize: 2 } } }, plugins: { legend: { position: 'top' } } }
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            apiKeyInput.dispatchEvent(new Event('input'));
+        });
+    </script>
+</body>
+</html>
