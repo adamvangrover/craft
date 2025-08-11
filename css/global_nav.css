@@ -7,6 +7,8 @@
     width: 280px;
     box-sizing: border-box;
     transition: transform 0.3s ease-in-out;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 #global-nav-placeholder.hidden {
