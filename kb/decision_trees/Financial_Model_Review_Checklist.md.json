@@ -1,0 +1,297 @@
+{
+  "title": "Toolkit: Financial Model Review Checklist",
+  "source": "./Toolkits_and_Checklists/Financial_Model_Review_Checklist.md",
+  "tree": {
+    "text": "Root",
+    "children": [
+      {
+        "text": "`[x]` - Satisfactory / Complete / N/A",
+        "children": []
+      },
+      {
+        "text": "`[ ]` - Unsatisfactory / Needs Improvement / Further Investigation Required",
+        "children": []
+      },
+      {
+        "text": "**Overall Clarity & Organization:**",
+        "children": [
+          {
+            "text": "`[ ]` Is the model's purpose clearly stated?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Is there a clear table of contents or navigation guide for larger models?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Are sheets clearly and consistently named?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Is there a logical flow between sheets (e.g., inputs -> calculations -> outputs)?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Inputs, Calculations, Outputs Separation:**",
+        "children": [
+          {
+            "text": "`[ ]` Are input cells clearly distinguished (e.g., color-coded, specific sheet)?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Are calculations separated from inputs and outputs?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Are outputs clearly presented and easy to find?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Formatting & Readability:**",
+        "children": [
+          {
+            "text": "`[ ]` Is formatting consistent (fonts, number formats, colors)?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Are units clearly stated (e.g., $, millions, %, etc.)?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Is there adequate spacing and clear labeling for rows and columns?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Are formulas reasonably simple and broken down if complex? Avoid mega-formulas where possible.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**No Hardcoding in Formulas:**",
+        "children": [
+          {
+            "text": "`[ ]` Are all assumptions and drivers in input cells, not embedded directly in formulas? (Exception: genuinely fixed constants like days in year if not an input).",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Source & Documentation:**",
+        "children": [
+          {
+            "text": "`[ ]` Are sources for all historical data and key assumptions clearly documented?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Are assumptions clearly labeled and easy to understand?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Reasonableness & Support:**",
+        "children": [
+          {
+            "text": "`[ ]` Are key assumptions (growth rates, margins, discount rates, etc.) reasonable and supportable (e.g., by historical trends, industry research, management guidance)?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Has the basis for each key assumption been challenged or reviewed?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Sensitivity & Scenario Analysis:**",
+        "children": [
+          {
+            "text": "`[ ]` Are key assumptions designed to be easily sensitized?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Is there functionality for scenario analysis (base, upside, downside)? Are scenarios clearly defined?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Historical Data Accuracy:**",
+        "children": [
+          {
+            "text": "`[ ]` If historical data is used, has it been checked against audited financial statements or reliable sources?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Are historical calculations consistent with reported figures?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Formula Correctness & Integrity:**",
+        "children": [
+          {
+            "text": "`[ ]` Spot-check key formulas for logical correctness.",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Trace precedents and dependents for critical calculations.",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Are time periods handled consistently (e.g., start/end of period, annualization/de-annualization)?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Are signs correct (e.g., costs negative, revenues positive)?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Linking & Dependencies:**",
+        "children": [
+          {
+            "text": "`[ ]` Are links between sheets correct and not broken?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Are there any unintended external links to other files?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Circular References:**",
+        "children": [
+          {
+            "text": "`[ ]` Are there any unintended circular references?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` If intentional circularities exist (e.g., interest on debt calculation), are they properly controlled with iterative calculations enabled and understood? Is there a circuit breaker or manual override?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Financial Statement Integrity:**",
+        "children": [
+          {
+            "text": "`[ ]` **Balance Sheet Balances? (Assets = Liabilities + Equity)** This is critical.",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Does the Cash Flow Statement correctly reconcile opening and closing cash balances?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Do changes in Balance Sheet items correctly flow through the Cash Flow Statement (e.g., working capital changes, capex, debt drawdowns/repayments)?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Is Net Income from the Income Statement correctly linked to Retained Earnings on the Balance Sheet and the start of the Cash Flow Statement?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Consistency Checks:**",
+        "children": [
+          {
+            "text": "`[ ]` Are calculations consistent across different parts of the model?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Are totals and subtotals correctly calculated? (e.g., does sum of individual expense lines equal total OpEx?)",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Key Outputs Clarity:**",
+        "children": [
+          {
+            "text": "`[ ]` Are the primary outputs of the model (e.g., valuation, credit metrics, forecast financials) clearly displayed and easy to interpret?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Is there a summary sheet or dashboard for key results?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Charts & Tables:**",
+        "children": [
+          {
+            "text": "`[ ]` Are charts and tables clear, correctly labeled, and effectively visualizing the intended information?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Do they update correctly when inputs change?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Scenario & Sensitivity Display:**",
+        "children": [
+          {
+            "text": "`[ ]` If scenarios/sensitivities are run, are the results clearly presented and comparable?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Professionalism:**",
+        "children": [
+          {
+            "text": "`[ ]` Is the overall presentation professional and suitable for its intended audience?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Built-in Error Checks:**",
+        "children": [
+          {
+            "text": "`[ ]` Does the model include explicit error checks (e.g., balance sheet check, cash flow check, flags for negative equity/revenue)?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Are these error checks clearly visible?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Stress Testing:**",
+        "children": [
+          {
+            "text": "`[ ]` Has the model been stress-tested with extreme (but plausible) inputs to see if it behaves as expected or breaks?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Protection & Version Control:**",
+        "children": [
+          {
+            "text": "`[ ]` Are input cells unlocked and calculation/output cells locked (if model is to be shared)?",
+            "children": []
+          },
+          {
+            "text": "`[ ]` Is there any version control or log of changes if the model is complex and iterative? (More of a process point)",
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}
