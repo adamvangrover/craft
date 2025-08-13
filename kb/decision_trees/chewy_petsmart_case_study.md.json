@@ -1,0 +1,119 @@
+{
+  "title": "LME Case Study: Chewy/PetSmart (2018) - Asset Shielding via Stock Transfers",
+  "source": "./legal_analysis/miscellaneous_credit_analysis_topics/lme_strategies_and_case_studies/chewy_petsmart_case_study.md",
+  "tree": {
+    "text": "Root",
+    "children": [
+      {
+        "text": "**Company:** PetSmart, a U.S. retailer of pet supplies and services.",
+        "children": []
+      },
+      {
+        "text": "**Key Asset:** Chewy.com, a rapidly growing online retailer of pet products, acquired by PetSmart. Chewy was a significant part of the collateral value supporting loans used to finance its acquisition by PetSmart.",
+        "children": []
+      },
+      {
+        "text": "**Date:** Transactions occurred around 2018.",
+        "children": []
+      },
+      {
+        "text": "**Distribution of 20% of Chewy Stock (Restricted Payment):**",
+        "children": [
+          {
+            "text": "PetSmart distributed 20% of Chewy.com's stock to its ultimate parent holding company. This parent company was not a guarantor of PetSmart's debt.",
+            "children": []
+          },
+          {
+            "text": "This transfer was justified by PetSmart as permissible by utilizing available capacity under its **Restricted Payment (RP) covenant baskets**. PetSmart claimed substantial capacity under these baskets, reportedly due to prior equity contributions made to the group.",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.3, referencing [56]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Contribution of 16.5% of Chewy Stock to an Unrestricted Subsidiary (Investment):**",
+        "children": [
+          {
+            "text": "PetSmart contributed another 16.5% of Chewy.com's stock to a newly formed, wholly-owned subsidiary of PetSmart.",
+            "children": []
+          },
+          {
+            "text": "This new subsidiary was contemporaneously designated as an **Unrestricted Subsidiary.**",
+            "children": []
+          },
+          {
+            "text": "This transfer was justified using available capacity under its **Investment covenant baskets.**",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.3, referencing [56]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**\"Wholly-Owned Subsidiary\" Clause:** PetSmart's credit agreement contained a provision for the automatic release of guarantees and security from any subsidiary that \"ceases to be a wholly-owned Subsidiary.\"",
+        "children": []
+      },
+      {
+        "text": "**PetSmart's Argument:** PetSmart then argued that because Chewy.com was no longer a \"wholly-owned subsidiary\" (due to the 36.5% of its stock now being held by the parent holding company and the new unrestricted subsidiary \u2013 entities outside the direct chain of ownership that previously held 100%), this automatic lien release provision was triggered.",
+        "children": []
+      },
+      {
+        "text": "**Alleged Consequence:** According to PetSmart, this meant that all liens on Cheyen.com's assets were released, and Chewy's guarantee of PetSmart's debt was also released.",
+        "children": []
+      },
+      {
+        "text": "*Source Reference:* Section III.B.3, referencing [56]",
+        "children": []
+      },
+      {
+        "text": "**Loss of Collateral Value:** Secured lenders faced the potential loss of not only the direct collateral value of the 36.5% of Chewy.com shares that were transferred but, more critically, their entire security interest over Chewy.com's underlying assets if the automatic lien release argument held.",
+        "children": []
+      },
+      {
+        "text": "**Weakened Credit Support:** Chewy.com was a key and growing part of the PetSmart business, and its removal from the collateral package and as a guarantor significantly weakened the credit support for PetSmart's lenders.",
+        "children": []
+      },
+      {
+        "text": "**Lender Challenge:** Lenders challenged PetSmart's actions and its interpretation of the covenant baskets and the automatic lien release provisions.",
+        "children": []
+      },
+      {
+        "text": "Arguments likely included that the baskets were not intended to permit such significant value leakage or the stripping of collateral and guarantees from a core subsidiary in this manner, and that the transfers might constitute fraudulent conveyances or breaches of good faith.",
+        "children": []
+      },
+      {
+        "text": "*Source Reference:* Section III.B.3, referencing [56]",
+        "children": []
+      },
+      {
+        "text": "**Outcome of Litigation:** The specifics of the litigation outcome are not fully detailed in the provided source [56]. However, the source [60] notes that Chewy eventually went public in 2019. The transaction highlighted the significant risks embedded in broadly defined covenant baskets and automatic lien/guarantee release provisions.",
+        "children": []
+      },
+      {
+        "text": "**Preventing Automatic Release on Non-Wholly-Owned Status due to Affiliate Transfers:** Providing that subsidiary guarantees and collateral will **not** be automatically released solely because a guarantor subsidiary ceases to be \"wholly-owned\" as a result of a transfer of its shares to an affiliate (such as a parent company or an unrestricted subsidiary of the borrower).",
+        "children": []
+      },
+      {
+        "text": "**Requiring Bona Fide Third-Party Sales:** Stipulating that such releases of guarantees/collateral should only occur in connection with a bona fide sale of the subsidiary or its assets to a non-affiliated third party for fair market value.",
+        "children": []
+      },
+      {
+        "text": "**Limiting Release for Other \"Excluded Subsidiary\" Reasons:** Ensuring releases only occur if the subsidiary becomes an \"excluded subsidiary\" for legitimate reasons (e.g., regulatory prohibitions on providing credit support) other than a mere internal reorganization or share transfer designed to strip guarantees/collateral.",
+        "children": []
+      },
+      {
+        "text": "**Limiting Non-Cash Distributions/Investments:** Placing tighter controls on non-cash distributions or investments, particularly those involving the equity of material subsidiaries.",
+        "children": []
+      },
+      {
+        "text": "*Source Reference:* Section III.B.3, referencing [55]",
+        "children": []
+      }
+    ]
+  }
+}
