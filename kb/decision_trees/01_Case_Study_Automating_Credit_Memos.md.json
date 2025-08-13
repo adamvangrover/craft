@@ -1,0 +1,62 @@
+{
+  "title": "Case Study: Automating Credit Memo Generation",
+  "source": "./AI_and_Coding/GenAI_Curriculum/03_AI-Powered_Workflow_Automation/01_Case_Study_Automating_Credit_Memos.md",
+  "tree": {
+    "text": "Root",
+    "children": [
+      {
+        "text": "The company's latest annual (10-K) and quarterly (10-Q) financial reports.",
+        "children": []
+      },
+      {
+        "text": "A third-party industry analysis report.",
+        "children": []
+      },
+      {
+        "text": "Internal records of past dealings with the company.",
+        "children": []
+      },
+      {
+        "text": "The company's formal loan application.",
+        "children": []
+      },
+      {
+        "text": "Year-over-year revenue growth trends.",
+        "children": []
+      },
+      {
+        "text": "Key drivers of the recent changes in EBITDA margin.",
+        "children": []
+      },
+      {
+        "text": "An overview of the company's liquidity position, referencing the current ratio and cash on hand.",
+        "children": []
+      },
+      {
+        "text": "**Efficiency:** The initial draft of the credit memo, which would have taken 3-4 hours to prepare manually, is generated in under 15 minutes.",
+        "children": []
+      },
+      {
+        "text": "**Focus on High-Value Work:** The analyst is freed from the mechanical tasks of data extraction and summary writing. Their time is now spent on the \"so what\" of the analysis:",
+        "children": [
+          {
+            "text": "Critically reviewing and validating the AI's output.",
+            "children": []
+          },
+          {
+            "text": "Adding their own expert judgment and nuanced insights.",
+            "children": []
+          },
+          {
+            "text": "Evaluating the creditworthiness of the borrower and structuring the loan appropriately.",
+            "children": []
+          },
+          {
+            "text": "Communicating the final recommendation to the credit committee.",
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}
