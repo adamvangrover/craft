@@ -1,0 +1,79 @@
+{
+  "title": "An Overview of Key Regulatory Frameworks",
+  "source": "./fact/rr/regulatory_frameworks.md",
+  "tree": {
+    "text": "Root",
+    "children": [
+      {
+        "text": "**Basel I:** Introduced in 1988, the first Basel Accord focused on credit risk and established a minimum capital requirement of 8% of risk-weighted assets.",
+        "children": []
+      },
+      {
+        "text": "**Basel II:** Published in 2004, Basel II refined the capital requirements by introducing a three-pillar framework:",
+        "children": [
+          {
+            "text": "**Pillar 1:** Minimum capital requirements, which expanded the scope of risk to include operational risk and market risk.",
+            "children": []
+          },
+          {
+            "text": "**Pillar 2:** Supervisory review, which requires banks to have internal processes to assess their capital adequacy and for supervisors to evaluate those assessments.",
+            "children": []
+          },
+          {
+            "text": "**Pillar 3:** Market discipline, which aims to increase transparency by requiring banks to disclose more information about their risks and capital.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Basel III:** Developed in response to the 2008 financial crisis, Basel III introduced more stringent capital requirements, as well as new liquidity and leverage ratios. The key components of Basel III include:",
+        "children": [
+          {
+            "text": "**Higher Capital Ratios:** Increased the minimum capital requirements and introduced a new \"capital conservation buffer.\"",
+            "children": []
+          },
+          {
+            "text": "**Liquidity Coverage Ratio (LCR):** Requires banks to hold enough high-quality liquid assets to cover their total net cash outflows over a 30-day stress period.",
+            "children": []
+          },
+          {
+            "text": "**Net Stable Funding Ratio (NSFR):** Requires banks to maintain a stable funding profile in relation to their off-balance-sheet exposures.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**The Volcker Rule:** Prohibits banks from engaging in certain types of speculative investments, such as proprietary trading.",
+        "children": []
+      },
+      {
+        "text": "**The Financial Stability Oversight Council (FSOC):** Created to identify and monitor systemic risks to the financial system.",
+        "children": []
+      },
+      {
+        "text": "**The Consumer Financial Protection Bureau (CFPB):** A new agency with the authority to regulate consumer financial products and services.",
+        "children": []
+      },
+      {
+        "text": "**Section 302:** Requires that the principal officers (typically the CEO and CFO) of the company certify the accuracy of their financial reports.",
+        "children": []
+      },
+      {
+        "text": "**Section 404:** Requires that management and the external auditor report on the adequacy of the company's internal control over financial reporting (ICFR).",
+        "children": []
+      },
+      {
+        "text": "**Pillar 1:** Quantitative requirements, including capital requirements and valuation of assets and liabilities.",
+        "children": []
+      },
+      {
+        "text": "**Pillar 2:** Governance and supervision, including requirements for risk management and internal controls.",
+        "children": []
+      },
+      {
+        "text": "**Pillar 3:** Reporting and disclosure, which requires insurance companies to disclose more information about their risks and capital.",
+        "children": []
+      }
+    ]
+  }
+}
