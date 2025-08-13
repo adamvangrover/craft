@@ -1,0 +1,210 @@
+{
+  "title": "Toolkits & Checklists for Financial Analysts",
+  "source": "./Toolkits_and_Checklists/README.md",
+  "tree": {
+    "text": "Root",
+    "children": [
+      {
+        "text": "**Offer Practical Job Aids:** Provide ready-to-use or easily adaptable checklists for common analytical processes.",
+        "children": []
+      },
+      {
+        "text": "**Guide Structured Analysis:** Help analysts ensure they cover all critical areas in their assessments.",
+        "children": []
+      },
+      {
+        "text": "**Promote Best Practices:** Reinforce methodical approaches to tasks like due diligence and ratio analysis.",
+        "children": []
+      },
+      {
+        "text": "**Enhance Efficiency:** Save time by providing pre-built frameworks for routine but important activities.",
+        "children": []
+      },
+      {
+        "text": "**[Credit_Analysis_Due_Diligence_Checklist.md](./Credit_Analysis_Due_Diligence_Checklist.md):**",
+        "children": [
+          {
+            "text": "A comprehensive checklist covering key areas for financial, business, industry, legal, and collateral due diligence when assessing a corporate borrower.",
+            "children": []
+          },
+          {
+            "text": "Designed to be adaptable for various transaction types.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**[Basic_Financial_Ratios_Calculator_Guide.md](./Basic_Financial_Ratios_Calculator_Guide.md):**",
+        "children": [
+          {
+            "text": "A Markdown guide explaining how to set up a simple Excel sheet to calculate key financial ratios (Liquidity, Solvency/Leverage, Coverage, Profitability, Activity).",
+            "children": []
+          },
+          {
+            "text": "Includes formulas and interpretation notes from a credit analyst's perspective.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**[Financial_Model_Review_Checklist.md](./Financial_Model_Review_Checklist.md):**",
+        "children": [
+          {
+            "text": "A checklist for reviewing financial models, focusing on structure, inputs, formula integrity, logic, and output reasonableness.",
+            "children": []
+          },
+          {
+            "text": "Links to `Financial_Modeling/Templates/Excel_Financial_Model_Best_Practices.md`.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**[Debiasing_Checklist_for_Analysis.md](./Debiasing_Checklist_for_Analysis.md):**",
+        "children": [
+          {
+            "text": "A practical job aid with questions to help analysts identify and mitigate common behavioral biases before finalizing a recommendation.",
+            "children": []
+          },
+          {
+            "text": "Links to `Behavioral_Finance/Debiasing_Techniques_for_Analysts.md`.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Covenant_Analysis_Checklist.md:** *(Future Addition)*",
+        "children": [
+          {
+            "text": "A guide for analyzing loan covenants, including identifying key terms, assessing their restrictiveness, and modeling compliance.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Industry_Analysis_Framework_Checklist.md:** *(Future Addition)*",
+        "children": [
+          {
+            "text": "A checklist to guide analysts through a structured industry analysis, potentially incorporating elements of Porter's Five Forces and PESTLE analysis.",
+            "children": []
+          },
+          {
+            "text": "Will link to relevant CRAFT modules and `Risk_Management/02_Risk_Identification_and_Assessment_Frameworks.md`.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Management_Meeting_Question_Template.md:** *(Future Addition)*",
+        "children": [
+          {
+            "text": "A template of key questions to ask during management meetings as part of due diligence, categorized by area (strategy, operations, finance, risk).",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Reference Guides:** Use these checklists and guides as a reference during your analytical work to ensure comprehensive coverage.",
+        "children": []
+      },
+      {
+        "text": "**Adapt and Customize:** Feel free to adapt these general templates to suit the specific needs of your institution, industry focus, or particular transaction.",
+        "children": []
+      },
+      {
+        "text": "**Learning Tools:** For those newer to analysis, these documents can also serve as learning tools by outlining key areas of focus for various tasks.",
+        "children": []
+      },
+      {
+        "text": "**Quality Control:** Checklists can help maintain a consistent quality standard in analytical output, especially within a team.",
+        "children": []
+      },
+      {
+        "text": "**New Checklists:** For other common analytical tasks or specific types of credit facilities/industries.",
+        "children": []
+      },
+      {
+        "text": "**Template Enhancements:** Suggestions for improving existing checklists or guides.",
+        "children": []
+      },
+      {
+        "text": "**Simple \"How-To\" Guides:** For other basic but essential analytical tasks that can be systematized.",
+        "children": []
+      },
+      {
+        "text": "**Practicality is Paramount:** All content in this section must be directly usable and practical. Focus on real-world applicability.",
+        "children": []
+      },
+      {
+        "text": "**Actionable Format:** Checklists should use Markdown checkboxes (`- [ ]` or `- [x]`) for easy use. Guides should be step-by-step.",
+        "children": []
+      },
+      {
+        "text": "**Prioritize Future Additions:** The \"Future Addition\" items listed (Financial Model Review Checklist, Covenant Analysis Checklist, etc.) would provide significant value.",
+        "children": []
+      },
+      {
+        "text": "**Integration with Interactive Notebooks:** For tools like the \"Basic Financial Ratios Calculator,\" consider if an interactive Jupyter Notebook version could be created in `Interactive_Notebooks/` and linked from the guide here.",
+        "children": []
+      },
+      {
+        "text": "**Maintainability:** As best practices evolve or new analytical areas emerge, these toolkits may need updating.",
+        "children": []
+      },
+      {
+        "text": "**Students:**",
+        "children": [
+          {
+            "text": "Use these checklists not just as to-do lists, but as learning tools to understand the scope of various analytical tasks.",
+            "children": []
+          },
+          {
+            "text": "Adapt these generic checklists for specific assignments or case studies.",
+            "children": []
+          },
+          {
+            "text": "The \"Basic Financial Ratios Calculator Guide\" can help you build your own simple Excel tool for quick ratio analysis.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Teachers:**",
+        "children": [
+          {
+            "text": "Use these checklists as a basis for assignments (e.g., \"Perform due diligence on Company X using this checklist\").",
+            "children": []
+          },
+          {
+            "text": "Discuss the importance of structured analytical processes in preventing errors and omissions.",
+            "children": []
+          },
+          {
+            "text": "Encourage students to think critically about *why* each item is on a checklist.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Industry-Specific Checklists:** E.g., Due diligence checklist for a specific industry like SaaS or Real Estate.",
+        "children": []
+      },
+      {
+        "text": "**Valuation Checklist:** Key steps and considerations when performing a company valuation.",
+        "children": []
+      },
+      {
+        "text": "**Risk Assessment Checklist:** A general framework for identifying and assessing various risks.",
+        "children": []
+      },
+      {
+        "text": "**\"Red Flags\" Checklist:** Common warning signs to look for in financial statements or company disclosures.",
+        "children": []
+      },
+      {
+        "text": "**Templates for Common Analyst Outputs:** E.g., a basic structure for a one-page investment summary or a credit update note.",
+        "children": []
+      }
+    ]
+  }
+}
