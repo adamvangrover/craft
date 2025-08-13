@@ -1,0 +1,308 @@
+{
+  "title": "02: Risk Identification and Assessment Frameworks",
+  "source": "./Risk_Management/02_Risk_Identification_and_Assessment_Frameworks.md",
+  "tree": {
+    "text": "Root",
+    "children": [
+      {
+        "text": "**Risk Identification:** The process of finding, recognizing, and describing risks that could affect the achievement of objectives.",
+        "children": []
+      },
+      {
+        "text": "**Risk Assessment:** The overall process of risk identification, risk analysis (understanding likelihood and impact), and risk evaluation (comparing risk levels against risk criteria to determine significance).",
+        "children": []
+      },
+      {
+        "text": "**Description:** Gathering a diverse group of individuals (e.g., from different departments, levels of seniority, subject matter experts) to collaboratively identify potential risks.",
+        "children": []
+      },
+      {
+        "text": "**Pros:** Encourages broad thinking, leverages collective knowledge and diverse perspectives. Can uncover risks missed by individuals.",
+        "children": []
+      },
+      {
+        "text": "**Cons:** Can be time-consuming, effectiveness depends on facilitation and group dynamics. May be subject to groupthink if not managed well.",
+        "children": []
+      },
+      {
+        "text": "**Application:** Useful for initial risk identification exercises, project risk assessments, or when exploring new strategic initiatives.",
+        "children": []
+      },
+      {
+        "text": "**Description:** Using predefined lists of common risks based on past experience, industry knowledge, or regulatory requirements. Questionnaires guide individuals through potential risk areas.",
+        "children": []
+      },
+      {
+        "text": "**Pros:** Ensures common risks are not overlooked, systematic, relatively quick to administer.",
+        "children": []
+      },
+      {
+        "text": "**Cons:** May not identify new or unique risks not on the list (backward-looking). Can be generic if not tailored.",
+        "children": []
+      },
+      {
+        "text": "**Application:** Good for routine risk assessments, compliance checks, and ensuring coverage of known risk categories. (The `Credit_Analysis_Due_Diligence_Checklist.md` in `Toolkits_and_Checklists/` is an example).",
+        "children": []
+      },
+      {
+        "text": "**Description:** While primarily a strategic planning tool, the \"Weaknesses\" and \"Threats\" components are direct inputs into risk identification.",
+        "children": [
+          {
+            "text": "**Weaknesses (Internal):** Characteristics that place the organization at a disadvantage relative to others (e.g., outdated technology, lack of skilled personnel, poor internal controls). These are sources of internal risk.",
+            "children": []
+          },
+          {
+            "text": "**Threats (External):** Elements in the external environment that could cause trouble for the organization (e.g., new competitors, adverse regulatory changes, economic downturn, supply chain disruptions).",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Pros:** Simple framework, encourages thinking about both internal and external factors.",
+        "children": []
+      },
+      {
+        "text": "**Cons:** Can be very high-level if not probed deeply.",
+        "children": []
+      },
+      {
+        "text": "**Application:** Useful at the strategic level and for business unit risk assessments.",
+        "children": []
+      },
+      {
+        "text": "**Description:** A framework for scanning the external macro-environment to identify key drivers of change and potential sources of risk.",
+        "children": [
+          {
+            "text": "**Political:** Government stability, tax policy, trade regulations.",
+            "children": []
+          },
+          {
+            "text": "**Economic:** Growth rates, inflation, interest rates, exchange rates, unemployment.",
+            "children": []
+          },
+          {
+            "text": "**Social:** Demographic changes, consumer preferences, cultural trends, ethics.",
+            "children": []
+          },
+          {
+            "text": "**Technological:** Innovation, automation, R&D, cybersecurity threats.",
+            "children": []
+          },
+          {
+            "text": "**Legal:** Changes in laws (employment, health & safety, consumer protection).",
+            "children": []
+          },
+          {
+            "text": "**Environmental:** Climate change, pollution, resource availability, weather events.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Pros:** Comprehensive for external macro risks. Encourages forward-thinking.",
+        "children": []
+      },
+      {
+        "text": "**Cons:** May not identify specific internal operational risks.",
+        "children": []
+      },
+      {
+        "text": "**Application:** Excellent for strategic risk identification and scenario planning.",
+        "children": []
+      },
+      {
+        "text": "**Description:** Reviewing past internal incidents (errors, losses, near misses) and external events (industry failures, competitor issues) to identify recurring risks or control weaknesses.",
+        "children": []
+      },
+      {
+        "text": "**Pros:** Based on actual events, provides concrete evidence of vulnerabilities.",
+        "children": []
+      },
+      {
+        "text": "**Cons:** Primarily backward-looking; may not identify novel risks.",
+        "children": []
+      },
+      {
+        "text": "**Application:** Essential for improving operational risk management and internal controls.",
+        "children": []
+      },
+      {
+        "text": "**Description:** A central document or database where identified risks are logged, described, and categorized. It typically includes details like risk owner, potential causes, consequences, existing controls, and initial assessment.",
+        "children": []
+      },
+      {
+        "text": "**Pros:** Provides a structured inventory of risks. Facilitates tracking and monitoring.",
+        "children": []
+      },
+      {
+        "text": "**Cons:** Can become a \"tick-box\" exercise if not actively maintained and used for decision-making.",
+        "children": []
+      },
+      {
+        "text": "**Application:** A core tool in any formal risk management framework.",
+        "children": []
+      },
+      {
+        "text": "**Description:** Consulting with subject matter experts (internal or external) to gain insights into specific risk areas. The Delphi technique involves multiple rounds of anonymous expert input, with feedback shared between rounds to reach a more refined consensus.",
+        "children": []
+      },
+      {
+        "text": "**Pros:** Leverages specialized knowledge. Delphi can reduce bias from dominant personalities.",
+        "children": []
+      },
+      {
+        "text": "**Cons:** Can be costly and time-consuming. Finding true, unbiased experts can be challenging.",
+        "children": []
+      },
+      {
+        "text": "**Application:** Useful for complex, technical, or emerging risks where general knowledge is limited.",
+        "children": []
+      },
+      {
+        "text": "**Description:** Developing plausible adverse scenarios and analyzing their potential impact on the organization. This helps identify risks that might only materialize under specific conditions.",
+        "children": []
+      },
+      {
+        "text": "**Pros:** Encourages forward-looking and creative thinking about potential problems. Helps understand interconnectedness of risks.",
+        "children": []
+      },
+      {
+        "text": "**Cons:** Developing realistic and relevant scenarios can be difficult.",
+        "children": []
+      },
+      {
+        "text": "**Application:** Useful for stress testing, strategic risk assessment, and business continuity planning.",
+        "children": []
+      },
+      {
+        "text": "**Description:** Uses descriptive scales (e.g., High, Medium, Low; or numerical scales like 1-5) to rate likelihood and impact. Does not rely on precise quantitative data.",
+        "children": []
+      },
+      {
+        "text": "**Techniques:**",
+        "children": [
+          {
+            "text": "**Risk Matrix (Probability/Impact Matrix):** A common tool that plots likelihood against impact. Risks falling in the high-likelihood/high-impact quadrant are typically prioritized.",
+            "children": [
+              {
+                "text": "*Example Scales:*",
+                "children": [
+                  {
+                    "text": "Likelihood: Remote, Unlikely, Possible, Likely, Almost Certain.",
+                    "children": []
+                  },
+                  {
+                    "text": "Impact (Financial): Insignificant (<$10k), Minor ($10k-$100k), Moderate ($100k-$1M), Major ($1M-$10M), Catastrophic (>$10M). (Scales must be defined for the organization).",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "text": "**Risk Ranking/Prioritization:** Based on the risk matrix or other scoring methods, risks are ranked to focus attention on the most critical ones.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Pros:** Relatively simple and quick to apply, useful when quantitative data is scarce or unreliable, facilitates communication and common understanding of risk.",
+        "children": []
+      },
+      {
+        "text": "**Cons:** Subjective (ratings can vary between assessors), scales can be imprecise, may not adequately differentiate between risks with similar ratings.",
+        "children": []
+      },
+      {
+        "text": "**Credit Analyst Application:** Often the first step in assessing qualitative aspects of a borrower (e.g., management quality rated as Strong/Average/Weak, industry risk as High/Medium/Low).",
+        "children": []
+      },
+      {
+        "text": "**Description:** Assigns numerical values to the qualitative scales (e.g., Low=1, Medium=3, High=5). A risk score can then be calculated (e.g., `Risk Score = Likelihood Score * Impact Score`).",
+        "children": []
+      },
+      {
+        "text": "**Pros:** Provides a more granular ranking than purely qualitative methods.",
+        "children": []
+      },
+      {
+        "text": "**Cons:** Still relies on subjective inputs for the initial scores; the numerical scores can create a false sense of precision if not carefully interpreted.",
+        "children": []
+      },
+      {
+        "text": "**Application:** Common in operational risk assessments and project risk management.",
+        "children": []
+      },
+      {
+        "text": "**Description:** Aims to assign objective numerical values (often monetary) to the likelihood and impact of risks, typically using statistical methods and historical data.",
+        "children": []
+      },
+      {
+        "text": "**Techniques (Examples - many are more advanced than L1 CFA but good to be aware of):**",
+        "children": [
+          {
+            "text": "**Expected Loss (EL):** A core concept in credit risk. `EL = Probability of Default (PD) * Loss Given Default (LGD) * Exposure at Default (EAD)`.",
+            "children": []
+          },
+          {
+            "text": "**Value at Risk (VaR):** Estimates the maximum potential loss on a portfolio over a specific time horizon at a given confidence level (e.g., \"99% VaR of $10 million over 10 days\"). Used in market risk.",
+            "children": []
+          },
+          {
+            "text": "**Monte Carlo Simulation:** A computational technique that uses random sampling to model the probability of different outcomes in a process that cannot easily be predicted due to the intervention of random variables. Used for complex risk modeling.",
+            "children": []
+          },
+          {
+            "text": "**Sensitivity Analysis & Scenario Analysis (Quantitative):** Examining how changes in key variables impact financial outcomes (e.g., impact of a 1% interest rate rise on net interest income).",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Pros:** Provides objective, data-driven risk measures. Enables more precise risk comparison and aggregation. Supports economic capital calculations.",
+        "children": []
+      },
+      {
+        "text": "**Cons:** Requires significant data, complex models, and specialized expertise. Assumptions underlying models are critical. Historical data may not always be a good predictor of future events (especially for \"tail risks\").",
+        "children": []
+      },
+      {
+        "text": "**Credit Analyst Application:** PD, LGD, EAD are fundamental inputs for credit risk measurement and pricing. Sensitivity analysis on financial projections is a common quantitative technique.",
+        "children": []
+      },
+      {
+        "text": "**Description:** The process of comparing the results of risk analysis with predefined **risk criteria** to determine whether a risk (or its residual level after controls) is acceptable or tolerable.",
+        "children": []
+      },
+      {
+        "text": "**Risk Criteria:** These are derived from the organization's objectives, risk appetite, and legal/regulatory obligations. They define what level of risk is considered acceptable.",
+        "children": [
+          {
+            "text": "*Example:* \"The company will not tolerate any risk that has a catastrophic financial impact, regardless of likelihood.\" \"Individual credit exposures should not exceed X% of total capital.\"",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Outcome:** Decisions on which risks require treatment and the priority for treatment actions.",
+        "children": []
+      },
+      {
+        "text": "Identified and assessed risks inform **Risk Treatment** decisions.",
+        "children": []
+      },
+      {
+        "text": "The effectiveness of treatments needs to be **Monitored**.",
+        "children": []
+      },
+      {
+        "text": "Significant risks and their assessments are **Reported** to stakeholders.",
+        "children": []
+      },
+      {
+        "text": "The entire process is subject to ongoing **Review** and improvement.",
+        "children": []
+      }
+    ]
+  }
+}
