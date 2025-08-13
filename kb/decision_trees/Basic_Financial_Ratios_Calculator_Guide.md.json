@@ -1,0 +1,105 @@
+{
+  "title": "Guide: Building a Basic Financial Ratios Calculator in Excel",
+  "source": "./Toolkits_and_Checklists/Basic_Financial_Ratios_Calculator_Guide.md",
+  "tree": {
+    "text": "Root",
+    "children": [
+      {
+        "text": "**Create Sheets:**",
+        "children": [
+          {
+            "text": "**`Input_IS`:** For inputting Income Statement data.",
+            "children": []
+          },
+          {
+            "text": "**`Input_BS`:** For inputting Balance Sheet data.",
+            "children": []
+          },
+          {
+            "text": "**`Ratios_Output`:** Where the calculated ratios will be displayed.",
+            "children": []
+          },
+          {
+            "text": "**(Optional) `Assumptions`:** For any specific assumptions like tax rate if not directly derivable.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Basic Formatting (Refer to Excel Best Practices Guide):**",
+        "children": [
+          {
+            "text": "Use clear labels for rows (financial statement line items) and columns (periods - e.g., Year 1, Year 2, TTM).",
+            "children": []
+          },
+          {
+            "text": "Color-code input cells (e.g., blue font or light yellow fill) to distinguish them from formula cells (black font).",
+            "children": []
+          },
+          {
+            "text": "Ensure consistent number formatting.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Cell References:** Replace conceptual references like `Input_BS!D6` with actual cell references from your input sheets.",
+        "children": []
+      },
+      {
+        "text": "**Averages:** For ratios using balance sheet items (e.g., ROA, ROE, Turnover Ratios, DSO, DIH, DPO), it's best practice to use **average** balances ( (Beginning Balance + Ending Balance) / 2 ). This requires data from Period 0, Period 1, and Period 2 to calculate ratios for Period 1 and Period 2.",
+        "children": [
+          {
+            "text": "Example for Average Total Assets for Period 2: `AVERAGE(Input_BS!D10, Input_BS!C10)` (where D10 is Year 2 Assets, C10 is Year 1 Assets).",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Total Debt:** Ensure you sum Short-Term Debt and Long-Term Debt from the `Input_BS` sheet for ratios like Debt-to-Equity. It's good practice to have a \"Total Debt\" line item calculated on the `Input_BS` sheet and link to that.",
+        "children": []
+      },
+      {
+        "text": "**EBITDA:** If not directly in your Income Statement input, calculate it: `EBIT + Depreciation & Amortization`.",
+        "children": []
+      },
+      {
+        "text": "**Error Handling:** Use `IFERROR(your_formula, \"\")` to avoid #DIV/0! errors if a denominator is zero.",
+        "children": []
+      },
+      {
+        "text": "**Trend Analysis:** Add columns for multiple periods (e.g., Year 1, Year 2, Year 3) on the `Ratios_Output` sheet to easily see trends.",
+        "children": []
+      },
+      {
+        "text": "**Common-Size Analysis:**",
+        "children": [
+          {
+            "text": "**Income Statement:** Express all line items as a % of Revenue.",
+            "children": []
+          },
+          {
+            "text": "**Balance Sheet:** Express all line items as a % of Total Assets.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Peer Comparison:** Add columns to input peer company ratios for benchmarking.",
+        "children": []
+      },
+      {
+        "text": "**Charts:** Create simple charts to visualize key ratio trends.",
+        "children": []
+      },
+      {
+        "text": "**DuPont Analysis:** Decompose ROE into its components (Net Profit Margin x Asset Turnover x Financial Leverage).",
+        "children": []
+      },
+      {
+        "text": "**Basic Cash Flow Statement:** You can extend this by adding an `Input_CFS_Changes` sheet to input changes in BS accounts not captured by IS (e.g., asset sales/purchases, debt/equity issuance/repayment) and then build a simplified Cash Flow Statement.",
+        "children": []
+      }
+    ]
+  }
+}
