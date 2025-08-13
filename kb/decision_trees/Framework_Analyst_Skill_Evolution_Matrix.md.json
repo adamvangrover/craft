@@ -1,0 +1,71 @@
+{
+  "title": "Framework: The Evolving Credit Analyst Skillset - A Competency Matrix for the GenAI Era",
+  "source": "./modules/Credit_Analysis/modules/05-future-of-risk-management/case-studies/Framework_Analyst_Skill_Evolution_Matrix.md",
+  "tree": {
+    "text": "Root",
+    "children": [
+      {
+        "text": "**Add `default_location` to `User` model**:",
+        "children": [
+          {
+            "text": "Create a new migration to add a `default_location` field to the `User` model.",
+            "children": []
+          },
+          {
+            "text": "Update the `User` model to include the new field.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Implement `get_user_location` function**:",
+        "children": [
+          {
+            "text": "Create a new function in `user_utils.py` that takes a `User` object as input and returns their preferred location (either from their profile or the default).",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Update relevant sections of code to use `get_user_location`**:",
+        "children": [
+          {
+            "text": "Modify existing functions that currently use hardcoded locations to use the new `get_user_location` function instead.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Add unit tests**:",
+        "children": [
+          {
+            "text": "Write unit tests to ensure the `get_user_location` function behaves correctly.",
+            "children": []
+          },
+          {
+            "text": "Write unit tests to ensure that the updated functions correctly use the user's preferred location.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Add documentation**:",
+        "children": [
+          {
+            "text": "Update documentation to reflect the new configuration option and the `get_user_location` function.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Submit**:",
+        "children": [
+          {
+            "text": "Commit changes and submit for review.",
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}
