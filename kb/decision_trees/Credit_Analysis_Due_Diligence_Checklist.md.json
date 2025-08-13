@@ -1,0 +1,721 @@
+{
+  "title": "Comprehensive Due Diligence Checklist for Corporate Credit Analysis",
+  "source": "./Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md",
+  "tree": {
+    "text": "Root",
+    "children": [
+      {
+        "text": "This is not necessarily a linear process; information gathering often happens concurrently across areas.",
+        "children": []
+      },
+      {
+        "text": "Mark items as N/A (Not Applicable) if they genuinely do not apply, but consider why.",
+        "children": []
+      },
+      {
+        "text": "Document sources for all information.",
+        "children": []
+      },
+      {
+        "text": "Focus not just on *what* the information is, but *why* it's relevant to the company's creditworthiness.",
+        "children": []
+      },
+      {
+        "text": "This checklist should be used in conjunction with detailed financial modeling and ratio analysis.",
+        "children": []
+      },
+      {
+        "text": "**1.1. Basic Information:**",
+        "children": [
+          {
+            "text": "[ ] Legal Name of Borrower & Any Guarantors",
+            "children": []
+          },
+          {
+            "text": "[ ] Address of Headquarters and Key Operations",
+            "children": []
+          },
+          {
+            "text": "[ ] Legal Structure (e.g., Corporation, LLC, Partnership) & Jurisdiction of Incorporation",
+            "children": []
+          },
+          {
+            "text": "[ ] Date of Incorporation/Establishment",
+            "children": []
+          },
+          {
+            "text": "[ ] Ownership Structure (Public, Private, PE-backed, Family-owned; list major shareholders if known)",
+            "children": []
+          },
+          {
+            "text": "[ ] Company Website & Key Contact Persons",
+            "children": []
+          },
+          {
+            "text": "[ ] Purpose of Loan / Use of Proceeds",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**1.2. Business Description & Operations:**",
+        "children": [
+          {
+            "text": "[ ] Detailed Description of Products and/or Services Offered",
+            "children": []
+          },
+          {
+            "text": "[ ] Core Business Segments and their contribution to revenue/profit",
+            "children": []
+          },
+          {
+            "text": "[ ] Key Geographic Markets Served",
+            "children": []
+          },
+          {
+            "text": "[ ] Overview of Operational Process (Manufacturing, Service Delivery)",
+            "children": []
+          },
+          {
+            "text": "[ ] Key Physical Assets (Plants, Equipment, Distribution Centers) - Location, Age, Condition (high-level)",
+            "children": []
+          },
+          {
+            "text": "[ ] Capacity Utilization (if applicable)",
+            "children": []
+          },
+          {
+            "text": "[ ] Sourcing of Key Raw Materials/Inputs",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**1.3. History & Strategy:**",
+        "children": [
+          {
+            "text": "[ ] Brief History of the Company, Key Milestones",
+            "children": []
+          },
+          {
+            "text": "[ ] Current Strategic Objectives and Growth Plans (Organic, Acquisitive)",
+            "children": []
+          },
+          {
+            "text": "[ ] Recent Significant Events (M&A, Divestitures, Restructurings, Major Product Launches)",
+            "children": []
+          },
+          {
+            "text": "[ ] Mission, Vision, and Values (if articulated)",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**1.4. Organizational Structure & Management:**",
+        "children": [
+          {
+            "text": "[ ] Organizational Chart (Key Departments/Functions)",
+            "children": []
+          },
+          {
+            "text": "[ ] Management Team & Key Personnel:",
+            "children": [
+              {
+                "text": "[ ] Names, Titles, Tenure with Company, Relevant Experience",
+                "children": []
+              },
+              {
+                "text": "[ ] Background Checks/Reputation (if warranted, for key individuals)",
+                "children": []
+              },
+              {
+                "text": "[ ] Management Depth and Succession Planning (especially for smaller companies)",
+                "children": []
+              }
+            ]
+          },
+          {
+            "text": "[ ] Board of Directors (if applicable): Composition, Independence, Expertise",
+            "children": []
+          },
+          {
+            "text": "[ ] Employee Base: Number of employees, unionization status, labor relations history.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**2.1. Industry Overview:**",
+        "children": [
+          {
+            "text": "[ ] Definition and Scope of the Industry",
+            "children": []
+          },
+          {
+            "text": "[ ] Size and Growth Rate of the Industry (Historical and Projected)",
+            "children": []
+          },
+          {
+            "text": "[ ] Key Industry Drivers (e.g., economic cycles, technological change, regulation, consumer trends)",
+            "children": []
+          },
+          {
+            "text": "[ ] Stage of Industry Lifecycle (Growth, Mature, Decline)",
+            "children": []
+          },
+          {
+            "text": "[ ] Barriers to Entry",
+            "children": []
+          },
+          {
+            "text": "[ ] Seasonality (if any)",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**2.2. Competitive Landscape:**",
+        "children": [
+          {
+            "text": "[ ] Identify Key Competitors (Direct and Indirect)",
+            "children": []
+          },
+          {
+            "text": "[ ] Company's Market Position and Market Share (and trends)",
+            "children": []
+          },
+          {
+            "text": "[ ] Competitive Advantages / Disadvantages of the Company (e.g., brand, technology, cost structure, distribution)",
+            "children": []
+          },
+          {
+            "text": "[ ] Basis of Competition in the Industry (e.g., price, quality, service, innovation)",
+            "children": []
+          },
+          {
+            "text": "[ ] Porter's Five Forces Analysis (Threat of New Entrants, Bargaining Power of Buyers, Bargaining Power of Suppliers, Threat of Substitutes, Intensity of Rivalry)",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**2.3. Customer Analysis:**",
+        "children": [
+          {
+            "text": "[ ] Major Customers / Customer Segments",
+            "children": []
+          },
+          {
+            "text": "[ ] Customer Concentration Risk (% of revenue from top 5-10 customers)",
+            "children": []
+          },
+          {
+            "text": "[ ] Typical Contract Terms with Customers (Length, Payment Terms, Switching Costs)",
+            "children": []
+          },
+          {
+            "text": "[ ] Customer Relationships and Loyalty",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**2.4. Supplier Analysis:**",
+        "children": [
+          {
+            "text": "[ ] Major Suppliers",
+            "children": []
+          },
+          {
+            "text": "[ ] Supplier Concentration Risk",
+            "children": []
+          },
+          {
+            "text": "[ ] Availability of Alternative Suppliers / Inputs",
+            "children": []
+          },
+          {
+            "text": "[ ] Typical Contract Terms with Suppliers",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**2.5. Regulatory Environment:**",
+        "children": [
+          {
+            "text": "[ ] Key Regulations Affecting the Industry/Company (e.g., environmental, safety, labor, financial)",
+            "children": []
+          },
+          {
+            "text": "[ ] Impact of Potential Regulatory Changes",
+            "children": []
+          },
+          {
+            "text": "[ ] Licenses and Permits Required",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**2.6. Macroeconomic Factors:**",
+        "children": [
+          {
+            "text": "[ ] Sensitivity to Economic Cycles (GDP, inflation, interest rates, unemployment)",
+            "children": []
+          },
+          {
+            "text": "[ ] Impact of Foreign Exchange Rates (if applicable)",
+            "children": []
+          },
+          {
+            "text": "[ ] Geopolitical Risks (if operating internationally)",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**3.1. Historical Financial Statements (typically 3-5 years + interim):**",
+        "children": [
+          {
+            "text": "[ ] Obtain Audited Financial Statements (if available); otherwise, Reviewed or Compiled. Note quality of statements.",
+            "children": []
+          },
+          {
+            "text": "[ ] Income Statements",
+            "children": []
+          },
+          {
+            "text": "[ ] Balance Sheets",
+            "children": []
+          },
+          {
+            "text": "[ ] Cash Flow Statements",
+            "children": []
+          },
+          {
+            "text": "[ ] Notes to Financial Statements (CRITICAL - read thoroughly)",
+            "children": []
+          },
+          {
+            "text": "[ ] Management's Discussion & Analysis (MD&A) if public company",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**3.2. Financial Spreading & Ratio Analysis:**",
+        "children": [
+          {
+            "text": "[ ] Spread financials into a standardized format.",
+            "children": []
+          },
+          {
+            "text": "[ ] Calculate and Analyze Key Ratios (and trends):",
+            "children": [
+              {
+                "text": "[ ] **Liquidity:** Current Ratio, Quick Ratio, Cash Ratio, Defensive Interval, CCC (DSO, DIH, DPO)",
+                "children": []
+              },
+              {
+                "text": "[ ] **Solvency/Leverage:** Debt/Equity, Debt/Capital, Debt/Assets, Financial Leverage, Debt/EBITDA, FFO/Debt",
+                "children": []
+              },
+              {
+                "text": "[ ] **Coverage:** Interest Coverage (TIE), EBITDA Coverage, Fixed Charge Coverage (FCCR), DSCR",
+                "children": []
+              },
+              {
+                "text": "[ ] **Profitability:** Gross Margin, Operating Margin, Net Margin, ROA, ROE, ROC/ROIC",
+                "children": []
+              },
+              {
+                "text": "[ ] **Activity/Efficiency:** Asset Turnover, Inventory Turnover, AR Turnover",
+                "children": []
+              }
+            ]
+          },
+          {
+            "text": "[ ] Benchmark ratios against industry peers and historical trends.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**3.3. Quality of Earnings (QoE) Assessment:**",
+        "children": [
+          {
+            "text": "[ ] Identify Non-Recurring or One-Time Items (and adjust EBITDA/Net Income)",
+            "children": []
+          },
+          {
+            "text": "[ ] Review Revenue Recognition Policies (for aggressiveness)",
+            "children": []
+          },
+          {
+            "text": "[ ] Analyze Expense Recognition (e.g., capitalization vs. expensing)",
+            "children": []
+          },
+          {
+            "text": "[ ] Scrutinize Working Capital movements (are they sustainable sources/uses of cash?)",
+            "children": []
+          },
+          {
+            "text": "[ ] Compare Net Income to Cash Flow from Operations (large divergences are a red flag)",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**3.4. Cash Flow Analysis:**",
+        "children": [
+          {
+            "text": "[ ] Detailed analysis of CFO, CFI, CFF.",
+            "children": []
+          },
+          {
+            "text": "[ ] Sustainability of CFO.",
+            "children": []
+          },
+          {
+            "text": "[ ] Capital Expenditure analysis (Maintenance vs. Growth CapEx).",
+            "children": []
+          },
+          {
+            "text": "[ ] Free Cash Flow (FCFF, FCFE) generation and its adequacy for debt service.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**3.5. Financial Projections / Forecasts:**",
+        "children": [
+          {
+            "text": "[ ] Obtain company-prepared projections (if available).",
+            "children": []
+          },
+          {
+            "text": "[ ] Critically assess assumptions underlying projections (revenue growth, margins, CapEx, working capital). Are they realistic and well-supported?",
+            "children": []
+          },
+          {
+            "text": "[ ] Develop independent base case, upside, and downside/stress case projections.",
+            "children": []
+          },
+          {
+            "text": "[ ] Sensitivity analysis on key drivers.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**3.6. Debt Structure & Terms:**",
+        "children": [
+          {
+            "text": "[ ] Detailed schedule of existing debt: Lender, amount, maturity, interest rate, security/collateral, covenants.",
+            "children": []
+          },
+          {
+            "text": "[ ] Analysis of proposed new debt facility.",
+            "children": []
+          },
+          {
+            "text": "[ ] Off-Balance Sheet Financing (Operating Leases - pre-ASC 842/IFRS 16, Guarantees, Take-or-Pay Contracts, etc. - review footnotes).",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**3.7. Tax Position:**",
+        "children": [
+          {
+            "text": "[ ] Effective Tax Rate vs. Statutory Rate",
+            "children": []
+          },
+          {
+            "text": "[ ] Status of Tax Payments / Any Disputes",
+            "children": []
+          },
+          {
+            "text": "[ ] Net Operating Losses (NOLs) available",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**4.1. Corporate Structure & Good Standing:**",
+        "children": [
+          {
+            "text": "[ ] Verify legal existence and good standing (articles of incorporation, bylaws).",
+            "children": []
+          },
+          {
+            "text": "[ ] Review organizational documents for any restrictions or unusual provisions.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**4.2. Material Contracts:**",
+        "children": [
+          {
+            "text": "[ ] Review key customer contracts, supplier agreements, leases, loan agreements.",
+            "children": []
+          },
+          {
+            "text": "[ ] Identify any change-of-control provisions, restrictive covenants, or termination clauses.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**4.3. Litigation:**",
+        "children": [
+          {
+            "text": "[ ] Inquire about any pending, threatened, or past material litigation or regulatory investigations.",
+            "children": []
+          },
+          {
+            "text": "[ ] Assess potential financial or operational impact.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**4.4. Regulatory Compliance:**",
+        "children": [
+          {
+            "text": "[ ] Verify possession of necessary licenses and permits.",
+            "children": []
+          },
+          {
+            "text": "[ ] History of compliance with industry-specific regulations.",
+            "children": []
+          },
+          {
+            "text": "[ ] Environmental compliance (Phase I ESA may be needed for real estate collateral).",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**4.5. Insurance Coverage:**",
+        "children": [
+          {
+            "text": "[ ] Adequacy of insurance coverage (property, liability, D&O, etc.).",
+            "children": []
+          },
+          {
+            "text": "[ ] Named as additional insured/loss payee if lending secured.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**4.6. Intellectual Property (if material):**",
+        "children": [
+          {
+            "text": "[ ] Ownership and protection of key patents, trademarks, copyrights.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**5.1. Accounts Receivable:**",
+        "children": [
+          {
+            "text": "[ ] Aging schedule review (concentration of overdue accounts).",
+            "children": []
+          },
+          {
+            "text": "[ ] Customer concentration within receivables.",
+            "children": []
+          },
+          {
+            "text": "[ ] Dilution analysis (credits, returns, bad debts).",
+            "children": []
+          },
+          {
+            "text": "[ ] Eligibility criteria for borrowing base.",
+            "children": []
+          },
+          {
+            "text": "[ ] Independent field exam / AR audit results.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**5.2. Inventory:**",
+        "children": [
+          {
+            "text": "[ ] Composition (raw materials, WIP, finished goods).",
+            "children": []
+          },
+          {
+            "text": "[ ] Valuation method (FIFO, LIFO, Avg. Cost).",
+            "children": []
+          },
+          {
+            "text": "[ ] Obsolescence risk.",
+            "children": []
+          },
+          {
+            "text": "[ ] Net Orderly Liquidation Value (NOLV) appraisal (if available/warranted).",
+            "children": []
+          },
+          {
+            "text": "[ ] Location and control of inventory.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**5.3. Machinery & Equipment (M&E):**",
+        "children": [
+          {
+            "text": "[ ] Detailed listing, age, condition.",
+            "children": []
+          },
+          {
+            "text": "[ ] Appraisals (Fair Market Value, Orderly Liquidation Value, Forced Liquidation Value).",
+            "children": []
+          },
+          {
+            "text": "[ ] Liens search (UCC filings).",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**5.4. Real Estate (RE):**",
+        "children": [
+          {
+            "text": "[ ] Legal description, location, type, condition.",
+            "children": []
+          },
+          {
+            "text": "[ ] Appraisals.",
+            "children": []
+          },
+          {
+            "text": "[ ] Environmental assessment (Phase I ESA).",
+            "children": []
+          },
+          {
+            "text": "[ ] Title insurance, property insurance.",
+            "children": []
+          },
+          {
+            "text": "[ ] Liens search.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**5.5. Other Collateral (e.g., Intellectual Property, Securities):**",
+        "children": [
+          {
+            "text": "[ ] Valuation and perfection of security interest.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**6.1. Identify Key Credit Risks:**",
+        "children": [
+          {
+            "text": "[ ] Business Risks (Industry, Competition, Customer/Supplier Concentration, Management, Operational).",
+            "children": []
+          },
+          {
+            "text": "[ ] Financial Risks (Leverage, Liquidity, Profitability, Cash Flow, Interest Rate, FX).",
+            "children": []
+          },
+          {
+            "text": "[ ] Structural Risks (Loan terms, collateral, guarantees).",
+            "children": []
+          },
+          {
+            "text": "[ ] Other Risks (Legal, Regulatory, Environmental, Event Risk).",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**6.2. Assess Potential Mitigants:**",
+        "children": [
+          {
+            "text": "[ ] Collateral coverage.",
+            "children": []
+          },
+          {
+            "text": "[ ] Guarantees (personal, corporate).",
+            "children": []
+          },
+          {
+            "text": "[ ] Loan covenants (financial, affirmative, negative).",
+            "children": []
+          },
+          {
+            "text": "[ ] Loan structure (amortization, term, pricing).",
+            "children": []
+          },
+          {
+            "text": "[ ] Hedging strategies by the company.",
+            "children": []
+          },
+          {
+            "text": "[ ] Management experience and track record.",
+            "children": []
+          },
+          {
+            "text": "[ ] Equity sponsor support (if PE-backed).",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**6.3. SWOT Analysis (Strengths, Weaknesses, Opportunities, Threats) from a Credit Perspective.**",
+        "children": []
+      },
+      {
+        "text": "[ ] Appropriateness of loan type (Revolver, Term Loan, ABL).",
+        "children": []
+      },
+      {
+        "text": "[ ] Amount and Term.",
+        "children": []
+      },
+      {
+        "text": "[ ] Pricing (Interest Rate, Fees) commensurate with risk.",
+        "children": []
+      },
+      {
+        "text": "[ ] Repayment Schedule (Amortization, Bullet).",
+        "children": []
+      },
+      {
+        "text": "[ ] Collateral & Security (perfecting liens).",
+        "children": []
+      },
+      {
+        "text": "[ ] Covenants (Financial, Affirmative, Negative) - ensure they are meaningful and provide early warning.",
+        "children": []
+      },
+      {
+        "text": "[ ] Guarantees.",
+        "children": []
+      },
+      {
+        "text": "[ ] Reporting Requirements.",
+        "children": []
+      },
+      {
+        "text": "[ ] Conditions Precedent to Closing.",
+        "children": []
+      }
+    ]
+  }
+}
