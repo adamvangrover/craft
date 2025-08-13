@@ -1,0 +1,190 @@
+{
+  "title": "LME Case Study: Envision Healthcare (2022) - Unrestricted Subsidiary Designation & Priming",
+  "source": "./legal_analysis/miscellaneous_credit_analysis_topics/lme_strategies_and_case_studies/envision_healthcare_case_study.md",
+  "tree": {
+    "text": "Root",
+    "children": [
+      {
+        "text": "**Company:** Envision Healthcare, a provider of physician services and ambulatory surgery centers.",
+        "children": []
+      },
+      {
+        "text": "**Context:** Facing significant financial pressure due to:",
+        "children": [
+          {
+            "text": "Impact of the COVID-19 pandemic on patient volumes.",
+            "children": []
+          },
+          {
+            "text": "Disputes with major insurers (e.g., UnitedHealthcare).",
+            "children": []
+          },
+          {
+            "text": "Implementation of the No Surprises Act (affecting out-of-network billing).",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.4, referencing [61]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Date:** LME transactions primarily in April 2022 and August 2022.",
+        "children": []
+      },
+      {
+        "text": "**Designation of AmSurg as Unrestricted Subsidiary (April 2022):**",
+        "children": [
+          {
+            "text": "Envision designated a substantial portion (reportedly 83%) of its profitable AmSurg ambulatory surgery business as an **Unrestricted Subsidiary.**",
+            "children": []
+          },
+          {
+            "text": "This carved AmSurg out of Envision's existing restricted group, meaning AmSurg was no longer bound by the main credit agreement's covenants, and its assets were no longer part of the existing lenders' direct collateral package.",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.4, referencing [36], [62]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**New Debt Incurrence by Unrestricted AmSurg:**",
+        "children": [
+          {
+            "text": "The now unrestricted AmSurg entity incurred **$1.1 billion in new first-lien debt.** This debt was secured by AmSurg's assets.",
+            "children": []
+          },
+          {
+            "text": "The proceeds from this new debt were used to repurchase portions of Envision's existing first-lien term loan, incremental term loan, and unsecured notes, all at a discount.",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.4, referencing [62]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Further Restructuring (August 2022):**",
+        "children": [
+          {
+            "text": "Another restructuring occurred, viewed as a distressed exchange.",
+            "children": []
+          },
+          {
+            "text": "In total, through these maneuvers, Envision incurred **$2.6 billion of new secured financing** via the AmSurg unrestricted subsidiary structure. This level of new debt would have violated its existing credit facility terms had AmSurg not been designated unrestricted.",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.4, referencing [57], [62]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Collateral Stripping:** The high-performing AmSurg assets were removed from the existing lenders' collateral pool and credit support.",
+        "children": []
+      },
+      {
+        "text": "**Priming:** New debt incurred at the AmSurg level was secured by AmSurg assets, effectively ranking senior to (priming) the claims of remaining Envision lenders with respect to AmSurg's value.",
+        "children": []
+      },
+      {
+        "text": "**Subordination for Non-Participants:** Lenders who did not participate in the new financing at the AmSurg level were left with debt supported by a significantly weakened Envision (ex-AmSurg) and a heavily subordinated claim against the valuable AmSurg assets.",
+        "children": []
+      },
+      {
+        "text": "**Exploitation of \"Loose\" Documentation:** The LME exploited flaws in Envision's pre-LME credit agreement, which reportedly had:",
+        "children": [
+          {
+            "text": "Material capacity for investments in (and thus transfers of assets to, or designation of) unrestricted subsidiaries.",
+            "children": []
+          },
+          {
+            "text": "A requirement of only majority lender consent to subordinate outstanding loans (facilitating the uptiering aspect for participating lenders).",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.4, referencing [57]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Chapter 11 Bankruptcy:** Despite these LMEs, Envision Healthcare ultimately filed for Chapter 11 bankruptcy in May 2023.",
+        "children": [
+          {
+            "text": "*Source Reference:* Section III.B.4, referencing [62]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Restructuring Plan:** A restructuring plan was confirmed in October 2023.",
+        "children": [
+          {
+            "text": "Resulted in a significant debt reduction (over 70%).",
+            "children": []
+          },
+          {
+            "text": "AmSurg and Envision Physician Services became separately owned by certain of their respective lenders (those who participated in the new money/exchange at AmSurg level likely fared better).",
+            "children": []
+          },
+          {
+            "text": "The private equity sponsor KKR's equity in Envision was likely wiped out.",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.4, referencing [61], [83]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**AAEM-PG Lawsuit:** A separate lawsuit by the American Academy of Emergency Medicine Physician Group (AAEM-PG) against Envision regarding the corporate practice of medicine in California was effectively ended by Envision's withdrawal from California operations as part of its restructuring, though this was distinct from the LME-driven financial restructuring.",
+        "children": [
+          {
+            "text": "*Source Reference:* Section III.B.4, referencing [84]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Specific Basket Limitation:** Providing that **only a specific, clearly identified investment basket** (if any is permitted at all) can be used for investments in, or designation of, unrestricted subsidiaries.",
+        "children": []
+      },
+      {
+        "text": "**Anti-Stacking/Combination Prohibition:** Prohibiting the combination or \"stacking\" of other general investment baskets or Restricted Payment covenant capacity to fund transfers to, or facilitate the designation of, unrestricted subsidiaries.",
+        "children": []
+      },
+      {
+        "text": "**Tripartite Protection:** \"Envision Blockers\" are often seen as incorporating elements of:",
+        "children": [
+          {
+            "text": "**J.Crew Blockers:** Protecting material assets/IP from being moved to unrestricted subsidiaries.",
+            "children": []
+          },
+          {
+            "text": "**Serta Blockers:** Requiring heightened consent for actions that result in subordination of existing debt.",
+            "children": []
+          },
+          {
+            "text": "Plus the specific focus on limiting the *sources* of capacity for unrestricted subsidiary investments/designations.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Market Adoption:** Iterations of Envision blockers are increasingly present in loan agreements, particularly in private credit.",
+        "children": []
+      },
+      {
+        "text": "*Source Reference:* Section III.B.4, referencing [36], [57]",
+        "children": []
+      }
+    ]
+  }
+}
