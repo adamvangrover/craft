@@ -1,0 +1,47 @@
+{
+  "title": "Case Study: Deferred Revenue at Microsoft",
+  "source": "./modules/Accounting/Case_Studies/deferred_revenue_case_study.md",
+  "tree": {
+    "text": "Root",
+    "children": [
+      {
+        "text": "**Initial Entry:**",
+        "children": [
+          {
+            "text": "Debit Cash: $360",
+            "children": []
+          },
+          {
+            "text": "Credit Deferred Revenue: $360",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Annual Adjusting Entry (for 3 years):**",
+        "children": [
+          {
+            "text": "Debit Deferred Revenue: $120",
+            "children": []
+          },
+          {
+            "text": "Credit Revenue: $120",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "Why is deferred revenue a liability?",
+        "children": []
+      },
+      {
+        "text": "How does the recognition of deferred revenue affect Microsoft's income statement and cash flow statement?",
+        "children": []
+      },
+      {
+        "text": "What are the risks associated with a large deferred revenue balance?",
+        "children": []
+      }
+    ]
+  }
+}
