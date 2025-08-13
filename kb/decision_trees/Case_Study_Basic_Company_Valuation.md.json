@@ -1,0 +1,73 @@
+{
+  "title": "CFA Level I Case Study: Basic Company Valuation",
+  "source": "./CFA/Level_1/Case_Studies/Case_Study_Basic_Company_Valuation.md",
+  "tree": {
+    "text": "Root",
+    "children": [
+      {
+        "text": "Latest Fiscal Year Revenue: $5 million",
+        "children": []
+      },
+      {
+        "text": "Projected Revenue Growth (next year): 30%",
+        "children": []
+      },
+      {
+        "text": "Current Net Loss: ($0.5 million)",
+        "children": []
+      },
+      {
+        "text": "Comparable Company P/S Ratio: 4.0x",
+        "children": []
+      },
+      {
+        "text": "**Appropriate Valuation Models:**",
+        "children": [
+          {
+            "text": "Given that TechSpark is not profitable and pays no dividends, which valuation approaches introduced in Level I would be most appropriate to consider? Why?",
+            "children": []
+          },
+          {
+            "text": "Discuss the limitations of using a Dividend Discount Model (DDM) for TechSpark.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Relative Valuation:**",
+        "children": [
+          {
+            "text": "Using the comparable company P/S ratio of 4.0x, estimate the value of TechSpark based on its latest fiscal year revenue.",
+            "children": []
+          },
+          {
+            "text": "What are the key challenges and limitations of using the P/S ratio for valuation, especially for a growth company like TechSpark?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Free Cash Flow to Equity (FCFE) - Conceptual:**",
+        "children": [
+          {
+            "text": "Conceptually, how would you approach valuing TechSpark using an FCFE model if you had sufficient forecast data? What are the key inputs you would need?",
+            "children": []
+          },
+          {
+            "text": "Why might forecasting FCFE be challenging for a young, high-growth company?",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Qualitative Factors:**",
+        "children": [
+          {
+            "text": "Beyond quantitative models, what qualitative factors should an analyst consider when assessing the value and risk of TechSpark? (e.g., management quality, competitive landscape, product innovation).",
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}
