@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRAFT Program - Interactive Curriculum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Calm Neutral" - A base of slate grays and off-white, with a professional teal accent for interactive elements. This creates a focused, academic, and modern feel. -->
+    <!-- Application Structure Plan: The SPA is designed as a learning hub with a persistent left-hand sidebar for module navigation and a dynamic main content area. This non-linear structure allows users (analysts) to freely explore topics or follow the curriculum sequentially. Instead of a long scroll, content within each module is organized into interactive tabs and visual elements (like clickable diagrams and charts). This was chosen to break down dense information into manageable, engaging chunks, promoting exploration and quick reference over passive reading, which is more effective for a professional training tool. -->
+    <!-- Visualization & Content Choices: 
+        - Credit Lifecycle (Module 1.1): Goal: Organize/Inform. Method: Interactive HTML/CSS diagram. Interaction: Clicking a stage reveals details. Justification: More engaging and memorable than a static list.
+        - Ratio Analysis (Module 1.3): Goal: Compare. Method: Dynamic Bar Chart (Chart.js). Interaction: Buttons switch between ratio categories. Justification: Intuitive visual comparison is faster than reading a table.
+        - Porter's Five Forces (Module 2.2): Goal: Organize/Inform. Method: Interactive HTML/CSS diagram. Interaction: Clicking a force reveals its description. Justification: Transforms a theoretical framework into an explorable tool.
+        - Covenant Calculator (Module 3.3): Goal: Apply. Method: Interactive HTML form. Interaction: User inputs data to see compliance status. Justification: Reinforces learning through direct application.
+        - Capital Stack (Module 4.2): Goal: Organize/Compare. Method: Interactive Bar Chart (Chart.js). Interaction: Hovering/clicking layers shows details. Justification: Visually demonstrates the hierarchy of risk more effectively than text.
+        - FRAME Technique (Module 5.2): Goal: Inform/Organize. Method: Interactive accordion. Interaction: Clicking a letter reveals its description. Justification: Breaks down a communication framework into memorable parts.
+        - All text content is dynamically loaded from JS objects to keep the interface clean and responsive. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease-in-out;
+        }
+        .sidebar-link:hover, .sidebar-link.active {
+            background-color: #2dd4bf; /* teal-400 */
+            color: #111827; /* gray-900 */
+        }
+        .tab-button {
+            transition: all 0.2s ease-in-out;
+        }
+        .tab-button.active {
+            border-bottom-color: #14b8a6; /* teal-500 */
+            color: #14b8a6;
+        }
+        .content-card {
+            display: none;
+        }
+        .content-card.active {
+            display: block;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .lifecycle-stage, .porter-force {
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .lifecycle-stage:hover, .porter-force:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .frame-item-header {
+            cursor: pointer;
+        }
+        .frame-item-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="flex h-screen bg-slate-100">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-slate-800 text-slate-200 flex flex-col shrink-0">
+            <div class="p-6 text-center">
+                <h1 class="text-2xl font-bold text-white">CRAFT</h1>
+                <p class="text-xs text-slate-400">Credit Analyst Training</p>
+            </div>
+            <nav id="sidebar-nav" class="flex-1 px-4 py-4 space-y-2 overflow-y-auto">
+                <!-- Links will be populated by JS -->
+            </nav>
+            <div class="p-4 text-xs text-slate-500 text-center">
+                <p>&copy; 2024 Interactive Curriculum</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+            <div id="main-content">
+                <!-- Content will be populated by JS -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const curriculumData = {
+            "module1": {
+                title: "The Foundations of Credit Analysis",
+                introduction: "This foundational module establishes the essential context and core principles of corporate credit analysis. It is designed to instill a risk-management mindset from the outset, providing the conceptual scaffolding upon which all subsequent technical skills will be built. Participants will learn the fundamental purpose of their role, the structured frameworks used to assess creditworthiness, and the economic and accounting principles that underpin all credit decisions.",
+                submodules: [
+                    { 
+                        id: "role", 
+                        title: "The Role & Lifecycle",
+                        content: `
+                            <h3 class="text-xl font-semibold text-slate-700 mb-4">The Role of a Credit Analyst & The Credit Lifecycle</h3>
+                            <p class="mb-6 text-slate-600">This sub-module introduces the "why" behind credit analysis, positioning the analyst as a crucial guardian of capital. It grounds the analyst in the foundational frameworks and processes that govern the world of credit.</p>
+                            
+                            <div class="mb-8">
+                                <h4 class="text-lg font-semibold text-slate-700 mb-3">The Five C's of Credit</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 text-center">
+                                    <div class="bg-white p-4 rounded-lg shadow-sm"><div class="text-2xl mb-2">👤</div><h5 class="font-bold">Character</h5><p class="text-xs text-slate-500">Willingness to repay; integrity.</p></div>
+                                    <div class="bg-white p-4 rounded-lg shadow-sm"><div class="text-2xl mb-2">💰</div><h5 class="font-bold">Capacity</h5><p class="text-xs text-slate-500">Ability to repay from cash flow.</p></div>
+                                    <div class="bg-white p-4 rounded-lg shadow-sm"><div class="text-2xl mb-2">🏛️</div><h5 class="font-bold">Capital</h5><p class="text-xs text-slate-500">"Skin in the game"; financial strength.</p></div>
+                                    <div class="bg-white p-4 rounded-lg shadow-sm"><div class="text-2xl mb-2">🔗</div><h5 class="font-bold">Collateral</h5><p class="text-xs text-slate-500">Secondary source of repayment.</p></div>
+                                    <div class="bg-white p-4 rounded-lg shadow-sm"><div class="text-2xl mb-2">📈</div><h5 class="font-bold">Conditions</h5><p class="text-xs text-slate-500">Economic and industry factors.</p></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-lg font-semibold text-slate-700 mb-4">Interactive Credit Lifecycle</h4>
+                                <p class="text-slate-600 mb-4">Click on a stage to learn more about the analyst's role.</p>
+                                <div class="flex flex-wrap items-center justify-between gap-2 text-sm text-center mb-4">
+                                    <div class="lifecycle-stage bg-white p-3 rounded-lg shadow-sm flex-1 min-w-[100px]" onclick="showLifecycleDetail('origination')">Origination</div>
+                                    <div class="text-slate-400 font-bold">&rarr;</div>
+                                    <div class="lifecycle-stage bg-white p-3 rounded-lg shadow-sm flex-1 min-w-[100px]" onclick="showLifecycleDetail('underwriting')">Underwriting</div>
+                                    <div class="text-slate-400 font-bold">&rarr;</div>
+                                    <div class="lifecycle-stage bg-white p-3 rounded-lg shadow-sm flex-1 min-w-[100px]" onclick="showLifecycleDetail('documentation')">Documentation</div>
+                                    <div class="text-slate-400 font-bold">&rarr;</div>
+                                    <div class="lifecycle-stage bg-white p-3 rounded-lg shadow-sm flex-1 min-w-[100px]" onclick="showLifecycleDetail('monitoring')">Monitoring</div>
+                                    <div class="text-slate-400 font-bold">&rarr;</div>
+                                    <div class="lifecycle-stage bg-white p-3 rounded-lg shadow-sm flex-1 min-w-[100px]" onclick="showLifecycleDetail('workout')">Workout</div>
+                                </div>
+                                <div id="lifecycle-detail" class="p-4 bg-teal-50 border-l-4 border-teal-500 rounded-r-lg text-slate-700 min-h-[100px]">Select a stage to see details.</div>
+                            </div>
+                        `
+                    },
+                    { 
+                        id: "accounting", 
+                        title: "Financial Accounting",
+                        content: `
+                            <h3 class="text-xl font-semibold text-slate-700 mb-4">Mastering Financial Accounting</h3>
+                            <p class="mb-6 text-slate-600">This sub-module provides a creditor-focused deep dive into financial accounting. It moves beyond the mechanics to teach analysts how to interpret financial statements as a narrative of a company's health, with special emphasis on the Notes.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="bg-white p-6 rounded-lg shadow-sm"><h4 class="font-bold text-teal-600 mb-2">The Three Statements</h4><p class="text-slate-600">The Income Statement, Balance Sheet, and Cash Flow Statement are interlinked. Net Income flows to Retained Earnings on the Balance Sheet, and the Cash Flow Statement explains the change in the cash balance between periods.</p></div>
+                                <div class="bg-white p-6 rounded-lg shadow-sm"><h4 class="font-bold text-teal-600 mb-2">Revenue Recognition (ASC 606)</h4><p class="text-slate-600">A crucial standard for analysts. Focus on management's judgments regarding performance obligations, variable consideration, and the timing of recognition to spot potential earnings management.</p></div>
+                                <div class="bg-white p-6 rounded-lg shadow-sm"><h4 class="font-bold text-teal-600 mb-2">The Notes: Forensic Toolkit</h4><p class="text-slate-600">The footnotes are integral, not supplementary. Scrutinize them for accounting policies, debt schedules and covenants, contingent liabilities, and related-party transactions to uncover hidden risks.</p></div>
+                            </div>
+                        `
+                    },
+                    { 
+                        id: "fsa", 
+                        title: "Financial Statement Analysis",
+                        content: `
+                            <h3 class="text-xl font-semibold text-slate-700 mb-4">Financial Statement Analysis for Creditors</h3>
+                            <p class="mb-6 text-slate-600">This sub-module hones quantitative analysis skills through the lens of a creditor. The purpose of ratio analysis is to assess debt repayment capacity and resilience to financial stress. Use the buttons below to compare key ratio categories for two fictional companies.</p>
+                            <div class="text-center mb-4 flex flex-wrap justify-center gap-2">
+                                <button id="btn-liquidity" class="ratio-btn bg-white px-4 py-2 rounded-md shadow-sm text-sm font-medium hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">Liquidity</button>
+                                <button id="btn-leverage" class="ratio-btn bg-white px-4 py-2 rounded-md shadow-sm text-sm font-medium hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">Leverage</button>
+                                <button id="btn-coverage" class="ratio-btn bg-white px-4 py-2 rounded-md shadow-sm text-sm font-medium hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">Coverage</button>
+                                <button id="btn-profitability" class="ratio-btn bg-white px-4 py-2 rounded-md shadow-sm text-sm font-medium hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">Profitability</button>
+                            </div>
+                            <div class="chart-container bg-white p-4 rounded-lg shadow-sm">
+                                <canvas id="ratioChart"></canvas>
+                            </div>
+                        `
+                    },
+                    {
+                        id: "econ",
+                        title: "Economic & Market Concepts",
+                        content: `
+                            <h3 class="text-xl font-semibold text-slate-700 mb-4">Essential Economic & Market Concepts</h3>
+                            <p class="mb-6 text-slate-600">This sub-module broadens the perspective to the wider economic environment. It introduces key macroeconomic indicators and market signals that shape credit risk, emphasizing that even a sound company can fail in a severe downturn.</p>
+                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-white p-6 rounded-lg shadow-sm"><h4 class="font-bold text-teal-600 mb-2">Macro Indicators</h4><p class="text-slate-600">Monitor GDP for growth, inflation for margin pressure, unemployment for consumer health, and interest rates for borrowing costs. A recession is the most significant macro risk to a portfolio.</p></div>
+                                <div class="bg-white p-6 rounded-lg shadow-sm"><h4 class="font-bold text-teal-600 mb-2">The Yield Curve</h4><p class="text-slate-600">An inverted yield curve (short-term rates higher than long-term) is a powerful predictor of recession, signaling market expectation of future rate cuts to stimulate a slowing economy.</p></div>
+                                <div class="bg-white p-6 rounded-lg shadow-sm"><h4 class="font-bold text-teal-600 mb-2">Credit Spreads</h4><p class="text-slate-600">The difference between a corporate bond yield and a risk-free Treasury yield. Widening spreads indicate rising market-perceived risk and are a negative signal for credit quality.</p></div>
+                                <div class="bg-white p-6 rounded-lg shadow-sm"><h4 class="font-bold text-teal-600 mb-2">Business vs. Credit Cycles</h4><p class="text-slate-600">The credit cycle follows the business cycle. Lenders tighten standards and defaults rise during economic contractions. Understanding the current point in the cycle is key to anticipating risk.</p></div>
+                            </div>
+                        `
+                    }
+                ]
+            },
+            "module2": {
+                title: "The Analyst's Toolkit",
+                introduction: "This module transitions from foundational concepts to the core practical tools and analytical frameworks that credit analysts use daily. Participants will learn to build robust financial models, conduct rigorous qualitative analysis of a company's business and industry, and master the nuances of cash flow forecasting—the ultimate determinant of repayment capacity.",
+                submodules: [
+                    {
+                        id: "modeling",
+                        title: "Financial Modeling",
+                        content: `
+                            <h3 class="text-xl font-semibold text-slate-700 mb-4">Financial Modeling in Excel</h3>
+                            <p class="mb-6 text-slate-600">This sub-module provides hands-on training in building a dynamic, three-statement financial model. The focus is on best practices for structure, logic, and functionality, creating a tool that is not only accurate but also flexible, transparent, and easy to audit.</p>
+                            <ul class="list-disc list-inside space-y-3 text-slate-600 bg-white p-6 rounded-lg shadow-sm">
+                                <li><strong>Best Practices:</strong> Use color-coding for inputs vs. formulas. Avoid hard-coding numbers. Keep formulas simple and break down complex calculations into steps. The goal is clarity and auditability.</li>
+                                <li><strong>Integrated 3-Statements:</strong> Build a model where the Income Statement, Balance Sheet, and Cash Flow Statement are fully linked. The final check is a balancing Balance Sheet for all forecast years.</li>
+                                <li><strong>Supporting Schedules:</strong> Create detailed "corkscrew" schedules for Debt and PP&E. Interest calculations often create circular references, which can be managed with Excel's iterative calculation setting.</li>
+                                <li><strong>Scenario & Sensitivity Analysis:</strong> The most important step. Use scenario analysis (Base, Downside, Upside cases) to stress-test a company's ability to service debt in a recessionary environment, revealing key vulnerabilities.</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        id: "bizrisk",
+                        title: "Business & Industry Risk",
+                        content: `
+                            <h3 class="text-xl font-semibold text-slate-700 mb-4">Business & Industry Risk Analysis</h3>
+                            <p class="mb-6 text-slate-600">This sub-module equips analysts with qualitative frameworks to assess risks not immediately apparent in the financials. The focus is on understanding the competitive landscape and a company's strategic position. Click on a force to learn more.</p>
+                            <div class="max-w-3xl mx-auto h-96 relative">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="porter-force w-40 h-24 bg-white rounded-lg shadow-lg flex items-center justify-center text-center p-2" onclick="showPorterDetail('rivalry')"><h5 class="font-bold text-teal-700">Rivalry Among Competitors</h5></div>
+                                </div>
+                                <div class="absolute top-0 left-1/2 -translate-x-1/2 flex flex-col items-center"><div class="porter-force w-40 h-24 bg-white rounded-lg shadow-lg flex items-center justify-center text-center p-2" onclick="showPorterDetail('entrants')"><h5 class="font-bold text-teal-700">Threat of New Entrants</h5></div><div class="mt-2 text-3xl text-slate-400">&darr;</div></div>
+                                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 flex flex-col items-center"><div class="mb-2 text-3xl text-slate-400">&uarr;</div><div class="porter-force w-40 h-24 bg-white rounded-lg shadow-lg flex items-center justify-center text-center p-2" onclick="showPorterDetail('substitutes')"><h5 class="font-bold text-teal-700">Threat of Substitutes</h5></div></div>
+                                <div class="absolute top-1/2 left-0 -translate-y-1/2 flex items-center"><div class="porter-force w-40 h-24 bg-white rounded-lg shadow-lg flex items-center justify-center text-center p-2" onclick="showPorterDetail('suppliers')"><h5 class="font-bold text-teal-700">Bargaining Power of Suppliers</h5></div><div class="ml-2 text-3xl text-slate-400">&rarr;</div></div>
+                                <div class="absolute top-1/2 right-0 -translate-y-1/2 flex items-center"><div class="mr-2 text-3xl text-slate-400">&larr;</div><div class="porter-force w-40 h-24 bg-white rounded-lg shadow-lg flex items-center justify-center text-center p-2" onclick="showPorterDetail('buyers')"><h5 class="font-bold text-teal-700">Bargaining Power of Buyers</h5></div></div>
+                            </div>
+                            <div id="porter-detail" class="p-4 bg-teal-50 border-l-4 border-teal-500 rounded-r-lg text-slate-700 min-h-[100px]">Select a force to see details.</div>
+                        `
+                    },
+                    {
+                        id: "cashflow",
+                        title: "Cash Flow Forecasting",
+                        content: `
+                            <h3 class="text-xl font-semibold text-slate-700 mb-4">Cash Flow Forecasting</h3>
+                            <p class="mb-6 text-slate-600">This sub-module focuses on the most critical element of credit analysis: forecasting a company's ability to generate cash. It emphasizes the crucial distinction between accounting profit and true, discretionary cash flow.</p>
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <h4 class="font-bold text-red-600 mb-2">EBITDA is NOT Cash Flow</h4>
+                                <p class="text-slate-600 mb-4">EBITDA is a popular but flawed proxy for cash flow. It is an accounting metric that critically ignores two major cash uses: 1) investments in Net Working Capital (a growing company consumes cash), and 2) Capital Expenditures (CapEx) needed to maintain and grow the asset base.</p>
+                                <h4 class="font-bold text-green-600 mb-2">Free Cash Flow is King</h4>
+                                <p class="text-slate-600">Free Cash Flow (FCF) is a superior measure of repayment capacity because it explicitly subtracts these cash uses. The standard formula for Free Cash Flow to the Firm (FCFF) is:</p>
+                                <div class="mt-4 p-4 bg-slate-100 rounded-md text-sm font-mono text-slate-800">FCFF = EBIT(1-T) + D&A - CapEx - ΔNWC</div>
+                                <p class="mt-4 text-slate-600">A key analytical task is distinguishing between non-discretionary <strong>Maintenance CapEx</strong> (to sustain operations) and discretionary <strong>Growth CapEx</strong> (to expand). A credit analysis must ensure sufficient cash flow is available after maintenance CapEx.</p>
+                            </div>
+                        `
+                    }
+                ]
+            },
+            "module3": {
+                title: "The Credit Underwriting Process",
+                introduction: "This module immerses the analyst in the core activities of the underwriting process. Having built the foundational and analytical toolkit, participants will now learn how to deploy these skills in a real-world context: gathering information, constructing a persuasive analytical argument, and understanding the legal framework that protects the lender's interests.",
+                submodules: [
+                    { 
+                        id: "diligence", 
+                        title: "Due Diligence", 
+                        content: `
+                            <h3 class="text-xl font-semibold text-slate-700 mb-4">Due Diligence & Information Gathering</h3>
+                            <p class="mb-6 text-slate-600">Due diligence is the systematic process of verifying all material facts to uncover risks before a loan is finalized. It's the analyst's 'trust but verify' phase.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-white p-6 rounded-lg shadow-sm">
+                                    <h4 class="font-bold text-teal-600 mb-2">The Due Diligence Checklist</h4>
+                                    <p class="text-slate-600 mb-3">A systematic checklist ensures all key areas are covered:</p>
+                                    <ul class="list-disc list-inside space-y-1 text-sm text-slate-600">
+                                        <li>Corporate & Legal Structure</li>
+                                        <li>Historical & Interim Financials</li>
+                                        <li>Asset Appraisals & Schedules</li>
+                                        <li>Material Customer & Supplier Contracts</li>
+                                        <li>Pending Litigation Summaries</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white p-6 rounded-lg shadow-sm">
+                                    <h4 class="font-bold text-teal-600 mb-2">Analyzing SEC Filings (10-K)</h4>
+                                    <p class="text-slate-600 mb-3">For public companies, the 10-K is a treasure trove of information. Focus on:</p>
+                                    <ul class="list-disc list-inside space-y-1 text-sm text-slate-600">
+                                        <li><strong>Item 1A: Risk Factors:</strong> Management's own view of what could go wrong.</li>
+                                        <li><strong>Item 7: MD&A:</strong> Management's narrative on financial performance.</li>
+                                        <li><strong>Item 8: Financial Statements & Notes:</strong> The core data and crucial details.</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white p-6 rounded-lg shadow-sm col-span-1 md:col-span-2">
+                                    <h4 class="font-bold text-teal-600 mb-2">Preparing for Management Calls</h4>
+                                    <p class="text-slate-600">Your chance to probe beyond the numbers. Prepare targeted, open-ended questions. For example:</p>
+                                    <blockquote class="mt-3 p-3 bg-slate-100 border-l-4 border-slate-300 text-slate-700 text-sm">"Your MD&A mentions pricing pressure. Can you elaborate on your strategy to defend margins against new competitors over the next 12 months?"</blockquote>
+                                </div>
+                            </div>
+                        ` 
+                    },
+                    { 
+                        id: "memo", 
+                        title: "Writing the Credit Memo", 
+                        content: `
+                            <h3 class="text-xl font-semibold text-slate-700 mb-4">Writing the Credit Memorandum</h3>
+                            <p class="mb-6 text-slate-600">The credit memo is the primary document for presenting a lending recommendation. It must be a clear, concise, and persuasive narrative that logically supports your conclusion.</p>
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <h4 class="font-bold text-teal-600 mb-3">Structure of a Compelling Memo</h4>
+                                <ol class="list-decimal list-inside space-y-2 text-slate-600">
+                                    <li><strong>Executive Summary:</strong> The "so what" up front. State the request, your thesis, key risks, and recommendation on the first page.</li>
+                                    <li><strong>Borrower & Management Background:</strong> Who are they?</li>
+                                    <li><strong>Financial Analysis:</strong> The story behind the numbers. Focus on cash flow.</li>
+                                    <li><strong>Industry & Market Analysis:</strong> The external context.</li>
+                                    <li><strong>Risks & Mitigants:</strong> The heart of the analysis. Be specific.</li>
+                                    <li><strong>Recommendation:</strong> The final, clear conclusion.</li>
+                                </ol>
+                            </div>
+                            <div class="mt-6 bg-white p-6 rounded-lg shadow-sm">
+                                <h4 class="font-bold text-teal-600 mb-3">Articulating Risks & Mitigants</h4>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <h5 class="font-semibold text-red-600">Risk</h5>
+                                        <p class="text-sm text-slate-600">A potential future event that could impair repayment.</p>
+                                        <p class="text-sm mt-2 p-2 bg-red-50 rounded"><strong>Example:</strong> High customer concentration (50% of revenue from one client).</p>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-green-600">Mitigant</h5>
+                                        <p class="text-sm text-slate-600">A structural feature or strength that reduces the risk.</p>
+                                        <p class="text-sm mt-2 p-2 bg-green-50 rounded"><strong>Example:</strong> Long-term contract in place with the client; strong personal guarantee from owner.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ` 
+                    },
+                    { 
+                        id: "covenants", 
+                        title: "Covenants & Documentation", 
+                        content: `
+                            <h3 class="text-xl font-semibold text-slate-700 mb-4">Financial Covenants & Documentation</h3>
+                            <p class="mb-6 text-slate-600">Covenants are the "rules of the road" in a credit agreement, designed to protect the lender by ensuring the borrower maintains financial discipline.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-white p-6 rounded-lg shadow-sm">
+                                    <h4 class="font-bold text-teal-600 mb-2">Types of Covenants</h4>
+                                    <p class="text-slate-600 mb-1"><strong>Affirmative:</strong> What the borrower <span class="font-bold">must</span> do (e.g., provide financials, pay taxes).</p>
+                                    <p class="text-slate-600"><strong>Negative:</strong> What the borrower <span class="font-bold">cannot</span> do without permission (e.g., take on more debt, sell key assets).</p>
+                                </div>
+                                <div class="bg-white p-6 rounded-lg shadow-sm">
+                                    <h4 class="font-bold text-teal-600 mb-2">Financial Covenants</h4>
+                                    <p class="text-slate-600">Numerical tests of financial health. A breach is an early warning sign of trouble.</p>
+                                </div>
+                            </div>
+                            <div class="mt-6 bg-white p-6 rounded-lg shadow-sm">
+                                <h4 class="font-bold text-teal-600 mb-4">Interactive Covenant Calculator</h4>
+                                <p class="text-slate-600 mb-4">Let's test a common covenant: The Leverage Ratio (Total Debt / EBITDA) must be less than or equal to 4.0x.</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
+                                    <div>
+                                        <label for="totalDebt" class="block text-sm font-medium text-slate-700">Total Debt ($M)</label>
+                                        <input type="number" id="totalDebt" value="500" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm">
+                                    </div>
+                                    <div>
+                                        <label for="ebitda" class="block text-sm font-medium text-slate-700">EBITDA ($M)</label>
+                                        <input type="number" id="ebitda" value="150" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm">
+                                    </div>
+                                    <button id="calculateCovenant" class="w-full sm:w-auto bg-teal-600 text-white font-bold py-2 px-4 rounded-md hover:bg-teal-700">Calculate</button>
+                                </div>
+                                <div id="covenantResult" class="mt-4 p-4 rounded-md text-center font-semibold"></div>
+                            </div>
+                        ` 
+                    }
+                ]
+            },
+            "module4": {
+                title: "Advanced Credit & Risk Topics",
+                introduction: "This module builds on the core underwriting process by introducing more complex and specialized areas of corporate credit. Participants will explore the high-stakes world of leveraged finance, delve into the intricacies of debt structuring and capital hierarchy, and learn the critical post-closing functions of credit monitoring and early risk detection.",
+                submodules: [
+                    { 
+                        id: "levfin", 
+                        title: "Leveraged Finance", 
+                        content: `
+                            <h3 class="text-xl font-semibold text-slate-700 mb-4">Introduction to Leveraged Finance & LBOs</h3>
+                            <p class="mb-6 text-slate-600">This sub-module provides an introduction to highly leveraged transactions, focusing on the mechanics of a Leveraged Buyout (LBO) and the key credit considerations that differentiate these deals from standard corporate lending.</p>
+                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-white p-6 rounded-lg shadow-sm"><h4 class="font-bold text-teal-600 mb-2">What is an LBO?</h4><p class="text-slate-600">An LBO is the acquisition of a company where the purchase price is financed primarily with debt. The assets of the acquired company are used as collateral. The goal for the private equity sponsor is to use leverage to amplify returns.</p></div>
+                                <div class="bg-white p-6 rounded-lg shadow-sm"><h4 class="font-bold text-teal-600 mb-2">Sources & Uses</h4><p class="text-slate-600">A key table in any LBO model. <br><strong>Uses:</strong> Purchase of equity, refinancing old debt, fees. <br><strong>Sources:</strong> New debt instruments (Term Loans, Bonds) and the Sponsor Equity (the cash invested by the PE firm).</p></div>
+                                <div class="bg-white p-6 rounded-lg shadow-sm col-span-1 md:col-span-2">
+                                    <h4 class="font-bold text-teal-600 mb-2">Key Credit Considerations</h4>
+                                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                        <li><strong>High Leverage:</strong> The primary risk. Debt/EBITDA ratios are significantly higher, leaving little room for error.</li>
+                                        <li><strong>Cash Flow Analysis:</strong> Repayment capacity is paramount. Models must be rigorously stress-tested.</li>
+                                        <li><strong>Structure & Covenants:</strong> Security, seniority, and the strength of covenants are critical lender protections.</li>
+                                        <li><strong>Exit Strategy:</strong> The lender must be confident in the sponsor's plan to sell the business in 5-7 years.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `
+                    },
+                    { 
+                        id: "debtstruct", 
+                        title: "Debt Structuring", 
+                        content: `
+                            <h3 class="text-xl font-semibold text-slate-700 mb-4">Debt Structuring & Capital Structure</h3>
+                            <p class="mb-6 text-slate-600">This sub-module explains the "capital stack" and the principle of priority of payment, which are fundamental to assessing recovery prospects in a default scenario. Hover over the chart bars to see typical instruments.</p>
+                            <div class="chart-container bg-white p-4 rounded-lg shadow-sm">
+                                <canvas id="capitalStackChart"></canvas>
+                            </div>
+                            <div class="mt-6 bg-white p-6 rounded-lg shadow-sm">
+                                <h4 class="font-bold text-teal-600 mb-2">Structural Subordination</h4>
+                                <p class="text-slate-600">A critical risk in holding company structures. Creditors who lend to a parent company are "structurally subordinated" to creditors of the operating subsidiary. In a bankruptcy, the subsidiary's creditors get paid first from the subsidiary's assets. The common mitigant is an "upstream guarantee" from the subsidiary to the parent's lenders.</p>
+                            </div>
+                        `
+                    },
+                    { 
+                        id: "monitoring", 
+                        title: "Credit Monitoring", 
+                        content: `
+                            <h3 class="text-xl font-semibold text-slate-700 mb-4">Credit Monitoring, Annual Reviews, and Early Warning Signs</h3>
+                            <p class="mb-6 text-slate-600">Credit analysis is an ongoing process. Monitoring is about identifying and addressing potential problems before they lead to a payment default.</p>
+                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-white p-6 rounded-lg shadow-sm"><h4 class="font-bold text-teal-600 mb-2">Annual Reviews</h4><p class="text-slate-600">A systematic reassessment of the borrower's risk profile. Involves a full financial analysis, covenant recalculation, and re-evaluation of the Five C's to update the internal risk rating.</p></div>
+                                <div class="bg-white p-6 rounded-lg shadow-sm"><h4 class="font-bold text-teal-600 mb-2">The Credit Watchlist</h4><p class="text-slate-600">An internal list for loans showing signs of credit deterioration. Placing a loan on "watch" triggers more intensive monitoring and the development of a risk mitigation plan.</p></div>
+                                <div class="bg-white p-6 rounded-lg shadow-sm col-span-1 md:col-span-2">
+                                    <h4 class="font-bold text-red-600 mb-2">Early Warning Signs (EWS)</h4>
+                                    <div class="flex flex-wrap gap-x-8">
+                                        <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                            <li>Breach of covenants</li>
+                                            <li>Declining revenue/margins</li>
+                                            <li>Negative cash flow</li>
+                                            <li>Rising leverage</li>
+                                        </ul>
+                                        <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                            <li>Late financial reporting</li>
+                                            <li>Unexpected management departure</li>
+                                            <li>Loss of a major customer</li>
+                                            <li>Frequent waiver requests</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    }
+                ]
+            },
+            "module5": {
+                title: "Professional Development",
+                introduction: "This final module focuses on the crucial 'soft skills' that elevate a good analyst to a great one. It moves beyond technical execution to the higher-order skills of synthesis, judgment, and communication. The objective is to teach analysts how to transform their data and analysis into a compelling, insightful, and defensible credit recommendation.",
+                submodules: [
+                    { 
+                        id: "critical", 
+                        title: "Critical Thinking", 
+                        content: `
+                            <h3 class="text-xl font-semibold text-slate-700 mb-4">Critical Thinking & Forming a Narrative</h3>
+                            <p class="mb-6 text-slate-600">This sub-module teaches analysts to move beyond data gathering to form an independent, insightful opinion. It's about asking "why" and "so what".</p>
+                            <div class="space-y-6">
+                                <div class="bg-white p-6 rounded-lg shadow-sm">
+                                    <h4 class="font-bold text-teal-600 mb-2">From Data to Insight</h4>
+                                    <p class="text-slate-600">The goal is to synthesize quantitative (e.g., ratios) and qualitative (e.g., industry analysis) information into a single, coherent credit narrative that explains the key risks and supports a recommendation.</p>
+                                </div>
+                                <div class="bg-white p-6 rounded-lg shadow-sm">
+                                    <h4 class="font-bold text-teal-600 mb-2">Challenge Assumptions</h4>
+                                    <p class="text-slate-600">Maintain a "trust but verify" mindset. Key questions to ask about management's forecasts:</p>
+                                    <ul class="list-disc list-inside space-y-2 text-slate-600 mt-3">
+                                        <li>Are the revenue growth and margin assumptions realistic given the competitive landscape?</li>
+                                        <li>What are the potential consequences if these assumptions are wrong? (This leads to stress testing).</li>
+                                        <li>Could the data support an alternative conclusion?</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        ` 
+                    },
+                    { 
+                        id: "communication", 
+                        title: "Communication Skills", 
+                        content: `
+                            <h3 class="text-xl font-semibold text-slate-700 mb-4">Communication & Presentation Skills</h3>
+                            <p class="mb-6 text-slate-600">This final sub-module prepares the analyst to present and defend their analysis to decision-makers, such as a loan committee.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-white p-6 rounded-lg shadow-sm">
+                                    <h4 class="font-bold text-teal-600 mb-3">Presenting to Committee</h4>
+                                    <ol class="list-decimal list-inside space-y-2 text-slate-600">
+                                        <li><strong>Start with the Recommendation:</strong> Don't bury the lead.</li>
+                                        <li><strong>Tell the Story:</strong> Briefly provide background and narrative.</li>
+                                        <li><strong>Focus on Key Issues:</strong> Highlight the 2-3 key strengths and risks.</li>
+                                        <li><strong>Be Prepared for Questions:</strong> Know the details inside and out.</li>
+                                    </ol>
+                                </div>
+                                <div class="bg-white p-6 rounded-lg shadow-sm">
+                                    <h4 class="font-bold text-teal-600 mb-3">Defending Your Viewpoint</h4>
+                                    <p class="text-slate-600 mb-3">Use the FRAME technique to respond to challenges confidently.</p>
+                                    <div id="frame-accordion" class="space-y-2">
+                                        <!-- FRAME items will be inserted here by JS -->
+                                    </div>
+                                </div>
+                            </div>
+                        ` 
+                    }
+                ]
+            }
+        };
+        
+        const lifecycleDetails = {
+            origination: "<strong>Origination & Application:</strong> The process begins when a potential borrower applies for credit. The analyst's role is to support the initial gathering of financial documents and basic information.",
+            underwriting: "<strong>Underwriting & Analysis:</strong> This is the core of the analyst's work. It involves a deep dive into the borrower's financials, assessing the Five C's, identifying risks, building financial models, and structuring the loan appropriately.",
+            documentation: "<strong>Documentation & Closing:</strong> Once a loan is approved, the legal terms are finalized in a credit agreement. The analyst ensures the documentation accurately reflects the approved terms, conditions, and covenants.",
+            monitoring: "<strong>Monitoring & Annual Review:</strong> After funding, the role shifts to ongoing monitoring. This includes tracking financial performance against projections, ensuring compliance with covenants, and conducting periodic (typically annual) reviews to reassess risk.",
+            workout: "<strong>Workout & Recovery:</strong> If a borrower's financial condition deteriorates, the loan enters the workout stage. The analyst supports the process of restructuring the loan or managing recovery to minimize the lender's loss."
+        };
+
+        const porterDetails = {
+            rivalry: "<strong>Rivalry Among Competitors:</strong> Measures the intensity of competition. High rivalry (many competitors, slow growth, commodity products) leads to lower profitability and higher credit risk.",
+            entrants: "<strong>Threat of New Entrants:</strong> Assesses how easy it is for new competitors to enter the market. High barriers to entry (e.g., patents, high capital costs, brand loyalty) protect existing firms and are favorable for credit quality.",
+            substitutes: "<strong>Threat of Substitutes:</strong> The likelihood customers will switch to a different type of product that meets the same need (e.g., video conferencing for air travel). High threat limits pricing power and increases risk.",
+            suppliers: "<strong>Bargaining Power of Suppliers:</strong> Measures suppliers' ability to raise input prices. Power is high when suppliers are concentrated and the input is critical, which can squeeze borrower margins.",
+            buyers: "<strong>Bargaining Power of Buyers:</strong> Measures customers' ability to drive down prices. Power is high when buyers are large and products are undifferentiated, which pressures borrower revenues and profitability."
+        };
+
+        const ratioData = {
+            liquidity: { labels: ['Current Ratio', 'Quick Ratio'], stableCo: [2.5, 1.8], growthCo: [1.2, 0.6] },
+            leverage: { labels: ['Debt/Equity', 'Debt/EBITDA'], stableCo: [0.8, 2.1], growthCo: [3.5, 5.8] },
+            coverage: { labels: ['Interest Coverage', 'DSCR'], stableCo: [8.5, 2.2], growthCo: [2.1, 1.1] },
+            profitability: { labels: ['EBITDA Margin', 'ROA'], stableCo: [0.18, 0.12], growthCo: [0.25, 0.08] }
+        };
+
+        const frameData = [
+            { letter: 'F', title: 'Focus', body: 'Focus on the question, not the tone. Remain calm and professional.' },
+            { letter: 'R', title: 'Reflect', body: 'Reflect the concern back to ensure you understand it ("So, if I understand correctly, you\'re concerned about...").' },
+            { letter: 'A', title: 'Acknowledge', body: 'Acknowledge the business context. Show you understand why it\'s a valid concern ("That\'s a fair question, especially given...").' },
+            { letter: 'M', title: 'Map', body: 'Map your insight to their concern. Bring the discussion back to your evidence-based analysis ("Our analysis on page 5 provides comfort on that point...").' },
+            { letter: 'E', title: 'Explain', body: 'Explain the impact or trade-off. Be transparent about risks and how they are being managed.' }
+        ];
+
+        let currentChart = null;
+
+        function renderSidebar() {
+            const sidebarNav = document.getElementById('sidebar-nav');
+            sidebarNav.innerHTML = Object.keys(curriculumData).map((key, index) => `
+                <a href="#" class="sidebar-link block px-4 py-2 rounded-md font-medium ${index === 0 ? 'active' : ''}" data-module="${key}">
+                    Module ${index + 1}: ${curriculumData[key].title}
+                </a>
+            `).join('');
+        }
+
+        function renderModule(moduleKey) {
+            const module = curriculumData[moduleKey];
+            const mainContent = document.getElementById('main-content');
+            
+            let submoduleTabs = module.submodules.map((sub, index) => `
+                <button class="tab-button text-slate-500 py-4 px-6 block hover:text-teal-500 focus:outline-none border-b-2 font-medium ${index === 0 ? 'active' : ''}" data-tab="${sub.id}">
+                    ${sub.title}
+                </button>
+            `).join('');
+
+            let submoduleContent = module.submodules.map((sub, index) => `
+                <div id="${sub.id}" class="content-card p-2 md:p-6 bg-white rounded-b-lg rounded-tr-lg shadow-md ${index === 0 ? 'active' : ''}">
+                    ${sub.content}
+                </div>
+            `).join('');
+
+            mainContent.innerHTML = `
+                <div class="mb-6">
+                    <h2 class="text-3xl font-bold text-slate-800">${module.title}</h2>
+                    <p class="mt-2 text-slate-600">${module.introduction}</p>
+                </div>
+                <nav class="flex flex-wrap -mb-px border-b border-slate-200">
+                    ${submoduleTabs}
+                </nav>
+                <div>
+                    ${submoduleContent}
+                </div>
+            `;
+
+            attachTabListeners();
+            activateContent(moduleKey, module.submodules[0].id);
+        }
+
+        function attachTabListeners() {
+            const tabs = document.querySelectorAll('.tab-button');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const activeModuleKey = document.querySelector('.sidebar-link.active').dataset.module;
+                    const tabId = tab.dataset.tab;
+                    
+                    document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    document.querySelectorAll('.content-card').forEach(c => c.classList.remove('active'));
+                    document.getElementById(tabId).classList.add('active');
+
+                    activateContent(activeModuleKey, tabId);
+                });
+            });
+        }
+        
+        function activateContent(moduleKey, submoduleId) {
+            if (currentChart) {
+                currentChart.destroy();
+                currentChart = null;
+            }
+            if (moduleKey === 'module1' && submoduleId === 'fsa') createRatioChart('liquidity');
+            if (moduleKey === 'module3' && submoduleId === 'covenants') attachCovenantCalculator();
+            if (moduleKey === 'module4' && submoduleId === 'debtstruct') createCapitalStackChart();
+            if (moduleKey === 'module5' && submoduleId === 'communication') createFrameAccordion();
+        }
+
+        function showLifecycleDetail(stage) {
+            document.getElementById('lifecycle-detail').innerHTML = lifecycleDetails[stage];
+        }
+
+        function showPorterDetail(force) {
+            document.getElementById('porter-detail').innerHTML = porterDetails[force];
+        }
+
+        function createRatioChart(category) {
+            const ctx = document.getElementById('ratioChart')?.getContext('2d');
+            if (!ctx) return;
+            if (currentChart) currentChart.destroy();
+            currentChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ratioData[category].labels,
+                    datasets: [
+                        { label: 'StableCo (Lower Risk)', data: ratioData[category].stableCo, backgroundColor: '#2dd4bf', borderColor: '#14b8a6', borderWidth: 1 },
+                        { label: 'GrowthCo (Higher Risk)', data: ratioData[category].growthCo, backgroundColor: '#64748b', borderColor: '#475569', borderWidth: 1 }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        title: { display: true, text: `${category.charAt(0).toUpperCase() + category.slice(1)} Ratios Comparison`, font: { size: 16 } },
+                        tooltip: { callbacks: { label: (c) => `${c.dataset.label || ''}: ${c.parsed.y.toFixed(2)}x` } }
+                    },
+                    scales: { y: { beginAtZero: true, ticks: { callback: (v) => v + 'x' } } }
+                }
+            });
+        }
+        
+        function createCapitalStackChart() {
+            const ctx = document.getElementById('capitalStackChart')?.getContext('2d');
+            if (!ctx) return;
+            if (currentChart) currentChart.destroy();
+            currentChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Capital Structure'],
+                    datasets: [
+                        { label: 'Common Equity', data: [15], backgroundColor: '#94a3b8' },
+                        { label: 'Preferred Stock', data: [10], backgroundColor: '#64748b' },
+                        { label: 'Subordinated Debt', data: [20], backgroundColor: '#475569' },
+                        { label: 'Senior Unsecured Debt', data: [25], backgroundColor: '#0d9488' },
+                        { label: 'Senior Secured Debt', data: [30], backgroundColor: '#14b8a6' },
+                    ]
+                },
+                options: {
+                    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        title: { display: true, text: 'The Capital Stack (Highest Priority at Top)', font: { size: 16 } },
+                        tooltip: {
+                            callbacks: {
+                                label: (c) => {
+                                    const details = {
+                                        'Senior Secured Debt': 'First claim on assets (Revolvers, Term Loans)', 'Senior Unsecured Debt': 'General claim (High-Yield Bonds)',
+                                        'Subordinated Debt': 'Paid after senior debt (Mezzanine)', 'Preferred Stock': 'Paid after all debt', 'Common Equity': 'Residual claimant, paid last'
+                                    };
+                                    return `${c.dataset.label}: ${details[c.dataset.label] || ''}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: { x: { stacked: true, display: false }, y: { stacked: true, display: false } }
+                }
+            });
+        }
+
+        function attachCovenantCalculator() {
+            const calculateBtn = document.getElementById('calculateCovenant');
+            if(calculateBtn) {
+                calculateBtn.addEventListener('click', () => {
+                    const debt = parseFloat(document.getElementById('totalDebt').value);
+                    const ebitda = parseFloat(document.getElementById('ebitda').value);
+                    const resultDiv = document.getElementById('covenantResult');
+                    
+                    if (isNaN(debt) || isNaN(ebitda) || ebitda <= 0) {
+                        resultDiv.textContent = 'Please enter valid numbers for Debt and EBITDA.';
+                        resultDiv.className = 'mt-4 p-4 rounded-md text-center font-semibold bg-yellow-100 text-yellow-800';
+                        return;
+                    }
+
+                    const ratio = debt / ebitda;
+                    const limit = 4.0;
+                    
+                    if (ratio <= limit) {
+                        resultDiv.innerHTML = `In Compliance! <br> Leverage Ratio: ${ratio.toFixed(2)}x (Limit: ≤ ${limit.toFixed(2)}x)`;
+                        resultDiv.className = 'mt-4 p-4 rounded-md text-center font-semibold bg-green-100 text-green-800';
+                    } else {
+                        resultDiv.innerHTML = `BREACH! <br> Leverage Ratio: ${ratio.toFixed(2)}x (Limit: ≤ ${limit.toFixed(2)}x)`;
+                        resultDiv.className = 'mt-4 p-4 rounded-md text-center font-semibold bg-red-100 text-red-800';
+                    }
+                });
+                calculateBtn.click();
+            }
+        }
+
+        function createFrameAccordion() {
+            const accordion = document.getElementById('frame-accordion');
+            if(!accordion) return;
+            accordion.innerHTML = frameData.map(item => `
+                <div class="frame-item border border-slate-200 rounded-md">
+                    <div class="frame-item-header flex justify-between items-center p-3 bg-slate-50">
+                        <h5 class="font-semibold text-teal-700">${item.letter} - ${item.title}</h5>
+                        <span class="text-teal-500 transform transition-transform duration-300">&#9662;</span>
+                    </div>
+                    <div class="frame-item-body p-3 border-t border-slate-200 bg-white">
+                        <p class="text-slate-600 text-sm">${item.body}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            accordion.querySelectorAll('.frame-item-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const body = header.nextElementSibling;
+                    const icon = header.querySelector('span');
+                    if (body.style.maxHeight) {
+                        body.style.maxHeight = null;
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        accordion.querySelectorAll('.frame-item-body').forEach(b => b.style.maxHeight = null);
+                        accordion.querySelectorAll('.frame-item-header span').forEach(i => i.style.transform = 'rotate(0deg)');
+                        body.style.maxHeight = body.scrollHeight + "px";
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSidebar();
+            renderModule('module1');
+
+            document.getElementById('sidebar-nav').addEventListener('click', (e) => {
+                const link = e.target.closest('a.sidebar-link');
+                if (link) {
+                    e.preventDefault();
+                    document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    const moduleKey = link.dataset.module;
+                    renderModule(moduleKey);
+                }
+            });
+
+            document.getElementById('main-content').addEventListener('click', (e) => {
+                if (e.target && e.target.matches('button.ratio-btn')) {
+                    const category = e.target.id.split('-')[1];
+                    createRatioChart(category);
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
