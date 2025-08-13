@@ -1,0 +1,164 @@
+{
+  "title": "LME Case Study: J.Crew (2016-2017) - IP Drop-Down",
+  "source": "./legal_analysis/miscellaneous_credit_analysis_topics/lme_strategies_and_case_studies/j_crew_case_study.md",
+  "tree": {
+    "text": "Root",
+    "children": [
+      {
+        "text": "**Company:** J.Crew Group, Inc., a U.S. apparel retailer.",
+        "children": []
+      },
+      {
+        "text": "**Context:** Facing financial distress and declining sales.",
+        "children": []
+      },
+      {
+        "text": "**Date:** Transactions primarily occurred in 2016-2017.",
+        "children": []
+      },
+      {
+        "text": "**Asset Transfer:**",
+        "children": [
+          {
+            "text": "J.Crew transferred a significant portion (reportedly 72% initially, with further valuations and steps) of its valuable brand-related intellectual property (trademarks, tradenames) to a newly created, wholly-owned Cayman Islands subsidiary.",
+            "children": []
+          },
+          {
+            "text": "This subsidiary was designated as an **Unrestricted Subsidiary** under J.Crew's existing credit agreements.",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.1, referencing [36], [53]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Utilization of Covenant Baskets:**",
+        "children": [
+          {
+            "text": "The transfer was justified by J.Crew as permissible under its existing **Investment covenant baskets** and potentially **Restricted Payment (RP) covenant baskets** within its credit facilities.",
+            "children": []
+          },
+          {
+            "text": "The company valued the transferred IP at an amount (e.g., $250 million for one part of the IP) that it claimed fit within its available basket capacity. This valuation was disputed by some lenders.",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.1, referencing [53], [54]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**New Debt Incurrence by Unrestricted Subsidiary:**",
+        "children": [
+          {
+            "text": "The unrestricted subsidiary (J. Crew Cayman), now holding the IP, was outside the covenant perimeter of J.Crew's main credit agreement and its assets (the IP) were not part of the existing lenders' direct collateral package for the main facilities.",
+            "children": []
+          },
+          {
+            "text": "This unrestricted subsidiary then issued new secured notes, which were secured by the transferred IP assets.",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.1",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Use of Proceeds:**",
+        "children": [
+          {
+            "text": "The proceeds from these new notes issued by the unrestricted subsidiary were used to exchange existing unsecured Payment-in-Kind (PIK) notes of J.Crew's parent company at a discount.",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.1",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Collateral Dilution:** The valuable IP, which existing senior secured term lenders previously considered part of their (indirect) collateral support, was now primarily securing new debt at the unrestricted subsidiary level. This effectively \"primed\" the existing term lenders with respect to these specific IP assets.",
+        "children": []
+      },
+      {
+        "text": "**Weakened Credit Support:** Removal of a key value-generating asset from the direct reach of the original credit group.",
+        "children": []
+      },
+      {
+        "text": "**Lender Challenge:** Existing term loan lenders challenged the transaction, arguing, among other things:",
+        "children": [
+          {
+            "text": "**Fraudulent Conveyance:** That the transfer was designed to hinder, delay, or defraud existing creditors.",
+            "children": []
+          },
+          {
+            "text": "**Breach of Credit Agreement:**",
+            "children": [
+              {
+                "text": "That the IP transfer constituted a disposition of \"substantially all\" of the lenders' collateral, which would have required unanimous lender consent rather than just majority consent or basket capacity. This became a key litigation point.",
+                "children": []
+              },
+              {
+                "text": "Disputes over the valuation of the IP and the capacity available under the investment/RP baskets.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "text": "*Source Reference:* Section III.B.1, referencing [54]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**J.Crew's Preemptive Lawsuit:** J.Crew filed a lawsuit seeking a declaratory judgment from a New York court that the transaction was permissible under its loan documents.",
+        "children": []
+      },
+      {
+        "text": "**Outcome:**",
+        "children": [
+          {
+            "text": "J.Crew ultimately reached a settlement with a majority of its term lenders, who consented to the transaction in exchange for certain concessions (including a paydown of a portion of the term loan).",
+            "children": []
+          },
+          {
+            "text": "However, a group of minority lenders continued to object. Most of their claims were dismissed by the court, largely due to the majority lender consent.",
+            "children": []
+          },
+          {
+            "text": "The claim that the IP transfer constituted a disposition of \"substantially all\" collateral survived initial motions to dismiss.",
+            "children": []
+          },
+          {
+            "text": "This remaining litigation was eventually resolved as part of J.Crew's subsequent Chapter 11 bankruptcy filing in May 2020, reportedly without any incremental recovery for the objecting minority lenders on this specific IP transfer issue.",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.1, referencing [54]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Restricting or prohibiting the transfer of material intellectual property** or other specifically defined \"crown jewel\" assets to unrestricted subsidiaries or other non-loan parties (entities not providing guarantees/collateral).",
+        "children": []
+      },
+      {
+        "text": "**Imposing tighter caps on investments in, or other transfers of value to, unrestricted subsidiaries.**",
+        "children": []
+      },
+      {
+        "text": "**Requiring that any subsidiary holding material IP must remain a restricted subsidiary and a guarantor.**",
+        "children": []
+      },
+      {
+        "text": "*Source Reference:* Section III.B.1, referencing [36]",
+        "children": []
+      }
+    ]
+  }
+}
