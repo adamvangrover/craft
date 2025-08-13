@@ -1,0 +1,65 @@
+{
+  "title": "Behavioral Finance Case Study: The \"Meme Stock\" Phenomenon",
+  "source": "./Behavioral_Finance/Case_Study_Herd_Mentality.md",
+  "tree": {
+    "text": "Root",
+    "children": [
+      {
+        "text": "**GameStop (GME):** A brick-and-mortar video game retailer with declining fundamentals.",
+        "children": []
+      },
+      {
+        "text": "**Hedge Funds:** A number of prominent hedge funds held large short positions in GME, betting that the stock price would fall.",
+        "children": []
+      },
+      {
+        "text": "**Retail Investors:** A large group of individual investors, organized on social media platforms like Reddit's r/wallstreetbets, decided to collectively buy GME stock and options.",
+        "children": []
+      },
+      {
+        "text": "**Social Media:** Constant discussion and promotion of GME on social media created a sense of community and urgency.",
+        "children": []
+      },
+      {
+        "text": "**Fear of Missing Out (FOMO):** As the stock price soared, more and more investors jumped on the bandwagon, afraid of missing out on the potential gains.",
+        "children": []
+      },
+      {
+        "text": "**Confirmation Bias:** Investors sought out information that confirmed their belief that the stock would continue to rise, while ignoring information to the contrary.",
+        "children": []
+      },
+      {
+        "text": "**Significant Losses:** Many retail investors who bought at the peak suffered substantial losses.",
+        "children": []
+      },
+      {
+        "text": "**Hedge Fund Failures:** At least one hedge fund was forced to close due to its losses on GME.",
+        "children": []
+      },
+      {
+        "text": "**Regulatory Scrutiny:** The episode led to increased scrutiny of retail trading platforms and the role of social media in financial markets.",
+        "children": []
+      },
+      {
+        "text": "**The Dangers of Herd Mentality:** Following the crowd can lead to irrational investment decisions and significant losses.",
+        "children": []
+      },
+      {
+        "text": "**Fundamentals Matter:** Ultimately, a company's stock price is driven by its underlying financial performance, not by social media hype.",
+        "children": []
+      },
+      {
+        "text": "**Emotional Decision-Making:** Fear and greed are powerful emotions that can cloud judgment and lead to poor investment outcomes.",
+        "children": []
+      },
+      {
+        "text": "[Key Concepts in Behavioral Finance](Key_Concepts.md)",
+        "children": []
+      },
+      {
+        "text": "[Debiasing Techniques for Analysts](Debiasing_Techniques_for_Analysts.md)",
+        "children": []
+      }
+    ]
+  }
+}
