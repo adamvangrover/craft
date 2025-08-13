@@ -1,0 +1,186 @@
+{
+  "title": "LME Case Study: MyTheresa / Neiman Marcus (2014-2018) - Asset Stripping via Unrestricted Subsidiaries",
+  "source": "./legal_analysis/miscellaneous_credit_analysis_topics/lme_strategies_and_case_studies/mytheresa_neiman_marcus_case_study.md",
+  "tree": {
+    "text": "Root",
+    "children": [
+      {
+        "text": "**Company:** Neiman Marcus Group (NMG), a U.S. luxury department store retailer.",
+        "children": []
+      },
+      {
+        "text": "**Sponsors:** Ares Management and Canada Pension Plan Investment Board (CPPIB) (acquired NMG in 2013).",
+        "children": []
+      },
+      {
+        "text": "**Key Asset:** MyTheresa, an international luxury e-commerce business headquartered in Germany, acquired by NMG in 2014 for $196 million. MyTheresa showed significant growth while NMG's core retail business stagnated.",
+        "children": [
+          {
+            "text": "*Source Reference:* Section III.B.6, referencing [59]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Dates:** Key transactions occurred between 2014 and 2018.",
+        "children": []
+      },
+      {
+        "text": "**Initial Status of MyTheresa (2014):**",
+        "children": [
+          {
+            "text": "Upon acquisition by NMG, MyTheresa entities were initially **Restricted Subsidiaries** under NMG's credit facilities.",
+            "children": []
+          },
+          {
+            "text": "While not direct guarantors of NMG's main debt, 65% of the equity interests in NMG International (MyTheresa's foreign holding company) were pledged to NMG's senior secured lenders, giving them an indirect claim on MyTheresa's value.",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.6, referencing [59]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Designation as Unrestricted Subsidiaries (2014-2017):**",
+        "children": [
+          {
+            "text": "Leveraging various **Investment covenant baskets** within its ABL facility, term loan facility, and note indentures, NMG systematically designated the MyTheresa entities as **Unrestricted Subsidiaries.**",
+            "children": []
+          },
+          {
+            "text": "This was done in stages. The value attributed to MyTheresa at each designation point (e.g., $253 million in 2014 for bank debt purposes, ~$280 million in 2017 for notes purposes) reportedly fit within available basket capacity under the respective debt documents.",
+            "children": []
+          },
+          {
+            "text": "By March 2017, all MyTheresa entities were designated as Unrestricted Subsidiaries under all of NMG's debt facilities.",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.6, referencing [59]",
+            "children": []
+          },
+          {
+            "text": "**Impact of Unrestricted Designation:** Removed MyTheresa from the covenant protections of NMG's debt and from the group of entities whose assets supported NMG's creditors.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Asset Stripping via Dividend / Distribution (September 2018):**",
+        "children": [
+          {
+            "text": "NMG disclosed that the MyTheresa subsidiaries (now fully unrestricted) had been conveyed via a series of distributions (effectively as a dividend) to **NMG Inc. (\"Parent\").**",
+            "children": []
+          },
+          {
+            "text": "NMG Inc. was a holding company wholly owned by NMG's private equity sponsors (Ares and CPPIB).",
+            "children": []
+          },
+          {
+            "text": "Crucially, NMG Inc. was **not an obligor or guarantor** of NMG's debt and was therefore outside the \"credit box\" of NMG's creditors.",
+            "children": []
+          },
+          {
+            "text": "This transfer was reportedly facilitated by an express provision in NMG's credit facilities allowing for the distribution of capital stock of Unrestricted Subsidiaries.",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.6, referencing [59]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Loss of Valuable Asset:** Creditors of NMG effectively lost any claim (direct or indirect) to the rapidly growing and highly valuable MyTheresa business (MyTheresa's revenue grew 360% from FY13-FY19, while NMG's core business stagnated).",
+        "children": []
+      },
+      {
+        "text": "**Value Transfer Without Compensation:** The transfer of 100% ownership of MyTheresa to the sponsor-controlled parent occurred without any direct cash compensation or debt reduction for NMG or its creditors.",
+        "children": []
+      },
+      {
+        "text": "**Weakened Credit Profile of NMG:** The removal of MyTheresa significantly diminished the asset base and future growth prospects supporting NMG's substantial debt load.",
+        "children": []
+      },
+      {
+        "text": "This \"spin-off,\" structured as a dividend using covenant basket capacity, sparked outrage among NMG's creditors, who viewed it as an abusive transfer of value.",
+        "children": [
+          {
+            "text": "*Source Reference:* Section III.B.6, referencing [59]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Creditor Litigation:** The MyTheresa drop-down became a subject of intense creditor scrutiny and litigation.",
+        "children": [
+          {
+            "text": "Marble Ridge Capital (a hedge fund holding NMG notes) filed lawsuits alleging the transfers constituted **fraudulent conveyances** designed to move assets away from creditors.",
+            "children": []
+          },
+          {
+            "text": "*Source Reference:* Section III.B.6, referencing [59]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**NMG's Financial Decline:** NMG's financial condition continued to deteriorate, burdened by significant net losses and a heavy interest burden from its LBO debt.",
+        "children": []
+      },
+      {
+        "text": "**Chapter 11 Bankruptcy (May 2020):** NMG filed for Chapter 11 bankruptcy, with the COVID-19 pandemic exacerbating its already strained finances.",
+        "children": [
+          {
+            "text": "*Source Reference:* Section III.B.6, referencing [59]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**Resolution of MyTheresa Claims in Bankruptcy:** The fraudulent transfer claims concerning MyTheresa became a central issue in the bankruptcy proceedings. A global settlement was eventually reached under which NMG's parent company (the sponsors' entity) agreed to contribute **preferred equity in MyTheresa** to NMG's estate for the benefit of NMG's unsecured creditors.",
+        "children": [
+          {
+            "text": "*Source Reference:* Section III.B.6, referencing [87]",
+            "children": []
+          }
+        ]
+      },
+      {
+        "text": "**MyTheresa IPO (January 2021):** MyTheresa subsequently conducted an Initial Public Offering. The source [60] notes that MyTheresa (and Chewy from the PetSmart LME) became worth multiples of their initial drop-down valuations, and neither had leverage upon consummation of their respective drop-downs.",
+        "children": []
+      },
+      {
+        "text": "Private equity sponsors can strategically utilize covenant flexibility (particularly investment baskets, restricted payment capacity, and unrestricted subsidiary provisions) over time to segregate and ultimately move valuable assets beyond the reach of an operating company's creditors.",
+        "children": []
+      },
+      {
+        "text": "\"Permitted\" actions under loose credit documents, when taken in series, can cumulatively result in significant value stripping.",
+        "children": []
+      },
+      {
+        "text": "The case reinforced the need for lenders to:",
+        "children": [
+          {
+            "text": "Scrutinize provisions related to unrestricted subsidiaries heavily.",
+            "children": []
+          },
+          {
+            "text": "Negotiate for tighter controls on asset transfers, especially of \"crown jewel\" or material growth assets.",
+            "children": []
+          },
+          {
+            "text": "Carefully define and limit capacity under investment and restricted payment baskets.",
+            "children": []
+          },
+          {
+            "text": "Consider \"blocker\" provisions (like J.Crew blockers) to protect against the leakage of valuable collateral or entire business lines.",
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}
