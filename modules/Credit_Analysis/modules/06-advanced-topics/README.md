@@ -92,4 +92,12 @@ A more detailed look at the legal agreements underpinning credit extensions.
 *   **Specific Industry Nuances in Loan Documentation.**
 *   **The Role of Credit Derivatives in Restructuring.** (Briefly touched, could be expanded).
 
+## CRAFT Curriculum Content
+
+This module is supplemented by the following detailed content from the CRAFT curriculum:
+
+*   [Financial Covenants & Documentation](./01_Financial_Covenants_and_Documentation.md)
+*   [Introduction to Leveraged Finance & LBOs](./02_Introduction_to_Leveraged_Finance.md)
+*   [Debt Structuring & Capital Structure](./03_Debt_Structuring_and_Capital_Structure.md)
+
 This module provides crucial advanced knowledge that allows analysts to tackle more complex credit situations with greater sophistication and insight.

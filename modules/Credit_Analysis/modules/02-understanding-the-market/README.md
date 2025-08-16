@@ -69,4 +69,10 @@ A company's performance is profoundly shaped by its industry. This section intro
 *   **Impact of Macroeconomic Factors on Industries and Capital Markets.**
 *   **Legal Aspects of Loan Documentation:** (Covered in more detail in Module 14, but could have a brief intro here).
 
+## CRAFT Curriculum Content
+
+This module is supplemented by the following detailed content from the CRAFT curriculum:
+
+*   [Essential Economic & Market Concepts](./01_Essential_Economic_Concepts.md)
+
 This module builds crucial contextual understanding, enabling analysts to look beyond a single company's financials and assess its position within the broader market and competitive landscape.

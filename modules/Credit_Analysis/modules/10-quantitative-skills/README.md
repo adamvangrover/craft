@@ -65,4 +65,11 @@ This module introduces analysts to essential quantitative concepts and tools bey
 *   **Bayesian Statistics in Risk Assessment (Advanced Conceptual).**
 *   **Data Ethics and Responsible Use of Data in Credit Decisions.**
 
+## CRAFT Curriculum Content
+
+This module is supplemented by the following detailed content from the CRAFT curriculum:
+
+*   [Financial Modeling in Excel](./01_Financial_Modeling_in_Excel.md)
+*   [Cash Flow Forecasting](./02_Cash_Flow_Forecasting.md)
+
 This module aims to equip analysts with the foundational quantitative and data literacy skills needed to thrive in an increasingly data-driven financial world.

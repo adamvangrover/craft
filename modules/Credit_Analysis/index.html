@@ -417,15 +417,30 @@
     // Data for CRAFT Modules - now points to module index.html
     const craftModulesData = [
         { moduleId: 'm1', title: 'Mod 01: Foundations', moduleIndexPath: './modules/01-foundations/index.html' },
+        { moduleId: 'm1_1', title: '  - Role of a Credit Analyst', moduleIndexPath: './modules/01-foundations/01_The_Role_of_a_Credit_Analyst.md' },
+        { moduleId: 'm1_2', title: '  - Mastering Financial Accounting', moduleIndexPath: './modules/01-foundations/02_Mastering_Financial_Accounting.md' },
+        { moduleId: 'm1_3', title: '  - FSA for Creditors', moduleIndexPath: './modules/01-foundations/03_Financial_Statement_Analysis_for_Creditors.md' },
         { moduleId: 'm2', title: 'Mod 02: Understanding the Market', moduleIndexPath: './modules/02-understanding-the-market/index.html' },
+        { moduleId: 'm2_1', title: '  - Essential Economic Concepts', moduleIndexPath: './modules/02-understanding-the-market/01_Essential_Economic_Concepts.md' },
         { moduleId: 'm3', title: 'Mod 03: The Analyst\'s Craft', moduleIndexPath: './modules/03-the-analysts-craft/index.html' },
+        { moduleId: 'm3_1', title: '  - Business & Industry Risk', moduleIndexPath: './modules/03-the-analysts-craft/01_Business_and_Industry_Risk_Analysis.md' },
         { moduleId: 'm4', title: 'Mod 04: The Credit Lifecycle', moduleIndexPath: './modules/04-the-credit-lifecycle/index.html' },
+        { moduleId: 'm4_1', title: '  - Due Diligence', moduleIndexPath: './modules/04-the-credit-lifecycle/01_Due_Diligence.md' },
+        { moduleId: 'm4_2', title: '  - Writing the Credit Memo', moduleIndexPath: './modules/04-the-credit-lifecycle/02_Writing_the_Credit_Memorandum.md' },
+        { moduleId: 'm4_3', title: '  - Credit Monitoring', moduleIndexPath: './modules/04-the-credit-lifecycle/03_Credit_Monitoring_and_Early_Warning_Signs.md' },
         { moduleId: 'm5', title: 'Mod 05: Future of Risk Management', moduleIndexPath: './modules/05-future-of-risk-management/index.html' },
         { moduleId: 'm6', title: 'Mod 06: Advanced Topics', moduleIndexPath: './modules/06-advanced-topics/index.html' },
+        { moduleId: 'm6_1', title: '  - Covenants & Documentation', moduleIndexPath: './modules/06-advanced-topics/01_Financial_Covenants_and_Documentation.md' },
+        { moduleId: 'm6_2', title: '  - Leveraged Finance & LBOs', moduleIndexPath: './modules/06-advanced-topics/02_Introduction_to_Leveraged_Finance.md' },
+        { moduleId: 'm6_3', title: '  - Debt Structuring', moduleIndexPath: './modules/06-advanced-topics/03_Debt_Structuring_and_Capital_Structure.md' },
         { moduleId: 'm7', title: 'Mod 07: Communication Skills', moduleIndexPath: './modules/07-communication-skills/index.html' },
+        { moduleId: 'm7_1', title: '  - Critical Thinking', moduleIndexPath: './modules/07-communication-skills/01_Critical_Thinking_and_Forming_a_Narrative.md' },
+        { moduleId: 'm7_2', title: '  - Presentation Skills', moduleIndexPath: './modules/07-communication-skills/02_Communication_and_Presentation_Skills.md' },
         { moduleId: 'm8', title: 'Mod 08: Specialized Industries', moduleIndexPath: './modules/08-specialized-industries/index.html' },
         { moduleId: 'm9', title: 'Mod 09: Regulatory & Ethics', moduleIndexPath: './modules/09-regulatory-ethics/index.html' },
         { moduleId: 'm10', title: 'Mod 10: Quantitative Skills', moduleIndexPath: './modules/10-quantitative-skills/index.html' },
+        { moduleId: 'm10_1', title: '  - Financial Modeling', moduleIndexPath: './modules/10-quantitative-skills/01_Financial_Modeling_in_Excel.md' },
+        { moduleId: 'm10_2', title: '  - Cash Flow Forecasting', moduleIndexPath: './modules/10-quantitative-skills/02_Cash_Flow_Forecasting.md' },
         { moduleId: 'm11', title: 'Mod 11: Capstone Project', moduleIndexPath: './modules/11-capstone/index.html' }
     ];
 
@@ -458,7 +473,14 @@
         // Hide all interactive <section> elements and show the iframe container
         contentSections.forEach(section => section.classList.remove('active'));
         moduleIframeContainer.classList.add('active');
-        moduleIframe.src = modulePath; // Load the module's index.html
+
+        if (modulePath.endsWith('.md')) {
+            // Use the global markdown viewer for markdown files
+            const viewerUrl = `../../global_markdown_viewer.html?mdfile=${modulePath}`;
+            moduleIframe.src = viewerUrl;
+        } else {
+            moduleIframe.src = modulePath; // Load the module's index.html
+        }
 
         // Update active states for navigation
         document.querySelectorAll('#craft-module-nav li a.craft-module-link').forEach(link => link.classList.remove('active-module'));

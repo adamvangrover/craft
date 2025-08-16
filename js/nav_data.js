@@ -4513,6 +4513,24 @@ const navData = [
                     "viewer": "global"
                   },
                   {
+                    "text": "The Role of a Credit Analyst",
+                    "href": "modules/Credit_Analysis/modules/01-foundations/01_The_Role_of_a_Credit_Analyst.md",
+                    "type": "markdown_viewer",
+                    "viewer": "global"
+                  },
+                  {
+                    "text": "Mastering Financial Accounting",
+                    "href": "modules/Credit_Analysis/modules/01-foundations/02_Mastering_Financial_Accounting.md",
+                    "type": "markdown_viewer",
+                    "viewer": "global"
+                  },
+                  {
+                    "text": "FSA for Creditors",
+                    "href": "modules/Credit_Analysis/modules/01-foundations/03_Financial_Statement_Analysis_for_Creditors.md",
+                    "type": "markdown_viewer",
+                    "viewer": "global"
+                  },
+                  {
                     "text": "Index",
                     "href": "modules/Credit_Analysis/modules/01-foundations/index.html",
                     "type": "html_hub"
@@ -4629,6 +4647,12 @@ const navData = [
                     "viewer": "global"
                   },
                   {
+                    "text": "Essential Economic Concepts",
+                    "href": "modules/Credit_Analysis/modules/02-understanding-the-market/01_Essential_Economic_Concepts.md",
+                    "type": "markdown_viewer",
+                    "viewer": "global"
+                  },
+                  {
                     "text": "Index",
                     "href": "modules/Credit_Analysis/modules/02-understanding-the-market/index.html",
                     "type": "html_hub"
@@ -4732,6 +4756,12 @@ const navData = [
                     "viewer": "global"
                   },
                   {
+                    "text": "Business & Industry Risk Analysis",
+                    "href": "modules/Credit_Analysis/modules/03-the-analysts-craft/01_Business_and_Industry_Risk_Analysis.md",
+                    "type": "markdown_viewer",
+                    "viewer": "global"
+                  },
+                  {
                     "text": "Index",
                     "href": "modules/Credit_Analysis/modules/03-the-analysts-craft/index.html",
                     "type": "html_hub"
@@ -4791,6 +4821,24 @@ const navData = [
                   {
                     "text": "README",
                     "href": "modules/Credit_Analysis/modules/04-the-credit-lifecycle/README.md",
+                    "type": "markdown_viewer",
+                    "viewer": "global"
+                  },
+                  {
+                    "text": "Due Diligence",
+                    "href": "modules/Credit_Analysis/modules/04-the-credit-lifecycle/01_Due_Diligence.md",
+                    "type": "markdown_viewer",
+                    "viewer": "global"
+                  },
+                  {
+                    "text": "Writing the Credit Memorandum",
+                    "href": "modules/Credit_Analysis/modules/04-the-credit-lifecycle/02_Writing_the_Credit_Memorandum.md",
+                    "type": "markdown_viewer",
+                    "viewer": "global"
+                  },
+                  {
+                    "text": "Credit Monitoring",
+                    "href": "modules/Credit_Analysis/modules/04-the-credit-lifecycle/03_Credit_Monitoring_and_Early_Warning_Signs.md",
                     "type": "markdown_viewer",
                     "viewer": "global"
                   },
@@ -4967,6 +5015,24 @@ const navData = [
                     "viewer": "global"
                   },
                   {
+                    "text": "Financial Covenants & Documentation",
+                    "href": "modules/Credit_Analysis/modules/06-advanced-topics/01_Financial_Covenants_and_Documentation.md",
+                    "type": "markdown_viewer",
+                    "viewer": "global"
+                  },
+                  {
+                    "text": "Introduction to Leveraged Finance",
+                    "href": "modules/Credit_Analysis/modules/06-advanced-topics/02_Introduction_to_Leveraged_Finance.md",
+                    "type": "markdown_viewer",
+                    "viewer": "global"
+                  },
+                  {
+                    "text": "Debt Structuring & Capital Structure",
+                    "href": "modules/Credit_Analysis/modules/06-advanced-topics/03_Debt_Structuring_and_Capital_Structure.md",
+                    "type": "markdown_viewer",
+                    "viewer": "global"
+                  },
+                  {
                     "text": "Index",
                     "href": "modules/Credit_Analysis/modules/06-advanced-topics/index.html",
                     "type": "html_hub"
@@ -5104,6 +5170,18 @@ const navData = [
                   {
                     "text": "README",
                     "href": "modules/Credit_Analysis/modules/07-communication-skills/README.md",
+                    "type": "markdown_viewer",
+                    "viewer": "global"
+                  },
+                  {
+                    "text": "Critical Thinking",
+                    "href": "modules/Credit_Analysis/modules/07-communication-skills/01_Critical_Thinking_and_Forming_a_Narrative.md",
+                    "type": "markdown_viewer",
+                    "viewer": "global"
+                  },
+                  {
+                    "text": "Communication & Presentation Skills",
+                    "href": "modules/Credit_Analysis/modules/07-communication-skills/02_Communication_and_Presentation_Skills.md",
                     "type": "markdown_viewer",
                     "viewer": "global"
                   },
@@ -5388,6 +5466,18 @@ const navData = [
                   {
                     "text": "README",
                     "href": "modules/Credit_Analysis/modules/10-quantitative-skills/README.md",
+                    "type": "markdown_viewer",
+                    "viewer": "global"
+                  },
+                  {
+                    "text": "Financial Modeling in Excel",
+                    "href": "modules/Credit_Analysis/modules/10-quantitative-skills/01_Financial_Modeling_in_Excel.md",
+                    "type": "markdown_viewer",
+                    "viewer": "global"
+                  },
+                  {
+                    "text": "Cash Flow Forecasting",
+                    "href": "modules/Credit_Analysis/modules/10-quantitative-skills/02_Cash_Flow_Forecasting.md",
                     "type": "markdown_viewer",
                     "viewer": "global"
                   },
