@@ -1,46 +1,49 @@
-# AGENTS.MD - Data Science Section
+# Agent Instructions: Data Science
 
-## 1. Purpose of This Section
+This document provides instructions for AI agents working with the content in the `/Data_Science/` directory and its subdirectories.
 
-This section explores the intersection of data science and finance. It provides resources for learning how to use data science techniques to analyze financial data, build predictive models, and gain insights into market trends.
+## Inherits From
 
-## 2. Content Structure
+This document inherits all general principles from the root `AGENTS.MD` file. Please review that document first for guidelines on:
 
-The Data Science section is organized into the following subdirectories:
+*   Overall repository architecture and purpose.
+*   General content creation principles.
+*   Jupyter Notebook guidelines.
+*   Linking conventions.
 
-*   `/Notebooks`: Jupyter notebooks with practical examples and tutorials.
-*   `/Articles`: In-depth articles on various data science topics in finance.
-*   `/Projects`: Larger data science projects with real-world applications.
+### 1. Purpose and Scope of this Directory
+This `/Data_Science/` directory explores the intersection of data science and finance. It provides resources, primarily through Jupyter Notebooks, for learning how to use data science techniques to analyze financial data, build predictive models, and gain insights into market trends.
 
-## 3. Content Creation Guidelines
+The main entry point for this section is `Data_Science/index.html`.
 
-*   **Code Quality:** All code should be well-documented and follow best practices.
-*   **Reproducibility:** Notebooks and projects should be reproducible, with all necessary data and dependencies included.
-*   **Practicality:** Focus on practical applications of data science in finance.
-*   **Interconnectivity:** Link to other relevant sections within the repository, such as `Financial_Modeling` and `Risk_Management`.
+### 2. Content Structure and Types
+The content in this section is primarily delivered through Jupyter Notebooks.
+*   `Notebooks/`: This directory contains all Jupyter Notebooks (`.ipynb` files) that provide practical examples, tutorials, and case studies on data science applications in finance.
 
-## 4. Future Additions
+### 3. Specific Guidelines for Data Science Content
+*   **Code Quality:** All Python code in notebooks must be well-documented, with clear comments explaining the logic. Adhere to PEP 8 style guidelines.
+*   **Reproducibility:** Notebooks are paramount for reproducibility. Ensure that they are self-contained, with all necessary data and dependencies clearly listed. If data cannot be included, provide a script or clear instructions for downloading it.
+*   **Practicality:** Focus on practical, real-world applications of data science in finance, such as quantitative analysis, risk modeling, or NLP for news analysis.
+*   **Clear Explanations:** Combine code cells with Markdown cells to provide clear, step-by-step explanations of the concepts and the code.
 
-*   Add more notebooks on topics such as natural language processing (NLP) for financial news analysis and time series analysis for stock price prediction.
-*   Create more in-depth articles on advanced data science topics.
-*   Develop more complex data science projects with real-world datasets.
+### 4. Linking Strategy
+*   Link key data science and financial terms to the `Global_Financial_Glossary.md`.
+*   From notebooks, link to related theoretical concepts in other sections, such as `/Financial_Modeling/` or `/Risk_Management/`.
+*   The `Data_Science/index.html` hub page should provide links to the key notebooks in this section.
 
-## 5. Roadmap
+### 5. Tools
+*   **Jupyter Notebooks:** The primary tool for content creation in this section. Follow the guidelines in the root `AGENTS.MD` for creating and describing notebooks.
+*   **`Data_Science/index.html`:** This hub page must be updated to feature new notebooks.
+*   **`js/nav_data.js`:** Add links to new, significant notebooks or guides in the global navigation menu.
 
-### Q3 2024: Foundational Skills & More Notebooks
+### 6. Developer Notes, Roadmap & Future Considerations
 
-*   **Content:**
-    *   **New Notebooks:** Add more notebooks on topics such as data visualization, feature engineering, and model evaluation.
-    *   **New Articles:** Add more articles on topics such as the CRISP-DM framework, data governance, and ethics in data science.
-*   **Features:**
-    *   **Interactive Exercises:** Add interactive exercises to the notebooks to help users practice what they've learned.
-    *   **Video Tutorials:** Create video tutorials to supplement the text-based content.
+**Developer Notes:**
+*   **Focus on Notebooks:** The primary value of this section is hands-on learning. Prioritize creating high-quality, interactive, and well-explained Jupyter Notebooks.
+*   **Environment and Dependencies:** Always include a `requirements.txt` file or a list of dependencies (e.g., in a Markdown cell at the top of the notebook) to ensure users can set up the correct environment.
 
-### Q4 2024: Advanced Topics & Cloud Computing
-
-*   **Content:**
-    *   **Advanced Topics:** Add content on more advanced topics, such as deep learning, reinforcement learning, and natural language generation (NLG).
-    *   **Cloud Computing:** Add a section on how to use cloud computing platforms (e.g., AWS, Azure, GCP) for data science.
-*   **Features:**
-    *   **Cloud Computing Tutorials:** Create tutorials on how to use cloud computing platforms for data science.
-    *   **Expert Interviews:** Interview data science experts to get their insights on the latest trends in the industry.
+**Roadmap / Planned Additions:**
+*   **Foundational Skills:** Create notebooks on core topics like data visualization, feature engineering, and model evaluation.
+*   **Advanced Topics:** Develop content on more advanced subjects like deep learning, reinforcement learning, and natural language generation (NLG) as applied to finance.
+*   **Time Series Analysis:** Add more notebooks specifically focused on time series analysis for stock price prediction and volatility modeling.
+*   **Cloud Computing:** Create guides or notebooks on using cloud platforms (e.g., AWS, Azure, GCP) for financial data science tasks.
