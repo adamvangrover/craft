@@ -50,20 +50,24 @@ New content should generally fit within these existing subdirectories or, if a n
 *   **Internal Links:** Link extensively between related concepts within the `legal_analysis/` section. For example, a discussion of a specific covenant should link to the general types of covenants and to relevant definitions.
 *   **Global Glossary:** Link key legal and financial terms to the `Global_Financial_Glossary.md`.
 *   **Cross-Repository Links:**
-    *   Connect legal concepts to practical applications in `corporate-credit-risk-analyst-training/` modules (e.g., legal aspects of underwriting).
+    *   Connect legal concepts to practical applications in `modules/` (e.g., legal aspects of underwriting in the CRAFT program).
     *   Link to relevant CFA curriculum sections if there's overlap (e.g., covenants, bankruptcy).
-    *   If discussing financial instruments, link to `Primers/` or `Market_Analysis_Quick_Start/` for foundational knowledge.
+    *   If discussing financial instruments, link to `Primers/` for foundational knowledge.
 
-## 5. Working with Interactive Content
+## 5. Tools
+*   **`legal_analysis/index.html`:** This hub page should be updated to reflect any new, significant content added to the section.
+*   **Markdown (`.md`):** The primary format for guides and checklists.
+*   **`js/nav_data.js`:** Update this file to add new content to the global navigation menu.
 
-*   If creating Jupyter Notebooks, follow guidelines in `Interactive_Notebooks/AGENTS.MD` and the root `AGENTS.MD`. Ensure notebooks are self-contained or use clearly referenced local data.
-*   For HTML content with dynamic loading (e.g., using `marked.js` for Markdown), ensure paths are correct and the display is user-friendly.
+## 6. Developer Notes, Roadmap & Future Considerations
 
-## 6. Developer Notes & Future Considerations
+**Developer Notes:**
+*   **Disclaimer:** Content should be for educational purposes only and not be construed as legal advice. A disclaimer in the main `README.md` is appropriate.
+*   **Jurisdictional Nuances:** If content pertains to a specific legal jurisdiction (e.g., US or UK law), this must be clearly indicated.
+*   **Anonymization:** Ensure any examples are hypothetical or properly anonymized.
 
-*   **Interactive Clause Explorer:** A potential future project could be an interactive tool (HTML/JS or Notebook) that allows users to click on parts of a sample (generic) agreement to get explanations.
-*   **Integration with Case Studies:** More explicitly link legal analysis concepts to case studies in the `CFA/` or `corporate-credit-risk-analyst-training/` sections.
+**Roadmap / Planned Additions:**
+*   **Interactive Clause Explorer:** A potential future project could be an interactive tool (HTML/JS or Notebook) that allows users to click on parts of a sample agreement to get explanations.
+*   **Integration with Case Studies:** More explicitly link legal analysis concepts to case studies in the `/CFA/` or `/modules/` sections.
 *   **Standard Templates/Checklists:** Develop more standardized checklists for reviewing different sections of credit agreements.
-*   **Visual Aids:** Consider simple flowcharts or diagrams (describable in Markdown/HTML or as simple, reproducible graphics if possible) to explain complex legal structures or processes.
-
-Ensure all new content is appropriately linked from the relevant `README.md` files within this section and, if significant enough, considered for addition to the global navigation via `js/nav_data.js` (following the process outlined in the root `AGENTS.MD`).
+*   **Visual Aids:** Create simple flowcharts or diagrams to explain complex legal structures or processes.

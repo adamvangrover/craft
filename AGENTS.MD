@@ -11,25 +11,27 @@ The goal is to create a deeply interconnected and engaging learning environment.
 The repository is structured into several main thematic directories, each potentially containing subdirectories for more granular topics. Key top-level directories include:
 
 *   `/` (Root): Contains main navigation (`home.html`, `README.MD`), this `AGENTS.MD`, global glossary, and potentially other cross-cutting resources.
+*   `AI_and_Coding/`: Resources related to AI, programming, and agent-based development in finance.
+*   `Behavioral_Finance/`: Psychological aspects of financial decision-making.
 *   `CFA/`: Chartered Financial Analyst program materials.
-*   `corporate-credit-risk-analyst-training/` (CRAFT): A modular training program for credit analysts.
+*   `Data_Science/`: Data science techniques and applications in finance.
 *   `Financial_Modeling/`: Best practices, templates, and techniques for financial modeling.
 *   `Fintech/`: Exploration of financial technology topics.
-*   `Risk_Management/`: Frameworks and deep dives into various risk categories.
 *   `Interactive_Notebooks/`: Houses Jupyter Notebooks designed for interactive learning experiences.
-*   `Primers/`: Industry-specific analysis guides.
-*   `Market_Analysis_Quick_Start/`: Rapid onboarding for market concepts.
-*   `Behavioral_Finance/`: Psychological aspects of financial decision-making.
-*   `Toolkits_and_Checklists/`: Practical job aids.
-*   `Professional_Development/`: Soft skills for finance professionals.
 *   `Learning_Paths/`: Curated guides for specific learning objectives.
 *   `legal_analysis/`: Guides and tools for understanding legal documents in finance.
+*   `modules/`: Contains modular content, including the Corporate & Credit Risk Analyst (CRAFT) program.
+*   `Primers/`: Industry-specific analysis guides.
+*   `Professional_Development/`: Soft skills for finance professionals.
+*   `Risk_Management/`: Frameworks and deep dives into various risk categories.
+*   `Toolkits_and_Checklists/`: Practical job aids.
 
 Each major directory listed above (and any new ones created at a similar level) **MUST** have its own `AGENTS.MD` file providing section-specific guidance.
 
 **Note on other directories:**
-*   `outlook/`: This directory contains market outlook and trend reports. Due to its specific and often time-sensitive nature, content here should follow general guidelines. Specific agent instructions, if any beyond the general ones, would be minimal and could be covered in this root `AGENTS.MD` if necessary, but a dedicated `AGENTS.MD` is not currently mandated for it unless it significantly expands in scope.
 *   `assets/`, `css/`, `js/`: These have their own `AGENTS.MD` files focused on asset management and global UI components.
+*   `copilot-quest/`, `copilot-quest-game/`: These directories contain materials for specific learning games and quests and have their own agent instructions.
+*   `outlook/`: This directory contains market outlook and trend reports. A dedicated `AGENTS.MD` is not currently mandated for it unless it significantly expands in scope.
 
 ## 3. General Principles for Content Creation
 
@@ -56,7 +58,7 @@ Each major directory listed above (and any new ones created at a similar level) 
 Currently, three main HTML-based interactive dashboards/hubs exist:
 
 *   `home.html` (Root dashboard): This is the primary landing page for the entire financial learning repository. It features a single-scroll layout showcasing a Hero section, Learning Paths, Key Learning Pillars, Tools/Resources, and a "How to Use" guide. It integrates the global navigation sidebar and may include interactive elements like an AI Concept Explainer. It is built with Tailwind CSS.
-*   `corporate-credit-risk-analyst-training/index.html` (CRAFT Program Hub): An interactive hub for the CRAFT program, typically using iframes or dynamic content loading for modules.
+*   `craft.html` (CRAFT Program Hub): An interactive hub for the Corporate & Credit Risk Analyst (CRAFT) program, which is housed in the `/modules` directory.
 *   `CFA/index.html` (CFA Study Hub): An interactive hub for CFA program preparation materials.
 
 **Guidelines for Modifying Dashboards (especially `home.html`):**
@@ -64,7 +66,7 @@ Currently, three main HTML-based interactive dashboards/hubs exist:
 *   **Backup First:** Before making significant changes, consider version control as your primary backup.
 *   **Understand Structure:**
     *   `home.html`: Understand its single-page scroll structure, Tailwind CSS classes, and how sections are defined. JavaScript is used for minor enhancements and potentially for features like the AI explainer.
-    *   Other Hubs (`CRAFT/index.html`, `CFA/index.html`): These may have more complex JavaScript for their specific interactivity (e.g., tabbed views, dynamic content loading for modules/resources).
+    *   Other Hubs (`craft.html`, `CFA/index.html`): These may have more complex JavaScript for their specific interactivity (e.g., tabbed views, dynamic content loading for modules/resources).
 *   **Update Links Carefully:** If new sections are added to the repository, ensure links on `home.html` (e.g., in Key Pillars or Learning Path cards) and within the global navigation data (`js/nav_data.js`) are updated to point to the correct new `README.md` or `index.html` for that section.
 *   **Test Interactivity:** After making changes, verify that:
     *   The global navigation sidebar functions correctly.
@@ -232,7 +234,7 @@ When adding an item to `navData`, specify its `type`. Common types include:
 *   `type: "jupyter_guide"`: For linking to `README.md` files that serve as guides for Jupyter Notebooks. These links typically open in a new tab.
     *   Example: `{ text: "Equity Valuation Notebook Guide", href: "Interactive_Notebooks/Financial_Modeling/README.md", type: "jupyter_guide" }`
 *   `type: "craft_module_viewer"`: Specifically for CRAFT program modules that are typically loaded within the CRAFT hub's iframe.
-    *   Example: `{ text: "Module 1: Foundations", href: "corporate-credit-risk-analyst-training/modules/01-foundations/index.html", type: "craft_module_viewer" }`
+    *   Example: `{ text: "Module 1: Foundations", href: "modules/Credit_Analysis/modules/01-foundations/index.html", type: "craft_module_viewer" }`
 *   `type: "learning_path_definition"`: For Markdown files that define a specific learning path.
     *   `path_id`: A unique machine-readable ID for the path.
     *   Example: `{ text: "Credit Analyst Foundational Path", href: "Learning_Paths/Credit_Analyst_Foundational_Path.md", type: "learning_path_definition", path_id: "credit_analyst_foundational" }`
