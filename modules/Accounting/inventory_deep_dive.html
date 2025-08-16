@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Dive: Inventory</title>
+    <link rel="stylesheet" href="../../css/global_nav.css">
+    <link rel="stylesheet" href="../../assets/css/shared-readme-styles.css">
+</head>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="readme-container">
+        <div class="readme-content">
+            <h1>Deep Dive: Inventory</h1>
+
+            <h2>1. Introduction to Inventory</h2>
+            <p>Inventory represents the goods and materials a business holds for the ultimate purpose of resale. It is a current asset on the balance sheet and is critical to a company's ability to generate revenue. For retailers, wholesalers, and manufacturers, inventory is often one of the largest and most significant assets.</p>
+
+            <h3>Types of Inventory</h3>
+            <p>Inventory can be categorized into three main types, particularly for a manufacturing company:</p>
+            <ol>
+                <li><strong>Raw Materials:</strong> The basic materials that will be used in the production process.</li>
+                <li><strong>Work-in-Progress (WIP):</strong> Goods that are partially through the production process but not yet complete.</li>
+                <li><strong>Finished Goods:</strong> Completed products that are ready for sale to customers.</li>
+            </ol>
+
+            <h2>2. Inventory Costing Methods</h2>
+            <p>When a company purchases inventory at different times and at different prices, it must adopt a cost flow assumption to determine the cost of goods sold (COGS) and the value of ending inventory. The choice of method can have a significant impact on the financial statements.</p>
+
+            <h3>First-In, First-Out (FIFO)</h3>
+            <p>The FIFO method assumes that the first units purchased are the first ones sold.</p>
+            <ul>
+                <li><strong>Impact in Rising Prices:</strong> Results in a lower COGS (as older, cheaper costs are used), higher net income, a higher tax liability, and a higher ending inventory value (reflecting more recent, higher costs).</li>
+                <li><strong>Relevance:</strong> Permitted under both U.S. GAAP and IFRS. It often mirrors the actual physical flow of goods, especially for perishable items.</li>
+            </ul>
+
+            <h3>Last-In, First-Out (LIFO)</h3>
+            <p>The LIFO method assumes that the last units purchased are the first ones sold.</p>
+            <ul>
+                <li><strong>Impact in Rising Prices:</strong> Results in a higher COGS (as newer, more expensive costs are matched against revenue), lower net income, a lower tax liability (a key advantage), and a lower ending inventory value (which can be outdated).</li>
+                <li><strong>Relevance:</strong> Permitted under U.S. GAAP but <strong>prohibited</strong> under IFRS. This is a major difference in international accounting.</li>
+            </ul>
+
+            <h3>Weighted-Average Cost</h3>
+            <p>This method uses the weighted-average cost of all goods available for sale during the period to determine the value of COGS and ending inventory.<br>
+                <code>Weighted-Average Cost = Total Cost of Goods Available for Sale / Total Units Available for Sale</code>
+            </p>
+            <ul>
+                <li><strong>Impact:</strong> Produces results that are between FIFO and LIFO. It smooths out the effects of price changes.</li>
+            </ul>
+
+            <h2>3. Lower of Cost or Net Realizable Value (LCNRV)</h2>
+            <p>Inventory must be reported on the balance sheet at the <strong>lower of its cost or its net realizable value</strong>. This is a principle of conservatism.</p>
+            <ul>
+                <li><strong>Net Realizable Value (NRV):</strong> The estimated selling price in the ordinary course of business, less reasonably predictable costs of completion, disposal, and transportation.<br>
+                    <code>NRV = Estimated Selling Price - Estimated Costs to Complete & Sell</code>
+                </li>
+            </ul>
+            <p>If the NRV of inventory falls below its original cost (due to damage, obsolescence, or a decline in market price), the company must write down the value of the inventory to its NRV. This write-down is recognized as a loss on the income statement in the period the decline occurs.</p>
+
+            <h2>4. Inventory Ratios</h2>
+            <p>Analysts use several ratios to assess how efficiently a company is managing its inventory.</p>
+
+            <h3>Inventory Turnover</h3>
+            <p>This ratio measures how many times a company sells and replaces its inventory over a period.<br>
+                <code>Inventory Turnover = Cost of Goods Sold / Average Inventory</code>
+            </p>
+            <ul>
+                <li>A high turnover generally indicates strong sales or effective inventory management. A low turnover might suggest weak sales or overstocking.</li>
+            </ul>
+
+            <h3>Days Inventory Outstanding (DIO)</h3>
+            <p>This ratio measures the average number of days it takes for a company to sell its inventory.<br>
+                <code>Days Inventory Outstanding = 365 / Inventory Turnover</code>
+            </p>
+            <ul>
+                <li>A lower DIO is generally better, as it indicates the company is converting its inventory into sales more quickly.</li>
+            </ul>
+            <p>Comparing these ratios to industry averages and historical trends is crucial for a meaningful analysis.</p>
+        </div>
+        <footer class="readme-footer">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
+        </footer>
+    </div>
+    <script src="../../js/nav_data.js" defer></script>
+    <script src="../../js/global_nav.js" defer></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

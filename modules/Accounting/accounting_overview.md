@@ -174,24 +174,33 @@ This section briefly touches upon more advanced accounting topics that are cruci
 *   **Intercorporate Investments:** The accounting for investments in other companies depends on the level of influence and can significantly impact the financial statements.
 *   **Financial Reporting Quality:** This involves assessing the accuracy and transparency of a company's financial reporting and identifying potential red flags or earnings management.
 
-## Part VII: Further Reading
+## Part VII: Further Reading and Interactive Learning
 
-For those who wish to delve deeper into specific topics, the following resources provide additional explanations, case studies, and interactive examples.
+For a comprehensive and interactive dashboard of all accounting resources, please visit the [Accounting Hub](./index.html).
 
-### Core Accounting Documents
+### Core Concepts & Deep Dives
 
-*   [In-depth Guide to the Income Statement](./income_statement.md)
-*   [In-depth Guide to the Balance Sheet](./balance_sheet.md)
-*   [In-depth Guide to the Cash Flow Statement](./cash_flow_statement.md)
+*   [Deep Dive: The Income Statement](./income_statement.md)
+*   [Deep Dive: The Balance Sheet](./balance_sheet.md)
+*   [Deep Dive: The Cash Flow Statement](./cash_flow_statement.md)
+*   [Deep Dive: Property, Plant, & Equipment (PP&E)](./ppe_deep_dive.md)
+*   [Deep Dive: Inventory (FIFO vs. LIFO)](./inventory_deep_dive.md)
+*   [Deep Dive: Intangible Assets & Goodwill](./intangibles_deep_dive.md)
 *   [Analysis of Dividends and Share Buybacks](./dividends_and_share_buybacks.md)
 *   [Understanding Financial Statement Interrelationships](./financial_statement_interrelationships.md)
-*   [Presentation on the Three Financial Statements](../../presentations/three_financial_statements.md)
 
-### Case Studies and Interactive Learning
+### Interactive Tools
 
-*   [Case Study: Deferred Revenue](./Case_Studies/deferred_revenue_case_study.md)
+*   [Interactive Quiz: Accounting Fundamentals](../../quizzes/accounting_quiz.html)
+*   [Interactive Notebook: DuPont Analysis](./Interactive_Notebooks/dupont_analysis.ipynb)
+*   [Interactive Notebook: Cash Flow Forecasting](./Interactive_Notebooks/cash_flow_forecasting.ipynb)
 *   [Interactive Notebook: Working Capital Analysis](./Interactive_Notebooks/working_capital_analysis.ipynb)
-*   [Accounting Quiz](../../quizzes/accounting-quiz.json)
+
+### Case Studies
+
+*   [Case Study: Inventory Valuation (FIFO vs. LIFO)](./Case_Studies/inventory_valuation_case_study.md)
+*   [Case Study: Lease Accounting (ASC 842)](./Case_Studies/lease_accounting_case_study.md)
+*   [Case Study: Deferred Revenue](./Case_Studies/deferred_revenue_case_study.md)
 
 ### CFA Program Materials
 

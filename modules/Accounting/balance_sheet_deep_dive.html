@@ -16,6 +16,70 @@
             <p>It is structured around the fundamental accounting equation, which must always remain in balance:</p>
             <pre><code>Assets = Liabilities + Shareholders’ Equity</code></pre>
 
+            <div class="interactive-calculator">
+                <h3>Interactive Calculator: The Accounting Equation</h3>
+                <p>Enter values for Assets and Liabilities to see how Shareholders' Equity is calculated in real-time. This demonstrates the fundamental principle that a company's assets are financed by either debt (liabilities) or equity.</p>
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="assets">Total Assets:</label>
+                        <input type="number" id="assets" value="1000" oninput="calculateEquity()">
+                    </div>
+                    <div class="form-group">
+                        <label for="liabilities">Total Liabilities:</label>
+                        <input type="number" id="liabilities" value="600" oninput="calculateEquity()">
+                    </div>
+                    <div class="result-group">
+                        <strong>Shareholders' Equity = <span id="equity">400.00</span></strong>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function calculateEquity() {
+                    const assets = parseFloat(document.getElementById('assets').value) || 0;
+                    const liabilities = parseFloat(document.getElementById('liabilities').value) || 0;
+                    const equity = assets - liabilities;
+                    document.getElementById('equity').textContent = equity.toFixed(2);
+                }
+                // Initial calculation for placeholder values
+                document.addEventListener('DOMContentLoaded', calculateEquity);
+            </script>
+
+            <style>
+                .interactive-calculator {
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    padding: 20px;
+                    margin: 20px 0;
+                    background-color: #f9f9f9;
+                }
+                .calculator-form {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 20px;
+                    align-items: center;
+                }
+                .form-group {
+                    display: flex;
+                    flex-direction: column;
+                }
+                .form-group label {
+                    margin-bottom: 5px;
+                    font-weight: bold;
+                }
+                .form-group input {
+                    padding: 8px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                }
+                .result-group {
+                    grid-column: 1 / -1;
+                    text-align: center;
+                    font-size: 1.2em;
+                    margin-top: 10px;
+                }
+            </style>
+
             <hr>
 
             <h2>2.1 Shareholders' Equity</h2>

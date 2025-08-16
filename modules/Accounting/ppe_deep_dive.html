@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Dive: Property, Plant, and Equipment (PP&E)</title>
+    <link rel="stylesheet" href="../../css/global_nav.css">
+    <link rel="stylesheet" href="../../assets/css/shared-readme-styles.css">
+</head>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="readme-container">
+        <div class="readme-content">
+            <h1>Deep Dive: Property, Plant, and Equipment (PP&E)</h1>
+
+            <h2>1. Introduction to PP&E</h2>
+            <p>Property, Plant, and Equipment (PP&E) are long-term, tangible assets that a company uses in its operations to generate revenue. These assets are not expected to be consumed or converted into cash within one year. Examples include land, buildings, machinery, vehicles, and office furniture. Understanding the accounting for PP&E is critical because it represents a significant portion of the total assets for many capital-intensive companies.</p>
+
+            <h2>2. Capitalization of Costs</h2>
+            <p>When a company acquires a PP&E asset, the cost of the asset is recorded on the balance sheet. This process is known as <strong>capitalization</strong>. The capitalized cost includes not only the purchase price but also all other costs necessary to bring the asset to the location and condition necessary for it to be capable of operating in the manner intended by management.</p>
+            <p><strong>Common Capitalizable Costs:</strong></p>
+            <ul>
+                <li>Purchase price (less any discounts)</li>
+                <li>Sales taxes</li>
+                <li>Transportation costs</li>
+                <li>Installation and assembly costs</li>
+                <li>Testing costs before the asset is placed in service</li>
+                <li>Legal fees and closing costs for land acquisition</li>
+            </ul>
+            <p>Any costs incurred after the asset is ready for its intended use, such as maintenance and repairs, are typically expensed as incurred.</p>
+
+            <h2>3. Depreciation</h2>
+            <p>Depreciation is the systematic allocation of the cost of a tangible asset over its useful life. It is an application of the <strong>matching principle</strong>, as it matches the cost of the asset to the revenues it helps to generate over time.</p>
+            <p><strong>Key Terms:</strong></p>
+            <ul>
+                <li><strong>Cost:</strong> The initial capitalized cost of the asset.</li>
+                <li><strong>Useful Life:</strong> The period over which the asset is expected to be used by the company.</li>
+                <li><strong>Salvage Value (or Residual Value):</strong> The estimated residual value of an asset at the end of its useful life.</li>
+                <li><strong>Depreciable Base:</strong> The cost of the asset minus its estimated salvage value.</li>
+            </ul>
+
+            <h3>Common Depreciation Methods</h3>
+            <ol>
+                <li><strong>Straight-Line Method:</strong> This is the simplest and most common method. It allocates an equal amount of depreciation expense to each full accounting period during the asset's useful life.<br>
+                    <code>Annual Depreciation = (Cost - Salvage Value) / Useful Life</code>
+                </li>
+                <li><strong>Double-Declining Balance Method:</strong> This is an <strong>accelerated depreciation method</strong>, meaning it records higher depreciation expense in the early years of an asset's life and lower expense in the later years.<br>
+                    <code>Annual Depreciation = (2 / Useful Life) * Book Value at Beginning of Year</code><br>
+                    Note: The book value is the asset's cost minus its accumulated depreciation. Depreciation stops once the book value equals the salvage value.
+                </li>
+            </ol>
+
+            <h2>4. Derecognition of PP&E</h2>
+            <p>Derecognition occurs when a PP&E asset is removed from the balance sheet. This typically happens when the asset is sold, exchanged, or abandoned.</p>
+            <p>When an asset is sold, the company must calculate any <strong>gain or loss on the sale</strong>:<br>
+                <code>Gain or Loss = Sale Proceeds - Book Value at Time of Sale</code>
+            </p>
+            <ul>
+                <li>If the proceeds are greater than the book value, a <strong>gain</strong> is recognized.</li>
+                <li>If the proceeds are less than the book value, a <strong>loss</strong> is recognized.</li>
+            </ul>
+            <p>Gains and losses on the sale of PP&E are typically reported in the non-operating section of the income statement.</p>
+
+            <h2>5. Impairment</h2>
+            <p>An <strong>impairment</strong> occurs when the carrying amount (book value) of an asset is not recoverable and exceeds its fair value. This means the asset is worth less than what it's recorded for on the balance sheet.</p>
+            <p>Companies must test for impairment when there are indicators that the asset's value may have declined (e.g., significant damage, a decline in the asset's market price). If an asset is impaired, the company must write down the asset to its fair value and recognize an impairment loss on the income statement.</p>
+
+            <h2>6. Presentation on Financial Statements</h2>
+            <ul>
+                <li><strong>Balance Sheet:</strong> PP&E is reported under non-current assets, usually at its net book value (<code>Cost - Accumulated Depreciation</code>). The footnotes to the financial statements provide more detail, often breaking down the cost and accumulated depreciation by asset class.</li>
+                <li><strong>Income Statement:</strong> Depreciation expense is recorded, typically within operating expenses (like COGS or SG&A). Any gains, losses, or impairment charges are also reported.</li>
+                <li><strong>Cash Flow Statement:</strong> The purchase of PP&E (a capital expenditure) is a cash outflow in the <strong>Investing Activities</strong> section. The sale of PP&E results in a cash inflow in the same section. Depreciation is a non-cash expense that is added back to net income in the <strong>Operating Activities</strong> section (when using the indirect method).</li>
+            </ul>
+        </div>
+        <footer class="readme-footer">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
+        </footer>
+    </div>
+    <script src="../../js/nav_data.js" defer></script>
+    <script src="../../js/global_nav.js" defer></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
