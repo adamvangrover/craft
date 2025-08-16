@@ -1,0 +1,57 @@
+@prefix : <http://example.org/credit-analysis-kb/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+:CreditAnalysisKB a owl:Ontology ;
+    rdfs:label "Credit Analysis Knowledge Base Ontology" ;
+    rdfs:comment "A simple ontology to describe the knowledge extracted from the credit analysis repository." .
+
+# Classes
+:Document a rdfs:Class ;
+    rdfs:label "Document" ;
+    rdfs:comment "A source file from the repository." .
+
+:KnowledgeChunk a rdfs:Class ;
+    rdfs:label "Knowledge Chunk" ;
+    rdfs:comment "A piece of knowledge extracted from a document." .
+
+:Concept a rdfs:Class ;
+    rdfs:label "Concept" ;
+    rdfs:subClassOf :KnowledgeChunk ;
+    rdfs:comment "A specific concept or topic." .
+
+:Definition a rdfs:Class ;
+    rdfs:label "Definition" ;
+    rdfs:subClassOf :KnowledgeChunk ;
+    rdfs:comment "A definition of a term." .
+
+:Checklist a rdfs:Class ;
+    rdfs:label "Checklist" ;
+    rdfs:subClassOf :KnowledgeChunk ;
+    rdfs:comment "A checklist or a set of guidelines." .
+
+# Properties
+:hasChunk a owl:ObjectProperty ;
+    rdfs:label "has chunk" ;
+    rdfs:domain :Document ;
+    rdfs:range :KnowledgeChunk .
+
+:hasContentType a owl:DatatypeProperty ;
+    rdfs:label "has content type" ;
+    rdfs:domain :KnowledgeChunk ;
+    rdfs:range rdfs:Literal .
+
+:hasContent a owl:DatatypeProperty ;
+    rdfs:label "has content" ;
+    rdfs:domain :KnowledgeChunk ;
+    rdfs:range rdfs:Literal .
+
+:hasSourceFile a owl:DatatypeProperty ;
+    rdfs:label "has source file" ;
+    rdfs:domain :KnowledgeChunk ;
+    rdfs:range rdfs:Literal .
+
+:mentions a owl:ObjectProperty ;
+    rdfs:label "mentions" ;
+    rdfs:domain :KnowledgeChunk ;
+    rdfs:range :KnowledgeChunk .

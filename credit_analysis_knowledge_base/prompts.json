@@ -1,0 +1,24 @@
+{
+  "prompts": [
+    {
+      "name": "Summarize a topic",
+      "prompt": "Based on the provided knowledge base, summarize the key aspects of 'Financial Reporting and Analysis'."
+    },
+    {
+      "name": "Answer a specific question",
+      "prompt": "What are the key items in a credit analysis due diligence checklist?"
+    },
+    {
+      "name": "Explain a concept",
+      "prompt": "Explain the concept of 'EBITDA' and its importance in credit analysis, using the provided knowledge base."
+    },
+    {
+      "name": "Find related concepts",
+      "prompt": "What are the concepts related to 'Covenant Analysis' in the knowledge base?"
+    },
+    {
+      "name": "Generate a checklist for a task",
+      "prompt": "Generate a checklist for conducting a basic financial model review, based on the information in the knowledge base."
+    }
+  ]
+}
