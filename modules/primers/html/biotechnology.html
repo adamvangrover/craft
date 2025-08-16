@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biotechnology Primer</title>
+    <link rel="stylesheet" href="../../../css/global_nav.css">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div id="global-nav-placeholder"></div>
+    <div class="primer-container">
+        <div id="content"></div>
+    </div>
+    <script src="../../../js/nav_data.js"></script>
+    <script src="../../../js/global_nav.js"></script>
+    <script>
+        fetch('../biotechnology.md')
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('content').innerHTML = marked.parse(text);
+            });
+    </script>
+</body>
+</html>

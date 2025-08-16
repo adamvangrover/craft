@@ -68,6 +68,7 @@ New content should generally fall into one of these categories.
 *   **Interactive Elements:**
     *   Integrate more Jupyter Notebooks for quantitative examples, particularly for topics like derivatives, fixed income, and portfolio management. Refer to `Interactive_Notebooks/AGENTS.MD` and root `AGENTS.MD` for guidelines.
     *   Explore options for interactive formula sheets or concept maps.
+    *   **Interactive Peer Financial Statement Comparison Tool (New Idea):** Develop a new interactive tool (potentially a standalone HTML page with JavaScript or a complex Jupyter Notebook) that allows users to select a company and a set of peers. The tool would display side-by-side, common-sized financial statements (Income Statement, Balance Sheet) and automatically calculate key Financial Statement Analysis (FSA) ratios for comparison. This would be an invaluable tool for the FSA portion of the curriculum.
 *   **Multimedia Content (Future):**
     *   Video summaries or walkthroughs for particularly challenging topics (would require decisions on hosting and embedding).
 *   **LOS Mapping Files:** Systematically create/update `LOS_Mappings/` files that explicitly link content within this repository to each CFA LOS.
