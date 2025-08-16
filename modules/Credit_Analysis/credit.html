@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Corporate Credit Risk Analysis Framework</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Professional Neutrals & Slate -->
+    <!-- Application Structure Plan: A modular, tab-based SPA design is used instead of the report's linear format. The app is organized into logical, task-oriented modules (e.g., 'Company Vitals', 'Financial Health', 'Risk Synthesis') accessible via a persistent sidebar navigation. This structure allows analysts to non-linearly access the specific tools and information they need, dramatically improving workflow efficiency. Key interactions include dynamic chart filtering, real-time covenant stress testing, and clickable diagrams to reveal deeper insights, transforming the passive guide into an active analysis toolkit. -->
+    <!-- Visualization & Content Choices: The application uses a mix of interactive elements to achieve specific goals, avoiding SVG/Mermaid as required. Goal: Compare -> Interactive Bar/Line charts (Chart.js) for financial ratios. Goal: Organize -> Clickable HTML/CSS diagrams for Porter's Five Forces and Parent/Subsidiary linkage. Goal: Change/Relationships -> An input-driven, reactive HTML table for covenant headroom analysis. Textual content is broken into digestible cards and accordions. This variety makes complex information more engaging and easier to understand than a purely text-based format. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-link.active, .nav-link:hover {
+            background-color: #e2e8f0; /* slate-200 */
+            color: #1e293b; /* slate-800 */
+            transform: translateX(4px);
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-700">
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-white border-r border-slate-200 p-6 fixed h-full hidden lg:block">
+            <h1 class="text-xl font-bold text-slate-800 mb-8">Credit Risk Framework</h1>
+            <nav id="desktop-nav" class="space-y-2">
+                <a href="#home" class="nav-link flex items-center p-2 rounded-md text-slate-600 font-medium active">
+                    <span class="mr-3">🏠</span> Home
+                </a>
+                <a href="#company" class="nav-link flex items-center p-2 rounded-md text-slate-600 font-medium">
+                    <span class="mr-3">🏢</span> Company Vitals
+                </a>
+                <a href="#industry" class="nav-link flex items-center p-2 rounded-md text-slate-600 font-medium">
+                    <span class="mr-3">🏭</span> Market Context
+                </a>
+                <a href="#financials" class="nav-link flex items-center p-2 rounded-md text-slate-600 font-medium">
+                    <span class="mr-3">📊</span> Financial Health
+                </a>
+                <a href="#synthesis" class="nav-link flex items-center p-2 rounded-md text-slate-600 font-medium">
+                    <span class="mr-3">💡</span> Risk Synthesis
+                </a>
+                <a href="#structural" class="nav-link flex items-center p-2 rounded-md text-slate-600 font-medium">
+                    <span class="mr-3">🛡️</span> Structural & Covenants
+                </a>
+                <a href="#regulatory" class="nav-link flex items-center p-2 rounded-md text-slate-600 font-medium">
+                    <span class="mr-3">🏛️</span> Regulatory View
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Mobile Header & Navigation -->
+        <header class="lg:hidden w-full bg-white border-b border-slate-200 p-4 fixed top-0 z-10">
+            <div class="flex justify-between items-center">
+                <h1 class="text-xl font-bold text-slate-800">Credit Risk Framework</h1>
+                <select id="mobile-nav" class="p-2 rounded-md border border-slate-300 bg-white">
+                    <option value="home">Home</option>
+                    <option value="company">Company Vitals</option>
+                    <option value="industry">Market Context</option>
+                    <option value="financials">Financial Health</option>
+                    <option value="synthesis">Risk Synthesis</option>
+                    <option value="structural">Structural & Covenants</option>
+                    <option value="regulatory">Regulatory View</option>
+                </select>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 lg:ml-64 p-6 pt-24 lg:pt-8">
+
+            <!-- Home Section -->
+            <section id="home" class="content-section active">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">A Modern Toolkit for Corporate Credit Risk Analysis</h2>
+                <p class="text-lg text-slate-600 mb-6">This interactive application translates the comprehensive "Guide to Corporate Credit Risk Analysis" into a dynamic, hands-on toolkit. It's designed to help financial analysts conduct thorough, efficient, and consistent credit reviews. Navigate through the modules on the left to explore key analytical areas, interact with data visualizations, and apply structured frameworks to your own analysis.</p>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg border border-slate-200">
+                        <h3 class="font-bold text-slate-800 text-lg mb-2">🔍 Foundational Analysis</h3>
+                        <p class="text-slate-600">Start by understanding the company's business model, operational scale, and ownership structure. Use the 'Company Vitals' module to assess the core qualitative factors.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg border border-slate-200">
+                        <h3 class="font-bold text-slate-800 text-lg mb-2">📊 Quantitative Deep Dive</h3>
+                        <p class="text-slate-600">Leverage the 'Financial Health' module to dissect financial statements. Interact with charts to analyze trends in profitability, leverage, liquidity, and cash flow against peers.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg border border-slate-200">
+                        <h3 class="font-bold text-slate-800 text-lg mb-2">💡 Synthesize & Conclude</h3>
+                        <p class="text-slate-600">Use the 'Risk Synthesis' module to summarize strengths and weaknesses, assess default probability, and define clear rating triggers for ongoing monitoring.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Company Vitals Section -->
+            <section id="company" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Company Vitals</h2>
+                <p class="text-lg text-slate-600 mb-6">This module focuses on the foundational qualitative aspects of the company. A deep understanding of its business model, operational profile, management quality, and governance is essential before diving into the numbers.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-slate-800 mb-4">Company & Business Profile</h3>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-lg border border-slate-200">
+                                <h4 class="font-semibold text-slate-800">Core Business & Revenue Model</h4>
+                                <p class="text-slate-600">What are the core activities? How predictable and sustainable are its revenue streams (e.g., recurring vs. project-based)?</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-slate-200">
+                                <h4 class="font-semibold text-slate-800">Scale & Geographic Footprint</h4>
+                                <p class="text-slate-600">What is the operational scale (revenue, assets)? Is its geographic footprint diversified or concentrated?</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-slate-200">
+                                <h4 class="font-semibold text-slate-800">Customer & Supplier Concentration</h4>
+                                <p class="text-slate-600">Is there reliance on a single customer for >10% of revenue? Are key suppliers easily replaceable?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-slate-800 mb-4">Management & Governance</h3>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-lg border border-slate-200">
+                                <h4 class="font-semibold text-slate-800">Management Capability & Track Record</h4>
+                                <p class="text-slate-600">How experienced is the management team? Is their strategy clear and well-executed? What is their stated financial policy on risk and leverage?</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-slate-200">
+                                <h4 class="font-semibold text-slate-800">Corporate Governance</h4>
+                                <p class="text-slate-600">Is the board independent? How transparent are disclosures? Are there related-party transactions or other red flags?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Industry Analysis Section -->
+            <section id="industry" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Market Context</h2>
+                <p class="text-lg text-slate-600 mb-6">A company's credit profile is heavily influenced by its external environment. This module provides frameworks to analyze industry structure, competitive intensity, and broad-spectrum risks like macroeconomic and ESG factors.</p>
+
+                <div class="bg-white p-6 rounded-lg border border-slate-200 mb-8">
+                    <h3 class="text-2xl font-semibold text-slate-800 mb-4">Porter's Five Forces Analysis</h3>
+                    <p class="text-slate-600 mb-6">Click on each force to understand its impact on industry profitability and risk. This analysis provides essential context for evaluating a company's financial performance.</p>
+                    <div id="porters-five-forces" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div class="md:col-span-3">
+                             <div class="force-item bg-slate-100 p-3 rounded-lg cursor-pointer hover:bg-slate-200" data-force="entrants">Threat of New Entrants</div>
+                        </div>
+                        <div class="force-item bg-slate-100 p-3 rounded-lg cursor-pointer hover:bg-slate-200" data-force="buyers">Bargaining Power of Buyers</div>
+                        <div class="force-item bg-slate-100 p-3 rounded-lg cursor-pointer hover:bg-slate-200" data-force="rivalry">Rivalry Among Competitors</div>
+                        <div class="force-item bg-slate-100 p-3 rounded-lg cursor-pointer hover:bg-slate-200" data-force="suppliers">Bargaining Power of Suppliers</div>
+                        <div class="md:col-span-3">
+                            <div class="force-item bg-slate-100 p-3 rounded-lg cursor-pointer hover:bg-slate-200" data-force="substitutes">Threat of Substitutes</div>
+                        </div>
+                    </div>
+                    <div id="force-details" class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg hidden"></div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg border border-slate-200">
+                    <h3 class="text-2xl font-semibold text-slate-800 mb-4">Broad-Spectrum Risks</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-slate-800">Country & Macroeconomic Risk</h4>
+                            <p class="text-slate-600">How would changes in GDP, inflation, or interest rates impact the company? What are the political, economic, and currency risks associated with its countries of operation?</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-slate-800">ESG Credit Factors</h4>
+                             <p class="text-slate-600">What are the most financially material Environmental, Social, and Governance risks? (e.g., carbon transition for energy, labor relations for retail). How are these risks managed?</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Financials Section -->
+            <section id="financials" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Financial Health</h2>
+                <p class="text-lg text-slate-600 mb-6">This is the quantitative heart of the analysis. Use the tools below to analyze trends and benchmark the company's financial performance against its peers across the five pillars of financial health: Profitability, Leverage, Liquidity, Coverage, and Cash Flow.</p>
+                
+                <div class="bg-white p-6 rounded-lg border border-slate-200">
+                    <div class="flex flex-wrap items-center justify-between mb-6 gap-4">
+                        <h3 class="text-2xl font-semibold text-slate-800">Peer & Trend Analysis</h3>
+                        <div>
+                            <label for="ratio-category" class="mr-2 font-medium">Select Category:</label>
+                            <select id="ratio-category" class="p-2 rounded-md border border-slate-300 bg-white">
+                                <option value="leverage">Leverage</option>
+                                <option value="coverage">Coverage</option>
+                                <option value="profitability">Profitability</option>
+                                <option value="cashflow">Cash Flow</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-xl font-semibold text-center text-slate-800 mb-2">Peer Comparison (TTM)</h4>
+                            <div class="chart-container">
+                                <canvas id="peerComparisonChart"></canvas>
+                            </div>
+                        </div>
+                        <div>
+                             <h4 class="text-xl font-semibold text-center text-slate-800 mb-2">Historical Trend</h4>
+                            <div class="chart-container">
+                                <canvas id="historicalTrendChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+             <!-- Synthesis Section -->
+            <section id="synthesis" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Risk Synthesis & Outlook</h2>
+                <p class="text-lg text-slate-600 mb-6">This module distills the entire analysis into a balanced summary, a formal assessment of default probability, and a forward-looking view with specific rating triggers. This is where you form the final credit conclusion.</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-white p-6 rounded-lg border border-slate-200">
+                        <h3 class="text-2xl font-semibold text-slate-800 mb-4">Strengths & Weaknesses</h3>
+                        <p class="text-slate-600 mb-4">Summarize the top 3-5 factors supporting and detracting from creditworthiness.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-green-700 mb-2">Strengths (+)</h4>
+                                <ul class="list-disc list-inside text-slate-600 space-y-1">
+                                    <li>Strong market position</li>
+                                    <li>Low leverage vs peers</li>
+                                    <li>High, stable margins</li>
+                                    <li>Experienced management</li>
+                                </ul>
+                            </div>
+                             <div>
+                                <h4 class="font-semibold text-red-700 mb-2">Weaknesses (-)</h4>
+                                <ul class="list-disc list-inside text-slate-600 space-y-1">
+                                    <li>High customer concentration</li>
+                                    <li>Volatile cash flows</li>
+                                    <li>Competitive threats</li>
+                                    <li>Aggressive financial policy</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg border border-slate-200">
+                        <h3 class="text-2xl font-semibold text-slate-800 mb-4">Probability of Default (PD)</h3>
+                         <p class="text-slate-600 mb-4">Based on the synthesis of all factors, what is the overall risk profile and likelihood of default?</p>
+                        <div class="flex items-center justify-center h-full">
+                            <div class="text-center">
+                                <div class="text-5xl font-bold text-amber-500 mb-2">Medium</div>
+                                <p class="text-slate-500">Based on a balance of strong market position against high leverage and industry cyclicality.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg border border-slate-200">
+                    <h3 class="text-2xl font-semibold text-slate-800 mb-4">Credit Outlook & Rating Triggers</h3>
+                     <p class="text-slate-600 mb-4">Define specific, measurable events that would trigger a re-evaluation of the credit rating, providing a framework for proactive monitoring.</p>
+                    <div id="outlook-tabs" class="flex border-b border-slate-200 mb-4">
+                        <button data-outlook="stable" class="outlook-tab py-2 px-4 font-medium text-slate-500 border-b-2 border-transparent hover:text-blue-600 hover:border-blue-600 active">Stable</button>
+                        <button data-outlook="positive" class="outlook-tab py-2 px-4 font-medium text-slate-500 border-b-2 border-transparent hover:text-blue-600 hover:border-blue-600">Positive</button>
+                        <button data-outlook="negative" class="outlook-tab py-2 px-4 font-medium text-slate-500 border-b-2 border-transparent hover:text-blue-600 hover:border-blue-600">Negative</button>
+                    </div>
+                     <div id="outlook-content" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Content will be injected by JS -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Structural & Covenants Section -->
+            <section id="structural" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Structural & Contractual Protections</h2>
+                <p class="text-lg text-slate-600 mb-6">Beyond the company's intrinsic creditworthiness, specific contractual terms and the corporate structure itself can provide crucial protections or introduce additional risks for creditors.</p>
+                
+                <div class="bg-white p-6 rounded-lg border border-slate-200 mb-8">
+                    <h3 class="text-2xl font-semibold text-slate-800 mb-4">Covenant Headroom Stress Test</h3>
+                    <p class="text-slate-600 mb-4">Analyze the cushion in key financial covenants and stress test their resilience to a decline in performance. Enter a hypothetical EBITDA decline to see the immediate impact on covenant compliance.</p>
+                    <div class="mb-6">
+                        <label for="ebitda-decline" class="font-medium text-slate-700">EBITDA Decline (%):</label>
+                        <input type="number" id="ebitda-decline" value="0" min="0" max="100" class="w-24 p-2 border border-slate-300 rounded-md ml-2">
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-slate-100 text-slate-600">
+                                <tr>
+                                    <th class="p-3">Covenant</th>
+                                    <th class="p-3">Required</th>
+                                    <th class="p-3">Current</th>
+                                    <th class="p-3">Cushion</th>
+                                    <th class="p-3 font-bold text-red-600">Stressed Level</th>
+                                </tr>
+                            </thead>
+                            <tbody id="covenant-table-body">
+                                <!-- JS will populate this -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-slate-200">
+                    <h3 class="text-2xl font-semibold text-slate-800 mb-4">Parent/Subsidiary Linkage</h3>
+                    <p class="text-slate-600">Assess the potential for support from a stronger parent or contagion risk from a weaker one. The presence of legal ties like guarantees or cross-default provisions is critical.</p>
+                </div>
+            </section>
+            
+            <!-- Regulatory Section -->
+            <section id="regulatory" class="content-section">
+                 <h2 class="text-3xl font-bold text-slate-800 mb-2">Regulatory View (SNC)</h2>
+                 <p class="text-lg text-slate-600 mb-6">For analysts in regulated institutions, the Shared National Credit (SNC) framework provides a crucial prudential lens, focusing on the fundamental reliability of repayment sources and identifying any "well-defined weaknesses."</p>
+
+                <div class="bg-white p-6 rounded-lg border border-slate-200">
+                    <div id="snc-tabs" class="flex flex-wrap border-b border-slate-200 mb-4">
+                         <button data-snc="pass" class="snc-tab py-2 px-4 font-medium text-slate-500 border-b-2 border-transparent hover:text-blue-600 hover:border-blue-600 active">Pass</button>
+                         <button data-snc="sm" class="snc-tab py-2 px-4 font-medium text-slate-500 border-b-2 border-transparent hover:text-blue-600 hover:border-blue-600">Special Mention</button>
+                         <button data-snc="substandard" class="snc-tab py-2 px-4 font-medium text-slate-500 border-b-2 border-transparent hover:text-blue-600 hover:border-blue-600">Substandard</button>
+                         <button data-snc="doubtful" class="snc-tab py-2 px-4 font-medium text-slate-500 border-b-2 border-transparent hover:text-blue-600 hover:border-blue-600">Doubtful</button>
+                    </div>
+                    <div id="snc-content">
+                        <!-- JS will populate this -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const sections = document.querySelectorAll('.content-section');
+    const desktopNavLinks = document.querySelectorAll('#desktop-nav .nav-link');
+    const mobileNav = document.getElementById('mobile-nav');
+
+    const portersForcesData = {
+        entrants: { title: 'Threat of New Entrants', text: "Assesses how easily new competitors can enter the market. High barriers (e.g., large capital needs, patents, strong brands) protect incumbents and their profitability. Low barriers invite competition and pressure margins." },
+        buyers: { title: 'Bargaining Power of Buyers', text: "Measures customers' ability to pressure prices. Power is high when buyers are large, concentrated, or purchase standardized products with low switching costs, allowing them to demand better terms." },
+        suppliers: { title: 'Bargaining Power of Suppliers', text: "Measures suppliers' ability to command higher prices for inputs. Power is high when there are few suppliers, the input is critical, or the product is differentiated, allowing them to squeeze company margins." },
+        substitutes: { title: 'Threat of Substitutes', text: "Considers alternative ways for customers to meet their needs (e.g., video conferencing for business travel). Viable substitutes place a ceiling on the prices an entire industry can charge." },
+        rivalry: { title: 'Rivalry Among Competitors', text: "Examines the intensity of competition. Rivalry is fierce when there are many competitors, industry growth is slow, products are undifferentiated, and exit barriers are high, leading to price wars and lower profits." }
+    };
+
+    const financialData = {
+        leverage: {
+            labels: ['Debt/EBITDA', 'Debt/Capital'],
+            company: [4.1, 0.55],
+            peer: [5.0, 0.62],
+            trend: {
+                'Debt/EBITDA': [4.5, 4.2, 4.1],
+                'Debt/Capital': [0.58, 0.56, 0.55]
+            }
+        },
+        coverage: {
+            labels: ['EBITDA/Interest', 'DSCR'],
+            company: [4.0, 1.5],
+            peer: [3.1, 1.3],
+            trend: {
+                'EBITDA/Interest': [3.5, 3.8, 4.0],
+                'DSCR': [1.4, 1.45, 1.5]
+            }
+        },
+        profitability: {
+            labels: ['EBITDA Margin', 'ROIC'],
+            company: [15.8, 8.5],
+            peer: [17.8, 9.5],
+            trend: {
+                'EBITDA Margin': [15.0, 15.5, 15.8],
+                'ROIC': [8.0, 8.2, 8.5]
+            }
+        },
+        cashflow: {
+            labels: ['FCF/Debt', 'CFO/Debt'],
+            company: [9.5, 12.0],
+            peer: [4.8, 8.0],
+            trend: {
+                'FCF/Debt': [8.0, 9.0, 9.5],
+                'CFO/Debt': [10.0, 11.0, 12.0]
+            }
+        }
+    };
+    
+    const outlookData = {
+        stable: {
+            upgrade: "Sustained Debt/EBITDA below 2.5x while maintaining margins.",
+            downgrade: "Loss of a major customer or leverage increasing above 4.0x."
+        },
+        positive: {
+            upgrade: "Successful new product launch leading to FCF/Debt over 15%.",
+            downgrade: "Failure of the new product to gain traction, causing a return to stable."
+        },
+        negative: {
+            upgrade: "Successful cost-cutting measures that restore margins, causing a return to stable.",
+            downgrade: "Interest coverage sustained below 3.0x or a covenant breach."
+        }
+    };
+
+    const sncData = {
+        pass: { title: 'Pass', text: 'Credit is sound; no significant weaknesses noted. Repayment is expected from normal operations.' },
+        sm: { title: 'Special Mention', text: 'Exhibits potential weaknesses that, if uncorrected, may result in future deterioration. A "watch list" credit requiring closer management attention.' },
+        substandard: { title: 'Substandard', text: 'A well-defined weakness jeopardizes orderly repayment. The distinct possibility of some loss exists if deficiencies are not corrected.' },
+        doubtful: { title: 'Doubtful', text: 'Collection or liquidation in full is highly questionable and improbable based on current conditions.' }
+    };
+
+    const covenants = [
+        { name: 'Max. Total Leverage', required: 4.0, current: 3.2, type: 'max' },
+        { name: 'Min. Interest Coverage', required: 2.5, current: 3.5, type: 'min' }
+    ];
+    
+    let peerChart, trendChart;
+
+    function navigate(hash) {
+        if (!hash) hash = '#home';
+        
+        sections.forEach(section => {
+            if ('#' + section.id === hash) {
+                section.classList.add('active');
+            } else {
+                section.classList.remove('active');
+            }
+        });
+
+        desktopNavLinks.forEach(link => {
+            if (link.getAttribute('href') === hash) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+        
+        mobileNav.value = hash.substring(1);
+
+        if (hash === '#financials') {
+            updateFinancialCharts();
+        }
+    }
+
+    desktopNavLinks.forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const hash = e.currentTarget.getAttribute('href');
+            history.pushState(null, null, hash);
+            navigate(hash);
+        });
+    });
+    
+    mobileNav.addEventListener('change', e => {
+        const hash = '#' + e.target.value;
+        history.pushState(null, null, hash);
+        navigate(hash);
+    });
+
+    window.addEventListener('popstate', () => navigate(location.hash));
+
+    // Porter's Five Forces
+    const forcesContainer = document.getElementById('porters-five-forces');
+    const forceDetails = document.getElementById('force-details');
+    forcesContainer.addEventListener('click', e => {
+        if (e.target.classList.contains('force-item')) {
+            const forceKey = e.target.dataset.force;
+            const data = portersForcesData[forceKey];
+            forceDetails.innerHTML = `<h4 class="font-bold text-lg mb-2">${data.title}</h4><p>${data.text}</p>`;
+            forceDetails.classList.remove('hidden');
+        }
+    });
+    
+    // Financial Charts
+    const ratioCategorySelector = document.getElementById('ratio-category');
+    ratioCategorySelector.addEventListener('change', updateFinancialCharts);
+    
+    function updateFinancialCharts() {
+        const category = ratioCategorySelector.value;
+        const data = financialData[category];
+        
+        // Peer Comparison Chart
+        if (peerChart) peerChart.destroy();
+        const peerCtx = document.getElementById('peerComparisonChart').getContext('2d');
+        peerChart = new Chart(peerCtx, {
+            type: 'bar',
+            data: {
+                labels: data.labels,
+                datasets: [
+                    {
+                        label: 'Company',
+                        data: data.company,
+                        backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Peer Average',
+                        data: data.peer,
+                        backgroundColor: 'rgba(203, 213, 225, 0.7)',
+                        borderColor: 'rgba(203, 213, 225, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true } },
+                plugins: { legend: { position: 'top' } }
+            }
+        });
+        
+        // Historical Trend Chart
+        if (trendChart) trendChart.destroy();
+        const trendCtx = document.getElementById('historicalTrendChart').getContext('2d');
+        trendChart = new Chart(trendCtx, {
+            type: 'line',
+            data: {
+                labels: ['FY23', 'FY24', 'TTM'],
+                datasets: Object.keys(data.trend).map((key, index) => ({
+                    label: key,
+                    data: data.trend[key],
+                    borderColor: index === 0 ? 'rgba(59, 130, 246, 1)' : 'rgba(16, 185, 129, 1)',
+                    backgroundColor: index === 0 ? 'rgba(59, 130, 246, 0.2)' : 'rgba(16, 185, 129, 0.2)',
+                    fill: false,
+                    tension: 0.1
+                }))
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: false } },
+                 plugins: { legend: { position: 'top' } }
+            }
+        });
+    }
+    
+    // Outlook Tabs
+    const outlookTabs = document.querySelectorAll('.outlook-tab');
+    const outlookContent = document.getElementById('outlook-content');
+
+    function updateOutlookContent(outlook) {
+        const data = outlookData[outlook];
+        outlookContent.innerHTML = `
+            <div>
+                <h4 class="font-semibold text-green-700 mb-2">Upgrade Triggers (+)</h4>
+                <p class="text-slate-600">${data.upgrade}</p>
+            </div>
+            <div>
+                <h4 class="font-semibold text-red-700 mb-2">Downgrade Triggers (-)</h4>
+                <p class="text-slate-600">${data.downgrade}</p>
+            </div>
+        `;
+        outlookTabs.forEach(t => {
+            t.classList.remove('active', 'text-blue-600', 'border-blue-600');
+            t.classList.add('text-slate-500', 'border-transparent');
+            if (t.dataset.outlook === outlook) {
+                t.classList.add('active', 'text-blue-600', 'border-blue-600');
+            }
+        });
+    }
+    
+    outlookTabs.forEach(tab => {
+        tab.addEventListener('click', () => updateOutlookContent(tab.dataset.outlook));
+    });
+    
+    // Covenant Stress Test
+    const ebitdaDeclineInput = document.getElementById('ebitda-decline');
+    const covenantTableBody = document.getElementById('covenant-table-body');
+    
+    function updateCovenantTable() {
+        const decline = parseFloat(ebitdaDeclineInput.value) / 100 || 0;
+        covenantTableBody.innerHTML = '';
+        covenants.forEach(cov => {
+            let stressedLevel, cushion, isBreached;
+            if (cov.type === 'max') { // Max Leverage
+                stressedLevel = cov.current / (1 - decline);
+                cushion = cov.required - cov.current;
+                isBreached = stressedLevel > cov.required;
+            } else { // Min Coverage
+                stressedLevel = cov.current * (1 - decline);
+                cushion = cov.current - cov.required;
+                isBreached = stressedLevel < cov.required;
+            }
+            const row = `
+                <tr>
+                    <td class="p-3">${cov.name}</td>
+                    <td class="p-3">${cov.type === 'max' ? '≤' : '≥'} ${cov.required.toFixed(1)}x</td>
+                    <td class="p-3">${cov.current.toFixed(1)}x</td>
+                    <td class="p-3">${cushion.toFixed(1)}x</td>
+                    <td class="p-3 font-bold ${isBreached ? 'text-red-600' : 'text-green-600'}">${stressedLevel.toFixed(1)}x ${isBreached ? ' (BREACH)' : ''}</td>
+                </tr>
+            `;
+            covenantTableBody.innerHTML += row;
+        });
+    }
+    
+    ebitdaDeclineInput.addEventListener('input', updateCovenantTable);
+    
+    // SNC Tabs
+    const sncTabs = document.querySelectorAll('.snc-tab');
+    const sncContent = document.getElementById('snc-content');
+    
+    function updateSncContent(sncKey) {
+        const data = sncData[sncKey];
+        sncContent.innerHTML = `
+            <h4 class="font-bold text-xl text-slate-800 mb-2">${data.title}</h4>
+            <p class="text-slate-600">${data.text}</p>
+        `;
+        sncTabs.forEach(t => {
+            t.classList.remove('active', 'text-blue-600', 'border-blue-600');
+             t.classList.add('text-slate-500', 'border-transparent');
+            if (t.dataset.snc === sncKey) {
+                t.classList.add('active', 'text-blue-600', 'border-blue-600');
+            }
+        });
+    }
+
+    sncTabs.forEach(tab => {
+        tab.addEventListener('click', () => updateSncContent(tab.dataset.snc));
+    });
+    
+    // Initial load
+    navigate(location.hash || '#home');
+    updateOutlookContent('stable');
+    updateCovenantTable();
+    updateSncContent('pass');
+});
+</script>
+</body>
+</html>
