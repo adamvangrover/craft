@@ -1,0 +1,1178 @@
+{
+  "nodes": [
+    {
+      "id": "d466065d-f01e-4a62-a04a-01d89881bf63",
+      "label": "# Financial Learning Hub & Credit Risk Analyst Dev...",
+      "type": "section",
+      "source": "README.md"
+    },
+    {
+      "id": "00d0adaa-7ae3-4725-97b1-57e9801c0fcb",
+      "label": "## Understanding This Repository",
+      "type": "section",
+      "source": "README.md"
+    },
+    {
+      "id": "254772b7-2074-4fd1-bd93-a1d02e759b25",
+      "label": "### Repository Structure & Hierarchy",
+      "type": "section",
+      "source": "README.md"
+    },
+    {
+      "id": "e8293d6a-adfd-480d-b31f-44ac5c1931ae",
+      "label": "### How to Navigate This Repository",
+      "type": "section",
+      "source": "README.md"
+    },
+    {
+      "id": "8a0e09ae-08f8-43f8-87af-49e1e86eb6fb",
+      "label": "### Navigating the Hub: Terminal vs. Interactive V...",
+      "type": "section",
+      "source": "README.md"
+    },
+    {
+      "id": "b978cd55-96e9-4f21-9207-c304b18e4619",
+      "label": "### Understanding File Types (Helper Files Overvie...",
+      "type": "section",
+      "source": "README.md"
+    },
+    {
+      "id": "7b5d8d2a-fbf4-4344-acff-0bf98b25a3bf",
+      "label": "## Key Learning Areas (Summary)",
+      "type": "section",
+      "source": "README.md"
+    },
+    {
+      "id": "415c471e-9e59-4bb1-a033-8ec3f2b66339",
+      "label": "## Supercharge Your Learning",
+      "type": "section",
+      "source": "README.md"
+    },
+    {
+      "id": "a2db72a1-c66e-4ace-9bb9-4fdb289a627e",
+      "label": "## The Genesis of This Repository: An AI-Powered A...",
+      "type": "section",
+      "source": "README.md"
+    },
+    {
+      "id": "791d0d6f-72a4-455f-a1c5-2b2c1dc10d5f",
+      "label": "## New Topics & Future Development",
+      "type": "section",
+      "source": "README.md"
+    },
+    {
+      "id": "a8b15b33-9c49-416d-bd32-7a1143dfca51",
+      "label": "## How This Repo is Being Built / How to Contribut...",
+      "type": "section",
+      "source": "README.md"
+    },
+    {
+      "id": "b4b51e5d-15f6-493b-90b6-22c06b062bdb",
+      "label": "## References",
+      "type": "section",
+      "source": "README.md"
+    },
+    {
+      "id": "3e44955c-4ad7-4247-896b-78e549a009e4",
+      "label": "# Global Financial Glossary",
+      "type": "glossary",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "cc342f4d-a3b5-4af9-85ff-dbb3970f9d97",
+      "label": "## Introduction",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "2ec68a04-61ef-40c6-af47-f6d4356e46be",
+      "label": "## A",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "3333d501-8040-4cb2-8bd9-ca0a3a575bfc",
+      "label": "## B",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "7cf5e488-d6c1-4848-a07c-ccc6ef2b39dd",
+      "label": "## E",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "92121c74-2f87-484c-b259-7418de3dc92e",
+      "label": "## I",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "a0e61449-17b3-4dd8-9c98-bbff70f5ba4e",
+      "label": "## L",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "1f854b29-a9ca-4cb3-9158-84b7fa694537",
+      "label": "## M",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "16d8b847-89b5-4b22-b49f-f6a10c838221",
+      "label": "## P",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "5912ad93-5b5d-49a6-ba37-2c0b58ad1d83",
+      "label": "## R",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "490f956f-cc2c-4d7b-b8c4-370a95ab2952",
+      "label": "## S",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "d84869a7-96b1-4323-8cae-8c95937008be",
+      "label": "## T",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "e2ce155b-2c24-487b-868a-d4b39a2000b9",
+      "label": "## W",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "a2afbe8b-1ae1-4a99-8e45-f7c183665951",
+      "label": "## A",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "6575b4c4-7b9d-4038-b835-f68677e5253c",
+      "label": "## B",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "b072ac31-dd0f-4881-a63a-1c97d187ffb7",
+      "label": "## C",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "2c54b088-86af-4929-af21-50b9c7b59ad4",
+      "label": "## D",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "b046c568-9c8b-469e-a0fd-5711362d91cb",
+      "label": "## E",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "d5266649-3bf3-441f-b301-5756ec223aea",
+      "label": "## F",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "70c55fdf-765b-4f9f-a57a-3eb8e0e7021d",
+      "label": "## G",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "0c8f65d6-5abd-4a07-9ce4-16a8a77b02e6",
+      "label": "## H",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "41166b7f-6bb7-40e3-b324-cf21355cfba4",
+      "label": "## I",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "43c76cd0-9a3d-45e6-9050-687c1d5c556b",
+      "label": "## J",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "363104b3-cb02-4790-99f5-1cfca5403b2a",
+      "label": "## K",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "9ba7637b-faea-4adb-9a7b-f25aa2c49d9f",
+      "label": "## L",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "89aaadc4-004b-4938-afe7-0e26f9cabea0",
+      "label": "## M",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "349ed4b0-3b3a-4a3e-b9ba-3142abbcfd48",
+      "label": "## N",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "323eed45-4efe-4f9a-8c5d-6aaedbce3112",
+      "label": "## O",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "a701ca27-6e6a-4293-9843-33e9d9ed3b88",
+      "label": "## P",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "5294b3fb-3e48-4fd1-8efa-7e9f0bf17b3d",
+      "label": "## Q",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "b4e4ecc1-b856-4e1e-bc15-e402e24991a8",
+      "label": "## R",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "a9775d35-896d-4182-9f1b-98d70def73bf",
+      "label": "## S",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "8cb8625c-4bde-451a-a170-58a95c69273a",
+      "label": "## T",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "a2224842-59e8-473a-8821-fb4ea6cc3b33",
+      "label": "## U",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "0e8ff2d3-a25f-480e-b3da-953ca5f01bf6",
+      "label": "## V",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "33d77ae0-9c58-481c-8dfa-907184014d7c",
+      "label": "## W",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "4dcd590d-fcb9-4d93-8683-75176a8bf319",
+      "label": "## X",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "10d75d0a-0f70-49b4-b912-e77bedb786e5",
+      "label": "## Y",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "c51e9415-2f49-4ffe-8f44-e14849d2c2a7",
+      "label": "## Z",
+      "type": "section",
+      "source": "Global_Financial_Glossary.md"
+    },
+    {
+      "id": "31a645f7-c289-4084-b4a7-57fe81f2459e",
+      "label": "# CFA Level 1 Cheat Sheet: Financial Reporting and...",
+      "type": "section",
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md"
+    },
+    {
+      "id": "f8f20b71-56e7-49eb-8eed-8e83a47b0513",
+      "label": "## Key Concepts:",
+      "type": "section",
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md"
+    },
+    {
+      "id": "9958c8fd-0895-4ccb-bdd6-de0bbdcd4bfd",
+      "label": "### Introduction to Financial Statement Analysis",
+      "type": "section",
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md"
+    },
+    {
+      "id": "8b0ba7d3-91af-4530-b4d4-34c4efce36d3",
+      "label": "### Financial Reporting Standards",
+      "type": "section",
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md"
+    },
+    {
+      "id": "fbd98604-d3a1-4ffc-9cf9-ec5d441c9404",
+      "label": "### Understanding Income Statements",
+      "type": "section",
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md"
+    },
+    {
+      "id": "753dac4a-bde9-46f2-99ca-1553f2ec1c37",
+      "label": "### Understanding Balance Sheets",
+      "type": "section",
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md"
+    },
+    {
+      "id": "46ab28cd-60de-4579-8c9a-3530410e560a",
+      "label": "### Understanding Cash Flow Statements",
+      "type": "section",
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md"
+    },
+    {
+      "id": "772c85fa-15bc-4708-af3d-09bd49946c12",
+      "label": "### Financial Analysis Techniques",
+      "type": "section",
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md"
+    },
+    {
+      "id": "10b545f0-5dbc-442a-8fc0-954f599a877a",
+      "label": "### Inventories",
+      "type": "section",
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md"
+    },
+    {
+      "id": "543eeaa5-bafa-46c4-ae91-edc3466ebfbb",
+      "label": "### Long-Lived Assets",
+      "type": "section",
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md"
+    },
+    {
+      "id": "efb7fafe-5ac5-458b-a028-2023718dbe5d",
+      "label": "### Income Taxes",
+      "type": "section",
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md"
+    },
+    {
+      "id": "b27b872b-8ced-4d75-bae6-fffb8f604525",
+      "label": "### Non-Current (Long-Term) Liabilities",
+      "type": "section",
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md"
+    },
+    {
+      "id": "34d8cb89-1ab5-4e56-9855-a0667116fde5",
+      "label": "### Financial Reporting Quality",
+      "type": "section",
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md"
+    },
+    {
+      "id": "ba8e14dd-f1f3-457f-b77e-a85500a9cb10",
+      "label": "## Formulas to Memorize (Examples):",
+      "type": "section",
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md"
+    },
+    {
+      "id": "0aa4fc54-8943-4963-a5d3-8f8dfebac589",
+      "label": "## Common Pitfalls & Tips:",
+      "type": "section",
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md"
+    },
+    {
+      "id": "8e4637f9-c372-4628-b0d0-0147058910b2",
+      "label": "# Financial Modeling Best Practices: A Comprehensi...",
+      "type": "section",
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md"
+    },
+    {
+      "id": "d79b4abf-5b57-4e9c-8dc4-20e3125b6779",
+      "label": "## Table of Contents",
+      "type": "section",
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md"
+    },
+    {
+      "id": "8266a2f9-e418-411e-860f-0f4e7359ab57",
+      "label": "## I. Model Structure and Design",
+      "type": "section",
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md"
+    },
+    {
+      "id": "362c12a7-a525-4c75-9be5-5f235ab55f38",
+      "label": "## II. Assumptions and Inputs",
+      "type": "section",
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md"
+    },
+    {
+      "id": "2ed8e880-3158-4d9c-be2a-dc863eb1e205",
+      "label": "## III. Formulas and Calculations",
+      "type": "section",
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md"
+    },
+    {
+      "id": "40e8549f-ba5b-4f17-be2f-358eb91610ea",
+      "label": "## IV. Financial Statement Modeling",
+      "type": "section",
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md"
+    },
+    {
+      "id": "2dfc9e80-babd-4d24-aab5-5cf382fa5dfa",
+      "label": "## V. Model Review and Error Checking",
+      "type": "section",
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md"
+    },
+    {
+      "id": "a3391e71-1a3c-43f1-af00-d046677973d1",
+      "label": "## VI. Presentation and Documentation",
+      "type": "section",
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md"
+    },
+    {
+      "id": "1645a33f-f5ef-4b28-b411-a70eb5faf241",
+      "label": "## VII. Common Pitfalls to Avoid",
+      "type": "section",
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md"
+    },
+    {
+      "id": "9e539bb2-95a8-445d-9c0e-545065c9a1ec",
+      "label": "## Test Your Understanding",
+      "type": "section",
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md"
+    },
+    {
+      "id": "78b3a623-323e-4194-b5e1-f097a4cc242c",
+      "label": "# CRM 01: Fundamentals of Credit Risk",
+      "type": "section",
+      "source": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md"
+    },
+    {
+      "id": "42d35c5d-f7dc-4757-962e-96ed5c078bac",
+      "label": "## Table of Contents",
+      "type": "section",
+      "source": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md"
+    },
+    {
+      "id": "9e2242bd-69cf-47c1-9fa1-020af9551d53",
+      "label": "## 1. Introduction: What is Credit Risk?",
+      "type": "section",
+      "source": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md"
+    },
+    {
+      "id": "bd9c1377-67e2-4a59-b98a-3a831fb03b98",
+      "label": "## 2. Core Components of Credit Risk Quantificatio...",
+      "type": "section",
+      "source": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md"
+    },
+    {
+      "id": "c254545d-907c-4a12-b9c2-76403b0c5d6b",
+      "label": "## 3. Types of Credit Risk",
+      "type": "section",
+      "source": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md"
+    },
+    {
+      "id": "96483227-3146-4711-bd9b-4091b8fa6785",
+      "label": "## 4. The Five Cs of Credit (Traditional Framework...",
+      "type": "section",
+      "source": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md"
+    },
+    {
+      "id": "ad97c59e-7f5e-4cde-8a0d-c565e3f584dc",
+      "label": "## 5. Overview of the Credit Lifecycle",
+      "type": "section",
+      "source": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md"
+    },
+    {
+      "id": "064514df-42b2-4986-bba7-5f2a6a6407e9",
+      "label": "## 6. Key Players in Credit Markets",
+      "type": "section",
+      "source": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md"
+    },
+    {
+      "id": "2931316f-5772-4dc2-9edf-ff8a7a679972",
+      "label": "# Comprehensive Due Diligence Checklist for Corpor...",
+      "type": "checklist",
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md"
+    },
+    {
+      "id": "de38c08a-7ce5-49a3-ab00-7f59a27fcc09",
+      "label": "## Introduction",
+      "type": "section",
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md"
+    },
+    {
+      "id": "dceab0eb-ad1c-4e06-8308-11c38390865d",
+      "label": "## I. Company Overview & Business Profile",
+      "type": "section",
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md"
+    },
+    {
+      "id": "1f7adbe7-d70e-472d-857f-96ed4ff49c99",
+      "label": "## II. Industry & Market Analysis",
+      "type": "section",
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md"
+    },
+    {
+      "id": "1199e0a0-7c8a-4a29-810f-cf86d73f5d1a",
+      "label": "## III. Financial Analysis",
+      "type": "section",
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md"
+    },
+    {
+      "id": "811ff64d-0ed2-4c85-b9c6-ad51e442c3f6",
+      "label": "## IV. Legal & Regulatory Due Diligence",
+      "type": "section",
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md"
+    },
+    {
+      "id": "5dd87dea-13dc-468c-8698-2cd44e2cbe6a",
+      "label": "## V. Collateral Analysis (If Secured Lending)",
+      "type": "section",
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md"
+    },
+    {
+      "id": "d4c1db40-4d74-4f91-9793-b7743745ab81",
+      "label": "## VI. Risk Assessment & Mitigants",
+      "type": "section",
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md"
+    },
+    {
+      "id": "c595cd0a-ee2a-4deb-85be-bf584bc98465",
+      "label": "## VII. Loan Structuring & Documentation (Consider...",
+      "type": "section",
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md"
+    },
+    {
+      "id": "150097ba-8b2b-4158-a6f2-7cb9a86682ec",
+      "label": "# Module 1: Accounting & Financial Statement Analy...",
+      "type": "section",
+      "source": "modules/Credit_Analysis/modules/01-foundations/01-accounting-and-financial-statement-analysis.md"
+    },
+    {
+      "id": "93003097-b467-46cd-9653-d64e06af08d3",
+      "label": "## 1.1. The Language of Business: Core Accounting ...",
+      "type": "section",
+      "source": "modules/Credit_Analysis/modules/01-foundations/01-accounting-and-financial-statement-analysis.md"
+    },
+    {
+      "id": "94fce897-d1ef-4376-ba06-f1210cd4a7a7",
+      "label": "## 1.2. Deconstructing the Three Financial Stateme...",
+      "type": "section",
+      "source": "modules/Credit_Analysis/modules/01-foundations/01-accounting-and-financial-statement-analysis.md"
+    },
+    {
+      "id": "b9201037-d1b6-4886-8c9d-b5e111e6d5c8",
+      "label": "## 1.3. The Interconnectivity: How the Statements ...",
+      "type": "section",
+      "source": "modules/Credit_Analysis/modules/01-foundations/01-accounting-and-financial-statement-analysis.md"
+    },
+    {
+      "id": "c587c854-de96-49b5-97ef-4415674f95f3",
+      "label": "## 1.4. Deep Dive: Revenue Recognition (ASC 606) a...",
+      "type": "section",
+      "source": "modules/Credit_Analysis/modules/01-foundations/01-accounting-and-financial-statement-analysis.md"
+    },
+    {
+      "id": "6dc455d2-78a8-4b8f-a684-510e8799bf74",
+      "label": "## 1.5. The Notes to the Financial Statements: Unc...",
+      "type": "section",
+      "source": "modules/Credit_Analysis/modules/01-foundations/01-accounting-and-financial-statement-analysis.md"
+    },
+    {
+      "id": "091b3781-6759-484c-b4dd-6e437da31679",
+      "label": "# Glossary of Liability Management Exercise (LME) ...",
+      "type": "glossary",
+      "source": "legal_analysis/key_terms_and_definitions/lme_glossary.md"
+    },
+    {
+      "id": "321802cf-16ad-4b21-abc1-71e255cbcd35",
+      "label": "Interactive_Notebooks/Financial_Modeling/data/mega...",
+      "type": "unstructured_text",
+      "source": "Interactive_Notebooks/Financial_Modeling/data/mega_cap_equity_data.csv"
+    },
+    {
+      "id": "f06b3965-566a-466b-8235-062eebf175c3",
+      "label": "quizzes/accounting-quiz.json",
+      "type": "json_data",
+      "source": "quizzes/accounting-quiz.json"
+    },
+    {
+      "id": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "label": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "type": "source_file"
+    },
+    {
+      "id": "Financial_Modeling/Best_Practices/FM_Best_Practices.md",
+      "label": "Financial_Modeling/Best_Practices/FM_Best_Practices.md",
+      "type": "source_file"
+    },
+    {
+      "id": "Global_Financial_Glossary.md",
+      "label": "Global_Financial_Glossary.md",
+      "type": "source_file"
+    },
+    {
+      "id": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md",
+      "label": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md",
+      "type": "source_file"
+    },
+    {
+      "id": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md",
+      "label": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md",
+      "type": "source_file"
+    },
+    {
+      "id": "modules/Credit_Analysis/modules/01-foundations/01-accounting-and-financial-statement-analysis.md",
+      "label": "modules/Credit_Analysis/modules/01-foundations/01-accounting-and-financial-statement-analysis.md",
+      "type": "source_file"
+    },
+    {
+      "id": "legal_analysis/key_terms_and_definitions/lme_glossary.md",
+      "label": "legal_analysis/key_terms_and_definitions/lme_glossary.md",
+      "type": "source_file"
+    },
+    {
+      "id": "README.md",
+      "label": "README.md",
+      "type": "source_file"
+    },
+    {
+      "id": "Interactive_Notebooks/Financial_Modeling/data/mega_cap_equity_data.csv",
+      "label": "Interactive_Notebooks/Financial_Modeling/data/mega_cap_equity_data.csv",
+      "type": "source_file"
+    },
+    {
+      "id": "quizzes/accounting-quiz.json",
+      "label": "quizzes/accounting-quiz.json",
+      "type": "source_file"
+    }
+  ],
+  "edges": [
+    {
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "target": "31a645f7-c289-4084-b4a7-57fe81f2459e",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "target": "f8f20b71-56e7-49eb-8eed-8e83a47b0513",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "target": "9958c8fd-0895-4ccb-bdd6-de0bbdcd4bfd",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "target": "8b0ba7d3-91af-4530-b4d4-34c4efce36d3",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "target": "fbd98604-d3a1-4ffc-9cf9-ec5d441c9404",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "target": "753dac4a-bde9-46f2-99ca-1553f2ec1c37",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "target": "46ab28cd-60de-4579-8c9a-3530410e560a",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "target": "772c85fa-15bc-4708-af3d-09bd49946c12",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "target": "10b545f0-5dbc-442a-8fc0-954f599a877a",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "target": "543eeaa5-bafa-46c4-ae91-edc3466ebfbb",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "target": "efb7fafe-5ac5-458b-a028-2023718dbe5d",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "target": "b27b872b-8ced-4d75-bae6-fffb8f604525",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "target": "34d8cb89-1ab5-4e56-9855-a0667116fde5",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "target": "ba8e14dd-f1f3-457f-b77e-a85500a9cb10",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+      "target": "0aa4fc54-8943-4963-a5d3-8f8dfebac589",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md",
+      "target": "8e4637f9-c372-4628-b0d0-0147058910b2",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md",
+      "target": "d79b4abf-5b57-4e9c-8dc4-20e3125b6779",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md",
+      "target": "8266a2f9-e418-411e-860f-0f4e7359ab57",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md",
+      "target": "362c12a7-a525-4c75-9be5-5f235ab55f38",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md",
+      "target": "2ed8e880-3158-4d9c-be2a-dc863eb1e205",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md",
+      "target": "40e8549f-ba5b-4f17-be2f-358eb91610ea",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md",
+      "target": "2dfc9e80-babd-4d24-aab5-5cf382fa5dfa",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md",
+      "target": "a3391e71-1a3c-43f1-af00-d046677973d1",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md",
+      "target": "1645a33f-f5ef-4b28-b411-a70eb5faf241",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Financial_Modeling/Best_Practices/FM_Best_Practices.md",
+      "target": "9e539bb2-95a8-445d-9c0e-545065c9a1ec",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "3e44955c-4ad7-4247-896b-78e549a009e4",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "cc342f4d-a3b5-4af9-85ff-dbb3970f9d97",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "2ec68a04-61ef-40c6-af47-f6d4356e46be",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "3333d501-8040-4cb2-8bd9-ca0a3a575bfc",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "7cf5e488-d6c1-4848-a07c-ccc6ef2b39dd",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "92121c74-2f87-484c-b259-7418de3dc92e",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "a0e61449-17b3-4dd8-9c98-bbff70f5ba4e",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "1f854b29-a9ca-4cb3-9158-84b7fa694537",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "16d8b847-89b5-4b22-b49f-f6a10c838221",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "5912ad93-5b5d-49a6-ba37-2c0b58ad1d83",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "490f956f-cc2c-4d7b-b8c4-370a95ab2952",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "d84869a7-96b1-4323-8cae-8c95937008be",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "e2ce155b-2c24-487b-868a-d4b39a2000b9",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "a2afbe8b-1ae1-4a99-8e45-f7c183665951",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "6575b4c4-7b9d-4038-b835-f68677e5253c",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "b072ac31-dd0f-4881-a63a-1c97d187ffb7",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "2c54b088-86af-4929-af21-50b9c7b59ad4",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "b046c568-9c8b-469e-a0fd-5711362d91cb",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "d5266649-3bf3-441f-b301-5756ec223aea",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "70c55fdf-765b-4f9f-a57a-3eb8e0e7021d",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "0c8f65d6-5abd-4a07-9ce4-16a8a77b02e6",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "41166b7f-6bb7-40e3-b324-cf21355cfba4",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "43c76cd0-9a3d-45e6-9050-687c1d5c556b",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "363104b3-cb02-4790-99f5-1cfca5403b2a",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "9ba7637b-faea-4adb-9a7b-f25aa2c49d9f",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "89aaadc4-004b-4938-afe7-0e26f9cabea0",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "349ed4b0-3b3a-4a3e-b9ba-3142abbcfd48",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "323eed45-4efe-4f9a-8c5d-6aaedbce3112",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "a701ca27-6e6a-4293-9843-33e9d9ed3b88",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "5294b3fb-3e48-4fd1-8efa-7e9f0bf17b3d",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "b4e4ecc1-b856-4e1e-bc15-e402e24991a8",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "a9775d35-896d-4182-9f1b-98d70def73bf",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "8cb8625c-4bde-451a-a170-58a95c69273a",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "a2224842-59e8-473a-8821-fb4ea6cc3b33",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "0e8ff2d3-a25f-480e-b3da-953ca5f01bf6",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "33d77ae0-9c58-481c-8dfa-907184014d7c",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "4dcd590d-fcb9-4d93-8683-75176a8bf319",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "10d75d0a-0f70-49b4-b912-e77bedb786e5",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Global_Financial_Glossary.md",
+      "target": "c51e9415-2f49-4ffe-8f44-e14849d2c2a7",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md",
+      "target": "2931316f-5772-4dc2-9edf-ff8a7a679972",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md",
+      "target": "de38c08a-7ce5-49a3-ab00-7f59a27fcc09",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md",
+      "target": "dceab0eb-ad1c-4e06-8308-11c38390865d",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md",
+      "target": "1f7adbe7-d70e-472d-857f-96ed4ff49c99",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md",
+      "target": "1199e0a0-7c8a-4a29-810f-cf86d73f5d1a",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md",
+      "target": "811ff64d-0ed2-4c85-b9c6-ad51e442c3f6",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md",
+      "target": "5dd87dea-13dc-468c-8698-2cd44e2cbe6a",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md",
+      "target": "d4c1db40-4d74-4f91-9793-b7743745ab81",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Toolkits_and_Checklists/Credit_Analysis_Due_Diligence_Checklist.md",
+      "target": "c595cd0a-ee2a-4deb-85be-bf584bc98465",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md",
+      "target": "78b3a623-323e-4194-b5e1-f097a4cc242c",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md",
+      "target": "42d35c5d-f7dc-4757-962e-96ed5c078bac",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md",
+      "target": "9e2242bd-69cf-47c1-9fa1-020af9551d53",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md",
+      "target": "bd9c1377-67e2-4a59-b98a-3a831fb03b98",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md",
+      "target": "c254545d-907c-4a12-b9c2-76403b0c5d6b",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md",
+      "target": "96483227-3146-4711-bd9b-4091b8fa6785",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md",
+      "target": "ad97c59e-7f5e-4cde-8a0d-c565e3f584dc",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Risk_Management/Credit_Risk/CRM_01_Fundamentals_of_Credit_Risk.md",
+      "target": "064514df-42b2-4986-bba7-5f2a6a6407e9",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "modules/Credit_Analysis/modules/01-foundations/01-accounting-and-financial-statement-analysis.md",
+      "target": "150097ba-8b2b-4158-a6f2-7cb9a86682ec",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "modules/Credit_Analysis/modules/01-foundations/01-accounting-and-financial-statement-analysis.md",
+      "target": "93003097-b467-46cd-9653-d64e06af08d3",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "modules/Credit_Analysis/modules/01-foundations/01-accounting-and-financial-statement-analysis.md",
+      "target": "94fce897-d1ef-4376-ba06-f1210cd4a7a7",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "modules/Credit_Analysis/modules/01-foundations/01-accounting-and-financial-statement-analysis.md",
+      "target": "b9201037-d1b6-4886-8c9d-b5e111e6d5c8",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "modules/Credit_Analysis/modules/01-foundations/01-accounting-and-financial-statement-analysis.md",
+      "target": "c587c854-de96-49b5-97ef-4415674f95f3",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "modules/Credit_Analysis/modules/01-foundations/01-accounting-and-financial-statement-analysis.md",
+      "target": "6dc455d2-78a8-4b8f-a684-510e8799bf74",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "legal_analysis/key_terms_and_definitions/lme_glossary.md",
+      "target": "091b3781-6759-484c-b4dd-6e437da31679",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "README.md",
+      "target": "d466065d-f01e-4a62-a04a-01d89881bf63",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "README.md",
+      "target": "00d0adaa-7ae3-4725-97b1-57e9801c0fcb",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "README.md",
+      "target": "254772b7-2074-4fd1-bd93-a1d02e759b25",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "README.md",
+      "target": "e8293d6a-adfd-480d-b31f-44ac5c1931ae",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "README.md",
+      "target": "8a0e09ae-08f8-43f8-87af-49e1e86eb6fb",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "README.md",
+      "target": "b978cd55-96e9-4f21-9207-c304b18e4619",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "README.md",
+      "target": "7b5d8d2a-fbf4-4344-acff-0bf98b25a3bf",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "README.md",
+      "target": "415c471e-9e59-4bb1-a033-8ec3f2b66339",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "README.md",
+      "target": "a2db72a1-c66e-4ace-9bb9-4fdb289a627e",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "README.md",
+      "target": "791d0d6f-72a4-455f-a1c5-2b2c1dc10d5f",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "README.md",
+      "target": "a8b15b33-9c49-416d-bd32-7a1143dfca51",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "README.md",
+      "target": "b4b51e5d-15f6-493b-90b6-22c06b062bdb",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "Interactive_Notebooks/Financial_Modeling/data/mega_cap_equity_data.csv",
+      "target": "321802cf-16ad-4b21-abc1-71e255cbcd35",
+      "label": "CONTAINS"
+    },
+    {
+      "source": "quizzes/accounting-quiz.json",
+      "target": "f06b3965-566a-466b-8235-062eebf175c3",
+      "label": "CONTAINS"
+    }
+  ]
+}
