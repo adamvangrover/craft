@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Accounting Quiz</title>
+    <link rel="stylesheet" href="../css/global_nav.css">
+    <link rel="stylesheet" href="../assets/css/shared-readme-styles.css">
+    <style>
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .question-block {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .question-block p {
+            font-weight: bold;
+        }
+        .options-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options-list li {
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .feedback {
+            margin-top: 10px;
+            font-style: italic;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+        #submit-btn {
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border: none;
+            background-color: #0056b3;
+            color: white;
+            border-radius: 5px;
+        }
+        #results {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="readme-container">
+        <div id="quiz" class="quiz-container">
+            <h1 id="quiz-title"></h1>
+            <div id="questions-container"></div>
+            <button id="submit-btn">Submit Answers</button>
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <script src="../js/nav_data.js" defer></script>
+    <script src="../js/global_nav.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizContainer = document.getElementById('questions-container');
+            const quizTitle = document.getElementById('quiz-title');
+            const submitButton = document.getElementById('submit-btn');
+            const resultsContainer = document.getElementById('results');
+            let quizData;
+
+            fetch('accounting-quiz.json')
+                .then(response => response.json())
+                .then(data => {
+                    quizData = data;
+                    quizTitle.textContent = quizData.title;
+                    renderQuestions(quizData.questions);
+                });
+
+            function renderQuestions(questions) {
+                questions.forEach((q, index) => {
+                    const questionBlock = document.createElement('div');
+                    questionBlock.className = 'question-block';
+
+                    const questionText = document.createElement('p');
+                    questionText.textContent = `${index + 1}. ${q.question}`;
+                    questionBlock.appendChild(questionText);
+
+                    const optionsList = document.createElement('ul');
+                    optionsList.className = 'options-list';
+                    q.options.forEach(option => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<input type="radio" name="question${index}" value="${option}"> <label>${option}</label>`;
+                        optionsList.appendChild(li);
+                    });
+                    questionBlock.appendChild(optionsList);
+
+                    const feedback = document.createElement('div');
+                    feedback.className = 'feedback';
+                    questionBlock.appendChild(feedback);
+
+                    quizContainer.appendChild(questionBlock);
+                });
+            }
+
+            submitButton.addEventListener('click', () => {
+                const questions = quizData.questions;
+                let score = 0;
+
+                questions.forEach((q, index) => {
+                    const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                    const feedback = quizContainer.children[index].querySelector('.feedback');
+
+                    if (selectedOption) {
+                        if (selectedOption.value === q.answer) {
+                            score++;
+                            feedback.textContent = 'Correct!';
+                            feedback.className = 'feedback correct';
+                        } else {
+                            feedback.textContent = `Incorrect. The correct answer is: ${q.answer}`;
+                            feedback.className = 'feedback incorrect';
+                        }
+                    } else {
+                        feedback.textContent = 'You did not answer this question.';
+                        feedback.className = 'feedback incorrect';
+                    }
+                });
+
+                resultsContainer.textContent = `You scored ${score} out of ${questions.length}!`;
+                submitButton.style.display = 'none'; // Hide button after submission
+            });
+        });
+    </script>
+</body>
+</html>

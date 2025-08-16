@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Dive: Intangible Assets</title>
+    <link rel="stylesheet" href="../../css/global_nav.css">
+    <link rel="stylesheet" href="../../assets/css/shared-readme-styles.css">
+</head>
+<body style="display: flex; min-height: 100vh;">
+    <div id="global-nav-placeholder"></div>
+    <div class="readme-container">
+        <div class="readme-content">
+            <h1>Deep Dive: Intangible Assets</h1>
+
+            <h2>1. Introduction to Intangible Assets</h2>
+            <p>Intangible assets are non-physical assets that have value but are not tangible in nature. They derive their value from contractual or legal rights, or from their ability to generate future economic benefits. For many modern companies, especially in the technology and consumer sectors, intangible assets can be their most valuable assets.</p>
+            <p>Intangible assets can be categorized as either:</p>
+            <ul>
+                <li><strong>Identifiable:</strong> These can be separated from the company and sold, transferred, licensed, etc. Examples include patents, trademarks, copyrights, and customer lists.</li>
+                <li><strong>Unidentifiable:</strong> These cannot be separated from the company. The most common example is <strong>Goodwill</strong>.</li>
+            </ul>
+
+            <h2>2. Goodwill</h2>
+            <p>Goodwill is a unique intangible asset that can only be created when one company acquires another company for a price that is higher than the fair market value of the target company's identifiable net assets (assets minus liabilities).</p>
+            <p><code>Goodwill = Purchase Price - Fair Value of Identifiable Net Assets</code></p>
+            <p><strong>Key characteristics of Goodwill:</strong></p>
+            <ul>
+                <li>It represents assets that are not individually identifiable, such as brand reputation, a strong customer base, or employee talent.</li>
+                <li>It is <strong>not amortized</strong>. Instead, it is tested for impairment at least annually.</li>
+                <li>Internally generated goodwill is <strong>not</strong> recorded on the balance sheet. It can only be recognized through an acquisition.</li>
+            </ul>
+
+            <h2>3. Other Intangible Assets</h2>
+            <h3>Patents, Trademarks, and Copyrights</h3>
+            <p>These are legal rights that protect a company's intellectual property.</p>
+            <ul>
+                <li><strong>Acquired Intangibles:</strong> If a patent or trademark is acquired from another party, its cost is capitalized.</li>
+                <li><strong>Internally Developed Intangibles:</strong> The costs of internally developing intangibles like patents are generally expensed as incurred (as Research & Development costs). However, legal fees and other costs associated with <em>defending</em> or <em>registering</em> a patent can be capitalized.</li>
+            </ul>
+
+            <h3>Amortization</h3>
+            <p>Intangible assets with a <strong>finite useful life</strong> (like patents and copyrights) are amortized over their useful life. Amortization is similar to depreciation but is used for intangible assets. The straight-line method is most commonly used.</p>
+            <p>Intangible assets with an <strong>indefinite useful life</strong> (like trademarks and goodwill) are <strong>not</strong> amortized. Instead, they are tested for impairment.</p>
+
+            <h2>4. Impairment of Intangible Assets</h2>
+            <h3>Finite-Life Intangibles</h3>
+            <p>These are tested for impairment whenever there is an indication that the carrying amount may not be recoverable. The test is similar to that for PP&E.</p>
+            <h3>Indefinite-Life Intangibles (including Goodwill)</h3>
+            <p>These must be tested for impairment at least annually, or more frequently if events indicate a potential impairment. The impairment test for goodwill is complex, but the basic idea is that if the fair value of the reporting unit (a part of the business that contains goodwill) falls below its carrying amount, an impairment loss must be recognized.</p>
+            <p>An impairment loss reduces the carrying value of the intangible asset on the balance sheet and is recognized as an expense on the income statement.</p>
+
+            <h2>5. Presentation on Financial Statements</h2>
+            <ul>
+                <li><strong>Balance Sheet:</strong> Intangible assets are reported as non-current assets. The carrying value is the original cost less accumulated amortization and any impairment losses.</li>
+                <li><strong>Income Statement:</strong> Amortization expense and any impairment losses are recorded, typically in the operating expenses section.</li>
+                <li><strong>Cash Flow Statement:</strong> The acquisition of intangible assets is a cash outflow in the <strong>Investing Activities</strong> section. Amortization, like depreciation, is a non-cash expense that is added back to net income in the <strong>Operating Activities</strong> section.</li>
+            </ul>
+        </div>
+        <footer class="readme-footer">
+            <p>&copy; <span id="currentYear"></span> Financial Learning Hub</p>
+        </footer>
+    </div>
+    <script src="../../js/nav_data.js" defer></script>
+    <script src="../../js/global_nav.js" defer></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
