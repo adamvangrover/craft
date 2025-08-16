@@ -73,3 +73,11 @@ This module provides the critical groundwork for all subsequent modules in the C
 *   **More Advanced Forecasting Techniques:** Beyond the basics introduced here (could link to `/Financial_Modeling/Forecasting_Techniques/`).
 *   **Quality of Earnings Analysis Introduction:** A brief intro here, with a deeper dive in Module 12.
 *   **Introduction to Financial Statement Footnote Analysis:** More structured guidance on what to look for in key footnotes.
+
+## CRAFT Curriculum Content
+
+This module is supplemented by the following detailed content from the CRAFT curriculum:
+
+*   [The Role of a Credit Analyst](./01_The_Role_of_a_Credit_Analyst.md)
+*   [Mastering Financial Accounting](./02_Mastering_Financial_Accounting.md)
+*   [Financial Statement Analysis for Creditors](./03_Financial_Statement_Analysis_for_Creditors.md)

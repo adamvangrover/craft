@@ -65,4 +65,10 @@ Credit analysis is not just about calculating ratios; it's about interpreting da
 *   **Dealing with Ambiguity and Incomplete Information in Analysis.**
 *   **The Role of Cognitive Biases in Group Decision-Making (e.g., Credit Committees).** (Links to `/Behavioral_Finance/`)
 
+## CRAFT Curriculum Content
+
+This module is supplemented by the following detailed content from the CRAFT curriculum:
+
+*   [Business & Industry Risk Analysis](./01_Business_and_Industry_Risk_Analysis.md)
+
 This module focuses on skills that differentiate a good analyst from a great one. Mastering the craft of clear communication and rigorous critical thinking is essential for a successful career in credit risk.

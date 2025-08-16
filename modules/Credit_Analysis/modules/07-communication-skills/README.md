@@ -77,4 +77,11 @@ Analysts frequently need to negotiate, whether internally with deal teams or ext
 *   **Presentation Skills for Complex Financial Information.** (Some overlap with `/Professional_Development/`)
 *   **Influencing without Authority.**
 
+## CRAFT Curriculum Content
+
+This module is supplemented by the following detailed content from the CRAFT curriculum:
+
+*   [Critical Thinking & Forming a Narrative](./01_Critical_Thinking_and_Forming_a_Narrative.md)
+*   [Communication & Presentation Skills](./02_Communication_and_Presentation_Skills.md)
+
 This module aims to elevate an analyst's ability to not only perform sound analysis but also to communicate and advocate for their conclusions effectively, a critical component of professional growth.

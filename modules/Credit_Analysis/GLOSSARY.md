@@ -53,6 +53,7 @@ This glossary consolidates key terms from all modules of the Credit Risk Analyst
 *   **Bookings:** Total value of new contracts signed in a period. (SaaS specific)
 *   **Builder Basket (Accumulating Basket):** A type of basket, often for restricted payments, where the capacity grows over time based on the company's performance (e.g., a percentage of cumulative net income).
 *   **Business Intelligence (BI) Tools:** Software applications designed to retrieve, analyze, transform, and report data for business intelligence (e.g., Tableau, Microsoft Power BI, Qlik Sense).
+*   **Business & Industry Risk Analysis:** A qualitative framework used by analysts to assess the risks that are not immediately apparent in the financial statements. It involves understanding the competitive landscape (e.g., using Porter's Five Forces), the company's strategic positioning, industry cyclicality, and management quality.
 *   **Business Model:** The rationale of how an organization creates, delivers, and captures value. Varies significantly by industry.
 *   **Buy-Side:** Institutional investors (e.g., mutual funds, pension funds, hedge funds, insurance companies, CLOs) that purchase and manage portfolios of securities.
 
@@ -92,21 +93,24 @@ This glossary consolidates key terms from all modules of the Credit Risk Analyst
 *   **Corporate Benefit:** A legal concept suggesting that a company must receive some benefit or "reasonably equivalent value" for an obligation it incurs (like providing a guarantee), particularly relevant for assessing the validity of upstream/cross-stream guarantees in bankruptcy.
 *   **Correlation vs. Causation:** A statistical relationship between two variables does not necessarily mean that one causes the other.
 *   **Cost of Goods Sold (COGS) / Cost of Sales:** The direct costs attributable to the production of the goods or supply of services sold by a company.
+*   **Common-Size Analysis (Vertical Analysis):** An analysis that expresses all financial statement items as a percentage of a base amount (e.g., revenue for the income statement, or total assets for the balance sheet). This facilitates comparison between companies of different sizes and highlights changes in business strategy or cost structure.
 *   **Cost Synergies:** Reductions in operating costs (e.g., eliminating redundancies). Generally considered more achievable.
 *   **Counter-Argument:** An argument or set of reasons put forward to oppose an idea or theory developed in another argument. Proactively addressing these strengthens a credit memo.
 *   **Coverage Ratios:** Measure a company's ability to meet its debt-related obligations (e.g., Interest Coverage Ratio/TIE, FCCR, DSCR).
 *   **Covenant Compliance Certificate:** A formal statement provided by a borrower to its lenders, typically quarterly, certifying compliance with financial covenants and other loan terms.
 *   **Covenant Headroom (Cushion):** The amount of leeway a borrower has before breaching a financial covenant.
 *   **Covenant-Lite (Cov-Lite) Loan:** A loan that lacks financial maintenance covenants, offering more flexibility to the borrower but potentially less early warning for lenders. Still contains negative covenants.
-*   **Covenants:** Rules of conduct for the borrower set forth in a credit agreement, designed to protect lenders.
+*   **Covenants:** Rules of conduct for the borrower set forth in a credit agreement, designed to protect lenders. See also **Financial Covenants**.
 *   **Credit Classification (Risk Rating):** The categorization of a loan based on its perceived credit quality and risk of loss. SNC uses a specific classification system.
 *   **Credit Committee:** The internal body within a financial institution responsible for approving or declining credit proposals.
 *   **Credit Committee Presentation Outline:** A structured plan for a verbal presentation of the credit analysis and recommendation, highlighting key findings and arguments. (Capstone Project specific)
+*   **Credit Lifecycle:** The distinct stages of a loan, from origination and underwriting to ongoing monitoring and final repayment or resolution (workout/recovery).
 *   **Credit Memorandum (Credit Memo/Report/Application):** A formal document prepared by a credit analyst that summarizes the credit analysis of a borrower, details the proposed transaction, highlights key risks and mitigants, and provides a recommendation to decision-makers.
 *   **Credit Narrative:** The coherent story or argument constructed by an analyst that synthesizes quantitative and qualitative findings to justify a credit recommendation.
 *   **Credit Policy (Internal):** An institution's internal guidelines, standards, and procedures for underwriting, approving, and managing credit risk.
+*   **Credit Underwriting:** The comprehensive process of evaluating a borrower's creditworthiness and the risks associated with a proposed loan. It involves detailed analysis of the Five C's of Credit, financial statements, business and industry risks, and structuring the loan appropriately to mitigate risks before making a credit decision.
 *   **Credit Portfolio Management (CPM):** The process of managing the risk and return characteristics of a lender's entire collection of credit assets.
-*   **Credit Spread (Margin):** The amount of interest paid on a loan or bond above a benchmark rate (like SOFR or a government bond yield), compensating lenders/investors for credit risk.
+*   **Credit Spreads:** The difference between the yield on a corporate bond and the yield on a risk-free Treasury bond of the same maturity. It is the extra return investors demand to compensate for credit risk. Widening spreads signal increasing perceived risk, while narrowing spreads signal decreasing perceived risk.
 *   **Credit Thesis:** The central argument or main point of the credit narrative; the core message the analyst wants to convey about the creditworthiness and recommendation.
 *   **Creditors' Committee:** A committee appointed in a bankruptcy case to represent the interests of a particular class of creditors (e.g., Unsecured Creditors' Committee).
 *   **Critical Thinking:** The objective analysis and evaluation of an issue in order to form a judgment. Involves conceptualizing, applying, analyzing, synthesizing, and evaluating information.
@@ -127,7 +131,7 @@ This glossary consolidates key terms from all modules of the Credit Risk Analyst
 *   **Days Payable Outstanding (DPO):** A measure of the average number of days it takes a company to pay its suppliers. `DPO = (Accounts Payable / COGS) * Days in Period`.
 *   **Days Sales Outstanding (DSO):** A measure of the average number of days it takes a company to collect payment after a sale has been made. `DSO = (Accounts Receivable / Revenue) * Days in Period`.
 *   **Debt Restructuring:** Modifying the terms of existing debt to help a financially distressed company regain viability and avoid bankruptcy.
-*   **Debt Structuring:** The process of designing a debt financing package, including determining the mix of debt instruments, maturities, security, covenants, and pricing.
+*   **Debt Structuring:** The process of designing a debt financing package, including determining the mix of debt instruments, maturities, security, covenants, and pricing to meet a borrower's needs while managing lender risk. It involves analyzing the capital structure hierarchy and understanding the principle of absolute priority.
 *   **Debt-for-Equity Swap:** An exchange where creditors convert their debt claims into an equity ownership stake in the distressed company.
 *   **Debtor-in-Possession (DIP):** In U.S. Chapter 11 bankruptcy, the existing management of a company typically continues to operate the business as a DIP.
 *   **DIP Financing:** New loans provided to a company already in Chapter 11 bankruptcy to fund its operations during the reorganization. Often has super-priority status.
@@ -139,7 +143,7 @@ This glossary consolidates key terms from all modules of the Credit Risk Analyst
 *   **Downside Scenario Analysis:** A critical component of the financial model, showing the impact of more pessimistic assumptions on financial performance and debt service capacity. (Capstone Project specific)
 *   **Downstream Guarantee:** Guarantee from a parent for its subsidiary's debt.
 *   **Due Diligence:** An in-depth investigation and verification of a potential borrower's business, financial condition, management, industry, and other relevant factors to assess credit risk.
-*   **DuPont Analysis:** A framework that decomposes Return on Equity (ROE) into its components: profitability, asset efficiency, and financial leverage.
+*   **DuPont Analysis:** A framework that deconstructs Return on Equity (ROE) into its three core components: profitability (Net Profit Margin), asset efficiency (Asset Turnover), and financial leverage (Equity Multiplier). It allows an analyst to determine if high ROE is driven by strong profitability, efficient asset use, or high financial leverage—the latter being a potential source of risk.
 
 *   **Early Warning Indicators (EWS - Data-Driven):** Metrics or patterns identified through data analysis that signal a potential future deterioration in credit quality.
 *   **Early Warning Signs (EWS):** Quantitative or qualitative indicators that suggest a potential deterioration in a borrower's credit quality or an increased risk of default.
@@ -162,9 +166,10 @@ This glossary consolidates key terms from all modules of the Credit Risk Analyst
 *   **Factoring (with Recourse):** Selling accounts receivable to a third party (a factor) for immediate cash, where the seller retains the risk of non-payment by customers.
 *   **Fair Lending Laws:** Laws prohibiting discrimination in lending based on protected characteristics (e.g., race, gender, religion). Examples include the Equal Credit Opportunity Act (ECOA) and Fair Housing Act (FHA) in the U.S.
 *   **Federally Supervised Institutions:** Financial institutions regulated by federal agencies like the Federal Reserve (FRS), Federal Deposit Insurance Corporation (FDIC), and Office of the Comptroller of the Currency (OCC). Includes national banks, state member banks, etc.
-*   **Financial Covenants:** Requirements for the borrower to maintain certain financial ratios (e.g., maximum leverage, minimum coverage).
+*   **Financial Covenants:** Performance metrics a borrower must maintain to remain in good standing with a loan. These are numerical tests, typically calculated quarterly, that measure the borrower's financial health against pre-defined thresholds. A breach is a clear early warning sign of deteriorating performance. Common examples include a maximum Leverage Ratio (e.g., Total Debt/EBITDA) and a minimum Interest Coverage Ratio (e.g., EBITDA/Interest Expense).
 *   **Financial Distress:** A situation where a company is struggling to meet its financial obligations.
 *   **Financial Due Diligence:** Focuses on analyzing historical and projected financials, quality of earnings, cash flow, and balance sheet strength.
+*   **Financial Statement Analysis (FSA):** The process of reviewing a company's financial statements (income statement, balance sheet, cash flow statement) to make better economic decisions. For creditors, FSA focuses on assessing a company's capacity for debt repayment and its resilience to financial stress, primarily through ratio analysis, trend analysis, and common-size statement analysis.
 *   **Financial Modeling:** The process of creating a spreadsheet-based representation of a company's financial performance, past and future. Used for forecasting, valuation, and decision-making.
 *   **Five C's of Credit:** A traditional framework for evaluating creditworthiness: Character, Capacity, Capital, Collateral, Conditions.
 *   **Forbearance Agreement:** A formal agreement where a lender agrees not to exercise its default remedies for a specified period, provided the borrower meets certain conditions or milestones. Often used for watchlist credits to give the borrower time to implement a turnaround.
@@ -173,6 +178,7 @@ This glossary consolidates key terms from all modules of the Credit Risk Analyst
 *   **Formulas/Outputs:** Calculations within the model that are derived from inputs or other formulas. Often color-coded black.
 *   **Fraudulent Conveyance (Fraudulent Transfer):** A transfer of assets or incurrence of an obligation (like a guarantee) made by an insolvent debtor for less than reasonably equivalent value, or made with intent to hinder, delay, or defraud creditors. Such transactions can be voided in bankruptcy.
 *   **Free Cash Flow (FCF):** Cash flow available to all investors (debt and equity holders) after the company has paid for operating expenses and capital expenditures. Common calculation: `CFO - CapEx`. (Can also be Unlevered FCF or FCF to Equity).
+*   **Free Cash Flow to the Firm (FCFF):** The cash flow available to all capital providers (debt and equity) after all operating expenses and investments have been paid. A common formula is `EBIT × (1−Tax Rate) + D&A − Capital Expenditures − ΔNet Working Capital`.
 *   **Fulcrum Security:** The class of debt in a restructuring that is expected to be converted into equity of the reorganized company because its claim is not fully covered by the company's value but it is senior enough to receive consideration. Holders of this security often drive negotiations.
 
 *   **Generally Accepted Accounting Principles (GAAP):** The common set of accounting principles, standards, and procedures that companies use to compile their financial statements in the U.S.
@@ -181,6 +187,7 @@ This glossary consolidates key terms from all modules of the Credit Risk Analyst
 *   **Going Concern:** An accounting principle that assumes a business will continue to operate indefinitely in the foreseeable future unless there is substantial evidence to the contrary.
 *   **Goodwill:** An intangible asset representing the excess of the purchase price of an acquired company over the fair value of its identifiable net assets.
 *   **Gramm-Leach-Bliley Act (GLBA):** U.S. federal law requiring financial institutions to explain their information-sharing practices and safeguard sensitive customer data.
+*   **Growth CapEx:** Discretionary capital spending to expand a business's capacity or capabilities, such as building a new factory or entering a new market. Contrasts with Maintenance CapEx.
 *   **Grammar:** The system and structure of a language, including rules for syntax and word forms.
 *   **Guarantee:** A promise by a third party (guarantor) to be responsible for a borrower's debt or performance obligations if the borrower defaults.
 
@@ -190,6 +197,7 @@ This glossary consolidates key terms from all modules of the Credit Risk Analyst
 *   **High-Yield Bonds (Junk Bonds):** Bonds issued by companies with below-investment-grade credit ratings, offering higher yields for higher risk.
 *   **Historical Data:** Actual financial results from past periods, used as a basis for projections.
 *   **Homophones:** Words that are pronounced the same but have different meanings, origins, or spelling (e.g., principal/principle, affect/effect).
+*   **Horizontal Analysis (Trend Analysis):** The practice of evaluating financial statement data over several periods to identify the direction and magnitude of change. An improving trend provides comfort, while a deteriorating trend is a significant warning sign.
 *   **Horizontal Merger:** A merger between companies operating in the same industry and at the same stage of production (competitors).
 *   **Horizontal SaaS:** Software as a Service that addresses common functions across many industries (e.g., CRM, HR, collaboration tools). (SaaS specific)
 *   **Human-in-the-Loop (HITL):** A model of interaction where human intelligence is integrated with AI systems, with humans overseeing, validating, or correcting AI outputs, especially in critical decision-making.
@@ -220,8 +228,9 @@ This glossary consolidates key terms from all modules of the Credit Risk Analyst
 *   **Lead Arranger/Bookrunner:** An investment bank that structures, underwrites, and distributes a syndicated loan or bond issue.
 *   **Legal Due Diligence:** Involves reviewing corporate structure, material contracts, litigation, regulatory compliance, and perfecting security interests.
 *   **Leverage Ratios:** Measure the extent to which a company uses debt to finance its assets (e.g., Debt/EBITDA, Debt/Equity).
+*   **Leveraged Finance:** A segment of finance involving the use of an above-normal amount of debt to finance transactions such as acquisitions, recapitalizations, or buyouts. Borrowers are typically rated below investment-grade and are characterized by high debt levels relative to their cash flow.
 *   **Leveraged Loan:** A syndicated bank loan extended to companies that are already highly levered or have non-investment-grade credit ratings.
-*   **Leveraged Buyout (LBO):** The acquisition of a company financed with a significant amount of debt (leverage), where the assets of the acquired company (and sometimes the acquirer) are used as collateral.
+*   **Leveraged Buyout (LBO):** The acquisition of a company where the purchase price is financed primarily with debt. The assets of the acquired company are used as collateral for the loans, and the goal is often to generate returns for the equity sponsor through deleveraging, EBITDA growth, and multiple expansion.
 *   **Liabilities:** Obligations of a company arising from past transactions, the settlement of which is expected to result in an outflow of resources (e.g., accounts payable, debt, accrued expenses).
 *   **Lien:** A legal claim or right against assets to satisfy a debt.
 *   **LIME (Local Interpretable Model-agnostic Explanations):** A technique that explains the predictions of any classifier in an interpretable and faithful manner by learning an interpretable model locally around the prediction.
@@ -234,6 +243,7 @@ This glossary consolidates key terms from all modules of the Credit Risk Analyst
 *   **LTV/CAC Ratio:** Ratio of lifetime value to acquisition cost; a key measure of customer acquisition efficiency and long-term profitability. (SaaS specific)
 
 *   **Machine Learning (ML):** A subset of AI where systems automatically learn and improve from experience (data) without being explicitly programmed.
+*   **Maintenance CapEx:** The capital expenditures required to sustain a company's current level of operations (e.g., replacing old machinery). This is a non-discretionary expenditure that is critical to a company's ongoing viability.
 *   **Maintenance Covenants:** Must be met continuously (tested periodically, usually quarterly).
 *   **Material Adverse Change (MAC) Clause:** A clause allowing a lender to refuse funding or call a default if a significant negative change occurs in the borrower's condition.
 *   **Matching Principle:** An accounting principle that dictates that expenses should be recognized in the same period as the revenues they helped to generate.
@@ -278,7 +288,7 @@ This glossary consolidates key terms from all modules of the Credit Risk Analyst
 *   **PivotTable (Excel):** An interactive Excel tool that allows for rapid summarization, grouping, and analysis of large datasets.
 *   **Plan of Reorganization (POR):** A detailed plan proposed in a Chapter 11 bankruptcy outlining how the debtor will reorganize its affairs and how creditor claims will be treated.
 *   **Pledge Agreement:** An agreement used to grant a security interest in financial assets (e.g., stock certificates, notes) by transferring possession or control.
-*   **Porter's Five Forces:** A framework developed by Michael Porter for analyzing the competitive structure of an industry. The five forces are: Threat of New Entrants, Bargaining Power of Buyers, Bargaining Power of Suppliers, Threat of Substitute Products or Services, and Rivalry Among Existing Competitors.
+*   **Porter's Five Forces:** A framework for analyzing the competitive intensity and profitability of an industry by assessing five key forces: Threat of New Entrants, Bargaining Power of Buyers, Bargaining Power of Suppliers, Threat of Substitute Products or Services, and Rivalry Among Existing Competitors.
 *   **Portfolio Segmentation:** Dividing a credit portfolio into distinct groups based on shared characteristics (e.g., industry, risk rating, loan size, geography) for targeted analysis and risk management.
 *   **Portability (of Debt):** Provisions determining if existing debt can remain in place if the company is sold (change of control).
 *   **Position (in Negotiation):** A party's stated demand or specific solution they are seeking.
@@ -323,7 +333,7 @@ This glossary consolidates key terms from all modules of the Credit Risk Analyst
 *   **Revolving Credit Facility (Revolver):** A flexible line of credit allowing a borrower to draw, repay, and re-borrow funds up to a limit. Often used as a plug in models to cover cash shortfalls.
 *   **Risk Appetite Statement:** A formal document defining the level and types of risk an organization is willing to accept in pursuit of its objectives.
 *   **Risk-Weighted Assets (RWA):** A bank's assets or off-balance-sheet exposures weighted according to their credit risk, market risk, and operational risk. Used to calculate capital adequacy ratios.
-*   **Rivalry Among Existing Competitors:** The intensity of competition between firms already operating within the industry (e.g., price wars, advertising battles, innovation races).
+*   **Rivalry Among Existing Competitors:** One of Porter's Five Forces, it measures the intensity of competition between existing firms in an industry. High rivalry can lead to price wars, higher advertising costs, and pressure on profitability.
 *   **Round-Trip Transactions:** Recording sales between entities with pre-arranged buy-back agreements, often with no real economic substance, solely to boost revenue.
 *   **Rule of 40:** Heuristic for SaaS health: Revenue Growth Rate (%) + Profit Margin (%) >= 40%. (SaaS specific)
 
@@ -356,12 +366,13 @@ This glossary consolidates key terms from all modules of the Credit Risk Analyst
 *   **Subordinated Debt (Junior Debt):** Debt that ranks below senior debt in claim priority. Higher risk, higher coupon.
 *   **Subordination Agreement:** An agreement where one creditor (subordinated creditor) agrees its claims will rank junior in priority of payment to another creditor (senior creditor).
 *   **Substandard (SNC Classification):** A classified loan inadequately protected by the current sound net worth and paying capacity of the obligor or collateral. There's a distinct possibility of some loss if deficiencies aren't corrected.
+*   **Structural Subordination:** A situation where creditors of a parent company are effectively subordinated to creditors of its operating subsidiaries because the holding company's only claim on the subsidiaries' assets is through its equity ownership, after all subsidiary creditors have been paid.
 *   **Sunk Cost Fallacy:** Continuing a behavior or endeavor due to previously invested resources (time, money, effort), even if it's no longer the rational decision.
 *   **Supervised Learning:** ML using labeled datasets to train algorithms to classify data or predict outcomes accurately (e.g., default prediction based on historical defaults).
 *   **Supply Chain Risk:** Risks associated with the flow of goods and services from raw materials to the end customer, including disruptions, supplier concentration, and price volatility.
 *   **Supporting Schedules:** Separate worksheets or sections within a model that detail the calculation of complex items like debt, fixed assets, working capital, etc.
 *   **Suspicious Activity Report (SAR):** A report filed by a financial institution with relevant authorities (e.g., FinCEN in the U.S.) if it detects a transaction or activity it suspects may involve money laundering, terrorist financing, or other financial crimes.
-*   **SWOT Analysis:** A framework for identifying Strengths, Weaknesses (internal factors), Opportunities, and Threats (external factors) relevant to an organization or industry.
+*   **SWOT Analysis:** A strategic planning tool to identify a company's internal Strengths and Weaknesses, and its external Opportunities and Threats. It is a useful framework for summarizing qualitative findings in a credit memo.
 *   **Syndicated Loan:** A large loan in which a group of lenders (a syndicate) jointly provides funds to a single borrower. Managed by lead arrangers.
 *   **Synergies:** The potential benefits (cost savings or revenue enhancements) expected from combining two companies in an M&A transaction.
 *   **Synthesis:** Combining various components or elements to form a connected, coherent whole. In credit analysis, synthesizing diverse data points into a meaningful narrative.
@@ -372,8 +383,8 @@ This glossary consolidates key terms from all modules of the Credit Risk Analyst
 *   **Term Loan:** A loan with a specified principal amount, a set maturity date, and often a periodic repayment (amortization) schedule. (e.g., Term Loan A, Term Loan B).
 *   **Term Sheet (or Letter of Intent - LOI):** A non-binding document outlining the basic terms and conditions of a proposed financing before detailed legal documentation is drafted.
 *   **Thesis (Credit Thesis):** The central argument or main point that the credit narrative aims to support regarding the creditworthiness of a borrower and the proposed transaction.
-*   **Threat of New Entrants:** The risk that new competitors will enter an industry and erode the market share and profitability of existing firms.
-*   **Threat of Substitute Products or Services:** The risk that products or services from *outside* the traditional industry boundaries will meet the same customer needs, potentially making the industry's offerings obsolete or less attractive.
+*   **Threat of New Entrants:** One of Porter's Five Forces, it refers to the risk that new competitors will enter an industry. High barriers to entry (e.g., high capital requirements, strong brands, patents) reduce this threat and protect existing firms.
+*   **Threat of Substitute Products or Services:** One of Porter's Five Forces, it refers to the likelihood that customers will switch to a different type of product or service from outside the traditional industry that meets the same basic need.
 *   **Tone (Professional):** The attitude conveyed in writing. In credit memos, it should be objective, analytical, confident (but not arrogant), and respectful.
 *   **Topic Sentence:** A sentence, usually at the beginning of a paragraph, that states the main idea or purpose of that paragraph.
 *   **Tranche:** A distinct portion or class of debt within a larger financing package, often with its own specific terms (e.g., seniority, interest rate, maturity).

@@ -89,4 +89,12 @@ The analyst's role after a loan is funded.
 *   **Portfolio Management Tools:** Introduction to tools or metrics used for credit portfolio monitoring beyond individual name analysis.
 *   **Regulatory Capital Implications:** How different stages of the credit lifecycle (e.g., default, classification) impact regulatory capital for banks.
 
+## CRAFT Curriculum Content
+
+This module is supplemented by the following detailed content from the CRAFT curriculum:
+
+*   [Due Diligence & Information Gathering](./01_Due_Diligence.md)
+*   [Writing the Credit Memorandum](./02_Writing_the_Credit_Memorandum.md)
+*   [Credit Monitoring, Annual Reviews, and Early Warning Signs](./03_Credit_Monitoring_and_Early_Warning_Signs.md)
+
 This module provides a comprehensive overview of the dynamic processes involved in managing credit risk from inception to potential resolution.
