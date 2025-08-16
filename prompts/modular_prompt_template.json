@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "template_name": "Modular Content Generation Prompt",
+    "version": "1.0",
+    "author": "Jules",
+    "description": "A well-structured, portable, and modular prompt template for generating educational content for the Financial Learning Hub. Fill in the placeholders to define the generation task."
+  },
+  "context": {
+    "domain": "Finance",
+    "target_audience": "Finance professionals, students, and enthusiasts.",
+    "repository_guidelines": "Refer to the root AGENTS.MD for general principles, linking conventions, and content structure. The generated content should be accurate, clear, modular, and interconnected."
+  },
+  "prompt_definition": {
+    "persona": {
+      "role": "[Specify the persona for the AI, e.g., 'a seasoned financial analyst', 'an academic expert in behavioral finance', 'a technical writer specializing in Fintech']",
+      "tone_and_voice": "[Describe the desired tone, e.g., 'Professional and authoritative, but also accessible and engaging', 'Clear, concise, and objective']"
+    },
+    "task": {
+      "goal": "[State the primary goal of the content to be generated, e.g., 'To create a comprehensive primer on the semiconductor industry', 'To generate a new module for the CRAFT program on Sustainable Finance']",
+      "scope": "[Define the boundaries of the task. What should be included and what should be excluded? e.g., 'The primer should cover the industry's value chain, key players, financial characteristics, and risks. It should not include stock recommendations.']"
+    },
+    "output_format": {
+      "file_type": "[Specify the desired output file type, e.g., 'Markdown (.md)', 'Jupyter Notebook (.ipynb)']",
+      "structure": [
+        {
+          "type": "section",
+          "title": "[Title of the first section]",
+          "content": [
+            {
+              "type": "paragraph",
+              "instruction": "[Instruction for the content of this paragraph, e.g., 'Provide an introduction to the topic.']"
+            },
+            {
+              "type": "table",
+              "instruction": "[Instruction for the table, e.g., 'Create a table summarizing key concepts.']",
+              "columns": ["[Column 1]", "[Column 2]"],
+              "rows": [
+                ["[Row 1, Col 1]", "[Row 1, Col 2]"],
+                ["[Row 2, Col 1]", "[Row 2, Col 2]"]
+              ]
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "title": "[Title of the second section]",
+          "content": "..."
+        }
+      ]
+    },
+    "content_requirements": {
+      "key_concepts_to_include": [
+        "[Concept 1]",
+        "[Concept 2]"
+      ],
+      "examples_to_provide": [
+        "[Example 1]",
+        "[Example 2]"
+      ],
+      "linking": {
+        "internal_links": "[Specify any required links to other parts of the repository, e.g., 'Link key terms to the Global_Financial_Glossary.md']",
+        "external_links": "[Specify any requirements for external links or citations.]"
+      }
+    }
+  }
+}
