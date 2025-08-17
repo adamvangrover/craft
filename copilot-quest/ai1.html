@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive AI Presentations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #111827;
+            color: #d1d5db;
+        }
+        .presentation-container {
+            display: none;
+        }
+        .presentation-container.active {
+            display: block;
+        }
+        .slide {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 12px;
+            padding: 40px 50px;
+            margin: 20px auto;
+            max-width: 1000px;
+            min-height: 550px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            display: none; /* Initially hide all slides */
+            flex-direction: column;
+            justify-content: center;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .slide h2 {
+            font-size: 2.8em;
+            font-weight: 700;
+            color: #60a5fa; /* A brighter blue */
+            margin-top: 0;
+            line-height: 1.2;
+        }
+        .slide h3 {
+            font-size: 1.6em;
+            color: #f59e0b; /* A vibrant orange */
+            font-weight: 500;
+            margin-bottom: 25px;
+        }
+        .slide p, .slide li {
+            font-size: 1.25em;
+            line-height: 1.7;
+            color: #e5e7eb;
+        }
+        .slide ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .slide ul li {
+            padding-left: 35px;
+            position: relative;
+            margin-bottom: 15px;
+        }
+        .slide ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #34d399; /* Emerald green for checkmarks */
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+        .visual-note {
+            font-style: italic;
+            color: #9ca3af;
+            margin-top: 30px;
+            font-size: 1em;
+            text-align: center;
+            border-top: 1px solid #374151;
+            padding-top: 20px;
+        }
+        .interactive-element {
+            background-color: #374151;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .nav-button {
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .nav-button:hover {
+            transform: translateY(-2px);
+        }
+        .progress-bar {
+            height: 4px;
+            background-color: #60a5fa;
+            transition: width 0.3s ease-in-out;
+        }
+        .tab-button {
+            transition: all 0.3s;
+        }
+        .tab-button.active {
+            color: #60a5fa;
+            border-bottom-color: #60a5fa;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <header class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">The AI Revolution</h1>
+        <p class="text-lg text-gray-400">An Interactive Exploration for Senior Leaders</p>
+    </header>
+
+    <nav class="flex justify-center border-b border-gray-700 mb-8">
+        <button class="tab-button text-gray-400 py-4 px-6 block hover:text-blue-400 focus:outline-none border-b-2 border-transparent active" data-target="presentation1">AI in Banking & Risk</button>
+        <button class="tab-button text-gray-400 py-4 px-6 block hover:text-blue-400 focus:outline-none border-b-2 border-transparent" data-target="presentation2">The 'Wow' Factor</button>
+    </nav>
+
+    <main>
+        <!-- Presentation 1: AI in Banking and Risk -->
+        <div id="presentation1" class="presentation-container active">
+            <div class="slide active">
+                <h2>AI in Banking and Risk</h2>
+                <h3>Transforming Finance, One Algorithm at a Time</h3>
+                <p>An executive briefing on how AI is reshaping financial services, from customer experience to institutional stability.</p>
+                <p class="visual-note">[Visual: A dynamic animation of abstract data streams flowing into a secure, glowing digital vault, representing the fusion of data and security.]</p>
+            </div>
+            <div class="slide">
+                <h2>The New Financial Ecosystem</h2>
+                <h3>AI is no longer a novelty; it's the new operational backbone.</h3>
+                <ul>
+                    <li><b>Hyper-Personalization:</b> Moving beyond demographics to individual behavioral analysis for tailored products and advice.</li>
+                    <li><b>Operational Efficiency:</b> Automating middle and back-office tasks, from compliance checks to trade reconciliation, reducing costs by up to 40%.</li>
+                    <li><b>Strategic Risk Management:</b> Shifting from reactive to predictive risk modeling for credit, market, and operational threats.</li>
+                </ul>
+                <p class="visual-note">[Visual: An infographic comparing a traditional, siloed banking structure with a modern, interconnected AI-driven model.]</p>
+            </div>
+            <div class="slide">
+                <h2>Case Study: AI in Fraud Detection</h2>
+                <h3>Beyond simple rule-based alerts.</h3>
+                <p>Modern systems use unsupervised machine learning to detect anomalies in real-time. They analyze thousands of data points per transaction—geolocation, time, amount, device, and user behavior—to create a unique "fingerprint" for legitimate activity.</p>
+                <ul>
+                    <li><b>Example:</b> A leading bank reduced false positives in fraud alerts by 70%, improving customer satisfaction and saving millions in operational costs.</li>
+                    <li><b>Tool Spotlight:</b> Platforms like Feedzai and DataVisor use advanced AI to protect trillions in transactions globally.</li>
+                </ul>
+                <p class="visual-note">[Visual: A short, looping video showing a world map with transactions popping up. A red, anomalous transaction is instantly flagged and isolated by a digital shield.]</p>
+            </div>
+            <div class="slide">
+                <h2>The Challenge of Algorithmic Bias</h2>
+                <h3>When good data leads to bad outcomes.</h3>
+                <p>AI models learn from historical data. If that data reflects past societal biases (e.g., in mortgage lending), the AI will perpetuate and even amplify them. This is a major regulatory and ethical risk.</p>
+                <ul>
+                    <li><b>Mitigation Strategy:</b> Implementing "Explainable AI" (XAI) to understand *why* a model made a decision.</li>
+                    <li><b>Tip:</b> Regularly audit models with diverse, synthetic datasets to test for and correct biases.</li>
+                </ul>
+                <p class="visual-note">[Visual: A diagram showing a biased dataset (e.g., skewed toward one demographic) feeding into a black box algorithm, resulting in a skewed, unfair outcome.]</p>
+            </div>
+             <div class="slide">
+                <h2>Interactive Poll: AI Ethics</h2>
+                <h3>What is the biggest ethical challenge for AI in banking?</h3>
+                <div class="interactive-element mt-6 space-y-4">
+                    <button onclick="alert('Thank you for your vote!')" class="w-full text-left p-4 bg-gray-800 hover:bg-blue-800 rounded-lg transition">A) Algorithmic Bias & Fairness</button>
+                    <button onclick="alert('Thank you for your vote!')" class="w-full text-left p-4 bg-gray-800 hover:bg-blue-800 rounded-lg transition">B) Data Privacy & Surveillance</button>
+                    <button onclick="alert('Thank you for your vote!')" class="w-full text-left p-4 bg-gray-800 hover:bg-blue-800 rounded-lg transition">C) Lack of Transparency (The "Black Box" Problem)</button>
+                    <button onclick="alert('Thank you for your vote!')" class="w-full text-left p-4 bg-gray-800 hover:bg-blue-800 rounded-lg transition">D) Job Displacement & Economic Impact</button>
+                </div>
+            </div>
+            <div class="slide">
+                <h2>The Future: Generative AI in Finance</h2>
+                <h3>Beyond analysis to creation.</h3>
+                <ul>
+                    <li><b>Client Communications:</b> AI generating personalized market summaries and investment reports.</li>
+                    <li><b>Code Generation:</b> Assisting developers in writing and debugging algorithms for quantitative trading.</li>
+                    <li><b>Synthetic Data:</b> Creating realistic but anonymous datasets for robust model training without compromising customer privacy.</li>
+                </ul>
+                <p class="visual-note">[Visual: A screen showing a complex financial report being written in real-time by an AI, with charts and text appearing dynamically.]</p>
+            </div>
+            <div class="slide">
+                <h2>Tools & Resources for Leaders</h2>
+                <h3>Stay ahead of the curve.</h3>
+                <ul>
+                    <li><b>Reading:</b> "AI Superpowers" by Kai-Fu Lee, "Weapons of Math Destruction" by Cathy O'Neil.</li>
+                    <li><b>Frameworks:</b> Google's AI Principles, Microsoft's Responsible AI Standard.</li>
+                    <li><b>Organizations:</b> Partnership on AI, The Alan Turing Institute.</li>
+                </ul>
+                <p class="visual-note">[Visual: A clean layout with book covers and logos of the mentioned organizations.]</p>
+            </div>
+            <div class="slide">
+                <h2>Q&A</h2>
+                <h3>Open Discussion</h3>
+                <p>Let's discuss how these trends apply to your specific context.</p>
+            </div>
+        </div>
+
+        <!-- Presentation 2: The 'Wow' Factor -->
+        <div id="presentation2" class="presentation-container">
+            <div class="slide active">
+                <h2>The 'Wow' Factor</h2>
+                <h3>From Science Fiction to Business Reality</h3>
+                <p>Exploring the groundbreaking capabilities of AI that are redefining creativity, reality, and human potential.</p>
+                <p class="visual-note">[Visual: A stunning, high-resolution AI-generated image that blends classic art styles with futuristic elements, such as a "cyborg Mona Lisa."]</p>
+            </div>
+            <div class="slide">
+                <h2>Generative Art: The New Renaissance</h2>
+                <h3>AI as a creative partner.</h3>
+                <p>Tools like Midjourney, DALL-E 3, and Stable Diffusion can generate breathtakingly original images from simple text prompts. This is not just "filtering"; it's synthesis of concepts and styles.</p>
+                <ul>
+                    <li><b>Business Application:</b> Rapid prototyping for marketing campaigns, product design, and architectural visualization.</li>
+                    <li><b>Tip:</b> Effective "prompt engineering" is the new key skill. Be specific, descriptive, and set a mood.</li>
+                </ul>
+                <p class="visual-note">[Visual: An interactive gallery showcasing four wildly different AI-generated images. Hovering over each reveals the text prompt that created it.]</p>
+            </div>
+            <div class="slide">
+                <h2>Interactive Demo: Your Turn to Create</h2>
+                <h3>Let's generate an image together.</h3>
+                <div class="interactive-element">
+                    <p class="mb-2 text-gray-300">Enter a descriptive prompt:</p>
+                    <input id="prompt-input" type="text" class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-white" placeholder="e.g., A photorealistic cat wearing a tiny astronaut helmet">
+                    <button id="generate-btn" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Generate</button>
+                    <div id="image-output" class="mt-4 text-center text-gray-400">[Image will appear here]</div>
+                </div>
+                 <p class="visual-note">[Visual: Upon clicking "Generate", a loading animation plays for a few seconds, then a pre-selected image corresponding to a similar theme appears, simulating a live generation.]</p>
+            </div>
+            <div class="slide">
+                <h2>Deepfakes & Synthetic Media</h2>
+                <h3>The Power and Peril of Perfect Illusion.</h3>
+                <p>AI can now generate hyper-realistic video and audio. While famous for misuse, the technology has incredible positive applications.</p>
+                <ul>
+                    <li><b>The Good:</b> Automated voice dubbing for films, creating personalized training videos with an AI avatar, restoring historical figures' voices.</li>
+                    <li><b>The Bad:</b> Disinformation, reputational damage, and sophisticated phishing attacks.</li>
+                    <li><b>The Defense:</b> AI is also being developed to detect synthetic media. Look for tools from companies like Truepic or Microsoft's Video Authenticator.</li>
+                </ul>
+                <p class="visual-note">[Visual: A 15-second video clip demonstrating a positive use case, like a historical figure speaking, clearly labeled "AI-Generated for Educational Purposes."]</p>
+            </div>
+            <div class="slide">
+                <h2>AI in Scientific Discovery</h2>
+                <h3>Accelerating breakthroughs that once took decades.</h3>
+                <ul>
+                    <li><b>Medicine:</b> DeepMind's AlphaFold solved the "protein folding problem," a 50-year grand challenge in biology, dramatically speeding up drug discovery.</li>
+                    <li><b>Materials Science:</b> AI is designing new alloys and polymers with desired properties (e.g., strength, conductivity) before they are ever synthesized in a lab.</li>
+                    <li><b>Climate Change:</b> Optimizing power grids, discovering new carbon capture materials, and improving climate modeling accuracy.</li>
+                </ul>
+                <p class="visual-note">[Visual: An animation showing a complex protein molecule folding into its correct 3D structure, guided by an AI.]</p>
+            </div>
+            <div class="slide">
+                <h2>The Future of Work: Augmentation, Not Replacement</h2>
+                <h3>How AI will transform roles, not just eliminate them.</h3>
+                <p>The narrative is shifting from "AI will take your job" to "Someone using AI will take your job." The focus is on creating "centaurs"—human experts paired with AI tools for superior performance.</p>
+                <ul>
+                    <li><b>Radiologists</b> use AI to pre-screen scans, flagging potential issues so they can focus on complex diagnoses.</li>
+                    <li><b>Lawyers</b> use AI to analyze thousands of documents for discovery in hours, not months.</li>
+                    <li><b>Coders</b> use AI assistants like GitHub Copilot to write, complete, and debug code faster.</li>
+                </ul>
+                <p class="visual-note">[Visual: A split-screen graphic. On the left, a person struggling with a huge pile of paperwork. On the right, the same person calmly working with an AI on a sleek interface, the paperwork digitized and analyzed.]</p>
+            </div>
+            <div class="slide">
+                <h2>Key Takeaway: The Pace of Change</h2>
+                <h3>This is not a linear progression.</h3>
+                <p>The capabilities of AI are growing exponentially. A strategy based on today's technology will be obsolete in 18-24 months. The key is to build a culture of continuous learning and agile adaptation.</p>
+                <p class="visual-note">[Visual: A graph showing a steep, exponential curve labeled "AI Capability Growth" contrasted with a shallow, linear line labeled "Typical Organizational Adoption."]</p>
+            </div>
+            <div class="slide">
+                <h2>Q&A</h2>
+                <h3>What 'wowed' you the most?</h3>
+                <p>Let's discuss the opportunities and threats you see for your industry.</p>
+            </div>
+        </div>
+
+        <!-- Navigation and Progress Bar -->
+        <div class="mt-8 max-w-4xl mx-auto">
+            <div class="w-full bg-gray-700 rounded-full h-1">
+                <div id="progress-bar" class="bg-blue-500 h-1 rounded-full" style="width: 0%"></div>
+            </div>
+            <div class="flex justify-between items-center mt-4">
+                <button id="prev-btn" class="nav-button bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">Previous</button>
+                <span id="slide-counter" class="text-gray-400 text-sm"></span>
+                <button id="next-btn" class="nav-button bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Next</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const presentations = document.querySelectorAll('.presentation-container');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const progressBar = document.getElementById('progress-bar');
+            const slideCounter = document.getElementById('slide-counter');
+            
+            let currentPresentationId = 'presentation1';
+            let currentSlideIndices = {
+                'presentation1': 0,
+                'presentation2': 0
+            };
+
+            function updatePresentation() {
+                presentations.forEach(p => p.classList.remove('active'));
+                document.getElementById(currentPresentationId).classList.add('active');
+
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.target === currentPresentationId) {
+                        btn.classList.add('active');
+                    }
+                });
+
+                updateSlideView();
+            }
+
+            function updateSlideView() {
+                const currentSlides = document.querySelectorAll(`#${currentPresentationId} .slide`);
+                const currentIndex = currentSlideIndices[currentPresentationId];
+
+                currentSlides.forEach((slide, index) => {
+                    slide.classList.toggle('active', index === currentIndex);
+                });
+
+                // Update UI elements
+                const totalSlides = currentSlides.length;
+                slideCounter.textContent = `Slide ${currentIndex + 1} of ${totalSlides}`;
+                progressBar.style.width = `${((currentIndex + 1) / totalSlides) * 100}%`;
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex === totalSlides - 1;
+            }
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    currentPresentationId = button.dataset.target;
+                    updatePresentation();
+                });
+            });
+
+            nextBtn.addEventListener('click', () => {
+                const currentSlides = document.querySelectorAll(`#${currentPresentationId} .slide`);
+                if (currentSlideIndices[currentPresentationId] < currentSlides.length - 1) {
+                    currentSlideIndices[currentPresentationId]++;
+                    updateSlideView();
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlideIndices[currentPresentationId] > 0) {
+                    currentSlideIndices[currentPresentationId]--;
+                    updateSlideView();
+                }
+            });
+
+            // Interactive Demo Simulation
+            const generateBtn = document.getElementById('generate-btn');
+            const promptInput = document.getElementById('prompt-input');
+            const imageOutput = document.getElementById('image-output');
+            
+            generateBtn.addEventListener('click', () => {
+                const promptText = promptInput.value;
+                if (!promptText) {
+                    imageOutput.innerHTML = 'Please enter a prompt first.';
+                    return;
+                }
+                imageOutput.innerHTML = '<div class="animate-pulse">Generating your vision...</div>';
+                
+                setTimeout(() => {
+                    // In a real scenario, this would be an API call.
+                    // We simulate it with a placeholder image.
+                    imageOutput.innerHTML = `<img src="https://placehold.co/600x400/1f2937/e5e7eb?text=AI+Generated+Image&font=inter" alt="AI Generated Image for prompt: ${promptText}" class="rounded-lg mx-auto">`;
+                }, 2000);
+            });
+
+
+            // Initial setup
+            updatePresentation();
+        });
+    </script>
+</body>
+</html>
