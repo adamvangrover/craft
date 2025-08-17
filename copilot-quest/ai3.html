@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The ChatGPT Phenomenon: An Interactive Exploration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony Neutrals -->
+    <!-- Application Structure Plan: A single-page application with a sticky header for navigation. The structure is thematic rather than linear, starting with a high-level overview (Hero/Stats), then diving into key areas: 1) Growth & Adoption (visualizing user data), 2) Technology Evolution (interactive timeline of GPT models), 3) Advanced Concepts (interactive diagrams on core tech), 4) Use Cases Explorer (filterable grid with detailed modals), 5) Prompt Engineering Guide (interactive examples), 6) Future Outlook (competitor comparison), and 7) Resources. This structure is chosen to guide the user from the "what" (its impact) to the "how" (its technology and usage) and finally the "what's next" (its future), which is a more intuitive and engaging flow for a web experience than the report's document structure. -->
+    <!-- Visualization & Content Choices: 1) User Growth (Report Table -> Goal: Show change -> Viz: Line Chart -> Interaction: Hover tooltips -> Justification: Best for time-series data, Chart.js). 2) Demographics (Report Text -> Goal: Compare categories -> Viz: Bar Chart -> Interaction: Button to switch data -> Justification: Clear comparison, Chart.js). 3) GPT Evolution (Report Table -> Goal: Organize chronologically -> Viz: HTML/CSS Timeline -> Interaction: Click to show details -> Justification: More engaging than a static table). 4) Use Cases (Report Lists -> Goal: Organize/Filter -> Viz: HTML/CSS Card Grid -> Interaction: Click to open detailed modal -> Justification: Scannable and allows deep-dives). 5) Prompting (Report Principles -> Goal: Inform/Teach -> Viz: HTML/CSS side-by-side text -> Interaction: Click to reveal refined prompt -> Justification: Practical, hands-on learning). 6) Core Tech (Report text -> Goal: Explain concepts -> Viz: HTML/CSS diagrams -> Interaction: Hover/Click -> Justification: Visual learning). All choices prioritize interactivity and clarity over static text. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #333;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40vh;
+            max-height: 450px;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #D97706; /* Amber-600 */
+            border-bottom-color: #D97706;
+        }
+        .stat-card {
+            background-color: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .timeline-item {
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .timeline-item.active {
+            background-color: #FBBF24; /* Amber-400 */
+            color: #422006;
+        }
+        .use-case-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .use-case-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease;
+        }
+        .prompt-example {
+            font-family: monospace;
+            background-color: #f7fafc;
+            border-left: 3px solid #FBBF24;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .tab-button.active {
+            border-color: #D97706;
+            color: #D97706;
+            background-color: #FFFBEB;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-gray-800">The ChatGPT Phenomenon</h1>
+                </div>
+                <nav class="hidden md:flex md:space-x-6 lg:space-x-8 text-sm lg:text-base">
+                    <a href="#growth" class="nav-link text-gray-600 font-medium pb-1">Growth</a>
+                    <a href="#technology" class="nav-link text-gray-600 font-medium pb-1">Technology</a>
+                    <a href="#concepts" class="nav-link text-gray-600 font-medium pb-1">Concepts</a>
+                    <a href="#use-cases" class="nav-link text-gray-600 font-medium pb-1">Use Cases</a>
+                    <a href="#prompting" class="nav-link text-gray-600 font-medium pb-1">Prompting</a>
+                    <a href="#future" class="nav-link text-gray-600 font-medium pb-1">Future</a>
+                    <a href="#resources" class="nav-link text-gray-600 font-medium pb-1">Resources</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <section id="hero" class="text-center py-16">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">An Interactive Exploration of ChatGPT</h2>
+            <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">From its explosive launch to its integration into global workflows, this application translates the comprehensive report on ChatGPT into a dynamic, explorable experience. Interact with the data to understand the technology, its uses, and its future.</p>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="stat-card p-6 rounded-xl shadow-md">
+                    <div id="users-stat" class="text-4xl font-bold text-amber-600">0</div>
+                    <p class="mt-2 text-gray-700 font-medium">Weekly Active Users (July 2025)</p>
+                </div>
+                <div class="stat-card p-6 rounded-xl shadow-md">
+                    <div id="revenue-stat" class="text-4xl font-bold text-amber-600">$0B</div>
+                    <p class="mt-2 text-gray-700 font-medium">Annualized Revenue (2025)</p>
+                </div>
+                <div class="stat-card p-6 rounded-xl shadow-md">
+                    <div id="fortune-stat" class="text-4xl font-bold text-amber-600">0%</div>
+                    <p class="mt-2 text-gray-700 font-medium">of Fortune 500 Companies Use ChatGPT</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="growth" class="py-16 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-gray-900">Unprecedented Growth & Adoption</h3>
+                <p class="mt-3 max-w-2xl mx-auto text-md text-gray-600">ChatGPT's rise was faster than any consumer application in history. This section visualizes its journey to becoming a global web destination and analyzes the demographics of its massive user base.</p>
+            </div>
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg">
+                <h4 class="text-xl font-semibold text-center mb-4">Weekly Active Users Over Time</h4>
+                 <div class="chart-container">
+                    <canvas id="userGrowthChart"></canvas>
+                </div>
+                <hr class="my-12 border-gray-200">
+                <h4 class="text-xl font-semibold text-center mb-4">Who is Using ChatGPT?</h4>
+                 <div class="text-center mb-6">
+                    <button id="geoBtn" class="bg-amber-500 text-white px-4 py-2 rounded-md mr-2">By Geography</button>
+                    <button id="ageBtn" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md">By Education</button>
+                </div>
+                <div class="chart-container" style="height: 35vh; max-height: 400px;">
+                    <canvas id="demographicsChart"></canvas>
+                </div>
+                 <div class="mt-8 text-center max-w-3xl mx-auto">
+                    <h5 class="font-semibold text-lg">The "AI Fluency Gap"</h5>
+                    <p class="text-gray-600 mt-2">The data reveals a potential "AI fluency gap." Heavy adoption by younger, highly educated users suggests a new generation of "AI natives" is emerging. This divergence creates a critical need for widespread upskilling to ensure equitable access to the productivity gains offered by AI.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="technology" class="py-16 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-gray-900">The Technology: Evolution of GPT</h3>
+                <p class="mt-3 max-w-2xl mx-auto text-md text-gray-600">The power of ChatGPT is the result of years of exponential growth in AI model capability. Interact with the timeline below to trace the lineage from the foundational GPT-1 to the state-of-the-art systems of today.</p>
+            </div>
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg">
+                <div class="flex flex-col md:flex-row">
+                    <div id="timeline-nav" class="flex md:flex-col overflow-x-auto md:overflow-x-visible pb-4 md:pb-0 md:pr-8 md:border-r border-gray-200">
+                    </div>
+                    <div id="timeline-content" class="md:pl-8 flex-1 min-w-0">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="concepts" class="py-16 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-gray-900">Advanced Concepts: Under the Hood</h3>
+                <p class="mt-3 max-w-2xl mx-auto text-md text-gray-600">Explore the core technical concepts that make ChatGPT possible. These interactive diagrams break down the key architectural and training innovations that power modern large language models.</p>
+            </div>
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg">
+                <div class="mb-6 border-b border-gray-200">
+                    <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                        <button id="tab-transformer" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Transformer Architecture</button>
+                        <button id="tab-rlhf" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">Training & RLHF</button>
+                        <button id="tab-ethics" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">Ethics & Limitations</button>
+                    </nav>
+                </div>
+                <div id="concepts-content"></div>
+            </div>
+        </section>
+
+        <section id="use-cases" class="py-16 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-gray-900">Use Case Explorer</h3>
+                <p class="mt-3 max-w-2xl mx-auto text-md text-gray-600">ChatGPT is a remarkably versatile tool. Select a category and click on any card to explore detailed examples, prompt templates, and the specific benefits for each application.</p>
+            </div>
+             <div class="text-center mb-8">
+                <button id="professionalBtn" class="bg-amber-500 text-white px-6 py-3 rounded-lg mr-4 text-lg font-semibold">Professional</button>
+                <button id="personalBtn" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg text-lg font-semibold">Personal</button>
+            </div>
+            <div id="use-cases-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            </div>
+        </section>
+        
+        <section id="prompting" class="py-16 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-gray-900">Mastering the Craft: Prompt Engineering</h3>
+                <p class="mt-3 max-w-2xl mx-auto text-md text-gray-600">The quality of ChatGPT's output depends directly on the quality of the input. Explore the principles below to see how structured prompts can transform a simple query into a powerful instruction.</p>
+            </div>
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg max-w-5xl mx-auto">
+                <div id="prompt-lab"></div>
+            </div>
+        </section>
+
+        <section id="future" class="py-16 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-gray-900">The Future: Competition and AI Agents</h3>
+                <p class="mt-3 max-w-2xl mx-auto text-md text-gray-600">ChatGPT ignited a competitive firestorm and accelerated the shift towards a new paradigm: autonomous AI agents. Explore the key players in the market and understand the transition from AI assistants to AI actors.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg">
+                    <h4 class="text-xl font-semibold text-center mb-6">Competitive Landscape</h4>
+                    <div id="competitors-container" class="space-y-4"></div>
+                </div>
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg">
+                    <h4 class="text-xl font-semibold text-center mb-6">The Rise of AI Agents</h4>
+                    <p class="text-center text-gray-600 mb-6">The next evolution is from a "human-in-the-loop" (assisting tasks) to a "human-on-the-loop" (supervising autonomous workflows). An agent can be given a high-level goal and will autonomously perform the necessary sub-tasks.</p>
+                    <div class="flex flex-col items-center space-y-4">
+                        <div class="p-4 border border-gray-300 rounded-lg text-center w-full max-w-md">
+                            <p class="font-semibold">Conversational AI (Today)</p>
+                            <p class="text-sm text-gray-500">"First, search for flights to Rome. Then, find hotels near the Colosseum. Finally, look up Italian restaurants."</p>
+                        </div>
+                        <div class="text-2xl text-amber-500">&darr;</div>
+                        <div class="p-4 border-2 border-amber-500 bg-amber-50 rounded-lg text-center w-full max-w-md">
+                            <p class="font-semibold">Agentic AI (Future)</p>
+                            <p class="text-sm text-gray-500">"Plan and book a 5-day trip to Rome for two in May, budget is $3000."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="resources" class="py-16 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-gray-900">Resources & References</h3>
+                <p class="mt-3 max-w-2xl mx-auto text-md text-gray-600">This interactive report is based on data and analysis from numerous sources. The key references from the source document are listed here for further reading and verification.</p>
+            </div>
+            <div id="references-container" class="bg-white p-6 md:p-8 rounded-2xl shadow-lg max-w-4xl mx-auto text-sm text-gray-600 space-y-2">
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
+            <p>Interactive Report created from "ChatGPT: An In-Depth Analysis".</p>
+        </div>
+    </footer>
+    
+    <!-- Modal Structure -->
+    <div id="useCaseModal" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden opacity-0">
+        <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 transform scale-95">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h3 id="modal-title" class="text-2xl font-bold text-gray-900"></h3>
+                    <p id="modal-benefit" class="mt-1 text-gray-600"></p>
+                </div>
+                <button id="closeModal" class="text-gray-400 hover:text-gray-600">&times;</button>
+            </div>
+            <div class="mt-6 border-t pt-6">
+                <p id="modal-description" class="text-gray-700 mb-6"></p>
+                
+                <h4 class="font-semibold text-lg mb-2">Good Prompt Example:</h4>
+                <div id="modal-prompt-good" class="prompt-example text-sm mb-6"></div>
+
+                <h4 class="font-semibold text-lg mb-2">Better Prompt Example (with Role & Context):</h4>
+                <div id="modal-prompt-better" class="prompt-example text-sm"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Expanded data object will be placed here
+            const data = {
+                growth: {
+                    labels: ['Nov 2022', 'Jan 2023', 'Nov 2023', 'Feb 2025', 'July 2025'],
+                    users: [1, 30, 100, 400, 800] 
+                },
+                demographics: {
+                    geo: {
+                        labels: ['United States', 'India', 'Brazil', 'Germany', 'Rest of World'],
+                        data: [16, 9, 5, 4, 66]
+                    },
+                    education: {
+                        labels: ['Postgraduate Degree', 'Bachelor\'s Degree', 'High School or Less'],
+                        data: [37, 29, 12]
+                    }
+                },
+                timeline: [
+                    { year: '2018', name: 'GPT-1', title: 'The Proof of Concept', details: 'With 117 million parameters, it proved generative pre-training was a viable approach for NLP, establishing the foundation for all subsequent work.' },
+                    { year: '2019', name: 'GPT-2', title: 'Scaling and Controversy', details: 'A leap to 1.5 billion parameters, it demonstrated powerful "zero-shot" learning and sparked the first major public debate on responsible AI deployment.' },
+                    { year: '2020', name: 'GPT-3', title: 'The 175-Billion Parameter Leap', details: 'A paradigm shift with 175 billion parameters, it mastered "few-shot" learning and displayed emergent abilities like coding and analogical reasoning.' },
+                    { year: '2022', name: 'GPT-3.5', title: 'The Conversational Bridge', details: 'A family of models fine-tuned with human feedback (RLHF) for dialogue. This series powered the initial public release of ChatGPT.' },
+                    { year: '2023', name: 'GPT-4', title: 'The Dawn of Multimodality', details: 'Introduced the ability to accept both text and image inputs, with significantly improved reasoning, higher accuracy, and a larger context window (up to 32k tokens).' },
+                    { year: '2024', name: 'GPT-4o', title: 'The "Omni" Experience', details: 'Natively multimodal across text, audio, and vision, offering GPT-4-level intelligence with faster responses and at a lower cost, even for free users.' },
+                    { year: '2025', name: 'GPT-5', title: 'The Unified System', details: 'Operates as a unified system with an intelligent "router" to select the best model for a task, focusing on state-of-the-art reasoning and reliability.' }
+                ],
+                useCases: {
+                    professional: [
+                        { id: 'p1', title: 'Code Generation', icon: '💻', benefit: 'Accelerates development cycles.', description: 'Developers can describe a desired functionality in natural language, and ChatGPT can generate the corresponding code in various languages. This is particularly useful for creating boilerplate code, standard functions, or implementing common algorithms.', goodPrompt: 'Write a Python function to read a CSV file.', betterPrompt: 'Act as a senior Python developer. Write a robust Python function using the pandas library to read a CSV file. The function should take the file path as an argument and include error handling for cases where the file does not exist or is not a valid CSV.' },
+                        { id: 'p2', title: 'Content Ideation', icon: '💡', benefit: 'Overcomes creative blocks.', description: 'Marketers can use ChatGPT to generate a wide array of content ideas. By providing a topic or keyword, they can get lists of potential blog post titles, social media campaign themes, or creative angles for advertisements.', goodPrompt: 'Give me blog ideas about remote work.', betterPrompt: 'Act as a content strategist for a B2B SaaS company targeting HR managers. Generate 10 engaging blog post titles about the challenges and solutions of managing a remote workforce. The titles should be SEO-friendly and focus on topics like productivity, company culture, and technology.' },
+                        { id: 'p3', title: 'Market Research', icon: '📈', benefit: 'Speeds up initial analysis.', description: 'ChatGPT can accelerate initial research by summarizing market trend reports, analyzing customer feedback to identify common themes, and helping to create detailed customer personas that inform and guide marketing strategies.', goodPrompt: 'Summarize the market for electric vehicles.', betterPrompt: 'Act as a market research analyst. Provide a summary of the key trends in the global electric vehicle market for 2025. Structure the output into three sections: 1) Key Growth Drivers, 2) Major Challenges, and 3) Competitive Landscape. Use bullet points for each section.' },
+                        { id: 'p4', title: 'Automated Customer Service', icon: '🤖', benefit: 'Improves response times.', description: 'Businesses are integrating ChatGPT to power sophisticated chatbots on their websites. These bots can handle a high volume of common customer queries, provide instant answers to FAQs, and intelligently route more complex issues to human agents.', goodPrompt: 'How do I reset my password?', betterPrompt: 'A customer on our e-commerce site asks, "I forgot my password, what do I do?" As a helpful customer service bot, provide a clear, step-by-step guide on how to use the "Forgot Password" link to reset their account, and mention where to find the link on the login page.' }
+                    ],
+                    personal: [
+                        { id: 'pe1', title: 'Travel Planning', icon: '✈️', benefit: 'Creates personalized itineraries.', description: 'By providing a destination, budget, duration, and personal interests, users can receive a detailed travel itinerary complete with suggestions for activities, restaurants, and sights.', goodPrompt: 'Plan a trip to Paris.', betterPrompt: 'Act as a local travel expert for Paris. Create a 3-day itinerary for a couple on their first visit. Their interests are art history, food, and romantic walks. The budget is moderate. Structure the plan day-by-day, including one museum, one notable restaurant, and one scenic activity per day.' },
+                        { id: 'pe2', title: 'Personalized Tutoring', icon: '📚', benefit: 'Makes complex topics simple.', description: 'It can explain complex subjects in simple, understandable terms. The AI can break down difficult concepts and adapt its explanation to the user\'s level of understanding.', goodPrompt: 'Explain black holes.', betterPrompt: 'Explain the concept of a black hole to a 12-year-old. Use a simple analogy to describe gravity and the event horizon. Keep the explanation under 150 words.' },
+                        { id: 'pe3', title: 'Meal Planning', icon: '🍲', benefit: 'Simplifies diet and nutrition.', description: 'ChatGPT can act as a kitchen assistant, generating weekly meal plans based on dietary preferences, creating recipes from a list of available ingredients, or offering general diet and nutrition tips.', goodPrompt: 'Give me some healthy dinner ideas.', betterPrompt: 'Act as a nutritionist. Create a 5-day healthy dinner plan for a busy professional who wants quick (under 30 minutes) and low-carb meals. Provide a bulleted list with the meal name for each day and a brief description.' },
+                        { id: 'pe4', title: 'Creative Writing', icon: '🖋️', benefit: 'Acts as a collaborative partner.', description: 'Aspiring writers use it to brainstorm plot twists, develop character backstories, generate writing prompts, or even co-write passages of stories, poems, and song lyrics.', goodPrompt: 'Write a story about a dragon.', betterPrompt: 'Act as a fantasy author. Write the opening paragraph for a story about an ancient, tired dragon who is unexpectedly befriended by a small, curious child. The tone should be melancholic but hopeful.' }
+                    ]
+                },
+                concepts: {
+                    transformer: {
+                        title: 'The Transformer Architecture',
+                        content: `<p class="mb-4 text-gray-600">The core technology enabling ChatGPT is the <strong>transformer architecture</strong>. Unlike older models that processed text sequentially, transformers use a mechanism called <strong>self-attention</strong> to weigh the importance of all words in a sentence simultaneously. This allows for parallel processing and a much deeper understanding of context.</p>
+                        <div class="p-4 border rounded-lg bg-gray-50 text-center">
+                            <p class="text-lg">"The quick brown fox jumps over the lazy dog."</p>
+                            <p class="text-sm text-gray-500 mt-2">Hover over a word to see how 'attention' might relate it to others.</p>
+                        </div>`
+                    },
+                    rlhf: {
+                        title: 'Training and Reinforcement Learning (RLHF)',
+                        content: `<p class="mb-4 text-gray-600">ChatGPT's conversational ability comes from a multi-stage training process, culminating in <strong>Reinforcement Learning from Human Feedback (RLHF)</strong>. This process aligns the model's responses with user intent, making it more helpful and safer.</p>
+                        <div class="space-y-4">
+                            <div class="p-4 border-l-4 border-amber-500 bg-amber-50 rounded-r-lg"><strong>1. Pre-training:</strong> The model learns grammar, facts, and reasoning by predicting the next word on a massive dataset of internet text.</div>
+                            <div class="p-4 border-l-4 border-blue-500 bg-blue-50 rounded-r-lg"><strong>2. Fine-Tuning:</strong> The model is trained on a smaller, curated dataset to perform specific tasks like question-answering.</div>
+                            <div class="p-4 border-l-4 border-green-500 bg-green-50 rounded-r-lg"><strong>3. RLHF:</strong> Human trainers rank different AI responses. This feedback is used to train a "reward model," which then fine-tunes the AI to produce more preferable outputs.</div>
+                        </div>`
+                    },
+                    ethics: {
+                        title: 'Ethics and Limitations',
+                        content: `<p class="mb-4 text-gray-600">Despite its power, ChatGPT has significant limitations and ethical challenges that users must understand to use it responsibly.</p>
+                        <div class="space-y-3">
+                            <div><h4 class="font-semibold cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden')">▶ Hallucinations</h4><p class="text-sm text-gray-600 mt-1 pl-5 border-l-2 hidden">The model can generate plausible but factually incorrect information. All critical facts and data must be independently verified.</p></div>
+                            <div><h4 class="font-semibold cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden')">▶ Bias</h4><p class="text-sm text-gray-600 mt-1 pl-5 border-l-2 hidden">Trained on internet data, the model can reflect and amplify human biases related to race, gender, and culture. Outputs may require careful review for fairness.</p></div>
+                            <div><h4 class="font-semibold cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden')">▶ Data Privacy</h4><p class="text-sm text-gray-600 mt-1 pl-5 border-l-2 hidden">Never input sensitive personal or confidential business information into public versions of ChatGPT, as conversations may be used for training.</p></div>
+                        </div>`
+                    }
+                },
+                promptLab: {
+                    base: {
+                        title: "Base Prompt",
+                        prompt: "Write a summary of 'Moby Dick'."
+                    },
+                    techniques: [
+                        { name: "Add Specificity", prompt: "Write a three-sentence summary of the main plot of 'Moby Dick'."},
+                        { name: "Assign a Role", prompt: "Act as a high school English teacher. Write a summary of 'Moby Dick' for students."},
+                        { name: "Specify Format", prompt: "Write a summary of 'Moby Dick'. Format it as three bullet points, each covering a major theme."},
+                        { name: "Combine Techniques", prompt: "Act as a literary critic. Write a five-bullet-point summary of 'Moby Dick' for a book club. Focus on the themes of obsession, fate, and humanity's relationship with nature."}
+                    ]
+                },
+                competitors: [
+                    { name: 'Google Gemini', strength: 'Real-time web search & Google ecosystem integration.' },
+                    { name: 'Microsoft Copilot', strength: 'Deep integration with Microsoft 365 & enterprise security.' },
+                    { name: 'Anthropic\'s Claude', strength: 'Large context window & strong focus on AI safety.' },
+                    { name: 'Perplexity AI', strength: 'Provides answers with direct citations for factual accuracy.' }
+                ],
+                references: [
+                    "[1] OpenAI. (2023). ChatGPT.", "[2] Metz, C. (2022). The New Chatbots Could Change the World. The New York Times.", "[3] Vaswani, A., et al. (2017). Attention Is All You Need. Google Research.", "[4] Zhai, X. (2022). ChatGPT User Manual. Artificially Intelligent.", "[5] Brown, T. B., et al. (2020). Language Models are Few-Shot Learners. OpenAI.", "[6] Wikipedia contributors. (2025). GPT-4. Wikipedia, The Free Encyclopedia.", "[7] Radford, A., et al. (2019). Language Models are Unsupervised Multitask Learners. OpenAI.", "[8] OpenAI Blog. (2024). Introducing GPT-4o.", "[9] Bubeck, S., et al. (2023). Sparks of Artificial General Intelligence: Early experiments with GPT-4. Microsoft Research."
+                ]
+            };
+
+
+            function animateStat(element, finalValue, isCurrency = false, isPercent = false) {
+                let start = 0;
+                const duration = 2000;
+                const stepTime = Math.abs(Math.floor(duration / finalValue));
+                
+                const timer = setInterval(() => {
+                    start += 1;
+                    if (isCurrency) {
+                        element.textContent = `$${(start / 10).toFixed(1)}B`;
+                    } else if (isPercent) {
+                        element.textContent = `${start}%`;
+                    } else {
+                        element.textContent = start.toLocaleString() + ' Million';
+                    }
+                    if (start === finalValue) {
+                        clearInterval(timer);
+                    }
+                }, stepTime);
+            }
+
+            const usersStat = document.getElementById('users-stat');
+            const revenueStat = document.getElementById('revenue-stat');
+            const fortuneStat = document.getElementById('fortune-stat');
+            
+            animateStat(usersStat, 800);
+            animateStat(revenueStat, 27, true);
+            animateStat(fortuneStat, 92, true);
+
+            const userGrowthCtx = document.getElementById('userGrowthChart').getContext('2d');
+            new Chart(userGrowthCtx, {
+                type: 'line',
+                data: {
+                    labels: data.growth.labels,
+                    datasets: [{
+                        label: 'Weekly Active Users (in Millions)',
+                        data: data.growth.users,
+                        borderColor: '#D97706',
+                        backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+            });
+
+            const demographicsCtx = document.getElementById('demographicsChart').getContext('2d');
+            let demographicsChart;
+
+            function createDemographicsChart(chartData, label) {
+                if (demographicsChart) demographicsChart.destroy();
+                demographicsChart = new Chart(demographicsCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.labels,
+                        datasets: [{
+                            label: `${label} (%)`,
+                            data: chartData.data,
+                            backgroundColor: ['#FBBF24', '#FCD34D', '#FDE68A', '#FEF0C7', '#FEF9E7'],
+                            borderColor: '#FBBF24',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+            }
+
+            const geoBtn = document.getElementById('geoBtn');
+            const ageBtn = document.getElementById('ageBtn');
+            geoBtn.addEventListener('click', () => {
+                createDemographicsChart(data.demographics.geo, 'User Distribution by Geography');
+                geoBtn.classList.add('bg-amber-500', 'text-white');
+                geoBtn.classList.remove('bg-gray-200', 'text-gray-700');
+                ageBtn.classList.add('bg-gray-200', 'text-gray-700');
+                ageBtn.classList.remove('bg-amber-500', 'text-white');
+            });
+            ageBtn.addEventListener('click', () => {
+                createDemographicsChart(data.demographics.education, 'Work Usage by Education');
+                ageBtn.classList.add('bg-amber-500', 'text-white');
+                ageBtn.classList.remove('bg-gray-200', 'text-gray-700');
+                geoBtn.classList.add('bg-gray-200', 'text-gray-700');
+                geoBtn.classList.remove('bg-amber-500', 'text-white');
+            });
+            createDemographicsChart(data.demographics.geo, 'User Distribution by Geography');
+
+            const timelineNav = document.getElementById('timeline-nav');
+            const timelineContent = document.getElementById('timeline-content');
+            data.timeline.forEach((item, index) => {
+                const navItem = document.createElement('button');
+                navItem.className = `timeline-item text-left w-full md:w-40 p-3 rounded-lg font-semibold text-gray-700 mb-2 ${index === 0 ? 'active' : ''}`;
+                navItem.innerHTML = `<span class="text-sm text-gray-500">${item.year}</span><br>${item.name}`;
+                navItem.addEventListener('click', () => {
+                    updateTimelineContent(index);
+                    document.querySelectorAll('.timeline-item').forEach(el => el.classList.remove('active'));
+                    navItem.classList.add('active');
+                });
+                timelineNav.appendChild(navItem);
+            });
+
+            function updateTimelineContent(index) {
+                const item = data.timeline[index];
+                timelineContent.innerHTML = `<div class="fade-in"><h4 class="text-2xl font-bold text-amber-700">${item.name}</h4><p class="text-lg font-semibold text-gray-800 mt-1">${item.title}</p><p class="mt-4 text-gray-600">${item.details}</p></div>`;
+            }
+            updateTimelineContent(0);
+
+            const conceptsContent = document.getElementById('concepts-content');
+            const conceptTabs = document.querySelectorAll('.tab-button');
+            function renderConcept(conceptKey) {
+                const concept = data.concepts[conceptKey];
+                conceptsContent.innerHTML = `<div class="fade-in">${concept.content}</div>`;
+                conceptTabs.forEach(tab => {
+                    tab.classList.remove('active');
+                    if(tab.id === `tab-${conceptKey}`) {
+                        tab.classList.add('active');
+                    }
+                });
+            }
+            conceptTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const conceptKey = tab.id.replace('tab-', '');
+                    renderConcept(conceptKey);
+                });
+            });
+            renderConcept('transformer');
+
+
+            const useCasesGrid = document.getElementById('use-cases-grid');
+            const professionalBtn = document.getElementById('professionalBtn');
+            const personalBtn = document.getElementById('personalBtn');
+
+            function renderUseCases(type) {
+                useCasesGrid.innerHTML = '';
+                const cases = data.useCases[type];
+                cases.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'use-case-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center fade-in';
+                    card.innerHTML = `<div class="text-4xl mb-4">${item.icon}</div><h5 class="font-semibold text-gray-800">${item.title}</h5>`;
+                    card.addEventListener('click', () => openModal(item));
+                    useCasesGrid.appendChild(card);
+                });
+            }
+            
+            professionalBtn.addEventListener('click', () => {
+                renderUseCases('professional');
+                professionalBtn.classList.add('bg-amber-500', 'text-white');
+                professionalBtn.classList.remove('bg-gray-200', 'text-gray-700');
+                personalBtn.classList.add('bg-gray-200', 'text-gray-700');
+                personalBtn.classList.remove('bg-amber-500', 'text-white');
+            });
+            personalBtn.addEventListener('click', () => {
+                renderUseCases('personal');
+                personalBtn.classList.add('bg-amber-500', 'text-white');
+                personalBtn.classList.remove('bg-gray-200', 'text-gray-700');
+                professionalBtn.classList.add('bg-gray-200', 'text-gray-700');
+                professionalBtn.classList.remove('bg-amber-500', 'text-white');
+            });
+            renderUseCases('professional');
+
+            const modal = document.getElementById('useCaseModal');
+            const closeModalBtn = document.getElementById('closeModal');
+            function openModal(item) {
+                document.getElementById('modal-title').textContent = item.title;
+                document.getElementById('modal-benefit').textContent = item.benefit;
+                document.getElementById('modal-description').textContent = item.description;
+                document.getElementById('modal-prompt-good').textContent = item.goodPrompt;
+                document.getElementById('modal-prompt-better').textContent = item.betterPrompt;
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.remove('opacity-0'), 10);
+                setTimeout(() => modal.querySelector('.modal-content').classList.remove('scale-95'), 10);
+            }
+            function closeModal() {
+                modal.querySelector('.modal-content').classList.add('scale-95');
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if(e.target === modal) closeModal();
+            });
+
+            const promptLabContainer = document.getElementById('prompt-lab');
+            function renderPromptLab() {
+                const labData = data.promptLab;
+                let html = `<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div><h4 class="font-bold text-lg mb-2">Base Prompt:</h4><p class="prompt-example h-full">${labData.base.prompt}</p></div>
+                                <div id="prompt-output-container"><h4 class="font-bold text-lg mb-2">Refined Prompt:</h4><p id="prompt-output" class="prompt-example h-full bg-green-50 text-green-800 border-green-500"></p></div>
+                            </div>
+                            <div class="mt-6 text-center"><p class="mb-4 font-semibold">Select a technique to apply:</p><div class="flex flex-wrap justify-center gap-2">`;
+                labData.techniques.forEach((tech, index) => {
+                    html += `<button class="prompt-tech-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-md" data-index="${index}">${tech.name}</button>`;
+                });
+                html += `</div></div>`;
+                promptLabContainer.innerHTML = html;
+                document.getElementById('prompt-output').textContent = 'Select a technique above to see how the prompt improves.';
+                
+                document.querySelectorAll('.prompt-tech-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const index = e.target.dataset.index;
+                        document.getElementById('prompt-output').textContent = labData.techniques[index].prompt;
+                        document.querySelectorAll('.prompt-tech-btn').forEach(b => b.classList.remove('bg-amber-500', 'text-white'));
+                        e.target.classList.add('bg-amber-500', 'text-white');
+                    });
+                });
+            }
+            renderPromptLab();
+
+            const competitorsContainer = document.getElementById('competitors-container');
+            data.competitors.forEach(c => {
+                const item = document.createElement('div');
+                item.className = 'p-4 border border-gray-200 rounded-lg';
+                item.innerHTML = `<h5 class="font-semibold text-gray-800">${c.name}</h5><p class="text-sm text-gray-600">${c.strength}</p>`;
+                competitorsContainer.appendChild(item);
+            });
+
+            const referencesContainer = document.getElementById('references-container');
+            data.references.forEach(ref => {
+                const p = document.createElement('p');
+                p.textContent = ref;
+                referencesContainer.appendChild(p);
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+            const headerHeight = document.getElementById('header').offsetHeight;
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - headerHeight - 20;
+                    if (pageYOffset >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
