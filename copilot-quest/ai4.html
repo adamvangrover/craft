@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Report: The Algorithmic Transformation of Global Industries</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Slate Blue -->
+    <!-- Application Structure Plan: A thematic, non-linear dashboard structure was chosen over a simple linear scroll to enhance user engagement and facilitate exploration. The application is divided into two main thematic sections accessible via a sticky navigation header: "AI in Banking" and "The 'Wow' Factor." The Banking section uses a dashboard of key metrics, interactive tabs for applications, and an accordion for governance to make dense data digestible. The 'Wow' Factor section uses visual comparisons and interactive cards to showcase impactful examples. This user-driven structure allows individuals to explore topics based on interest, making the complex report content more accessible and understandable. -->
+    <!-- Visualization & Content Choices: Market Growth (Table 1.1) -> Goal: Show change -> Viz: Interactive Line Chart -> Interaction: Dropdown to switch data sources -> Justification: More dynamic than a static table, allows direct comparison -> Library: Chart.js. Banking Applications (Sec 2) -> Goal: Organize/Compare -> Viz: Tabbed Interface -> Interaction: Click to reveal content -> Justification: Breaks down a long text section into manageable chunks -> Method: Vanilla JS. Future of Work (Sec 8.1) -> Goal: Compare quantities -> Viz: Bar Chart -> Interaction: Hover tooltips -> Justification: Visually impactful representation of job creation vs. displacement -> Library: Chart.js. All other visuals use structured HTML/Tailwind for clarity and interactivity. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #333D4B;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40vh;
+            max-height: 450px;
+        }
+        .nav-link {
+            transition: color 0.3s ease, border-bottom-color 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #4A5568;
+            border-bottom-color: #4A5568;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #333D4B;
+            color: #FFFFFF;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .interactive-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .interactive-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="bg-[#F8F7F4]/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-gray-800">The AI Transformation</h1>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#banking" class="nav-link text-gray-600 font-medium pb-1">AI in Banking</a>
+                <a href="#wow-factor" class="nav-link text-gray-600 font-medium pb-1">'Wow' Factor</a>
+                <a href="#future" class="nav-link text-gray-600 font-medium pb-1">The Future</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-800">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#banking" class="block py-2 text-gray-600">AI in Banking</a>
+            <a href="#wow-factor" class="block py-2 text-gray-600">'Wow' Factor</a>
+            <a href="#future" class="block py-2 text-gray-600">The Future</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8 md:py-12">
+
+        <section id="hero" class="text-center mb-16 md:mb-24">
+            <h2 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4 tracking-tight">The Algorithmic Revolution</h2>
+            <p class="max-w-3xl mx-auto text-lg md:text-xl text-gray-600">
+                An interactive exploration of how Artificial Intelligence is fundamentally reshaping global industries, from the foundations of finance to the frontiers of human creativity and problem-solving.
+            </p>
+        </section>
+
+        <section id="banking" class="mb-16 md:mb-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <span class="text-sm font-semibold uppercase tracking-wider text-blue-600">Part I</span>
+                <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2">The Transformation of Financial Services</h3>
+                <p class="max-w-3xl mx-auto mt-4 text-gray-600">
+                    This section delves into the profound impact of AI on the banking sector. We'll explore the exponential market growth, see how AI is being deployed in both customer-facing and internal operations, and examine the critical governance challenges that arise from this powerful technology.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-12">
+                <h4 class="text-2xl font-bold text-gray-800 mb-2">Market Pulse: Sizing the Revolution</h4>
+                <p class="text-gray-600 mb-6">The global AI in banking market is on a trajectory of unprecedented expansion. The chart below visualizes the growth projections from various leading research firms. Use the dropdown to compare their forecasts and see the consensus for explosive growth, driven by generative AI and new digital services.</p>
+                <div class="flex justify-center mb-4">
+                    <select id="market-data-selector" class="border border-gray-300 rounded-md p-2 bg-gray-50 focus:ring-2 focus:ring-blue-500">
+                        <option value="Precedence Research" selected>Precedence Research</option>
+                        <option value="Straits Research">Straits Research</option>
+                        <option value="Dimension Market Research">Dimension Market Research</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="marketGrowthChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-12">
+                <h4 class="text-2xl font-bold text-gray-800 mb-2">How AI is Reshaping Banks</h4>
+                <p class="text-gray-600 mb-6">AI is being deployed across the entire banking value chain, from front-office customer interactions to back-office operational excellence. Select a tab below to explore real-world applications and see how institutions are leveraging AI to enhance efficiency, personalize services, and manage risk.</p>
+                <div class="flex flex-wrap justify-center gap-2 mb-6">
+                    <button class="tab-button active px-4 py-2 rounded-full font-medium text-sm bg-gray-200 text-gray-700" data-target="tab-content-1">Customer Engagement</button>
+                    <button class="tab-button px-4 py-2 rounded-full font-medium text-sm bg-gray-200 text-gray-700" data-target="tab-content-2">Operations</button>
+                    <button class="tab-button px-4 py-2 rounded-full font-medium text-sm bg-gray-200 text-gray-700" data-target="tab-content-3">Wealth & Trading</button>
+                    <button class="tab-button px-4 py-2 rounded-full font-medium text-sm bg-gray-200 text-gray-700" data-target="tab-content-4">Fraud & Risk</button>
+                </div>
+
+                <div id="tab-content-1" class="tab-content">
+                    <h5 class="text-xl font-semibold mb-4 text-gray-800">The Front Office Revolution</h5>
+                    <p class="text-gray-600 mb-4">AI is driving a shift from reactive service to proactive, hyper-personalized engagement. Chatbots and virtual assistants are now the first point of contact for millions, handling routine tasks and freeing human agents for more complex issues.</p>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h6 class="font-bold text-gray-700">Case Study: Klarna</h6>
+                            <p class="text-gray-600 mt-1">Employs an OpenAI-powered assistant handling tasks in 35 languages, mimicking human interaction for 24/7 support.</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h6 class="font-bold text-gray-700">Case Study: Bank of America</h6>
+                            <p class="text-gray-600 mt-1">Its assistant, Erica, serves over 15 million users and has handled more than 150 million client requests, proving the viability of AI interaction at scale.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-content-2" class="tab-content hidden">
+                    <h5 class="text-xl font-semibold mb-4 text-gray-800">The Engine Room: Back-Office Automation</h5>
+                    <p class="text-gray-600 mb-4">Generative AI is transforming internal productivity by processing unstructured data from documents, summarizing regulatory filings, and even assisting developers, dramatically reducing manual work.</p>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h6 class="font-bold text-gray-700">Case Study: SouthState Bank</h6>
+                            <p class="text-gray-600 mt-1">Trained a version of ChatGPT on its internal data, improving overall productivity by 20% and reducing time for tasks like expense reports from minutes to seconds.</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h6 class="font-bold text-gray-700">Impact Stat</h6>
+                            <p class="text-gray-600 mt-1">Intelligent document processing alone has the potential to reduce manual handling by up to 90%.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="tab-content-3" class="tab-content hidden">
+                    <h5 class="text-xl font-semibold mb-4 text-gray-800">Redefining Value: Wealth Management & Trading</h5>
+                    <p class="text-gray-600 mb-4">AI is democratizing access to sophisticated financial advice through robo-advisors. In markets, AI algorithms analyze data in milliseconds to execute trades, capturing fleeting opportunities faster than any human.</p>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h6 class="font-bold text-gray-700">Case Study: J.P. Morgan Chase & Co.</h6>
+                            <p class="text-gray-600 mt-1">Launched IndexGPT, an AI tool that analyzes and selects financial assets based on customer needs, making sophisticated investment strategy more accessible.</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h6 class="font-bold text-gray-700">Case Study: HSBC</h6>
+                            <p class="text-gray-600 mt-1">Acquired AION, an AI-powered wealth management platform, to bring AI-driven investment insights and automated portfolio management in-house.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-content-4" class="tab-content hidden">
+                    <h5 class="text-xl font-semibold mb-4 text-gray-800">The AI-Powered Guardian: Fortifying Defenses</h5>
+                    <p class="text-gray-600 mb-4">AI and machine learning models are the new front line against financial fraud. They analyze billions of transactions in real-time, learning and adapting to new threats, which can reduce false positives by 60% compared to traditional systems.</p>
+                     <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h6 class="font-bold text-gray-700">Case Study: Mastercard</h6>
+                            <p class="text-gray-600 mt-1">Launched a generative AI model expected to boost fraud detection rates by up to 20% for banks on its network.</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                             <h6 class="font-bold text-gray-700">Impact Stat</h6>
+                            <p class="text-gray-600 mt-1">AI-powered credit risk models demonstrate a 20% increase in predictive accuracy, enabling better support for at-risk borrowers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                <h4 class="text-2xl font-bold text-gray-800 mb-2">The Governance Imperative</h4>
+                <p class="text-gray-600 mb-6">The success of AI in banking hinges on navigating a complex maze of ethical and strategic challenges. Click on the topics below to learn about the critical risks and the governance frameworks required to mitigate them.</p>
+                <div class="space-y-4">
+                    <div class="accordion-item border rounded-lg">
+                        <button class="accordion-header w-full text-left p-4 font-semibold text-gray-700 flex justify-between items-center">
+                            Algorithmic Bias & "Digital Redlining"
+                            <span class="accordion-icon text-xl transform transition-transform">+</span>
+                        </button>
+                        <div class="accordion-content px-4 pb-4 text-gray-600">
+                            <p>AI models can learn and amplify historical societal biases present in data, leading to discriminatory outcomes. This can result in "digital redlining," where certain demographics are unfairly disadvantaged in credit decisions. For example, the Apple Card algorithm famously offered a man 20x the credit limit of his wife, despite her superior credit score, sparking a regulatory investigation.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item border rounded-lg">
+                        <button class="accordion-header w-full text-left p-4 font-semibold text-gray-700 flex justify-between items-center">
+                            Data Privacy & Security
+                            <span class="accordion-icon text-xl transform transition-transform">+</span>
+                        </button>
+                        <div class="accordion-content px-4 pb-4 text-gray-600">
+                            <p>AI systems require vast amounts of data, raising the stakes for privacy and security. Malicious actors are now also using AI to write sophisticated malware and create convincing "deepfake" phishing attacks. Financial institutions must implement state-of-the-art encryption, access controls, and AI-powered threat monitoring to protect sensitive customer information.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item border rounded-lg">
+                        <button class="accordion-header w-full text-left p-4 font-semibold text-gray-700 flex justify-between items-center">
+                            The "Black Box" Problem of Explainability
+                            <span class="accordion-icon text-xl transform transition-transform">+</span>
+                        </button>
+                        <div class="accordion-content px-4 pb-4 text-gray-600">
+                            <p>Many powerful AI models operate as "black boxes," making it difficult to understand their decision-making process. This is a major challenge in a regulated industry where both customers and regulators demand clear rationale for decisions like a loan denial. The field of "Explainable AI" (XAI) is emerging to create more transparent models.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="wow-factor" class="mb-16 md:mb-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <span class="text-sm font-semibold uppercase tracking-wider text-green-600">Part II</span>
+                <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2">The 'Wow' Factor: Seeing is Believing</h3>
+                <p class="max-w-3xl mx-auto mt-4 text-gray-600">
+                    Beyond banking, AI is achieving feats once confined to science fiction. This section provides tangible, compelling demonstrations of modern AI's power, from creating breathtaking art to performing surgery with superhuman precision.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-12">
+                <h4 class="text-2xl font-bold text-gray-800 mb-2">The Dawn of Digital Creation</h4>
+                <p class="text-gray-600 mb-6">Generative AI has triggered a creative explosion. Tools like DALL-E 3 and Midjourney can translate simple text prompts into stunningly original images, each with a distinct artistic style. This technology is not only a tool for creativity but also for deception, as seen with deepfakes.</p>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h5 class="text-xl font-semibold text-gray-800 mb-4">The New Masters: DALL-E 3 vs. Midjourney</h5>
+                        <p class="text-gray-600 mb-4">While both are powerful, they excel in different areas. Midjourney is celebrated for photorealistic and atmospheric images, while DALL-E 3 has superior prompt fidelity, excelling at complex instructions and integrating text.</p>
+                        <table class="w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-4 py-2">Feature</th>
+                                    <th scope="col" class="px-4 py-2">DALL-E 3</th>
+                                    <th scope="col" class="px-4 py-2">Midjourney</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b"><td class="px-4 py-2 font-medium">Photorealism</td><td class="px-4 py-2">Excellent</td><td class="px-4 py-2 font-bold">Superior</td></tr>
+                                <tr class="bg-gray-50 border-b"><td class="px-4 py-2 font-medium">Prompt Fidelity</td><td class="px-4 py-2 font-bold">Superior</td><td class="px-4 py-2">High</td></tr>
+                                <tr class="bg-white border-b"><td class="px-4 py-2 font-medium">Text in Image</td><td class="px-4 py-2 font-bold">Superior</td><td class="px-4 py-2">Weak</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <h5 class="text-xl font-semibold text-gray-800 mb-4">The Deceptive Image: Deepfakes</h5>
+                        <p class="text-gray-600 mb-4">This dual-use technology can be used for incredible visual effects in film but also weaponized for misinformation. A finance worker was recently tricked into transferring $25 million by fraudsters using a deepfake of the company's CFO on a video call.</p>
+                        <div class="flex space-x-4">
+                            <div class="w-1/2 bg-green-100 p-3 rounded-lg">
+                                <h6 class="font-bold text-green-800">Creative Use</h6>
+                                <p class="text-sm text-green-700">De-aging actors in films like *The Mandalorian*.</p>
+                            </div>
+                            <div class="w-1/2 bg-red-100 p-3 rounded-lg">
+                                <h6 class="font-bold text-red-800">Malicious Use</h6>
+                                <p class="text-sm text-red-700">Fake videos of political leaders to sow confusion.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="interactive-card bg-white rounded-xl shadow-lg p-6">
+                    <h5 class="text-xl font-bold text-gray-800 mb-2">Intelligence in Motion</h5>
+                    <p class="text-gray-600">Autonomous vehicles from companies like Tesla and Waymo have driven billions of miles, using AI to navigate the real world. While not perfect, Tesla reports its system is 54% safer than the average human driver.</p>
+                </div>
+                 <div class="interactive-card bg-white rounded-xl shadow-lg p-6">
+                    <h5 class="text-xl font-bold text-gray-800 mb-2">The Surgeon's Robotic Hand</h5>
+                    <p class="text-gray-600">AI-assisted robotic surgery enhances a surgeon's precision. A clinical trial showed it led to 20% shorter hospital stays, 52% lower readmission rates, and a 77% reduction in blood clots compared to open surgery.</p>
+                </div>
+                 <div class="interactive-card bg-white rounded-xl shadow-lg p-6">
+                    <h5 class="text-xl font-bold text-gray-800 mb-2">The AI Diagnostician</h5>
+                    <p class="text-gray-600">In medical diagnostics, AI is achieving superhuman accuracy. Models can detect tumors in scans with 94% accuracy and have even achieved 98% accuracy for colon cancer detection, surpassing trained pathologists.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="future" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <span class="text-sm font-semibold uppercase tracking-wider text-purple-600">Part III</span>
+                <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2">The Human-AI Horizon</h3>
+                <p class="max-w-3xl mx-auto mt-4 text-gray-600">
+                    As AI becomes more embedded in society, it's reshaping the nature of work and forcing us to contemplate the future of intelligence itself. This final section looks at the impact on the workforce and the profound questions AI raises about our own humanity.
+                </p>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                 <h4 class="text-2xl font-bold text-gray-800 mb-2">The Future of Work: A Net Positive Transformation</h4>
+                <p class="text-gray-600 mb-6">While AI will displace some jobs, analysis from the World Economic Forum projects a net positive impact. The chart below illustrates the forecast for job creation versus displacement by 2030, highlighting the critical need for upskilling and reskilling the global workforce.</p>
+                <div class="chart-container h-[50vh] max-h-[500px]">
+                    <canvas id="jobsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-16 md:mt-24">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p class="font-semibold text-lg">It’s Not Magic. It’s AI.</p>
+            <p class="text-gray-400 mt-2">The AI revolution isn't coming. It's here. Our greatest challenge is to harness its power responsibly.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const marketData = {
+                "Precedence Research": {
+                    labels: [2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034],
+                    data: [26.23, 34.28, 44.81, 58.58, 76.58, 100.11, 130.87, 171.08, 223.65, 292.37, 379.41],
+                    cagr: 30.63
+                },
+                "Straits Research": {
+                    labels: [2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033],
+                    data: [23.6, 31.26, 41.4, 54.88, 72.72, 96.24, 127.41, 168.77, 223.5, 299.09],
+                    cagr: 32.6
+                },
+                "Dimension Market Research": {
+                    labels: [2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034],
+                    data: [26.7, 35.39, 46.86, 62.06, 82.25, 109.04, 144.47, 191.45, 253.79, 339.1],
+                    cagr: 32.6
+                }
+            };
+
+            const jobsData = {
+                labels: ['Jobs Displaced', 'Jobs Created'],
+                data: [92, 170],
+            };
+
+            let marketChart;
+            let jobsChart;
+
+            const createMarketChart = (source) => {
+                const ctx = document.getElementById('marketGrowthChart').getContext('2d');
+                const selectedData = marketData[source];
+
+                if (marketChart) {
+                    marketChart.destroy();
+                }
+
+                marketChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: selectedData.labels,
+                        datasets: [{
+                            label: `Market Valuation (USD Billions) - ${source}`,
+                            data: selectedData.data,
+                            borderColor: '#3B82F6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Valuation (USD Billions)' }
+                            },
+                            x: {
+                                title: { display: true, text: 'Year' }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return ` $${context.parsed.y.toFixed(2)} Billion`;
+                                    }
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: `Projected Growth by ${source} (CAGR: ${selectedData.cagr}%)`,
+                                font: { size: 16 }
+                            }
+                        }
+                    }
+                });
+            };
+
+            const createJobsChart = () => {
+                const ctx = document.getElementById('jobsChart').getContext('2d');
+                jobsChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: jobsData.labels,
+                        datasets: [{
+                            label: 'Jobs (in Millions)',
+                            data: jobsData.data,
+                            backgroundColor: [
+                                'rgba(239, 68, 68, 0.6)',
+                                'rgba(34, 197, 94, 0.6)'
+                            ],
+                            borderColor: [
+                                'rgba(239, 68, 68, 1)',
+                                'rgba(34, 197, 94, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Number of Jobs (Millions)' }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            title: {
+                                display: true,
+                                text: 'WEF "Future of Jobs" Projections by 2030',
+                                font: { size: 16 }
+                            },
+                            subtitle: {
+                                display: true,
+                                text: 'Net Employment Increase: 78 Million Jobs',
+                                font: { style: 'italic' },
+                                padding: { bottom: 10 }
+                            }
+                        }
+                    }
+                });
+            };
+            
+            document.getElementById('market-data-selector').addEventListener('change', function(e) {
+                createMarketChart(e.target.value);
+            });
+            
+            createMarketChart('Precedence Research');
+            createJobsChart();
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const targetId = button.getAttribute('data-target');
+                    tabContents.forEach(content => {
+                        if (content.id === targetId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                const icon = item.querySelector('.accordion-icon');
+                header.addEventListener('click', () => {
+                    const isOpen = content.style.maxHeight;
+                    if (isOpen) {
+                        content.style.maxHeight = null;
+                        icon.textContent = '+';
+                        icon.classList.remove('rotate-45');
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        icon.textContent = '-';
+                        icon.classList.add('rotate-45');
+                    }
+                });
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section[id]');
+            const headerHeight = document.getElementById('header').offsetHeight;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: `-${headerHeight}px 0px 0px 0px`, threshold: 0.4 });
+
+            sections.forEach(section => observer.observe(section));
+
+        });
+    </script>
+</body>
+</html>
