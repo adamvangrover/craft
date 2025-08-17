@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive AI Exploration: Risk, Banking, and The Future</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- BASE STYLES (FROM AI & RISK) --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a101f; /* A very dark blue */
+            color: #e2e8f0; /* A light gray/blue */
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .card {
+            background-color: rgba(17, 24, 39, 0.8);
+            border: 1px solid rgba(55, 65, 81, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.1);
+        }
+        .btn-primary {
+            background-color: #00d1ff;
+            color: #0a101f;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #00a8cc;
+            transform: scale(1.05);
+        }
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: #111827;
+        }
+        .term.selected, .def.selected {
+            background-color: #00d1ff;
+            color: #0a101f;
+        }
+        .term.matched, .def.matched {
+            background-color: #10b981;
+            color: #fff;
+            cursor: not-allowed;
+        }
+        .term.incorrect, .def.incorrect {
+            background-color: #ef4444;
+            color: #fff;
+        }
+        .chat-bubble-user {
+            background-color: #00d1ff;
+            color: #0a101f;
+        }
+        .chat-bubble-bot {
+            background-color: #374151;
+            color: #e2e8f0;
+        }
+
+        /* --- PRESENTATION SLIDES STYLES (ADAPTED) --- */
+        .presentation-container { display: none; }
+        .presentation-container.active { display: block; }
+        .slide {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 12px;
+            padding: 40px 50px;
+            margin: 20px auto;
+            max-width: 1000px;
+            min-height: 550px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .slide.active { display: flex; opacity: 1; transform: translateY(0); }
+        .slide h2 { font-size: 2.5em; font-weight: 700; color: #60a5fa; margin-top: 0; line-height: 1.2; }
+        .slide h3 { font-size: 1.5em; color: #f59e0b; font-weight: 500; margin-bottom: 25px; }
+        .slide p, .slide li { font-size: 1.1em; line-height: 1.7; color: #e5e7eb; }
+        .slide ul { list-style-type: none; padding-left: 0; }
+        .slide ul li { padding-left: 35px; position: relative; margin-bottom: 15px; }
+        .slide ul li::before { content: '✓'; position: absolute; left: 0; color: #34d399; font-weight: bold; font-size: 1.5em; }
+        .presentation-nav-button { transition: background-color 0.3s, transform 0.2s; }
+        .presentation-nav-button:hover { transform: translateY(-2px); }
+        .presentation-tab-button.active { color: #60a5fa; border-bottom-color: #60a5fa; }
+        
+        /* --- CHATGPT REPORT STYLES (ADAPTED) --- */
+        .report-section {
+            background-color: #111827;
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid #374151;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40vh;
+            max-height: 450px;
+        }
+        .timeline-item { cursor: pointer; transition: background-color 0.3s; }
+        .timeline-item.active { background-color: #FBBF24; color: #422006; }
+        .use-case-card { transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+        .use-case-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(251, 191, 36, 0.1), 0 4px 6px -2px rgba(251, 191, 36, 0.05); }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .prompt-example {
+            font-family: monospace;
+            background-color: #1f2937;
+            border-left: 3px solid #FBBF24;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: #d1d5db;
+        }
+        .concept-tab-button.active {
+            border-color: #00d1ff;
+            color: #00d1ff;
+            background-color: rgba(0, 209, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
+        <div class="hero-bg">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1920 1080">
+                <defs>
+                    <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                        <stop offset="0%" style="stop-color:rgba(0, 209, 255, 0.1);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:rgba(0, 209, 255, 0);stop-opacity:1" />
+                    </radialGradient>
+                    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:rgba(10, 16, 31, 1)" />
+                        <stop offset="100%" style="stop-color:rgba(17, 24, 39, 1)" />
+                    </linearGradient>
+                </defs>
+                <rect width="1920" height="1080" fill="url(#grad2)" />
+                <circle cx="20%" cy="30%" r="500" fill="url(#grad1)" />
+                <circle cx="80%" cy="70%" r="600" fill="url(#grad1)" />
+                <g stroke="rgba(0, 209, 255, 0.2)" stroke-width="1">
+                    <path d="M0 100 Q 480 200, 960 100 T 1920 100">
+                        <animate attributeName="d" values="M0 100 Q 480 200, 960 100 T 1920 100; M0 150 Q 480 50, 960 150 T 1920 150; M0 100 Q 480 200, 960 100 T 1920 100" dur="10s" repeatCount="indefinite" />
+                    </path>
+                    <path d="M0 500 Q 480 400, 960 500 T 1920 500">
+                         <animate attributeName="d" values="M0 500 Q 480 400, 960 500 T 1920 500; M0 450 Q 480 550, 960 450 T 1920 450; M0 500 Q 480 400, 960 500 T 1920 500" dur="12s" repeatCount="indefinite" />
+                    </path>
+                </g>
+            </svg>
+        </div>
+        <div class="relative z-10 p-8">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-4 tracking-tight">The AI Transformation</h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-2">An Interactive Exploration of Risk, Banking, and The Future</p>
+            <p class="max-w-3xl mx-auto text-lg text-gray-400 mb-8">
+                Welcome to a unified interactive experience. We're not just discussing AI; we're engaging with it. This portal is your gateway to understanding its power, exploring its potential, and confronting its challenges in a fun, hands-on way.
+            </p>
+            <a href="#interactive-zone" class="btn-primary font-bold py-3 px-8 rounded-full text-lg inline-block">
+                Let's Begin
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Interactive Zone -->
+        <section id="interactive-zone" class="py-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto text-center">
+                <h2 class="text-4xl font-bold text-white mb-4">Get Hands-On: The AI Playground</h2>
+                <p class="text-lg text-gray-400 mb-12 max-w-3xl mx-auto">The best way to understand AI is to engage with it directly. Choose an activity below to test your knowledge, challenge your creativity, and explore the ethical frontiers of this transformative technology.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+                    <!-- Card 1: Quiz -->
+                    <div class="card p-8 rounded-lg" data-modal-target="quiz-modal">
+                        <h3 class="text-2xl font-bold text-white mb-3">The "Risk or Reward?" Quiz</h3>
+                        <p class="text-gray-400 mb-6">Test your intuition against the machine. Can you spot the opportunity and the threat in these real-world AI scenarios drawn from the world of finance?</p>
+                        <button class="btn-primary font-bold py-2 px-6 rounded-full w-full">Start the Quiz</button>
+                    </div>
+
+                    <!-- Card 2: Poll -->
+                    <div class="card p-8 rounded-lg" data-modal-target="poll-modal">
+                        <h3 class="text-2xl font-bold text-white mb-3">The "Predict the Future" Poll</h3>
+                        <p class="text-gray-400 mb-6">Where is AI taking us? Cast your vote on the big questions facing our industry and see in real-time how your predictions stack up against your colleagues'.</p>
+                        <button class="btn-primary font-bold py-2 px-6 rounded-full w-full">Vote Now & See Results</button>
+                    </div>
+
+                    <!-- Card 3: Art Generator -->
+                    <div class="card p-8 rounded-lg" data-modal-target="art-modal">
+                        <h3 class="text-2xl font-bold text-white mb-3">The "AI Artist" Challenge</h3>
+                        <p class="text-gray-400 mb-6">Unleash your creativity. Your prompt: "A bull and a bear arguing over a blockchain." Generate your masterpiece and see what the AI creates.</p>
+                        <button class="btn-primary font-bold py-2 px-6 rounded-full w-full">Generate Your AI Art</button>
+                    </div>
+
+                    <!-- Card 4: Jargon Buster -->
+                    <div class="card p-8 rounded-lg" data-modal-target="jargon-modal">
+                        <h3 class="text-2xl font-bold text-white mb-3">The "AI Jargon Buster" Game</h3>
+                        <p class="text-gray-400 mb-6">Feeling lost in a sea of acronyms like LLM, GAN, or NLP? Play our quick matching game to turn today's top technical terms into plain, simple language.</p>
+                        <button class="btn-primary font-bold py-2 px-6 rounded-full w-full">Play the Game</button>
+                    </div>
+                    
+                    <!-- Card 5: Chatbot -->
+                    <div class="card p-8 rounded-lg" data-modal-target="chatbot-modal">
+                        <h3 class="text-2xl font-bold text-white mb-3">The "Ethics Engine" Chatbot</h3>
+                        <p class="text-gray-400 mb-6">Navigate a tricky AI dilemma. A new AI model is incredibly accurate but shows signs of bias. Do you deploy it? There are no easy answers.</p>
+                        <button class="btn-primary font-bold py-2 px-6 rounded-full w-full">Start the Chat</button>
+                    </div>
+                    
+                     <!-- Placeholder Card -->
+                    <div class="card p-8 rounded-lg flex flex-col items-center justify-center bg-gray-800/50 border-dashed border-gray-600">
+                        <h3 class="text-2xl font-bold text-gray-400 mb-3">More Activities Coming Soon</h3>
+                        <p class="text-gray-500 text-center">Stay tuned for more interactive experiences.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Informative Overview Section -->
+        <section id="overview" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900/50">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center">
+                    <h2 class="text-4xl font-bold text-white mb-4">AI is Everywhere: Understanding the Impact</h2>
+                    <p class="text-lg text-gray-400 mb-12 max-w-3xl mx-auto">From the trading floor to your living room, AI is reshaping our world. Here’s a look at how this technology is being used today.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                    <div>
+                        <h3 class="text-3xl font-bold text-white mb-8 text-center lg:text-left">In Our Professional World: Focus on Finance & Banking</h3>
+                        <div class="space-y-6">
+                            <div class="p-6 rounded-lg bg-gray-800/50">
+                                <h4 class="font-bold text-xl text-cyan-400 mb-2">Securing Our Systems: AI as a Digital Sentry</h4>
+                                <p class="text-gray-400">AI-powered fraud detection systems analyze millions of transactions in real-time, identifying subtle patterns of malicious behavior that are invisible to the human eye, protecting the bank and our clients.</p>
+                            </div>
+                            <div class="p-6 rounded-lg bg-gray-800/50">
+                                <h4 class="font-bold text-xl text-cyan-400 mb-2">Navigating Markets: AI in Algorithmic Trading</h4>
+                                <p class="text-gray-400">Sophisticated algorithms execute trades at superhuman speeds, reacting to market shifts and complex data signals to manage investment portfolios and capitalize on opportunities.</p>
+                            </div>
+                            <div class="p-6 rounded-lg bg-gray-800/50">
+                                <h4 class="font-bold text-xl text-cyan-400 mb-2">Quantifying the Unknown: AI in Risk Management</h4>
+                                <p class="text-gray-400">AI models are revolutionizing how we assess credit, market, and operational risk. By analyzing vast datasets, they provide deeper insights, allowing for more accurate forecasting and more robust decision-making.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-bold text-white mb-8 text-center lg:text-left">In Your Personal Life: How AI Shapes Your Day</h3>
+                        <div class="space-y-6">
+                            <div class="p-6 rounded-lg bg-gray-800/50">
+                                <h4 class="font-bold text-xl text-cyan-400 mb-2">Your Productivity Supercharger</h4>
+                                <p class="text-gray-400">AI assistants like Copilot help you draft emails, summarize long reports, and brainstorm ideas, giving you back valuable time.</p>
+                            </div>
+                            <div class="p-6 rounded-lg bg-gray-800/50">
+                                <h4 class="font-bold text-xl text-cyan-400 mb-2">The Curator of Your Entertainment</h4>
+                                <p class="text-gray-400">The recommendations you get on Netflix, Spotify, and YouTube are all driven by AI algorithms learning your personal tastes.</p>
+                            </div>
+                            <div class="p-6 rounded-lg bg-gray-800/50">
+                                <h4 class="font-bold text-xl text-cyan-400 mb-2">Your Creative Partner</h4>
+                                <p class="text-gray-400">From generating images for a presentation to helping write a story, generative AI has become an accessible tool for creativity.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Practical Application Section -->
+        <section id="application" class="py-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl font-bold text-white mb-4">Your Turn to Drive: AI at Your Fingertips</h2>
+                <p class="text-lg text-gray-400 mb-12">Reading about it is one thing. Doing it is another. Open Microsoft Copilot (or your preferred AI tool) and try these simple, powerful prompts to see how AI can work for you.</p>
+                <div class="space-y-8 text-left">
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="font-bold text-xl text-white mb-2">Mission 1: The Summarizer</h3>
+                        <p class="text-gray-400 mb-4">Task: Find a long article from the Wall Street Journal or Financial Times.</p>
+                        <div class="bg-gray-900 p-4 rounded-md text-cyan-300 font-mono text-sm">
+                            Summarize the key points of this article in five bullet points: [paste link]
+                        </div>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="font-bold text-xl text-white mb-2">Mission 2: The Brainstormer</h3>
+                        <p class="text-gray-400 mb-4">Task: Think about a challenge your team is currently facing.</p>
+                        <div class="bg-gray-900 p-4 rounded-md text-cyan-300 font-mono text-sm">
+                           Brainstorm three innovative ways AI could be used to solve the problem of [insert your team's challenge].
+                        </div>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="font-bold text-xl text-white mb-2">Mission 3: The Creative</h3>
+                        <p class="text-gray-400 mb-4">Task: Generate a powerful image for a presentation on market volatility.</p>
+                        <div class="bg-gray-900 p-4 rounded-md text-cyan-300 font-mono text-sm">
+                           Generate an image of a futuristic stock exchange ticker that looks like a chaotic but beautiful lightning storm.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Presentations Section -->
+        <section id="presentations" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900/50">
+             <div class="max-w-7xl mx-auto text-center">
+                <h2 class="text-4xl font-bold text-white mb-4">Executive Briefings</h2>
+                <p class="text-lg text-gray-400 mb-12 max-w-3xl mx-auto">Dive deeper with these interactive presentations designed for senior leaders, covering key strategic areas of the AI revolution.</p>
+            </div>
+            <nav class="flex justify-center border-b border-gray-700 mb-8">
+                <button class="presentation-tab-button text-gray-400 py-4 px-6 block hover:text-blue-400 focus:outline-none border-b-2 border-transparent active" data-target="presentation1">AI in Banking & Risk</button>
+                <button class="presentation-tab-button text-gray-400 py-4 px-6 block hover:text-blue-400 focus:outline-none border-b-2 border-transparent" data-target="presentation2">The 'Wow' Factor</button>
+            </nav>
+            <!-- Presentation 1: AI in Banking and Risk -->
+            <div id="presentation1" class="presentation-container active">
+                <div class="slide active">
+                    <h2>AI in Banking and Risk</h2>
+                    <h3>Transforming Finance, One Algorithm at a Time</h3>
+                    <p>An executive briefing on how AI is reshaping financial services, from customer experience to institutional stability.</p>
+                </div>
+                <div class="slide">
+                    <h2>The New Financial Ecosystem</h2>
+                    <h3>AI is no longer a novelty; it's the new operational backbone.</h3>
+                    <ul>
+                        <li><b>Hyper-Personalization:</b> Moving beyond demographics to individual behavioral analysis for tailored products and advice.</li>
+                        <li><b>Operational Efficiency:</b> Automating middle and back-office tasks, from compliance checks to trade reconciliation, reducing costs by up to 40%.</li>
+                        <li><b>Strategic Risk Management:</b> Shifting from reactive to predictive risk modeling for credit, market, and operational threats.</li>
+                    </ul>
+                </div>
+                <div class="slide">
+                    <h2>The Challenge of Algorithmic Bias</h2>
+                    <h3>When good data leads to bad outcomes.</h3>
+                    <p>AI models learn from historical data. If that data reflects past societal biases (e.g., in mortgage lending), the AI will perpetuate and even amplify them. This is a major regulatory and ethical risk.</p>
+                    <ul>
+                        <li><b>Mitigation Strategy:</b> Implementing "Explainable AI" (XAI) to understand *why* a model made a decision.</li>
+                    </ul>
+                </div>
+                <div class="slide">
+                    <h2>Interactive Poll: AI Ethics</h2>
+                    <h3>What is the biggest ethical challenge for AI in banking?</h3>
+                    <div class="mt-6 space-y-4">
+                        <button onclick="alert('Thank you for your vote!')" class="w-full text-left p-4 bg-gray-800 hover:bg-blue-800 rounded-lg transition">A) Algorithmic Bias & Fairness</button>
+                        <button onclick="alert('Thank you for your vote!')" class="w-full text-left p-4 bg-gray-800 hover:bg-blue-800 rounded-lg transition">B) Data Privacy & Surveillance</button>
+                        <button onclick="alert('Thank you for your vote!')" class="w-full text-left p-4 bg-gray-800 hover:bg-blue-800 rounded-lg transition">C) Lack of Transparency (The "Black Box" Problem)</button>
+                        <button onclick="alert('Thank you for your vote!')" class="w-full text-left p-4 bg-gray-800 hover:bg-blue-800 rounded-lg transition">D) Job Displacement & Economic Impact</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Presentation 2: The 'Wow' Factor -->
+            <div id="presentation2" class="presentation-container">
+                <div class="slide active">
+                    <h2>The 'Wow' Factor</h2>
+                    <h3>From Science Fiction to Business Reality</h3>
+                    <p>Exploring the groundbreaking capabilities of AI that are redefining creativity, reality, and human potential.</p>
+                </div>
+                <div class="slide">
+                    <h2>Generative Art: The New Renaissance</h2>
+                    <h3>AI as a creative partner.</h3>
+                    <p>Tools like Midjourney, DALL-E 3, and Stable Diffusion can generate breathtakingly original images from simple text prompts. This is not just "filtering"; it's synthesis of concepts and styles.</p>
+                </div>
+                <div class="slide">
+                    <h2>Interactive Demo: Your Turn to Create</h2>
+                    <h3>Let's generate an image together.</h3>
+                    <div class="bg-gray-800/50 p-6 rounded-lg">
+                        <p class="mb-2 text-gray-300">Enter a descriptive prompt:</p>
+                        <input id="presentation-prompt-input" type="text" class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-white" placeholder="e.g., A photorealistic cat wearing a tiny astronaut helmet">
+                        <button id="presentation-generate-btn" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Generate</button>
+                        <div id="presentation-image-output" class="mt-4 text-center text-gray-400">[Image will appear here]</div>
+                    </div>
+                </div>
+                 <div class="slide">
+                    <h2>AI in Scientific Discovery</h2>
+                    <h3>Accelerating breakthroughs that once took decades.</h3>
+                    <ul>
+                        <li><b>Medicine:</b> DeepMind's AlphaFold solved the "protein folding problem," a 50-year grand challenge in biology, dramatically speeding up drug discovery.</li>
+                        <li><b>Climate Change:</b> Optimizing power grids, discovering new carbon capture materials, and improving climate modeling accuracy.</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Navigation and Progress Bar -->
+            <div class="mt-8 max-w-4xl mx-auto">
+                <div class="w-full bg-gray-700 rounded-full h-1">
+                    <div id="progress-bar" class="bg-blue-500 h-1 rounded-full" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between items-center mt-4">
+                    <button id="prev-btn" class="presentation-nav-button bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">Previous</button>
+                    <span id="slide-counter" class="text-gray-400 text-sm"></span>
+                    <button id="next-btn" class="presentation-nav-button bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Next</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ChatGPT Report Section -->
+        <section id="chatgpt-report" class="py-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto text-center">
+                <h2 class="text-4xl font-bold text-white mb-4">Deep Dive: The ChatGPT Phenomenon</h2>
+                <p class="text-lg text-gray-400 mb-12 max-w-3xl mx-auto">An interactive report translating the comprehensive analysis of ChatGPT into a dynamic, explorable experience. Interact with the data to understand the technology, its uses, and its future.</p>
+            </div>
+            <div class="space-y-12">
+                <!-- Growth & Adoption -->
+                <div class="report-section">
+                    <h3 class="text-3xl font-bold text-center mb-8">Unprecedented Growth & Adoption</h3>
+                    <div class="chart-container mb-12">
+                        <canvas id="userGrowthChart"></canvas>
+                    </div>
+                    <h4 class="text-xl font-semibold text-center mb-4">Who is Using ChatGPT?</h4>
+                    <div class="text-center mb-6">
+                        <button id="geoBtn" class="bg-amber-500 text-white px-4 py-2 rounded-md mr-2">By Geography</button>
+                        <button id="eduBtn" class="bg-gray-600 text-gray-200 px-4 py-2 rounded-md">By Education</button>
+                    </div>
+                    <div class="chart-container" style="height: 35vh; max-height: 400px;">
+                        <canvas id="demographicsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Technology Evolution -->
+                <div class="report-section">
+                    <h3 class="text-3xl font-bold text-center mb-8">The Technology: Evolution of GPT</h3>
+                    <div class="flex flex-col md:flex-row">
+                        <div id="timeline-nav" class="flex md:flex-col overflow-x-auto md:overflow-x-visible pb-4 md:pb-0 md:pr-8 md:border-r border-gray-700"></div>
+                        <div id="timeline-content" class="md:pl-8 flex-1 min-w-0"></div>
+                    </div>
+                </div>
+                
+                <!-- Advanced Concepts -->
+                <div class="report-section">
+                    <h3 class="text-3xl font-bold text-center mb-8">Advanced Concepts: Under the Hood</h3>
+                    <div class="mb-6 border-b border-gray-700">
+                        <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                            <button id="tab-transformer" class="concept-tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Transformer Architecture</button>
+                            <button id="tab-rlhf" class="concept-tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500">Training & RLHF</button>
+                            <button id="tab-ethics" class="concept-tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500">Ethics & Limitations</button>
+                        </nav>
+                    </div>
+                    <div id="concepts-content"></div>
+                </div>
+
+                <!-- Use Cases -->
+                <div class="report-section">
+                    <h3 class="text-3xl font-bold text-center mb-8">Use Case Explorer</h3>
+                    <div class="text-center mb-8">
+                        <button id="professionalBtn" class="bg-amber-500 text-white px-6 py-3 rounded-lg mr-4 text-lg font-semibold">Professional</button>
+                        <button id="personalBtn" class="bg-gray-600 text-gray-200 px-6 py-3 rounded-lg text-lg font-semibold">Personal</button>
+                    </div>
+                    <div id="use-cases-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+                </div>
+
+                <!-- Prompt Engineering -->
+                <div class="report-section">
+                    <h3 class="text-3xl font-bold text-center mb-8">Mastering the Craft: Prompt Engineering</h3>
+                    <div id="prompt-lab"></div>
+                </div>
+
+                <!-- Future Outlook -->
+                <div class="report-section">
+                     <h3 class="text-3xl font-bold text-center mb-8">The Future: Competition and AI Agents</h3>
+                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                        <div>
+                            <h4 class="text-xl font-semibold text-center mb-6">Competitive Landscape</h4>
+                            <div id="competitors-container" class="space-y-4"></div>
+                        </div>
+                        <div>
+                             <h4 class="text-xl font-semibold text-center mb-6">The Rise of AI Agents</h4>
+                             <p class="text-center text-gray-400 mb-6">The next evolution is from a "human-in-the-loop" (assisting tasks) to a "human-on-the-loop" (supervising autonomous workflows).</p>
+                             <div class="flex flex-col items-center space-y-4">
+                                 <div class="p-4 border border-gray-600 rounded-lg text-center w-full max-w-md">
+                                     <p class="font-semibold">Conversational AI (Today)</p>
+                                     <p class="text-sm text-gray-400">"First, search for flights to Rome. Then, find hotels near the Colosseum."</p>
+                                 </div>
+                                 <div class="text-2xl text-amber-500">&darr;</div>
+                                 <div class="p-4 border-2 border-amber-500 bg-amber-900/20 rounded-lg text-center w-full max-w-md">
+                                     <p class="font-semibold">Agentic AI (Future)</p>
+                                     <p class="text-sm text-gray-400">"Plan and book a 5-day trip to Rome for two in May, budget is $3000."</p>
+                                 </div>
+                             </div>
+                        </div>
+                     </div>
+                </div>
+
+                 <!-- Resources -->
+                <div class="report-section">
+                    <h3 class="text-3xl font-bold text-center mb-8">Resources & References</h3>
+                    <div id="references-container" class="max-w-4xl mx-auto text-sm text-gray-400 space-y-2"></div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-center py-10 px-4 mt-12">
+        <h2 class="text-3xl font-bold text-white mb-4">The Takeaway: Human Insight, Amplified</h2>
+        <p class="max-w-4xl mx-auto text-gray-400 mb-6">Artificial Intelligence is not a replacement for human expertise; it is the most powerful tool we've ever created to amplify it. Today's exploration was designed to demystify AI and ground it in our reality. Our path forward is to harness its immense opportunities responsibly, anticipate its challenges, and manage its risks with the same diligence and foresight we apply to all aspects of our business.</p>
+        <p class="text-gray-300 font-semibold mb-8">Thank you for your participation.</p>
+        <div class="text-gray-500 text-sm">
+            <p>
+                <a href="#" class="hover:text-cyan-400">Internal Resources</a> | <a href="#" class="hover:text-cyan-400">Official AI Policy</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODALS SECTION -->
+    <!-- Quiz Modal -->
+    <div id="quiz-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop">
+        <div class="modal-content w-full max-w-2xl rounded-lg shadow-lg p-8 relative">
+            <button class="absolute top-4 right-4 text-gray-400 hover:text-white" data-close-button>&times;</button>
+            <h2 class="text-2xl font-bold text-white mb-4">Risk or Reward? Quiz</h2>
+            <div id="quiz-content"></div>
+            <div id="quiz-result" class="hidden mt-4 text-lg text-center"></div>
+        </div>
+    </div>
+
+    <!-- Poll Modal -->
+    <div id="poll-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop">
+        <div class="modal-content w-full max-w-2xl rounded-lg shadow-lg p-8 relative">
+            <button class="absolute top-4 right-4 text-gray-400 hover:text-white" data-close-button>&times;</button>
+            <h2 class="text-2xl font-bold text-white mb-4">Predict the Future Poll</h2>
+            <div id="poll-question-container">
+                <p class="text-lg text-gray-300 mb-4">Will AI manage most personal investments by 2030?</p>
+                <div class="space-y-3">
+                    <button class="w-full text-left p-3 bg-gray-700 rounded-lg hover:bg-cyan-600 transition-colors" data-poll-option="yes">Yes, absolutely.</button>
+                    <button class="w-full text-left p-3 bg-gray-700 rounded-lg hover:bg-cyan-600 transition-colors" data-poll-option="partially">Partially, with human oversight.</button>
+                    <button class="w-full text-left p-3 bg-gray-700 rounded-lg hover:bg-cyan-600 transition-colors" data-poll-option="no">No, humans will remain in full control.</button>
+                </div>
+            </div>
+            <div id="poll-results-container" class="hidden">
+                <p class="text-lg text-gray-300 mb-4">Results:</p>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1"><span class="text-base font-medium text-gray-300">Yes</span><span id="poll-result-yes"></span></div>
+                        <div class="w-full bg-gray-700 rounded-full h-2.5"><div id="poll-bar-yes" class="bg-cyan-500 h-2.5 rounded-full"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1"><span class="text-base font-medium text-gray-300">Partially</span><span id="poll-result-partially"></span></div>
+                        <div class="w-full bg-gray-700 rounded-full h-2.5"><div id="poll-bar-partially" class="bg-cyan-500 h-2.5 rounded-full"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1"><span class="text-base font-medium text-gray-300">No</span><span id="poll-result-no"></span></div>
+                        <div class="w-full bg-gray-700 rounded-full h-2.5"><div id="poll-bar-no" class="bg-cyan-500 h-2.5 rounded-full"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Art Modal -->
+    <div id="art-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop">
+        <div class="modal-content w-full max-w-2xl rounded-lg shadow-lg p-8 relative">
+            <button class="absolute top-4 right-4 text-gray-400 hover:text-white" data-close-button>&times;</button>
+            <h2 class="text-2xl font-bold text-white mb-4">AI Artist Challenge</h2>
+            <p class="text-gray-400 mb-4">Enter your own prompt or use the default one.</p>
+            <div class="flex gap-2 mb-4">
+                <input id="art-prompt" type="text" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500" value="A bull and a bear arguing over a blockchain, digital art.">
+                <button id="generate-art-btn" class="btn-primary font-bold py-2 px-6 rounded-lg whitespace-nowrap">Generate</button>
+            </div>
+            <div class="w-full aspect-square bg-gray-900 rounded-lg flex items-center justify-center border border-gray-700">
+                <div id="art-placeholder" class="text-gray-500">Your generated image will appear here.</div>
+                <div id="art-loader" class="hidden animate-spin rounded-full h-16 w-16 border-b-2 border-cyan-500"></div>
+                <img id="art-image" src="" class="hidden w-full h-full object-contain rounded-lg" alt="Generated AI art">
+            </div>
+        </div>
+    </div>
+
+    <!-- Jargon Modal -->
+    <div id="jargon-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop">
+        <div class="modal-content w-full max-w-4xl rounded-lg shadow-lg p-8 relative">
+            <button class="absolute top-4 right-4 text-gray-400 hover:text-white" data-close-button>&times;</button>
+            <h2 class="text-2xl font-bold text-white mb-2">AI Jargon Buster Game</h2>
+            <p class="text-gray-400 mb-6">Match the term to its definition.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div id="jargon-terms" class="space-y-3"></div>
+                <div id="jargon-defs" class="space-y-3"></div>
+            </div>
+            <div id="jargon-feedback" class="text-center mt-6 font-bold text-xl"></div>
+        </div>
+    </div>
+    
+    <!-- Chatbot Modal -->
+    <div id="chatbot-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop">
+        <div class="modal-content w-full max-w-lg rounded-lg shadow-lg relative flex flex-col" style="height: 70vh;">
+            <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                <h2 class="text-xl font-bold text-white">The Ethics Engine</h2>
+                <button class="text-gray-400 hover:text-white" data-close-button>&times;</button>
+            </div>
+            <div id="chatbot-messages" class="flex-grow p-4 space-y-4 overflow-y-auto"></div>
+            <div id="chatbot-options" class="p-4 border-t border-gray-700 space-y-2"></div>
+        </div>
+    </div>
+
+    <!-- Use Case Details Modal -->
+     <div id="useCaseModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="modal-content bg-gray-800 text-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h3 id="modal-title" class="text-2xl font-bold text-amber-400"></h3>
+                    <p id="modal-benefit" class="mt-1 text-gray-400"></p>
+                </div>
+                <button id="closeModal" class="text-gray-400 hover:text-white text-3xl">&times;</button>
+            </div>
+            <div class="mt-6 border-t border-gray-700 pt-6">
+                <p id="modal-description" class="text-gray-300 mb-6"></p>
+                <h4 class="font-semibold text-lg mb-2">Good Prompt Example:</h4>
+                <div id="modal-prompt-good" class="prompt-example text-sm mb-6"></div>
+                <h4 class="font-semibold text-lg mb-2">Better Prompt Example (with Role & Context):</h4>
+                <div id="modal-prompt-better" class="prompt-example text-sm"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- DATA OBJECT FOR ALL INTERACTIVE ELEMENTS ---
+        const allData = {
+            quiz: [
+                {
+                    question: "An AI trading algorithm identifies a 'once-in-a-century' market anomaly and executes a massive trade, generating huge profits. What is the primary RISK?",
+                    options: ["The AI might be over-rewarded.", "The anomaly could be a data error, leading to catastrophic loss.", "Competitors might copy the algorithm."],
+                    answer: "The anomaly could be a data error, leading to catastrophic loss.",
+                    explanation: "This is a classic 'model risk' scenario. If the AI acts on faulty data or misinterprets a rare event, the consequences can be severe. Human oversight is crucial for such high-stakes decisions."
+                },
+                {
+                    question: "A new AI-powered fraud detection system flags a high-value international transfer for a major corporate client as suspicious, delaying the transaction. The client complains angrily. What is the REWARD?",
+                    options: ["The system is correctly identifying high-risk patterns, potentially preventing a major fraud attempt.", "The AI is learning to be more cautious.", "The delay gives the bank more time to earn interest on the funds."],
+                    answer: "The system is correctly identifying high-risk patterns, potentially preventing a major fraud attempt.",
+                    explanation: "This highlights the trade-off between security and customer experience. While a 'false positive' can be inconvenient, the system's ability to spot and halt potentially fraudulent activity is its core reward, protecting both the client and the bank."
+                }
+            ],
+            jargon: [
+                { term: "Large Language Model (LLM)", definition: "An AI model trained on vast amounts of text data to understand and generate human-like language." },
+                { term: "Generative Adversarial Network (GAN)", definition: "A type of AI where two neural networks compete against each other to generate more realistic synthetic data, like images or text." },
+                { term: "Natural Language Processing (NLP)", definition: "A field of AI that enables computers to understand, interpret, and manipulate human language." },
+                { term: "Reinforcement Learning", definition: "A type of machine learning where an AI agent learns to make decisions by performing actions and receiving rewards or penalties." }
+            ],
+            chatbot: {
+                start: {
+                    text: "Hello. You are a risk manager. A new AI model for loan approvals is ready. It's 15% more accurate at predicting defaults than our current system, but internal testing shows it denies loans to applicants from a specific low-income postal code at a rate 25% higher than average, even with similar financial profiles. What do you do?",
+                    options: [
+                        { text: "Deploy the model. Higher accuracy is the top priority.", next: "deploy" },
+                        { text: "Do not deploy. The potential for bias is too high.", next: "reject" },
+                        { text: "Send it back to the data science team for refinement.", next: "refine" }
+                    ]
+                },
+                deploy: { text: "You've deployed the model. Profits increase due to lower defaults, but a regulatory body launches an investigation into discriminatory lending practices six months later, leading to significant fines and reputational damage. This highlights the risk of prioritizing pure accuracy over fairness.", options: [{ text: "Start Over", next: "start" }] },
+                reject: { text: "You've rejected the model. The bank avoids potential regulatory issues, but continues to use the less accurate, older system, missing out on potential profit gains and exposing itself to higher-than-necessary default rates. This shows the risk of inaction and stifling innovation.", options: [{ text: "Start Over", next: "start" }] },
+                refine: { text: "You've sent the model back. The team incorporates new fairness metrics and retrains the model on a more balanced dataset. The final model is 12% more accurate (slightly less than before) but the bias is almost completely eliminated. This is a balanced approach, managing both model risk and ethical/regulatory risk.", options: [{ text: "Start Over", next: "start" }] }
+            },
+            charts: {
+                growth: {
+                    labels: ['Nov 2022', 'Jan 2023', 'Nov 2023', 'Feb 2025', 'July 2025'],
+                    users: [1, 30, 100, 400, 800] 
+                },
+                demographics: {
+                    geo: {
+                        labels: ['United States', 'India', 'Brazil', 'Germany', 'Rest of World'],
+                        data: [16, 9, 5, 4, 66]
+                    },
+                    education: {
+                        labels: ['Postgraduate', 'Bachelor\'s', 'High School or Less'],
+                        data: [37, 29, 12]
+                    }
+                }
+            },
+            timeline: [
+                { year: '2018', name: 'GPT-1', title: 'The Proof of Concept', details: 'With 117 million parameters, it proved generative pre-training was a viable approach for NLP.' },
+                { year: '2020', name: 'GPT-3', title: 'The 175-Billion Parameter Leap', details: 'A paradigm shift with 175 billion parameters, it mastered "few-shot" learning and displayed emergent abilities.' },
+                { year: '2022', name: 'GPT-3.5', title: 'The Conversational Bridge', details: 'A family of models fine-tuned with human feedback (RLHF) for dialogue. This series powered the initial public release of ChatGPT.' },
+                { year: '2023', name: 'GPT-4', title: 'The Dawn of Multimodality', details: 'Introduced the ability to accept both text and image inputs, with significantly improved reasoning and accuracy.' },
+                { year: '2024', name: 'GPT-4o', title: 'The "Omni" Experience', details: 'Natively multimodal across text, audio, and vision, offering GPT-4-level intelligence with faster responses.' }
+            ],
+            useCases: {
+                professional: [
+                    { id: 'p1', title: 'Code Generation', icon: '💻', benefit: 'Accelerates development cycles.', description: 'Developers can describe a desired functionality in natural language, and ChatGPT can generate the corresponding code in various languages.', goodPrompt: 'Write a Python function to read a CSV file.', betterPrompt: 'Act as a senior Python developer. Write a robust Python function using the pandas library to read a CSV file. The function should take the file path as an argument and include error handling for cases where the file does not exist or is not a valid CSV.' },
+                    { id: 'p2', title: 'Content Ideation', icon: '💡', benefit: 'Overcomes creative blocks.', description: 'Marketers can use ChatGPT to generate a wide array of content ideas. By providing a topic or keyword, they can get lists of potential blog post titles, social media campaign themes, or creative angles for advertisements.', goodPrompt: 'Give me blog ideas about remote work.', betterPrompt: 'Act as a content strategist for a B2B SaaS company targeting HR managers. Generate 10 engaging blog post titles about the challenges and solutions of managing a remote workforce. The titles should be SEO-friendly and focus on topics like productivity, company culture, and technology.' },
+                    { id: 'p3', title: 'Market Research', icon: '📈', benefit: 'Speeds up initial analysis.', description: 'ChatGPT can accelerate initial research by summarizing market trend reports, analyzing customer feedback to identify common themes, and helping to create detailed customer personas that inform and guide marketing strategies.', goodPrompt: 'Summarize the market for electric vehicles.', betterPrompt: 'Act as a market research analyst. Provide a summary of the key trends in the global electric vehicle market for 2025. Structure the output into three sections: 1) Key Growth Drivers, 2) Major Challenges, and 3) Competitive Landscape. Use bullet points for each section.' },
+                    { id: 'p4', title: 'Customer Service', icon: '🤖', benefit: 'Improves response times.', description: 'Businesses are integrating ChatGPT to power sophisticated chatbots on their websites. These bots can handle a high volume of common customer queries, provide instant answers to FAQs, and intelligently route more complex issues to human agents.', goodPrompt: 'How do I reset my password?', betterPrompt: 'A customer on our e-commerce site asks, "I forgot my password, what do I do?" As a helpful customer service bot, provide a clear, step-by-step guide on how to use the "Forgot Password" link to reset their account, and mention where to find the link on the login page.' }
+                ],
+                personal: [
+                    { id: 'pe1', title: 'Travel Planning', icon: '✈️', benefit: 'Creates personalized itineraries.', description: 'By providing a destination, budget, duration, and personal interests, users can receive a detailed travel itinerary complete with suggestions for activities, restaurants, and sights.', goodPrompt: 'Plan a trip to Paris.', betterPrompt: 'Act as a local travel expert for Paris. Create a 3-day itinerary for a couple on their first visit. Their interests are art history, food, and romantic walks. The budget is moderate. Structure the plan day-by-day, including one museum, one notable restaurant, and one scenic activity per day.' },
+                    { id: 'pe2', title: 'Personalized Tutoring', icon: '📚', benefit: 'Makes complex topics simple.', description: 'It can explain complex subjects in simple, understandable terms. The AI can break down difficult concepts and adapt its explanation to the user\'s level of understanding.', goodPrompt: 'Explain black holes.', betterPrompt: 'Explain the concept of a black hole to a 12-year-old. Use a simple analogy to describe gravity and the event horizon. Keep the explanation under 150 words.' },
+                    { id: 'pe3', title: 'Meal Planning', icon: '🍲', benefit: 'Simplifies diet and nutrition.', description: 'ChatGPT can act as a kitchen assistant, generating weekly meal plans based on dietary preferences, creating recipes from a list of available ingredients, or offering general diet and nutrition tips.', goodPrompt: 'Give me some healthy dinner ideas.', betterPrompt: 'Act as a nutritionist. Create a 5-day healthy dinner plan for a busy professional who wants quick (under 30 minutes) and low-carb meals. Provide a bulleted list with the meal name for each day and a brief description.' },
+                    { id: 'pe4', title: 'Creative Writing', icon: '🖋️', benefit: 'Acts as a collaborative partner.', description: 'Aspiring writers use it to brainstorm plot twists, develop character backstories, generate writing prompts, or even co-write passages of stories, poems, and song lyrics.', goodPrompt: 'Write a story about a dragon.', betterPrompt: 'Act as a fantasy author. Write the opening paragraph for a story about an ancient, tired dragon who is unexpectedly befriended by a small, curious child. The tone should be melancholic but hopeful.' }
+                ]
+            },
+            concepts: {
+                transformer: {
+                    content: `<p class="mb-4 text-gray-300">The core technology enabling ChatGPT is the <strong>transformer architecture</strong>. Unlike older models that processed text sequentially, transformers use a mechanism called <strong>self-attention</strong> to weigh the importance of all words in a sentence simultaneously. This allows for parallel processing and a much deeper understanding of context.</p>`
+                },
+                rlhf: {
+                    content: `<p class="mb-4 text-gray-300">ChatGPT's conversational ability comes from a multi-stage training process, culminating in <strong>Reinforcement Learning from Human Feedback (RLHF)</strong>. This process aligns the model's responses with user intent, making it more helpful and safer.</p>
+                    <div class="space-y-4">
+                        <div class="p-4 border-l-4 border-amber-500 bg-amber-900/20 rounded-r-lg"><strong>1. Pre-training:</strong> The model learns grammar, facts, and reasoning by predicting the next word on a massive dataset of internet text.</div>
+                        <div class="p-4 border-l-4 border-blue-500 bg-blue-900/20 rounded-r-lg"><strong>2. Fine-Tuning:</strong> The model is trained on a smaller, curated dataset to perform specific tasks like question-answering.</div>
+                        <div class="p-4 border-l-4 border-green-500 bg-green-900/20 rounded-r-lg"><strong>3. RLHF:</strong> Human trainers rank different AI responses. This feedback is used to train a "reward model," which then fine-tunes the AI to produce more preferable outputs.</div>
+                    </div>`
+                },
+                ethics: {
+                    content: `<p class="mb-4 text-gray-300">Despite its power, ChatGPT has significant limitations and ethical challenges that users must understand to use it responsibly.</p>
+                    <div class="space-y-3">
+                        <div><h4 class="font-semibold cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden')">▶ Hallucinations</h4><p class="text-sm text-gray-400 mt-1 pl-5 border-l-2 border-gray-600 hidden">The model can generate plausible but factually incorrect information. All critical facts and data must be independently verified.</p></div>
+                        <div><h4 class="font-semibold cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden')">▶ Bias</h4><p class="text-sm text-gray-400 mt-1 pl-5 border-l-2 border-gray-600 hidden">Trained on internet data, the model can reflect and amplify human biases related to race, gender, and culture. Outputs may require careful review for fairness.</p></div>
+                        <div><h4 class="font-semibold cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden')">▶ Data Privacy</h4><p class="text-sm text-gray-400 mt-1 pl-5 border-l-2 border-gray-600 hidden">Never input sensitive personal or confidential business information into public versions of ChatGPT, as conversations may be used for training.</p></div>
+                    </div>`
+                }
+            },
+            promptLab: {
+                base: { prompt: "Write a summary of 'Moby Dick'." },
+                techniques: [
+                    { name: "Add Specificity", prompt: "Write a three-sentence summary of the main plot of 'Moby Dick'."},
+                    { name: "Assign a Role", prompt: "Act as a high school English teacher. Write a summary of 'Moby Dick' for students."},
+                    { name: "Specify Format", prompt: "Write a summary of 'Moby Dick'. Format it as three bullet points, each covering a major theme."},
+                    { name: "Combine Techniques", prompt: "Act as a literary critic. Write a five-bullet-point summary of 'Moby Dick' for a book club. Focus on the themes of obsession, fate, and humanity's relationship with nature."}
+                ]
+            },
+            competitors: [
+                { name: 'Google Gemini', strength: 'Real-time web search & Google ecosystem integration.' },
+                { name: 'Microsoft Copilot', strength: 'Deep integration with Microsoft 365 & enterprise security.' },
+                { name: 'Anthropic\'s Claude', strength: 'Large context window & strong focus on AI safety.' },
+                { name: 'Perplexity AI', strength: 'Provides answers with direct citations for factual accuracy.' }
+            ],
+            references: [
+                "[1] OpenAI. (2023). ChatGPT.", "[2] Metz, C. (2022). The New Chatbots Could Change the World. The New York Times.", "[3] Vaswani, A., et al. (2017). Attention Is All You Need. Google Research.", "[4] Zhai, X. (2022). ChatGPT User Manual. Artificially Intelligent.", "[5] Brown, T. B., et al. (2020). Language Models are Few-Shot Learners. OpenAI.", "[6] Wikipedia contributors. (2025). GPT-4. Wikipedia, The Free Encyclopedia.", "[7] Radford, A., et al. (2019). Language Models are Unsupervised Multitask Learners. OpenAI.", "[8] OpenAI Blog. (2024). Introducing GPT-4o.", "[9] Bubeck, S., et al. (2023). Sparks of Artificial General Intelligence: Early experiments with GPT-4. Microsoft Research."
+            ]
+        };
+
+        // --- Modal Handling ---
+        const openModalButtons = document.querySelectorAll('[data-modal-target]');
+        const closeModalButtons = document.querySelectorAll('[data-close-button]');
+
+        const openModal = (modal) => {
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        };
+
+        const closeModal = (modal) => {
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        };
+
+        openModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modalId = button.getAttribute('data-modal-target');
+                const modal = document.getElementById(modalId);
+                openModal(modal);
+            });
+        });
+
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modal = button.closest('.modal-backdrop, #useCaseModal');
+                closeModal(modal);
+            });
+        });
+
+        document.querySelectorAll('.modal-backdrop').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal(modal);
+                }
+            });
+        });
+
+        // --- Quiz Logic ---
+        const quizContent = document.getElementById('quiz-content');
+        const quizResult = document.getElementById('quiz-result');
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function loadQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            quizResult.classList.add('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const questionData = allData.quiz[currentQuestionIndex];
+            quizContent.innerHTML = `
+                <p class="text-lg text-gray-300 mb-4">${questionData.question}</p>
+                <div class="space-y-3">
+                    ${questionData.options.map(option => `<button class="w-full text-left p-3 bg-gray-700 rounded-lg hover:bg-cyan-600 transition-colors quiz-option">${option}</button>`).join('')}
+                </div>`;
+            document.querySelectorAll('.quiz-option').forEach(button => button.addEventListener('click', selectAnswer));
+        }
+
+        function selectAnswer(e) {
+            const selectedOption = e.target.textContent;
+            const questionData = allData.quiz[currentQuestionIndex];
+            if (selectedOption === questionData.answer) score++;
+            
+            quizContent.innerHTML = `
+                <p class="text-lg ${selectedOption === questionData.answer ? 'text-green-400' : 'text-red-400'} mb-2">
+                    ${selectedOption === questionData.answer ? 'Correct!' : 'Incorrect.'}
+                </p>
+                <p class="text-gray-400">${questionData.explanation}</p>
+                <button id="next-question-btn" class="btn-primary font-bold py-2 px-6 rounded-full mt-4">Next</button>`;
+            document.getElementById('next-question-btn').addEventListener('click', () => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < allData.quiz.length) showQuestion();
+                else showResult();
+            });
+        }
+
+        function showResult() {
+            quizContent.innerHTML = '';
+            quizResult.classList.remove('hidden');
+            quizResult.innerHTML = `
+                <p class="text-2xl font-bold text-white">You scored ${score} out of ${allData.quiz.length}!</p>
+                <button id="restart-quiz-btn" class="btn-primary font-bold py-2 px-6 rounded-full mt-4">Try Again</button>`;
+            document.getElementById('restart-quiz-btn').addEventListener('click', loadQuiz);
+        }
+        
+        document.querySelector('[data-modal-target="quiz-modal"]').addEventListener('click', loadQuiz);
+
+        // --- Poll Logic ---
+        let pollData = { yes: 45, partially: 75, no: 15 };
+        function updatePollResults() {
+            const total = pollData.yes + pollData.partially + pollData.no;
+            const getPercent = (val) => total > 0 ? ((val / total) * 100).toFixed(0) : 0;
+            
+            document.getElementById('poll-result-yes').textContent = `${getPercent(pollData.yes)}%`;
+            document.getElementById('poll-bar-yes').style.width = `${getPercent(pollData.yes)}%`;
+            document.getElementById('poll-result-partially').textContent = `${getPercent(pollData.partially)}%`;
+            document.getElementById('poll-bar-partially').style.width = `${getPercent(pollData.partially)}%`;
+            document.getElementById('poll-result-no').textContent = `${getPercent(pollData.no)}%`;
+            document.getElementById('poll-bar-no').style.width = `${getPercent(pollData.no)}%`;
+        }
+
+        document.querySelectorAll('[data-poll-option]').forEach(button => {
+            button.addEventListener('click', () => {
+                pollData[button.dataset.pollOption]++;
+                updatePollResults();
+                document.getElementById('poll-question-container').classList.add('hidden');
+                document.getElementById('poll-results-container').classList.remove('hidden');
+            });
+        });
+        
+        document.querySelector('[data-modal-target="poll-modal"]').addEventListener('click', () => {
+             document.getElementById('poll-question-container').classList.remove('hidden');
+             document.getElementById('poll-results-container').classList.add('hidden');
+             updatePollResults();
+        });
+
+        // --- Jargon Buster Logic ---
+        const termsContainer = document.getElementById('jargon-terms');
+        const defsContainer = document.getElementById('jargon-defs');
+        const jargonFeedback = document.getElementById('jargon-feedback');
+        let selectedTerm = null, selectedDef = null, matchedPairs = 0;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function initJargonGame() {
+            matchedPairs = 0;
+            jargonFeedback.textContent = '';
+            const shuffledTerms = shuffle([...allData.jargon]);
+            const shuffledDefs = shuffle([...allData.jargon]);
+
+            termsContainer.innerHTML = shuffledTerms.map(item => `<button class="term w-full text-left p-3 bg-gray-700 rounded-lg transition-colors" data-term="${item.term}">${item.term}</button>`).join('');
+            defsContainer.innerHTML = shuffledDefs.map(item => `<button class="def w-full text-left p-3 bg-gray-700 rounded-lg transition-colors" data-def="${item.term}">${item.definition}</button>`).join('');
+
+            document.querySelectorAll('.term').forEach(btn => btn.addEventListener('click', selectTermHandler));
+            document.querySelectorAll('.def').forEach(btn => btn.addEventListener('click', selectDefHandler));
+        }
+
+        function selectTermHandler(e) {
+            if (e.target.classList.contains('matched')) return;
+            selectedTerm?.classList.remove('selected');
+            selectedTerm = e.target;
+            selectedTerm.classList.add('selected');
+            checkMatch();
+        }
+
+        function selectDefHandler(e) {
+            if (e.target.classList.contains('matched')) return;
+            selectedDef?.classList.remove('selected');
+            selectedDef = e.target;
+            selectedDef.classList.add('selected');
+            checkMatch();
+        }
+
+        function checkMatch() {
+            if (!selectedTerm || !selectedDef) return;
+            if (selectedTerm.dataset.term === selectedDef.dataset.def) {
+                selectedTerm.classList.add('matched');
+                selectedDef.classList.add('matched');
+                matchedPairs++;
+                if (matchedPairs === allData.jargon.length) {
+                    jargonFeedback.textContent = "Congratulations! You've matched them all!";
+                    jargonFeedback.classList.add('text-green-400');
+                }
+            } else {
+                selectedTerm.classList.add('incorrect');
+                selectedDef.classList.add('incorrect');
+                setTimeout(() => {
+                    selectedTerm?.classList.remove('incorrect', 'selected');
+                    selectedDef?.classList.remove('incorrect', 'selected');
+                }, 1000);
+            }
+            selectedTerm = null;
+            selectedDef = null;
+        }
+        
+        document.querySelector('[data-modal-target="jargon-modal"]').addEventListener('click', initJargonGame);
+
+        // --- Chatbot Logic ---
+        const messagesContainer = document.getElementById('chatbot-messages');
+        const optionsContainer = document.getElementById('chatbot-options');
+
+        function addMessage(text, sender) {
+            const bubble = document.createElement('div');
+            bubble.textContent = text;
+            bubble.className = sender === 'user' ? 'chat-bubble-user self-end max-w-xs md:max-w-md p-3 rounded-lg' : 'chat-bubble-bot self-start max-w-xs md:max-w-md p-3 rounded-lg';
+            messagesContainer.appendChild(bubble);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showOptions(options) {
+            optionsContainer.innerHTML = '';
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option.text;
+                button.className = 'w-full text-left p-3 bg-gray-700 rounded-lg hover:bg-cyan-600 transition-colors text-sm';
+                button.onclick = () => {
+                    addMessage(option.text, 'user');
+                    setTimeout(() => advanceChat(option.next), 500);
+                };
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function advanceChat(stageKey) {
+            const stage = allData.chatbot[stageKey];
+            if (stageKey === 'start') messagesContainer.innerHTML = '';
+            addMessage(stage.text, 'bot');
+            showOptions(stage.options);
+        }
+
+        document.querySelector('[data-modal-target="chatbot-modal"]').addEventListener('click', () => advanceChat('start'));
+        
+        // --- Art Generator Logic ---
+        const generateBtn = document.getElementById('generate-art-btn');
+        const artPromptInput = document.getElementById('art-prompt');
+        const artPlaceholder = document.getElementById('art-placeholder');
+        const artLoader = document.getElementById('art-loader');
+        const artImage = document.getElementById('art-image');
+
+        generateBtn.addEventListener('click', async () => {
+            const userPrompt = artPromptInput.value;
+            if (!userPrompt) return;
+
+            artPlaceholder.classList.add('hidden');
+            artImage.classList.add('hidden');
+            artLoader.classList.remove('hidden');
+            generateBtn.disabled = true;
+            generateBtn.textContent = 'Generating...';
+
+            try {
+                const payload = { instances: [{ prompt: userPrompt }], parameters: { "sampleCount": 1 } };
+                const apiKey = ""; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const result = await response.json();
+                
+                if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
+                    artImage.src = `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+                    artImage.classList.remove('hidden');
+                } else {
+                    throw new Error("No image data in response.");
+                }
+            } catch (error) {
+                console.error("Error generating image:", error);
+                artPlaceholder.textContent = "Failed to generate image. Please try again.";
+                artPlaceholder.classList.remove('hidden');
+            } finally {
+                artLoader.classList.add('hidden');
+                generateBtn.disabled = false;
+                generateBtn.textContent = 'Generate';
+            }
+        });
+
+        // --- Presentation Logic ---
+        const presentationTabButtons = document.querySelectorAll('.presentation-tab-button');
+        const presentations = document.querySelectorAll('.presentation-container');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const slideCounter = document.getElementById('slide-counter');
+        
+        let currentPresentationId = 'presentation1';
+        let currentSlideIndices = { 'presentation1': 0, 'presentation2': 0 };
+
+        function updatePresentation() {
+            presentations.forEach(p => p.classList.remove('active'));
+            document.getElementById(currentPresentationId).classList.add('active');
+
+            presentationTabButtons.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.target === currentPresentationId);
+            });
+            updateSlideView();
+        }
+
+        function updateSlideView() {
+            const currentSlides = document.querySelectorAll(`#${currentPresentationId} .slide`);
+            const currentIndex = currentSlideIndices[currentPresentationId];
+            currentSlides.forEach((slide, index) => slide.classList.toggle('active', index === currentIndex));
+
+            const totalSlides = currentSlides.length;
+            slideCounter.textContent = `Slide ${currentIndex + 1} of ${totalSlides}`;
+            progressBar.style.width = `${((currentIndex + 1) / totalSlides) * 100}%`;
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === totalSlides - 1;
+        }
+
+        presentationTabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                currentPresentationId = button.dataset.target;
+                updatePresentation();
+            });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            const currentSlides = document.querySelectorAll(`#${currentPresentationId} .slide`);
+            if (currentSlideIndices[currentPresentationId] < currentSlides.length - 1) {
+                currentSlideIndices[currentPresentationId]++;
+                updateSlideView();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlideIndices[currentPresentationId] > 0) {
+                currentSlideIndices[currentPresentationId]--;
+                updateSlideView();
+            }
+        });
+        
+        const presGenerateBtn = document.getElementById('presentation-generate-btn');
+        const presImageOutput = document.getElementById('presentation-image-output');
+        presGenerateBtn.addEventListener('click', () => {
+            presImageOutput.innerHTML = '<div class="animate-pulse">Generating your vision...</div>';
+            setTimeout(() => {
+                presImageOutput.innerHTML = `<img src="https://placehold.co/600x400/1f2937/e5e7eb?text=AI+Generated+Image&font=inter" alt="AI Generated Image" class="rounded-lg mx-auto">`;
+            }, 2000);
+        });
+
+        updatePresentation();
+
+        // --- ChatGPT Report Logic ---
+        const userGrowthCtx = document.getElementById('userGrowthChart').getContext('2d');
+        new Chart(userGrowthCtx, {
+            type: 'line',
+            data: {
+                labels: allData.charts.growth.labels,
+                datasets: [{
+                    label: 'Weekly Active Users (in Millions)',
+                    data: allData.charts.growth.users,
+                    borderColor: '#FBBF24',
+                    backgroundColor: 'rgba(251, 191, 36, 0.2)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { 
+                    y: { beginAtZero: true, ticks: { color: '#e2e8f0' }, grid: { color: 'rgba(226, 232, 240, 0.1)' } },
+                    x: { ticks: { color: '#e2e8f0' }, grid: { color: 'rgba(226, 232, 240, 0.1)' } }
+                },
+                plugins: { legend: { labels: { color: '#e2e8f0' } } }
+            }
+        });
+
+        const demographicsCtx = document.getElementById('demographicsChart').getContext('2d');
+        let demographicsChart;
+        function createDemographicsChart(chartData, label) {
+            if (demographicsChart) demographicsChart.destroy();
+            demographicsChart = new Chart(demographicsCtx, {
+                type: 'bar',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        label: `${label} (%)`,
+                        data: chartData.data,
+                        backgroundColor: ['#FBBF24', '#FCD34D', '#FDE68A', '#FEF0C7', '#FEF9E7'],
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                    scales: { 
+                        y: { ticks: { color: '#e2e8f0' }, grid: { color: 'rgba(226, 232, 240, 0.1)' } },
+                        x: { ticks: { color: '#e2e8f0' }, grid: { color: 'rgba(226, 232, 240, 0.1)' } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+        document.getElementById('geoBtn').addEventListener('click', (e) => {
+            createDemographicsChart(allData.charts.demographics.geo, 'Geography');
+            e.target.classList.add('bg-amber-500', 'text-white');
+            e.target.classList.remove('bg-gray-600', 'text-gray-200');
+            document.getElementById('eduBtn').classList.add('bg-gray-600', 'text-gray-200');
+            document.getElementById('eduBtn').classList.remove('bg-amber-500', 'text-white');
+        });
+        document.getElementById('eduBtn').addEventListener('click', (e) => {
+            createDemographicsChart(allData.charts.demographics.education, 'Education');
+            e.target.classList.add('bg-amber-500', 'text-white');
+            e.target.classList.remove('bg-gray-600', 'text-gray-200');
+            document.getElementById('geoBtn').classList.add('bg-gray-600', 'text-gray-200');
+            document.getElementById('geoBtn').classList.remove('bg-amber-500', 'text-white');
+        });
+        createDemographicsChart(allData.charts.demographics.geo, 'Geography');
+
+        const timelineNav = document.getElementById('timeline-nav');
+        const timelineContent = document.getElementById('timeline-content');
+        allData.timeline.forEach((item, index) => {
+            const navItem = document.createElement('button');
+            navItem.className = `timeline-item text-left w-full md:w-40 p-3 rounded-lg font-semibold text-gray-300 mb-2 ${index === 0 ? 'active' : ''}`;
+            navItem.innerHTML = `<span class="text-sm text-gray-400">${item.year}</span><br>${item.name}`;
+            navItem.addEventListener('click', () => {
+                updateTimelineContent(index);
+                document.querySelectorAll('.timeline-item').forEach(el => el.classList.remove('active'));
+                navItem.classList.add('active');
+            });
+            timelineNav.appendChild(navItem);
+        });
+        function updateTimelineContent(index) {
+            const item = allData.timeline[index];
+            timelineContent.innerHTML = `<div class="fade-in"><h4 class="text-2xl font-bold text-amber-400">${item.name}</h4><p class="text-lg font-semibold text-gray-200 mt-1">${item.title}</p><p class="mt-4 text-gray-300">${item.details}</p></div>`;
+        }
+        updateTimelineContent(0);
+
+        const conceptsContent = document.getElementById('concepts-content');
+        const conceptTabs = document.querySelectorAll('.concept-tab-button');
+        function renderConcept(conceptKey) {
+            const concept = allData.concepts[conceptKey];
+            conceptsContent.innerHTML = `<div class="fade-in">${concept.content}</div>`;
+            conceptTabs.forEach(tab => {
+                tab.classList.remove('active');
+                if(tab.id === `tab-${conceptKey}`) {
+                    tab.classList.add('active');
+                }
+            });
+        }
+        conceptTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const conceptKey = tab.id.replace('tab-', '');
+                renderConcept(conceptKey);
+            });
+        });
+        renderConcept('transformer');
+
+        const useCasesGrid = document.getElementById('use-cases-grid');
+        function renderUseCases(type) {
+            useCasesGrid.innerHTML = '';
+            allData.useCases[type].forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'use-case-card card p-6 rounded-xl flex flex-col items-center text-center fade-in';
+                card.innerHTML = `<div class="text-4xl mb-4">${item.icon}</div><h5 class="font-semibold text-white">${item.title}</h5>`;
+                card.addEventListener('click', () => openUseCaseModal(item));
+                useCasesGrid.appendChild(card);
+            });
+        }
+        document.getElementById('professionalBtn').addEventListener('click', (e) => {
+            renderUseCases('professional');
+            e.target.classList.add('bg-amber-500', 'text-white');
+            e.target.classList.remove('bg-gray-600', 'text-gray-200');
+            document.getElementById('personalBtn').classList.add('bg-gray-600', 'text-gray-200');
+            document.getElementById('personalBtn').classList.remove('bg-amber-500', 'text-white');
+        });
+        document.getElementById('personalBtn').addEventListener('click', (e) => {
+            renderUseCases('personal');
+            e.target.classList.add('bg-amber-500', 'text-white');
+            e.target.classList.remove('bg-gray-600', 'text-gray-200');
+            document.getElementById('professionalBtn').classList.add('bg-gray-600', 'text-gray-200');
+            document.getElementById('professionalBtn').classList.remove('bg-amber-500', 'text-white');
+        });
+        renderUseCases('professional');
+
+        const useCaseModal = document.getElementById('useCaseModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        function openUseCaseModal(item) {
+            document.getElementById('modal-title').textContent = item.title;
+            document.getElementById('modal-benefit').textContent = item.benefit;
+            document.getElementById('modal-description').textContent = item.description;
+            document.getElementById('modal-prompt-good').textContent = item.goodPrompt;
+            document.getElementById('modal-prompt-better').textContent = item.betterPrompt;
+            useCaseModal.classList.remove('hidden');
+            setTimeout(() => useCaseModal.classList.remove('opacity-0'), 10);
+            setTimeout(() => useCaseModal.querySelector('.modal-content').classList.remove('scale-95'), 10);
+        }
+        function closeUseCaseModal() {
+            useCaseModal.querySelector('.modal-content').classList.add('scale-95');
+            useCaseModal.classList.add('opacity-0');
+            setTimeout(() => useCaseModal.classList.add('hidden'), 300);
+        }
+        closeModalBtn.addEventListener('click', closeUseCaseModal);
+        useCaseModal.addEventListener('click', (e) => {
+            if(e.target === useCaseModal) closeUseCaseModal();
+        });
+
+        const promptLabContainer = document.getElementById('prompt-lab');
+        function renderPromptLab() {
+            const labData = allData.promptLab;
+            let html = `<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div><h4 class="font-bold text-lg mb-2">Base Prompt:</h4><p class="prompt-example h-full">${labData.base.prompt}</p></div>
+                            <div id="prompt-output-container"><h4 class="font-bold text-lg mb-2">Refined Prompt:</h4><p id="prompt-output" class="prompt-example h-full bg-green-900/20 text-green-300 border-green-500"></p></div>
+                        </div>
+                        <div class="mt-6 text-center"><p class="mb-4 font-semibold">Select a technique to apply:</p><div class="flex flex-wrap justify-center gap-2">`;
+            labData.techniques.forEach((tech, index) => {
+                html += `<button class="prompt-tech-btn bg-gray-600 text-gray-200 px-4 py-2 rounded-md" data-index="${index}">${tech.name}</button>`;
+            });
+            html += `</div></div>`;
+            promptLabContainer.innerHTML = html;
+            document.getElementById('prompt-output').textContent = 'Select a technique above to see how the prompt improves.';
+            
+            document.querySelectorAll('.prompt-tech-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = e.target.dataset.index;
+                    document.getElementById('prompt-output').textContent = labData.techniques[index].prompt;
+                    document.querySelectorAll('.prompt-tech-btn').forEach(b => b.classList.remove('bg-amber-500', 'text-white'));
+                    e.target.classList.add('bg-amber-500', 'text-white');
+                });
+            });
+        }
+        renderPromptLab();
+
+        const competitorsContainer = document.getElementById('competitors-container');
+        allData.competitors.forEach(c => {
+            const item = document.createElement('div');
+            item.className = 'p-4 border border-gray-700 rounded-lg bg-gray-800/50';
+            item.innerHTML = `<h5 class="font-semibold text-gray-200">${c.name}</h5><p class="text-sm text-gray-400">${c.strength}</p>`;
+            competitorsContainer.appendChild(item);
+        });
+
+        const referencesContainer = document.getElementById('references-container');
+        allData.references.forEach(ref => {
+            const p = document.createElement('p');
+            p.textContent = ref;
+            referencesContainer.appendChild(p);
+        });
+
+    });
+    </script>
+</body>
+</html>
