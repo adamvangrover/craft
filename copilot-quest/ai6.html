@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI in 2025: A World Remade</title>
+    <!-- Chosen Palette: Futuristic Dark Mode -->
+    <!-- Application Structure Plan: The application is structured as a "scrollytelling" narrative, guiding the user through five distinct chapters on AI's impact, from its growth to its governance. This linear journey is designed for maximum narrative impact and comprehension. After the main narrative, a separate "Interactive Labs" section allows for optional, deep-dive exploration of key concepts in a non-linear, hands-on manner. This dual structure combines the power of guided storytelling with the freedom of self-directed discovery, providing the most effective and engaging user flow for this complex subject matter. -->
+    <!-- Visualization & Content Choices: The application uses a variety of interactive elements tailored to the information's goal. For "Change," Chart.js line charts show AI's growth. For "Compare," animated donut charts and HTML/CSS diagrams break down economic impact and contrast AI architectures. For "Organize," a tabbed interface structures the scientific renaissance section. For "Relationships," the policy simulator uses interactive buttons and feedback meters to demonstrate the cause-and-effect of governance choices. The interactive labs use simulated, gamified interfaces to teach complex topics like algorithmic trading and model bias. All choices prioritize user interaction and clarity. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #05080f;
+            color: #e2e8f0;
+        }
+        .hero-bg {
+            background: radial-gradient(ellipse at 20% 30%, rgba(0, 209, 255, 0.15), transparent 70%),
+                        radial-gradient(ellipse at 80% 70%, rgba(255, 0, 255, 0.15), transparent 70%),
+                        #05080f;
+        }
+        .chapter-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5rem 1.5rem;
+            border-bottom: 1px solid rgba(55, 65, 81, 0.3);
+        }
+        .card {
+            background-color: rgba(17, 24, 39, 0.8);
+            border: 1px solid rgba(55, 65, 81, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.1);
+        }
+        .btn-primary {
+            background-color: #00d1ff;
+            color: #0a101f;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #00a8cc;
+            transform: scale(1.05);
+        }
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: #111827;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 50vh;
+            max-height: 500px;
+        }
+        .meter {
+            background-color: #374151;
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+        .meter-bar {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.5s ease-in-out;
+        }
+        .fade-in-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .gamification-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(55, 65, 81, 0.5);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Gamification Bar -->
+    <div id="gamification-bar" class="gamification-bar p-3">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="text-sm font-bold">
+                <span id="user-level">Level 1: Analyst</span>
+            </div>
+            <div class="w-1/3">
+                <div class="flex items-center">
+                    <span class="text-xs mr-2">XP</span>
+                    <div class="w-full bg-gray-700 rounded-full h-2.5">
+                        <div id="xp-bar" class="bg-cyan-500 h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-sm">
+                <span id="xp-counter">0</span> / <span id="xp-next-level">1000</span> XP
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center text-center overflow-hidden hero-bg">
+        <div class="relative z-10 p-8">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-4 tracking-tight">AI in 2025: A World Remade</h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                This is not a report. It's an interactive journey into the heart of the AI revolution. Scroll to begin your mission and uncover the forces reshaping our world.
+            </p>
+            <a href="#chapter1" class="btn-primary font-bold py-3 px-8 rounded-full text-lg inline-block">
+                Begin The Journey
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Chapter 1: The Tipping Point -->
+        <section id="chapter1" class="chapter-section">
+            <div class="max-w-5xl mx-auto text-center fade-in-on-scroll">
+                <h2 class="text-2xl font-bold text-cyan-400 mb-2">Chapter 1</h2>
+                <h3 class="text-5xl font-extrabold text-white mb-6">The Tipping Point</h3>
+                <p class="text-xl text-gray-400 mb-12">AI is no longer on the horizon; it's here. Its pace of innovation, investment, and integration is without precedent, achieving a state of 'escape velocity' that is fundamentally reshaping our economic and strategic infrastructure.</p>
+                <div class="chart-container">
+                    <canvas id="growthChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 2: The New Economic Engine -->
+        <section id="chapter2" class="chapter-section">
+            <div class="max-w-5xl mx-auto text-center fade-in-on-scroll">
+                <h2 class="text-2xl font-bold text-cyan-400 mb-2">Chapter 2</h2>
+                <h3 class="text-5xl font-extrabold text-white mb-6">The New Economic Engine</h3>
+                <p class="text-xl text-gray-400 mb-12">Generative AI is projected to add up to $4.4 trillion in value to the global economy annually. Explore how this value is being created on two fronts: the high-stakes 'External Frontier' of market disruption and the massive-scale 'Internal Frontier' of productivity gains.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="chart-container" style="height: 40vh; max-height: 400px;">
+                        <canvas id="economicChart"></canvas>
+                    </div>
+                    <div class="text-left space-y-4">
+                        <div class="card p-4 rounded-lg">
+                            <h4 class="font-bold text-lg text-amber-400">Minotaur Capital</h4>
+                            <p class="text-gray-400 text-sm">This AI-driven hedge fund achieved a <strong>13.6%</strong> fiscal-year-to-date increase, dramatically outperforming the market.</p>
+                        </div>
+                        <div class="card p-4 rounded-lg">
+                            <h4 class="font-bold text-lg text-amber-400">JPMorgan & Goldman Sachs</h4>
+                            <p class="text-gray-400 text-sm">Deployed internal AI assistants to tens of thousands of employees to amplify productivity.</p>
+                        </div>
+                        <div class="card p-4 rounded-lg">
+                            <h4 class="font-bold text-lg text-amber-400">Bank of America's "Erica"</h4>
+                            <p class="text-gray-400 text-sm">Handled <strong>11.2 million</strong> customer conversations in 2024, showcasing massive operational scale.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 3: The Next Scientific Renaissance -->
+        <section id="chapter3" class="chapter-section">
+            <div class="max-w-5xl mx-auto text-center fade-in-on-scroll">
+                <h2 class="text-2xl font-bold text-cyan-400 mb-2">Chapter 3</h2>
+                <h3 class="text-5xl font-extrabold text-white mb-6">The Next Scientific Renaissance</h3>
+                <p class="text-xl text-gray-400 mb-12">AI is acting as a scientific "time machine," collapsing the timeline of discovery. It allows researchers to achieve in days what would have previously taken decades, accelerating breakthroughs in medicine, materials, and climate science.</p>
+                <div class="w-full">
+                    <div class="mb-4 border-b border-gray-700 flex justify-center">
+                        <button class="science-tab active text-lg font-semibold py-2 px-4 border-b-2 border-cyan-500 text-cyan-500" data-tab="drug">Drug Discovery</button>
+                        <button class="science-tab py-2 px-4 text-gray-400 border-b-2 border-transparent" data-tab="materials">Materials Science</button>
+                        <button class="science-tab py-2 px-4 text-gray-400 border-b-2 border-transparent" data-tab="climate">Climate Change</button>
+                    </div>
+                    <div id="science-content" class="text-left card p-8 rounded-lg min-h-[300px]">
+                        <!-- Content will be injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 4: The Evolving Mind of the Machine -->
+        <section id="chapter4" class="chapter-section">
+            <div class="max-w-5xl mx-auto text-center fade-in-on-scroll">
+                <h2 class="text-2xl font-bold text-cyan-400 mb-2">Chapter 4</h2>
+                <h3 class="text-5xl font-extrabold text-white mb-6">The Evolving Mind of the Machine</h3>
+                <p class="text-xl text-gray-400 mb-12">The race for AI dominance is pivoting from "bigger is better" to "smarter and faster." New architectures are emerging that promise greater efficiency, unlocking capabilities that were previously impossible and accelerating the path toward Artificial General Intelligence (AGI).</p>
+                 <div class="chart-container">
+                    <canvas id="architectureChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 5: The Rules of Engagement -->
+        <section id="chapter5" class="chapter-section">
+            <div class="max-w-5xl w-full mx-auto text-center fade-in-on-scroll">
+                <h2 class="text-2xl font-bold text-cyan-400 mb-2">Chapter 5</h2>
+                <h3 class="text-5xl font-extrabold text-white mb-6">The Rules of Engagement</h3>
+                <p class="text-xl text-gray-400 mb-12">You are the policymaker. The world is facing a governance "trilemma": a forced trade-off between maximizing innovation, ensuring safety, and maintaining competitiveness. Your choices will shape the future. Choose your approach below to see its impact.</p>
+                
+                <div id="policy-simulator">
+                    <div id="policy-choice" class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div class="card p-6 rounded-lg cursor-pointer hover:border-cyan-500" data-policy="us">
+                            <h4 class="text-2xl font-bold text-white">The U.S. Approach</h4>
+                            <p class="text-gray-400">Prioritize innovation and competitiveness by rolling back regulations and championing open-source models.</p>
+                        </div>
+                        <div class="card p-6 rounded-lg cursor-pointer hover:border-amber-500" data-policy="eu">
+                            <h4 class="text-2xl font-bold text-white">The E.U. Approach</h4>
+                            <p class="text-gray-400">Prioritize safety and fairness with a comprehensive legal framework that categorizes AI by risk.</p>
+                        </div>
+                    </div>
+
+                    <div id="policy-results" class="hidden">
+                        <h4 id="policy-title" class="text-2xl font-bold mb-6"></h4>
+                        <div class="space-y-4 text-left">
+                            <div>
+                                <label class="font-semibold">Innovation</label>
+                                <div class="meter h-4"><div id="innovation-bar" class="meter-bar bg-cyan-500"></div></div>
+                            </div>
+                            <div>
+                                <label class="font-semibold">Safety & Fairness</label>
+                                <div class="meter h-4"><div id="safety-bar" class="meter-bar bg-green-500"></div></div>
+                            </div>
+                            <div>
+                                <label class="font-semibold">Competitiveness</label>
+                                <div class="meter h-4"><div id="competitiveness-bar" class="meter-bar bg-amber-500"></div></div>
+                            </div>
+                        </div>
+                        <button id="reset-policy-btn" class="btn-primary font-bold py-2 px-6 rounded-full mt-8">Choose Again</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Labs Section -->
+        <section id="interactive-labs" class="py-20 px-4">
+            <div class="max-w-7xl mx-auto text-center">
+                <h2 class="text-4xl font-bold text-white mb-4">Interactive Labs</h2>
+                <p class="text-lg text-gray-400 mb-12 max-w-3xl mx-auto">Move from learning to doing. These hands-on exhibits allow you to experiment with the core concepts of AI in finance, model development, and systems thinking.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+                    <div class="card p-8 rounded-lg" data-modal-target="trader-modal">
+                        <h3 class="text-2xl font-bold text-white mb-3">The Algo-Trader's Desk</h3>
+                        <p class="text-gray-400 mb-6">Manage a $100M portfolio using AI trading bots. Can you beat the market, or will you fall victim to a "Black Swan" event?</p>
+                        <button class="btn-primary font-bold py-2 px-6 rounded-full w-full">Enter Simulation</button>
+                    </div>
+                    <div class="card p-8 rounded-lg" data-modal-target="architect-modal">
+                        <h3 class="text-2xl font-bold text-white mb-3">The AI Architect's Sandbox</h3>
+                        <p class="text-gray-400 mb-6">Train your own image classification model. Experience firsthand how biased data leads to biased results and learn how to fix it.</p>
+                        <button class="btn-primary font-bold py-2 px-6 rounded-full w-full">Open Sandbox</button>
+                    </div>
+                    <div class="card p-8 rounded-lg" data-modal-target="systems-modal">
+                        <h3 class="text-2xl font-bold text-white mb-3">The Systems Modeler</h3>
+                        <p class="text-gray-400 mb-6">Introduce an AI intervention into a complex global supply chain and watch the second- and third-order effects ripple through the system.</p>
+                        <button class="btn-primary font-bold py-2 px-6 rounded-full w-full">Launch Modeler</button>
+                    </div>
+                </div>
+
+                 <div class="mt-16">
+                    <h3 class="text-3xl font-bold text-white mb-6">Your Achievements</h3>
+                    <div id="badges-container" class="flex justify-center gap-8 flex-wrap">
+                        <!-- Badges will be injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900/50 text-center py-10 px-4 mt-12">
+        <h2 class="text-3xl font-bold text-white mb-4">The Takeaway: Human Insight, Amplified</h2>
+        <p class="max-w-4xl mx-auto text-gray-400 mb-6">Artificial Intelligence is not a replacement for human expertise; it is the most powerful tool we've ever created to amplify it. Our path forward is to harness its immense opportunities responsibly, anticipate its challenges, and manage its risks with diligence and foresight.</p>
+        <p class="text-gray-500 text-sm">Unified Interactive Experience | New York, NY | August 17, 2025</p>
+    </footer>
+
+    <!-- MODALS -->
+    <!-- Trader Modal -->
+    <div id="trader-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop">
+        <div class="modal-content w-full max-w-4xl rounded-lg shadow-lg p-8 relative">
+            <button class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl" data-close-button>&times;</button>
+            <h2 class="text-2xl font-bold text-white mb-4">Algo-Trader's Desk</h2>
+            <div id="trader-sim"></div>
+        </div>
+    </div>
+    <!-- Architect Modal -->
+    <div id="architect-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop">
+        <div class="modal-content w-full max-w-4xl rounded-lg shadow-lg p-8 relative">
+            <button class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl" data-close-button>&times;</button>
+            <h2 class="text-2xl font-bold text-white mb-4">AI Architect's Sandbox</h2>
+            <div id="architect-sim"></div>
+        </div>
+    </div>
+    <!-- Systems Modal -->
+    <div id="systems-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop">
+        <div class="modal-content w-full max-w-4xl rounded-lg shadow-lg p-8 relative">
+            <button class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl" data-close-button>&times;</button>
+            <h2 class="text-2xl font-bold text-white mb-4">Systems Modeler</h2>
+            <div id="systems-sim"></div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const appData = {
+            growth: {
+                labels: ['2022', '2023', '2024', '2025 (proj.)'],
+                data: [50, 250, 1800, 5000] 
+            },
+            economic: {
+                labels: ['Marketing & Sales', 'Customer Ops', 'Software Eng.', 'R&D', 'Other'],
+                data: [25, 20, 15, 15, 25]
+            },
+            science: {
+                drug: {
+                    title: 'AI-Native Drug Discovery',
+                    content: 'Generative AI is designing novel molecules from scratch. In Jan 2025, the protein esmGFP was created by simulating 500 million years of evolution in weeks. The market is projected to reach $1.7 billion in 2025.',
+                    icon: '💊'
+                },
+                materials: {
+                    title: 'Inverse Design in Materials Science',
+                    content: 'Scientists can now specify desired properties (e.g., strength, conductivity) and have an AI engineer the ideal material. This is accelerating the discovery of new materials for batteries, solar cells, and carbon capture.',
+                    icon: '🔬'
+                },
+                climate: {
+                    title: 'Accelerating Climate Modeling',
+                    content: 'New AI "emulators" are faster and more precise than traditional models. AI is also being used for mitigation, with DeepMind boosting wind energy value by 20% and Google Maps saving over 1 million tonnes of CO2 annually.',
+                    icon: '🌍'
+                }
+            },
+            architectures: {
+                labels: ['Transformer (2017)', 'Mamba (2023)', 'MoR (2024)'],
+                datasets: [
+                    {
+                        label: 'Inference Speed (vs Transformer)',
+                        data: [1, 5, 2],
+                        backgroundColor: '#00d1ff',
+                    },
+                    {
+                        label: 'Memory Efficiency (vs Transformer)',
+                        data: [1, 8, 2],
+                        backgroundColor: '#f59e0b',
+                    }
+                ]
+            },
+            policy: {
+                us: { name: 'U.S. Approach', innovation: 90, safety: 30, competitiveness: 80 },
+                eu: { name: 'E.U. Approach', innovation: 50, safety: 85, competitiveness: 60 }
+            },
+            badges: [
+                { id: 'visionary', name: 'The Visionary', desc: 'Completed the narrative journey.', unlocked: false, icon: '👁️' },
+                { id: 'market_mover', name: 'Market Mover', desc: 'Finished the trading sim with a profit.', unlocked: false, icon: '📈' },
+                { id: 'model_master', name: 'Model Master', desc: 'Trained a fair and accurate model.', unlocked: false, icon: '🤖' },
+                { id: 'global_strategist', name: 'Global Strategist', desc: 'Navigated the policy trilemma.', unlocked: false, icon: '🌐' }
+            ],
+            levels: [
+                { name: 'Analyst', xp: 0 },
+                { name: 'Strategist', xp: 1000 },
+                { name: 'Visionary', xp: 2500 }
+            ]
+        };
+
+        let charts = {};
+        let userXP = 0;
+        const xpForAction = 150;
+
+        function addXP(amount) {
+            userXP += amount;
+            updateGamificationBar();
+        }
+
+        function updateGamificationBar() {
+            const currentLevel = appData.levels.slice().reverse().find(l => userXP >= l.xp);
+            const nextLevel = appData.levels.find(l => userXP < l.xp);
+            
+            document.getElementById('user-level').textContent = `Level ${appData.levels.indexOf(currentLevel) + 1}: ${currentLevel.name}`;
+            document.getElementById('xp-counter').textContent = userXP;
+            
+            if (nextLevel) {
+                const xpForNext = nextLevel.xp - currentLevel.xp;
+                const xpProgress = userXP - currentLevel.xp;
+                const progressPercent = (xpProgress / xpForNext) * 100;
+                document.getElementById('xp-bar').style.width = `${progressPercent}%`;
+                document.getElementById('xp-next-level').textContent = nextLevel.xp;
+            } else {
+                document.getElementById('xp-bar').style.width = '100%';
+                document.getElementById('xp-next-level').textContent = 'MAX';
+            }
+        }
+
+        function unlockBadge(badgeId) {
+            const badge = appData.badges.find(b => b.id === badgeId);
+            if (badge && !badge.unlocked) {
+                badge.unlocked = true;
+                addXP(250);
+                renderBadges();
+            }
+        }
+
+        function renderBadges() {
+            const container = document.getElementById('badges-container');
+            container.innerHTML = appData.badges.map(badge => `
+                <div class="text-center ${badge.unlocked ? '' : 'opacity-40'}" title="${badge.desc}">
+                    <div class="text-6xl">${badge.icon}</div>
+                    <p class="font-semibold mt-2">${badge.name}</p>
+                </div>
+            `).join('');
+        }
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    if(entry.target.id && !entry.target.dataset.xp) {
+                        addXP(xpForAction);
+                        entry.target.dataset.xp = 'true';
+                        if (entry.target.id === 'chapter5') {
+                            unlockBadge('visionary');
+                        }
+                    }
+                    if (entry.target.querySelector('canvas')) {
+                        const chartId = entry.target.querySelector('canvas').id;
+                        if (!charts[chartId]) {
+                           createChart(chartId);
+                        }
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in-on-scroll').forEach(el => observer.observe(el));
+        
+        function createChart(chartId) {
+            const ctx = document.getElementById(chartId).getContext('2d');
+            let config;
+            switch(chartId) {
+                case 'growthChart':
+                    config = {
+                        type: 'line',
+                        data: {
+                            labels: appData.growth.labels,
+                            datasets: [{
+                                label: 'AI Model Parameters (in Billions)',
+                                data: appData.growth.data,
+                                borderColor: '#00d1ff',
+                                backgroundColor: 'rgba(0, 209, 255, 0.2)',
+                                fill: true,
+                                tension: 0.4
+                            }]
+                        },
+                        options: chartOptions('AI Growth')
+                    };
+                    break;
+                case 'economicChart':
+                    config = {
+                        type: 'doughnut',
+                        data: {
+                            labels: appData.economic.labels,
+                            datasets: [{
+                                label: '% of Value Add',
+                                data: appData.economic.data,
+                                backgroundColor: ['#00d1ff', '#00a8cc', '#f59e0b', '#fde68a', '#374151']
+                            }]
+                        },
+                        options: chartOptions('Economic Impact', false)
+                    };
+                    break;
+                case 'architectureChart':
+                    config = {
+                        type: 'bar',
+                        data: appData.architectures,
+                        options: chartOptions('Architecture Efficiency Gains (vs Transformer)', true, 'x')
+                    };
+                    break;
+            }
+            if(config) charts[chartId] = new Chart(ctx, config);
+        }
+
+        function chartOptions(title, hasGrid = true, indexAxis = 'y') {
+            return {
+                responsive: true, maintainAspectRatio: false, indexAxis,
+                plugins: {
+                    legend: { labels: { color: '#e2e8f0' } },
+                    title: { display: true, text: title, color: '#e2e8f0', font: { size: 16 } }
+                },
+                scales: {
+                    y: { ticks: { color: '#e2e8f0' }, grid: { color: hasGrid ? 'rgba(226, 232, 240, 0.1)' : 'transparent' } },
+                    x: { ticks: { color: '#e2e8f0' }, grid: { color: hasGrid ? 'rgba(226, 232, 240, 0.1)' : 'transparent' } }
+                }
+            };
+        }
+
+        const scienceTabs = document.querySelectorAll('.science-tab');
+        const scienceContent = document.getElementById('science-content');
+        function updateScienceTab(tabId) {
+            const data = appData.science[tabId];
+            scienceContent.innerHTML = `
+                <div class="flex items-start gap-6">
+                    <div class="text-6xl">${data.icon}</div>
+                    <div>
+                        <h4 class="text-2xl font-bold text-amber-400 mb-2">${data.title}</h4>
+                        <p class="text-lg text-gray-300">${data.content}</p>
+                    </div>
+                </div>
+            `;
+        }
+        scienceTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                scienceTabs.forEach(t => {
+                    t.classList.remove('active', 'text-cyan-500', 'border-cyan-500');
+                    t.classList.add('text-gray-400', 'border-transparent');
+                });
+                tab.classList.add('active', 'text-cyan-500', 'border-cyan-500');
+                updateScienceTab(tab.dataset.tab);
+            });
+        });
+        updateScienceTab('drug');
+
+        document.querySelectorAll('[data-policy]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const policyId = e.currentTarget.dataset.policy;
+                const policy = appData.policy[policyId];
+                document.getElementById('policy-choice').classList.add('hidden');
+                const resultsEl = document.getElementById('policy-results');
+                resultsEl.classList.remove('hidden');
+                document.getElementById('policy-title').textContent = policy.name;
+                document.getElementById('innovation-bar').style.width = `${policy.innovation}%`;
+                document.getElementById('safety-bar').style.width = `${policy.safety}%`;
+                document.getElementById('competitiveness-bar').style.width = `${policy.competitiveness}%`;
+                unlockBadge('global_strategist');
+            });
+        });
+        document.getElementById('reset-policy-btn').addEventListener('click', () => {
+            document.getElementById('policy-choice').classList.remove('hidden');
+            document.getElementById('policy-results').classList.add('hidden');
+        });
+
+        const openModalButtons = document.querySelectorAll('[data-modal-target]');
+        const closeModalButtons = document.querySelectorAll('[data-close-button]');
+        openModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modal = document.getElementById(button.dataset.modalTarget);
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                if (button.dataset.modalTarget === 'trader-modal') initTraderSim();
+                if (button.dataset.modalTarget === 'architect-modal') initArchitectSim();
+                if (button.dataset.modalTarget === 'systems-modal') initSystemsSim();
+            });
+        });
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modal = button.closest('.modal-backdrop');
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            });
+        });
+
+        function initTraderSim() {
+            const container = document.getElementById('trader-sim');
+            container.innerHTML = `
+                <p class="text-gray-400 mb-4">Initial Capital: $100.00M. Choose a strategy and simulate 12 months of trading.</p>
+                <div class="flex gap-4 mb-6">
+                    <select id="strategy-select" class="w-full bg-gray-800 border border-gray-600 rounded p-2">
+                        <option value="hft">High-Frequency Trading (High Risk, High Reward)</option>
+                        <option value="sentiment">Sentiment Analysis (Med Risk, Volatile)</option>
+                        <option value="rules">Rule-Based (Low Risk, Low Reward)</option>
+                    </select>
+                    <button id="start-trade-sim" class="btn-primary font-bold px-6 rounded">Start</button>
+                </div>
+                <div id="trader-results"></div>
+            `;
+            document.getElementById('start-trade-sim').addEventListener('click', runTraderSim);
+        }
+
+        function runTraderSim() {
+            const strategy = document.getElementById('strategy-select').value;
+            let capital = 100;
+            let resultText = '<h4>Monthly Results:</h4><ul>';
+            let blackSwan = Math.random() < 0.3; 
+            let finalCapital = capital;
+
+            for(let i = 1; i <= 12; i++) {
+                let monthlyReturn = 0;
+                if (strategy === 'hft') monthlyReturn = (Math.random() * 8 - 2); 
+                if (strategy === 'sentiment') monthlyReturn = (Math.random() * 10 - 4);
+                if (strategy === 'rules') monthlyReturn = (Math.random() * 3 - 0.5);
+
+                if (blackSwan && i > 3 && i < 7) {
+                    monthlyReturn -= 25;
+                }
+                
+                finalCapital *= (1 + monthlyReturn / 100);
+                resultText += `<li class="text-sm ${monthlyReturn > 0 ? 'text-green-400' : 'text-red-400'}">Month ${i}: ${monthlyReturn.toFixed(2)}% | New Capital: $${finalCapital.toFixed(2)}M</li>`;
+            }
+            if(blackSwan) resultText += '<li class="font-bold text-red-500 mt-2">A "Black Swan" event caused a major market shock!</li>';
+            
+            resultText += '</ul>';
+            resultText += `<h4 class="mt-4 text-xl font-bold">Final Capital: $${finalCapital.toFixed(2)}M</h4>`;
+            
+            document.getElementById('trader-results').innerHTML = resultText;
+            if(finalCapital > 100) unlockBadge('market_mover');
+        }
+
+        function initArchitectSim() {
+            const container = document.getElementById('architect-sim');
+            container.innerHTML = `
+                <p class="text-gray-400 mb-4">Objective: Train a model to classify documents as 'Authentic' or 'AI-Generated'.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-bold mb-2">Step 1: Inspect Data</h4>
+                        <div id="architect-data" class="p-4 bg-gray-800 rounded"></div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-2">Step 3: Evaluate Results</h4>
+                        <div id="architect-results" class="p-4 bg-gray-800 rounded min-h-[100px]">Click 'Train Model' to see results.</div>
+                    </div>
+                </div>
+                <div class="text-center mt-6">
+                    <button id="balance-data-btn" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded mr-2 hidden">Balance Dataset</button>
+                    <button id="train-model-btn" class="btn-primary font-bold py-2 px-4 rounded">Train Model</button>
+                </div>
+            `;
+            
+            let isBalanced = false;
+            const dataEl = document.getElementById('architect-data');
+            const resultsEl = document.getElementById('architect-results');
+            const trainBtn = document.getElementById('train-model-btn');
+            const balanceBtn = document.getElementById('balance-data-btn');
+
+            function updateDataView() {
+                if(isBalanced) {
+                    dataEl.innerHTML = '<p>Authentic Docs: <span class="font-bold text-green-400">500</span></p><p>AI-Generated Docs: <span class="font-bold text-green-400">500</span></p><p class="mt-2 text-sm text-gray-300">Dataset is now balanced.</p>';
+                } else {
+                    dataEl.innerHTML = '<p>Authentic Docs: <span class="font-bold text-red-400">50</span></p><p>AI-Generated Docs: <span class="font-bold">500</span></p><p class="mt-2 text-sm text-red-400">Warning: Dataset is highly imbalanced.</p>';
+                }
+            }
+
+            trainBtn.addEventListener('click', () => {
+                if(isBalanced) {
+                    resultsEl.innerHTML = '<p>Overall Accuracy: <span class="font-bold text-green-400">94%</span></p><p>Authentic Doc Accuracy: <span class="font-bold text-green-400">92%</span></p><p class="mt-2 text-sm text-green-400">Success! The balanced model performs well on both classes.</p>';
+                    unlockBadge('model_master');
+                } else {
+                    resultsEl.innerHTML = '<p>Overall Accuracy: <span class="font-bold text-amber-400">85%</span></p><p>Authentic Doc Accuracy: <span class="font-bold text-red-400">35%</span></p><p class="mt-2 text-sm text-red-400">Failure! The model is biased and performs poorly on the underrepresented class.</p>';
+                    balanceBtn.classList.remove('hidden');
+                }
+            });
+
+            balanceBtn.addEventListener('click', () => {
+                isBalanced = true;
+                updateDataView();
+                balanceBtn.classList.add('hidden');
+                resultsEl.textContent = 'Dataset balanced. Please re-train the model.';
+            });
+
+            updateDataView();
+        }
+
+        function initSystemsSim() {
+             const container = document.getElementById('systems-sim');
+             container.innerHTML = `
+                <p class="text-gray-400 mb-4">System: Global Semiconductor Supply Chain. Introduce an AI intervention and observe the ripple effects.</p>
+                <div class="relative p-4 border border-gray-700 rounded-lg h-96" id="system-canvas">
+                     <div class="system-node" style="top: 40%; left: 5%;">Mining</div>
+                     <div class="system-node" style="top: 20%; left: 35%;">Design</div>
+                     <div class="system-node" style="top: 60%; left: 35%;">Fabrication</div>
+                     <div class="system-node" style="top: 40%; left: 65%;">Assembly</div>
+                     <div class="system-node" style="top: 40%; left: 85%;">Demand</div>
+                     <div id="system-log" class="absolute bottom-2 left-2 text-xs text-gray-400"></div>
+                </div>
+                <div class="text-center mt-4">
+                    <button id="run-system-sim" class="btn-primary font-bold py-2 px-4 rounded">Deploy "AI for Materials Discovery"</button>
+                </div>
+                <style>.system-node { position: absolute; background: #374151; padding: 4px 8px; border-radius: 4px; transition: all 0.5s; border: 2px solid transparent; } .system-node.positive { border-color: #34d399; } .system-node.negative { border-color: #ef4444; }</style>
+             `;
+
+            document.getElementById('run-system-sim').addEventListener('click', () => {
+                const nodes = document.querySelectorAll('.system-node');
+                const log = document.getElementById('system-log');
+                log.innerHTML = '';
+                nodes.forEach(n => n.classList.remove('positive', 'negative'));
+                
+                const sequence = [
+                    { node: 0, class: 'positive', text: '1st Order: AI discovers new material, increasing mining efficiency.' },
+                    { node: 2, class: 'negative', text: '2nd Order: Fabrication plants require costly re-tooling, causing bottlenecks.' },
+                    { node: 3, class: 'negative', text: '3rd Order: Assembly lines slow down due to fabrication delays.' },
+                    { node: 4, class: 'negative', text: '4th Order: Consumer demand is unmet, prices spike.' }
+                ];
+                
+                let i = 0;
+                function runStep() {
+                    if (i < sequence.length) {
+                        const step = sequence[i];
+                        nodes[step.node].classList.add(step.class);
+                        log.innerHTML += `<p>${step.text}</p>`;
+                        i++;
+                        setTimeout(runStep, 1500);
+                    }
+                }
+                runStep();
+            });
+        }
+        
+        renderBadges();
+        updateGamificationBar();
+    });
+    </script>
+</body>
+</html>
