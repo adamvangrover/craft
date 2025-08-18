@@ -1,0 +1,166 @@
+{
+  "prompts": [
+    {
+      "id": "dd-co-001",
+      "category": "Company Overview & Business Profile",
+      "objective": "To understand the company's core business, history, strategy, and operational footprint.",
+      "prompt_text": "Provide a summary of the company's legal structure, jurisdiction of incorporation, and ownership structure. Include the date of establishment and the location of its headquarters and key operations."
+    },
+    {
+      "id": "dd-co-002",
+      "category": "Company Overview & Business Profile",
+      "objective": "To understand the company's core business, history, strategy, and operational footprint.",
+      "prompt_text": "Describe the company's core business, including its main products and services, the business segments it operates in, and the key geographic markets it serves."
+    },
+    {
+      "id": "dd-co-003",
+      "category": "Company Overview & Business Profile",
+      "objective": "To understand the company's core business, history, strategy, and operational footprint.",
+      "prompt_text": "Outline the company's history, highlighting key milestones and recent significant events such as mergers, acquisitions, or divestitures."
+    },
+    {
+      "id": "dd-co-004",
+      "category": "Company Overview & Business Profile",
+      "objective": "To understand the company's core business, history, strategy, and operational footprint.",
+      "prompt_text": "Provide an overview of the company's management team, including their tenure and experience. Also, describe the company's organizational structure."
+    },
+    {
+      "id": "dd-im-001",
+      "category": "Industry & Market Analysis",
+      "objective": "To understand the competitive landscape, industry trends, and external factors affecting the company.",
+      "prompt_text": "Analyze the industry in which the company operates. Include the industry's size, growth rate, key drivers, and stage in the lifecycle."
+    },
+    {
+      "id": "dd-im-002",
+      "category": "Industry & Market Analysis",
+      "objective": "To understand the competitive landscape, industry trends, and external factors affecting the company.",
+      "prompt_text": "Provide a competitive landscape analysis, identifying the company's key competitors, its market position, and its competitive advantages and disadvantages."
+    },
+    {
+      "id": "dd-im-003",
+      "category": "Industry & Market Analysis",
+      "objective": "To understand the competitive landscape, industry trends, and external factors affecting the company.",
+      "prompt_text": "Perform a Porter's Five Forces analysis for the company's industry."
+    },
+    {
+      "id": "dd-im-004",
+      "category": "Industry & Market Analysis",
+      "objective": "To understand the competitive landscape, industry trends, and external factors affecting the company.",
+      "prompt_text": "Analyze the company's customer base, including customer concentration risk and typical contract terms."
+    },
+    {
+      "id": "dd-im-005",
+      "category": "Industry & Market Analysis",
+      "objective": "To understand the competitive landscape, industry trends, and external factors affecting the company.",
+      "prompt_text": "Describe the regulatory environment and its potential impact on the company. Also, analyze the company's sensitivity to macroeconomic factors."
+    },
+    {
+      "id": "dd-fa-001",
+      "category": "Financial Analysis",
+      "objective": "To assess the company's historical financial performance, current financial condition, and projected future performance.",
+      "prompt_text": "Analyze the company's historical financial performance based on its income statements, balance sheets, and cash flow statements for the last 3-5 years."
+    },
+    {
+      "id": "dd-fa-002",
+      "category": "Financial Analysis",
+      "objective": "To assess the company's historical financial performance, current financial condition, and projected future performance.",
+      "prompt_text": "Calculate and analyze key financial ratios (liquidity, solvency, profitability, and efficiency) and benchmark them against industry peers."
+    },
+    {
+      "id": "dd-fa-003",
+      "category": "Financial Analysis",
+      "objective": "To assess the company's historical financial performance, current financial condition, and projected future performance.",
+      "prompt_text": "Assess the quality of the company's earnings, identifying any non-recurring items or aggressive accounting policies."
+    },
+    {
+      "id": "dd-fa-004",
+      "category": "Financial Analysis",
+      "objective": "To assess the company's historical financial performance, current financial condition, and projected future performance.",
+      "prompt_text": "Analyze the company's cash flow generation and its capital allocation strategy."
+    },
+    {
+      "id": "dd-fa-005",
+      "category": "Financial Analysis",
+      "objective": "To assess the company's historical financial performance, current financial condition, and projected future performance.",
+      "prompt_text": "Evaluate the company's debt structure, including existing debt, proposed new debt, and off-balance sheet financing."
+    },
+    {
+      "id": "dd-fa-006",
+      "category": "Financial Analysis",
+      "objective": "To assess the company's historical financial performance, current financial condition, and projected future performance.",
+      "prompt_text": "Create a financial forecast for the company for the next 3-5 years, including base case, upside, and downside scenarios."
+    },
+    {
+      "id": "dd-lr-001",
+      "category": "Legal & Regulatory Due Diligence",
+      "objective": "To identify any legal or significant regulatory issues.",
+      "prompt_text": "Review the company's corporate structure and verify its legal standing."
+    },
+    {
+      "id": "dd-lr-002",
+      "category": "Legal & Regulatory Due Diligence",
+      "objective": "To identify any legal or significant regulatory issues.",
+      "prompt_text": "Summarize the key terms of the company's material contracts, including any change-of-control provisions or restrictive covenants."
+    },
+    {
+      "id": "dd-lr-003",
+      "category":. "Legal & Regulatory Due Diligence",
+      "objective": "To identify any legal or significant regulatory issues.",
+      "prompt_text": "Investigate any pending or threatened litigation and assess its potential impact on the company."
+    },
+    {
+      "id": "dd-lr-004",
+      "category": "Legal & Regulatory Due Diligence",
+      "objective": "To identify any legal or significant regulatory issues.",
+      "prompt_text": "Assess the company's compliance with key regulations and its insurance coverage."
+    },
+    {
+      "id": "dd-ca-001",
+      "category": "Collateral Analysis",
+      "objective": "To assess the value, quality, and liquidity of assets pledged as collateral.",
+      "prompt_text": "Analyze the company's accounts receivable, including an aging schedule and customer concentration."
+    },
+    {
+      "id": "dd-ca-002",
+      "category": "Collateral Analysis",
+      "objective": "To assess the value, quality, and liquidity of assets pledged as collateral.",
+      "prompt_text": "Evaluate the company's inventory, including its composition, valuation method, and obsolescence risk."
+    },
+    {
+      "id": "dd-ca-003",
+      "category": "Collateral Analysis",
+      "objective": "To assess the value, quality, and liquidity of assets pledged as collateral.",
+      "prompt_text": "Provide an analysis of the company's machinery and equipment, including their value and condition."
+    },
+    {
+      "id": "dd-ca-004",
+      "category": "Collateral Analysis",
+      "objective": "To assess the value, quality, and liquidity of assets pledged as collateral.",
+      "prompt_text": "Assess the value of any real estate pledged as collateral, including a review of appraisals and environmental assessments."
+    },
+    {
+      "id": "dd-ra-001",
+      "category": "Risk Assessment & Mitigants",
+      "objective": "To synthesize findings to identify key credit risks and potential mitigants.",
+      "prompt_text": "Identify the key business, financial, and structural risks associated with the company."
+    },
+    {
+      "id": "dd-ra-002",
+      "category": "Risk Assessment & Mitigants",
+      "objective": "To synthesize findings to identify key credit risks and potential mitigants.",
+      "prompt_text": "Propose potential mitigants for the identified risks, such as collateral, guarantees, or covenants."
+    },
+    {
+      "id": "dd-ra-003",
+      "category": "Risk Assessment & Mitigants",
+      "objective": "To synthesize findings to identify key credit risks and potential mitigants.",
+      "prompt_text": "Perform a SWOT analysis (Strengths, Weaknesses, Opportunities, Threats) from a credit perspective."
+    },
+    {
+      "id": "dd-ra-004",
+      "category": "Risk Assessment & Mitigants",
+      "objective": "To synthesize findings to identify key credit risks and potential mitigants.",
+      "prompt_text": "Based on the comprehensive due diligence, provide a final credit recommendation and justify it with key findings."
+    }
+  ]
+}

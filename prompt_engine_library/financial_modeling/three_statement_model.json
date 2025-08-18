@@ -1,0 +1,178 @@
+{
+  "prompts": [
+    {
+      "id": "3sm-ms-001",
+      "category": "Model Structure and Setup",
+      "objective": "To set up a well-structured and organized financial model.",
+      "prompt_text": "Create the basic structure for a 3-statement financial model. Include separate sheets for 'Assumptions', 'Income Statement', 'Balance Sheet', 'Cash Flow Statement', and 'Supporting Schedules'."
+    },
+    {
+      "id": "3sm-ms-002",
+      "category": "Model Structure and Setup",
+      "objective": "To set up a well-structured and organized financial model.",
+      "prompt_text": "Set up the 'Assumptions' sheet with clear labels and input cells for key drivers such as growth rates, margins, interest rates, and tax rates."
+    },
+    {
+      "id": "3sm-ms-003",
+      "category": "Model Structure and Setup",
+      "objective": "To set up a well-structured and organized financial model.",
+      "prompt_text": "Populate the 'Income Statement' sheet with standard line items from Revenue down to Net Income."
+    },
+    {
+      "id": "3sm-ms-004",
+      "category": "Model Structure and Setup",
+      "objective": "To set up a well-structured and organized financial model.",
+      "prompt_text": "Populate the 'Balance Sheet' sheet with standard line items for Assets, Liabilities, and Equity."
+    },
+    {
+      "id": "3sm-ms-005",
+      "category": "Model Structure and Setup",
+      "objective": "To set up a well-structured and organized financial model.",
+      "prompt_text": "Populate the 'Cash Flow Statement' sheet with the standard structure for Cash Flow from Operations, Investing, and Financing."
+    },
+    {
+      "id": "3sm-is-001",
+      "category": "Income Statement Forecasting",
+      "objective": "To forecast the company's income statement based on key assumptions.",
+      "prompt_text": "Forecast Revenue based on a specified growth rate."
+    },
+    {
+      "id": "3sm-is-002",
+      "category": "Income Statement Forecasting",
+      "objective": "To forecast the company's income statement based on key assumptions.",
+      "prompt_text": "Forecast Cost of Goods Sold (COGS) as a percentage of Revenue."
+    },
+    {
+      "id": "3sm-is-003",
+      "category": "Income Statement Forecasting",
+      "objective": "To forecast the company's income statement based on key assumptions.",
+      "prompt_text": "Forecast Selling, General & Administrative (SG&A) expenses as a percentage of Revenue."
+    },
+    {
+      "id": "3sm-is-004",
+      "category": "Income Statement Forecasting",
+      "objective": "To forecast the company's income statement based on key assumptions.",
+      "prompt_text": "Forecast Depreciation & Amortization based on a percentage of PP&E."
+    },
+    {
+      "id": "3sm-is-005",
+      "category": "Income Statement Forecasting",
+      "objective": "To forecast the company's income statement based on key assumptions.",
+      "prompt_text": "Calculate Interest Expense based on the average debt balance from the Debt Schedule."
+    },
+    {
+      "id": "3sm-is-006",
+      "category": "Income Statement Forecasting",
+      "objective": "To forecast the company's income statement based on key assumptions.",
+      "prompt_text": "Calculate Income Tax Expense based on the effective tax rate."
+    },
+    {
+      "id": "3sm-is-007",
+      "category": "Income Statement Forecasting",
+      "objective": "To forecast the company's income statement based on key assumptions.",
+      "prompt_text": "Calculate Net Income."
+    },
+    {
+      "id": "3sm-bs-001",
+      "category": "Balance Sheet Forecasting",
+      "objective": "To forecast the company's balance sheet, ensuring it always balances.",
+      "prompt_text": "Forecast Accounts Receivable (AR) based on Days Sales Outstanding (DSO)."
+    },
+    {
+      "id": "3sm-bs-002",
+      "category": "Balance Sheet Forecasting",
+      "objective": "To forecast the company's balance sheet, ensuring it always balances.",
+      "prompt_text": "Forecast Inventory based on Days Inventory Held (DIH)."
+    },
+    {
+      "id": "3sm-bs-003",
+      "category": "Balance Sheet Forecasting",
+      "objective": "To forecast the company's balance sheet, ensuring it always balances.",
+      "prompt_text": "Forecast Accounts Payable (AP) based on Days Payable Outstanding (DPO)."
+    },
+    {
+      "id": "3sm-bs-004",
+      "category": "Balance Sheet Forecasting",
+      "objective": "To forecast the company's balance sheet, ensuring it always balances.",
+      "prompt_text": "Forecast Property, Plant & Equipment (PP&E) using a roll-forward schedule (Prior PP&E + CapEx - Depreciation)."
+    },
+    {
+      "id": "3sm-bs-005",
+      "category": "Balance Sheet Forecasting",
+      "objective": "To forecast the company's balance sheet, ensuring it always balances.",
+      "prompt_text": "Forecast Retained Earnings based on the roll-forward formula (Prior Retained Earnings + Net Income - Dividends)."
+    },
+    {
+      "id": "3sm-bs-006",
+      "category": "Balance Sheet Forecasting",
+      "objective": "To forecast the company's balance sheet, ensuring it always balances.",
+      "prompt_text": "Link the Ending Cash balance from the Cash Flow Statement to the Cash line item on the Balance Sheet."
+    },
+    {
+      "id": "3sm-bs-007",
+      "category": "Balance Sheet Forecasting",
+      "objective": "To forecast the company's balance sheet, ensuring it always balances.",
+      "prompt_text": "Create a check to ensure that Total Assets equals Total Liabilities & Equity."
+    },
+    {
+      "id": "3sm-cfs-001",
+      "category": "Cash Flow Statement Forecasting",
+      "objective": "To forecast the company's cash flow statement, linking it to the income statement and balance sheet.",
+      "prompt_text": "Start the Cash Flow from Operations (CFO) section with Net Income from the Income Statement."
+    },
+    {
+      "id": "3sm-cfs-002",
+      "category": "Cash Flow Statement Forecasting",
+      "objective": "To forecast the company's cash flow statement, linking it to the income statement and balance sheet.",
+      "prompt_text": "Add back non-cash charges such as Depreciation & Amortization."
+    },
+    {
+      "id": "3sm-cfs-003",
+      "category": "Cash Flow Statement Forecasting",
+      "objective": "To forecast the company's cash flow statement, linking it to the income statement and balance sheet.",
+      "prompt_text": "Adjust for changes in working capital accounts (AR, Inventory, AP, etc.)."
+    },
+    {
+      "id": "3sm-cfs-004",
+      "category": "Cash Flow Statement Forecasting",
+      "objective": "To forecast the company's cash flow statement, linking it to the income statement and balance sheet.",
+      "prompt_text": "Forecast Capital Expenditures (CapEx) as a percentage of Revenue."
+    },
+    {
+      "id": "3sm-cfs-005",
+      "category": "Cash Flow Statement Forecasting",
+      "objective": "To forecast the company's cash flow statement, linking it to the income statement and balance sheet.",
+      "prompt_text": "Forecast debt financing activities (new debt issuance and repayments) based on the Debt Schedule."
+    },
+    {
+      "id": "3sm-cfs-006",
+      "category": "Cash Flow Statement Forecasting",
+      "objective": "To forecast the company's cash flow statement, linking it to the income statement and balance sheet.",
+      "prompt_text": "Forecast equity financing activities (stock issuance and repurchases) and dividend payments."
+    },
+    {
+      "id": "3sm-cfs-007",
+      "category": "Cash Flow Statement Forecasting",
+      "objective": "To forecast the company's cash flow statement, linking it to the income statement and balance sheet.",
+      "prompt_text": "Calculate the Net Change in Cash and the Ending Cash Balance."
+    },
+    {
+      "id": "3sm-ss-001",
+      "category": "Supporting Schedules",
+      "objective": "To create detailed schedules for complex items like debt and fixed assets.",
+      "prompt_text": "Create a Debt Schedule that tracks the beginning balance, new debt issuance, repayments, and ending balance for each debt tranche."
+    },
+    {
+      "id": "3sm-ss-002",
+      "category": "Supporting Schedules",
+      "objective": "To create detailed schedules for complex items like debt and fixed assets.",
+      "prompt_text": "Create a Fixed Asset Schedule (PP&E roll-forward) that tracks the beginning balance, CapEx, depreciation, and ending balance."
+    },
+    {
+      "id": "3sm-ss-003",
+      "category": "Supporting Schedules",
+      "objective": "To create detailed schedules for complex items like debt and fixed assets.",
+      "prompt_text": "Create a Working Capital Schedule that calculates the changes in key working capital accounts."
+    }
+  ]
+}

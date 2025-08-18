@@ -1,0 +1,100 @@
+{
+  "prompts": [
+    {
+      "id": "mr-sf-001",
+      "category": "Model Structure & Formatting",
+      "objective": "To ensure the model is well-organized, clear, and easy to understand.",
+      "prompt_text": "Assess the overall structure and clarity of the financial model. Is there a clear separation of inputs, calculations, and outputs? Are the sheets logically named and organized?"
+    },
+    {
+      "id": "mr-sf-002",
+      "category": "Model Structure & Formatting",
+      "objective": "To ensure the model is well-organized, clear, and easy to understand.",
+      "prompt_text": "Review the formatting and readability of the model. Is the formatting consistent? Are units clearly stated? Are the formulas easy to read and understand?"
+    },
+    {
+      "id": "mr-sf-003",
+      "category": "Model Structure & Formatting",
+      "objective": "To ensure the model is well-organized, clear, and easy to understand.",
+      "prompt_text": "Check for hardcoded numbers in formulas. Are all assumptions and drivers located in input cells?"
+    },
+    {
+      "id": "mr-ia-001",
+      "category": "Inputs & Assumptions",
+      "objective": "To verify the reasonableness and accuracy of the model's inputs and assumptions.",
+      "prompt_text": "Evaluate the key assumptions of the model (e.g., growth rates, margins, discount rates). Are they well-documented, reasonable, and supported by evidence?"
+    },
+    {
+      "id": "mr-ia-002",
+      "category": "Inputs & Assumptions",
+      "objective": "To verify the reasonableness and accuracy of the model's inputs and assumptions.",
+      "prompt_text": "Check the accuracy of the historical data used in the model. Does it match the audited financial statements?"
+    },
+    {
+      "id": "mr-ia-003",
+      "category": "Inputs & Assumptions",
+      "objective": "To verify the reasonableness and accuracy of the model's inputs and assumptions.",
+      "prompt_text": "Assess the model's flexibility for scenario and sensitivity analysis. Can key assumptions be easily changed to test different scenarios?"
+    },
+    {
+      "id": "mr-cl-001",
+      "category": "Calculations & Logic",
+      "objective": "To ensure the model's calculations are correct and its logic is sound.",
+      "prompt_text": "Verify the integrity of the financial statements. Does the balance sheet balance? Does the cash flow statement correctly reconcile cash balances? Are the statements properly linked?"
+    },
+    {
+      "id": "mr-cl-002",
+      "category": "Calculations & Logic",
+      "objective": "To ensure the model's calculations are correct and its logic is sound.",
+      "prompt_text": "Spot-check key formulas for correctness and trace the precedents and dependents of critical calculations."
+    },
+    {
+      "id": "mr-cl-003",
+      "category": "Calculations & Logic",
+      "objective": "To ensure the model's calculations are correct and its logic is sound.",
+      "prompt_text": "Check for circular references. If they are intentional, are they properly controlled?"
+    },
+    {
+      "id": "mr-cl-004",
+      "category": "Calculations & Logic",
+      "objective": "To ensure the model's calculations are correct and its logic is sound.",
+      "prompt_text": "Ensure that totals and subtotals are correctly calculated and that there is consistency across the model."
+    },
+    {
+      "id": "mr-op-001",
+      "category": "Outputs & Presentation",
+      "objective": "To ensure the model's outputs are clearly presented and effectively communicate the key results.",
+      "prompt_text": "Evaluate the clarity and presentation of the model's key outputs (e.g., valuation, credit metrics, forecast financials). Is there a summary dashboard?"
+    },
+    {
+      "id": "mr-op-002",
+      "category": "Outputs & Presentation",
+      "objective": "To ensure the model's outputs are clearly presented and effectively communicate the key results.",
+      "prompt_text": "Review the charts and tables used in the model. Are they clear, well-labeled, and do they update correctly?"
+    },
+    {
+      "id": "mr-op-003",
+      "category": "Outputs & Presentation",
+      "objective": "To ensure the model's outputs are clearly presented and effectively communicate the key results.",
+      "prompt_text": "Assess the presentation of the scenario and sensitivity analysis results. Are they easy to compare and interpret?"
+    },
+    {
+      "id": "mr-er-001",
+      "category": "Error Checks & Robustness",
+      "objective": "To test the model's robustness and ensure it has adequate error checks.",
+      "prompt_text": "Check for built-in error checks in the model (e.g., balance sheet check, cash flow check). Are they clearly visible?"
+    },
+    {
+      "id": "mr-er-002",
+      "category": "Error Checks & Robustness",
+      "objective": "To test the model's robustness and ensure it has adequate error checks.",
+      "prompt_text": "Stress-test the model by using extreme (but plausible) inputs. Does the model behave as expected?"
+    },
+    {
+      "id": "mr-er-003",
+      "category": "Error Checks & Robustness",
+      "objective": "To test the model's robustness and ensure it has adequate error checks.",
+      "prompt_text": "Assess the model's protection and version control. Are input cells unlocked and calculation cells locked? Is there a log of changes?"
+    }
+  ]
+}
