@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Exploration: Your Future, Amplified</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="antialiased">
+
+    <!-- Gamification Bar -->
+    <div id="gamification-bar" class="gamification-bar p-3">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="text-sm font-bold">
+                <span id="user-level">Level 1: Curious Explorer</span>
+            </div>
+            <div class="w-1/3">
+                <div class="flex items-center">
+                    <span class="text-xs mr-2">XP</span>
+                    <div class="w-full bg-gray-700 rounded-full h-2.5">
+                        <div id="xp-bar" class="bg-cyan-500 h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-sm">
+                <span id="xp-counter">0</span> / <span id="xp-next-level">1000</span> XP
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center text-center overflow-hidden hero-bg">
+        <div class="relative z-10 p-8">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-4 tracking-tight">Your Future, Amplified by AI</h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                This is an interactive journey into how AI is shaping our professional and personal lives. Scroll to begin your exploration.
+            </p>
+            <a href="#chapter1" class="btn-primary font-bold py-3 px-8 rounded-full text-lg inline-block">
+                Start Exploring
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Chapter 1: AI in Your Daily Life -->
+        <section id="chapter1" class="chapter-section">
+            <div class="max-w-5xl mx-auto text-center fade-in-on-scroll">
+                <h2 class="text-2xl font-bold text-cyan-400 mb-2">Chapter 1</h2>
+                <h3 class="text-5xl font-extrabold text-white mb-6">AI is Already Here</h3>
+                <p class="text-xl text-gray-400 mb-12">You interact with AI every day, often without realizing it. From the movies you watch to the music you hear, AI is the invisible hand guiding your digital experiences.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="card p-6 rounded-lg">
+                        <h4 class="text-2xl font-bold text-amber-400">Entertainment</h4>
+                        <p class="text-gray-400 mt-2">Netflix, Spotify, and YouTube use AI to recommend content tailored to your unique tastes.</p>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <h4 class="text-2xl font-bold text-amber-400">Productivity</h4>
+                        <p class="text-gray-400 mt-2">Tools like Grammarly and virtual assistants help you write better and manage your time more effectively.</p>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <h4 class="text-2xl font-bold text-amber-400">Navigation</h4>
+                        <p class="text-gray-400 mt-2">Google Maps and Waze use AI to analyze traffic data and find the fastest route for your commute.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 2: AI in the Workplace -->
+        <section id="chapter2" class="chapter-section">
+            <div class="max-w-5xl mx-auto text-center fade-in-on-scroll">
+                <h2 class="text-2xl font-bold text-cyan-400 mb-2">Chapter 2</h2>
+                <h3 class="text-5xl font-extrabold text-white mb-6">The AI-Powered Professional</h3>
+                <p class="text-xl text-gray-400 mb-12">AI is transforming industries by automating repetitive tasks, providing deep insights from data, and freeing up professionals to focus on strategic, creative, and high-impact work.</p>
+                <div class="chart-container">
+                    <canvas id="productivityChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 3: The Future of AI -->
+        <section id="chapter3" class="chapter-section">
+            <div class="max-w-5xl mx-auto text-center fade-in-on-scroll">
+                <h2 class="text-2xl font-bold text-cyan-400 mb-2">Chapter 3</h2>
+                <h3 class="text-5xl font-extrabold text-white mb-6">The Road Ahead</h3>
+                <p class="text-xl text-gray-400 mb-12">The future of AI is moving towards more autonomous systems, often called "AI agents." These agents will be able to understand complex goals and work independently to achieve them, fundamentally changing how we interact with technology.</p>
+                <div class="card p-8 rounded-lg">
+                     <div class="flex flex-col items-center space-y-4">
+                         <div class="p-4 border border-gray-600 rounded-lg text-center w-full max-w-md">
+                             <p class="font-semibold">Conversational AI (Today)</p>
+                             <p class="text-sm text-gray-400">"First, search for flights to Rome. Then, find hotels near the Colosseum."</p>
+                         </div>
+                         <div class="text-2xl text-amber-500">&darr;</div>
+                         <div class="p-4 border-2 border-amber-500 bg-amber-900/20 rounded-lg text-center w-full max-w-md">
+                             <p class="font-semibold">Agentic AI (Future)</p>
+                             <p class="text-sm text-gray-400">"Plan and book a 5-day trip to Rome for two in May, budget is $3000."</p>
+                         </div>
+                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Labs Section -->
+        <section id="interactive-labs" class="py-20 px-4">
+            <div class="max-w-7xl mx-auto text-center">
+                <h2 class="text-4xl font-bold text-white mb-4">Interactive Labs</h2>
+                <p class="text-lg text-gray-400 mb-12 max-w-3xl mx-auto">Move from learning to doing. These hands-on exhibits allow you to experiment with the core concepts of AI.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+                    <div class="card p-8 rounded-lg" data-modal-target="quiz-modal">
+                        <h3 class="text-2xl font-bold text-white mb-3">The AI Use-Case Quiz</h3>
+                        <p class="text-gray-400 mb-6">Test your knowledge. Can you identify which AI technology is best suited for a given task?</p>
+                        <button class="btn-primary font-bold py-2 px-6 rounded-full w-full">Start the Quiz</button>
+                    </div>
+                    <div class="card p-8 rounded-lg" data-modal-target="chatbot-modal">
+                        <h3 class="text-2xl font-bold text-white mb-3">The "Ethical AI" Chatbot</h3>
+                        <p class="text-gray-400 mb-6">Navigate a tricky AI dilemma. Your choices will determine the outcome of a complex scenario.</p>
+                        <button class="btn-primary font-bold py-2 px-6 rounded-full w-full">Start the Chat</button>
+                    </div>
+                    <div class="card p-8 rounded-lg" data-modal-target="art-modal">
+                        <h3 class="text-2xl font-bold text-white mb-3">The "AI Artist" Challenge</h3>
+                        <p class="text-gray-400 mb-6">Unleash your creativity. Generate an image from a text prompt and see what the AI creates.</p>
+                        <button class="btn-primary font-bold py-2 px-6 rounded-full w-full">Generate Your AI Art</button>
+                    </div>
+                </div>
+
+                 <div class="mt-16">
+                    <h3 class="text-3xl font-bold text-white mb-6">Your Achievements</h3>
+                    <div id="badges-container" class="flex justify-center gap-8 flex-wrap">
+                        <!-- Badges will be injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900/50 text-center py-10 px-4 mt-12">
+        <h2 class="text-3xl font-bold text-white mb-4">The Journey Continues</h2>
+        <p class="max-w-4xl mx-auto text-gray-400 mb-6">You've taken the first step in understanding the transformative power of AI. The future is a partnership between human ingenuity and artificial intelligence. Embrace it, shape it, and use it to amplify your potential.</p>
+    </footer>
+
+    <!-- MODALS -->
+    <!-- Quiz Modal -->
+    <div id="quiz-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop">
+        <div class="modal-content w-full max-w-2xl rounded-lg shadow-lg p-8 relative">
+            <button class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl" data-close-button>&times;</button>
+            <h2 class="text-2xl font-bold text-white mb-4">AI Use-Case Quiz</h2>
+            <div id="quiz-content"></div>
+            <div id="quiz-result" class="hidden mt-4 text-lg text-center"></div>
+        </div>
+    </div>
+    <!-- Chatbot Modal -->
+    <div id="chatbot-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop">
+        <div class="modal-content w-full max-w-lg rounded-lg shadow-lg relative flex flex-col" style="height: 70vh;">
+            <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                <h2 class="text-xl font-bold text-white">The Ethical AI Chatbot</h2>
+                <button class="text-gray-400 hover:text-white" data-close-button>&times;</button>
+            </div>
+            <div id="chatbot-messages" class="flex-grow p-4 space-y-4 overflow-y-auto"></div>
+            <div id="chatbot-options" class="p-4 border-t border-gray-700 space-y-2"></div>
+        </div>
+    </div>
+    <!-- Art Modal -->
+    <div id="art-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop">
+        <div class="modal-content w-full max-w-2xl rounded-lg shadow-lg p-8 relative">
+            <button class="absolute top-4 right-4 text-gray-400 hover:text-white" data-close-button>&times;</button>
+            <h2 class="text-2xl font-bold text-white mb-4">AI Artist Challenge</h2>
+            <p class="text-gray-400 mb-4">Enter a prompt to generate an image.</p>
+            <div class="flex gap-2 mb-4">
+                <input id="art-prompt" type="text" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500" value="A robot painting a masterpiece, digital art.">
+                <button id="generate-art-btn" class="btn-primary font-bold py-2 px-6 rounded-lg whitespace-nowrap">Generate</button>
+            </div>
+            <div class="w-full aspect-square bg-gray-900 rounded-lg flex items-center justify-center border border-gray-700">
+                <div id="art-placeholder" class="text-gray-500">Your generated image will appear here.</div>
+                <div id="art-loader" class="hidden animate-spin rounded-full h-16 w-16 border-b-2 border-cyan-500"></div>
+                <img id="art-image" src="" class="hidden w-full h-full object-contain rounded-lg" alt="Generated AI art">
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
