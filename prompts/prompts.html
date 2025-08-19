@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecting Intelligence: An Interactive Guide to Prompt Engineering</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Minimalist Neutral -->
+    <!-- Application Structure Plan: A multi-section, single-page application with a sticky side-navigation for easy access to key themes. The structure is designed for non-linear exploration, starting with foundational concepts (RCTC), moving to advanced reasoning (CoT, ToT), then to practical application (Agents, Chaining, Security), and culminating in an interactive 'Strategy Selector' tool. This thematic structure is more intuitive for learning and reference than the report's linear, academic format, allowing users to dive into their specific area of interest immediately. -->
+    <!-- Visualization & Content Choices: 
+    - RCTC Framework: Goal: Inform/Organize -> Interactive Cards -> Click/Hover to reveal details -> More engaging than a list, encourages exploration -> HTML/CSS/JS.
+    - Reasoning Techniques: Goal: Compare -> Interactive Radar Chart (Chart.js) -> Visually compare CoT, Self-Consistency, ToT on Cost vs. Accuracy vs. Complexity -> Justification: Quick, high-level comparison before diving into text -> Library: Chart.js (Canvas).
+    - ReAct Loop: Goal: Explain Process -> Animated Diagram -> Visually show the Thought-Action-Observation cycle -> Justification: Clarifies the dynamic feedback loop better than static text -> HTML/CSS/JS.
+    - Prompt Chaining: Goal: Organize/Explain -> Simple flow diagrams -> Illustrate Sequential, Branching, etc. -> Justification: Visualizes abstract workflow structures -> HTML/CSS (Tailwind).
+    - Strategy Selector: Goal: Synthesize/Guide -> Interactive Form/Wizard -> User answers questions, gets a recommendation -> Justification: Turns the report's final decision matrix into a practical, usable tool -> HTML/JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #333;
+        }
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-link.active {
+            background-color: #eaddd7;
+            color: #5c3a21;
+            font-weight: 600;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .card {
+            background-color: #fff;
+            border: 1px solid #eaddd7;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .flow-diagram-box {
+            border: 2px solid #eaddd7;
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            min-width: 120px;
+        }
+        .flow-arrow::after {
+            content: '→';
+            font-size: 2rem;
+            color: #5c3a21;
+            margin: 0 1rem;
+        }
+        .flow-arrow:last-child::after {
+            content: '';
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <aside class="w-full md:w-64 bg-white/80 backdrop-blur-sm border-r border-gray-200/80 p-6 sticky top-0 h-screen md:flex flex-col hidden">
+            <h1 class="text-xl font-bold text-gray-800 mb-6">Architecting Intelligence</h1>
+            <nav id="desktop-nav" class="flex flex-col space-y-2">
+            </nav>
+        </aside>
+
+        <header class="md:hidden bg-white/80 backdrop-blur-sm sticky top-0 z-10 p-4 border-b border-gray-200/80">
+            <div class="flex justify-between items-center">
+                <h1 class="text-lg font-bold text-gray-800">Architecting Intelligence</h1>
+                <select id="mobile-nav" class="border border-gray-300 rounded-md p-2 bg-white">
+                </select>
+            </div>
+        </header>
+
+        <main class="flex-1 p-6 sm:p-8 md:p-12">
+            <div id="content-container">
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const contentData = {
+            introduction: {
+                title: 'Introduction',
+                content: `
+                    <div class="space-y-6">
+                        <h2 class="text-3xl font-bold text-gray-800">The Evolution of Prompt Engineering</h2>
+                        <p class="text-lg text-gray-600">The interaction with Large Language Models (LLMs) is fundamentally a process of instruction and execution. Prompt engineering has evolved from a simple art of phrasing questions into a rigorous discipline of designing instructions to guide a model's complex cognitive processes. This guide explores the spectrum of techniques, from foundational structures to advanced agentic systems, providing a roadmap for architecting intelligent AI solutions.</p>
+                        <div class="p-6 rounded-lg bg-amber-50 border border-amber-200">
+                            <h3 class="font-semibold text-amber-800">Core Principle</h3>
+                            <p class="text-amber-700 mt-2">The quality, relevance, and consistency of a model's output are direct functions of the quality of the input prompt. Mastering this discipline is key to unlocking the full potential of AI.</p>
+                        </div>
+                    </div>
+                `
+            },
+            rctc: {
+                title: 'The Core Framework (RCTC)',
+                content: `
+                    <div class="space-y-6">
+                        <h2 class="text-3xl font-bold text-gray-800">The RCTC Framework</h2>
+                        <p class="text-lg text-gray-600">A robust prompt architecture provides cognitive scaffolding for the LLM, systematically reducing uncertainty. The foundational framework consists of several key components that work in concert to guide the model toward a precise user intent.</p>
+                        <p class="text-md text-gray-500">Click on each card to learn more about its role in crafting the perfect prompt.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="rctc-cards"></div>
+                    </div>
+                `
+            },
+            reasoning: {
+                title: 'Advanced Reasoning',
+                content: `
+                    <div class="space-y-8">
+                        <h2 class="text-3xl font-bold text-gray-800">Eliciting Complex Reasoning</h2>
+                        <p class="text-lg text-gray-600">Unlocking an LLM's full potential requires moving beyond simple instructions to techniques that elicit, structure, and enhance its innate reasoning capabilities. These strategies transform LLMs from text generators into powerful reasoning engines.</p>
+                        
+                        <div class="bg-white p-6 rounded-lg border border-gray-200">
+                            <h3 class="text-xl font-bold text-center mb-4">Technique Comparison</h3>
+                            <div class="chart-container">
+                                <canvas id="reasoningChart"></canvas>
+                            </div>
+                            <p class="text-center text-sm text-gray-500 mt-4">A visual comparison of advanced reasoning techniques across key metrics.</p>
+                        </div>
+
+                        <div id="reasoning-details" class="space-y-6"></div>
+                    </div>
+                `
+            },
+            agents: {
+                title: 'Building AI Agents',
+                content: `
+                     <div class="space-y-8">
+                        <h2 class="text-3xl font-bold text-gray-800">From Prompts to Agents</h2>
+                        <p class="text-lg text-gray-600">To solve real-world problems, intelligence must perceive, act, and learn. Agentic frameworks transform LLMs from passive text generators into active agents capable of using tools, retrieving external information, and executing complex tasks.</p>
+                        
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-4">The ReAct Framework: Reason + Act</h3>
+                            <p class="mb-4 text-gray-600">ReAct is a pivotal paradigm that synergizes internal reasoning with external actions. It allows the model to interact with tools (like a search engine or calculator) to gather facts and ground its reasoning in the real world, creating a powerful feedback loop.</p>
+                            <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 p-4 bg-gray-50 rounded-lg">
+                                <div class="flow-diagram-box"><strong>1. Thought</strong><p class="text-sm text-gray-500">Formulate a plan</p></div>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-diagram-box"><strong>2. Action</strong><p class="text-sm text-gray-500">Use a tool</p></div>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-diagram-box"><strong>3. Observation</strong><p class="text-sm text-gray-500">Get new info</p></div>
+                            </div>
+                        </div>
+
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-2">Calibrating Agent "Eagerness"</h3>
+                            <p class="mb-4 text-gray-600">An agent's proactivity should be tunable. You can prompt for more or less eagerness to balance speed with thoroughness.</p>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-gray-600">Less Eager (Fast & Focused)</span>
+                                <input id="eagerness-slider" type="range" min="0" max="100" value="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                <span class="text-gray-600">More Eager (Autonomous)</span>
+                            </div>
+                            <div id="eagerness-explanation" class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg text-blue-800">
+                                A balanced approach is often best. Adjust the slider to see how prompting strategies change.
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            workflows: {
+                title: 'Workflows & Optimization',
+                content: `
+                    <div class="space-y-8">
+                        <h2 class="text-3xl font-bold text-gray-800">Orchestrating Complex Tasks</h2>
+                        <p class="text-lg text-gray-600">As tasks grow in complexity, a single prompt becomes inadequate. The challenge shifts to designing and orchestrating multi-step cognitive workflows using techniques like Prompt Chaining and Metaprompting.</p>
+
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-2">Prompt Chaining: Modular Intelligence</h3>
+                            <p class="mb-4 text-gray-600">Prompt chaining decomposes a complex task into a sequence of smaller, simpler sub-tasks. The output of one prompt becomes the input for the next, creating a reliable and debuggable workflow.</p>
+                            <div class="space-y-4">
+                                <p><strong>Sequential Chain (A → B → C):</strong></p>
+                                <div class="flex flex-wrap items-center">
+                                    <div class="flow-diagram-box flow-arrow">Extract Keywords</div>
+                                    <div class="flow-diagram-box flow-arrow">Generate Summary</div>
+                                    <div class="flow-diagram-box">Format Report</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-2">Metaprompting: Self-Optimization</h3>
+                            <p class="mb-4 text-gray-600">Metaprompting uses an LLM to generate, critique, or optimize prompts for itself. It's like writing a program that writes better programs.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
+                                    <h4 class="font-semibold text-red-800">Initial User Prompt</h4>
+                                    <p class="text-sm text-red-700 mt-2">"Write code to get data from an API."</p>
+                                </div>
+                                <div class="p-4 bg-green-50 border border-green-200 rounded-lg">
+                                    <h4 class="font-semibold text-green-800">Optimized Meta-Prompt Output</h4>
+                                    <p class="text-sm text-green-700 mt-2">"Generate robust, production-ready Python code that handles API JSON data processing, including error handling and validation..."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            security: {
+                title: 'Applications & Security',
+                content: `
+                    <div class="space-y-8">
+                        <h2 class="text-3xl font-bold text-gray-800">Robustness and Security</h2>
+                        <p class="text-lg text-gray-600">Moving from theory to practice requires a focus on domain-specific applications like code generation and the engineering rigor to build secure, reliable systems.</p>
+
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-4">Masterclass in Code Generation</h3>
+                            <ul class="list-disc list-inside space-y-2 text-gray-600">
+                                <li><strong>Use the Optimized Stack:</strong> Models have a "taste" for modern frameworks (e.g., Next.js, Tailwind CSS). Using them yields better results.</li>
+                                <li><strong>Leverage Self-Reflection:</strong> Prompt the model to first create an "excellence rubric" for itself before generating code.</li>
+                                <li><strong>Balance Verbosity:</strong> Use API parameters and natural language to get concise text summaries but highly readable, well-commented code.</li>
+                            </ul>
+                        </div>
+
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-4">Defensive Prompting: Mitigating Injection</h3>
+                            <p class="mb-4 text-gray-600">Prompt injection is the #1 security vulnerability for LLM applications. It occurs when untrusted user input is processed as a trusted instruction. A multi-layered defense is essential.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="flex items-start space-x-3 p-3 bg-gray-50 rounded-md">
+                                    <span class="text-xl">🛡️</span>
+                                    <div>
+                                        <h4 class="font-semibold">Input Sanitization</h4>
+                                        <p class="text-sm text-gray-500">Filter user input for instruction-like language.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3 p-3 bg-gray-50 rounded-md">
+                                    <span class="text-xl">📜</span>
+                                    <div>
+                                        <h4 class="font-semibold">Instructional Defense</h4>
+                                        <p class="text-sm text-gray-500">Tell the model to ignore user attempts to change its mission.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3 p-3 bg-gray-50 rounded-md">
+                                    <span class="text-xl">🔐</span>
+                                    <div>
+                                        <h4 class="font-semibold">Least Privilege</h4>
+                                        <p class="text-sm text-gray-500">Grant the LLM minimal permissions and data access.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3 p-3 bg-gray-50 rounded-md">
+                                    <span class="text-xl">👤</span>
+                                    <div>
+                                        <h4 class="font-semibold">Human-in-the-Loop</h4>
+                                        <p class="text-sm text-gray-500">Require human approval for high-risk actions.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            selector: {
+                title: 'Strategy Selector',
+                content: `
+                    <div class="space-y-6">
+                        <h2 class="text-3xl font-bold text-gray-800">Prompt Strategy Selector Tool</h2>
+                        <p class="text-lg text-gray-600">Answer the questions below to find the most appropriate and efficient prompting architecture for your task. This tool helps you avoid both under-engineering and over-engineering your solution.</p>
+                        
+                        <div class="card p-6 space-y-4">
+                            <div class="flex flex-col">
+                                <label for="task-complexity" class="font-semibold mb-2">1. What is your task's complexity?</label>
+                                <select id="task-complexity" class="p-2 border border-gray-300 rounded-md">
+                                    <option value="simple">Single, straightforward operation (e.g., summarization).</option>
+                                    <option value="medium">Requires multiple logical steps or calculations.</option>
+                                    <option value="complex">Requires exploration, planning, or backtracking.</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="output-nature" class="font-semibold mb-2">2. What is the nature of the desired output?</label>
+                                <select id="output-nature" class="p-2 border border-gray-300 rounded-md">
+                                    <option value="verifiable">A single, verifiable correct answer.</option>
+                                    <option value="creative">Generative, creative, or subjective.</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="external-systems" class="font-semibold mb-2">3. Does the task need external information or tools?</label>
+                                <select id="external-systems" class="p-2 border border-gray-300 rounded-md">
+                                    <option value="no">No, it relies on internal knowledge.</option>
+                                    <option value="yes">Yes, it needs real-time data or APIs.</option>
+                                </select>
+                            </div>
+                            <button id="selector-btn" class="w-full bg-slate-700 text-white font-bold py-3 px-4 rounded-lg hover:bg-slate-800 transition-colors">Get Recommendation</button>
+                        </div>
+
+                        <div id="recommendation-box" class="hidden p-6 rounded-lg bg-green-50 border border-green-200">
+                            <h3 class="font-semibold text-green-800 text-xl">Recommended Strategy:</h3>
+                            <p id="recommendation-text" class="text-green-700 mt-2"></p>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        const rctcData = {
+            role: { title: 'Role / Persona', text: 'Sets the stage. Telling the AI who to be (e.g., "expert marketer") primes it to use the appropriate vocabulary, tone, and knowledge base.' },
+            task: { title: 'Task / Objective', text: 'The core command. A clear, unambiguous statement of what you want the AI to do, including the "why" behind the task.' },
+            context: { title: 'Context / Background', text: 'Crucial for relevance. Provides essential background information, target audience, and project goals to ground the model.' },
+            steps: { title: 'Specific Instructions', text: 'Breaks down a complex task into a logical sequence of steps, preventing the AI from missing parts of your request.' },
+            constraints: { title: 'Constraints & Rules', text: 'The guardrails. Defines what the AI should and should NOT do, controlling length, style, and content.' },
+            example: { title: 'Example (Few-Shot)', text: 'Shows the model the desired output format. The AI learns by imitation, which is highly effective for precise formatting.' },
+            format: { title: 'Output Format', text: 'Explicitly states the desired final format (e.g., Markdown, JSON), saving time on reformatting.' }
+        };
+        
+        const reasoningData = {
+            cot: { title: 'Chain-of-Thought (CoT)', text: 'Instructs the model to generate intermediate reasoning steps before the final answer. It "thinks out loud," which improves performance on multi-step problems.' },
+            self_consistency: { title: 'Self-Consistency', text: 'Generates multiple diverse reasoning paths and takes a majority vote on the final answer. This improves accuracy for problems with a single correct solution.' },
+            tot: { title: 'Tree of Thoughts (ToT)', text: 'A more advanced framework that explores a tree of reasoning paths, allowing the model to evaluate different steps and backtrack. Ideal for tasks requiring planning and exploration.' }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const desktopNav = document.getElementById('desktop-nav');
+            const mobileNav = document.getElementById('mobile-nav');
+            const contentContainer = document.getElementById('content-container');
+            let activeSection = Object.keys(contentData)[0];
+
+            function render() {
+                desktopNav.innerHTML = '';
+                mobileNav.innerHTML = '';
+                contentContainer.innerHTML = '';
+
+                Object.keys(contentData).forEach(key => {
+                    const data = contentData[key];
+                    
+                    const navLink = document.createElement('a');
+                    navLink.href = `#${key}`;
+                    navLink.textContent = data.title;
+                    navLink.className = `nav-link p-2 rounded-md text-gray-600 hover:bg-gray-100 ${key === activeSection ? 'active' : ''}`;
+                    navLink.dataset.section = key;
+                    desktopNav.appendChild(navLink);
+                    
+                    const mobileOption = document.createElement('option');
+                    mobileOption.value = key;
+                    mobileOption.textContent = data.title;
+                    mobileOption.selected = key === activeSection;
+                    mobileNav.appendChild(mobileOption);
+
+                    const sectionDiv = document.createElement('div');
+                    sectionDiv.id = key;
+                    sectionDiv.className = `content-section ${key === activeSection ? 'active' : ''}`;
+                    sectionDiv.innerHTML = data.content;
+                    contentContainer.appendChild(sectionDiv);
+                });
+
+                addEventListeners();
+                if (activeSection === 'rctc') renderRctcCards();
+                if (activeSection === 'reasoning') renderReasoningSection();
+                if (activeSection === 'agents') renderAgentsSection();
+                if (activeSection === 'selector') renderSelectorSection();
+            }
+
+            function setActiveSection(sectionKey) {
+                if (contentData[sectionKey]) {
+                    activeSection = sectionKey;
+                    render();
+                }
+            }
+
+            function addEventListeners() {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        setActiveSection(e.target.dataset.section);
+                    });
+                });
+                mobileNav.addEventListener('change', (e) => {
+                    setActiveSection(e.target.value);
+                });
+            }
+
+            function renderRctcCards() {
+                const container = document.getElementById('rctc-cards');
+                container.innerHTML = Object.keys(rctcData).map(key => {
+                    const item = rctcData[key];
+                    return `
+                        <div class="card p-6 rounded-lg cursor-pointer">
+                            <h3 class="text-lg font-bold text-gray-800 mb-2">${item.title}</h3>
+                            <p class="text-gray-600">${item.text}</p>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            function renderReasoningSection() {
+                const detailsContainer = document.getElementById('reasoning-details');
+                detailsContainer.innerHTML = Object.keys(reasoningData).map(key => {
+                    const item = reasoningData[key];
+                    return `
+                        <div class="card p-6">
+                            <h4 class="text-lg font-bold mb-2">${item.title}</h4>
+                            <p class="text-gray-600">${item.text}</p>
+                        </div>
+                    `;
+                }).join('');
+
+                const ctx = document.getElementById('reasoningChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Computational Cost', 'Accuracy Boost', 'Implementation Complexity', 'Interpretability', 'Exploratory Power'],
+                        datasets: [{
+                            label: 'Chain-of-Thought',
+                            data: [4, 7, 3, 9, 2],
+                            fill: true,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            pointBackgroundColor: 'rgb(255, 99, 132)',
+                        }, {
+                            label: 'Self-Consistency',
+                            data: [8, 9, 5, 5, 3],
+                            fill: true,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgb(54, 162, 235)',
+                            pointBackgroundColor: 'rgb(54, 162, 235)',
+                        }, {
+                            label: 'Tree of Thoughts',
+                            data: [10, 10, 9, 7, 10],
+                            fill: true,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgb(75, 192, 192)',
+                            pointBackgroundColor: 'rgb(75, 192, 192)',
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        elements: {
+                            line: {
+                                borderWidth: 2
+                            }
+                        },
+                        scales: {
+                            r: {
+                                angleLines: {
+                                    display: false
+                                },
+                                suggestedMin: 0,
+                                suggestedMax: 10,
+                                pointLabels: {
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.r !== null) {
+                                            label += context.parsed.r;
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function renderAgentsSection() {
+                const slider = document.getElementById('eagerness-slider');
+                const explanation = document.getElementById('eagerness-explanation');
+                slider.addEventListener('input', (e) => {
+                    const value = parseInt(e.target.value);
+                    if (value < 33) {
+                        explanation.innerHTML = '<strong>Less Eager (Fast & Focused):</strong> Use prompts with clear stop conditions and tool call budgets. Best for latency-sensitive tasks.';
+                    } else if (value > 66) {
+                        explanation.innerHTML = '<strong>More Eager (Autonomous):</strong> Use prompts that instruct for persistence and autonomous problem-solving. Best for complex, open-ended tasks.';
+                    } else {
+                        explanation.innerHTML = '<strong>Balanced Approach:</strong> A mix of clear guidance and autonomy, suitable for most general-purpose agentic tasks.';
+                    }
+                });
+            }
+
+            function renderSelectorSection() {
+                const btn = document.getElementById('selector-btn');
+                const recommendationBox = document.getElementById('recommendation-box');
+                const recommendationText = document.getElementById('recommendation-text');
+                
+                btn.addEventListener('click', () => {
+                    const complexity = document.getElementById('task-complexity').value;
+                    const output = document.getElementById('output-nature').value;
+                    const external = document.getElementById('external-systems').value;
+                    
+                    let recommendation = '';
+                    
+                    if (external === 'yes') {
+                        recommendation = '<strong>ReAct Framework</strong> is essential to connect to external tools. ';
+                        if (complexity === 'medium' || complexity === 'complex') {
+                            recommendation += 'Combine it with <strong>Prompt Chaining</strong> to manage the multi-step workflow.';
+                        }
+                    } else {
+                        if (complexity === 'complex') {
+                            recommendation = '<strong>Tree of Thoughts (ToT)</strong> is the most powerful choice for tasks requiring exploration and planning.';
+                        } else if (complexity === 'medium') {
+                            recommendation = 'Start with <strong>Chain-of-Thought (CoT)</strong> to structure reasoning. ';
+                            if (output === 'verifiable') {
+                                recommendation += 'For maximum accuracy, enhance it with <strong>Self-Consistency</strong>.';
+                            }
+                        } else {
+                            recommendation = 'A well-structured <strong>Foundational RCTC Prompt</strong> is likely sufficient. Focus on clarity and providing a few-shot example.';
+                        }
+                    }
+
+                    recommendationText.innerHTML = recommendation;
+                    recommendationBox.classList.remove('hidden');
+                });
+            }
+
+            render();
+        });
+    </script>
+</body>
+</html>
