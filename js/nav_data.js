@@ -1839,6 +1839,28 @@ const navData = [
         "type": "html_hub"
       },
       {
+        "text": "Prompt Engineering",
+        "type": "category",
+        "children": [
+          {
+            "text": "README",
+            "href": "Interactive_Notebooks/Prompt_Engineering/README.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "01 Foundations of Prompt Engineering",
+            "href": "Interactive_Notebooks/Prompt_Engineering/01_Foundations_of_Prompt_Engineering.ipynb",
+            "type": "jupyter_guide"
+          },
+          {
+            "text": "02 Advanced Prompting Techniques",
+            "href": "Interactive_Notebooks/Prompt_Engineering/02_Advanced_Prompting_Techniques.ipynb",
+            "type": "jupyter_guide"
+          }
+        ]
+      },
+      {
         "text": "Cfa Quant Methods",
         "type": "category",
         "children": [

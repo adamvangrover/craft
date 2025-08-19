@@ -35,6 +35,10 @@ This section acts as a catalog for all interactive Jupyter Notebook modules. Eac
     *   **Guide & Overview:** [./CFA_Quant_Methods/README.md](./CFA_Quant_Methods/README.md)
     *   *Description: Notebooks related to quantitative concepts from the CFA curriculum.* *(Content to be developed)*
 
+*   **Prompt Engineering:**
+    *   **Guide & Overview:** [./Prompt_Engineering/README.md](./Prompt_Engineering/README.md)
+    *   *Description: A hands-on guide to prompt engineering for credit analysts, from foundational principles to advanced techniques.*
+
 *   **Financial Modeling & Valuation:**
     *   **Guide & Overview:** [./Financial_Modeling/README.md](./Financial_Modeling/README.md)
     *   **Notebook File:** [EquityValuationNotebook.ipynb](./Financial_Modeling/EquityValuationNotebook.ipynb)
