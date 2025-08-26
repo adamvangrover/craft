@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Copilot for Credit Analysis: A Prompt Engineering Guide</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.css" rel="stylesheet" />
+    <!-- Vis.js for network graph visualization -->
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Professional/Corporate Theming */
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background-color: #f4f7fa; /* Light grey-blue */
+            color: #1a202c; /* Dark Slate */
+        }
+        .nav-link.active {
+            background-color: #e2e8f0; /* Lighter Slate */
+            color: #2c5282; /* Dark Blue */
+            font-weight: 600;
+        }
+        .card {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .content-section { display: none; }
+        .content-section.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Override PrismJS default styles for better integration */
+        pre[class*="language-"] {
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0;
+            font-size: 0.875rem; /* 14px */
+        }
+        /* Custom styles for interactive elements */
+        .interactive-prompt-builder label {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .interactive-prompt-builder input:checked + label {
+            background-color: #3182ce;
+            color: white;
+            border-color: #2c5282;
+        }
+        #knowledge-graph-viz {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <aside class="w-full md:w-72 bg-white/90 backdrop-blur-sm border-r border-gray-200 p-6 sticky top-0 h-screen md:flex flex-col hidden">
+            <div class="flex items-center space-x-2 mb-4">
+                <svg class="h-8 w-8 text-blue-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V3m0 18v-3M5.636 5.636l-1.414-1.414M19.778 5.636l-1.414 1.414M18.364 19.778l-1.414-1.414M4.222 19.778l1.414-1.414M12 12a6 6 0 100-12 6 6 0 000 12z"/></svg>
+                <h1 class="text-xl font-bold text-gray-800">AI for Credit Analysis</h1>
+            </div>
+            
+            <input type="text" id="search-input" placeholder="🔍 Search topics..." class="w-full p-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            
+            <nav id="desktop-nav" class="flex flex-col space-y-1 overflow-y-auto"></nav>
+
+            <button id="expand-all-btn" class="mt-4 w-full text-sm text-blue-600 hover:underline">Show All Sections</button>
+        </aside>
+
+        <header class="md:hidden bg-white/90 backdrop-blur-sm sticky top-0 z-10 p-4 border-b border-gray-200">
+            <div class="flex justify-between items-center">
+                <h1 class="text-lg font-bold text-gray-800">AI for Credit Analysis</h1>
+                <select id="mobile-nav" class="border border-gray-300 rounded-md p-2 bg-white w-1/2"></select>
+            </div>
+        </header>
+
+        <main id="main-content" class="flex-1 p-6 sm:p-8 md:p-12">
+            <div id="content-container">
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Main Application Logic
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // #################################################################
+            // DATA STORE: All content for the guide is centralized here.
+            // #################################################################
+            const contentData = {
+                introduction: {
+                    title: 'Introduction: The Analyst as Copilot',
+                    content: `
+                        <div class="space-y-6">
+                            <h2 class="text-3xl font-bold text-gray-800">The Analyst as a Copilot Operator</h2>
+                            <p class="text-lg text-gray-600">The role of a credit analyst is evolving. Large Language Models (LLMs) are not here to replace your expertise, but to augment it. Think of yourself as a "copilot operator"—skillfully directing your AI assistant to automate repetitive tasks, synthesize vast amounts of information, and produce higher-quality analysis faster. This guide is your training manual.</p>
+                            <div class="p-6 rounded-lg bg-blue-50 border border-blue-200">
+                                <h3 class="font-semibold text-blue-800">Core Principle for Credit Analysts</h3>
+                                <p class="text-blue-700 mt-2">The model's ability to deliver accurate, relevant, and consistent financial analysis is a direct function of the precision and context you provide in the prompt. Mastering this skill is a powerful career differentiator.</p>
+                            </div>
+                            
+                            <h3 class="text-2xl font-bold text-gray-800 pt-4">Interactive Prompt Builder</h3>
+                            <p class="text-gray-600 mb-4">Experience the difference between a vague request and an engineered prompt. Toggle the components below to see how adding structure dramatically improves the AI's output for a common credit analysis task.</p>
+                            
+                            <div class="card p-6 interactive-prompt-builder">
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-4">1. Construct Your Prompt</h4>
+                                        <div class="flex flex-wrap gap-2 mb-4">
+                                            <input type="checkbox" id="toggle-role" class="hidden">
+                                            <label for="toggle-role" class="p-2 border rounded-md text-sm bg-gray-100">Persona</label>
+                                            
+                                            <input type="checkbox" id="toggle-context" class="hidden">
+                                            <label for="toggle-context" class="p-2 border rounded-md text-sm bg-gray-100">Context</label>
+                                            
+                                            <input type="checkbox" id="toggle-constraints" class="hidden">
+                                            <label for="toggle-constraints" class="p-2 border rounded-md text-sm bg-gray-100">Constraints</label>
+                                        </div>
+                                        <div class="bg-gray-800 text-white p-4 rounded-lg font-mono text-sm" id="prompt-display">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-4">2. Simulated AI Output</h4>
+                                        <div class="p-4 rounded-lg h-full" id="output-display">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
+                },
+                 rctc: {
+                    title: 'The Core Prompt Framework',
+                    content: `
+                    <div class="space-y-6">
+                        <h2 class="text-3xl font-bold text-gray-800">The RCTC Framework</h2>
+                        <p class="text-lg text-gray-600">A robust prompt architecture provides cognitive scaffolding for the LLM, systematically reducing uncertainty. The foundational framework consists of several key components that work in concert to guide the model toward a precise user intent.</p>
+                        <p class="text-md text-gray-500">Click on each card to learn more about its role in crafting the perfect prompt.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="rctc-cards"></div>
+                    </div>`
+                },
+                prompt_library: {
+                    title: 'Credit Analyst Prompt Library',
+                    content: `
+                        <div class="space-y-8">
+                            <h2 class="text-3xl font-bold text-gray-800">Prompt Library for Credit Analysts</h2>
+                            <p class="text-lg text-gray-600">A collection of ready-to-use prompts for common tasks. Copy and paste these into your AI tool and modify as needed.</p>
+
+                            <div class="card p-6">
+                                <h3 class="text-xl font-bold mb-2">Prompt: Summarize Earnings Call Transcript</h3>
+<pre><code class="language-markdown">Act as a financial analyst. I have provided the transcript of [Company Name]'s Q[X] [Year] earnings call. Your task is to create a "management tone" summary.
+
+Instructions:
+1.  Analyze the language used by the CEO and CFO in the prepared remarks and the Q&A session.
+2.  Identify key themes. Are they bullish, bearish, or cautious?
+3.  Note any evasive or overly optimistic language, especially in response to analyst questions about challenges.
+4.  Extract direct quotes that best represent management's sentiment.
+5.  Provide a 3-bullet point summary of the overall tone and any shifts in tone compared to previous quarters (if known).
+</code></pre>
+                            </div>
+
+                            <div class="card p-6">
+                                <h3 class="text-xl font-bold mb-2">Prompt: Extract Data from a Messy PDF Table</h3>
+<pre><code class="language-markdown">The following text is a messy copy-paste from a table in a PDF financial supplement. The data represents quarterly segment revenues. The columns are 'Segment', 'Q1 2024 Revenue ($M)', 'Q1 2023 Revenue ($M)'.
+
+Please parse this text and provide the data as a clean, markdown-formatted table. Additionally, add a fourth column calculating the Year-over-Year (YoY) percentage change for each segment.
+
+Pasted Text:
+"Hardware 1,250 1,100 Software 850 900 Services 500 350"
+</code></pre>
+                            </div>
+
+                            <div class="card p-6">
+                                <h3 class="text-xl font-bold mb-2">Prompt: Build a Knowledge Graph from News</h3>
+                                <p class="mb-4 text-gray-600">Turn unstructured news into structured data. See the 'Advanced Data' section for an interactive visualization of this concept.</p>
+<pre><code class="language-markdown">From the news article below, extract all companies, people, and financial metrics. Format the output as a list of JSON objects representing a knowledge graph. Each object (an 'edge') must have a 'source' node, a 'target' node, and a 'relationship' label.
+
+Article: "Global Tech Inc., led by CEO Jane Doe, announced a strategic partnership with Innovate Solutions to develop a new AI chip. GTC's stock rose 5% on the news, as analysts predict the deal could boost annual revenue by $500M."
+
+Example Output Format:
+[
+  { "source": "Jane Doe", "target": "Global Tech Inc.", "relationship": "is_ceo_of" }
+]
+</code></pre>
+                            </div>
+                        </div>`
+                },
+                 advanced_data_interaction: {
+                    title: 'Working With Data Formats',
+                    content: `
+                    <div class="space-y-8">
+                        <h2 class="text-3xl font-bold text-gray-800">Working With Data Formats</h2>
+                        <p class="text-lg text-gray-600">Credit analysis involves data in many formats. LLMs are remarkably flexible at parsing and generating structured data if you provide clear instructions.</p>
+                        
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-2">JSON (JavaScript Object Notation)</h3>
+                            <p class="mb-4 text-gray-600">The standard for APIs. Human-readable key-value pairs. Excellent for when you need reliable, machine-readable output.</p>
+<pre><code class="language-markdown">You are a data extraction specialist. From the provided text, extract the company name, revenue, and net income. Format the output as a single, clean JSON object.
+
+Text: "In 2024, Global Widgets Inc. reported revenues of $5.2 billion and a net income of $350 million."
+</code></pre>
+                        </div>
+
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-2">YAML (YAML Ain't Markup Language)</h3>
+                            <p class="mb-4 text-gray-600">Often used for configuration files. It's more human-readable than JSON, using indentation instead of brackets.</p>
+<pre><code class="language-markdown">Convert the following financial data into YAML format. The top-level key should be the company name.
+
+Data:
+- Company: Global Widgets Inc.
+- Year: 2024
+- Revenue: 5,200,000,000
+- Covenants:
+  - Debt/EBITDA: < 3.5
+  - Interest Coverage: > 2.0
+</code></pre>
+                        </div>
+                        
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-2">Python (.py) & Jupyter Notebooks (.ipynb)</h3>
+                            <p class="mb-4 text-gray-600">LLMs are exceptional code generators. You can ask for standalone Python scripts (.py) for automation or Jupyter Notebook cells (.ipynb) for data exploration.</p>
+<pre><code class="language-python"># Prompt: "Write a Python script using the pandas library to load a CSV file named 'financials.csv'. Then, calculate the Debt-to-EBITDA ratio, assuming the columns are 'Total Debt' and 'EBITDA'."
+
+import pandas as pd
+
+try:
+    # Load the financial data from a CSV file
+    df = pd.read_csv('financials.csv')
+
+    # Ensure required columns exist
+    if 'Total Debt' in df.columns and 'EBITDA' in df.columns:
+        # Calculate the ratio for the most recent period (last row)
+        latest_debt = df['Total Debt'].iloc[-1]
+        latest_ebitda = df['EBITDA'].iloc[-1]
+        
+        if latest_ebitda > 0:
+            debt_to_ebitda_ratio = latest_debt / latest_ebitda
+            print(f"Latest Debt-to-EBITDA Ratio: {debt_to_ebitda_ratio:.2f}x")
+        else:
+            print("EBITDA is zero or negative; ratio cannot be calculated.")
+    else:
+        print("Error: CSV must contain 'Total Debt' and 'EBITDA' columns.")
+
+except FileNotFoundError:
+    print("Error: 'financials.csv' not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
+</code></pre>
+                        </div>
+
+                    </div>`
+                },
+                 knowledge_graphs: {
+                    title: 'Advanced Data: Knowledge Graphs',
+                    content: `
+                        <div class="space-y-8">
+                            <h2 class="text-3xl font-bold text-gray-800">Structuring Unstructured Data</h2>
+                            <p class="text-lg text-gray-600">A credit analyst's world is a web of interconnected entities: companies partner, executives move, and market events impact supply chains. LLMs can be prompted to extract these entities and their relationships from unstructured text (like news articles or reports), turning them into a structured knowledge graph.</p>
+                            
+                            <div class="card p-6">
+                                <h3 class="text-xl font-bold mb-4">Interactive Knowledge Graph Visualization</h3>
+                                <p class="mb-4 text-gray-600">The prompt below was used to extract relationships from a sample news article. The resulting graph is rendered interactively below. Click and drag the nodes to explore the connections.</p>
+<pre><code class="language-markdown">From the following text, extract entities (Companies, People, Products, Locations) and their relationships. Format as JSON with 'nodes' and 'edges'.
+
+Text: "Alpha Corp, based in New York and led by CEO John Smith, acquired Beta LLC for $1.2B. The deal helps Alpha Corp enter the European market, where Beta LLC has a strong presence. The acquisition was advised by Goldman Sachs."
+</code></pre>
+                                <div id="knowledge-graph-viz"></div>
+                            </div>
+                        </div>`
+                },
+                orchestration: {
+                    title: 'Orchestration & LLM Ops',
+                    content: `
+                        <div class="space-y-8">
+                            <h2 class="text-3xl font-bold text-gray-800">From Prototype to Production</h2>
+                            <p class="text-lg text-gray-600">Moving beyond single prompts to build robust, automated workflows requires a systematic approach. This is the domain of Orchestration and LLM Ops (Large Language Model Operations).</p>
+                            
+                            <div class="card p-6">
+                                <h3 class="text-xl font-bold mb-2">What is Orchestration?</h3>
+                                <p class="mb-4 text-gray-600">Orchestration is the process of coordinating multiple LLM calls, tools (like calculators or search engines), and data sources to accomplish a complex task. Frameworks like LangChain and LlamaIndex help manage this complexity.</p>
+                                <h4 class="font-semibold mb-2">Example Workflow: Automated Loan Application Review</h4>
+                                <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                                    <li><strong>Step 1 (Document Ingestion):</strong> An API call receives a new loan application (PDF).</li>
+                                    <li><strong>Step 2 (Data Extraction - Prompt 1):</strong> The PDF text is fed to an LLM to extract key financial data into a structured JSON format.</li>
+                                    <li><strong>Step 3 (External Data - Tool Call):</strong> An agent uses a tool (e.g., a credit bureau API) to fetch the applicant's credit score using their business ID from the extracted JSON.</li>
+                                    <li><strong>Step 4 (Analysis - Prompt 2):</strong> The extracted financials and credit score are fed into a second LLM prompt (like the covenant stress test prompt) to analyze risk.</li>
+                                    <li><strong>Step 5 (Synthesis - Prompt 3):</strong> The results of the risk analysis are fed into a final LLM prompt to draft a summary and recommendation for the credit analyst.</li>
+                                </ol>
+                            </div>
+
+                            <div class="card p-6">
+                                <h3 class="text-xl font-bold mb-2">LLM Ops: Managing Your Prompts</h3>
+                                <p class="mb-4 text-gray-600">LLM Ops is the discipline of managing the lifecycle of your prompts and AI systems in a reliable and repeatable way.</p>
+                                <ul class="list-disc list-inside space-y-3 text-gray-700">
+                                    <li><strong>1. Prompt Versioning:</strong> Store your prompts in a version control system like Git. Don't just save them as text files. Use clear naming conventions: <code class="bg-gray-200 p-1 rounded-sm text-sm">covenant_check_v1.2.txt</code>. This allows you to track changes and revert if a new version performs worse.</li>
+                                    <li><strong>2. Evaluation (Testing):</strong> How do you know if v1.2 is better than v1.1? Create a small, standardized test set (an "evaluation set") of 5-10 typical documents. Run both prompt versions against this set and compare the outputs side-by-side. This provides objective data on which prompt is better.</li>
+                                    <li><strong>3. Monitoring:</strong> Once a prompt is in an automated workflow, you need to monitor its performance. Log the inputs and outputs. Periodically review them to check for "prompt drift"—where the quality of outputs degrades over time, perhaps due to subtle changes in the underlying LLM or the input data.</li>
+                                </ul>
+                            </div>
+                        </div>`
+                },
+                 analyst_copilot: {
+                    title: 'Use Case: A Day in the Life',
+                    content: `
+                    <div class="space-y-8">
+                        <h2 class="text-3xl font-bold text-gray-800">The Analyst as a Copilot Operator</h2>
+                        <p class="text-lg text-gray-600">This section bridges the gap between theory and practice, showing how to integrate these powerful tools into your daily workflow. Becoming a "copilot operator" means skillfully directing your AI assistant to augment your expertise, automate repetitive tasks, and ultimately produce higher-quality analysis.</p>
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-4">A Day in the Life: The AI-Augmented Analyst</h3>
+                            <p class="mb-4 text-gray-600">Let's walk through a realistic scenario to see how these techniques come together. Meet Alex, a credit analyst at a mid-sized bank, tasked with preparing a preliminary analysis of a new loan applicant, "Future Gadgets Corp."</p>
+                            
+                            <div class="space-y-6">
+                                <div class="flex items-start space-x-4">
+                                    <div class="flex-shrink-0 h-12 w-12 rounded-full bg-slate-700 text-white flex items-center justify-center text-lg font-bold">1</div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Morning: Initial Screening & Document Triage</h4>
+                                        <p class="text-gray-600">Alex receives a 200-page PDF containing the company's financials, business plan, and market analysis. Instead of reading it cover-to-cover, Alex uses an LLM with a <strong>long-context window</strong> to upload the entire document.</p>
+                                        <pre class="bg-gray-50 p-3 mt-2 rounded-lg text-sm whitespace-pre-wrap"><strong>Prompt:</strong> "You are a credit analyst. From the provided document, extract the company's business model, key financial metrics for the last 3 years (Revenue, EBITDA, Net Income), and list the primary competitors mentioned. Provide this as a concise summary."</pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start space-x-4">
+                                    <div class="flex-shrink-0 h-12 w-12 rounded-full bg-slate-700 text-white flex items-center justify-center text-lg font-bold">2</div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Late Morning: Deeper Dive with Agents</h4>
+                                        <p class="text-gray-600">The initial summary looks promising. Alex now deploys an <strong>autonomous agent</strong> to dig deeper into external factors.</p>
+                                        <pre class="bg-gray-50 p-3 mt-2 rounded-lg text-sm whitespace-pre-wrap"><strong>Prompt:</strong> "Conduct a market risk analysis for Future Gadgets Corp. Search for recent news (last 6 months) on their main product line, 'The Gizmo 5000'. Also, find any recent analyst reports on their primary competitor, 'Innovate Inc.' Summarize your findings on competitive pressure."</pre>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-4">
+                                    <div class="flex-shrink-0 h-12 w-12 rounded-full bg-slate-700 text-white flex items-center justify-center text-lg font-bold">3</div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Afternoon: Structured Analysis & Memo Drafting</h4>
+                                        <p class="text-gray-600">The agent reports that Innovate Inc. just launched a competing product, a key risk. Alex uses a <strong>Prompt Chain</strong> to prepare the first draft of the credit memo.</p>
+                                        <pre class="bg-gray-50 p-3 mt-2 rounded-lg text-sm whitespace-pre-wrap"><strong>Chain Step 1 (SWOT):</strong> Use a SWOT Analysis template on the company's business plan.
+<strong>Chain Step 2 (Risk Summary):</strong> Use a new prompt to summarize the agent's findings on competitive pressure.
+<strong>Chain Step 3 (Draft Memo):</strong> "Combine the SWOT analysis and the risk summary into a structured credit memo. Include sections for 'Company Overview', 'Strengths', 'Weaknesses', and 'Key Risks'."</pre>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-4">
+                                    <div class="flex-shrink-0 h-12 w-12 rounded-full bg-slate-700 text-white flex items-center justify-center text-lg font-bold">4</div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">End of Day: Review & Refine</h4>
+                                        <p class="text-gray-600">Alex uses <strong>self-critique</strong> to refine the AI-generated draft, adding his own expert judgment and insights before presenting it to the loan committee.</p>
+                                        <pre class="bg-gray-50 p-3 mt-2 rounded-lg text-sm whitespace-pre-wrap"><strong>Prompt:</strong> "Review the credit memo draft. Identify the weakest argument or any conclusion not strongly supported by the provided data. Suggest a more nuanced phrasing."</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+                },
+                 selector: {
+                    title: 'Strategy Selector',
+                    content: `
+                    <div class="space-y-6">
+                        <h2 class="text-3xl font-bold text-gray-800">Prompt Strategy Selector Tool</h2>
+                        <p class="text-lg text-gray-600">Answer the questions below to find the most appropriate and efficient prompting architecture for your task. This tool helps you avoid both under-engineering and over-engineering your solution.</p>
+                        
+                        <div class="card p-6 space-y-4">
+                            <div class="flex flex-col">
+                                <label for="task-complexity" class="font-semibold mb-2">1. What is your task's complexity?</label>
+                                <select id="task-complexity" class="p-2 border border-gray-300 rounded-md">
+                                    <option value="simple">Single, straightforward operation (e.g., summarization).</option>
+                                    <option value="medium">Requires multiple logical steps or calculations.</option>
+                                    <option value="complex">Requires exploration, planning, or backtracking.</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="output-nature" class="font-semibold mb-2">2. What is the nature of the desired output?</label>
+                                <select id="output-nature" class="p-2 border border-gray-300 rounded-md">
+                                    <option value="verifiable">A single, verifiable correct answer.</option>
+                                    <option value="creative">Generative, creative, or subjective.</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="external-systems" class="font-semibold mb-2">3. Does the task need external information or tools?</label>
+                                <select id="external-systems" class="p-2 border border-gray-300 rounded-md">
+                                    <option value="no">No, it relies on internal knowledge.</option>
+                                    <option value="yes">Yes, it needs real-time data or APIs.</option>
+                                </select>
+                            </div>
+                            <button id="selector-btn" class="w-full bg-slate-700 text-white font-bold py-3 px-4 rounded-lg hover:bg-slate-800 transition-colors">Get Recommendation</button>
+                        </div>
+
+                        <div id="recommendation-box" class="hidden p-6 rounded-lg bg-green-50 border border-green-200">
+                            <h3 class="font-semibold text-green-800 text-xl">Recommended Strategy:</h3>
+                            <p id="recommendation-text" class="text-green-700 mt-2"></p>
+                        </div>
+                    </div>`
+                },
+                conclusion: {
+                    title: 'Conclusion',
+                    content: `
+                    <div class="space-y-8">
+                        <h2 class="text-3xl font-bold text-gray-800">The Analyst's Final Judgment</h2>
+                        <p class="text-lg text-gray-600">This guide has demonstrated that Large Language Models are not magic. They are powerful, complex tools that require skillful operation. The techniques discussed here—from the foundational RCTC framework to autonomous agents—are designed to make the model's behavior more reliable, predictable, and aligned with your goals.</p>
+                        
+                        <div class="card p-6 bg-amber-50 border-amber-200">
+                            <h3 class="text-xl font-bold text-amber-800 mb-4">Key Takeaway: You Are the Architect</h3>
+                            <div class="space-y-4 text-amber-900">
+                                <div class="flex items-start space-x-3">
+                                    <span class="text-xl mt-1">🧠</span>
+                                    <div>
+                                        <h4 class="font-semibold">LLMs Augment, Not Replace, Expertise</h4>
+                                        <p class="text-sm">An LLM can draft a brilliant analysis, but it lacks true understanding and real-world experience. It cannot replace the intuition, ethical judgment, and contextual awareness of a seasoned financial analyst. Your role is to guide the tool, validate its output, and synthesize its findings with your own professional judgment.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span class="text-xl mt-1">🔬</span>
+                                    <div>
+                                        <h4 class="font-semibold">Always Be Skeptical</h4>
+                                        <p class="text-sm">LLMs can "hallucinate" facts, make subtle reasoning errors, or inherit biases from their training data. Never trust the output blindly. The principle of "trust, but verify" is paramount. Use these tools to accelerate your workflow and generate initial drafts, but always perform the final due diligence yourself.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span class="text-xl mt-1">🚀</span>
+                                    <div>
+                                        <h4 class="font-semibold">The Future is Iterative</h4>
+                                        <p class="text-sm">The field of AI is evolving at an unprecedented pace. The techniques that are state-of-the-art today may be foundational tomorrow. The most effective analysts will be those who commit to continuous learning, experimenting with new models and methods, and iteratively refining their own "prompt cookbook" to stay at the cutting edge.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-lg text-gray-600 mt-6">By mastering the art and science of prompt engineering, you are not just learning to talk to an AI—you are learning to architect intelligence itself. The goal is not to get the "right answer" from the model, but to build a reliable process that consistently produces high-quality, trustworthy analysis, with you, the analyst, firmly in control.</p>
+                    </div>`
+                }
+            };
+
+            // Data for the interactive RCTC cards. Includes a summary and a detailed explanation.
+            const rctcData = {
+                role: { title: 'Role / Persona', summary: 'Define the perspective for the AI.', detail: 'E.g., "You are an expert financial analyst." This focuses the model on a specific domain of knowledge, style, and vocabulary, preventing generic or out-of-character responses.' },
+                task: { title: 'Task / Objective', summary: 'State the primary goal clearly.', detail: 'Be specific. Instead of "Analyze this," say "Analyze the MD&A section to identify key financial risks." A well-defined task reduces ambiguity.' },
+                context: { title: 'Context / Background', summary: 'Set the scene and provide background.', detail: 'Give the model the "why." E.g., "You are preparing a report for a risk-averse loan committee." This helps it tailor the level of detail and tone appropriately.' },
+                steps: { title: 'Specific Instructions', summary: 'Provide a step-by-step process.', detail: 'For multi-part requests, numbering the steps ensures all parts of a complex task are completed in the correct order, similar to a checklist.' },
+                constraints: { title: 'Constraints & Rules', summary: 'Set the boundaries and rules.', detail: 'Specify what the AI must or must not do. E.g., "Do not use external data; keep the summary under 200 words; avoid jargon." This prevents unwanted behavior.' },
+                example: { title: 'Example (Few-Shot)', summary: 'Show, don\'t just tell, with an example.', detail: 'Providing a clear example of the desired output is one of the most effective ways to guide the model to the correct format, tone, and structure.' },
+                format: { title: 'Output Format', summary: 'Define the final structure.', detail: 'Be explicit about the required output format. E.g., "Format the output as a JSON object with keys \'risk\' and \'mitigant\'" or "Present as a markdown table."' }
+            };
+            
+            // Data for the advanced reasoning techniques section, including examples.
+            const reasoningData = {
+                cot: { title: 'Chain-of-Thought (CoT)', text: 'Instructs the model to generate intermediate reasoning steps before the final answer. It "thinks out loud," which improves performance on multi-step problems.', example: `<h5 class="font-semibold mt-4 mb-2">CoT Example:</h5><p class="text-sm text-gray-500 mb-2"><strong>User Prompt:</strong> "If a client invested $10,000 in a fund that grew by 15% in year one, then lost 8% in year two, what is the final value of the investment?"</p><div class="p-3 bg-gray-50 rounded-lg border"><p class="font-mono text-xs text-gray-700"><strong>AI's Chain of Thought:</strong><br>1.  <strong>Initial Investment:</strong> $10,000.<br>2.  <strong>Year 1 Growth:</strong> $10,000 * 0.15 = $1,500.<br>3.  <strong>Value after Year 1:</strong> $10,000 + $1,500 = $11,500.<br>4.  <strong>Year 2 Loss:</strong> $11,500 * 0.08 = $920.<br>5.  <strong>Value after Year 2:</strong> $11,500 - $920 = $10,580.<br><strong>Final Answer:</strong> The final value is $10,580.</p></div>` },
+                self_consistency: { title: 'Self-Consistency', text: 'Generates multiple diverse reasoning paths and takes a majority vote on the final answer. This improves accuracy for problems with a single correct solution.', example: `<h5 class="font-semibold mt-4 mb-2">Self-Consistency Example:</h5><p class="text-sm text-gray-500 mb-2"><strong>User Prompt:</strong> "A company has 3 departments. Dept A has 2x more employees than Dept B. Dept C has 5 fewer employees than Dept A. If the total number of employees is 75, how many employees are in Dept A?"</p><div class="p-3 bg-gray-50 rounded-lg border"><p class="font-mono text-xs text-gray-700"><strong>Path 1:</strong> Let B=x. Then A=2x, C=2x-5. Total: 5x-5=75 -> 5x=80 -> x=16. So, A = <strong>32</strong>.<br><strong>Path 2:</strong> Let A=x. Then B=x/2, C=x-5. Total: 2.5x-5=75 -> 2.5x=80 -> x=32. So, A = <strong>32</strong>.<br><strong>Path 3 (Incorrect):</strong> ...leads to a calculation error, resulting in A=35.<br><strong>Majority Vote:</strong> The answer "32" appears most often.</p></div>` },
+                tot: { title: 'Tree of Thoughts (ToT)', text: 'A more advanced framework that explores a tree of reasoning paths, allowing the model to evaluate different steps and backtrack. Ideal for tasks requiring planning and exploration.', example: `<h5 class="font-semibold mt-4 mb-2">Tree of Thoughts Example:</h5><p class="text-sm text-gray-500 mb-2"><strong>User Prompt:</strong> "Devise a 3-step plan to reduce operational costs for a small retail business."</p><div class="p-3 bg-gray-50 rounded-lg border"><p class="font-mono text-xs text-gray-700"><strong>Initial Thought:</strong> Propose three cost-saving strategies.<br>- <strong>Branch 1 (Supply Chain):</strong> Idea 1a: Consolidate suppliers. (Good, keep)<br>- <strong>Branch 2 (Staffing):</strong> Idea 2a: Reduce staff hours. (Risky, evaluate further); Idea 2b: Optimize scheduling. (Good, keep)<br>- <strong>Branch 3 (Overheads):</strong> Idea 3a: Switch to LED lighting. (Good, keep); Idea 3b: Relocate. (Too drastic, prune)<br><strong>Final Plan (Synthesized):</strong> 1. Consolidate suppliers. 2. Optimize staff scheduling. 3. Upgrade to LED lighting.</p></div>` }
+            };
+
+            // #################################################################
+            // APPLICATION LOGIC
+            // #################################################################
+            
+            const desktopNav = document.getElementById('desktop-nav');
+            const mobileNav = document.getElementById('mobile-nav');
+            const contentContainer = document.getElementById('content-container');
+            const searchInput = document.getElementById('search-input');
+            const expandAllBtn = document.getElementById('expand-all-btn');
+            const mainContent = document.getElementById('main-content');
+
+            let activeSection = Object.keys(contentData)[0];
+
+            // MAIN RENDER FUNCTION
+            function render(sectionToRender = null) {
+                if (!sectionToRender) {
+                    desktopNav.innerHTML = '';
+                    mobileNav.innerHTML = '';
+                }
+                contentContainer.innerHTML = '';
+
+                Object.keys(contentData).forEach(key => {
+                    const data = contentData[key];
+                    
+                    if (!sectionToRender) {
+                        // Populate Navs (only on full render)
+                        const navLinkHTML = `<a href="#${key}" data-section="${key}" class="nav-link p-2 rounded-md text-gray-700 hover:bg-gray-100">${data.title}</a>`;
+                        desktopNav.insertAdjacentHTML('beforeend', navLinkHTML);
+                        
+                        const mobileOption = new Option(data.title, key);
+                        mobileNav.add(mobileOption);
+                    }
+
+                    // Render content
+                    if (!sectionToRender || sectionToRender === key) {
+                         const sectionDiv = document.createElement('div');
+                        sectionDiv.id = key;
+                        sectionDiv.className = `content-section border-b border-gray-200 pb-12 mb-12`;
+                        sectionDiv.innerHTML = data.content;
+                        contentContainer.appendChild(sectionDiv);
+                    }
+                });
+
+                updateActiveNav(activeSection);
+                addEventListeners();
+                
+                // Trigger post-render functions for interactive elements
+                Prism.highlightAll();
+                if (!sectionToRender || sectionToRender === 'introduction') setupInteractivePromptBuilder();
+                if (!sectionToRender || sectionToRender === 'knowledge_graphs') renderKnowledgeGraph();
+            }
+            
+            // Set active section and trigger re-render
+            function setActiveSection(sectionKey) {
+                activeSection = sectionKey;
+                contentContainer.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                document.getElementById(sectionKey)?.classList.add('active');
+                updateActiveNav(sectionKey);
+            }
+            
+            function updateActiveNav(activeKey) {
+                // Desktop
+                desktopNav.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.toggle('active', link.dataset.section === activeKey);
+                });
+                // Mobile
+                mobileNav.value = activeKey;
+            }
+
+            // EVENT LISTENERS
+            function addEventListeners() {
+                desktopNav.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const sectionKey = e.target.dataset.section;
+                        // Un-expand if a specific link is clicked
+                        mainContent.classList.remove('all-sections-visible');
+                        contentContainer.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
+                        
+                        const targetSection = document.getElementById(sectionKey);
+                        if (targetSection) {
+                            targetSection.style.display = 'block';
+                            setActiveSection(sectionKey);
+                            targetSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                });
+                mobileNav.addEventListener('change', (e) => setActiveSection(e.target.value));
+                searchInput.addEventListener('input', handleSearch);
+                expandAllBtn.addEventListener('click', showAllSections);
+            }
+            
+            function handleSearch(e) {
+                const query = e.target.value.toLowerCase();
+                desktopNav.querySelectorAll('.nav-link').forEach(link => {
+                    const match = link.textContent.toLowerCase().includes(query);
+                    link.style.display = match ? 'block' : 'none';
+                });
+            }
+
+            function showAllSections() {
+                render(); // Re-render all sections to ensure they are in the DOM
+                mainContent.classList.add('all-sections-visible');
+                contentContainer.querySelectorAll('.content-section').forEach(section => {
+                    section.style.display = 'block';
+                    section.classList.add('active');
+                });
+            }
+
+            // #################################################################
+            // INTERACTIVE COMPONENT LOGIC
+            // #################################################################
+
+            // Interactive Prompt Builder
+            function setupInteractivePromptBuilder() {
+                const toggles = {
+                    role: document.getElementById('toggle-role'),
+                    context: document.getElementById('toggle-context'),
+                    constraints: document.getElementById('toggle-constraints')
+                };
+                const promptDisplay = document.getElementById('prompt-display');
+                const outputDisplay = document.getElementById('output-display');
+
+                const promptParts = {
+                    base: `Summarize the financial report.`,
+                    role: `<strong>[PERSONA]</strong> As a senior credit analyst... `,
+                    context: `<strong>[CONTEXT]</strong> ...for a board meeting focused on liquidity and debt... `,
+                    constraints: `<strong>[CONSTRAINTS]</strong> ...focus on liquidity, debt covenants, and cash flow changes. The summary should be a bulleted list under 200 words.`
+                };
+                
+                const outputs = {
+                    base: {
+                        html: `<h4 class="font-bold text-red-700">Vague Output</h4><p class="text-red-600">The report shows the company's financials. Revenue and profit are listed. The company has assets and liabilities.</p>`,
+                        bg: 'bg-red-50'
+                    },
+                    role: {
+                        html: `<h4 class="font-bold text-yellow-700">Better Output</h4><p class="text-yellow-600">From an analyst's perspective, the key takeaway is the change in revenue and net income. Further details on specific metrics are needed.</p>`,
+                        bg: 'bg-yellow-50'
+                    },
+                    role_context: {
+                        html: `<h4 class="font-bold text-blue-700">Good Output</h4><p class="text-blue-600">For the board meeting, it's important to note the liquidity position appears stable, though debt levels have increased. Cash flow from operations is a key metric to watch.</p>`,
+                        bg: 'bg-blue-50'
+                    },
+                    full: {
+                        html: `<h4 class="font-bold text-green-700">Engineered Output</h4><ul class="list-disc list-inside text-green-600"><li><strong>Liquidity:</strong> Current ratio remains healthy at 2.1x.</li><li><strong>Debt Covenants:</strong> Debt-to-EBITDA ratio has increased to 3.2x, approaching the 3.5x covenant.</li><li><strong>Cash Flow:</strong> Operating cash flow decreased 15% YoY due to increased inventory costs.</li></ul>`,
+                        bg: 'bg-green-50'
+                    }
+                };
+
+                function updateBuilder() {
+                    let promptHTML = promptParts.base;
+                    let outputKey = 'base';
+                    
+                    if (toggles.role.checked) promptHTML = promptParts.role + promptParts.base;
+                    if (toggles.context.checked) promptHTML = promptHTML.replace('...', '...' + promptParts.context);
+                    if (toggles.constraints.checked) promptHTML = promptHTML.replace('Summarize the financial report.', promptParts.constraints);
+                    
+                    // Determine output
+                    if (toggles.role.checked && toggles.context.checked && toggles.constraints.checked) {
+                        outputKey = 'full';
+                    } else if (toggles.role.checked && toggles.context.checked) {
+                        outputKey = 'role_context';
+                    } else if (toggles.role.checked) {
+                        outputKey = 'role';
+                    }
+
+                    promptDisplay.innerHTML = promptHTML;
+                    outputDisplay.innerHTML = outputs[outputKey].html;
+                    outputDisplay.className = `p-4 rounded-lg h-full ${outputs[outputKey].bg}`;
+                }
+
+                Object.values(toggles).forEach(toggle => toggle.addEventListener('change', updateBuilder));
+                updateBuilder(); // Initial call
+            }
+
+            // Knowledge Graph Visualization
+            function renderKnowledgeGraph() {
+                const container = document.getElementById('knowledge-graph-viz');
+                if (!container) return;
+
+                const nodes = new vis.DataSet([
+                    {id: 1, label: 'Alpha Corp', group: 'company', title: 'Acquirer'},
+                    {id: 2, label: 'Beta LLC', group: 'company', title: 'Target'},
+                    {id: 3, label: 'John Smith', group: 'person'},
+                    {id: 4, label: '$1.2B', group: 'metric'},
+                    {id: 5, label: 'New York', group: 'location'},
+                    {id: 6, label: 'Europe', group: 'location'},
+                    {id: 7, label: 'Goldman Sachs', group: 'company', title: 'Advisor'}
+                ]);
+
+                const edges = new vis.DataSet([
+                    {from: 3, to: 1, label: 'is_ceo_of'},
+                    {from: 1, to: 5, label: 'based_in'},
+                    {from: 1, to: 2, label: 'acquired'},
+                    {from: 1, to: 2, arrows: 'to', value: 4, label: '$1.2B'},
+                    {from: 2, to: 6, label: 'operates_in'},
+                    {from: 1, to: 6, label: 'expands_to'},
+                    {from: 7, to: 1, label: 'advised'}
+                ]);
+
+                const data = { nodes: nodes, edges: edges };
+                const options = {
+                    nodes: {
+                        shape: 'dot',
+                        size: 20,
+                        font: { size: 14, color: '#333' },
+                        borderWidth: 2,
+                    },
+                    edges: {
+                        width: 2,
+                        font: { align: 'middle', size: 10 },
+                        arrows: { to: { enabled: true, scaleFactor: 0.5 } }
+                    },
+                    groups: {
+                        company: { color: { background: '#3182ce', border: '#2c5282' }, font: { color: 'white' } },
+                        person: { color: { background: '#38a169', border: '#2f855a' }, font: { color: 'white' } },
+                        metric: { color: { background: '#dd6b20', border: '#c05621' }, shape: 'box' },
+                        location: { color: { background: '#805ad5', border: '#6b46c1' } }
+                    },
+                    physics: {
+                        solver: 'forceAtlas2Based',
+                        stabilization: { iterations: 150 }
+                    }
+                };
+                new vis.Network(container, data, options);
+            }
+            
+            // INITIAL PAGE LOAD
+            render();
+            setActiveSection(activeSection);
+        });
+    </script>
+</body>
+</html>
