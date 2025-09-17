@@ -219,3 +219,283 @@ The function must include a docstring, type hints, and a try-except block to han
 
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Prompt Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .prompt-code {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">Enterprise Prompt Library</h1>
+            <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">A curated gallery of ready-to-use prompts, templates, and guided workflows to accelerate your tasks and enhance productivity.</p>
+        </header>
+
+        <main class="space-y-16">
+
+            <!-- Interactive Templates & Guided Workflows Section -->
+            <div>
+                <h2 class="text-3xl font-bold border-b-2 border-orange-500 pb-3 mb-8">Interactive Templates & Guided Workflows</h2>
+                <p class="text-gray-600 mb-8 -mt-2">Use these forms to gather your thoughts and requirements. The copilot will use this structured input to complete complex tasks with you.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Guided Template: SWOT Analysis -->
+                    <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300 border-l-4 border-orange-500">
+                        <h3 class="text-xl font-semibold text-gray-900">Guide: Conduct a SWOT Analysis</h3>
+                        <p class="text-gray-600 mt-2 mb-4">This guide helps you structure your thoughts to generate a comprehensive SWOT (Strengths, Weaknesses, Opportunities, Threats) analysis for your team, product, or company.</p>
+                        
+                        <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 space-y-3">
+                            <h4 class="font-semibold text-gray-800">Step 1: Provide Context</h4>
+                            <div><label class="block text-sm font-medium text-gray-700">Subject of Analysis:</label><p class="text-sm text-gray-500 mt-1 p-2 bg-white rounded-md"><em>[e.g., "Our new mobile banking app"]</em></p></div>
+                            <div><label class="block text-sm font-medium text-gray-700">Strengths:</label><p class="text-sm text-gray-500 mt-1 p-2 bg-white rounded-md"><em>[Internal factors that are advantages. e.g., "Intuitive UI, strong brand recognition"]</em></p></div>
+                            <div><label class="block text-sm font-medium text-gray-700">Weaknesses:</label><p class="text-sm text-gray-500 mt-1 p-2 bg-white rounded-md"><em>[Internal factors that are disadvantages. e.g., "Lack of integration with third-party budget tools, smaller feature set than competitors"]</em></p></div>
+                            <div><label class="block text-sm font-medium text-gray-700">Opportunities:</label><p class="text-sm text-gray-500 mt-1 p-2 bg-white rounded-md"><em>[External factors that could be leveraged. e.g., "Growing market for fintech, competitor has poor customer reviews"]</em></p></div>
+                            <div><label class="block text-sm font-medium text-gray-700">Threats:</label><p class="text-sm text-gray-500 mt-1 p-2 bg-white rounded-md"><em>[External factors that could cause problems. e.g., "New regulatory changes, major tech company entering the market"]</em></p></div>
+                        </div>
+
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Step 2: Use This Completed Prompt</h4>
+                            <pre class="prompt-code text-sm text-gray-700"><code>You are a senior business strategist. Conduct a comprehensive SWOT analysis for: {Subject of Analysis}.
+
+Based on the provided points, generate a detailed analysis in a 2x2 grid format using Markdown. For each of the four quadrants, elaborate on the provided points and add one additional insight based on your expertise. Following the grid, provide a strategic summary that answers: "What is the most critical action we should take based on this analysis?"
+
+- Strengths: {Strengths}
+- Weaknesses: {Weaknesses}
+- Opportunities: {Opportunities}
+- Threats: {Threats}</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-orange-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors duration-300">Copy Template</button>
+                    </div>
+
+                    <!-- Guided Template: Corporate Credit Analysis -->
+                     <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300 border-l-4 border-orange-500">
+                        <h3 class="text-xl font-semibold text-gray-900">Form: Corporate Credit Analysis Memo</h3>
+                        <p class="text-gray-600 mt-2 mb-4">Fill out this form with key financial data to have the copilot generate a preliminary credit analysis memo, ideal for credit risk assessment.</p>
+                        
+                        <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 space-y-3">
+                             <h4 class="font-semibold text-gray-800">Step 1: Input Company Data</h4>
+                            <div><label class="block text-sm font-medium text-gray-700">Company Name:</label><p class="text-sm text-gray-500 mt-1 p-2 bg-white rounded-md"><em>[e.g., "Global Innovations Inc."]</em></p></div>
+                            <div><label class="block text-sm font-medium text-gray-700">Key Financial Metrics (from statements):</label><p class="text-sm text-gray-500 mt-1 p-2 bg-white rounded-md"><em>[e.g., "Revenue: $50M, EBITDA: $10M, Total Debt: $25M, Cash on Hand: $5M"]</em></p></div>
+                            <div><label class="block text-sm font-medium text-gray-700">Industry & Market Position:</label><p class="text-sm text-gray-500 mt-1 p-2 bg-white rounded-md"><em>[e.g., "Leader in the B2B SaaS space, facing moderate competition."]</em></p></div>
+                             <div><label class="block text-sm font-medium text-gray-700">Management Team Assessment:</label><p class="text-sm text-gray-500 mt-1 p-2 bg-white rounded-md"><em>[e.g., "Experienced leadership with a strong track record of execution."]</em></p></div>
+                        </div>
+
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Step 2: Use This Completed Prompt</h4>
+                            <pre class="prompt-code text-sm text-gray-700"><code>You are a senior credit risk analyst. Generate a preliminary credit analysis memo for {Company Name}.
+
+The memo should have the following structure:
+1.  **Executive Summary:** A brief overview of the creditworthiness and recommendation.
+2.  **Financial Analysis:** Calculate and interpret key credit ratios (Debt/EBITDA, Interest Coverage Ratio) based on the provided metrics.
+3.  **Business & Industry Analysis:** Comment on the company's market position and industry stability.
+4.  **Management Assessment:** Briefly assess the strength of the leadership team.
+5.  **Key Risks & Mitigants:** Identify the top 2-3 credit risks and any potential mitigating factors.
+
+Use the following data:
+- Financials: {Key Financial Metrics}
+- Industry: {Industry & Market Position}
+- Management: {Management Team Assessment}</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-orange-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors duration-300">Copy Template</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Quick Prompts Section -->
+            <div>
+                <h2 class="text-3xl font-bold border-b-2 border-indigo-500 pb-3 mb-8">Quick Prompts</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Cards from previous version -->
+                </div>
+            </div>
+            
+            <!-- Departmental Sections -->
+            <!-- Sales, Marketing, HR, Customer Support... -->
+
+            <!-- Financial Services & Risk Management Section -->
+            <div>
+                <h2 class="text-3xl font-bold border-b-2 border-yellow-500 pb-3 mb-8">Financial Services & Risk Management</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Investment Banking Pitch Deck Outline</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Creates a standard M&A or IPO pitch deck structure for an investment banking presentation.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>You are an investment banking analyst. Generate a comprehensive slide-by-slide outline for a pitch deck advising {Company Name} on a potential {M&A sale / IPO}. The outline should include standard sections like Situation Overview, Valuation Analysis, Potential Buyers/Investors, and Recommendation.</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Group Risk Control Report Summary</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Identifies and summarizes the top operational risks from a detailed internal report for executive review.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>You are a Group Risk Control officer. Read the attached operational incident report ("{report_name.pdf}"). Write an executive summary for the CRO that identifies the top 3 systemic risks highlighted in the document, their potential impact, and the recommended remediation actions mentioned.</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                     <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Explain a Financial Concept (ELI5)</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Simplifies a complex financial topic for a non-expert audience, using analogies.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>Explain the concept of 'Discounted Cash Flow (DCF) analysis' as if you were explaining it to a smart 15-year-old. Use an analogy to make the concept of present value and future cash flows easy to understand.</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IT, Engineering & Data Science Section -->
+            <div>
+                <h2 class="text-3xl font-bold border-b-2 border-red-500 pb-3 mb-8">IT, Engineering & Data Science</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Debugging Assistance</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Analyzes a code snippet and an error message to provide a likely cause and potential solutions.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>You are an expert debugger. I'm getting an error in my {language} code.
+
+Code:
+```
+{paste code snippet}
+```
+
+Error Message:
+"{paste error message}"
+
+Explain the likely cause of this error in simple terms and provide 2-3 potential ways to fix it.</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">API Documentation Generation</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Creates clear and complete documentation for a function or API endpoint based on the code itself.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>You are a technical writer. Write professional API documentation in Markdown for the following Python function. Include a brief description, a section on parameters (with data types), and an example of what the function returns.
+
+Code:
+```
+{paste function code}
+```</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">System Design Brainstorming</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Acts as a sounding board for a system design interview question, outlining a high-level architecture.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>You are a staff software engineer. I need to design a system for a URL shortening service like TinyURL.
+
+Brainstorm a high-level architecture. Cover the following points:
+- Core APIs (e.g., create URL, redirect URL)
+- Database schema considerations
+- A strategy for handling high traffic reads (redirects)
+- A brief note on potential challenges (e.g., hash collisions)</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced AI & Prompt Engineering Section -->
+            <div>
+                <h2 class="text-3xl font-bold border-b-2 border-purple-500 pb-3 mb-8">Advanced AI & Prompt Engineering</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Persona Crafting</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Assigns a detailed, expert persona to the AI to ensure responses are in the desired tone, style, and domain.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>[This is a meta-instruction for the start of your prompt]
+
+Act as a {role}, for example, "a seasoned PhD in economics specializing in behavioral finance". Your writing style should be {style}, for example, "academic, precise, and data-driven, yet accessible to a graduate-level audience". You must always {rule}, for example, "cite credible sources for any statistic you provide".
+
+Now, based on this persona, {your actual task or question}.</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Prompt Critiquer & Refiner</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Asks the AI to analyze your own prompt and suggest improvements for clarity, specificity, and effectiveness.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>You are a prompt engineering expert. I will provide you with a prompt I have written. Your task is to critique it and provide a revised, improved version.
+
+Critique my prompt based on:
+1.  **Clarity & Specificity:** Is it ambiguous?
+2.  **Context:** Is there enough background information?
+3.  **Constraints:** Does it define the output format, length, and tone?
+
+My Prompt:
+"""
+{paste your original prompt here}
+"""
+
+Provide your critique first, then show the "Improved Prompt".</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                     <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Chain-of-Thought (CoT) Forcing</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Forces the AI to "think step-by-step" to improve its reasoning on complex, multi-step problems.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>[Your complex question or problem].
+
+Before you provide the final answer, show your work. Break down the problem into a series of logical steps and explain your reasoning for each one. Start with "Let's think step by step:".</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const copyButtons = document.querySelectorAll('.copy-btn');
+
+            copyButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const buttonEl = e.currentTarget;
+                    const promptWrapper = buttonEl.previousElementSibling;
+                    const promptCode = promptWrapper.querySelector('code').innerText;
+                    
+                    const textArea = document.createElement('textarea');
+                    textArea.value = promptCode;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        const originalText = buttonEl.innerHTML;
+                        buttonEl.innerHTML = 'Copied!';
+                        setTimeout(() => {
+                            buttonEl.innerHTML = originalText;
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy text: ', err);
+                        alert('Failed to copy. Please copy the text manually.');
+                    }
+                    document.body.removeChild(textArea);
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
+
+
