@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generative AI | Production Integration Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Slate Gray & Sky Blue -->
+    <!-- Application Structure Plan: A fixed sidebar navigation with a main content area. This structure allows users to non-linearly jump to any section of the technical specification, from a high-level overview to the detailed appendix. This is superior to a linear document as it facilitates quick reference and exploration of interconnected components. Key interactions include hover-to-reveal details on diagrams, a dynamic chart for token usage, and a searchable prompt library in the appendix. The user flow is designed for both initial top-down understanding and targeted information retrieval. -->
+    <!-- Visualization & Content Choices: 
+        1. System Architecture: Goal=Organize/Relationships, Method=Interactive Diagram (HTML/CSS), Interaction=Hover for component details. Justification=Visually simplifies the complex system structure.
+        2. Agentic Process Flow: Goal=Organize, Method=Timeline Diagram (HTML/CSS), Interaction=Clickable steps. Justification=Clearly illustrates the sequence from prompt to autonomous operation.
+        3. Token Usage: Goal=Compare/Inform, Method=Grouped Bar Chart (Chart.js/Canvas), Interaction=Tooltips on hover. Justification=Provides a clear quantitative comparison of resource costs between operational modes.
+        4. Prompt Library: Goal=Organize/Inform, Method=Interactive Table (HTML/JS), Interaction=Live search/filter. Justification=Makes the appendix a practical, usable tool rather than a static list.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease-in-out;
+            border-left: 3px solid transparent;
+        }
+        .sidebar-link.active, .sidebar-link:hover {
+            background-color: #e2e8f0;
+            border-left-color: #0ea5e9;
+            color: #0c4a6e;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        .diagram-box {
+            border: 1px solid #cbd5e1;
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .diagram-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border-color: #0ea5e9;
+        }
+        .diagram-arrow {
+            position: absolute;
+            background-color: #94a3b8;
+            height: 2px;
+        }
+        .diagram-arrow::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+        .arrow-right::after {
+            top: -4px;
+            right: -1px;
+            border-width: 5px 0 5px 8px;
+            border-color: transparent transparent transparent #94a3b8;
+        }
+        .arrow-down::after {
+            bottom: -1px;
+            left: -4px;
+            border-width: 8px 5px 0 5px;
+            border-color: #94a3b8 transparent transparent transparent;
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <div class="flex min-h-screen">
+        <aside id="sidebar" class="w-64 bg-slate-50 border-r border-slate-200 p-4 fixed top-0 left-0 h-full overflow-y-auto">
+            <h1 class="text-xl font-bold text-sky-700 mb-6">Integration Guide</h1>
+            <nav class="flex flex-col space-y-2">
+                <a href="#overview" class="sidebar-link active p-2 rounded-md font-medium text-slate-600">Overview</a>
+                <a href="#architecture" class="sidebar-link p-2 rounded-md font-medium text-slate-600">System Architecture</a>
+                <a href="#agentic-process" class="sidebar-link p-2 rounded-md font-medium text-slate-600">Agentic Process</a>
+                <a href="#data-flow" class="sidebar-link p-2 rounded-md font-medium text-slate-600">Data Flow & Files</a>
+                <a href="#deployment" class="sidebar-link p-2 rounded-md font-medium text-slate-600">Deployment Model</a>
+                <a href="#appendix" class="sidebar-link p-2 rounded-md font-medium text-slate-600">Appendix: Use Case</a>
+            </nav>
+        </aside>
+
+        <main class="ml-64 p-4 md:p-8 w-full">
+            <div id="overview" class="content-section active space-y-6">
+                <h2 class="text-3xl font-bold text-slate-800 border-b pb-2">Project Overview</h2>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-xl font-semibold text-slate-700 mb-3">Business Requirement</h3>
+                    <p class="leading-relaxed">To develop a scalable, enterprise-grade Generative AI platform that automates complex analytical tasks, starting with credit risk control for an investment bank. The system must ingest proprietary data from various sources, utilize a managed prompt library for consistency and quality, and operate in both human-supervised and fully autonomous modes. The platform will provide a centralized API and a user-facing chatbot interface to democratize access to advanced AI-driven insights while maintaining strict governance, security, and resource tracking.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold text-slate-700 mb-3">Key Objectives</h3>
+                        <ul class="list-disc list-inside space-y-2 text-slate-600">
+                            <li><strong>Centralize AI Logic:</strong> Create a single, version-controlled Prompt Library.</li>
+                            <li><strong>Streamline Data Ingestion:</strong> Automate data acquisition from SharePoint and other stores.</li>
+                            <li><strong>Enable Hybrid Operation:</strong> Support both Human-in-the-Loop and Autonomous modes.</li>
+                            <li><strong>Ensure Governance:</strong> Track token usage and agentic processes meticulously.</li>
+                            <li><strong>Modular & Portable:</strong> Design for easy deployment and scalability across business units.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold text-slate-700 mb-3">Core Principles</h3>
+                         <ul class="list-disc list-inside space-y-2 text-slate-600">
+                            <li><strong>Security First:</strong> All data and processes adhere to financial industry security standards.</li>
+                            <li><strong>Traceability:</strong> Every AI-generated output is traceable to its source prompt and data.</li>
+                            <li><strong>Efficiency:</strong> Optimize for minimal compute token usage without sacrificing quality.</li>
+                            <li><strong>User-Centric:</strong> Interfaces must be intuitive for non-technical business users.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="architecture" class="content-section space-y-6">
+                 <h2 class="text-3xl font-bold text-slate-800 border-b pb-2">System Architecture</h2>
+                 <p class="leading-relaxed">The system is designed as a series of interconnected, modular services that work in concert to deliver AI-driven insights. The architecture prioritizes data security, scalability, and maintainability. Each component has a distinct role, from data ingestion to user interaction. You can hover over each component in the diagram below to see a brief description of its function.</p>
+                <div class="bg-white p-8 rounded-lg shadow-sm relative h-[600px] md:h-[450px]">
+                    <div class="relative w-full h-full">
+                        <div class="diagram-box w-48 absolute top-[180px] left-0" data-title="Data Sources (SharePoint, etc.)" data-desc="Initial point of data ingestion. Includes structured and unstructured data sources, with SharePoint used for metadata tagging and labeling.">
+                            <span class="font-semibold">Data Sources</span>
+                            <span class="block text-xs text-slate-500">SharePoint, Data Stores</span>
+                        </div>
+                        <div class="diagram-box w-48 absolute top-[180px] left-[260px]" data-title="Prompt Library & Warehouse" data-desc="A centralized, version-controlled repository for all prompts. The Warehouse stores curated, processed data ready for AI models.">
+                            <span class="font-semibold">Warehouse & Library</span>
+                             <span class="block text-xs text-slate-500">Ingestion & Curation</span>
+                        </div>
+                        <div class="diagram-box w-48 absolute top-[180px] left-[520px]" data-title="Agentic Process Engine" data-desc="The core logic unit. It selects prompts, retrieves data, interacts with LLMs, and executes tasks in either autonomous or human-in-the-loop mode.">
+                            <span class="font-semibold">Agentic Engine</span>
+                             <span class="block text-xs text-slate-500">Execution Core</span>
+                        </div>
+                         <div class="diagram-box w-48 absolute top-4 left-[780px]" data-title="Central Webpage & API" data-desc="Exposes system capabilities through a secure REST API. The webpage serves as a dashboard for monitoring, configuration, and integration.">
+                            <span class="font-semibold">API & Webpage</span>
+                             <span class="block text-xs text-slate-500">Integration Hub</span>
+                        </div>
+                        <div class="diagram-box w-48 absolute top-[340px] left-[780px]" data-title="User Interface Chatbot" data-desc="The primary user-facing component. Allows business users to interact with the system using natural language queries.">
+                            <span class="font-semibold">UI Chatbot</span>
+                             <span class="block text-xs text-slate-500">User Interaction</span>
+                        </div>
+
+                        <div class="diagram-arrow arrow-right" style="width: 68px; top: 212px; left: 192px;"></div>
+                        <div class="diagram-arrow arrow-right" style="width: 68px; top: 212px; left: 452px;"></div>
+                        <div class="diagram-arrow" style="width: 2px; height: 130px; top: 76px; left: 660px;"></div>
+                        <div class="diagram-arrow arrow-right" style="width: 120px; top: 76px; left: 660px;"></div>
+                        <div class="diagram-arrow" style="width: 2px; height: 130px; top: 212px; left: 660px;"></div>
+                        <div class="diagram-arrow arrow-right" style="width: 120px; top: 372px; left: 660px;"></div>
+                    </div>
+                     <div id="diagram-tooltip" class="absolute hidden bg-slate-800 text-white p-3 rounded-lg shadow-lg text-sm z-10 max-w-xs">
+                        <h4 id="tooltip-title" class="font-bold mb-1"></h4>
+                        <p id="tooltip-desc"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="agentic-process" class="content-section space-y-6">
+                <h2 class="text-3xl font-bold text-slate-800 border-b pb-2">Agentic Process & Modes</h2>
+                <p class="leading-relaxed">The Agentic Process is the core workflow that translates a user request or business task into an AI-driven result. It operates in two distinct modes to balance automation with control. The system utilizes a custom Human-Machine Markdown (HMM) format for defining complex, multi-step tasks that the agent can interpret and execute.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold text-slate-700 mb-3">Operational Modes</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-sky-600">1. Human-in-the-Loop (Prompted)</h4>
+                                <p class="text-sm text-slate-600">In this mode, the agent executes a task one step at a time, requiring human approval before proceeding to the next step. This is ideal for sensitive operations, model training, and debugging complex workflows. It ensures complete control and oversight.</p>
+                            </div>
+                             <div>
+                                <h4 class="font-semibold text-sky-600">2. Fully Autonomous</h4>
+                                <p class="text-sm text-slate-600">Once a workflow defined in HMM is validated, it can be run in autonomous mode. The agent completes all steps sequentially without human intervention. This mode is used for production-level, repetitive tasks where the process is well-established and trusted.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold text-slate-700 mb-3">Human-Machine Markdown (HMM)</h3>
+                        <p class="text-sm text-slate-600 mb-4">HMM is a simple markup for defining agentic tasks. Below is an example for a credit risk analysis task.</p>
+                        <pre class="bg-slate-100 p-4 rounded-md text-xs text-slate-800 overflow-x-auto">
+# TASK: Analyze Counterparty Credit Risk for ACME Corp
+- USE_PROMPT: risk_summary_v1
+- FETCH_DATA:
+    source: 'warehouse'
+    query: 'financials_q3_2025'
+    entity: 'ACME Corp'
+- RUN_ANALYSIS:
+    model: 'gpt-4-turbo'
+    params: { temperature: 0.2 }
+- VALIDATE_OUTPUT:
+    schema: 'risk_report_schema.json'
+- NOTIFY:
+    channel: '#credit-risk-alerts'
+    user: '@manager'
+                        </pre>
+                    </div>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-sm mt-6">
+                    <h3 class="text-xl font-semibold text-slate-700 mb-3">Compute Token Usage Comparison</h3>
+                    <p class="text-sm text-slate-600 mb-4">Resource consumption is a critical metric. The system meticulously tracks compute tokens used by the LLM for each task. As shown below, autonomous processes are generally more token-efficient as they do not involve the overhead of iterative prompting and adjustments inherent in the human-in-the-loop mode.</p>
+                    <div class="chart-container">
+                        <canvas id="tokenUsageChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div id="data-flow" class="content-section space-y-6">
+                <h2 class="text-3xl font-bold text-slate-800 border-b pb-2">Data Flow & Supported Files</h2>
+                <p class="leading-relaxed">Data is the lifeblood of the system. The data flow is a structured pipeline designed for security, efficiency, and traceability, moving data from raw sources to actionable insights. The system is built to be agnostic to a wide range of file formats commonly used in enterprise environments.</p>
+
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-xl font-semibold text-slate-700 mb-4">Ingestion & Processing Pipeline</h3>
+                    <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 text-center">
+                        <div class="flex-1 p-4 bg-slate-50 rounded-lg">
+                            <div class="text-sky-600 text-2xl mb-2">1</div>
+                            <h4 class="font-semibold">Ingest & Stage</h4>
+                            <p class="text-xs text-slate-500">Raw files are ingested from sources into a secure staging area.</p>
+                        </div>
+                        <div class="flex items-center justify-center text-slate-400 text-2xl font-light hidden md:flex">→</div>
+                         <div class="flex-1 p-4 bg-slate-50 rounded-lg">
+                            <div class="text-sky-600 text-2xl mb-2">2</div>
+                            <h4 class="font-semibold">Label & Classify</h4>
+                            <p class="text-xs text-slate-500">SharePoint workflows tag data with metadata for context and lineage.</p>
+                        </div>
+                         <div class="flex items-center justify-center text-slate-400 text-2xl font-light hidden md:flex">→</div>
+                         <div class="flex-1 p-4 bg-slate-50 rounded-lg">
+                            <div class="text-sky-600 text-2xl mb-2">3</div>
+                            <h4 class="font-semibold">Store & Index</h4>
+                            <p class="text-xs text-slate-500">Processed data is moved to the Warehouse and indexed for fast retrieval.</p>
+                        </div>
+                         <div class="flex items-center justify-center text-slate-400 text-2xl font-light hidden md:flex">→</div>
+                         <div class="flex-1 p-4 bg-slate-50 rounded-lg">
+                            <div class="text-sky-600 text-2xl mb-2">4</div>
+                            <h4 class="font-semibold">Serve to Agent</h4>
+                            <p class="text-xs text-slate-500">Data is made available to the Agentic Engine for task execution.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-xl font-semibold text-slate-700 mb-4">Supported File Types</h3>
+                     <p class="text-sm text-slate-600 mb-4">The ingestion module includes parsers for the following file formats, with a modular design to allow for additional types to be added easily.</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 text-center">
+                        <div class="p-4 bg-slate-100 rounded-md font-mono font-semibold text-slate-700">.js</div>
+                        <div class="p-4 bg-slate-100 rounded-md font-mono font-semibold text-slate-700">.py</div>
+                        <div class="p-4 bg-slate-100 rounded-md font-mono font-semibold text-slate-700">.txt</div>
+                        <div class="p-4 bg-slate-100 rounded-md font-mono font-semibold text-slate-700">.json</div>
+                        <div class="p-4 bg-slate-100 rounded-md font-mono font-semibold text-slate-700">.yml / .yaml</div>
+                        <div class="p-4 bg-slate-100 rounded-md font-mono font-semibold text-slate-700">.md</div>
+                        <div class="p-4 bg-slate-100 rounded-md font-mono font-semibold text-slate-700">.csv</div>
+                        <div class="p-4 bg-slate-100 rounded-md font-mono font-semibold text-slate-700">.docx</div>
+                        <div class="p-4 bg-slate-100 rounded-md font-mono font-semibold text-slate-700">.pdf</div>
+                        <div class="p-4 bg-slate-100 rounded-md font-mono font-semibold text-slate-700">.xlsx</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="deployment" class="content-section space-y-6">
+                <h2 class="text-3xl font-bold text-slate-800 border-b pb-2">Deployment Model</h2>
+                <p class="leading-relaxed">The entire platform is designed as a self-contained, portable, and modular system. This ensures that it can be deployed consistently across different environments (development, testing, production) and scaled according to the needs of different business units. The core deployment strategy revolves around containerization.</p>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold text-slate-700 mb-2">1. Containerization</h3>
+                        <p class="text-sm text-slate-600">Each component of the architecture (e.g., API, Agentic Engine, Warehouse Interface) is packaged as a separate Docker container. This isolates dependencies and ensures consistency.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold text-slate-700 mb-2">2. Orchestration</h3>
+                        <p class="text-sm text-slate-600">Kubernetes is used to orchestrate the containers, managing scaling, networking, and service discovery automatically. This provides resilience and high availability.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold text-slate-700 mb-2">3. Configuration</h3>
+                         <p class="text-sm text-slate-600">Environment-specific configurations (database connections, API keys) are managed using YAML files and injected as secrets, separating code from configuration.</p>
+                    </div>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-sm mt-6">
+                    <h3 class="text-xl font-semibold text-slate-700 mb-3">Setup & Portability</h3>
+                    <p class="text-sm text-slate-600">A new instance of the entire system can be spun up with a series of simple commands. The combination of containerization and orchestration means the application is highly portable and can run on any cloud provider or on-premise infrastructure that supports Kubernetes, minimizing vendor lock-in and maximizing flexibility.</p>
+                </div>
+            </div>
+
+            <div id="appendix" class="content-section space-y-6">
+                <h2 class="text-3xl font-bold text-slate-800 border-b pb-2">Appendix: Credit Risk Control Use Case</h2>
+                <p class="leading-relaxed">This section provides a practical, working example of an enterprise-grade application for an Investment Bank's Credit Risk Control department. It includes a searchable library of prompts designed to perform specific risk analysis tasks. These prompts are the building blocks that the Agentic Engine uses to generate reports, alerts, and insights.</p>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-xl font-semibold text-slate-700 mb-4">Prompt Library</h3>
+                    <div class="mb-4">
+                        <input type="text" id="promptSearch" placeholder="Search prompts by name or category..." class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none">
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-slate-500">
+                            <thead class="text-xs text-slate-700 uppercase bg-slate-100">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Prompt Name</th>
+                                    <th scope="col" class="px-6 py-3">Category</th>
+                                    <th scope="col" class="px-6 py-3">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody id="promptTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="promptModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4">
+                        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-4">
+                                     <h3 id="modalTitle" class="text-xl font-semibold text-slate-800">Prompt Details</h3>
+                                     <button id="closeModal" class="text-slate-500 hover:text-slate-800">&times;</button>
+                                </div>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="font-semibold text-slate-600">Category:</label>
+                                        <p id="modalCategory" class="text-sm bg-slate-100 p-2 rounded"></p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold text-slate-600">Prompt Template:</label>
+                                        <pre id="modalPrompt" class="text-sm bg-slate-100 p-3 rounded-md whitespace-pre-wrap font-mono"></pre>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold text-slate-600">Expected Output Format:</label>
+                                        <pre id="modalOutput" class="text-sm bg-slate-100 p-3 rounded-md whitespace-pre-wrap font-mono"></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    const contentSections = document.querySelectorAll('.content-section');
+    const diagramBoxes = document.querySelectorAll('.diagram-box');
+    const tooltip = document.getElementById('diagram-tooltip');
+    const tooltipTitle = document.getElementById('tooltip-title');
+    const tooltipDesc = document.getElementById('tooltip-desc');
+
+    const setActiveLink = (hash) => {
+        const targetHash = hash || '#overview';
+        sidebarLinks.forEach(link => {
+            link.classList.toggle('active', link.hash === targetHash);
+        });
+        contentSections.forEach(section => {
+            section.classList.toggle('active', section.id === targetHash.substring(1));
+        });
+        if (targetHash === '#agentic-process' && !window.tokenChart) {
+            renderTokenChart();
+        }
+    };
+
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetHash = e.currentTarget.hash;
+            history.pushState(null, null, targetHash);
+            setActiveLink(targetHash);
+        });
+    });
+
+    window.addEventListener('popstate', () => {
+        setActiveLink(window.location.hash);
+    });
+    
+    setActiveLink(window.location.hash);
+
+    diagramBoxes.forEach(box => {
+        box.addEventListener('mouseenter', (e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            tooltipTitle.textContent = e.currentTarget.dataset.title;
+            tooltipDesc.textContent = e.currentTarget.dataset.desc;
+            tooltip.style.left = `${rect.left + window.scrollX}px`;
+            tooltip.style.top = `${rect.bottom + window.scrollY + 10}px`;
+            tooltip.classList.remove('hidden');
+        });
+        box.addEventListener('mouseleave', () => {
+            tooltip.classList.add('hidden');
+        });
+    });
+
+    const renderTokenChart = () => {
+        const ctx = document.getElementById('tokenUsageChart').getContext('2d');
+        window.tokenChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Risk Analysis', 'Portfolio Stress Test', 'Regulatory Reporting', 'Market Data Summary'],
+                datasets: [{
+                    label: 'Human-in-the-Loop (Tokens)',
+                    data: [15000, 22000, 18000, 8000],
+                    backgroundColor: 'rgba(56, 189, 248, 0.6)',
+                    borderColor: 'rgba(56, 189, 248, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Fully Autonomous (Tokens)',
+                    data: [5000, 7500, 6000, 2500],
+                    backgroundColor: 'rgba(15, 76, 129, 0.6)',
+                    borderColor: 'rgba(15, 76, 129, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Token Count'
+                        }
+                    },
+                     x: {
+                        title: {
+                            display: true,
+                            text: 'Task Type'
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+    };
+    
+    const prompts = [
+        { 
+            id: 1, name: 'Counterparty Risk Summary', category: 'Counterparty Risk', 
+            description: 'Generates a brief summary of credit risk for a given counterparty.',
+            prompt: `Act as a senior credit risk analyst. Based on the provided financial statements for {{counterparty_name}}, recent news sentiment analysis, and internal exposure data, generate a concise one-paragraph summary of the key credit risks. Highlight any covenant breaches, negative outlooks from rating agencies, or significant increases in credit default swap spreads.`,
+            output: `{"risk_score": 7.8, "summary": "...", "key_factors": ["factor1", "factor2"]}`
+        },
+        { 
+            id: 2, name: 'Portfolio Concentration Analysis', category: 'Portfolio Risk', 
+            description: 'Analyzes portfolio concentration by sector and geography.',
+            prompt: `Given the portfolio data {{portfolio_id}}, calculate and present the concentration risk. Provide a breakdown of exposure by the top 5 industry sectors and top 5 geographical regions. Identify any concentrations exceeding 15% of the total portfolio value. Output the result as a JSON object.`,
+            output: `{"sector_concentration": [{"sector": "Technology", "exposure_pct": 18.2}, ...], "geo_concentration": [{"region": "North America", "exposure_pct": 45.1}, ...]}`
+        },
+        { 
+            id: 3, name: 'Market Shock Stress Test', category: 'Stress Testing', 
+            description: 'Simulates the impact of a specific market shock scenario.',
+            prompt: `Simulate the impact of the '2008 Financial Crisis Recurrence' scenario on portfolio {{portfolio_id}}. Calculate the potential loss in USD and as a percentage of the total portfolio value. List the top 3 positions that contribute most to this potential loss.`,
+            output: `{"scenario": "2008 Financial Crisis Recurrence", "potential_loss_usd": 12500000, "potential_loss_pct": 8.3, "top_contributors": ["asset1", "asset2", "asset3"]}`
+        },
+        {
+            id: 4, name: 'Regulatory Capital Calculation', category: 'Regulatory',
+            description: 'Calculates the required regulatory capital under Basel III.',
+            prompt: `For the given loan book {{loan_book_id}}, calculate the risk-weighted assets (RWA) and the required Tier 1 regulatory capital according to Basel III standards. Use the standardized approach for credit risk. Provide the total RWA and the final capital requirement in USD.`,
+            output: `{"risk_weighted_assets": 950000000, "tier_1_capital_requirement_usd": 76000000}`
+        },
+        {
+            id: 5, name: 'Identify Emerging Risks from News', category: 'Emerging Risks',
+            description: 'Scans news feeds to identify potential new risks.',
+            prompt: `Analyze the provided stream of financial news articles from the last 24 hours. Identify and summarize up to three emerging risks that could impact the banking sector in the EMEA region. For each risk, provide a brief description and assign a severity score from 1 (low) to 5 (high).`,
+            output: `{"emerging_risks": [{"risk": "Supply chain disruption in semiconductors", "description": "...", "severity": 4}, ...]}`
+        }
+    ];
+
+    const promptTableBody = document.getElementById('promptTableBody');
+    const promptSearch = document.getElementById('promptSearch');
+    const promptModal = document.getElementById('promptModal');
+    const closeModal = document.getElementById('closeModal');
+
+    const renderPrompts = (filter = '') => {
+        promptTableBody.innerHTML = '';
+        const filteredPrompts = prompts.filter(p => 
+            p.name.toLowerCase().includes(filter.toLowerCase()) || 
+            p.category.toLowerCase().includes(filter.toLowerCase())
+        );
+        
+        if (filteredPrompts.length === 0) {
+             promptTableBody.innerHTML = `<tr><td colspan="3" class="text-center p-6 text-slate-500">No prompts found.</td></tr>`;
+             return;
+        }
+
+        filteredPrompts.forEach(p => {
+            const tr = document.createElement('tr');
+            tr.className = 'bg-white border-b hover:bg-slate-50 cursor-pointer';
+            tr.innerHTML = `
+                <td class="px-6 py-4 font-medium text-slate-900">${p.name}</td>
+                <td class="px-6 py-4"><span class="bg-sky-100 text-sky-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">${p.category}</span></td>
+                <td class="px-6 py-4">${p.description}</td>
+            `;
+            tr.addEventListener('click', () => showPromptDetails(p));
+            promptTableBody.appendChild(tr);
+        });
+    };
+    
+    const showPromptDetails = (prompt) => {
+        document.getElementById('modalTitle').textContent = prompt.name;
+        document.getElementById('modalCategory').textContent = prompt.category;
+        document.getElementById('modalPrompt').textContent = prompt.prompt;
+        document.getElementById('modalOutput').textContent = prompt.output;
+        promptModal.classList.remove('hidden');
+        promptModal.classList.add('flex');
+    };
+
+    promptSearch.addEventListener('input', (e) => renderPrompts(e.target.value));
+    
+    closeModal.addEventListener('click', () => {
+        promptModal.classList.add('hidden');
+        promptModal.classList.remove('flex');
+    });
+    
+    promptModal.addEventListener('click', (e) => {
+        if (e.target === promptModal) {
+             promptModal.classList.add('hidden');
+             promptModal.classList.remove('flex');
+        }
+    });
+
+    renderPrompts();
+});
+</script>
+</body>
+</html>
