@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Prompt Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .prompt-code {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">Enterprise Prompt Library</h1>
+            <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">A curated gallery of ready-to-use prompts to accelerate your workflows and enhance productivity across the enterprise.</p>
+        </header>
+
+        <main class="space-y-16">
+
+            <!-- General Productivity Section -->
+            <div>
+                <h2 class="text-3xl font-bold border-b-2 border-indigo-500 pb-3 mb-8">General Productivity</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Prompt Card: Email Summarization -->
+                    <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Email Summarization</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Condenses long email threads into key decisions and action items, saving you valuable time.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>Summarize this long email thread. Identify the key decisions made, the outstanding action items, and the owner of each action item.</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                    <!-- Prompt Card: First Draft Generation -->
+                    <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">First Draft Generation</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Quickly creates a first draft of a document, such as a memo or announcement, based on key points.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>Create a first draft of a company memo announcing the new {policy name} policy. Key points to include are: {point 1}, {point 2}, and {point 3}. The policy is effective {Start Date}.</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                    <!-- Prompt Card: Meeting Preparation -->
+                    <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Meeting Agenda Creation</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Generates a structured agenda for a meeting, ensuring all necessary topics are covered efficiently.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>Generate a meeting agenda for a 1-hour project kickoff meeting for {Project Name}. Include time slots for introductions, project background, scope review, timeline discussion, role assignments, and next steps.</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Departmental Sections -->
+            <!-- Sales Section -->
+            <div>
+                <h2 class="text-3xl font-bold border-b-2 border-green-500 pb-3 mb-8">Sales & Business Development</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Prompt Card: Personalized Outreach -->
+                    <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Personalized Prospect Outreach</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Drafts a highly personalized cold outreach email using CRM data and a prospect's LinkedIn profile to increase engagement.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>You are an expert sales development representative with a friendly but professional tone.
+
+Draft a personalized outreach email to {Prospect Name}, {Prospect Title} at {Company Name}. The goal is to schedule a 15-minute introductory call.
+
+Use the following information:
+1. Prospect's LinkedIn Profile summary: """{paste LinkedIn summary here}"""
+2. Our CRM data for {Company Name}: "{paste CRM notes here}"
+
+The email must be no more than 150 words, feature an engaging subject line, reference a specific point from their profile, and end with a clear call to action.</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                    <!-- Prompt Card: Competitor Battle Card -->
+                     <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Competitor Battle Card Creation</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Generates a concise "battle card" for a competitor, synthesizing internal data and external research into actionable talking points.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>You are a strategic market intelligence analyst. Create a one-page competitor battle card for {Competitor Name}.
+
+Base your analysis on:
+1. Our internal CRM notes on deals lost to them in the last 6 months.
+2. The attached market analysis report: "{report_filename.pdf}".
+3. Publicly available information regarding their recent activities.
+
+Provide the output in Markdown with sections for: Overview, Strengths, Weaknesses, Winning Strategy, and Recent News.</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- HR Section -->
+            <div>
+                <h2 class="text-3xl font-bold border-b-2 border-blue-500 pb-3 mb-8">Human Resources</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Prompt Card: Inclusive Job Description -->
+                    <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Inclusive Job Description Review</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Analyzes a job description to identify and revise language, ensuring it is inclusive and attracts a diverse candidate pool.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>You are a Diversity, Equity, and Inclusion (DEI) expert.
+
+Analyze the language in the attached job description for the role of {Job Title}. Suggest improvements to make it more inclusive and accessible.
+
+Provide a table with three columns: 'Original Phrase', 'Suggested Change', and 'Reasoning for Change'.</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Finance Section -->
+             <div>
+                <h2 class="text-3xl font-bold border-b-2 border-yellow-500 pb-3 mb-8">Finance & Compliance</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Prompt Card: Financial Variance -->
+                    <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Monthly Financial Variance Analysis</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Generates a narrative summary explaining key variances in a budget vs. actuals report from an Excel file.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>You are a senior financial controller.
+
+Analyze the data in the attached Excel file ("{file_name.xlsx}"). The file contains two tabs: 'Budget' and 'Actuals'.
+
+Write a concise executive summary explaining the top three largest variances between budgeted and actual spending by department. For each variance, state the department, the variance amount (in dollars and percentage), and a potential reason.</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Technical Section -->
+            <div>
+                <h2 class="text-3xl font-bold border-b-2 border-red-500 pb-3 mb-8">IT, Engineering & Data Science</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Prompt Card: Natural Language to SQL -->
+                    <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Natural Language to SQL</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Converts a user's question in plain English into a valid SQL query by providing the database schema as context.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>You are an expert PostgreSQL database administrator. Convert the user's question into a valid query based on the schema provided.
+
+### Database Schema:
+{paste your database schema here}
+###
+
+User Question: "{Type user's question here}"
+
+Generate the PostgreSQL query to answer this question.</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                     <!-- Prompt Card: Code Generation -->
+                    <div class="bg-white rounded-xl shadow-md p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-900">Python Code Generation</h3>
+                        <p class="text-gray-600 mt-2 flex-grow">Generates a clean, efficient, and well-documented Python function based on a detailed set of requirements.</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                            <pre class="prompt-code text-sm text-gray-700"><code>You are an expert Python developer following PEP 8 standards.
+
+Write a Python function named `process_data` that takes a pandas DataFrame as input and performs the following steps:
+1. Remove any rows with missing values in the '{column_name}' column.
+2. Convert the '{timestamp_column}' column from a Unix epoch to a datetime object.
+3. Create a new column called '{new_column_name}' based on another column.
+4. Return the processed DataFrame.
+
+The function must include a docstring, type hints, and a try-except block to handle potential KeyErrors.</code></pre>
+                        </div>
+                        <button class="copy-btn mt-4 w-full bg-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-300">Copy Prompt</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const copyButtons = document.querySelectorAll('.copy-btn');
+
+            copyButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const promptCode = button.previousElementSibling.querySelector('code').innerText;
+                    
+                    // Using document.execCommand for broader compatibility within iframes
+                    const textArea = document.createElement('textarea');
+                    textArea.value = promptCode;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        const originalText = button.innerHTML;
+                        button.innerHTML = 'Copied!';
+                        setTimeout(() => {
+                            button.innerHTML = originalText;
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy text: ', err);
+                        // Fallback for user
+                        alert('Failed to copy. Please copy the text manually.');
+                    }
+                    document.body.removeChild(textArea);
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
