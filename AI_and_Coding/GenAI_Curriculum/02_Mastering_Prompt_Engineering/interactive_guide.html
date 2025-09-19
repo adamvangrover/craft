@@ -9,16 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Minimalist Neutral -->
-    <!-- Application Structure Plan: A multi-section, single-page application with a sticky side-navigation for easy access to key themes. The structure is designed for non-linear exploration, starting with foundational concepts (RCTC), moving to advanced reasoning (CoT, ToT), then to practical application (Agents, Chaining, Security), and culminating in an interactive 'Strategy Selector' tool. This thematic structure is more intuitive for learning and reference than the report's linear, academic format, allowing users to dive into their specific area of interest immediately. -->
-    <!-- Visualization & Content Choices: 
-    - RCTC Framework: Goal: Inform/Organize -> Interactive Cards -> Click/Hover to reveal details -> More engaging than a list, encourages exploration -> HTML/CSS/JS.
-    - Reasoning Techniques: Goal: Compare -> Interactive Radar Chart (Chart.js) -> Visually compare CoT, Self-Consistency, ToT on Cost vs. Accuracy vs. Complexity -> Justification: Quick, high-level comparison before diving into text -> Library: Chart.js (Canvas).
-    - ReAct Loop: Goal: Explain Process -> Animated Diagram -> Visually show the Thought-Action-Observation cycle -> Justification: Clarifies the dynamic feedback loop better than static text -> HTML/CSS/JS.
-    - Prompt Chaining: Goal: Organize/Explain -> Simple flow diagrams -> Illustrate Sequential, Branching, etc. -> Justification: Visualizes abstract workflow structures -> HTML/CSS (Tailwind).
-    - Strategy Selector: Goal: Synthesize/Guide -> Interactive Form/Wizard -> User answers questions, gets a recommendation -> Justification: Turns the report's final decision matrix into a practical, usable tool -> HTML/JS.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -33,12 +23,8 @@
             color: #5c3a21;
             font-weight: 600;
         }
-        .content-section {
-            display: none;
-        }
-        .content-section.active {
-            display: block;
-        }
+        .content-section { display: none; }
+        .content-section.active { display: block; }
         .card {
             background-color: #fff;
             border: 1px solid #eaddd7;
@@ -58,9 +44,7 @@
             max-height: 400px;
         }
         @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
+            .chart-container { height: 400px; }
         }
         .flow-diagram-box {
             border: 2px solid #eaddd7;
@@ -76,9 +60,24 @@
             color: #5c3a21;
             margin: 0 1rem;
         }
-        .flow-arrow:last-child::after {
-            content: '';
+        .flow-arrow:last-child::after { content: ''; }
+        .code-block-wrapper { position: relative; }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #eaddd7;
+            color: #5c3a21;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            opacity: 0.5;
+            transition: opacity 0.2s ease-in-out;
         }
+        .code-block-wrapper:hover .copy-btn { opacity: 1; }
     </style>
 </head>
 <body class="antialiased">
@@ -197,10 +196,153 @@
                     </div>
                 `
             },
+            advanced_prompting: {
+                title: 'Advanced Data Interaction',
+                content: `
+                    <div class="space-y-8">
+                        <h2 class="text-3xl font-bold text-gray-800">Advanced Prompting & Data Interaction</h2>
+                        <p class="text-lg text-gray-600">Go beyond basic prompts to build sophisticated, data-aware workflows. This section covers advanced reasoning patterns, interacting with structured data like knowledge graphs, and handling various file formats.</p>
+                        
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-4">Graph of Thoughts (GoT): Flexible Reasoning</h3>
+                            <p class="mb-4 text-gray-600">While Chain of Thought and Tree of Thoughts follow linear or branching paths, Graph of Thoughts (GoT) represents information in a more flexible graph structure. This allows the model to merge different reasoning paths, create cycles for iterative refinement, and model more complex, non-linear problems.</p>
+                            <div class="mt-4 border-t pt-4">
+                                <h4 class="font-semibold text-lg mb-2">Conceptual Example: M&A Analysis</h4>
+                                <p class="text-sm text-gray-500 mb-2"><strong>Prompt:</strong> "Analyze the potential merger between Company A (a software giant) and Company B (a hardware startup). Evaluate synergies, risks, and potential integration challenges."</p>
+                                <div class="p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm space-y-2">
+                                    <p><strong>GoT Process:</strong></p>
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li><strong>Node 1 (Synergies):</strong> Analyze product fit, market expansion, cost savings.</li>
+                                        <li><strong>Node 2 (Risks):</strong> Analyze market risks, execution risks, regulatory hurdles.</li>
+                                        <li><strong>Node 3 (Valuation):</strong> Independently value both companies.</li>
+                                        <li><strong>Edge (1->2):</strong> High synergy in product (e.g., software on new hardware) could mitigate market risks.</li>
+                                        <li><strong>Edge (2->1):</strong> High regulatory risk could nullify potential synergies.</li>
+                                        <li><strong>Cycle (3->1->3):</strong> The potential synergies from Node 1 could increase the valuation in Node 3, which in turn reinforces the case for the merger.</li>
+                                        <li><strong>Synthesis Node:</strong> The model aggregates all nodes and edges to provide a final recommendation, weighing the interconnected pros and cons.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-6 mt-8">
+                            <h3 class="text-xl font-bold mb-4">Self-Critique & Constitutional AI</h3>
+                            <p class="mb-4 text-gray-600">To improve reliability and safety, models can be prompted to critique and revise their own work based on a set of rules or a "constitution." This is a powerful way to align the model's output with specific principles, such as helpfulness, harmlessness, and accuracy.</p>
+                            <div class="mt-4 border-t pt-4">
+                                <h4 class="font-semibold text-lg mb-2">Example: Red-Teaming an Analysis</h4>
+                                <p class="text-sm font-semibold text-gray-700 mb-2">Prompt (Two-step process):</p>
+                                <div class="code-block-wrapper">
+                                    <pre class="bg-gray-50 p-3 rounded-lg text-sm whitespace-pre-wrap"><strong>Step 1 (Initial Draft):</strong> "Provide a bullish investment thesis for Company X."
+
+<strong>Step 2 (Critique & Refine):</strong> "Now, review the bullish thesis you just generated. Act as a skeptical risk manager. Identify the weakest points, logical fallacies, or unstated assumptions in the thesis. Then, rewrite the original thesis to be more balanced and to acknowledge the key counterarguments."</pre>
+                                </div>
+                                <p class="text-sm font-semibold text-gray-700 mt-4 mb-2">Expected Output:</p>
+                                <div class="p-3 bg-green-50 border border-green-200 rounded-lg text-sm">
+                                    <p><strong>Initial Thesis:</strong> "Company X is poised for explosive growth due to its innovative new product..."</p>
+                                    <p class="mt-2"><strong>Critique:</strong> "The thesis overstates the impact of the new product and ignores the competitive response from established players. It assumes a smooth market adoption which is not guaranteed."</p>
+                                    <p class="mt-2"><strong>Refined Thesis:</strong> "While Company X's innovative new product presents a significant growth opportunity, investors should be mindful of the intense competitive landscape. The thesis is contingent upon successful market adoption and the company's ability to defend its market share against larger rivals..."</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-6 mt-8">
+                            <h3 class="text-xl font-bold mb-4">Knowledge Graphs: Structuring Unstructured Data</h3>
+                            <p class="mb-4 text-gray-600">Financial data is often a web of interconnected entities. A news article might connect a <span class="font-semibold">company</span> to a <span class="font-semibold">new product</span>, which is in turn linked to a <span class="font-semibold">market trend</span>. LLMs can be prompted to extract these entities and their relationships, turning unstructured text into a structured knowledge graph.</p>
+                            <div class="mt-4 border-t pt-4">
+                                <h4 class="font-semibold text-lg mb-2">Example: Building a Knowledge Graph from News</h4>
+                                <p class="text-sm font-semibold text-gray-700 mb-2">Prompt:</p>
+                                <div class="code-block-wrapper">
+                                    <pre class="bg-gray-50 p-3 rounded-lg text-sm whitespace-pre-wrap">"From the following news article, extract all companies, people, and financial metrics mentioned. For each, define the relationship between them. Format the output as a list of JSON objects, where each object represents a relationship (a graph 'edge') with a 'source', 'target', and 'relationship' key."
+
+Article: "Global Tech Inc., led by CEO Jane Doe, announced a partnership with Innovate Solutions to develop a new AI chip. GTC's stock rose 5% on the news, as analysts predict the deal could boost annual revenue by $500M."</pre>
+                                </div>
+                                <p class="text-sm font-semibold text-gray-700 mt-4 mb-2">Expected Output (a series of graph edges):</p>
+                                <div class="code-block-wrapper">
+                                    <pre class="p-3 bg-green-50 border border-green-200 rounded-lg text-xs font-mono whitespace-pre-wrap">[
+    { "source": "Jane Doe", "target": "Global Tech Inc.", "relationship": "is_ceo_of" },
+    { "source": "Global Tech Inc.", "target": "Innovate Solutions", "relationship": "partnered_with" },
+    { "source": "Global Tech Inc.", "target": "AI Chip", "relationship": "develops" },
+    { "source": "AI Chip", "target": "$500M Revenue", "relationship": "could_boost" }
+]</pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-6 mt-8">
+                            <h3 class="text-xl font-bold mb-4">Handling Different File Formats</h3>
+                            <p class="mb-4 text-gray-600">Analysts rarely work with plain text. Your data might be in a table within a PDF, a CSV export from a database, or a nested JSON from an API. Prompting effectively requires telling the model how to parse this structured or semi-structured data.</p>
+                            
+                            <div class="mt-4 border-t pt-4">
+                                <h4 class="font-semibold text-lg mb-2">Use Case: Parsing a Table from a PDF</h4>
+                                <p class="text-sm text-gray-500 mb-2">When you copy-paste from a PDF, formatting can be messy. It's crucial to instruct the model on how to reconstruct the table structure.</p>
+                                <p class="text-sm font-semibold text-gray-700 mb-2">Prompt:</p>
+                                <div class="code-block-wrapper">
+                                <pre class="bg-gray-50 p-3 rounded-lg text-sm whitespace-pre-wrap">"The following text is copy-pasted from a table in a PDF report. The columns are 'Year', 'Revenue ($M)', and 'Net Income ($M)'. Please parse this text and provide the data as a clean, markdown-formatted table."
+
+Pasted Text: "2023 1,250 150 2022 1,100 120 2021 950 105"</pre>
+                                </div>
+                                <p class="text-sm font-semibold text-gray-700 mt-4 mb-2">Expected Output:</p>
+                                <div class="code-block-wrapper">
+                                <pre class="p-3 bg-green-50 border border-green-200 rounded-lg text-xs font-mono whitespace-pre-wrap">| Year | Revenue ($M) | Net Income ($M) |
+|------|--------------|-----------------|
+| 2023 | 1,250        | 150             |
+| 2022 | 1,100        | 120             |
+| 2021 | 950          | 105             |</pre>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 border-t pt-4">
+                                <h4 class="font-semibold text-lg mb-2">Use Case: Analyzing CSV Data</h4>
+                                <p class="text-sm text-gray-500 mb-2">You can paste raw CSV data directly into a prompt and ask the model to perform calculations or analysis.</p>
+                                <p class="text-sm font-semibold text-gray-700 mb-2">Prompt:</p>
+                                <div class="code-block-wrapper">
+                                <pre class="bg-gray-50 p-3 rounded-lg text-sm whitespace-pre-wrap">"Given the following CSV data representing product sales, calculate the total revenue for 'Product B'."
+
+CSV Data:
+"ProductID,UnitsSold,Price
+Product A,500,10
+Product B,300,25
+Product C,450,12
+Product B,150,25"</pre>
+                                </div>
+                                <p class="text-sm font-semibold text-gray-700 mt-4 mb-2">Expected Output:</p>
+                                <div class="p-3 bg-green-50 border border-green-200 rounded-lg text-sm">
+                                    <p>"The total revenue for 'Product B' is $11,250. (300 units * $25 + 150 units * $25)"</p>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 border-t pt-4">
+                                <h4 class="font-semibold text-lg mb-2">Use Case: Summarizing Nested JSON from an API</h4>
+                                <p class="text-sm text-gray-500 mb-2">LLMs are excellent at navigating and summarizing complex JSON structures, which is common when working with APIs.</p>
+                                <p class="text-sm font-semibold text-gray-700 mb-2">Prompt:</p>
+                                <div class="code-block-wrapper">
+                                <pre class="bg-gray-50 p-3 rounded-lg text-sm whitespace-pre-wrap">"From the following JSON response, extract the name of the portfolio manager and list the tickers of all holdings in the 'Technology' sector."
+
+JSON Data:
+{
+    "portfolio_id": "P-123",
+    "manager": { "name": "Alex Ray", "id": "M-45" },
+    "holdings": [
+        { "ticker": "AAPL", "sector": "Technology", "value": 150000 },
+        { "ticker": "JPM", "sector": "Financials", "value": 100000 },
+        { "ticker": "MSFT", "sector": "Technology", "value": 125000 }
+    ]
+}</pre>
+                                </div>
+                                <p class="text-sm font-semibold text-gray-700 mt-4 mb-2">Expected Output:</p>
+                                <div class="p-3 bg-green-50 border border-green-200 rounded-lg text-sm">
+                                    <p><strong>Portfolio Manager:</strong> Alex Ray</p>
+                                    <p><strong>Technology Holdings:</strong> AAPL, MSFT</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                `
+            },
             agents: {
                 title: 'Building AI Agents',
                 content: `
-                     <div class="space-y-8">
+                    <div class="space-y-8">
                         <h2 class="text-3xl font-bold text-gray-800">From Prompts to Agents</h2>
                         <p class="text-lg text-gray-600">To solve real-world problems, intelligence must perceive, act, and learn. Agentic frameworks transform LLMs from passive text generators into active agents capable of using tools, retrieving external information, and executing complex tasks.</p>
                         
@@ -274,7 +416,6 @@
                             <div class="space-y-4">
                                 <p><strong>Example: From Raw Text to Formatted Report</strong></p>
                                 <div class="space-y-4">
-                                    <!-- Step 1 -->
                                     <div>
                                         <div class="flow-diagram-box w-full md:w-1/2 mx-auto"><strong>Prompt 1: Extract Keywords</strong></div>
                                         <div class="text-center text-2xl my-2">↓</div>
@@ -283,7 +424,6 @@
                                             <p class="mt-2"><strong>Output:</strong> <code class="font-mono text-xs">["revenue growth", "net income decrease", "operational costs", "logistics", "raw materials"]</code></p>
                                         </div>
                                     </div>
-                                    <!-- Step 2 -->
                                     <div>
                                         <div class="flow-diagram-box w-full md:w-1/2 mx-auto"><strong>Prompt 2: Generate Summary from Keywords</strong></div>
                                         <div class="text-center text-2xl my-2">↓</div>
@@ -292,7 +432,6 @@
                                             <p class="mt-2"><strong>Output:</strong> "The company experienced strong revenue growth, but this was offset by a decrease in net income. The primary drivers for the profit decline were increased operational costs, specifically within logistics and raw material sourcing."</p>
                                         </div>
                                     </div>
-                                    <!-- Step 3 -->
                                     <div>
                                         <div class="flow-diagram-box w-full md:w-1/2 mx-auto"><strong>Prompt 3: Format as a Report Snippet</strong></div>
                                         <div class="text-center text-2xl my-2">↓</div>
@@ -316,6 +455,7 @@
                                 <div class="text-center text-2xl my-2">↓</div>
                                 <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                                     <h4 class="font-semibold text-yellow-800">2. The "Meta" Prompt (The Prompt Optimizer)</h4>
+                                    <div class="code-block-wrapper">
                                     <pre class="bg-white p-2 mt-2 rounded text-sm text-gray-700 whitespace-pre-wrap">You are a world-class prompt engineer. Your task is to take a user's simple request and expand it into a detailed, robust prompt that will generate high-quality, production-ready code.
 
 User's request: "{user_request}"
@@ -326,12 +466,246 @@ Expand this request by:
 3. Defining the expected output format (e.g., a list of dictionaries).
 4. Adding a request for comments and docstrings.
 5. Encapsulating the logic in a reusable function.</pre>
+                                    </div>
                                 </div>
                                 <div class="text-center text-2xl my-2">↓</div>
                                 <div class="p-4 bg-green-50 border border-green-200 rounded-lg">
                                     <h4 class="font-semibold text-green-800">3. Final, Optimized Prompt</h4>
+                                    <div class="code-block-wrapper">
                                     <pre class="bg-white p-2 mt-2 rounded text-sm text-gray-700 whitespace-pre-wrap">"Generate a robust, production-ready Python function that fetches data from a REST API. The function should accept a URL and an API key as arguments. It must include comprehensive error handling for network issues (e.g., timeouts, connection errors) and HTTP status codes (e.g., 404, 500). The function should validate the incoming JSON response to ensure it contains a 'data' key. The final output should be a list of dictionaries extracted from the 'data' key. Ensure the code is well-commented and includes a clear docstring explaining its usage."</pre>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            analyst_copilot: {
+                title: 'The Analyst as Copilot',
+                content: `
+                    <div class="space-y-8">
+                        <h2 class="text-3xl font-bold text-gray-800">The Analyst as a Copilot Operator</h2>
+                        <p class="text-lg text-gray-600">This section bridges the gap between theory and practice, showing how to integrate these powerful tools into your daily workflow. Becoming a "copilot operator" means skillfully directing your AI assistant to augment your expertise, automate repetitive tasks, and ultimately produce higher-quality analysis.</p>
+                        
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-4">A Day in the Life: The AI-Augmented Analyst</h3>
+                            <p class="mb-4 text-gray-600">Let's walk through a realistic scenario to see how these techniques come together. Meet Alex, a credit analyst at a mid-sized bank, tasked with preparing a preliminary analysis of a new loan applicant, "Future Gadgets Corp."</p>
+                            
+                            <div class="space-y-6">
+                                <div class="flex items-start space-x-4">
+                                    <div class="flex-shrink-0 h-12 w-12 rounded-full bg-slate-700 text-white flex items-center justify-center text-lg font-bold">1</div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Morning: Initial Screening & Document Triage</h4>
+                                        <p class="text-gray-600">Alex receives a 200-page PDF containing the company's financials. Instead of reading it cover-to-cover, Alex uses an LLM with a **long-context window** to upload the entire document.</p>
+                                        <div class="code-block-wrapper">
+                                        <pre class="bg-gray-50 p-3 mt-2 rounded-lg text-sm whitespace-pre-wrap"><strong>Prompt:</strong> "You are a credit analyst. From the provided document, extract the company's business model, key financial metrics for the last 3 years (Revenue, EBITDA, Net Income), and list the primary competitors mentioned. Provide this as a concise summary."</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start space-x-4">
+                                    <div class="flex-shrink-0 h-12 w-12 rounded-full bg-slate-700 text-white flex items-center justify-center text-lg font-bold">2</div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Late Morning: Deeper Dive with Agents</h4>
+                                        <p class="text-gray-600">The initial summary looks promising. Alex now deploys an **autonomous agent** to dig deeper into external factors.</p>
+                                        <div class="code-block-wrapper">
+                                        <pre class="bg-gray-50 p-3 mt-2 rounded-lg text-sm whitespace-pre-wrap"><strong>Prompt:</strong> "Conduct a market risk analysis for Future Gadgets Corp. Search for recent news (last 6 months) on their main product line, 'The Gizmo 5000'. Also, find any recent analyst reports on their primary competitor, 'Innovate Inc.' Summarize your findings on competitive pressure."</pre>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-4">
+                                    <div class="flex-shrink-0 h-12 w-12 rounded-full bg-slate-700 text-white flex items-center justify-center text-lg font-bold">3</div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Afternoon: Structured Analysis & Memo Drafting</h4>
+                                        <p class="text-gray-600">The agent reports that Innovate Inc. just launched a competing product, a key risk. Alex uses a **Prompt Chain** to prepare the first draft of the credit memo.</p>
+                                        <div class="code-block-wrapper">
+                                        <pre class="bg-gray-50 p-3 mt-2 rounded-lg text-sm whitespace-pre-wrap"><strong>Chain Step 1 (SWOT):</strong> Use the "SWOT Analysis" template from the cookbook on the company's business plan.
+<strong>Chain Step 2 (Risk Summary):</strong> Use a new prompt to summarize the agent's findings on competitive pressure.
+<strong>Chain Step 3 (Draft Memo):</strong> "Combine the SWOT analysis and the risk summary into a structured credit memo. Include sections for 'Company Overview', 'Strengths', 'Weaknesses', and 'Key Risks'."</pre>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-4">
+                                    <div class="flex-shrink-0 h-12 w-12 rounded-full bg-slate-700 text-white flex items-center justify-center text-lg font-bold">4</div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">End of Day: Review & Refine</h4>
+                                        <p class="text-gray-600">Alex uses **self-critique** to refine the AI-generated draft, adding his own expert judgment and insights before presenting it to the loan committee.</p>
+                                        <div class="code-block-wrapper">
+                                        <pre class="bg-gray-50 p-3 mt-2 rounded-lg text-sm whitespace-pre-wrap"><strong>Prompt:</strong> "Review the credit memo draft. Identify the weakest argument or any conclusion not strongly supported by the provided data. Suggest a more nuanced phrasing."</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-6 mt-8">
+                            <h3 class="text-xl font-bold mb-4">The Analyst's Interactive Prompt Cookbook</h3>
+                            <p class="mb-4 text-gray-600">Adapt these powerful templates for your specific needs by filling in the details below. The tool will generate a complete, ready-to-use prompt for you.</p>
+                            
+                            <div class="mt-4 border-t pt-4">
+                                <h4 class="font-semibold text-lg mb-2">Template 1: SWOT Analysis from a 10-K</h4>
+                                <div class="space-y-2 mb-4">
+                                    <label for="swot-text" class="text-sm font-medium text-gray-700">Paste relevant sections of 10-K text here:</label>
+                                    <textarea id="swot-text" rows="4" class="w-full p-2 border border-gray-300 rounded-md" placeholder="e.g., Management's Discussion and Analysis, Risk Factors..."></textarea>
+                                </div>
+                                <button onclick="generateSwotPrompt()" class="bg-slate-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-slate-700">Generate Prompt</button>
+                                <div id="swot-output" class="hidden mt-4">
+                                    <h5 class="font-semibold">Generated Prompt:</h5>
+                                    <div class="code-block-wrapper">
+                                        <pre id="swot-prompt-text" class="bg-gray-50 p-3 mt-2 rounded text-sm text-gray-700 whitespace-pre-wrap"></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 border-t pt-4">
+                                <h4 class="font-semibold text-lg mb-2">Template 2: Executive Summary of an Earnings Call</h4>
+                                <div class="space-y-2 mb-4">
+                                    <label for="earnings-text" class="text-sm font-medium text-gray-700">Paste earnings call transcript here:</label>
+                                    <textarea id="earnings-text" rows="4" class="w-full p-2 border border-gray-300 rounded-md" placeholder="e.g., Full transcript from the CEO and CFO's remarks and the Q&A session..."></textarea>
+                                </div>
+                                <button onclick="generateEarningsPrompt()" class="bg-slate-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-slate-700">Generate Prompt</button>
+                                <div id="earnings-output" class="hidden mt-4">
+                                    <h5 class="font-semibold">Generated Prompt:</h5>
+                                    <div class="code-block-wrapper">
+                                    <pre id="earnings-prompt-text" class="bg-gray-50 p-3 mt-2 rounded text-sm text-gray-700 whitespace-pre-wrap"></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 border-t pt-4">
+                                <h4 class="font-semibold text-lg mb-2">Template 3: Covenant Compliance Checklist</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                    <div class="space-y-2">
+                                        <label for="covenant-agreement-text" class="text-sm font-medium text-gray-700">Paste Credit Agreement Snippet:</label>
+                                        <textarea id="covenant-agreement-text" rows="4" class="w-full p-2 border border-gray-300 rounded-md" placeholder="e.g., Section specifying Debt/EBITDA and Interest Coverage Ratios..."></textarea>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label for="covenant-financials-text" class="text-sm font-medium text-gray-700">Paste Financial Report Snippet:</label>
+                                        <textarea id="covenant-financials-text" rows="4" class="w-full p-2 border border-gray-300 rounded-md" placeholder="e.g., Recent balance sheet and income statement data..."></textarea>
+                                    </div>
+                                </div>
+                                <button onclick="generateCovenantPrompt()" class="bg-slate-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-slate-700">Generate Prompt</button>
+                                <div id="covenant-output" class="hidden mt-4">
+                                    <h5 class="font-semibold">Generated Prompt:</h5>
+                                    <div class="code-block-wrapper">
+                                    <pre id="covenant-prompt-text" class="bg-gray-50 p-3 mt-2 rounded text-sm text-gray-700 whitespace-pre-wrap"></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-6 mt-8">
+                            <h3 class="text-xl font-bold mb-4">From Operator to Builder: Basic Coding & LLM Ops</h3>
+                            <p class="mb-4 text-gray-600">The ultimate step in leveraging AI is to move from using it in a chat window to automating your own workflows. This requires some basic coding, but the payoff in efficiency is enormous. Below is a gentle introduction.</p>
+                            
+                            <div class="mt-4 border-t pt-4">
+                                <h4 class="font-semibold text-lg mb-2">Basic Coding: Automating a Prompt with Python</h4>
+                                <p class="text-sm text-gray-600 mb-2">You don't need to be a software engineer to automate simple tasks. Here’s a Python script that uses the <code>openai</code> library to send a prompt to the GPT-4o API. You can use this as a template to run your "Cookbook" prompts automatically.</p>
+                                <div class="code-block-wrapper">
+                                    <pre class="bg-gray-800 text-white p-4 rounded-lg text-sm whitespace-pre-wrap"><code># First, install the library: pip install openai
+import os
+from openai import OpenAI
+
+# It's best practice to set your API key as an environment variable
+# For this example, replace "YOUR_API_KEY_HERE" with your actual key
+client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY", "YOUR_API_KEY_HERE"))
+
+system_prompt = "You are an expert credit analyst."
+user_prompt = "Summarize the key risks from the following text: [paste text here]"
+
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        { "role": "system", "content": system_prompt },
+        { "role": "user", "content": user_prompt }
+    ]
+)
+
+print(response.choices[0].message.content)</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 border-t pt-4">
+                                <h4 class="font-semibold text-lg mb-2">LLM Ops for Analysts: Managing Your Prompts</h4>
+                                <p class="text-sm text-gray-600 mb-2">As you develop prompts that work well, you need a simple system to manage them. This is a mini version of "LLM Ops" (Large Language Model Operations).</p>
+                                <ul class="list-disc list-inside space-y-2 text-sm text-gray-700">
+                                    <li>
+                                        <strong>Prompt Versioning:</strong> Don't just save your prompts in random text files. Use a clear naming convention. For example:
+                                        <code class="text-xs bg-gray-200 p-1 rounded-sm">swot_analysis_v1.0.txt</code>
+                                        <code class="text-xs bg-gray-200 p-1 rounded-sm">swot_analysis_v1.1_more_detail.txt</code>
+                                    </li>
+                                    <li>
+                                        <strong>Simple Evaluation:</strong> How do you know if a new prompt version (v1.1) is better than the old one (v1.0)? Run both against a set of 5-10 standard documents and compare the outputs side-by-side. This simple "test set" helps you make data-driven decisions about which prompt is better.
+                                    </li>
+                                    <li>
+                                        <strong>Monitoring:</strong> If you automate a prompt, occasionally check its live outputs to ensure the quality hasn't degraded due to changes in the model or your input data.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="mt-6 border-t pt-4">
+                                <h4 class="font-semibold text-lg mb-2">Useful Libraries: LangChain & LlamaIndex</h4>
+                                <p class="text-sm text-gray-600 mb-2">While you can do a lot with direct API calls, frameworks can help you build more complex applications faster. These are two of the most popular:</p>
+                                <ul class="list-disc list-inside space-y-3 text-sm text-gray-700">
+                                    <li>
+                                        <div>
+                                            <strong>LangChain:</strong> A framework for developing applications powered by language models. It provides modular components for things like prompt chaining, agent creation, and document loading. It's like a Swiss Army knife for building with LLMs.
+                                            <a href="https://www.langchain.com/" target="_blank" class="text-blue-600 hover:underline text-xs block">Visit LangChain</a>
+                                            <p class="text-xs text-gray-500 mt-2">Example of a simple prompt chain:</p>
+                                            <div class="code-block-wrapper">
+                                            <pre class="bg-gray-800 text-white p-3 mt-1 rounded-lg text-xs whitespace-pre-wrap"><code># Requires: pip install langchain langchain-openai
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+
+# 1. Define the components
+llm = ChatOpenAI(openai_api_key="YOUR_API_KEY_HERE")
+prompt = ChatPromptTemplate.from_template("Tell me a short joke about {topic}")
+output_parser = StrOutputParser()
+
+# 2. Create the chain using the | operator
+chain = prompt | llm | output_parser
+
+# 3. Run the chain
+result = chain.invoke({"topic": "financial analysts"})
+print(result)</code></pre>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <strong>LlamaIndex:</strong> A data framework for LLM applications that focuses on connecting your custom data sources to LLMs. It's particularly powerful for building Retrieval-Augmented Generation (RAG) systems.
+                                            <a href="https://www.llamaindex.ai/" target="_blank" class="text-blue-600 hover:underline text-xs block">Visit LlamaIndex</a>
+                                            <p class="text-xs text-gray-500 mt-2">Example of a simple RAG query:</p>
+                                            <div class="code-block-wrapper">
+                                            <pre class="bg-gray-800 text-white p-3 mt-1 rounded-lg text-xs whitespace-pre-wrap"><code># Requires: pip install llama-index
+import os
+os.environ["OPENAI_API_KEY"] = "YOUR_API_KEY_HERE"
+from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
+
+# Create a directory named 'data' and put a text file in it.
+# For example, a file named 'report.txt' with some text.
+if not os.path.exists("data"):
+    os.makedirs("data")
+with open("data/report.txt", "w") as f:
+    f.write("The company's revenue grew by 15% last quarter.")
+
+# 1. Load your data and build an index
+documents = SimpleDirectoryReader("data").load_data()
+index = VectorStoreIndex.from_documents(documents)
+
+# 2. Create a query engine to chat with your data
+query_engine = index.as_query_engine()
+
+# 3. Query your data
+response = query_engine.query("How much did revenue grow?")
+print(response)</code></pre>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -407,6 +781,62 @@ Expand this request by:
                     </div>
                 `
             },
+            finetuning: {
+                title: 'Fine-Tuning vs. Prompting',
+                content: `
+                    <div class="space-y-8">
+                        <h2 class="text-3xl font-bold text-gray-800">Fine-Tuning vs. Prompting: A Strategic Choice</h2>
+                        <p class="text-lg text-gray-600">While this guide focuses on prompt engineering, it's crucial to understand its counterpart: fine-tuning. Both are methods for specializing a base model for a specific task, but they operate very differently.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="card p-6">
+                                <h3 class="text-xl font-bold mb-3">Advanced Prompting</h3>
+                                <p class="text-sm text-gray-600 mb-4"><strong>Analogy:</strong> Giving a brilliant, generalist consultant a very detailed briefing and a set of instructions before a meeting.</p>
+                                <ul class="list-disc list-inside space-y-2 text-sm">
+                                    <li><strong>How it works:</strong> You provide all necessary knowledge and instructions to the model *at the time of the query* (in-context learning).</li>
+                                    <li><strong>Pros:</strong> Fast, cheap, no special training data needed. Excellent for one-off tasks and rapid prototyping.</li>
+                                    <li><strong>Cons:</strong> Can have high latency and cost per-query if the context is large. May struggle with tasks requiring deep, implicit domain knowledge that's hard to articulate in a prompt.</li>
+                                </ul>
+                            </div>
+                            <div class="card p-6">
+                                <h3 class="text-xl font-bold mb-3">Fine-Tuning</h3>
+                                <p class="text-sm text-gray-600 mb-4"><strong>Analogy:</strong> Sending that same consultant to a multi-week, intensive training course on a single subject.</p>
+                                <ul class="list-disc list-inside space-y-2 text-sm">
+                                    <li><strong>How it works:</strong> You update the actual weights of the model by training it further on a large dataset of task-specific examples.</li>
+                                    <li><strong>Pros:</strong> Can achieve higher quality and reliability on specific, narrow tasks. Can teach the model a specific style, tone, or format. Lower latency and cost per-query once deployed.</li>
+                                    <li><strong>Cons:</strong> Requires a large, high-quality dataset (hundreds to thousands of examples). Higher upfront cost and complexity. Risk of "catastrophic forgetting" where the model loses some general capabilities.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card p-6 mt-6 bg-gray-50">
+                            <h3 class="text-xl font-bold mb-4">Decision Framework: When to Consider Fine-Tuning</h3>
+                            <p class="mb-4 text-gray-600">For most financial analysis tasks, a combination of Retrieval-Augmented Generation (RAG) and sophisticated prompt engineering is the best starting point. Only consider fine-tuning if you meet these criteria:</p>
+                            <ul class="list-decimal list-inside space-y-3 text-gray-700">
+                                <li>
+                                    <strong>You have a narrow, well-defined, and repetitive task.</strong>
+                                    <p class="text-xs text-gray-500 ml-4">Example: Consistently converting a specific, proprietary report format into a standardized JSON output.</p>
+                                </li>
+                                <li>
+                                    <strong>Prompting is not enough.</strong>
+                                    <p class="text-xs text-gray-500 ml-4">You've tried advanced prompting (RCTC, few-shot examples, CoT) and RAG, but the model still fails to capture the required nuance, style, or knowledge.</p>
+                                </li>
+                                <li>
+                                    <strong>You have a large, high-quality dataset of examples.</strong>
+                                    <p class="text-xs text-gray-500 ml-4">You have at least 500 (and ideally thousands) of high-quality "prompt-completion" pairs that demonstrate the desired behavior.</p>
+                                </li>
+                                <li>
+                                    <strong>The task is performed at very high volume.</strong>
+                                    <p class="text-xs text-gray-500 ml-4">The lower per-query cost of a fine-tuned model will eventually offset the high upfront training cost.</p>
+                                </li>
+                            </ul>
+                            <div class="mt-4 pt-4 border-t border-gray-200">
+                                <p class="font-semibold text-gray-800">Rule of Thumb: Don't fine-tune if you can achieve the desired result with prompting and RAG. Start with prompting, and only move to fine-tuning when you hit a clear and persistent performance ceiling.</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
             selector: {
                 title: 'Strategy Selector',
                 content: `
@@ -446,13 +876,51 @@ Expand this request by:
                         </div>
                     </div>
                 `
+            },
+            conclusion: {
+                title: 'Conclusion',
+                content: `
+                    <div class="space-y-8">
+                        <h2 class="text-3xl font-bold text-gray-800">The Analyst's Final Judgment</h2>
+                        <p class="text-lg text-gray-600">This guide has demonstrated that Large Language Models are not magic. They are powerful, complex tools that require skillful operation. The techniques discussed here—from the foundational RCTC framework to autonomous agents—are designed to make the model's behavior more reliable, predictable, and aligned with your goals.</p>
+                        
+                        <div class="card p-6 bg-amber-50 border-amber-200">
+                            <h3 class="text-xl font-bold text-amber-800 mb-4">Key Takeaway: You Are the Architect</h3>
+                            <div class="space-y-4 text-amber-900">
+                                <div class="flex items-start space-x-3">
+                                    <span class="text-xl mt-1">🧠</span>
+                                    <div>
+                                        <h4 class="font-semibold">LLMs Augment, Not Replace, Expertise</h4>
+                                        <p class="text-sm">An LLM can draft a brilliant analysis, but it lacks true understanding and real-world experience. It cannot replace the intuition, ethical judgment, and contextual awareness of a seasoned financial analyst. Your role is to guide the tool, validate its output, and synthesize its findings with your own professional judgment.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span class="text-xl mt-1">🔬</span>
+                                    <div>
+                                        <h4 class="font-semibold">Always Be Skeptical</h4>
+                                        <p class="text-sm">LLMs can "hallucinate" facts, make subtle reasoning errors, or inherit biases from their training data. Never trust the output blindly. The principle of "trust, but verify" is paramount. Use these tools to accelerate your workflow and generate initial drafts, but always perform the final due diligence yourself.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span class="text-xl mt-1">🚀</span>
+                                    <div>
+                                        <h4 class="font-semibold">The Future is Iterative</h4>
+                                        <p class="text-sm">The field of AI is evolving at an unprecedented pace. The techniques that are state-of-the-art today may be foundational tomorrow. The most effective analysts will be those who commit to continuous learning, experimenting with new models and methods, and iteratively refining their own "prompt cookbook" to stay at the cutting edge.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-lg text-gray-600 mt-6">By mastering the art and science of prompt engineering, you are not just learning to talk to an AI—you are learning to architect intelligence itself. The goal is not to get the "right answer" from the model, but to build a reliable process that consistently produces high-quality, trustworthy analysis, with you, the analyst, firmly in control.</p>
+                    </div>
+                `
             }
         };
 
         const rctcData = {
             role: { title: 'Role / Persona', text: 'Define the perspective. E.g., "You are an expert financial analyst." This focuses the AI on a specific domain of knowledge and communication style.' },
-            task: { title: 'Task / Objective', text: 'State the primary goal clearly. What is the one thing you need the AI to accomplish? E.g., "Analyze the MD&A section to identify key financial risks."' },
             context: { title: 'Context / Background', text: 'Set the scene. Provide background details like the user, goal, or situation. E.g., "You are preparing a report for a risk-averse loan committee."' },
+            task: { title: 'Task / Objective', text: 'State the primary goal clearly. What is the one thing you need the AI to accomplish? E.g., "Analyze the MD&A section to identify key financial risks."' },
             steps: { title: 'Specific Instructions', text: 'Provide a step-by-step process for the AI to follow. This ensures all parts of a complex request are completed in the correct order.' },
             constraints: { title: 'Constraints & Rules', text: 'Set the boundaries. Specify what the AI must or must not do. E.g., "Do not use external data; keep the summary under 200 words."' },
             example: { title: 'Example (Few-Shot)', text: 'Show, don\'t just tell. Providing a clear example of the desired output is one of the most effective ways to guide the model to the correct format.' },
@@ -559,12 +1027,124 @@ Expand this request by:
                 if (activeSection === 'reasoning') renderReasoningSection();
                 if (activeSection === 'agents') renderAgentsSection();
                 if (activeSection === 'selector') renderSelectorSection();
+                if (activeSection === 'analyst_copilot') {
+                    // This section now contains the cookbook
+                }
+                addCopyButtons();
+            }
+
+            function copyToClipboard(text, button) {
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalText = button.textContent;
+                    button.textContent = 'Copied!';
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                    }, 1500);
+                }, (err) => {
+                    console.error('Could not copy text: ', err);
+                });
+            }
+
+            function addCopyButtons() {
+                document.querySelectorAll('pre').forEach(pre => {
+                    if (pre.closest('.code-block-wrapper')) { // If it's already wrapped, just ensure button exists
+                       if (!pre.parentNode.querySelector('.copy-btn')) {
+                            const button = document.createElement('button');
+                            button.textContent = 'Copy';
+                            button.className = 'copy-btn';
+                            button.onclick = () => copyToClipboard(pre.innerText, button);
+                            pre.parentNode.appendChild(button);
+                       }
+                    } else { // Wrap it and add the button
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'code-block-wrapper';
+                        pre.parentNode.insertBefore(wrapper, pre);
+                        wrapper.appendChild(pre);
+                        
+                        const button = document.createElement('button');
+                        button.textContent = 'Copy';
+                        button.className = 'copy-btn';
+                        button.onclick = () => copyToClipboard(pre.innerText, button);
+                        wrapper.appendChild(button);
+                    }
+                });
+            }
+
+            window.generateSwotPrompt = function() {
+                const text = document.getElementById('swot-text').value;
+                const prompt = `You are a senior investment analyst. Your task is to conduct a comprehensive SWOT (Strengths, Weaknesses, Opportunities, Threats) analysis based on the provided text from a company's 10-K filing.
+
+**Context:** The analysis is for an internal investment committee to evaluate the company as a potential long-term investment.
+
+**Instructions:**
+1.  Read the attached "Management's Discussion and Analysis" and "Risk Factors" sections.
+2.  Identify at least 3 points for each SWOT category.
+3.  For each point, provide a brief explanation and cite the evidence from the text.
+4.  Strengths and Weaknesses should be based on internal factors (e.g., brand, operations, balance sheet).
+5.  Opportunities and Threats should be based on external factors (e.g., market trends, competition, regulations).
+
+**Output Format:**
+Provide the analysis in a markdown-formatted list.
+
+**[Pasted 10-K Text]**
+${text}`;
+                document.getElementById('swot-prompt-text').innerText = prompt;
+                document.getElementById('swot-output').classList.remove('hidden');
+            }
+
+            window.generateEarningsPrompt = function() {
+                const text = document.getElementById('earnings-text').value;
+                const prompt = `You are an equity research associate. Your task is to summarize the key takeaways from the provided earnings call transcript for a busy portfolio manager.
+
+**Context:** The portfolio manager needs a quick, digestible summary focusing on forward-looking guidance and any changes to the company's strategy.
+
+**Instructions:**
+1.  Analyze the provided earnings call transcript.
+2.  Summarize the reported financial results (Revenue, EPS) against analyst expectations.
+3.  Extract the company's official guidance for the next quarter/full year.
+4.  Identify the top 3 most important topics discussed during the Q&A session.
+5.  Note any changes in tone (more optimistic or pessimistic) from management compared to the previous quarter.
+
+**Output Format:**
+A concise, 5-bullet-point summary. The first bullet should cover results vs. expectations, the second should cover guidance, the next two should cover key Q&A topics, and the last should cover management tone.
+
+**[Pasted Earnings Call Transcript]**
+${text}`;
+                document.getElementById('earnings-prompt-text').innerText = prompt;
+                document.getElementById('earnings-output').classList.remove('hidden');
+            }
+            
+            window.generateCovenantPrompt = function() {
+                const agreement = document.getElementById('covenant-agreement-text').value;
+                const financials = document.getElementById('covenant-financials-text').value;
+                const prompt = `You are a credit monitoring analyst. Your task is to check for compliance with financial covenants based on a credit agreement and a recent financial report.
+
+**Context:** You are performing a quarterly review to ensure the borrower is not in breach of any agreements.
+
+**Instructions:**
+1.  From the provided Credit Agreement snippet, identify the required financial covenants (e.g., Debt/EBITDA ratio, Interest Coverage Ratio).
+2.  From the provided Financial Report, extract the necessary figures (e.g., Total Debt, EBITDA, Interest Expense).
+3.  Calculate the current ratios based on the financial report.
+4.  Compare the calculated ratios against the required covenant levels.
+5.  For each covenant, state whether the company is 'In Compliance' or 'In Breach'.
+
+**Output Format:**
+A markdown table with the columns: "Covenant", "Required Level", "Calculated Level", "Status".
+
+**[Credit Agreement Snippet]**
+${agreement}
+
+**[Financial Report Snippet]**
+${financials}`;
+                document.getElementById('covenant-prompt-text').innerText = prompt;
+                document.getElementById('covenant-output').classList.remove('hidden');
             }
 
             function setActiveSection(sectionKey) {
                 if (contentData[sectionKey]) {
                     activeSection = sectionKey;
                     render();
+                    window.scrollTo(0, 0);
                 }
             }
 
@@ -636,39 +1216,13 @@ Expand this request by:
                     },
                     options: {
                         maintainAspectRatio: false,
-                        elements: {
-                            line: {
-                                borderWidth: 2
-                            }
-                        },
+                        elements: { line: { borderWidth: 2 } },
                         scales: {
                             r: {
-                                angleLines: {
-                                    display: false
-                                },
+                                angleLines: { display: false },
                                 suggestedMin: 0,
                                 suggestedMax: 10,
-                                pointLabels: {
-                                    font: {
-                                        size: 12
-                                    }
-                                }
-                            }
-                        },
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.dataset.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
-                                        if (context.parsed.r !== null) {
-                                            label += context.parsed.r;
-                                        }
-                                        return label;
-                                    }
-                                }
+                                pointLabels: { font: { size: 12 } }
                             }
                         }
                     }
@@ -683,21 +1237,21 @@ Expand this request by:
                     const value = parseInt(slider.value);
                     if (value < 33) {
                         explanation.innerHTML = `<strong>Less Eager (Fast & Focused):</strong> Best for latency-sensitive tasks.
-                                               <br><br><strong>Example Prompt Snippet:</strong><br>
-                                               <code class="text-xs bg-blue-100 p-1 rounded">"You have a maximum budget of 3 tool calls to complete this task."</code>`;
+                                                <br><br><strong>Example Prompt Snippet:</strong><br>
+                                                <code class="text-xs bg-blue-100 p-1 rounded">"You have a maximum budget of 3 tool calls to complete this task."</code>`;
                     } else if (value > 66) {
                         explanation.innerHTML = `<strong>More Eager (Autonomous):</strong> Best for complex, open-ended research or problem-solving.
-                                               <br><br><strong>Example Prompt Snippet:</strong><br>
-                                               <code class="text-xs bg-blue-100 p-1 rounded">"Continue to use the available tools until the user's objective is fully achieved. If you get stuck, try to reformulate your plan."</code>`;
+                                                <br><br><strong>Example Prompt Snippet:</strong><br>
+                                                <code class="text-xs bg-blue-100 p-1 rounded">"Continue to use the available tools until the user's objective is fully achieved. If you get stuck, try to reformulate your plan."</code>`;
                     } else {
                         explanation.innerHTML = `<strong>Balanced Approach:</strong> A mix of clear guidance and autonomy, suitable for most general-purpose tasks.
-                                               <br><br><strong>Example Prompt Snippet:</strong><br>
-                                               <code class="text-xs bg-blue-100 p-1 rounded">"Use the search tool to find the required information. If you cannot find it after two attempts, report back that the information is not available."</code>`;
+                                                <br><br><strong>Example Prompt Snippet:</strong><br>
+                                                <code class="text-xs bg-blue-100 p-1 rounded">"Use the search tool to find the required information. If you cannot find it after two attempts, report back that the information is not available."</code>`;
                     }
                 };
                 
                 slider.addEventListener('input', updateExplanation);
-                updateExplanation(); // Initial call to set the text
+                updateExplanation();
             }
 
             function renderSelectorSection() {
