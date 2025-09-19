@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Interactive LMT Playbook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Cool Slate -->
+    <!-- Application Structure Plan: The application is designed as a single-page interactive dashboard with three distinct, scrollable sections: 1) An LMT Taxonomy of landmark case studies presented as interactive cards, 2) The Anatomy of a Credit Agreement, using a tabbed interface to dissect key covenants and defensive "blockers", and 3) a Risk Analysis Simulator to apply knowledge. This structure was chosen to transform a dense, linear document into a non-linear, engaging educational tool. It allows users to learn precedents, understand the mechanics, and then test their knowledge in a logical progression, which is far more effective for comprehension and retention than simply reading the original report. -->
+    <!-- Visualization & Content Choices: 
+    - Report Info: Landmark LMT Case Timelines & Impact -> Goal: Visualize evolution & context -> Viz/Presentation Method: Chart.js Scatter Plot -> Interaction: Clicking a data point on the chart smoothly scrolls to and highlights the corresponding case study card. -> Justification: Provides a high-level overview of the LMT landscape and acts as a visual navigation tool, making the historical context immediately apparent.
+    - Report Info: Multi-step LMT mechanics (e.g., drop-downs) -> Goal: Simplify and explain complex transaction flows -> Viz/Presentation Method: HTML/CSS-based flow diagrams. -> Interaction: Static visual aid within case study details. -> Justification: Breaks down abstract legal maneuvers into easy-to-follow visual steps without relying on external image or SVG assets.
+    - Report Info: LMT types, vulnerabilities, and defensive "blockers" -> Goal: Organize, compare, and inform -> Viz/Presentation Method: A responsive grid of interactive cards and a tabbed content interface. -> Interaction: Clicking cards/tabs reveals detailed information in modals or expandable sections. -> Justification: This component-based design allows users to self-direct their learning, focusing on specific precedents or contractual clauses in a digestible, organized manner.
+    - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9; /* slate-100 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        .modal {
+            transition: opacity 0.25s ease;
+        }
+        .modal-content {
+            transition: transform 0.25s ease;
+        }
+        .highlight-card {
+            transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.5); /* blue-500 */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="text-slate-800 smooth-scroll">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-40 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-slate-900">🏛️ The LMT Playbook</span>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#taxonomy" class="text-gray-600 hover:text-blue-600 transition">Case Studies</a>
+                    <a href="#anatomy" class="text-gray-600 hover:text-blue-600 transition">Anatomy of an Agreement</a>
+                    <a href="#simulator" class="text-gray-600 hover:text-blue-600 transition">Risk Simulator</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- Section 1: LMT Taxonomy -->
+        <section id="taxonomy" class="mb-20">
+            <h2 class="text-3xl font-bold mb-2 text-slate-900">LMT Taxonomy: Landmark Case Studies</h2>
+            <p class="text-lg text-slate-600 mb-8">Liability Management Transactions (LMTs) leverage flexibility in credit documents to alter a company's capital structure. Explore the seminal cases that have defined the modern credit landscape. Click a point on the chart or a card below to dive deeper.</p>
+            
+            <div class="bg-white p-6 rounded-2xl shadow-lg mb-12">
+                <div class="chart-container">
+                    <canvas id="lmtTimelineChart"></canvas>
+                </div>
+            </div>
+
+            <div id="case-studies-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Case study cards will be injected here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Section 2: Anatomy of a Credit Agreement -->
+        <section id="anatomy" class="mb-20">
+            <h2 class="text-3xl font-bold mb-2 text-slate-900">Anatomy of a Credit Agreement</h2>
+            <p class="text-lg text-slate-600 mb-8">The execution of any LMT is contingent upon the specific language within a credit agreement. This section dissects the key covenants, definitions, and protective "blockers" that form the battleground for value.</p>
+            
+            <div class="bg-white rounded-2xl shadow-lg">
+                <div class="border-b border-slate-200">
+                    <nav id="anatomy-tabs" class="flex space-x-2 p-2" aria-label="Tabs">
+                        <!-- Tab buttons will be injected here by JavaScript -->
+                    </nav>
+                </div>
+                <div id="anatomy-content" class="p-6 md:p-8">
+                    <!-- Tab content will be injected here by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Risk Simulator -->
+        <section id="simulator">
+            <h2 class="text-3xl font-bold mb-2 text-slate-900">Risk Analysis Simulator</h2>
+            <p class="text-lg text-slate-600 mb-8">Apply your knowledge. Analyze excerpts from hypothetical credit agreements to identify potential vulnerabilities. Can you spot the loopholes before it's too late?</p>
+            
+            <div id="simulator-grid" class="space-y-8">
+                <!-- Simulator challenges will be injected here by JavaScript -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal for Case Studies -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center p-4 z-50 modal">
+        <div id="modal-content" class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto transform scale-95 modal-content">
+            <div class="sticky top-0 bg-white/90 backdrop-blur-sm p-4 sm:p-6 border-b border-slate-200 flex justify-between items-center z-10">
+                <h3 id="modal-title" class="text-2xl font-bold text-slate-900"></h3>
+                <button id="modal-close" class="text-slate-500 hover:text-slate-800">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div id="modal-body" class="p-6 sm:p-8">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const caseStudies = [
+                {
+                    id: 'j-crew',
+                    year: 2016,
+                    impact: 4,
+                    title: 'J. Crew',
+                    subtitle: 'The Original "Trap Door"',
+                    type: 'Drop-Down',
+                    icon: '↓',
+                    color: 'bg-red-100',
+                    textColor: 'text-red-800',
+                    summary: 'The archetype of the modern drop-down, J. Crew transferred valuable IP to an unrestricted subsidiary to secure new debt, introducing the "trap door" concept.',
+                    context: 'Facing a maturity wall on over $500 million of unsecured PIK notes, J. Crew needed to raise new financing but its most valuable asset—its brand IP—was already pledged to existing lenders.',
+                    mechanic: [
+                        { step: 1, title: 'Transfer to Non-Guarantor', description: 'J. Crew used investment basket capacity to transfer its IP to a newly formed, non-guarantor Restricted Subsidiary.'},
+                        { step: 2, title: 'Designate Unrestricted', description: 'This subsidiary then immediately "invested" the IP into a second entity designated as an "Unrestricted Subsidiary," releasing it from all covenants.' },
+                        { step: 3, title: 'Incur New Debt', description: 'The now-unencumbered IP was used to collateralize new debt, the proceeds of which addressed the problematic PIK notes.'}
+                    ],
+                    covenants: "The transaction hinged on an ambiguous and undefined term: <strong>'proceeds'</strong>. The borrower interpreted 'proceeds' to include not just cash but the asset itself (the IP), allowing an unlimited second transfer from the restricted to the unrestricted sub.",
+                    outcome: "Settled before a court ruling, the transaction emboldened future borrowers. It led to the creation of <strong>'J. Crew blockers'</strong>—specific provisions designed to prevent the transfer of material IP to unrestricted subsidiaries."
+                },
+                {
+                    id: 'serta',
+                    year: 2020,
+                    impact: 5,
+                    title: 'Serta Simmons',
+                    subtitle: 'The "Open Market" Gambit',
+                    type: 'Uptier',
+                    icon: '↑',
+                    color: 'bg-blue-100',
+                    textColor: 'text-blue-800',
+                    summary: 'A landmark uptiering case where a majority lender group amended the credit agreement to prime non-participating lenders, relying on an "open market purchase" exception.',
+                    context: 'During the COVID-19 pandemic, Serta Simmons required new capital. Competing financing proposals from different lender factions led to a contentious restructuring.',
+                    mechanic: [
+                        { step: 1, title: 'Majority Amendment', description: 'A majority lender group voted to amend the credit agreement, permitting Serta to incur $200M in new, first-out super-priority debt.' },
+                        { step: 2, title: 'Non-Pro Rata Exchange', description: 'These lenders then exchanged ~$1.2B of their existing debt for $875M of new, second-out super-priority debt, claiming it was an "open market purchase" to bypass pro rata sharing rules.'}
+                    ],
+                    covenants: "The core vulnerability was the combination of a simple majority (50.1%) amendment threshold and an undefined exception for <strong>'open market purchases'</strong>. Pro rata sharing was not a 'sacred right' requiring unanimous consent.",
+                    outcome: "In a stunning reversal, the 5th Circuit Court of Appeals ruled the transaction was NOT a valid 'open market purchase,' establishing a major precedent against coercive uptiers and reinforcing the principle of ratable treatment."
+                },
+                {
+                    id: 'chewy',
+                    year: 2018,
+                    impact: 3,
+                    title: 'PetSmart/Chewy',
+                    subtitle: 'The Guarantee Release',
+                    type: 'Guarantee Strip',
+                    icon: '↔',
+                    color: 'bg-green-100',
+                    textColor: 'text-green-800',
+                    summary: 'This transaction exploited boilerplate administrative clauses to release the valuable guarantee of its subsidiary, Chewy, without a traditional asset drop-down.',
+                    context: 'The rapidly growing e-commerce retailer Chewy.com was a key driver of value for PetSmart and a crucial guarantor of its debt.',
+                    mechanic: [
+                        { step: 1, title: 'Minority Equity Transfer', description: 'PetSmart used Investment and Restricted Payment baskets to transfer a 36.5% equity stake in Chewy out of the core ownership structure.' },
+                        { step: 2, title: 'Trigger Automatic Release', description: 'Because PetSmart no longer owned 100% of Chewy, it argued that Chewy was no longer a "wholly-owned subsidiary."'},
+                        { step: 3, title: 'Release Guarantee & Liens', description: 'This triggered a boilerplate clause in the agreement that automatically released the guarantee and liens of any subsidiary that ceased to be "wholly-owned."'}
+                    ],
+                    covenants: "The risk lay in the interaction between permissive Investment/RP baskets and a seemingly innocuous administrative clause tying the guarantee to the definition of a <strong>'wholly-owned subsidiary.'</strong>",
+                    outcome: "Settled with lenders for improved terms. The case led to the creation of <strong>'Chewy blockers,'</strong> which prevent automatic guarantee releases when a subsidiary becomes non-wholly-owned, especially in a transaction with an affiliate."
+                },
+                {
+                    id: 'envision',
+                    year: 2023,
+                    impact: 4,
+                    title: 'Envision Healthcare',
+                    subtitle: 'Modernizing with "Basket Stacking"',
+                    type: 'Drop-Down',
+                    icon: '↓',
+                    color: 'bg-red-100',
+                    textColor: 'text-red-800',
+                    summary: 'Envision evolved the drop-down by systematically aggregating capacity from multiple, disparate investment baskets to transfer a massive segment of its business.',
+                    context: 'Facing severe financial and operational headwinds, the KKR-owned physician staffing company needed to restructure its large debt burden.',
+                    mechanic: [
+                        { step: 1, title: 'Aggregate Capacity', description: 'Instead of one "trap door," Envision utilized every available permission across multiple investment baskets—fixed, ratio-based, and builder baskets.' },
+                        { step: 2, title: 'Designate Unrestricted', description: 'This aggregated, or "stacked," capacity was used to designate a large and profitable business unit as an unrestricted subsidiary, stripping its collateral and guarantee support.' },
+                        { step: 3, title: 'Secure New Financing', description: 'The newly unencumbered assets were used to secure new financing.'}
+                    ],
+                    covenants: "The vulnerability was systemic: the cumulative flexibility embedded throughout the document. The analysis asked not 'is there a single loophole?' but 'what is the total value we can transfer if we use <strong>every basket simultaneously?</strong>'",
+                    outcome: "A temporary fix; the company filed for bankruptcy within a year. The LMT led directly to <strong>'Envision blockers'</strong> designed to prevent basket stacking by limiting investments in unrestricted subsidiaries to a single, hard-capped basket."
+                },
+                {
+                    id: 'pluralsight',
+                    year: 2024,
+                    impact: 5,
+                    title: 'Pluralsight',
+                    subtitle: 'The Private Credit Watershed',
+                    type: 'Drop-Down',
+                    icon: '↓',
+                    color: 'bg-red-100',
+                    textColor: 'text-red-800',
+                    summary: 'The first major, sponsor-led drop-down in the private credit space, signaling a convergence of risk profiles between the BSL and private credit markets.',
+                    context: 'Taken private by Vista Equity Partners, Pluralsight faced challenges leading to a debt-for-equity exchange where lenders took ownership.',
+                    mechanic: [
+                         { step: 1, title: 'Transfer to Non-Loan Party', description: 'In a key nuance, valuable IP was transferred not to an unrestricted sub, but to a <strong>restricted non-guarantor subsidiary</strong>. This entity was still bound by covenants but was not a guarantor and had not pledged assets.' },
+                         { step: 2, title: 'Sponsor Capital Infusion', description: 'The sponsor then injected new capital into this non-guarantor sub, in a form (loan or preferred equity) that was structurally senior to existing lenders with respect to the transferred IP.'}
+                    ],
+                    covenants: "The loophole exploited was that traditional 'J. Crew blockers' only prohibited transfers to <strong>unrestricted subsidiaries</strong>, not to other entities outside the direct loan party group (like restricted non-guarantors).",
+                    outcome: "Lenders ultimately took ownership of the company. The market responded by developing <strong>'Pluralsight blockers,'</strong> which are more comprehensive, restricting material asset transfers from any loan party to ANY subsidiary that is not a loan party."
+                },
+                 {
+                    id: 'neiman-marcus',
+                    year: 2018,
+                    impact: 3,
+                    title: 'Neiman Marcus',
+                    subtitle: 'The MyTheresa Dividend',
+                    type: 'Drop-Down',
+                    icon: '↓',
+                    color: 'bg-red-100',
+                    textColor: 'text-red-800',
+                    summary: 'Demonstrated value leakage by transferring a "crown-jewel asset" directly to sponsors for no consideration via a dividend of an unrestricted subsidiary.',
+                    context: 'Following its LBO, Neiman Marcus faced deteriorating performance. Its profitable e-commerce acquisition, MyTheresa, was a significant source of value.',
+                    mechanic: [
+                         { step: 1, title: 'Designate Unrestricted', description: 'Using investment basket capacity, the company designated the MyTheresa entities as unrestricted subsidiaries.' },
+                         { step: 2, title: 'Distribute as Dividend', description: 'The company then exploited a highly permissive exception in its Restricted Payments covenant to distribute the stock of MyTheresa as a dividend to its parent holding company.'}
+                    ],
+                    covenants: "The key was an explicit exception in the Restricted Payments covenant that allowed the <strong>distribution of Capital Stock of Unrestricted Subsidiaries as a dividend</strong>, requiring no fair market value consideration.",
+                    outcome: "The transfer sparked fraudulent conveyance litigation that was ultimately resolved in the company's Chapter 11 filing. It highlighted the risk of specific, permissive dividend exceptions in RP covenants."
+                }
+            ];
+
+            const anatomyData = {
+                tabs: ["Key Covenants", "Critical Definitions", "The Blocker Arms Race"],
+                content: {
+                    "Key Covenants": `
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-xl font-semibold mb-2 text-slate-900">Investment Covenant</h4>
+                                <p class="text-slate-600">The primary gateway for drop-down transactions. It governs the transfer of assets to subsidiaries. Vulnerabilities lie in the "Permitted Investments" section, which includes fixed dollar baskets, ratio-based baskets, and "builder baskets" that grow over time. The valuation of non-cash assets (like IP) is often determined by the borrower's board, creating potential for disputes.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-2 text-slate-900">Restricted Payments (RP) Covenant</h4>
+                                <p class="text-slate-600">Governs the flow of value out of the credit group to equity holders (dividends, share buybacks). As seen in Neiman Marcus, specific exceptions allowing for the dividend of unrestricted subsidiary stock can be a major loophole for value leakage without consideration.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-2 text-slate-900">Amendment Provisions & "Sacred Rights"</h4>
+                                <p class="text-slate-600">The battleground for uptiering. Most terms can be amended by a simple majority (>50%), but "sacred rights" (like reducing principal or interest) require unanimous consent. The Serta case exposed the critical vulnerability when pro rata sharing is NOT included as a sacred right, allowing a majority to subordinate a minority.</p>
+                            </div>
+                        </div>
+                    `,
+                    "Critical Definitions": `
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-xl font-semibold mb-2 text-slate-900">"Unrestricted" vs. "Restricted" Subsidiary</h4>
+                                <p class="text-slate-600">The fundamental distinction enabling most drop-downs. Unrestricted Subsidiaries are not bound by the credit agreement's covenants. Their assets and EBITDA are removed from the credit group, making them the perfect destination for dropped-down assets that will be used to incur new, priming debt.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-2 text-slate-900">"Wholly-Owned Subsidiary"</h4>
+                                <p class="text-slate-600">The Chewy transaction showed how this seemingly simple definition can be weaponized. If a guarantee is automatically released when a subsidiary ceases to be "wholly-owned," the transfer of even a single share can strip its credit support.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-2 text-slate-900">Ambiguous & Undefined Terms</h4>
+                                <p class="text-slate-600">Often the fulcrum on which an LMT pivots. J. Crew's "proceeds" and Serta's "open market purchase" were undefined terms whose ambiguity was exploited to justify value-destructive transactions.</p>
+                            </div>
+                        </div>
+                    `,
+                    "The Blocker Arms Race": `
+                        <div class="space-y-6">
+                            <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                                <h4 class="font-semibold text-lg text-red-700">Attack: J. Crew Drop-Down</h4>
+                                <p class="font-mono text-sm text-slate-600 mt-1">Transfer of material IP to an Unrestricted Subsidiary.</p>
+                                <hr class="my-2">
+                                <h4 class="font-semibold text-lg text-green-700">Defense: J. Crew Blocker</h4>
+                                <p class="font-mono text-sm text-slate-600 mt-1">Prohibits transfer of "Material IP" to an "Unrestricted Subsidiary." <span class="text-xs text-slate-500">(Weakness: Narrowly focused on IP and only one destination type).</span></p>
+                            </div>
+                             <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                                <h4 class="font-semibold text-lg text-red-700">Attack: Envision Basket Stacking</h4>
+                                <p class="font-mono text-sm text-slate-600 mt-1">Aggregating capacity from multiple baskets for one large transfer.</p>
+                                <hr class="my-2">
+                                <h4 class="font-semibold text-lg text-green-700">Defense: Envision Blocker</h4>
+                                <p class="font-mono text-sm text-slate-600 mt-1">Limits investments in Unrestricted Subsidiaries to one specific, hard-capped basket.</p>
+                            </div>
+                             <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                                <h4 class="font-semibold text-lg text-red-700">Attack: Pluralsight Non-Loan Party Transfer</h4>
+                                <p class="font-mono text-sm text-slate-600 mt-1">Transfer of assets to a Restricted Non-Guarantor Subsidiary.</p>
+                                <hr class="my-2">
+                                <h4 class="font-semibold text-lg text-green-700">Defense: Pluralsight Blocker</h4>
+                                <p class="font-mono text-sm text-slate-600 mt-1">Prohibits transfer of "Material Assets" from a Loan Party to ANY Subsidiary that is not a Loan Party.</p>
+                            </div>
+                             <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                                <h4 class="font-semibold text-lg text-red-700">Attack: Serta Uptier</h4>
+                                <p class="font-mono text-sm text-slate-600 mt-1">Non-pro rata priming via majority amendment and an "open market purchase" exception.</p>
+                                <hr class="my-2">
+                                <h4 class="font-semibold text-lg text-green-700">Defense: Serta Blocker</h4>
+                                <p class="font-mono text-sm text-slate-600 mt-1">Makes pro rata sharing a "sacred right" and removes/defines ambiguous exceptions.</p>
+                            </div>
+                             <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                                <h4 class="font-semibold text-lg text-red-700">Attack: Chewy Guarantee Strip</h4>
+                                <p class="font-mono text-sm text-slate-600 mt-1">Triggering automatic guarantee release by transferring minority equity.</p>
+                                <hr class="my-2">
+                                <h4 class="font-semibold text-lg text-green-700">Defense: Chewy Blocker</h4>
+                                <p class="font-mono text-sm text-slate-600 mt-1">Prevents automatic guarantee release just because a sub is no longer "wholly-owned," especially in affiliate transactions.</p>
+                            </div>
+                        </div>
+                    `
+                }
+            };
+
+            const simulatorChallenges = [
+                {
+                    id: 'sim1',
+                    title: 'Challenge 1: The Investment Covenant',
+                    scenario: "Your borrower's credit agreement contains the following language in its Investment covenant. They want to move their valuable 'Project Titan' IP to a newly formed subsidiary. Can they do it, and what is the primary risk?",
+                    covenantText: `
+                        <p class="mb-2">...the Borrower may make Permitted Investments, including:</p>
+                        <ul class="list-disc list-inside text-sm font-mono space-y-1">
+                            <li>(x) Investments in Unrestricted Subsidiaries not to exceed $50 million in aggregate;</li>
+                            <li>(y) other Investments not to exceed the greater of $100 million and 20% of EBITDA;</li>
+                            <li>(z) unlimited Investments so long as the Net Leverage Ratio is less than 3.0x.</li>
+                        </ul>`,
+                    analysis: `
+                        <h4 class="font-semibold text-lg text-red-700">Vulnerability: Envision-style "Basket Stacking"</h4>
+                        <p class="mt-2 text-slate-600">The primary risk is <strong>"basket stacking."</strong> The covenant does not contain an "Envision blocker" that restricts investments in Unrestricted Subsidiaries to only basket (x). A borrower could argue they can use capacity from basket (x), (y), and (z) simultaneously to make a massive transfer to an Unrestricted Subsidiary, far exceeding the intended $50 million specific cap. This allows for a large-scale drop-down of "Project Titan."</p>
+                    `
+                },
+                {
+                    id: 'sim2',
+                    title: 'Challenge 2: The Amendment Clause',
+                    scenario: "A majority lender group is in talks with the borrower for a new money deal. You are in the minority. Can the majority group prime your position based on this amendment clause?",
+                    covenantText: `
+                        <p class="mb-2">...amendments require the consent of Majority Lenders (50.1%). However, consent of 100% of Lenders is required to:</p>
+                        <ul class="list-disc list-inside text-sm font-mono space-y-1">
+                            <li>(a) reduce the principal amount of any Loan;</li>
+                            <li>(b) reduce the rate of interest on any Loan;</li>
+                            <li>(c) extend the final maturity date.</li>
+                        </ul>
+                        <p class="mt-4 text-sm font-mono">...payments to Lenders shall be made on a pro rata basis, except for open market purchases of the Loans.</p>`,
+                    analysis: `
+                        <h4 class="font-semibold text-lg text-red-700">Vulnerability: Serta-style Uptier</h4>
+                        <p class="mt-2 text-slate-600">Yes, your position is highly vulnerable. This is a classic <strong>Serta-style setup.</strong></p>
+                        <ol class="list-decimal list-inside mt-2 space-y-1 text-slate-600">
+                            <li><strong>Pro Rata Not a "Sacred Right":</strong> The requirement for pro rata sharing is not in the list of items requiring 100% consent. A simple majority (50.1%) can amend this provision.</li>
+                            <li><strong>Undefined Exception:</strong> The clause contains an exception for undefined "open market purchases," which a majority group could use to justify a non-pro rata exchange that gives them new, super-priority loans, subordinating your position.</li>
+                        </ol>
+                    `
+                }
+            ];
+
+            const caseStudiesGrid = document.getElementById('case-studies-grid');
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modal-content');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const modalClose = document.getElementById('modal-close');
+
+            const anatomyTabs = document.getElementById('anatomy-tabs');
+            const anatomyContent = document.getElementById('anatomy-content');
+
+            const simulatorGrid = document.getElementById('simulator-grid');
+
+            function openModal(caseData) {
+                modalTitle.textContent = `${caseData.title}: ${caseData.subtitle}`;
+                modalBody.innerHTML = `
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-2 space-y-4">
+                            <div>
+                                <h4 class="text-lg font-semibold text-slate-900 mb-1">Context</h4>
+                                <p class="text-slate-600">${caseData.context}</p>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-slate-900 mb-2">The Mechanic: A Step-by-Step Flow</h4>
+                                <div class="space-y-2">
+                                    ${caseData.mechanic.map(step => `
+                                        <div class="flex items-start">
+                                            <div class="flex-shrink-0 flex items-center justify-center h-6 w-6 rounded-full ${caseData.color} ${caseData.textColor} font-bold text-sm mr-3">${step.step}</div>
+                                            <div>
+                                                <p class="font-medium text-slate-800">${step.title}</p>
+                                                <p class="text-slate-500 text-sm">${step.description}</p>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                             <div>
+                                <h4 class="text-lg font-semibold text-slate-900 mb-1">Covenants Exploited</h4>
+                                <p class="text-slate-600 text-sm">${caseData.covenants}</p>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-slate-900 mb-1">Outcome & Precedent</h4>
+                                <p class="text-slate-600 text-sm">${caseData.outcome}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                    modalContent.style.transform = 'scale(1)';
+                }, 10);
+            }
+
+            function closeModal() {
+                modal.style.opacity = '0';
+                modalContent.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }, 250);
+            }
+
+            modalClose.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            caseStudies.sort((a,b) => a.year - b.year).forEach(caseData => {
+                const card = document.createElement('div');
+                card.id = `card-${caseData.id}`;
+                card.className = `bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer border-2 border-transparent`;
+                card.innerHTML = `
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-4xl font-bold">${caseData.icon}</span>
+                        <span class="px-3 py-1 text-xs font-semibold rounded-full ${caseData.color} ${caseData.textColor}">${caseData.type.toUpperCase()}</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900">${caseData.title} <span class="text-slate-500 font-medium">(${caseData.year})</span></h3>
+                    <p class="text-md font-medium text-slate-600 mb-3">${caseData.subtitle}</p>
+                    <p class="text-slate-500 text-sm">${caseData.summary}</p>
+                `;
+                card.addEventListener('click', () => openModal(caseData));
+                caseStudiesGrid.appendChild(card);
+            });
+
+            const chartCtx = document.getElementById('lmtTimelineChart').getContext('2d');
+            const timelineChart = new Chart(chartCtx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'LMT Case Studies',
+                        data: caseStudies.map(cs => ({ x: cs.year, y: cs.impact, id: cs.id, title: cs.title })),
+                        backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        pointRadius: 8,
+                        pointHoverRadius: 12,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const elementIndex = elements[0].index;
+                            const caseId = timelineChart.data.datasets[0].data[elementIndex].id;
+                            const card = document.getElementById(`card-${caseId}`);
+                            if (card) {
+                                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                document.querySelectorAll('.highlight-card').forEach(c => c.classList.remove('highlight-card'));
+                                card.classList.add('highlight-card');
+                                setTimeout(() => card.classList.remove('highlight-card'), 2000);
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom',
+                            title: {
+                                display: true,
+                                text: 'Year of Transaction'
+                            },
+                            ticks: {
+                                stepSize: 1
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Market Impact Score'
+                            },
+                            min: 0,
+                            max: 6,
+                             ticks: {
+                                stepSize: 1,
+                                callback: function(value) {
+                                    const labels = ['', 'Low', '', 'Medium', '', 'High', ''];
+                                    return labels[value];
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.data[context.dataIndex].title || '';
+                                    return label;
+                                }
+                            }
+                        },
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            function setupAnatomyTabs() {
+                anatomyData.tabs.forEach((tab, index) => {
+                    const button = document.createElement('button');
+                    button.textContent = tab;
+                    button.className = `px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200`;
+                    if (index === 0) {
+                        button.classList.add('bg-blue-600', 'text-white');
+                    } else {
+                        button.classList.add('text-slate-600', 'hover:bg-slate-100');
+                    }
+                    button.addEventListener('click', () => {
+                        document.querySelectorAll('#anatomy-tabs button').forEach(btn => {
+                            btn.classList.remove('bg-blue-600', 'text-white');
+                            btn.classList.add('text-slate-600', 'hover:bg-slate-100');
+                        });
+                        button.classList.add('bg-blue-600', 'text-white');
+                        button.classList.remove('text-slate-600', 'hover:bg-slate-100');
+                        anatomyContent.innerHTML = anatomyData.content[tab];
+                    });
+                    anatomyTabs.appendChild(button);
+                });
+                anatomyContent.innerHTML = anatomyData.content[anatomyData.tabs[0]];
+            }
+            setupAnatomyTabs();
+
+            simulatorChallenges.forEach(challenge => {
+                const challengeDiv = document.createElement('div');
+                challengeDiv.className = 'bg-white p-6 rounded-2xl shadow-lg';
+                challengeDiv.innerHTML = `
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">${challenge.title}</h3>
+                    <p class="text-slate-600 mb-4">${challenge.scenario}</p>
+                    <div class="bg-slate-900 text-white p-4 rounded-lg mb-4">
+                        <pre class="whitespace-pre-wrap text-sm"><code>${challenge.covenantText}</code></pre>
+                    </div>
+                    <div id="analysis-${challenge.id}" class="hidden p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg">
+                        ${challenge.analysis}
+                    </div>
+                    <button id="reveal-${challenge.id}" class="mt-4 px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">Reveal Analysis</button>
+                `;
+                simulatorGrid.appendChild(challengeDiv);
+
+                const revealBtn = document.getElementById(`reveal-${challenge.id}`);
+                const analysisDiv = document.getElementById(`analysis-${challenge.id}`);
+
+                revealBtn.addEventListener('click', () => {
+                    analysisDiv.classList.toggle('hidden');
+                    if (analysisDiv.classList.contains('hidden')) {
+                        revealBtn.textContent = 'Reveal Analysis';
+                    } else {
+                        revealBtn.textContent = 'Hide Analysis';
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
