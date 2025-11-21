@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Paths Hub</title>
+    <title>Learning Paths Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/global_nav.css">
@@ -14,105 +12,107 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #FDFBF7;
+            color: #3D352E;
         }
-        .content-card {
-            @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 ease-in-out p-8;
-        }
-        .card-link {
-            @apply block bg-sky-600 text-white font-semibold py-3 px-5 rounded-lg hover:bg-sky-700 transition-colors duration-200 text-center mt-auto;
+        .dashboard-card {
+            @apply bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-gray-100;
         }
     </style>
 </head>
 <body class="flex">
 
-    <!-- Global Navigation Sidebar -->
-    <div id="global-nav-placeholder" class="fixed top-0 left-0 h-full z-30"></div>
+    <div id="global-nav-placeholder"></div>
 
-    <!-- Main Content Area -->
-    <div id="main-content-wrapper" class="flex-grow overflow-y-auto ml-0 md:ml-[280px] transition-all duration-300 ease-in-out">
-
-        <!-- Header -->
-        <header class="bg-slate-800 text-white py-16 px-6 md:px-8 text-center">
-            <div class="max-w-4xl mx-auto">
-                <i class="fas fa-map-signs text-5xl text-sky-400 mb-4"></i>
-                <h1 class="text-4xl md:text-5xl font-bold">Learning Paths</h1>
-                <p class="mt-4 text-xl opacity-90">Curated journeys to guide you through the learning hub.</p>
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="py-16 px-6 md:px-8">
-            <div class="max-w-6xl mx-auto">
-
-                <div class="content-card mb-12">
-                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Chart Your Course</h2>
-                    <p class="text-slate-600 leading-relaxed">
-                        Our learning paths are designed to provide a structured approach to learning. Each path is a curated sequence of resources from across the hub, designed to help you achieve a specific learning objective.
-                    </p>
-                </div>
-
-                <h2 class="text-3xl font-bold text-center mb-12 text-slate-700">Available Learning Paths</h2>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="content-card">
-                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Generative AI for Credit Analysts</h3>
-                        <p class="text-sm text-slate-600 mb-4 flex-grow">A comprehensive guide to leveraging Generative AI, from fundamentals to workflow automation.</p>
-                        <a href="/global_markdown_viewer.html?mdfile=Learning_Paths/GenAI_for_Credit_Analysts_Path.md" class="card-link">View Path</a>
-                    </div>
-                    <div class="content-card">
-                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Credit Analyst Foundational Path</h3>
-                        <p class="text-sm text-slate-600 mb-4 flex-grow">For individuals new to credit analysis or seeking to build a solid foundational understanding.</p>
-                        <a href="/global_markdown_viewer.html?mdfile=Learning_Paths/Credit_Analyst_Foundational_Path.md" class="card-link">View Path</a>
-                    </div>
-                    <div class="content-card">
-                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Understanding Fintech for Analysts</h3>
-                        <p class="text-sm text-slate-600 mb-4 flex-grow">For professionals looking to gain a foundational understanding of the Fintech landscape.</p>
-                        <a href="/global_markdown_viewer.html?mdfile=Learning_Paths/Understanding_Fintech_for_Analysts.md" class="card-link">View Path</a>
-                    </div>
-                    <div class="content-card">
-                        <h3 class="font-semibold text-xl mb-3 text-slate-800">CFA Level 1 Prep Focus Areas</h3>
-                        <p class="text-sm text-slate-600 mb-4 flex-grow">To guide CFA Level 1 candidates in using repository resources for key topic areas.</p>
-                        <a href="/global_markdown_viewer.html?mdfile=Learning_Paths/CFA_Level_1_Prep_Focus_Areas.md" class="card-link">View Path</a>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <!-- Related Topics -->
-        <section class="py-16 px-6 md:px-8 bg-slate-50">
-            <div class="max-w-5xl mx-auto">
-                <h2 class="text-3xl font-bold text-center mb-12 text-slate-700">Explore Individual Topics</h2>
-                <p class="text-center text-slate-600 mb-8 -mt-8">
-                    Prefer to explore on your own? Dive into any of our topic hubs.
+    <div id="main-content-wrapper" class="flex-grow p-8 md:ml-[280px] transition-all duration-300">
+        <div class="max-w-6xl mx-auto">
+            <header class="mb-12 text-center">
+                <h1 class="text-4xl font-bold text-gray-800 mb-4">Learning Paths Dashboard</h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Curated journeys to guide you through specific skills and roles. Track your exploration and master the material.
                 </p>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="content-card text-center">
-                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Core Financial Topics</h3>
-                        <a href="../Financial_Modeling/index.html" class="card-link">Explore</a>
-                    </div>
-                    <div class="content-card text-center">
-                        <h3 class="font-semibold text-xl mb-3 text-slate-800">Career & Exams</h3>
-                        <a href="../CFA/index.html" class="card-link">Explore</a>
-                    </div>
-                    <div class="content-card text-center">
-                        <h3 class="font-semibold text-xl mb-3 text-slate-800">AI, Coding & Tech</h3>
-                        <a href="../AI_and_Coding/index.html" class="card-link">Explore</a>
-                    </div>
-                </div>
+            </header>
+
+            <div id="paths-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Cards will be injected here -->
+                <div class="col-span-full text-center text-gray-500">Loading paths...</div>
             </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="py-10 px-6 md:px-8 text-center text-sm text-slate-100 bg-slate-800 mt-12">
-            <p>&copy; <span id="currentYear"></span> Financial Learning Hub. All Rights Reserved.</p>
-        </footer>
-
+        </div>
     </div>
 
-    <script src="../js/nav_data.js" defer></script>
-    <script src="../js/global_nav.js" defer></script>
+    <script src="../js/nav_data.js"></script>
+    <script src="../js/global_nav.js"></script>
     <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('paths-container');
+            const completedPages = JSON.parse(localStorage.getItem('completed_pages') || '[]');
+
+            // Helper to find learning paths recursively
+            function findPaths(items, paths = []) {
+                if (!items) return paths;
+                items.forEach(item => {
+                    if (item.type === 'learning_path_definition') {
+                        paths.push(item);
+                    }
+                    if (item.children) {
+                        findPaths(item.children, paths);
+                    }
+                });
+                return paths;
+            }
+
+            if (typeof navData !== 'undefined') {
+                const paths = findPaths(navData);
+
+                if (paths.length > 0) {
+                    container.innerHTML = '';
+                    paths.forEach(path => {
+                        const isStarted = completedPages.includes(path.href);
+
+                        // Construct proper link
+                        const viewerUrl = `../global_markdown_viewer.html?mdfile=${encodeURIComponent(path.href)}`;
+
+                        const card = document.createElement('div');
+                        card.className = 'dashboard-card flex flex-col h-full';
+
+                        let statusBadge = isStarted
+                            ? '<span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">In Progress</span>'
+                            : '<span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Not Started</span>';
+
+                        card.innerHTML = `
+                            <div class="p-6 flex flex-col h-full">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
+                                        <i class="fas fa-map-signs text-xl"></i>
+                                    </div>
+                                    ${statusBadge}
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-3">${path.text}</h3>
+                                <p class="text-gray-600 mb-6 flex-grow text-sm">
+                                    Follow this curated path to master specific skills. Click to view the guide and resources.
+                                </p>
+                                <a href="${viewerUrl}" class="text-center w-full block bg-indigo-600 text-white font-bold py-2 px-4 rounded hover:bg-indigo-700 transition-colors">
+                                    ${isStarted ? 'Continue Path' : 'Start Path'}
+                                </a>
+                            </div>
+                        `;
+                        container.appendChild(card);
+
+                        // Add click listener to update status locally immediately
+                        card.querySelector('a').addEventListener('click', () => {
+                             let currentCompleted = JSON.parse(localStorage.getItem('completed_pages') || '[]');
+                             if (!currentCompleted.includes(path.href)) {
+                                 currentCompleted.push(path.href);
+                                 localStorage.setItem('completed_pages', JSON.stringify(currentCompleted));
+                             }
+                        });
+                    });
+                } else {
+                    container.innerHTML = '<p class="text-center col-span-full">No learning paths found.</p>';
+                }
+            } else {
+                container.innerHTML = '<p class="text-center text-red-500 col-span-full">Error: Navigation data not loaded.</p>';
+            }
+        });
     </script>
 </body>
 </html>

@@ -66,7 +66,10 @@ function buildNavMenu(items, level = 0) {
             } else if (item.type === 'html_hub_section') { // e.g. CFA/index.html#materials-library
                 const parts = rawHref.split('#');
                 finalHref = `${SITE_BASE_PATH}${parts[0]}` + (parts.length > 1 ? `#${parts[1]}` : '');
-            } else if (item.type === 'html' || item.type === 'html_hub' || item.type === 'craft_module_viewer' || item.type === 'section_viewer' || item.type === 'learning_path_definition') {
+            } else if (item.type === 'learning_path_definition') {
+                 // Treat learning path definitions as markdown files to be viewed globally
+                 finalHref = `${SITE_BASE_PATH}global_markdown_viewer.html?mdfile=${encodeURIComponent(rawHref)}`;
+            } else if (item.type === 'html' || item.type === 'html_hub' || item.type === 'craft_module_viewer' || item.type === 'section_viewer') {
                  finalHref = `${SITE_BASE_PATH}${rawHref}`;
             } else {
                 // Default for types not explicitly handled above, or if item.href is just an anchor
@@ -91,14 +94,17 @@ function buildNavMenu(items, level = 0) {
 
             titleElement.onclick = function() {
                 const subMenu = this.nextElementSibling;
-                const isExpanded = subMenu.style.display === 'block';
-                subMenu.style.display = isExpanded ? 'none' : 'block';
-                this.setAttribute('aria-expanded', !isExpanded);
-                this.querySelector('.toggler-icon').textContent = isExpanded ? '+' : '-';
+                // Safety check if sibling exists
+                if (subMenu) {
+                    const isExpanded = subMenu.style.display === 'block';
+                    subMenu.style.display = isExpanded ? 'none' : 'block';
+                    this.setAttribute('aria-expanded', !isExpanded);
+                    this.querySelector('.toggler-icon').textContent = isExpanded ? '+' : '-';
+                }
             };
             li.appendChild(titleElement);
         } else {
-            const aAttributes = { href: linkHref };
+            const aAttributes = { href: finalHref };
             if (target) {
                 aAttributes.target = target;
             }
@@ -107,6 +113,23 @@ function buildNavMenu(items, level = 0) {
                 aAttributes.class = 'learning-path-definition-link';
             }
             const link = createElement('a', aAttributes, [item.text]);
+
+            // Track clicks for learning progress
+            link.addEventListener('click', function() {
+                try {
+                    let completed = JSON.parse(localStorage.getItem('completed_pages') || '[]');
+                    // Store the raw href from navData if possible, but here we have finalHref.
+                    // Let's store item.href (the raw one) to be consistent with navData.
+                    const trackingId = item.href;
+                    if (trackingId && !completed.includes(trackingId)) {
+                        completed.push(trackingId);
+                        localStorage.setItem('completed_pages', JSON.stringify(completed));
+                    }
+                } catch (e) {
+                    console.error("Error tracking progress:", e);
+                }
+            });
+
             li.appendChild(link);
         }
 
@@ -147,30 +170,152 @@ function highlightActiveLink() {
                 const mdFileParam = linkUrl.searchParams.get('mdfile');
                 if (currentPath === 'global_markdown_viewer.html' && searchParams.includes(encodeURIComponent(mdFileParam))) {
                     link.classList.add('active-nav-link');
+                    expandParents(link);
                 }
             } catch (e) {
                 // console.error("Error parsing link for active state:", link.href, e);
             }
         } else if (linkPath.endsWith(currentPath) && currentPath !== '') {
-             // Simple check for HTML pages (e.g. home.html, CFA/index.html)
-             // This might need refinement for nested paths if currentPath is just 'index.html'
-             // A more robust check would compare the full relative path.
             if (link.href === window.location.href || (link.pathname === window.location.pathname && !searchParams && !link.search)) {
                  link.classList.add('active-nav-link');
+                 expandParents(link);
             } else if (link.href.split('#')[0] === window.location.href.split('#')[0] && link.href.includes('#') && window.location.href.includes('#')) {
                 // Handle html_hub_section links with anchors
                 if (link.hash === window.location.hash) {
                     link.classList.add('active-nav-link');
+                    expandParents(link);
                 }
             }
         } else if (linkPath === currentPath && currentPath === 'home.html' && window.location.pathname.endsWith('/home.html')) {
-            // Explicitly for home.html if it's the direct target
             link.classList.add('active-nav-link');
         } else if (linkPath === './' && (window.location.pathname.endsWith('/') || window.location.pathname.endsWith('/index.html'))) {
-            // Handle root index.html as home
              link.classList.add('active-nav-link');
         }
     });
+}
+
+/**
+ * Helper to expand parent categories of the active link.
+ */
+function expandParents(element) {
+    let parent = element.parentElement;
+    while (parent) {
+        if (parent.tagName === 'UL' && parent.style.display === 'none') {
+            parent.style.display = 'block';
+            // Find the toggler button
+            if (parent.previousElementSibling && parent.previousElementSibling.classList.contains('nav-category-title')) {
+                parent.previousElementSibling.setAttribute('aria-expanded', 'true');
+                const icon = parent.previousElementSibling.querySelector('.toggler-icon');
+                if (icon) icon.textContent = '-';
+            }
+        }
+        parent = parent.parentElement;
+    }
+}
+
+/**
+ * Builds the search input element.
+ */
+function buildNavSearch() {
+    const searchContainer = createElement('div', { class: 'nav-search-container' });
+    const searchInput = createElement('input', {
+        type: 'text',
+        id: 'nav-search-input',
+        placeholder: 'Search navigation...',
+        class: 'nav-search-input'
+    });
+
+    searchInput.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        filterNav(term);
+    });
+
+    searchContainer.appendChild(searchInput);
+    return searchContainer;
+}
+
+/**
+ * Filters the navigation menu based on search term.
+ */
+function filterNav(term) {
+    const nav = document.getElementById('global-nav-placeholder');
+    const links = nav.querySelectorAll('li a');
+
+    // First, hide all LIs that contain links, show all if term is empty
+    if (term === '') {
+        nav.querySelectorAll('li').forEach(li => {
+            li.classList.remove('nav-item-hidden');
+            // Reset display for ULs? Maybe better to collapse all or leave as is.
+            // Let's leave them as they were (user expanded/collapsed).
+            // But we need to make sure if we hid them, we show them.
+            // Actually, just removing nav-item-hidden restores visibility.
+        });
+        // We might want to re-collapse everything except active?
+        // For simplicity, leave user state or reset to initial.
+        return;
+    }
+
+    // Hide all by default
+    nav.querySelectorAll('li').forEach(li => li.classList.add('nav-item-hidden'));
+
+    links.forEach(link => {
+        const text = link.textContent.toLowerCase();
+        if (text.includes(term)) {
+            // Show this link's LI
+            let li = link.parentElement;
+            li.classList.remove('nav-item-hidden');
+
+            // Walk up and show all parents
+            let parent = li.parentElement; // This is a UL
+            while (parent && parent.id !== 'global-nav-placeholder') {
+                 if (parent.tagName === 'UL') {
+                     // Ensure the UL is visible
+                     parent.style.display = 'block';
+
+                     // If this UL has a toggler, update it
+                     if(parent.previousElementSibling && parent.previousElementSibling.classList.contains('nav-category-title')) {
+                         parent.previousElementSibling.setAttribute('aria-expanded', 'true');
+                         const icon = parent.previousElementSibling.querySelector('.toggler-icon');
+                         if (icon) icon.textContent = '-';
+                     }
+
+                     // Show the parent LI of this UL (the category LI)
+                     if (parent.parentElement.tagName === 'LI') {
+                         parent.parentElement.classList.remove('nav-item-hidden');
+                     }
+                 }
+                 parent = parent.parentElement;
+            }
+        }
+    });
+}
+
+/**
+ * Creates the mobile toggle button.
+ */
+function createMobileToggle() {
+    const btn = createElement('button', {
+        id: 'mobile-nav-toggle',
+        class: 'mobile-nav-toggle',
+        'aria-label': 'Toggle Navigation'
+    }, [
+        createElement('i', { class: 'fas fa-bars' })
+    ]);
+
+    btn.addEventListener('click', () => {
+        const nav = document.getElementById('global-nav-placeholder');
+        nav.classList.toggle('active');
+        const icon = btn.querySelector('i');
+        if (nav.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+
+    return btn;
 }
 
 
@@ -181,10 +326,8 @@ function highlightActiveLink() {
  */
 function initGlobalNav() {
     const placeholder = document.getElementById('global-nav-placeholder');
-    if (!placeholder) {
-        console.warn('Global navigation placeholder "global-nav-placeholder" not found.');
-        return;
-    }
+    // If placeholder is missing, we can't do anything.
+    if (!placeholder) return;
 
     if (typeof navData === 'undefined' || navData === null) {
         console.error('Navigation data (navData) is not available. Ensure nav_data.js is loaded before global_nav.js.');
@@ -192,13 +335,25 @@ function initGlobalNav() {
         return;
     }
 
+    // Create and inject Mobile Toggle Button (append to body)
+    // Check if it already exists to avoid duplicates
+    if (!document.getElementById('mobile-nav-toggle')) {
+        const toggleBtn = createMobileToggle();
+        document.body.appendChild(toggleBtn);
+    }
+
+    placeholder.innerHTML = ''; // Clear placeholder content
+
+    // Add Search Bar
+    placeholder.appendChild(buildNavSearch());
+
+    // Build Menu
     const navMenuHtml = buildNavMenu(navData);
     if (navMenuHtml) {
-        placeholder.innerHTML = ''; // Clear placeholder content
         placeholder.appendChild(navMenuHtml);
         highlightActiveLink(); // Highlight after menu is built
     } else {
-        placeholder.innerHTML = '<p>Navigation menu is empty.</p>';
+        placeholder.appendChild(createElement('p', {}, ['Navigation menu is empty.']));
     }
 }
 
@@ -211,21 +366,4 @@ if (document.readyState === 'loading') {
     initGlobalNav();
 }
 
-// Future enhancements:
-// - More sophisticated handling for CRAFT module links (e.g., using postMessage if nav is outside iframe or specific JS hooks).
-// - More robust active link highlighting, especially for section_viewer_item and complex paths.
-// - Integration with learning path display logic.
-// - Error handling for missing md files in global_markdown_viewer.
-// - Option to fetch navData if not globally available.
-// - Base URL configuration for GitHub pages if deployed in a subfolder of a custom domain, etc.
-//   (e.g. const BASE_URL = '/my-repo/'; if deployed to example.com/my-repo/)
-//   Then prepend BASE_URL to hrefs that are relative from root. For now, assuming direct deployment or paths handled by server.
-//   For typical GitHub Pages (username.github.io/repo-name/), root-relative paths like "CFA/index.html" work fine.
-//   If it's a project page for an organization, it's the same.
-//   If it's a user/org page (username.github.io or orgname.github.io) *without* a repo name, then paths like "/CFA/index.html" *might* be needed if nav_data uses "CFA/index.html".
-//   The current code assumes paths in nav_data.js are already correct for the deployment environment.
-//   For example, if the site is at `https://user.github.io/financial-learning-hub/`, then `home.html` in navData
-//   will correctly resolve to `https://user.github.io/financial-learning-hub/home.html`.
-//   And `CFA/index.html` will resolve to `https://user.github.io/financial-learning-hub/CFA/index.html`.
-//   This seems robust for standard GitHub Pages deployment.
-console.log("global_nav.js loaded.");
+console.log("global_nav.js loaded with search and mobile toggle.");
