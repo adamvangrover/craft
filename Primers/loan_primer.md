@@ -1,5 +1,8 @@
 # Leveraged Loan Training Program
 
+> **Why this matters for the Buy-Side:**
+> Understanding Leveraged Loans is crucial for Credit Analysts because this market provides the primary data points for assessing risk/return in the sub-investment grade universe.
+
 ## Module 1: Foundations of the Syndicated Loan Market
 
 **Learning Objectives:**

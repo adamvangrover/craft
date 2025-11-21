@@ -33,6 +33,11 @@ This section shows the cash used to or generated from a company's financing acti
     *   **Payment of Dividends:** Cash payments to shareholders.
 *   **What it tells you:** A young, growing company may have a positive CFF as it raises capital to fund its growth. A mature, stable company may have a negative CFF as it repays debt and returns cash to shareholders.
 
+### 4. Free Cash Flow (FCF)
+While not a standard GAAP line item, Free Cash Flow is often the most important metric for investors.
+*   **Definition:** FCF = Cash Flow from Operations (CFO) - Capital Expenditures (CapEx).
+*   **Significance:** It represents the cash actually available to repay debt holders or return to shareholders after the company has reinvested in itself. (See [DCF Modeling Overview](../../Financial_Modeling/Valuation_Applications/DCF_Modeling_Overview.md)).
+
 ## The Bottom Line: Net Change in Cash
 
 The sum of the cash flows from the three sections equals the net increase or decrease in cash for the period. This number is then added to the beginning cash balance to arrive at the ending cash balance, which must match the cash balance on the company's balance sheet. This reconciliation is a crucial check of the accuracy of the financial statements.

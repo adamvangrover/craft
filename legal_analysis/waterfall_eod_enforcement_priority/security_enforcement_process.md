@@ -6,6 +6,16 @@ When an Event of Default occurs and lenders decide to exercise their remedies, e
 
 ## I. Pre-Enforcement Steps
 
+```mermaid
+graph TD
+    A[Event of Default Occurs] --> B[Facility Agent Issues EoD Notice]
+    B --> C{Lenders Decide to Enforce?}
+    C -->|No| D[Workout / Restructuring]
+    C -->|Yes| E[Acceleration Notice]
+    E --> F[Instruction to Security Agent]
+    F --> G[Enforcement Actions Commenced]
+```
+
 1.  **Declaration of Event of Default:**
     *   The Facility Agent, upon instruction from the Required Lenders (as defined in the credit agreement), will typically issue a formal notice to the borrower declaring that an Event of Default has occurred and is continuing.
 2.  **Acceleration Notice:**
@@ -54,6 +64,16 @@ Common enforcement methods include:
     *   A legal process where the lender takes title to the secured asset, extinguishing the borrower's equity of redemption.
 
 ## IV. Application of Enforcement Proceeds (The Waterfall)
+
+```mermaid
+graph TD
+    A[Enforcement Proceeds] --> B(1. Costs of Enforcement)
+    B --> C(2. Super Senior Claims)
+    C --> D(3. Senior Secured Claims)
+    D --> E(4. Second Lien Claims)
+    E --> F(5. Junior / Unsecured Claims)
+    F --> G(6. Equity)
+```
 
 *   Once assets are realized, the cash proceeds are distributed according to a strict order of priority, known as the "waterfall."
 *   This waterfall is typically detailed in the Intercreditor Agreement or, if no ICA, in the security documents themselves.

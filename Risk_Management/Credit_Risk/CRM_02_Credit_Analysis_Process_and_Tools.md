@@ -10,6 +10,21 @@ This process is both an art and a science, requiring quantitative analysis of fi
 
 While the specifics may vary by institution and the complexity of the credit, a comprehensive credit analysis process generally involves the following key steps:
 
+```mermaid
+graph TD
+    Start[Start: Loan Request] --> Step1[1. Determine Purpose & Repayment Sources]
+    Step1 --> Step2[2. Borrower & Industry Analysis]
+    Step2 --> Step3[3. In-Depth Financial Analysis]
+    Step3 --> Step4[4. Cash Flow Analysis & Projections]
+    Step4 --> Step5[5. Sensitivity & Scenario Analysis]
+    Step5 --> Step6[6. Management Assessment]
+    Step6 --> Step7[7. Loan Structuring & Collateral]
+    Step7 --> Step8[8. Credit Recommendation & Memo]
+    Step8 --> Decision{Credit Committee}
+    Decision -->|Approve| Doc[Documentation & Funding]
+    Decision -->|Decline| End[End: Notify Borrower]
+```
+
 **Step 1: Determine the Purpose of the Loan & Sources of Repayment**
 *   **Understand the "Why":** Why is the borrower seeking funds? (e.g., working capital, capital expenditures, acquisition, refinancing, dividend recapitalization). The purpose can significantly influence the risk profile.
 *   **Identify Primary Source of Repayment:** This is almost always the borrower's operating cash flow. The analysis must confirm the capacity to generate sufficient cash.
@@ -40,6 +55,12 @@ While the specifics may vary by institution and the complexity of the credit, a 
     *   Financial philosophy (e.g., attitude towards leverage, dividend policy).
     *   Succession planning.
     *   Ownership structure and alignment of interests.
+
+> **Analyst's Notebook: The 'Smell Test'**
+>
+> Quantitative analysis is essential, but don't ignore your gut.
+> *   **Too good to be true?** If a company claims to have double the margins of its competitors without a clear technological advantage, dig deeper. They might be capitalizing expenses or underinvesting in R&D.
+> *   **Management Vagueness:** If a CFO can't explain a simple variance in the numbers, it's a major red flag.
 
 **Step 3: In-Depth Financial Statement Analysis**
 *   **Historical Financial Review (typically 3-5 years + interims):**
@@ -72,6 +93,13 @@ While the specifics may vary by institution and the complexity of the credit, a 
 *   **Free Cash Flow (FCF) Analysis:**
     *   Projecting FCFF and/or FCFE to assess cash available for debt service and other stakeholders.
     *   (Refer to `Financial_Modeling/Valuation_Applications/DCF_Modeling_Overview.md` for FCF concepts).
+
+<details class="bg-indigo-50 p-4 rounded-lg my-4 cursor-pointer">
+  <summary class="font-bold text-indigo-700">Test Your Knowledge: Why focus on Free Cash Flow (FCF) instead of just EBITDA?</summary>
+  <div class="mt-2 text-slate-700">
+    EBITDA is a measure of profitability, but it doesn't account for the cash required to maintain the business (Capex) or fund growth (Working Capital). FCF represents the actual cash available to pay back debt.
+  </div>
+</details>
 
 **Step 5: Sensitivity and Scenario Analysis (Stress Testing)**
 *   **Sensitivity Analysis:** Testing the impact of changes in key individual assumptions (e.g., revenue growth, interest rates, key input costs) on financial projections and credit metrics.

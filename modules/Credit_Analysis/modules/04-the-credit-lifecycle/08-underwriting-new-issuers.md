@@ -3,6 +3,34 @@
 ## 8.1. The Underwriting Process: From Mandate to Close
 Underwriting is the comprehensive evaluation process through which a lender (or investor in debt securities) assesses the creditworthiness of a potential borrower (issuer) and decides whether to extend a loan or invest, and under what terms and conditions. It is a systematic, multi-stage procedure that moves from an initial inquiry or mandate to the final funding of the loan. While the specific steps and terminology can vary by institution and transaction complexity, a typical corporate loan underwriting process involves several key stages:
 
+```mermaid
+gantt
+    title Credit Underwriting Timeline
+    dateFormat  YYYY-MM-DD
+    section Origination
+    Initial Screening       :a1, 2023-10-01, 5d
+    Mandate Signed          :after a1, 2d
+    section Due Diligence
+    Data Room Access        :2023-10-08, 14d
+    Management Meetings     :2023-10-15, 3d
+    Site Visits             :2023-10-18, 2d
+    section Analysis
+    Financial Modeling      :2023-10-10, 10d
+    Credit Memo Drafting    :2023-10-20, 5d
+    section Approval
+    Credit Committee        :crit, 2023-10-27, 1d
+    section Closing
+    Legal Documentation     :2023-10-28, 14d
+    Funding                 :2023-11-15, 1d
+```
+
+<details class="bg-indigo-50 p-4 rounded-lg my-4 cursor-pointer">
+  <summary class="font-bold text-indigo-700">Test Your Knowledge: How does the "Initial Screening" save time?</summary>
+  <div class="mt-2 text-slate-700">
+    Initial screening filters out deals that don't fit the bank's risk appetite or policy (e.g., wrong industry, too small) <em>before</em> the analyst spends weeks on due diligence. It's about "failing fast."
+  </div>
+</details>
+
 1.  **Origination, Application, and Initial Screening:**
     *   **Origination:** The opportunity may originate from a relationship manager (RM), investment banker, broker, or directly from a company.
     *   **Application/Initial Information:** The process often begins when a borrower submits a loan application, a term sheet request, or an information package including a business plan, historical financial statements, and details of the financing request (amount, purpose, desired terms).
