@@ -1,154 +1,55 @@
 /* Global Navigation Styles */
+/* Core layout is now handled by Tailwind classes injected by global_nav.js */
+
 #global-nav-placeholder {
     font-family: 'Inter', sans-serif;
-    background-color: #ffffff;
-    padding: 20px 10px;
-    border-right: 1px solid #e2e8f0;
-    width: 280px;
-    box-sizing: border-box;
-    transition: transform 0.3s ease-in-out;
-    height: 100vh;
-    overflow-y: auto;
-    position: fixed; /* Fixed to ensure it stays in place */
-    left: 0;
-    top: 0;
-    z-index: 40; /* Higher than content */
+    /* Fallback/Custom styling */
 }
 
-#global-nav-placeholder.hidden {
-    transform: translateX(-100%);
-}
-
-/* Search Bar Styles */
-.nav-search-container {
-    padding: 0 10px 15px 10px;
-    border-bottom: 1px solid #e2e8f0;
-    margin-bottom: 15px;
-}
-
-.nav-search-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s;
-}
-
-.nav-search-input:focus {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
-}
-
-/* List Styles */
+/* Navigation Levels Indentation */
 #global-nav-placeholder ul {
     list-style-type: none;
     padding-left: 0;
     margin: 0;
 }
 
-#global-nav-placeholder ul[class^="nav-level-"] ul {
-    padding-left: 15px;
+/* Indent child lists */
+#global-nav-placeholder ul ul {
+    padding-left: 12px;
     border-left: 1px solid #e2e8f0;
-    margin-left: 10px;
-    margin-top: 8px;
-    margin-bottom: 8px;
-}
-
-#global-nav-placeholder li {
+    margin-left: 12px;
+    margin-top: 4px;
     margin-bottom: 4px;
 }
 
-/* Link and Title Styles */
-#global-nav-placeholder a, #global-nav-placeholder .nav-category-title {
-    display: flex;
-    align-items: center;
-    padding: 12px 18px;
-    text-decoration: none;
-    color: #34495e;
-    border-radius: 8px;
-    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-    font-size: 0.95rem;
-    font-weight: 500;
-}
-
-#global-nav-placeholder a:hover, #global-nav-placeholder .nav-category-title:hover {
-    background-color: #f1f5f9;
-    color: #1e293b;
-    transform: translateX(5px);
-}
-
-#global-nav-placeholder a.active-nav-link {
-    background-color: #4f46e5;
-    color: #ffffff;
-    font-weight: 600;
-}
-
-#global-nav-placeholder .nav-category-title {
-    background-color: transparent;
-    border: none;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-    font-family: inherit;
-    font-weight: 600;
-    color: #1e293b;
-}
-
-#global-nav-placeholder .nav-category-title .toggler-icon {
-    margin-left: auto;
-    transition: transform 0.2s ease-in-out;
-}
-
-#global-nav-placeholder .nav-category-title[aria-expanded="true"] .toggler-icon {
-    transform: rotate(90deg);
-}
-
-/* Mobile Toggle Button */
-.mobile-nav-toggle {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 50;
-    background-color: #4f46e5;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    display: none; /* Hidden by default on desktop */
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.mobile-nav-toggle:hover {
-    background-color: #4338ca;
-}
-
-/* Responsive Logic */
-@media (max-width: 768px) {
-    #global-nav-placeholder {
-        transform: translateX(-100%); /* Hidden off-screen by default on mobile */
-        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-    }
-
-    #global-nav-placeholder.active {
-        transform: translateX(0);
-    }
-
-    .mobile-nav-toggle {
-        display: flex;
-    }
-
-    /* Adjust main content when nav is open? Typically overlay on mobile */
-}
-
 /* Utility class for search filtering */
-.nav-item-hidden {
+.hidden {
     display: none !important;
+}
+
+/* Toggler Icon Animation */
+.toggler-icon {
+    transition: transform 0.2s ease-in-out;
+    display: inline-block;
+    width: 12px;
+    text-align: center;
+}
+
+/* Scrollbar styling for the nav */
+#global-nav-placeholder::-webkit-scrollbar {
+    width: 6px;
+}
+
+#global-nav-placeholder::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#global-nav-placeholder::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 3px;
+}
+
+/* Mobile Toggle Button (Fallback if Tailwind classes fail) */
+.mobile-nav-toggle {
+    cursor: pointer;
 }

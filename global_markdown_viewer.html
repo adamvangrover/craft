@@ -1,210 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Markdown Viewer</title>
+    <title>Reader Mode</title>
+
+    <!-- Tailwind CSS with Typography Plugin -->
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+
+    <!-- Marked.js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link rel="stylesheet" href="css/global_nav.css">
-    <!-- Basic styling for Markdown content area -->
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            display: flex; /* Use flexbox for layout */
-            min-height: 100vh;
-        }
-
-        #global-nav-placeholder {
-            /* Styles for the nav are in global_nav.css */
-            /* Assuming a sidebar layout for now */
-            flex-shrink: 0; /* Prevent nav from shrinking */
-        }
-
-        .viewer-container {
-            flex-grow: 1; /* Allow content to take remaining space */
-            padding: 20px;
-            background-color: #ffffff;
-            overflow-y: auto; /* Allow scrolling for content */
-            box-sizing: border-box;
-        }
-
-        #markdown-content {
-            max-width: 900px; /* Max width for readability */
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        #markdown-content h1,
-        #markdown-content h2,
-        #markdown-content h3,
-        #markdown-content h4,
-        #markdown-content h5,
-        #markdown-content h6 {
-            color: #333;
-            margin-top: 1.5em;
-            margin-bottom: 0.5em;
-        }
-
-        #markdown-content h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
-        #markdown-content h2 { font-size: 1.75em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
-        #markdown-content h3 { font-size: 1.5em; }
-        #markdown-content h4 { font-size: 1.25em; }
-
-        #markdown-content p {
-            margin-bottom: 1em;
-        }
-
-        #markdown-content a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        #markdown-content a:hover {
-            text-decoration: underline;
-        }
-
-        #markdown-content ul,
-        #markdown-content ol {
-            margin-bottom: 1em;
-            padding-left: 2em;
-        }
-
-        #markdown-content li {
-            margin-bottom: 0.25em;
-        }
-
-        #markdown-content pre {
-            background-color: #f8f9fa; /* Light gray background for code blocks */
-            border: 1px solid #e0e0e0;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto; /* Allow horizontal scrolling for long code lines */
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9em;
-        }
-
-        #markdown-content code {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #f0f0f0; /* Slightly different for inline code */
-            padding: 0.2em 0.4em;
-            border-radius: 3px;
-            font-size: 0.9em;
-        }
-
-        #markdown-content pre code { /* Reset for code inside pre */
-             background-color: transparent;
-             padding: 0;
-             border-radius: 0;
-        }
-
-        #markdown-content blockquote {
-            border-left: 4px solid #ccc;
-            padding-left: 1em;
-            margin-left: 0;
-            color: #666;
-            font-style: italic;
-        }
-
-        #markdown-content table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-bottom: 1em;
-        }
-
-        #markdown-content th,
-        #markdown-content td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        #markdown-content th {
-            background-color: #f2f2f2;
-        }
-
-        #markdown-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 4px;
-        }
-
-        .error-message {
-            color: red;
-            font-weight: bold;
-        }
+        /* Custom Scrollbar for TOC */
+        #toc-sidebar::-webkit-scrollbar { width: 4px; }
+        #toc-sidebar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
     </style>
 </head>
-<body>
-    <!-- Global Navigation Placeholder -->
-    <div id="global-nav-placeholder">
-        <!-- Navigation will be injected here by global_nav.js -->
-    </div>
+<body class="flex bg-slate-50 text-slate-900 min-h-screen">
 
-    <!-- Main Content Area for Markdown -->
-    <div class="viewer-container">
-        <h1 id="page-title">Markdown Document</h1>
-        <hr>
-        <div id="markdown-content">
-            <noscript>
-                <p style="color: red; font-weight: bold;">JavaScript is required to view this document formatted nicely.</p>
-                <p>You may be able to view the raw content if the link was provided directly to a Markdown (.md) file.</p>
-            </noscript>
-            <p>Loading document...</p> <!-- This will be replaced by JS if enabled -->
-        </div>
+    <!-- Global Navigation -->
+    <div id="global-nav-placeholder"></div>
+
+    <!-- Main Wrapper -->
+    <!-- Adjusted margin to accommodate fixed sidebar -->
+    <div class="flex-1 flex flex-col md:ml-64 transition-all duration-300 relative w-full max-w-full">
+
+       <div class="flex flex-1 relative">
+           <!-- Content Area -->
+           <main class="flex-1 w-full min-w-0 px-4 py-8 md:px-12 lg:pr-80">
+               <article id="markdown-content" class="relative prose prose-slate prose-indigo max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200">
+                   <button id="pin-btn" class="absolute top-4 right-4 p-2 text-slate-300 hover:text-indigo-600 transition-colors z-10" title="Pin to Dashboard">
+                       <i class="fas fa-thumbtack fa-lg"></i>
+                   </button>
+                   <div class="flex flex-col items-center justify-center h-64 space-y-4">
+                       <div class="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
+                       <p class="text-slate-500 font-medium">Loading content...</p>
+                   </div>
+               </article>
+           </main>
+
+           <!-- Sticky TOC (Right Sidebar) - Hidden on small screens -->
+           <aside id="toc-sidebar" class="hidden lg:block w-72 fixed top-0 right-0 h-screen pt-24 pb-8 px-6 overflow-y-auto border-l border-slate-200 bg-slate-50/80 backdrop-blur-sm z-20">
+               <h3 class="font-bold text-slate-400 text-xs uppercase tracking-wider mb-4">On This Page</h3>
+               <nav id="toc-container"></nav>
+           </aside>
+       </div>
+
+       <!-- Floating Action Button (FAB) -->
+       <button id="mark-complete-fab" class="fixed bottom-8 right-8 lg:right-80 bg-slate-200 text-slate-600 p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50 flex items-center gap-2 group" title="Mark as Complete">
+           <span class="w-6 h-6 flex items-center justify-center"><i class="fas fa-check"></i></span>
+           <span class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 font-semibold whitespace-nowrap text-sm">Mark Complete</span>
+       </button>
+
     </div>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="js/nav_data.js"></script> <!-- Load navigation data first -->
-    <script src="js/global_nav.js"></script> <!-- Then load the script that builds the nav -->
+    <script src="js/nav_data.js"></script>
+    <script src="js/global_nav.js"></script>
+    <script src="js/progress_manager.js"></script>
+    <script src="js/toc.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const contentElement = document.getElementById('markdown-content');
-            const pageTitleElement = document.getElementById('page-title');
+        document.addEventListener('DOMContentLoaded', async () => {
+            const contentEl = document.getElementById('markdown-content');
+            const fab = document.getElementById('mark-complete-fab');
+            const pinBtn = document.getElementById('pin-btn');
+
+            // Parse URL
             const params = new URLSearchParams(window.location.search);
             const mdFile = params.get('mdfile');
 
-            if (mdFile) {
-                // Update page title based on the filename
-                // Simple title extraction: take filename, remove extension, replace underscores/hyphens with spaces
-                let title = mdFile.split('/').pop().replace(/\.(md|markdown)$/i, '').replace(/[_-]/g, ' ');
-                title = title.charAt(0).toUpperCase() + title.slice(1); // Capitalize first letter
-                document.title = title + " - Viewer";
-                if (pageTitleElement) pageTitleElement.textContent = title;
-
-                // Fetch and render Markdown content
-                // Ensure paths are relative to the repository root, or adjust if needed.
-                // The mdFile parameter should be the path from the root.
-                fetch(mdFile)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
-                        }
-                        return response.text();
-                    })
-                    .then(markdownText => {
-                        if (typeof marked !== 'undefined') {
-                            contentElement.innerHTML = marked.parse(markdownText);
-                        } else {
-                            console.error('Marked.js library not loaded.');
-                            contentElement.innerHTML = '<p class="error-message">Error: Markdown parsing library not available.</p>';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error fetching or parsing Markdown file:', error);
-                        contentElement.innerHTML = `<p class="error-message">Error loading document: ${mdFile}. ${error.message}. Please check the file path and network connection.</p>`;
-                        if (pageTitleElement) pageTitleElement.textContent = "Error Loading Document";
-                        document.title = "Error - Viewer";
-                    });
-            } else {
-                const errorMessage = 'No Markdown file specified. Please provide an "mdfile" URL parameter.';
-                contentElement.innerHTML = `<p class="error-message">${errorMessage}</p>`;
-                if (pageTitleElement) pageTitleElement.textContent = "Error";
-                document.title = "Error - Viewer";
-                console.warn(errorMessage);
+            if (!mdFile) {
+                contentEl.innerHTML = `
+                    <div class="text-center text-red-500">
+                        <h1 class="text-2xl font-bold">Error</h1>
+                        <p>No document specified.</p>
+                    </div>`;
+                return;
             }
+
+            // Set Title
+            const filename = mdFile.split('/').pop().replace('.md', '').replace(/_/g, ' ');
+            const pageTitle = filename.charAt(0).toUpperCase() + filename.slice(1);
+            document.title = `${pageTitle} | Learning Hub`;
+
+            // Load Content
+            try {
+                const response = await fetch(mdFile);
+                if (!response.ok) throw new Error("File not found");
+                const text = await response.text();
+
+                // Render (preserve the button)
+                // We need to append content, not overwrite, or re-insert button
+                // Easier to just set innerHTML but we lose the button if we are not careful
+                // The button is inside contentEl in my HTML structure above
+                // So I should put the button OUTSIDE the markdown content div if I want to wipe it easily?
+                // OR create a container for the markdown text specifically.
+
+                // Let's create a wrapper for the text content to avoid wiping the button
+                let textContainer = document.getElementById('markdown-text-container');
+                if (!textContainer) {
+                    textContainer = document.createElement('div');
+                    textContainer.id = 'markdown-text-container';
+                    contentEl.appendChild(textContainer);
+                    // Remove loader
+                    const loader = contentEl.querySelector('.flex');
+                    if(loader) loader.remove();
+                }
+
+                textContainer.innerHTML = marked.parse(text);
+
+                // Post-Render: TOC
+                if (window.generateToc) window.generateToc();
+                if (window.initTocObserver) window.initTocObserver();
+
+            } catch (error) {
+                contentEl.innerHTML = `
+                    <div class="bg-red-50 text-red-600 p-6 rounded-lg border border-red-200 text-center">
+                        <h2 class="font-bold text-xl mb-2">Unable to load document</h2>
+                        <p class="text-sm">${error.message}</p>
+                        <p class="text-xs mt-4 text-slate-500">${mdFile}</p>
+                    </div>`;
+            }
+
+            // --- FAB Logic ---
+            const updateFabState = () => {
+                const isComplete = progressManager.isComplete(mdFile);
+                if (isComplete) {
+                    fab.classList.remove('bg-slate-200', 'text-slate-600');
+                    fab.classList.add('bg-green-500', 'text-white');
+                    fab.querySelector('span:last-child').textContent = "Completed";
+                } else {
+                    fab.classList.add('bg-slate-200', 'text-slate-600');
+                    fab.classList.remove('bg-green-500', 'text-white');
+                    fab.querySelector('span:last-child').textContent = "Mark Complete";
+                }
+            };
+
+            fab.addEventListener('click', () => {
+                progressManager.toggleComplete(mdFile);
+                updateFabState();
+
+                // Animation feedback
+                fab.classList.add('scale-90');
+                setTimeout(() => fab.classList.remove('scale-90'), 150);
+            });
+
+            // --- Pin Logic ---
+            const updatePinState = () => {
+                const isPinned = progressManager.isPinned(mdFile);
+                if (isPinned) {
+                    pinBtn.classList.remove('text-slate-300');
+                    pinBtn.classList.add('text-indigo-600');
+                } else {
+                    pinBtn.classList.add('text-slate-300');
+                    pinBtn.classList.remove('text-indigo-600');
+                }
+            };
+
+            pinBtn.addEventListener('click', () => {
+                progressManager.togglePin(mdFile, pageTitle);
+                updatePinState();
+            });
+
+            // Initialize States
+            updateFabState();
+            updatePinState();
         });
     </script>
 </body>

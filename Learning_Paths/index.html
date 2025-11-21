@@ -3,20 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Paths Dashboard</title>
+    <title>Learning Paths Journey</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/global_nav.css">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #FDFBF7;
-            color: #3D352E;
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #334155; }
+        .timeline-dot {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 4px #f1f5f9;
         }
-        .dashboard-card {
-            @apply bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-gray-100;
+        .path-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        .path-card:hover:not(.locked) {
+            transform: translateX(8px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .locked { opacity: 0.7; filter: grayscale(0.8); cursor: not-allowed; }
+        .locked a { pointer-events: none; }
     </style>
 </head>
 <body class="flex">
@@ -24,29 +30,35 @@
     <div id="global-nav-placeholder"></div>
 
     <div id="main-content-wrapper" class="flex-grow p-8 md:ml-[280px] transition-all duration-300">
-        <div class="max-w-6xl mx-auto">
-            <header class="mb-12 text-center">
-                <h1 class="text-4xl font-bold text-gray-800 mb-4">Learning Paths Dashboard</h1>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Curated journeys to guide you through specific skills and roles. Track your exploration and master the material.
+        <div class="max-w-5xl mx-auto">
+            <header class="mb-16 text-center">
+                <h1 class="text-4xl font-bold text-slate-800 mb-4">Your Learning Journey</h1>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                    Follow the path to mastery. Complete each module to unlock the next step in your career development.
                 </p>
             </header>
 
-            <div id="paths-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Cards will be injected here -->
-                <div class="col-span-full text-center text-gray-500">Loading paths...</div>
+            <div class="relative px-4">
+                <!-- Vertical Line -->
+                <div class="absolute left-8 md:left-1/2 top-4 bottom-4 w-1 bg-slate-200 -translate-x-1/2 hidden md:block"></div>
+                <div class="absolute left-8 top-4 bottom-4 w-1 bg-slate-200 md:hidden"></div>
+
+                <div id="paths-timeline" class="space-y-12">
+                    <!-- Timeline items injected here -->
+                    <div class="text-center py-12">Loading your journey...</div>
+                </div>
             </div>
         </div>
     </div>
 
     <script src="../js/nav_data.js"></script>
     <script src="../js/global_nav.js"></script>
+    <script src="../js/progress_manager.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('paths-container');
-            const completedPages = JSON.parse(localStorage.getItem('completed_pages') || '[]');
+            const container = document.getElementById('paths-timeline');
 
-            // Helper to find learning paths recursively
+            // Recursively find items with type 'learning_path_definition'
             function findPaths(items, paths = []) {
                 if (!items) return paths;
                 items.forEach(item => {
@@ -65,52 +77,123 @@
 
                 if (paths.length > 0) {
                     container.innerHTML = '';
-                    paths.forEach(path => {
-                        const isStarted = completedPages.includes(path.href);
 
-                        // Construct proper link
+                    // Determine status for each path
+                    // Logic: A path is 'locked' if the previous one hasn't been visited/completed.
+                    // The first one is always unlocked.
+                    let previousComplete = true;
+
+                    paths.forEach((path, index) => {
+                        const isCompleted = progressManager.isComplete(path.href);
+                        const isPinned = progressManager.isPinned(path.href);
+                        const isEven = index % 2 === 0;
+
+                        let status = 'locked';
+                        let statusColor = 'gray';
+                        let icon = 'fa-lock';
+                        let btnText = 'Locked';
+                        let btnClass = 'bg-slate-300 text-slate-500';
+
+                        if (previousComplete) {
+                            if (isCompleted) {
+                                status = 'completed';
+                                statusColor = 'green';
+                                icon = 'fa-check';
+                                btnText = 'Review Path';
+                                btnClass = 'bg-green-600 text-white hover:bg-green-700';
+                            } else {
+                                status = 'current';
+                                statusColor = 'indigo';
+                                icon = 'fa-play';
+                                btnText = 'Start Path';
+                                btnClass = 'bg-indigo-600 text-white hover:bg-indigo-700';
+                                previousComplete = false; // Next items locked
+                            }
+                        } else {
+                            // Allow peeking if already visited even if logically locked (e.g. random navigation)
+                            if (isCompleted) {
+                                status = 'completed';
+                                statusColor = 'green';
+                                icon = 'fa-check';
+                                btnText = 'Review Path';
+                                btnClass = 'bg-green-600 text-white hover:bg-green-700';
+                            }
+                        }
+
+                        // Generate Pills
+                        const timePill = path.estimated_time ? `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-2"><i class="far fa-clock mr-1"></i> ${path.estimated_time}</span>` : '';
+                        const diffPill = path.difficulty ? `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800"><i class="fas fa-layer-group mr-1"></i> ${path.difficulty}</span>` : '';
+
+                        // Viewer URL
                         const viewerUrl = `../global_markdown_viewer.html?mdfile=${encodeURIComponent(path.href)}`;
 
-                        const card = document.createElement('div');
-                        card.className = 'dashboard-card flex flex-col h-full';
-
-                        let statusBadge = isStarted
-                            ? '<span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">In Progress</span>'
-                            : '<span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Not Started</span>';
-
-                        card.innerHTML = `
-                            <div class="p-6 flex flex-col h-full">
-                                <div class="flex items-center justify-between mb-4">
-                                    <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
-                                        <i class="fas fa-map-signs text-xl"></i>
+                        // HTML Structure
+                        const cardHtml = `
+                            <div class="path-card ${status === 'locked' ? 'locked' : ''} bg-white p-6 rounded-xl shadow-md border border-slate-100 relative z-10 w-full md:w-[calc(50%-2rem)] ${isEven ? 'md:ml-auto' : 'md:mr-auto'} ml-12 md:ml-0">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="flex-1">
+                                        <div class="flex justify-between items-start">
+                                            <h3 class="text-xl font-bold text-slate-800 mb-1">${path.text}</h3>
+                                            <button class="pin-path-btn ml-2 ${isPinned ? 'text-indigo-600' : 'text-slate-300 hover:text-indigo-600'} transition-colors z-20 relative" data-href="${path.href}" data-title="${path.text}" title="Pin Path">
+                                                <i class="fas fa-thumbtack"></i>
+                                            </button>
+                                        </div>
+                                        <div class="mb-4">${timePill}${diffPill}</div>
                                     </div>
-                                    ${statusBadge}
+                                    <div class="ml-2 flex-shrink-0">
+                                        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-${statusColor}-100 text-${statusColor}-600">
+                                            <i class="fas ${icon}"></i>
+                                        </span>
+                                    </div>
                                 </div>
-                                <h3 class="text-xl font-bold text-gray-800 mb-3">${path.text}</h3>
-                                <p class="text-gray-600 mb-6 flex-grow text-sm">
-                                    Follow this curated path to master specific skills. Click to view the guide and resources.
+                                <p class="text-slate-600 text-sm mb-6">
+                                    Master the essential skills required for this stage of your career.
                                 </p>
-                                <a href="${viewerUrl}" class="text-center w-full block bg-indigo-600 text-white font-bold py-2 px-4 rounded hover:bg-indigo-700 transition-colors">
-                                    ${isStarted ? 'Continue Path' : 'Start Path'}
+                                <a href="${viewerUrl}" class="block text-center w-full py-2 rounded-lg font-bold transition-colors ${btnClass}">
+                                    ${btnText}
                                 </a>
+
+                                <!-- Connector Dot (Desktop) -->
+                                <div class="hidden md:flex absolute top-1/2 ${isEven ? '-left-[2rem] -translate-x-1/2' : '-right-[2rem] translate-x-1/2'} -translate-y-1/2 w-10 h-10 rounded-full border-4 border-white bg-${statusColor}-500 shadow-md items-center justify-center z-20 text-white">
+                                    <span class="font-bold text-sm">${index + 1}</span>
+                                </div>
+
+                                <!-- Connector Dot (Mobile) -->
+                                <div class="md:hidden absolute top-1/2 -left-[3rem] -translate-y-1/2 w-8 h-8 rounded-full border-4 border-white bg-${statusColor}-500 shadow-md flex items-center justify-center z-20 text-white">
+                                    <span class="font-bold text-xs">${index + 1}</span>
+                                </div>
                             </div>
                         `;
-                        container.appendChild(card);
 
-                        // Add click listener to update status locally immediately
-                        card.querySelector('a').addEventListener('click', () => {
-                             let currentCompleted = JSON.parse(localStorage.getItem('completed_pages') || '[]');
-                             if (!currentCompleted.includes(path.href)) {
-                                 currentCompleted.push(path.href);
-                                 localStorage.setItem('completed_pages', JSON.stringify(currentCompleted));
-                             }
+                        container.insertAdjacentHTML('beforeend', `
+                            <div class="relative flex items-center w-full">
+                                ${cardHtml}
+                            </div>
+                        `);
+                    });
+
+                    // Add Pin Listeners
+                    document.querySelectorAll('.pin-path-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            const href = btn.dataset.href;
+                            const title = btn.dataset.title;
+                            progressManager.togglePin(href, title);
+
+                            if (btn.classList.contains('text-indigo-600')) {
+                                btn.classList.remove('text-indigo-600');
+                                btn.classList.add('text-slate-300');
+                            } else {
+                                btn.classList.remove('text-slate-300');
+                                btn.classList.add('text-indigo-600');
+                            }
                         });
                     });
+
                 } else {
-                    container.innerHTML = '<p class="text-center col-span-full">No learning paths found.</p>';
+                    container.innerHTML = '<p class="text-center">No paths found.</p>';
                 }
-            } else {
-                container.innerHTML = '<p class="text-center text-red-500 col-span-full">Error: Navigation data not loaded.</p>';
             }
         });
     </script>
