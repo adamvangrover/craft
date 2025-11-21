@@ -139,15 +139,15 @@ function buildNavMenu(items, level = 0) {
             };
             if (target) aAttributes.target = target;
             if (item.type === 'learning_path_definition') aAttributes['data-path-id'] = item.path_id;
+            if (item.href) aAttributes['data-original-href'] = item.href;
 
             const link = createElement('a', aAttributes, [item.text]);
 
             // Click tracking via ProgressManager
             link.addEventListener('click', () => {
                 if (window.progressManager && item.href) {
-                    window.progressManager.updateLastVisited(item.href, item.text);
-                    // We don't auto-complete on click, usually that's for "Read" buttons,
-                    // but we could track "visited" separately.
+                    // Use resolved linkHref for history so "Continue Learning" works
+                    window.progressManager.updateLastVisited(linkHref, item.text);
                 }
             });
 
@@ -315,8 +315,10 @@ function highlightActiveLink() {
     // Find the link in the DOM
     const links = document.querySelectorAll('#global-nav-placeholder a');
     links.forEach(link => {
-        // Check text matching as a fallback or data-path-id if we added it
-        if (link.textContent === activeItem.text) {
+        // Use data-original-href for precise matching, fall back to text if needed (shouldn't be)
+        const originalHref = link.getAttribute('data-original-href');
+
+        if (originalHref === activeItem.href) {
             link.classList.add('active-nav-link', 'bg-indigo-50', 'text-indigo-700', 'font-semibold', 'border-r-4', 'border-indigo-600');
             expandParents(link);
         }
@@ -404,8 +406,6 @@ function initGlobalNav() {
 
     // Ensure Tailwind classes on placeholder for mobile glassmorphism and layout
     placeholder.className = "sidebar fixed top-0 left-0 h-full w-72 bg-white/95 backdrop-blur-md border-r border-slate-200 z-50 transform -translate-x-full transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static shadow-xl lg:shadow-none overflow-y-auto";
-    // Note: lg:static might conflict if the page layout expects a fixed sidebar.
-    // But based on index.html refactor, flex layout is used.
 
     if (typeof navData === 'undefined') {
         placeholder.innerHTML = '<div class="p-4 text-red-500">Error: navData not found.</div>';

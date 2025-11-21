@@ -40,8 +40,17 @@
         <!-- Content Wrapper -->
         <div class="flex-1 p-6 lg:p-12 max-w-4xl mx-auto w-full">
 
-            <!-- Breadcrumbs (injected) -->
-            <div id="breadcrumb-container" class="mb-6"></div>
+            <!-- Top Bar -->
+            <div class="flex items-center justify-between mb-6">
+                <div id="breadcrumb-container" class="flex-1"></div>
+
+                <!-- Actions -->
+                <div class="flex items-center gap-3 ml-4">
+                    <button id="btn-favorite" class="text-slate-400 hover:text-yellow-500 transition-colors p-2 rounded-full hover:bg-yellow-50" title="Pin to Dashboard">
+                        <i class="far fa-star text-xl"></i>
+                    </button>
+                </div>
+            </div>
 
             <!-- Status Banner -->
             <div id="read-status-banner" class="hidden mb-6 bg-green-50 border border-green-200 rounded-lg p-3 flex items-center text-green-700 text-sm">
@@ -89,15 +98,22 @@
             const contentEl = document.getElementById('markdown-content');
             const fab = document.getElementById('fab-complete');
             const banner = document.getElementById('read-status-banner');
+            const btnFavorite = document.getElementById('btn-favorite');
 
             // Get MD File Param
             const params = new URLSearchParams(window.location.search);
             const mdFile = params.get('mdfile');
 
+            // Determine current full viewer path for tracking/linking
+            // We use this instead of raw MD path so dashboard links open the viewer
+            const viewerPath = window.location.pathname + window.location.search;
+
             if (!mdFile) {
                 contentEl.innerHTML = '<div class="p-4 bg-red-50 text-red-600 rounded-lg">Error: No file specified.</div>';
                 return;
             }
+
+            let docTitle = "";
 
             // Load Content
             try {
@@ -114,9 +130,12 @@
                 // Syntax Highlight
                 if (window.Prism) Prism.highlightAll();
 
-                // Update Page Title
-                const title = mdFile.split('/').pop().replace(/_/g, ' ').replace('.md', '');
-                document.title = title.charAt(0).toUpperCase() + title.slice(1) + ' | Financial Hub';
+                // Extract Title
+                const h1 = contentEl.querySelector('h1');
+                docTitle = h1 ? h1.innerText : mdFile.split('/').pop().replace(/_/g, ' ').replace('.md', '');
+                // Capitalize
+                docTitle = docTitle.charAt(0).toUpperCase() + docTitle.slice(1);
+                document.title = docTitle + ' | Financial Hub';
 
             } catch (e) {
                 console.error(e);
@@ -126,6 +145,7 @@
             // Progress Logic
             function updateStatus() {
                 if (window.progressManager) {
+                    // Read Status (matches raw MD file path)
                     const isComplete = window.progressManager.isCompleted(mdFile);
                     if (isComplete) {
                         fab.classList.remove('bg-white', 'text-slate-400');
@@ -138,6 +158,19 @@
                         banner.classList.add('hidden');
                         fab.title = "Mark as Read";
                     }
+
+                    // Favorite Status (matches viewer path)
+                    const isFav = window.progressManager.isFavorite(viewerPath);
+                    const starIcon = btnFavorite.querySelector('i');
+                    if (isFav) {
+                        starIcon.classList.remove('far');
+                        starIcon.classList.add('fas', 'text-yellow-400');
+                        btnFavorite.classList.add('text-yellow-500');
+                    } else {
+                        starIcon.classList.add('far');
+                        starIcon.classList.remove('fas', 'text-yellow-400');
+                        btnFavorite.classList.remove('text-yellow-500');
+                    }
                 }
             }
 
@@ -146,27 +179,26 @@
                     const currentStatus = window.progressManager.isCompleted(mdFile);
                     window.progressManager.markAsComplete(mdFile, !currentStatus);
                     updateStatus();
+                    if (!currentStatus) confettiEffect();
+                }
+            });
 
-                    // Animation feedback
-                    if (!currentStatus) {
-                        confettiEffect();
-                    }
+            btnFavorite.addEventListener('click', () => {
+                if (window.progressManager) {
+                    window.progressManager.toggleFavorite(viewerPath, docTitle);
+                    updateStatus();
                 }
             });
 
             // Check initial status
             updateStatus();
 
-            // Also track as visited
+            // Track as visited (Use viewer path so dashboard links open viewer)
             if (window.progressManager) {
-                // Extract title from first H1 if exists, else filename
-                const h1 = contentEl.querySelector('h1');
-                const title = h1 ? h1.innerText : mdFile.split('/').pop();
-                window.progressManager.updateLastVisited(mdFile, title);
+                window.progressManager.updateLastVisited(viewerPath, docTitle);
             }
 
             function confettiEffect() {
-                // Simple visual feedback (scale bump)
                 fab.style.transform = 'scale(1.2)';
                 setTimeout(() => fab.style.transform = 'scale(1)', 200);
             }
