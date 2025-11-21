@@ -64,10 +64,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('paths-container');
 
-            // 1. Find Learning Paths in navData
-            // We need to traverse to find items of type 'learning_path_definition'
-            // Actually, usually they are under "Learning Paths" category.
-
             function findLearningPaths(items) {
                 let paths = [];
                 items.forEach(item => {
@@ -91,7 +87,7 @@
             container.innerHTML = ''; // Clear loader
 
             paths.forEach((pathItem, index) => {
-                // Metadata (mocked or real if added to navData later)
+                // Metadata
                 const duration = pathItem.estimated_time || '2-4 hours';
                 const difficulty = pathItem.difficulty || 'Intermediate';
                 const difficultyColor = difficulty === 'Beginner' ? 'bg-green-100 text-green-700' : (difficulty === 'Advanced' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700');
@@ -103,6 +99,10 @@
                 // Header
                 const header = document.createElement('div');
                 header.className = 'p-6 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4';
+
+                // Construct link to definition file (assuming markdown viewer)
+                const viewLink = `../global_markdown_viewer.html?mdfile=${encodeURIComponent(pathItem.href)}`;
+
                 header.innerHTML = `
                     <div>
                         <h2 class="text-2xl font-bold text-slate-800">${pathItem.text}</h2>
@@ -111,39 +111,25 @@
                     <div class="flex items-center gap-2">
                         <span class="px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-600"><i class="far fa-clock mr-1"></i> ${duration}</span>
                         <span class="px-3 py-1 rounded-full text-xs font-medium ${difficultyColor}">${difficulty}</span>
-                        <a href="${pathItem.href}" class="ml-2 text-indigo-600 hover:text-indigo-800 font-medium text-sm">View Details <i class="fas fa-arrow-right ml-1"></i></a>
+                        <a href="${viewLink}" class="ml-2 text-indigo-600 hover:text-indigo-800 font-medium text-sm">View Guide <i class="fas fa-arrow-right ml-1"></i></a>
                     </div>
                 `;
                 section.appendChild(header);
 
                 // Content (Timeline)
-                // Since learning path definitions are just Markdown files in this system, we don't have the *steps* in navData.
-                // We would need to parse the markdown file to get steps, OR we assume the path *is* the item and maybe we mock some steps for visualization
-                // OR, if there are children in navData (which 'learning_path_definition' usually doesn't have), we use those.
-
-                // NOTE: The prompt says "Render the learning paths (defined in nav_data.js with path_id) as a vertical step-timeline."
-                // It implies we should visualize the *steps*. But the data structure only has the path definition file.
-                // I will check if there are children or if I should mock steps based on the path_id for Phase 3 demo purposes.
-                // OR, I can assume "Learning Paths" category *has* children which are the paths, and maybe those paths are categories?
-                // Looking at nav_data.js, they are just leaf nodes.
-
-                // However, Phase 3 prompt says: "Timeline Visualization... Steps in the path should turn Green...".
-                // This implies I need a list of steps.
-                // I will Mock a few steps for each path based on the path_id to demonstrate the UI functionality,
-                // since parsing the MD file content client-side just for a list of headers is complex without a structured data source.
-
-                // Mock Steps Generator based on ID
                 const mockSteps = getMockStepsForPath(pathItem.path_id);
 
                 const timelineContainer = document.createElement('div');
                 timelineContainer.className = 'p-6';
 
                 mockSteps.forEach((step, stepIdx) => {
-                    // Check status via ProgressManager (mock logic since steps are mocked)
-                    // In reality, step.id should match a file path.
-                    const isCompleted = window.progressManager ? window.progressManager.isCompleted(step.href) : false;
-                    const isCurrent = !isCompleted && (stepIdx === 0 || (window.progressManager && window.progressManager.isCompleted(mockSteps[stepIdx-1].href)));
-                    const isLocked = !isCompleted && !isCurrent;
+                    // Check status via ProgressManager (using canonical path)
+                    const isCompleted = window.progressManager ? window.progressManager.isCompleted(step.path) : false;
+
+                    // Determine current step (first incomplete step, or first step if none complete)
+                    // Logic: A step is current if it is not complete AND the previous step is complete (or it's the first one).
+                    const prevCompleted = stepIdx === 0 || (window.progressManager && window.progressManager.isCompleted(mockSteps[stepIdx-1].path));
+                    const isCurrent = !isCompleted && prevCompleted;
 
                     let statusClass = '';
                     let iconClass = '';
@@ -191,26 +177,61 @@
         });
 
         // Mock Data for Visualization
+        // Note: paths match nav_data.js structure for progress tracking
         function getMockStepsForPath(pathId) {
-            // In a real app, this would come from navData children or a separate config
             if (pathId === 'cfa_level_1_prep') {
                 return [
-                    { title: "Ethical & Professional Standards", desc: "Code of Ethics and Standards of Professional Conduct.", href: "../CFA/Level_1/Cheat_Sheets/CS_01_Ethical_and_Professional_Standards.md" },
-                    { title: "Quantitative Methods", desc: "Time value of money, probability, and statistics.", href: "../CFA/Level_1/Cheat_Sheets/CS_02_Quantitative_Methods.md" },
-                    { title: "Financial Reporting & Analysis", desc: "Income statement, balance sheet, and cash flow analysis.", href: "../CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md" },
-                    { title: "Practice Exam 1", desc: "Test your knowledge.", href: "../CFA/Level_1/Practice_Exams/Practice_Exam_1_Questions.md" }
+                    {
+                        title: "Ethical & Professional Standards",
+                        desc: "Code of Ethics and Standards of Professional Conduct.",
+                        path: "CFA/Level_1/Cheat_Sheets/CS_01_Ethical_and_Professional_Standards.md",
+                        href: "../global_markdown_viewer.html?mdfile=CFA/Level_1/Cheat_Sheets/CS_01_Ethical_and_Professional_Standards.md"
+                    },
+                    {
+                        title: "Quantitative Methods",
+                        desc: "Time value of money, probability, and statistics.",
+                        path: "CFA/Level_1/Cheat_Sheets/CS_02_Quantitative_Methods.md",
+                        href: "../global_markdown_viewer.html?mdfile=CFA/Level_1/Cheat_Sheets/CS_02_Quantitative_Methods.md"
+                    },
+                    {
+                        title: "Financial Reporting & Analysis",
+                        desc: "Income statement, balance sheet, and cash flow analysis.",
+                        path: "CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md",
+                        href: "../global_markdown_viewer.html?mdfile=CFA/Level_1/Cheat_Sheets/CS_04_Financial_Reporting_and_Analysis.md"
+                    },
+                    {
+                        title: "Practice Exam 1",
+                        desc: "Test your knowledge.",
+                        path: "CFA/Level_1/Practice_Exams/Practice_Exam_1_Questions.md",
+                        href: "../global_markdown_viewer.html?mdfile=CFA/Level_1/Practice_Exams/Practice_Exam_1_Questions.md"
+                    }
                 ];
             } else if (pathId === 'credit_analyst_foundational') {
                  return [
-                    { title: "The Role of a Credit Analyst", desc: "Understand the responsibilities and workflow.", href: "../modules/Credit_Analysis/modules/01-foundations/01_The_Role_of_a_Credit_Analyst.md" },
-                    { title: "Financial Statement Analysis", desc: "Deep dive into FSA for creditors.", href: "../modules/Credit_Analysis/modules/01-foundations/03_Financial_Statement_Analysis_for_Creditors.md" },
-                    { title: "Cash Flow Forecasting", desc: "Projecting future performance.", href: "../modules/Credit_Analysis/modules/10-quantitative-skills/02_Cash_Flow_Forecasting.md" }
+                    {
+                        title: "The Role of a Credit Analyst",
+                        desc: "Understand the responsibilities and workflow.",
+                        path: "modules/Credit_Analysis/modules/01-foundations/01_The_Role_of_a_Credit_Analyst.md",
+                        href: "../global_markdown_viewer.html?mdfile=modules/Credit_Analysis/modules/01-foundations/01_The_Role_of_a_Credit_Analyst.md"
+                    },
+                    {
+                        title: "Financial Statement Analysis",
+                        desc: "Deep dive into FSA for creditors.",
+                        path: "modules/Credit_Analysis/modules/01-foundations/03_Financial_Statement_Analysis_for_Creditors.md",
+                        href: "../global_markdown_viewer.html?mdfile=modules/Credit_Analysis/modules/01-foundations/03_Financial_Statement_Analysis_for_Creditors.md"
+                    },
+                    {
+                        title: "Cash Flow Forecasting",
+                        desc: "Projecting future performance.",
+                        path: "modules/Credit_Analysis/modules/10-quantitative-skills/02_Cash_Flow_Forecasting.md",
+                        href: "../global_markdown_viewer.html?mdfile=modules/Credit_Analysis/modules/10-quantitative-skills/02_Cash_Flow_Forecasting.md"
+                    }
                 ];
             } else {
                 return [
-                    { title: "Introduction & Concepts", desc: "Core definitions and framework.", href: "#" },
-                    { title: "Deep Dive Analysis", desc: "Advanced methodologies.", href: "#" },
-                    { title: "Case Study Application", desc: "Real-world examples.", href: "#" }
+                    { title: "Introduction & Concepts", desc: "Core definitions and framework.", path: "intro", href: "#" },
+                    { title: "Deep Dive Analysis", desc: "Advanced methodologies.", path: "deep_dive", href: "#" },
+                    { title: "Case Study Application", desc: "Real-world examples.", path: "case_study", href: "#" }
                 ];
             }
         }

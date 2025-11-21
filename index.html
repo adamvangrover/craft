@@ -81,7 +81,7 @@
                     <div class="glass-card rounded-xl p-6 shadow-sm">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="font-bold text-lg text-slate-800"><i class="fas fa-star text-yellow-400 mr-2"></i> Quick Access</h3>
-                            <button class="text-sm text-indigo-600 hover:text-indigo-800 font-medium" onclick="alert('Tip: You can pin pages from their content view (Coming Soon)')">Manage</button>
+                            <button class="text-sm text-indigo-600 hover:text-indigo-800 font-medium" onclick="alert('Tip: You can pin pages from their content view using the star icon.')">Info</button>
                         </div>
                         <div id="favorites-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <!-- Favorites injected via JS -->
@@ -212,7 +212,7 @@
                 }
             }
             
-            // Favorites Logic (Mockup for now, reading from manager if exists)
+            // Favorites Logic
             if (window.progressManager) {
                 const favs = window.progressManager.getFavorites();
                 const favContainer = document.getElementById('favorites-list');
