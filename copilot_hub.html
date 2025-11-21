@@ -3,31 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Copilot Hub</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>AI Copilot Hub | Financial Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global_nav.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .prompt-card:hover .copy-btn { opacity: 1; }
+    </style>
 </head>
-<body>
-    <header>
-        <h1>AI Copilot Hub</h1>
-        <nav>
-            <a href="index.html">Back to Main Hub</a>
-        </nav>
-    </header>
+<body class="bg-slate-50 text-slate-900 lg:flex h-screen overflow-hidden">
 
-    <main class="container">
-        <div class="hub-card">
-            <h2><a href="copilot-quest/index.html">Copilot Quest</a></h2>
-            <p>A collection of resources for learning about and using AI copilots. It includes a variety of games, training materials, and other resources to help you get the most out of your AI assistant.</p>
-        </div>
+    <div id="global-nav-placeholder"></div>
 
-        <div class="hub-card">
-            <h2><a href="copilot-quest-game/src/website/index.html">Copilot Quest Game</a></h2>
-            <p>An interactive AI collaboration game that tests your knowledge on a variety of topics. The game is designed to be a fun and engaging way to learn about AI copilots and prompt engineering.</p>
+    <main class="flex-1 h-full overflow-y-auto relative w-full">
+
+        <div class="p-6 lg:p-10 max-w-7xl mx-auto">
+
+            <header class="mb-10 text-center max-w-3xl mx-auto">
+                <h1 class="text-4xl font-bold text-indigo-900 mb-4">AI Copilot Hub</h1>
+                <p class="text-lg text-slate-600">Supercharge your financial analysis with our curated prompt library and interactive AI tools.</p>
+            </header>
+
+            <!-- Interactive Mockup -->
+            <section class="mb-16">
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                    <div class="bg-indigo-600 p-4 flex items-center justify-between">
+                        <h2 class="text-white font-bold text-lg"><i class="fas fa-sparkles mr-2"></i> AI Concept Explainer</h2>
+                        <span class="text-indigo-200 text-xs bg-indigo-800 px-2 py-1 rounded">Demo Mode</span>
+                    </div>
+                    <div class="p-6 md:p-8">
+                        <p class="text-slate-500 mb-6">Try asking about financial terms (e.g., "EBITDA", "Hedging", "DSCR").</p>
+
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <input type="text" id="ai-demo-input" placeholder="Ask a question..." class="flex-1 px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none">
+                            <button id="ai-demo-btn" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors flex items-center justify-center">
+                                Generate Response
+                            </button>
+                        </div>
+
+                        <div id="ai-demo-output" class="mt-6 p-6 bg-slate-50 rounded-xl border border-slate-200 min-h-[100px] hidden relative">
+                            <div id="ai-loader" class="hidden absolute inset-0 flex items-center justify-center bg-slate-50/80">
+                                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+                            </div>
+                            <div id="ai-text" class="prose prose-sm max-w-none text-slate-700"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Prompt Library -->
+            <section>
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-slate-900">Prompt Library</h2>
+                    <div class="flex gap-2">
+                        <button class="px-3 py-1 text-sm bg-white border border-slate-300 rounded-full hover:bg-slate-50">Credit Risk</button>
+                        <button class="px-3 py-1 text-sm bg-white border border-slate-300 rounded-full hover:bg-slate-50">Financial Modeling</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Prompt Card 1 -->
+                    <div class="prompt-card bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow relative group">
+                        <div class="absolute top-4 right-4 opacity-0 copy-btn transition-opacity">
+                            <button class="bg-slate-100 hover:bg-indigo-100 text-slate-600 hover:text-indigo-700 p-2 rounded-lg" onclick="copyToClipboard(this)" title="Copy Prompt">
+                                <i class="far fa-copy"></i>
+                            </button>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-800 mb-2">Company Overview Generator</h3>
+                        <span class="text-xs font-medium bg-blue-100 text-blue-700 px-2 py-1 rounded mb-3 inline-block">Analysis</span>
+                        <p class="text-sm text-slate-500 mb-4 line-clamp-3">Act as a senior credit analyst. Draft a comprehensive company overview for [Company Name], covering business model, key segments, and market position.</p>
+                        <div class="bg-slate-50 p-3 rounded border border-slate-200 text-xs font-mono text-slate-600 overflow-hidden h-20">
+                            Act as a senior credit analyst. Draft a comprehensive company overview for [Company Name]...
+                        </div>
+                        <div class="hidden full-prompt">Act as a senior credit analyst. Draft a comprehensive company overview for [Company Name], covering business model, key segments, and market position based on the latest available annual report. Highlight any competitive advantages and major risks.</div>
+                    </div>
+
+                    <!-- Prompt Card 2 -->
+                    <div class="prompt-card bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow relative group">
+                        <div class="absolute top-4 right-4 opacity-0 copy-btn transition-opacity">
+                            <button class="bg-slate-100 hover:bg-indigo-100 text-slate-600 hover:text-indigo-700 p-2 rounded-lg" onclick="copyToClipboard(this)" title="Copy Prompt">
+                                <i class="far fa-copy"></i>
+                            </button>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-800 mb-2">Financial Ratio Analysis</h3>
+                        <span class="text-xs font-medium bg-green-100 text-green-700 px-2 py-1 rounded mb-3 inline-block">Modeling</span>
+                        <p class="text-sm text-slate-500 mb-4 line-clamp-3">Analyze the liquidity and solvency ratios for [Company] over the last 3 years. Compare them to [Competitor].</p>
+                        <div class="bg-slate-50 p-3 rounded border border-slate-200 text-xs font-mono text-slate-600 overflow-hidden h-20">
+                            Analyze the liquidity and solvency ratios for [Company] over the last 3 years...
+                        </div>
+                        <div class="hidden full-prompt">Analyze the liquidity and solvency ratios for [Company] over the last 3 years. Calculate Current Ratio, Quick Ratio, Debt/EBITDA, and Interest Coverage. Compare them to [Competitor] and comment on trends.</div>
+                    </div>
+
+                    <!-- Prompt Card 3 -->
+                    <div class="prompt-card bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow relative group">
+                        <div class="absolute top-4 right-4 opacity-0 copy-btn transition-opacity">
+                            <button class="bg-slate-100 hover:bg-indigo-100 text-slate-600 hover:text-indigo-700 p-2 rounded-lg" onclick="copyToClipboard(this)" title="Copy Prompt">
+                                <i class="far fa-copy"></i>
+                            </button>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-800 mb-2">Risk Factor Summary</h3>
+                        <span class="text-xs font-medium bg-red-100 text-red-700 px-2 py-1 rounded mb-3 inline-block">Risk</span>
+                        <p class="text-sm text-slate-500 mb-4 line-clamp-3">Summarize the key risk factors from the 10-K of [Company Name]. Prioritize risks related to regulatory changes and market competition.</p>
+                        <div class="bg-slate-50 p-3 rounded border border-slate-200 text-xs font-mono text-slate-600 overflow-hidden h-20">
+                            Summarize the key risk factors from the 10-K of [Company Name]...
+                        </div>
+                        <div class="hidden full-prompt">Summarize the key risk factors from the 10-K of [Company Name]. Prioritize risks related to regulatory changes and market competition. Output as a bulleted list with impact assessment (High/Medium/Low).</div>
+                    </div>
+
+                </div>
+            </section>
+
         </div>
     </main>
 
-    <footer>
-        <p>&copy; 2024 AI Copilot Resources</p>
-    </footer>
+    <script src="js/nav_data.js"></script>
+    <script src="js/global_nav.js"></script>
+    <script>
+        // AI Demo Logic
+        const input = document.getElementById('ai-demo-input');
+        const btn = document.getElementById('ai-demo-btn');
+        const outputContainer = document.getElementById('ai-demo-output');
+        const loader = document.getElementById('ai-loader');
+        const outputText = document.getElementById('ai-text');
+
+        const responses = {
+            'ebitda': "EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization) is a widely used measure of core corporate profitability. It attempts to represent the cash profit generated by the company's operations, excluding the effects of capital structure, tax rates, and non-cash accounting items.",
+            'dscr': "The Debt Service Coverage Ratio (DSCR) is a measure of the cash flow available to pay current debt obligations. DSCR = Net Operating Income / Total Debt Service. A DSCR greater than 1.0 means the entity has sufficient income to pay its current debt obligations.",
+            'hedging': "Hedging is a risk management strategy used to limit or offset probability of loss from fluctuations in the prices of commodities, currencies, or securities. In effect, hedging is a transfer of risk without buying insurance policies.",
+            'default': "I don't have an API key configured right now, but here is a simulated response: Default occurs when a borrower is unable to make required payments on debt obligations. It can lead to legal claims and loss of assets."
+        };
+
+        btn.addEventListener('click', () => {
+            const query = input.value.toLowerCase();
+            if (!query) return;
+
+            outputContainer.classList.remove('hidden');
+            loader.classList.remove('hidden');
+            outputText.innerHTML = '';
+
+            setTimeout(() => {
+                loader.classList.add('hidden');
+
+                // Simple keyword matching
+                let response = "I'm a simulated AI assistant. Try asking about 'EBITDA', 'DSCR', or 'Hedging' to see a prepared response.";
+                for (const key in responses) {
+                    if (query.includes(key)) {
+                        response = responses[key];
+                        break;
+                    }
+                }
+
+                outputText.innerHTML = `<p><strong>Answer:</strong></p><p>${response}</p>`;
+            }, 1500);
+        });
+
+        // Copy to Clipboard
+        window.copyToClipboard = function(btn) {
+            const card = btn.closest('.prompt-card');
+            const text = card.querySelector('.full-prompt').textContent;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const icon = btn.querySelector('i');
+                icon.className = 'fas fa-check text-green-600';
+                setTimeout(() => {
+                    icon.className = 'far fa-copy';
+                }, 2000);
+            });
+        };
+    </script>
 </body>
 </html>

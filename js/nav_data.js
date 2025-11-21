@@ -2190,19 +2190,25 @@ const navData = [
         "text": "Cfa Level 1 Prep Focus Areas",
         "href": "Learning_Paths/CFA_Level_1_Prep_Focus_Areas.md",
         "type": "learning_path_definition",
-        "path_id": "cfa_level_1_prep"
+        "path_id": "cfa_level_1_prep",
+        "estimated_time": "4 Weeks",
+        "difficulty": "Advanced"
       },
       {
         "text": "Credit Analyst Foundational Path",
         "href": "Learning_Paths/Credit_Analyst_Foundational_Path.md",
         "type": "learning_path_definition",
-        "path_id": "credit_analyst_foundational"
+        "path_id": "credit_analyst_foundational",
+        "estimated_time": "2 Weeks",
+        "difficulty": "Beginner"
       },
       {
         "text": "Genai For Credit Analysts Path",
         "href": "Learning_Paths/GenAI_for_Credit_Analysts_Path.md",
         "type": "learning_path_definition",
-        "path_id": "genai_for_credit_analysts"
+        "path_id": "genai_for_credit_analysts",
+        "estimated_time": "1 Week",
+        "difficulty": "Intermediate"
       },
       {
         "text": "Understanding Fintech For Analysts",
