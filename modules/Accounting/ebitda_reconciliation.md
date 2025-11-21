@@ -29,7 +29,7 @@ Companies that report EBITDA are required to provide a reconciliation of EBITDA 
 
 - **Uses:**
   - Can be used to compare the operating performance of companies in the same industry.
-  - Can be used to assess a company's ability to service its debt.
+  - Can be used to assess a company's ability to service its debt (see how this is applied in [DSCR Calculation](../Credit_Analysis/modules/11-capstone/20-capstone-instructions.md#task-2-the-term-sheet-review)).
 - **Limitations:**
   - Does not account for changes in working capital.
   - Can be misleading if not used in conjunction with other financial metrics.

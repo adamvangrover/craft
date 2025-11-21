@@ -2209,6 +2209,18 @@ const navData = [
         "href": "Learning_Paths/Understanding_Fintech_for_Analysts.md",
         "type": "learning_path_definition",
         "path_id": "understanding_fintech"
+      },
+      {
+        "text": "Fintech for the Credit Analyst",
+        "href": "Learning_Paths/Fintech_Credit_Bridge.md",
+        "type": "learning_path_definition",
+        "path_id": "fintech_credit_bridge"
+      },
+      {
+        "text": "Behavioral Economics in Risk",
+        "href": "Learning_Paths/Behavioral_Risk.md",
+        "type": "learning_path_definition",
+        "path_id": "behavioral_risk"
       }
     ]
   },
