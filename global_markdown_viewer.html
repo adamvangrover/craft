@@ -3,207 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Markdown Viewer</title>
+    <title>Reader View | Financial Hub</title>
+
+    <!-- Tailwind CSS & Typography -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="css/global_nav.css">
-    <!-- Basic styling for Markdown content area -->
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            display: flex; /* Use flexbox for layout */
-            min-height: 100vh;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        .markdown-body { font-family: 'Merriweather', serif; }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 { font-family: 'Inter', sans-serif; }
 
-        #global-nav-placeholder {
-            /* Styles for the nav are in global_nav.css */
-            /* Assuming a sidebar layout for now */
-            flex-shrink: 0; /* Prevent nav from shrinking */
-        }
-
-        .viewer-container {
-            flex-grow: 1; /* Allow content to take remaining space */
-            padding: 20px;
-            background-color: #ffffff;
-            overflow-y: auto; /* Allow scrolling for content */
-            box-sizing: border-box;
-        }
-
-        #markdown-content {
-            max-width: 900px; /* Max width for readability */
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        #markdown-content h1,
-        #markdown-content h2,
-        #markdown-content h3,
-        #markdown-content h4,
-        #markdown-content h5,
-        #markdown-content h6 {
-            color: #333;
-            margin-top: 1.5em;
-            margin-bottom: 0.5em;
-        }
-
-        #markdown-content h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
-        #markdown-content h2 { font-size: 1.75em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
-        #markdown-content h3 { font-size: 1.5em; }
-        #markdown-content h4 { font-size: 1.25em; }
-
-        #markdown-content p {
-            margin-bottom: 1em;
-        }
-
-        #markdown-content a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        #markdown-content a:hover {
-            text-decoration: underline;
-        }
-
-        #markdown-content ul,
-        #markdown-content ol {
-            margin-bottom: 1em;
-            padding-left: 2em;
-        }
-
-        #markdown-content li {
-            margin-bottom: 0.25em;
-        }
-
-        #markdown-content pre {
-            background-color: #f8f9fa; /* Light gray background for code blocks */
-            border: 1px solid #e0e0e0;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto; /* Allow horizontal scrolling for long code lines */
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9em;
-        }
-
-        #markdown-content code {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #f0f0f0; /* Slightly different for inline code */
-            padding: 0.2em 0.4em;
-            border-radius: 3px;
-            font-size: 0.9em;
-        }
-
-        #markdown-content pre code { /* Reset for code inside pre */
-             background-color: transparent;
-             padding: 0;
-             border-radius: 0;
-        }
-
-        #markdown-content blockquote {
-            border-left: 4px solid #ccc;
-            padding-left: 1em;
-            margin-left: 0;
-            color: #666;
-            font-style: italic;
-        }
-
-        #markdown-content table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-bottom: 1em;
-        }
-
-        #markdown-content th,
-        #markdown-content td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        #markdown-content th {
-            background-color: #f2f2f2;
-        }
-
-        #markdown-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 4px;
-        }
-
-        .error-message {
-            color: red;
-            font-weight: bold;
+        /* Sticky Sidebar */
+        .toc-sticky {
+            position: sticky;
+            top: 2rem;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
         }
     </style>
 </head>
-<body>
-    <!-- Global Navigation Placeholder -->
-    <div id="global-nav-placeholder">
-        <!-- Navigation will be injected here by global_nav.js -->
-    </div>
+<body class="bg-slate-50 text-slate-900 flex">
 
-    <!-- Main Content Area for Markdown -->
-    <div class="viewer-container">
-        <h1 id="page-title">Markdown Document</h1>
-        <hr>
-        <div id="markdown-content">
-            <noscript>
-                <p style="color: red; font-weight: bold;">JavaScript is required to view this document formatted nicely.</p>
-                <p>You may be able to view the raw content if the link was provided directly to a Markdown (.md) file.</p>
-            </noscript>
-            <p>Loading document...</p> <!-- This will be replaced by JS if enabled -->
+    <!-- Global Nav Placeholder -->
+    <div id="global-nav-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="flex-1 relative min-h-screen flex flex-col lg:flex-row">
+
+        <!-- Content Wrapper -->
+        <div class="flex-1 p-6 lg:p-12 max-w-4xl mx-auto w-full">
+
+            <!-- Breadcrumbs (injected) -->
+            <div id="breadcrumb-container" class="mb-6"></div>
+
+            <!-- Status Banner -->
+            <div id="read-status-banner" class="hidden mb-6 bg-green-50 border border-green-200 rounded-lg p-3 flex items-center text-green-700 text-sm">
+                <i class="fas fa-check-circle mr-2"></i> You have completed this section.
+            </div>
+
+            <!-- Markdown Render Area -->
+            <article id="markdown-content" class="prose prose-indigo prose-lg max-w-none bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex items-center justify-center py-20">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+                </div>
+            </article>
+
         </div>
-    </div>
+
+        <!-- Right Sidebar (TOC) -->
+        <aside class="hidden xl:block w-72 p-8 border-l border-slate-200 bg-slate-50/50 flex-shrink-0">
+            <div class="toc-sticky" id="toc-sidebar">
+                <h4 class="font-bold text-slate-900 uppercase tracking-wider text-xs mb-4">On This Page</h4>
+                <nav id="toc-sidebar-content"></nav>
+            </div>
+        </aside>
+
+        <!-- Floating Action Button -->
+        <button id="fab-complete" class="fixed bottom-8 right-8 bg-white text-slate-400 border border-slate-200 shadow-lg rounded-full w-14 h-14 flex items-center justify-center transition-all hover:scale-110 focus:outline-none z-30 group" title="Mark as Read">
+            <i class="fas fa-check text-xl group-hover:text-green-500 transition-colors"></i>
+            <span class="absolute right-16 bg-slate-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Mark as Read</span>
+        </button>
+
+    </main>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="js/nav_data.js"></script> <!-- Load navigation data first -->
-    <script src="js/global_nav.js"></script> <!-- Then load the script that builds the nav -->
+    <!-- PrismJS for code highlighting (optional but nice) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+
+    <script src="js/nav_data.js"></script>
+    <script src="js/progress_manager.js"></script>
+    <script src="js/global_nav.js"></script>
+    <script src="js/toc.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const contentElement = document.getElementById('markdown-content');
-            const pageTitleElement = document.getElementById('page-title');
+        document.addEventListener('DOMContentLoaded', async () => {
+            const contentEl = document.getElementById('markdown-content');
+            const fab = document.getElementById('fab-complete');
+            const banner = document.getElementById('read-status-banner');
+
+            // Get MD File Param
             const params = new URLSearchParams(window.location.search);
             const mdFile = params.get('mdfile');
 
-            if (mdFile) {
-                // Update page title based on the filename
-                // Simple title extraction: take filename, remove extension, replace underscores/hyphens with spaces
-                let title = mdFile.split('/').pop().replace(/\.(md|markdown)$/i, '').replace(/[_-]/g, ' ');
-                title = title.charAt(0).toUpperCase() + title.slice(1); // Capitalize first letter
-                document.title = title + " - Viewer";
-                if (pageTitleElement) pageTitleElement.textContent = title;
+            if (!mdFile) {
+                contentEl.innerHTML = '<div class="p-4 bg-red-50 text-red-600 rounded-lg">Error: No file specified.</div>';
+                return;
+            }
 
-                // Fetch and render Markdown content
-                // Ensure paths are relative to the repository root, or adjust if needed.
-                // The mdFile parameter should be the path from the root.
-                fetch(mdFile)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
-                        }
-                        return response.text();
-                    })
-                    .then(markdownText => {
-                        if (typeof marked !== 'undefined') {
-                            contentElement.innerHTML = marked.parse(markdownText);
-                        } else {
-                            console.error('Marked.js library not loaded.');
-                            contentElement.innerHTML = '<p class="error-message">Error: Markdown parsing library not available.</p>';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error fetching or parsing Markdown file:', error);
-                        contentElement.innerHTML = `<p class="error-message">Error loading document: ${mdFile}. ${error.message}. Please check the file path and network connection.</p>`;
-                        if (pageTitleElement) pageTitleElement.textContent = "Error Loading Document";
-                        document.title = "Error - Viewer";
-                    });
-            } else {
-                const errorMessage = 'No Markdown file specified. Please provide an "mdfile" URL parameter.';
-                contentElement.innerHTML = `<p class="error-message">${errorMessage}</p>`;
-                if (pageTitleElement) pageTitleElement.textContent = "Error";
-                document.title = "Error - Viewer";
-                console.warn(errorMessage);
+            // Load Content
+            try {
+                const response = await fetch(mdFile);
+                if (!response.ok) throw new Error('File not found');
+                const text = await response.text();
+
+                // Render Markdown
+                contentEl.innerHTML = marked.parse(text);
+
+                // Generate TOC
+                if (window.generateTOC) window.generateTOC();
+
+                // Syntax Highlight
+                if (window.Prism) Prism.highlightAll();
+
+                // Update Page Title
+                const title = mdFile.split('/').pop().replace(/_/g, ' ').replace('.md', '');
+                document.title = title.charAt(0).toUpperCase() + title.slice(1) + ' | Financial Hub';
+
+            } catch (e) {
+                console.error(e);
+                contentEl.innerHTML = `<div class="p-4 bg-red-50 text-red-600 rounded-lg">Error loading content: ${e.message}</div>`;
+            }
+
+            // Progress Logic
+            function updateStatus() {
+                if (window.progressManager) {
+                    const isComplete = window.progressManager.isCompleted(mdFile);
+                    if (isComplete) {
+                        fab.classList.remove('bg-white', 'text-slate-400');
+                        fab.classList.add('bg-green-600', 'text-white', 'border-green-600');
+                        banner.classList.remove('hidden');
+                        fab.title = "Completed";
+                    } else {
+                        fab.classList.add('bg-white', 'text-slate-400');
+                        fab.classList.remove('bg-green-600', 'text-white', 'border-green-600');
+                        banner.classList.add('hidden');
+                        fab.title = "Mark as Read";
+                    }
+                }
+            }
+
+            fab.addEventListener('click', () => {
+                if (window.progressManager) {
+                    const currentStatus = window.progressManager.isCompleted(mdFile);
+                    window.progressManager.markAsComplete(mdFile, !currentStatus);
+                    updateStatus();
+
+                    // Animation feedback
+                    if (!currentStatus) {
+                        confettiEffect();
+                    }
+                }
+            });
+
+            // Check initial status
+            updateStatus();
+
+            // Also track as visited
+            if (window.progressManager) {
+                // Extract title from first H1 if exists, else filename
+                const h1 = contentEl.querySelector('h1');
+                const title = h1 ? h1.innerText : mdFile.split('/').pop();
+                window.progressManager.updateLastVisited(mdFile, title);
+            }
+
+            function confettiEffect() {
+                // Simple visual feedback (scale bump)
+                fab.style.transform = 'scale(1.2)';
+                setTimeout(() => fab.style.transform = 'scale(1)', 200);
             }
         });
     </script>
