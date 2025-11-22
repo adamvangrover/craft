@@ -356,11 +356,22 @@ function buildNavSearch() {
     const icon = createElement('i', { class: 'fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400' });
     const input = createElement('input', {
         type: 'text',
-        placeholder: 'Search modules...',
+        placeholder: 'Filter... (Enter for Full Search)',
         class: 'w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-shadow'
     });
 
     input.addEventListener('input', (e) => filterNav(e.target.value.toLowerCase()));
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const query = e.target.value;
+            if (query) {
+                const basePath = isGitHubPages ? `/${repoName}/` : '/';
+                // Handle relative path if we are deep in a directory
+                // Actually SITE_BASE_PATH is defined globally at top of file
+                window.location.href = `${SITE_BASE_PATH}search.html?q=${encodeURIComponent(query)}`;
+            }
+        }
+    });
 
     wrapper.appendChild(icon);
     wrapper.appendChild(input);

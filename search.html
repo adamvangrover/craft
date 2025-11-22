@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search | Financial Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global_nav.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 flex">
+    <div id="global-nav-placeholder"></div>
+    <main class="flex-1 p-8 md:p-12 overflow-y-auto h-screen">
+        <div class="max-w-3xl mx-auto">
+            <h1 class="text-3xl font-bold mb-8 text-indigo-900">Search Content</h1>
+
+            <div class="relative mb-8">
+                <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 text-lg"></i>
+                <input type="text" id="search-input" placeholder="Search for topics, guides, templates..."
+                    class="w-full pl-12 pr-4 py-4 rounded-xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-lg transition-all">
+            </div>
+
+            <div id="search-stats" class="text-sm text-slate-500 mb-4 hidden">Found <span id="result-count" class="font-semibold">0</span> results</div>
+
+            <div id="search-results" class="space-y-4">
+                <!-- Results will appear here -->
+                <div class="text-center text-slate-400 py-12">
+                    <i class="fas fa-search text-4xl mb-4 opacity-20"></i>
+                    <p>Start typing to search the knowledge base</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/nav_data.js"></script>
+    <script src="js/global_nav.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('search-input');
+            const resultsContainer = document.getElementById('search-results');
+            const statsContainer = document.getElementById('search-stats');
+            const resultCount = document.getElementById('result-count');
+
+            // Flatten navData for easier searching
+            const flattenedData = [];
+            function flatten(items, parentPath = '') {
+                items.forEach(item => {
+                    if (item.href) {
+                        flattenedData.push({
+                            text: item.text,
+                            href: item.href,
+                            type: item.type,
+                            viewer: item.viewer,
+                            path: parentPath ? `${parentPath} > ${item.text}` : item.text
+                        });
+                    }
+                    if (item.children) {
+                        flatten(item.children, parentPath ? `${parentPath} > ${item.text}` : item.text);
+                    }
+                });
+            }
+            if (typeof navData !== 'undefined') {
+                flatten(navData);
+            }
+
+            // Check for query param
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q');
+            if (query) {
+                searchInput.value = query;
+                performSearch(query);
+            }
+
+            searchInput.addEventListener('input', (e) => {
+                performSearch(e.target.value);
+            });
+
+            function performSearch(term) {
+                const q = term.toLowerCase().trim();
+                if (!q) {
+                    resultsContainer.innerHTML = `
+                        <div class="text-center text-slate-400 py-12">
+                            <i class="fas fa-search text-4xl mb-4 opacity-20"></i>
+                            <p>Start typing to search the knowledge base</p>
+                        </div>
+                    `;
+                    statsContainer.classList.add('hidden');
+                    return;
+                }
+
+                const results = flattenedData.filter(item =>
+                    item.text.toLowerCase().includes(q) ||
+                    item.href.toLowerCase().includes(q)
+                );
+
+                resultCount.textContent = results.length;
+                statsContainer.classList.remove('hidden');
+
+                if (results.length === 0) {
+                    resultsContainer.innerHTML = `
+                        <div class="text-center text-slate-500 py-8 bg-white rounded-xl border border-slate-200">
+                            <p>No results found for "${term}"</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                resultsContainer.innerHTML = results.map(item => {
+                    let url = item.href;
+                    if (item.type === 'markdown_viewer' && item.viewer === 'global') {
+                        url = `global_markdown_viewer.html?mdfile=${item.href}`;
+                    }
+
+                    let icon = 'fa-file-lines';
+                    if (item.type === 'html_hub') icon = 'fa-layer-group';
+                    if (item.type === 'jupyter_guide') icon = 'fa-book-open';
+                    if (item.type === 'file') icon = 'fa-file-code';
+                    if (item.text.toLowerCase().includes('quiz')) icon = 'fa-list-check';
+
+                    return `
+                        <a href="${url}" class="block p-5 bg-white rounded-xl border border-slate-200 hover:shadow-md hover:border-indigo-300 transition-all group">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                    <i class="fas ${icon}"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-indigo-900 group-hover:text-indigo-700 transition-colors mb-1">${item.text}</h3>
+                                    <p class="text-xs text-slate-400 mb-2 uppercase tracking-wide">${item.path}</p>
+                                    <p class="text-sm text-slate-500 truncate font-mono bg-slate-50 px-2 py-1 rounded w-fit">${item.href}</p>
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                }).join('');
+            }
+        });
+    </script>
+</body>
+</html>
