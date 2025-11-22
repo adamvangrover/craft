@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Logistics - Credit Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Warm Neutrals (Slate/White) with Blue (Primary) and Red (Risk) Accents -->
+    <!-- Application Structure Plan: A tab-based SPA. This structure is chosen to mirror an analyst's workflow: 1. Overview (Quick stats, main chart, key risks), 2. Financials (Deep dive charts & tables), 3. Risks (Analyze qualitative interview data), 4. Structure (Review term sheet flaws), 5. Recommendation (User input form). This task-oriented flow is more usable than simply presenting the source files, as it guides the user through synthesis. -->
+    <!-- Visualization & Content Choices:
+        - Overview: Stats Cards (Goal: Inform, Method: HTML/Tailwind) & Bar Chart (Goal: Show Change, Method: Chart.js) to show FY23 performance drop.
+        - Financials: Combo Bar/Line Chart (Goal: Compare Revenue vs Margin, Method: Chart.js), Stacked Bar (Goal: Compare Debt Components, Method: Chart.js), Line Chart (Goal: Show Change in WC, Method: Chart.js), HTML Tables (Goal: Inform, Method: HTML/Tailwind) for raw data.
+        - Risks: Interview transcript (Goal: Organize/Inform, Method: Styled HTML) with 'Red Flag' callouts styled in red for emphasis.
+        - Structure: Term Sheet data (Goal: Organize/Inform, Method: Styled HTML) with 'Analyst Comments' styled in red to highlight structural flaws.
+        - Recommendation: Text area (Goal: User Input, Method: HTML Form) to complete the capstone task.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .nav-tab {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-active {
+            background-color: #ffffff;
+            color: #1d4ed8;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        }
+        .nav-inactive {
+            background-color: #f1f5f9;
+            color: #475569;
+        }
+        .nav-inactive:hover {
+            background-color: #e2e8f0;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .stat-card {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .risk-callout {
+            background-color: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #991b1b;
+            border-radius: 0 8px 8px 0;
+        }
+        .risk-callout p {
+            margin: 0;
+        }
+        .risk-callout strong {
+            color: #b91c1c;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <h1 class="text-2xl font-bold text-slate-900">Apex Logistics - Credit Analysis Dashboard</h1>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <nav class="bg-slate-100 p-2 rounded-xl flex flex-wrap gap-2">
+            <button id="nav-overview" class="nav-tab nav-active">Overview</button>
+            <button id="nav-financials" class="nav-tab nav-inactive">Financials</button>
+            <button id="nav-risks" class="nav-tab nav-inactive">Risks & Interview</button>
+            <button id="nav-structure" class="nav-tab nav-inactive">Structural Review</button>
+            <button id="nav-recommendation" class="nav-tab nav-inactive">My Recommendation</button>
+        </nav>
+
+        <main class="mt-6">
+            <div id="content-overview">
+                <div class="bg-white p-6 rounded-xl shadow">
+                    <h2 class="text-xl font-semibold mb-3">Analysis Overview</h2>
+                    <p class="text-slate-600 mb-6">
+                        This dashboard summarizes the key findings for the Apex Logistics refinancing. The company seeks new debt to fund a turnaround after a challenging year (FY23) marked by margin contraction, customer loss, and rising debt. This overview tab provides the "at-a-glance" picture, while subsequent tabs contain the data for a deeper dive.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                        <div class="stat-card text-center">
+                            <h3 class="text-sm font-medium text-slate-500 uppercase">FY23 Revenue</h3>
+                            <p class="text-3xl font-bold text-slate-900 mt-1">$168.0 M</p>
+                        </div>
+                        <div class="stat-card text-center">
+                            <h3 class="text-sm font-medium text-slate-500 uppercase">FY23 Reported EBITDA</h3>
+                            <p class="text-3xl font-bold text-red-600 mt-1">$14.0 M</p>
+                        </div>
+                        <div class="stat-card text-center">
+                            <h3 class="text-sm font-medium text-slate-500 uppercase">FY23 Total Debt / EBITDA</h3>
+                            <p class="text-3xl font-bold text-red-600 mt-1">6.14x</p>
+                        </div>
+                        <div class="stat-card text-center">
+                            <h3 class="text-sm font-medium text-slate-500 uppercase">FY23 EBITDA / Interest</h3>
+                            <p class="text-3xl font-bold text-red-600 mt-1">1.75x</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold mb-2 text-center">EBITDA Performance (2021-2023)</h3>
+                            <div class="chart-container" style="height: 300px; max-height: 350px;">
+                                <canvas id="overviewChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold mb-4">Key Credit Risks</h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <span class="text-red-500 text-xl font-bold mr-3">&#x26A0;</span>
+                                    <div>
+                                        <h4 class="font-semibold">Severe Margin Collapse</h4>
+                                        <p class="text-sm text-slate-600">EBITDA margin fell from 18.5% to 8.3% in one year due to fuel costs and lost contract.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-500 text-xl font-bold mr-3">&#x26A0;</span>
+                                    <div>
+                                        <h4 class="font-semibold">Aggressive EBITDA Add-backs</h4>
+                                        <p class="text-sm text-slate-600">Management's $15M in add-backs ($5M of which are for an unimplemented IT system) are highly questionable.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-500 text-xl font-bold mr-3">&#x26A0;</span>
+                                    <div>
+                                        <h4 class="font-semibold">Weak Structural Protections</h4>
+                                        <p class="text-sm text-slate-600">Proposed term sheet has an extremely high leverage covenant (8.5x), allows cash dividends, and lacks a cross-default.</p>
+                                    </div>
+                                </li>
+                                 <li class="flex items-start">
+                                    <span class="text-red-500 text-xl font-bold mr-3">&#x26A0;</span>
+                                    <div>
+                                        <h4 class="font-semibold">Liquidity & WC Burn</h4>
+                                        <p class="text-sm text-slate-600">Revolver is heavily drawn ($15M) and A/R days have stretched to 82, indicating a significant cash burn.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content-financials" class="hidden">
+                <div class="bg-white p-6 rounded-xl shadow">
+                    <h2 class="text-xl font-semibold mb-3">Financial Deep Dive</h2>
+                    <p class="text-slate-600 mb-6">
+                        This section provides a detailed view of Apex's historical performance. The charts visualize the key trends in revenue, profitability, debt, and working capital. The full income statement and balance sheet data are provided in the tables below for reference.
+                    </p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-center mb-2">Revenue & EBITDA Margin</h3>
+                            <div class="chart-container">
+                                <canvas id="revenueEbitdaChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-center mb-2">Debt Composition</h3>
+                            <div class="chart-container">
+                                <canvas id="debtChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg col-span-1 lg:col-span-2">
+                            <h3 class="text-lg font-semibold text-center mb-2">Working Capital Days</h3>
+                             <div class="chart-container" style="max-width: 800px;">
+                                <canvas id="wcChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-2">Income Statement</h3>
+                            <div class="overflow-x-auto bg-white rounded-lg border">
+                                <table class="w-full text-sm">
+                                    <thead class="bg-slate-100">
+                                        <tr>
+                                            <th class="p-3 text-left font-medium">Item</th>
+                                            <th class="p-3 text-right font-medium">FY2021A</th>
+                                            <th class="p-3 text-right font-medium">FY2022A</th>
+                                            <th class="p-3 text-right font-medium">FY2023A</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-200">
+                                        <tr><td class="p-3 font-medium">Revenue</td><td class="p-3 text-right">150.0</td><td class="p-3 text-right">175.5</td><td class="p-3 text-right">168.0</td></tr>
+                                        <tr><td class="p-3">Cost of Goods Sold (COGS)</td><td class="p-3 text-right">95.0</td><td class="p-3 text-right">115.0</td><td class="p-3 text-right">122.0</td></tr>
+                                        <tr class="bg-slate-50"><td class="p-3 font-medium">Gross Profit</td><td class="p-3 text-right font-medium">55.0</td><td class="p-3 text-right font-medium">60.5</td><td class="p-3 text-right font-medium">46.0</td></tr>
+                                        <tr><td class="p-3">SG&A Expense</td><td class="p-3 text-right">25.0</td><td class="p-3 text-right">28.0</td><td class="p-3 text-right">32.0</td></tr>
+                                        <tr class="bg-slate-50"><td class="p-3 font-medium">EBITDA</td><td class="p-3 text-right font-medium">30.0</td><td class="p-3 text-right font-medium">32.5</td><td class="p-3 text-right font-medium text-red-600">14.0</td></tr>
+                                        <tr><td class="p-3">Depreciation & Amortization</td><td class="p-3 text-right">8.0</td><td class="p-3 text-right">9.0</td><td class="p-3 text-right">9.5</td></tr>
+                                        <tr class="bg-slate-50"><td class="p-3 font-medium">EBIT</td><td class="p-3 text-right font-medium">22.0</td><td class="p-3 text-right font-medium">23.5</td><td class="p-3 text-right font-medium">4.5</td></tr>
+                                        <tr><td class="p-3">Interest Expense</td><td class="p-3 text-right">5.0</td><td class="p-3 text-right">5.5</td><td class="p-3 text-right">8.0</td></tr>
+                                        <tr><td class="p-3">Taxes</td><td class="p-3 text-right">4.2</td><td class="p-3 text-right">4.5</td><td class="p-3 text-right">0.0</td></tr>
+                                        <tr class="bg-blue-50"><td class="p-3 font-medium">Net Income</td><td class="p-3 text-right font-medium">12.8</td><td class="p-3 text-right font-medium">13.5</td><td class="p-3 text-right font-medium text-red-600">-3.5</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-2">Balance Sheet</h3>
+                             <div class="overflow-x-auto bg-white rounded-lg border">
+                                <table class="w-full text-sm">
+                                    <thead class="bg-slate-100">
+                                        <tr>
+                                            <th class="p-3 text-left font-medium">Item</th>
+                                            <th class="p-3 text-right font-medium">FY2021A</th>
+                                            <th class="p-3 text-right font-medium">FY2022A</th>
+                                            <th class="p-3 text-right font-medium">FY2023A</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-200">
+                                        <tr><td class="p-3">Cash & Equivalents</td><td class="p-3 text-right">12.0</td><td class="p-3 text-right">15.0</td><td class="p-3 text-right text-red-600">4.0</td></tr>
+                                        <tr><td class="p-3">Accounts Receivable</td><td class="p-3 text-right">25.0</td><td class="p-3 text-right">30.0</td><td class="p-3 text-right">38.0</td></tr>
+                                        <tr><td class="p-3">Inventory</td><td class="p-3 text-right">10.0</td><td class="p-3 text-right">12.0</td><td class="p-3 text-right">18.0</td></tr>
+                                        <tr class="bg-slate-50"><td class="p-3 font-medium">Total Current Assets</td><td class="p-3 text-right font-medium">47.0</td><td class="p-3 text-right font-medium">57.0</td><td class="p-3 text-right font-medium">60.0</td></tr>
+                                        <tr><td class="p-3">PP&E (Net)</td><td class="p-3 text-right">80.0</td><td class="p-3 text-right">85.0</td><td class="p-3 text-right">82.0</td></tr>
+                                        <tr class="bg-blue-50"><td class="p-3 font-medium">Total Assets</td><td class="p-3 text-right font-medium">127.0</td><td class="p-3 text-right font-medium">142.0</td><td class="p-3 text-right font-medium">142.0</td></tr>
+                                        <tr><td class="p-3">Accounts Payable</td><td class="p-3 text-right">15.0</td><td class="p-3 text-right">18.0</td><td class="p-3 text-right">24.0</td></tr>
+                                        <tr><td class="p-3">Revolver Drawn</td><td class="p-3 text-right">5.0</td><td class="p-3 text-right">2.0</td><td class="p-3 text-right text-red-600">15.0</td></tr>
+                                        <tr><td class="p-3">Term Loan A</td><td class="p-3 text-right">40.0</td><td class="p-3 text-right">38.0</td><td class="p-3 text-right">36.0</td></tr>
+                                        <tr><td class="p-3">Term Loan B</td><td class="p-3 text-right">20.0</td><td class="p-3 text-right">35.0</td><td class="p-3 text-right">35.0</td></tr>
+                                        <tr class="bg-slate-50"><td class="p-3 font-medium">Total Debt</td><td class="p-3 text-right font-medium">65.0</td><td class="p-3 text-right font-medium">75.0</td><td class="p-3 text-right font-medium">86.0</td></tr>
+                                        <tr class="bg-slate-50"><td class="p-3 font-medium">Total Liabilities</td><td class="p-3 text-right font-medium">80.0</td><td class="p-3 text-right font-medium">93.0</td><td class="p-3 text-right font-medium">110.0</td></tr>
+                                        <tr><td class="p-3">Shareholders Equity</td><td class="p-3 text-right">47.0</td><td class="p-3 text-right">49.0</td><td class="p-3 text-right">32.0</td></tr>
+                                        <tr class="bg-blue-50"><td class="p-3 font-medium">Total Liabilities & Equity</td><td class="p-3 text-right font-medium">127.0</td><td class="p-3 text-right font-medium">142.0</td><td class="p-3 text-right font-medium">142.0</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content-risks" class="hidden">
+                 <div class="bg-white p-6 rounded-xl shadow">
+                    <h2 class="text-xl font-semibold mb-3">Risks & Management Interview</h2>
+                    <p class="text-slate-600 mb-6">
+                        The financial data only tells half the story. The following transcript from the management interview provides critical context for the FY23 underperformance. Pay close attention to management's explanations and the associated analyst red flags.
+                    </p>
+                    <div class="bg-slate-50 rounded-lg p-6 border">
+                        <h3 class="text-lg font-semibold mb-4">Transcript: Apex Logistics Management Interview</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="font-semibold text-blue-700">Sarah (Analyst):</p>
+                                <p class="ml-4">Thanks for joining. Looking at the 2023 numbers, we see a significant contraction in EBITDA margins—down to roughly 8% from 18% the prior year. Can you walk us through the drivers?</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-slate-800">Alex (CEO):</p>
+                                <p class="ml-4">Sure. It was a perfect storm. First, fuel prices spiked in Q2, and our hedging contracts rolled off in Q1. We decided to float, betting prices would stabilize. They didn't. That hit COGS hard. Second, we lost the *TechStream* contract.</p>
+                            </div>
+                            <div class="risk-callout">
+                                <p><strong>Analyst Red Flag (Operational Risk):</strong> Management admits to a failed hedging strategy, exposing the business to commodity price volatility.</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-blue-700">Sarah (Analyst):</p>
+                                <p class="ml-4">TechStream? I didn't see that disclosed in the CIM. How much of revenue did they represent?</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-slate-800">Alex (CEO):</p>
+                                <p class="ml-4">About 18% of FY22 revenue. They moved their logistics in-house. It left us with a lot of idle trucks and warehouse space we’re still paying leases on.</p>
+                            </div>
+                             <div class="risk-callout">
+                                <p><strong>Analyst Red Flag (Customer Concentration):</strong> The loss of a single customer (18% of revenue) was a primary driver of the performance decline. This risk was not disclosed in the initial materials.</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-blue-700">Sarah (Analyst):</p>
+                                <p class="ml-4">Understood. I see AR days have stretched from 60 to nearly 82 days. Is this a collection issue?</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-slate-800">David (CFO):</p>
+                                <p class="ml-4">Well, we're trying to pivot to new customers in the retail sector. To win that business, we had to offer generous payment terms—Net 90 in some cases. It’s a growth strategy, but it burns cash in the short term. That's why the Revolver is drawn.</p>
+                            </div>
+                             <div class="risk-callout">
+                                <p><strong>Analyst Red Flag (Working Capital):</strong> The "growth strategy" is cash-incinerating. They are trading cash for revenue by extending terms, leading to the $13M revolver draw (from $2M).</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-blue-700">Sarah (Analyst):</p>
+                                <p class="ml-4">Speaking of growth, I see a $15M add-back to EBITDA for "Restructuring and Synergies." That’s larger than your actual EBITDA.</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-slate-800">David (CFO):</p>
+                                <p class="ml-4">Yes, we’re closing two regional hubs. We expect $10M in savings next year. The other $5M is... well, it’s projected savings from a new IT system we haven't fully implemented yet. We feel comfortable treating that as pro-forma EBITDA.</p>
+                            </div>
+                            <div class="risk-callout">
+                                <p><strong>Analyst Red Flag (Aggressive Add-Backs):</strong> This is the core issue. They are reporting $14M of EBITDA but asking for credit based on $29M ($14M + $15M). The $5M for an "unimplemented" system is purely fictional and should be rejected by any creditor.</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-blue-700">Sarah (Analyst):</p>
+                                <p class="ml-4">One last question on the Term Sheet. You're asking for a leverage covenant of 6.5x. Given you're currently running at... well, significantly higher than that on a reported basis, how do you plan to stay compliant?</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-slate-800">Alex (CEO):</p>
+                                <p class="ml-4">If you include the add-backs, we're at 4.5x. We feel 6.5x gives us plenty of breathing room. Plus, the bank assured us they'd be "flexible" on the definition of EBITDA.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content-structure" class="hidden">
+                <div class="bg-white p-6 rounded-xl shadow">
+                    <h2 class="text-xl font-semibold mb-3">Structural Review & Term Sheet Analysis</h2>
+                    <p class="text-slate-600 mb-6">
+                        A credit decision isn't just about the company's performance; it's about the legal protections in the loan agreement. A good company with a bad structure can be a terrible investment. Below are key (and problematic) excerpts from the proposed term sheet.
+                    </p>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-lg font-semibold">Facilities & Pricing</h3>
+                            <ul class="list-disc list-inside ml-4 text-slate-700">
+                                <li>**Revolving Credit Facility:** $25,000,000 (SOFR + 350 bps)</li>
+                                <li>**Term Loan B:** $50,000,000 (SOFR + 450 bps)</li>
+                            </ul>
+                            <div class="risk-callout">
+                                <p><strong>Analyst Comment:</strong> Pricing seems standard, but note the *No SOFR floor*. If rates fall, our yield falls. A 0.50% or 1.00% floor would be preferable.</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold">Financial Covenants</h3>
+                            <ul class="list-disc list-inside ml-4 text-slate-700">
+                                <li>**Total Net Leverage Ratio:** Shall not exceed **8.50x**.</li>
+                                <li>**Interest Coverage Ratio:** Minimum of 1.50x.</li>
+                            </ul>
+                            <div class="risk-callout">
+                                <p><strong>FATAL FLAW (Structural Risk):</strong> An 8.50x leverage covenant is extraordinarily wide ("cov-lite"). The company's reported leverage is 6.14x. This covenant provides no real protection and would only be triggered long after the company is operationally insolvent. Market standard is closer to 5.0x-5.5x.</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold">Negative Covenants</h3>
+                            <ul class="list-disc list-inside ml-4 text-slate-700">
+                                <li>**Indebtedness:** Borrower may incur unlimited additional unsecured debt...</li>
+                                <li>**Restricted Payments:** Borrower may pay dividends to equity holders using 100% of Excess Cash Flow.</li>
+                            </ul>
+                            <div class="risk-callout">
+                                <p><strong>FATAL FLAW (Structural Risk):</strong> The Restricted Payments (RP) clause is a major issue. It allows the private equity sponsor to dividend cash out of the company *before* paying down debt. In a turnaround, 100% of cash flow should be used to repay debt (a "cash flow sweep").</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold">Events of Default</h3>
+                            <ul class="list-disc list-inside ml-4 text-slate-700">
+                                <li>Non-payment of principal or interest.</li>
+                                <li>Bankruptcy.</li>
+                            </ul>
+                            <div class="risk-callout">
+                                <p><strong>Analyst Comment (Structural Risk):</strong> The *absence* of a "Cross-Default" clause is a red flag. This means the company could default on its *other* debts (e.g., unsecured notes) and our loan would *not* be in default, preventing us from taking action.</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold">EBITDA Definition</h3>
+                            <ul class="list-disc list-inside ml-4 text-slate-700">
+                                <li>...*Plus:* Any cost savings projected by the Borrower in good faith to be realized within 24 months.</li>
+                                <li>...*Plus:* All management fees paid to the Private Equity Sponsor (uncapped).</li>
+                            </ul>
+                            <div class="risk-callout">
+                                <p><strong>Analyst Comment (Structural Risk):</strong> This definition legally allows the questionable add-backs. The 24-month timeframe for synergies is too long (12 months is standard), and allowing "uncapped" management fees to be added back is a non-starter.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content-recommendation" class="hidden">
+                 <div class="bg-white p-6 rounded-xl shadow">
+                    <h2 class="text-xl font-semibold mb-3">Investment Committee Recommendation</h2>
+                    <p class="text-slate-600 mb-6">
+                        Based on your analysis of the financials, qualitative risks, and structural flaws, draft your final recommendation to the Investment Committee. State your "Go / No-Go" decision and provide a brief rationale citing the most critical data points.
+                    </p>
+
+                    <div class="mt-4">
+                        <label for="recommendation-text" class="block text-sm font-medium text-slate-700">IC Memo (Draft):</label>
+                        <textarea id="recommendation-text" rows="10" class="mt-1 block w-full p-3 border border-slate-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Example: &#10;RECOMMENDATION: Decline.&#10;RATIONALE: The investment is a clear 'No.' While management presents a turnaround story, the underlying performance is weak (6.1x reported leverage, 1.75x coverage). More importantly, the proposed structure provides no downside protection. The 8.5x leverage covenant is meaningless, and the dividend allowance permits cash leakage to the sponsor. We should pass on this deal."></textarea>
+                    </div>
+
+                    <div class="mt-6 text-right">
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-150">
+                            Submit Recommendation
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const tabs = ['overview', 'financials', 'risks', 'structure', 'recommendation'];
+            
+            function switchTab(tabName) {
+                tabs.forEach(tab => {
+                    const contentEl = document.getElementById(`content-${tab}`);
+                    const navEl = document.getElementById(`nav-${tab}`);
+
+                    if (tab === tabName) {
+                        contentEl.classList.remove('hidden');
+                        navEl.classList.add('nav-active');
+                        navEl.classList.remove('nav-inactive');
+                    } else {
+                        contentEl.classList.add('hidden');
+                        navEl.classList.add('nav-inactive');
+                        navEl.classList.remove('nav-active');
+                    }
+                });
+            }
+
+            tabs.forEach(tab => {
+                document.getElementById(`nav-${tab}`).addEventListener('click', () => switchTab(tab));
+            });
+
+            const financialData = {
+                labels: ['FY2021A', 'FY2022A', 'FY2023A'],
+                revenue: [150.0, 175.5, 168.0],
+                ebitda: [30.0, 32.5, 14.0],
+                ebitdaMargin: [20.0, 18.5, 8.3],
+                debt: {
+                    revolver: [5.0, 2.0, 15.0],
+                    termLoanA: [40.0, 38.0, 36.0],
+                    termLoanB: [20.0, 35.0, 35.0],
+                },
+                workingCapital: {
+                    arDays: [60.8, 62.6, 82.2],
+                    invDays: [38.5, 38.3, 54.4],
+                    apDays: [57.8, 57.3, 72.3]
+                }
+            };
+            
+            const commonOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        enabled: true,
+                        mode: 'index',
+                        intersect: false,
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false }
+                    },
+                    y: {
+                        grid: { 
+                            color: '#e2e8f0',
+                            borderDash: [2, 4],
+                         },
+                         beginAtZero: true
+                    }
+                }
+            };
+
+            new Chart(document.getElementById('overviewChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: financialData.labels,
+                    datasets: [{
+                        label: 'Reported EBITDA ($M)',
+                        data: financialData.ebitda,
+                        backgroundColor: (context) => {
+                            const value = context.raw;
+                            return value < 20 ? 'rgba(220, 38, 38, 0.7)' : 'rgba(29, 78, 216, 0.7)';
+                        },
+                        borderColor: (context) => {
+                             const value = context.raw;
+                            return value < 20 ? 'rgba(220, 38, 38, 1)' : 'rgba(29, 78, 216, 1)';
+                        },
+                        borderWidth: 1
+                    }]
+                },
+                options: commonOptions
+            });
+
+            new Chart(document.getElementById('revenueEbitdaChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: financialData.labels,
+                    datasets: [
+                        {
+                            label: 'Revenue ($M)',
+                            data: financialData.revenue,
+                            backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                            borderColor: 'rgba(59, 130, 246, 1)',
+                            yAxisID: 'y',
+                        },
+                        {
+                            label: 'EBITDA Margin (%)',
+                            data: financialData.ebitdaMargin,
+                            type: 'line',
+                            backgroundColor: 'rgba(239, 68, 68, 1)',
+                            borderColor: 'rgba(239, 68, 68, 1)',
+                            yAxisID: 'y1',
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: {
+                    ...commonOptions,
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: { display: true, text: 'Revenue ($M)' },
+                            grid: { display: false }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: { display: true, text: 'EBITDA Margin (%)' },
+                            grid: { 
+                                color: '#e2e8f0',
+                                borderDash: [2, 4],
+                            },
+                        }
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('debtChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: financialData.labels,
+                    datasets: [
+                        {
+                            label: 'Revolver Drawn',
+                            data: financialData.debt.revolver,
+                            backgroundColor: 'rgba(239, 68, 68, 0.7)',
+                        },
+                        {
+                            label: 'Term Loan A',
+                            data: financialData.debt.termLoanA,
+                            backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                        },
+                        {
+                            label: 'Term Loan B',
+                            data: financialData.debt.termLoanB,
+                            backgroundColor: 'rgba(107, 114, 128, 0.7)',
+                        },
+                    ]
+                },
+                options: {
+                    ...commonOptions,
+                    scales: {
+                        x: { stacked: true, grid: { display: false } },
+                        y: { stacked: true, title: { display: true, text: 'Debt ($M)' } }
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('wcChart').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: financialData.labels,
+                    datasets: [
+                        {
+                            label: 'A/R Days',
+                            data: financialData.workingCapital.arDays,
+                            borderColor: 'rgba(239, 68, 68, 1)',
+                            backgroundColor: 'rgba(239, 68, 68, 1)',
+                            tension: 0.1
+                        },
+                        {
+                            label: 'Inventory Days',
+                            data: financialData.workingCapital.invDays,
+                            borderColor: 'rgba(234, 179, 8, 1)',
+                            backgroundColor: 'rgba(234, 179, 8, 1)',
+                            tension: 0.1
+                        },
+                        {
+                            label: 'A/P Days',
+                            data: financialData.workingCapital.apDays,
+                            borderColor: 'rgba(22, 163, 74, 1)',
+                            backgroundColor: 'rgba(22, 163, 74, 1)',
+                            tension: 0.1
+                        }
+                    ]
+                },
+                 options: {
+                    ...commonOptions,
+                    scales: {
+                        y: {
+                            title: { display: true, text: 'Days' }
+                        }
+                    }
+                 }
+            });
+
+        });
+    </script>
+</body>
+</html>
