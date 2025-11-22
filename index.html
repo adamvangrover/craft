@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Craft Financial Learning</title>
+    <title>Dashboard | CRAFT</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -87,7 +87,7 @@
         .toast.show {
             transform: translateX(0);
         }
-
+        
         /* Animation Utilities */
         .animate-fade-in {
             animation: fadeIn 0.5s ease-out forwards;
@@ -96,7 +96,7 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
+        
         .submenu {
             display: none;
         }
@@ -202,7 +202,7 @@
                         <!-- Continue Learning Card (Dynamic) -->
                         <div id="continue-learning-card" class="glass-card rounded-xl p-6 shadow-sm border-l-4 border-l-brand-500 relative overflow-hidden group hidden">
                             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-brand-50 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
-
+                            
                             <div class="relative z-10">
                                 <div class="flex items-start justify-between">
                                     <div>
@@ -221,7 +221,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-6">
-                                    <!--
+                                    <!-- 
                                     <div class="flex justify-between text-xs text-slate-500 mb-2">
                                         <span>Progress</span>
                                         <span id="continue-percent">0%</span>
@@ -263,7 +263,7 @@
                             <p class="text-sm text-slate-500 mb-4 ml-10">Stuck on a term? Ask for a quick definition or formula from the Global Glossary.</p>
 
                             <div class="relative ml-0 md:ml-10">
-                                <input type="text" id="ai-input" placeholder="Try 'EBITDA', 'Convexity', or 'Gamma'..."
+                                <input type="text" id="ai-input" placeholder="Try 'EBITDA', 'Convexity', or 'Gamma'..." 
                                     class="w-full pl-4 pr-12 py-3 bg-white border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none shadow-sm transition-all">
                                 <button id="ai-submit" class="absolute right-2 top-2 bg-indigo-600 text-white w-8 h-8 flex items-center justify-center rounded-md hover:bg-indigo-700 transition-colors shadow-md">
                                     <i class="fas fa-arrow-right text-xs"></i>
@@ -338,7 +338,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <!-- Footer -->
             <footer class="mt-12 border-t border-slate-200 py-8 text-center text-slate-400 text-sm">
                 <p>&copy; 2025 Craft Financial Learning. Built for the modern analyst.</p>
@@ -355,7 +355,7 @@
 
     <!-- SCRIPTS -->
     <script>
-        /*
+        /* 
          * DASHBOARD ENGINE
          * Integrates UI with nav_data.js, progress_manager.js, and AI Glossary
          */
@@ -400,7 +400,7 @@
                 return;
             }
             container.innerHTML = '';
-
+            
             // Render Top Level Items
             navData.forEach((item, index) => {
                 const sectionId = `nav-section-${index}`;
@@ -415,7 +415,7 @@
                     // Accordion
                     const wrapper = document.createElement('div');
                     wrapper.className = 'mb-1';
-
+                    
                     const button = document.createElement('button');
                     button.className = 'w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors group';
                     button.onclick = () => toggleAccordion(sectionId);
@@ -426,11 +426,11 @@
                         </div>
                         <i class="fas fa-chevron-down text-xs text-slate-300 transition-transform duration-200" id="icon-${sectionId}"></i>
                     `;
-
+                    
                     const content = document.createElement('div');
                     content.id = sectionId;
                     content.className = 'hidden pl-11 pr-2 overflow-hidden transition-all duration-300 ease-in-out';
-
+                    
                     // Recursive Render for Children
                     renderChildren(item.children, content);
 
@@ -476,7 +476,7 @@
         function toggleAccordion(id) {
             const content = document.getElementById(id);
             const icon = document.getElementById(`icon-${id}`);
-
+            
             if (content.classList.contains('hidden')) {
                 content.classList.remove('hidden');
                 icon.classList.add('rotate-180');
@@ -520,7 +520,7 @@
         function toggleMobileSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('mobile-overlay');
-
+            
             if (sidebar.classList.contains('-translate-x-full')) {
                 sidebar.classList.remove('-translate-x-full');
                 overlay.classList.remove('hidden');
@@ -590,16 +590,16 @@
                 });
             };
             findPaths(navData);
-
+            
             const displayedPaths = paths.slice(0, 3);
-
+            
             if (displayedPaths.length > 0) {
                 container.innerHTML = '';
                 displayedPaths.forEach(path => {
                     let icon = 'fa-map-signs';
                     let colorClass = 'bg-brand-100 text-brand-600';
                     const t = path.text.toLowerCase();
-
+                    
                     if (t.includes('cfa')) { icon = 'fa-certificate'; colorClass = 'bg-orange-100 text-orange-600'; }
                     else if (t.includes('ai') || t.includes('coding')) { icon = 'fa-code'; colorClass = 'bg-purple-100 text-purple-600'; }
                     else if (t.includes('credit')) { icon = 'fa-chart-line'; colorClass = 'bg-green-100 text-green-600'; }
