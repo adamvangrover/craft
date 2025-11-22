@@ -9,85 +9,171 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
 
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="css/global_nav.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .markdown-body { font-family: 'Merriweather', serif; }
-        .markdown-body h1, .markdown-body h2, .markdown-body h3 { font-family: 'Inter', sans-serif; }
+        .markdown-body { font-family: 'Merriweather', serif; line-height: 1.8; }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 { font-family: 'Inter', sans-serif; margin-top: 1.5em; margin-bottom: 0.8em; color: #1e293b; }
+        .markdown-body p { margin-bottom: 1.2em; color: #334155; }
+        .markdown-body a { color: #4f46e5; text-decoration: underline; text-decoration-color: #a5b4fc; text-underline-offset: 2px; }
+        .markdown-body a:hover { color: #4338ca; text-decoration-color: #4338ca; }
+        .markdown-body blockquote { border-left-color: #6366f1; background: #f8fafc; padding: 1em; font-style: italic; border-radius: 0 8px 8px 0; }
 
-        /* Sticky Sidebar */
-        .toc-sticky {
+        /* Sticky Sidebar & Tabs */
+        .sticky-sidebar {
             position: sticky;
-            top: 2rem;
-            max-height: calc(100vh - 4rem);
+            top: 6rem; /* clear header */
+            height: calc(100vh - 7rem);
             overflow-y: auto;
+        }
+
+        /* Glassmorphism Header */
+        .glass-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        /* Highlight Term */
+        .term-highlight {
+            cursor: pointer;
+            border-bottom: 2px solid #c7d2fe;
+            background-color: rgba(224, 231, 255, 0.4);
+            transition: all 0.2s;
+        }
+        .term-highlight:hover {
+            background-color: #e0e7ff;
+            border-bottom-color: #4f46e5;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 flex">
+<body class="bg-slate-50 text-slate-900 flex h-screen overflow-hidden">
 
     <!-- Global Nav Placeholder -->
     <div id="global-nav-placeholder"></div>
 
     <!-- Main Content -->
-    <main class="flex-1 relative min-h-screen flex flex-col lg:flex-row">
+    <main class="flex-1 relative flex flex-col h-full overflow-hidden">
 
-        <!-- Content Wrapper -->
-        <div class="flex-1 p-6 lg:p-12 max-w-4xl mx-auto w-full">
+        <!-- Top Bar -->
+        <header class="glass-header w-full z-20 px-6 py-3 flex justify-between items-center shrink-0">
+            <div class="flex items-center gap-4 overflow-hidden">
+                 <button id="mobile-nav-toggle" class="lg:hidden text-slate-500 hover:bg-slate-100 p-2 rounded-lg">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div id="breadcrumb-container" class="flex-1 whitespace-nowrap overflow-x-auto no-scrollbar"></div>
+            </div>
 
-            <!-- Top Bar -->
-            <div class="flex items-center justify-between mb-6">
-                <div id="breadcrumb-container" class="flex-1"></div>
+            <div class="flex items-center gap-3">
+                 <a id="btn-download-source" href="#" download class="hidden md:flex items-center gap-2 text-xs font-medium text-slate-500 hover:text-indigo-600 transition-colors px-3 py-1.5 rounded-full bg-slate-100 hover:bg-indigo-50">
+                    <i class="fas fa-download"></i> Source
+                </a>
+                <button id="btn-favorite" class="text-slate-400 hover:text-yellow-500 transition-colors p-2 rounded-full hover:bg-yellow-50" title="Pin to Dashboard">
+                    <i class="far fa-star text-lg"></i>
+                </button>
+            </div>
+        </header>
 
-                <!-- Actions -->
-                <div class="flex items-center gap-3 ml-4">
-                    <a id="btn-download-source" href="#" download class="text-slate-400 hover:text-indigo-600 transition-colors p-2 rounded-full hover:bg-indigo-50" title="Download Source File">
-                        <i class="fas fa-file-download text-xl"></i>
-                    </a>
-                    <button id="btn-favorite" class="text-slate-400 hover:text-yellow-500 transition-colors p-2 rounded-full hover:bg-yellow-50" title="Pin to Dashboard">
-                        <i class="far fa-star text-xl"></i>
+        <div class="flex-1 flex overflow-hidden relative">
+
+            <!-- Scrollable Article Area -->
+            <div class="flex-1 overflow-y-auto scroll-smooth" id="article-scroller">
+                <div class="max-w-4xl mx-auto p-6 lg:p-12 pb-32">
+
+                    <!-- Status Banner -->
+                    <div id="read-status-banner" class="hidden mb-8 bg-green-50 border border-green-100 rounded-xl p-4 flex items-center gap-3 text-green-800 shadow-sm animate-fade-in">
+                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600 shrink-0">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-sm">Section Completed</p>
+                            <p class="text-xs text-green-600">You've read this material.</p>
+                        </div>
+                    </div>
+
+                    <!-- Article Content -->
+                    <article id="markdown-content" class="markdown-body prose prose-indigo prose-lg max-w-none bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 min-h-[60vh]">
+                        <div class="flex flex-col items-center justify-center py-20 gap-4">
+                            <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600"></div>
+                            <p class="text-slate-400 text-sm">Loading content...</p>
+                        </div>
+                    </article>
+
+                    <!-- Bottom Navigation -->
+                    <nav class="mt-12 grid grid-cols-2 gap-4" id="article-nav-controls">
+                        <!-- Injected via JS -->
+                    </nav>
+
+                </div>
+            </div>
+
+            <!-- Right Sidebar (Smart Context) -->
+            <aside class="hidden xl:flex w-80 bg-white border-l border-slate-200 flex-col shrink-0 z-10 shadow-lg lg:shadow-none">
+                <!-- Tabs -->
+                <div class="flex border-b border-slate-200">
+                    <button class="flex-1 py-3 text-sm font-medium text-indigo-600 border-b-2 border-indigo-600 transition-colors focus:outline-none" id="tab-toc-btn" onclick="switchTab('toc')">
+                        Contents
+                    </button>
+                    <button class="flex-1 py-3 text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors focus:outline-none" id="tab-copilot-btn" onclick="switchTab('copilot')">
+                        <i class="fas fa-robot mr-1"></i> Copilot
                     </button>
                 </div>
-            </div>
 
-            <!-- Status Banner -->
-            <div id="read-status-banner" class="hidden mb-6 bg-green-50 border border-green-200 rounded-lg p-3 flex items-center text-green-700 text-sm">
-                <i class="fas fa-check-circle mr-2"></i> You have completed this section.
-            </div>
+                <!-- Tab Content -->
+                <div class="flex-1 overflow-y-auto p-6 bg-slate-50/50 relative">
 
-            <!-- Markdown Render Area -->
-            <article id="markdown-content" class="prose prose-indigo prose-lg max-w-none bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200">
-                <div class="flex items-center justify-center py-20">
-                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+                    <!-- TOC Panel -->
+                    <div id="tab-toc" class="space-y-4">
+                        <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-4 text-slate-400">On This Page</h4>
+                        <nav id="toc-sidebar-content"></nav>
+                    </div>
+
+                    <!-- Copilot Panel -->
+                    <div id="tab-copilot" class="hidden space-y-4 h-full flex flex-col">
+                         <div class="bg-indigo-50 rounded-lg p-4 border border-indigo-100 text-sm text-indigo-800 mb-4">
+                            <div class="flex items-center gap-2 mb-2 font-bold">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Smart Context</span>
+                            </div>
+                            <p class="opacity-90 text-xs leading-relaxed">
+                                Highlighted terms in the text are interactive. Click them or ask below for instant definitions.
+                            </p>
+                        </div>
+
+                        <div class="flex-1 flex flex-col justify-end space-y-3">
+                            <div class="text-center text-slate-400 text-xs italic mb-4">
+                                "Understanding the 'Why' is just as important as the 'How'."
+                            </div>
+                            <button onclick="window.creditCopilot.toggleChat(true)" class="w-full py-2 bg-white border border-slate-300 rounded-lg shadow-sm text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors">
+                                Open Chat Interface
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
-            </article>
+            </aside>
 
         </div>
 
-        <!-- Right Sidebar (TOC) -->
-        <aside class="hidden xl:block w-72 p-8 border-l border-slate-200 bg-slate-50/50 flex-shrink-0">
-            <div class="toc-sticky" id="toc-sidebar">
-                <h4 class="font-bold text-slate-900 uppercase tracking-wider text-xs mb-4">On This Page</h4>
-                <nav id="toc-sidebar-content"></nav>
-            </div>
-        </aside>
-
-        <!-- Floating Action Button -->
-        <button id="fab-complete" class="fixed bottom-8 right-8 bg-white text-slate-400 border border-slate-200 shadow-lg rounded-full w-14 h-14 flex items-center justify-center transition-all hover:scale-110 focus:outline-none z-30 group" title="Mark as Read">
-            <i class="fas fa-check text-xl group-hover:text-green-500 transition-colors"></i>
-            <span class="absolute right-16 bg-slate-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Mark as Read</span>
-        </button>
+        <!-- Floating FAB (Mobile/Tablet Copilot Trigger & Complete) -->
+        <div class="fixed bottom-8 right-8 flex flex-col gap-4 z-30">
+             <button id="fab-complete" class="bg-white text-slate-400 border border-slate-200 shadow-lg rounded-full w-14 h-14 flex items-center justify-center transition-all hover:scale-110 focus:outline-none group" title="Mark as Read">
+                <i class="fas fa-check text-xl group-hover:text-green-500 transition-colors"></i>
+            </button>
+        </div>
 
     </main>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- PrismJS for code highlighting (optional but nice) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
 
@@ -95,35 +181,53 @@
     <script src="js/progress_manager.js"></script>
     <script src="js/global_nav.js"></script>
     <script src="js/toc.js"></script>
+    <script src="js/credit_copilot.js"></script>
 
     <script>
+        // Tab Logic
+        function switchTab(tab) {
+            document.querySelectorAll('[id^="tab-"][id$="-btn"]').forEach(b => {
+                b.classList.remove('text-indigo-600', 'border-b-2', 'border-indigo-600');
+                b.classList.add('text-slate-500');
+            });
+            document.querySelectorAll('[id^="tab-"]:not([id$="-btn"])').forEach(p => p.classList.add('hidden'));
+
+            document.getElementById(`tab-${tab}-btn`).classList.add('text-indigo-600', 'border-b-2', 'border-indigo-600');
+            document.getElementById(`tab-${tab}-btn`).classList.remove('text-slate-500');
+            document.getElementById(`tab-${tab}`).classList.remove('hidden');
+        }
+
+        // Main Initialization
         document.addEventListener('DOMContentLoaded', async () => {
             const contentEl = document.getElementById('markdown-content');
             const fab = document.getElementById('fab-complete');
             const banner = document.getElementById('read-status-banner');
             const btnFavorite = document.getElementById('btn-favorite');
 
+            // Initialize Copilot
+            if (window.creditCopilot) {
+                window.creditCopilot.init().then(() => {
+                    // Highlight after content load
+                });
+            }
+
             // Get MD File Param
             const params = new URLSearchParams(window.location.search);
             const mdFile = params.get('mdfile');
 
-            if (mdFile) {
-                const btnDownload = document.getElementById('btn-download-source');
-                btnDownload.href = mdFile;
-                // Extract filename
-                const filename = mdFile.split('/').pop();
-                btnDownload.setAttribute('download', filename);
-            }
-
-            // Determine current full viewer path for tracking/linking
-            // We use this instead of raw MD path so dashboard links open the viewer
-            const viewerPath = window.location.pathname + window.location.search;
-
             if (!mdFile) {
-                contentEl.innerHTML = '<div class="p-4 bg-red-50 text-red-600 rounded-lg">Error: No file specified.</div>';
+                contentEl.innerHTML = '<div class="p-6 bg-red-50 text-red-600 rounded-xl border border-red-200">Error: No file specified.</div>';
                 return;
             }
 
+            // Setup Download Link
+            const btnDownload = document.getElementById('btn-download-source');
+            btnDownload.href = mdFile;
+            const filename = mdFile.split('/').pop();
+            btnDownload.setAttribute('download', filename);
+
+            // Determine Viewer Path for History
+            const viewerPath = window.location.pathname + window.location.search;
             let docTitle = "";
 
             // Load Content
@@ -132,94 +236,136 @@
                 if (!response.ok) throw new Error('File not found');
                 const text = await response.text();
 
-                // Render Markdown
+                // 1. Meta Tag Generation (SEO)
+                const titleMatch = text.match(/^#\s+(.*)/m);
+                const firstParaMatch = text.match(/\n\n([^\n#]+)\n/); // simple heuristics
+
+                docTitle = titleMatch ? titleMatch[1] : filename.replace(/_/g, ' ').replace('.md', '');
+                document.title = `${docTitle} | CRAFT`;
+
+                // Update Description Meta
+                let metaDesc = document.querySelector('meta[name="description"]');
+                if (!metaDesc) {
+                    metaDesc = document.createElement('meta');
+                    metaDesc.name = "description";
+                    document.head.appendChild(metaDesc);
+                }
+                if (firstParaMatch) {
+                     metaDesc.content = firstParaMatch[1].substring(0, 150) + "...";
+                }
+
+                // 2. Render Markdown
                 contentEl.innerHTML = marked.parse(text);
 
-                // Generate TOC
+                // 3. Post-Process: TOC, Highlight, Copilot
                 if (window.generateTOC) window.generateTOC();
-
-                // Syntax Highlight
                 if (window.Prism) Prism.highlightAll();
 
-                enhanceContent();
+                if (window.creditCopilot && window.creditCopilot.isLoaded) {
+                    window.creditCopilot.highlightTerms('markdown-content');
+                } else {
+                    // Wait for copilot if not loaded yet (race condition)
+                     setTimeout(() => {
+                         if (window.creditCopilot) window.creditCopilot.highlightTerms('markdown-content');
+                     }, 1000);
+                }
 
-                // Extract Title
-                const h1 = contentEl.querySelector('h1');
-                docTitle = h1 ? h1.innerText : mdFile.split('/').pop().replace(/_/g, ' ').replace('.md', '');
-                // Capitalize
-                docTitle = docTitle.charAt(0).toUpperCase() + docTitle.slice(1);
-                document.title = docTitle + ' | Financial Hub';
+                enhanceContent();
+                updateNavControls(mdFile);
 
             } catch (e) {
                 console.error(e);
-                contentEl.innerHTML = `<div class="p-4 bg-red-50 text-red-600 rounded-lg">Error loading content: ${e.message}</div>`;
+                contentEl.innerHTML = `<div class="p-6 bg-red-50 text-red-600 rounded-xl border border-red-200">Error loading content: ${e.message}</div>`;
             }
 
             function enhanceContent() {
                 // Add Copy Buttons to Code Blocks
                 document.querySelectorAll('pre').forEach(pre => {
-                    // Only if not already enhanced
-                    if (pre.parentElement.classList.contains('relative') && pre.parentElement.classList.contains('group')) return;
-
-                    // Wrapper for positioning
+                    if (pre.parentNode.classList.contains('relative')) return;
                     const wrapper = document.createElement('div');
-                    wrapper.className = 'relative group my-4';
-
-                    // Move pre into wrapper
+                    wrapper.className = 'relative group my-6';
                     pre.parentNode.insertBefore(wrapper, pre);
                     wrapper.appendChild(pre);
 
-                    // Create button
                     const btn = document.createElement('button');
-                    btn.className = 'absolute top-2 right-2 bg-slate-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity hover:bg-slate-600';
+                    btn.className = 'absolute top-3 right-3 bg-slate-800/80 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity hover:bg-slate-700 backdrop-blur-sm';
                     btn.textContent = 'Copy';
-
                     btn.addEventListener('click', () => {
-                        const code = pre.querySelector('code')?.innerText || pre.innerText;
-                        navigator.clipboard.writeText(code).then(() => {
+                        navigator.clipboard.writeText(pre.textContent).then(() => {
                             btn.textContent = 'Copied!';
                             setTimeout(() => btn.textContent = 'Copy', 2000);
                         });
                     });
-
                     wrapper.appendChild(btn);
-                });
-
-                // Style Download Links (ipynb/py/json/yaml/csv)
-                const downloadExtensions = ['.ipynb', '.py', '.json', '.yaml', '.csv'];
-                document.querySelectorAll('#markdown-content a').forEach(link => {
-                    const href = link.getAttribute('href');
-                    if (href && downloadExtensions.some(ext => href.toLowerCase().endsWith(ext))) {
-                        link.classList.add('inline-flex', 'items-center', 'px-4', 'py-2', 'bg-indigo-50', 'text-indigo-700', 'rounded-lg', 'hover:bg-indigo-100', 'transition-colors', 'no-underline', 'font-medium', 'gap-2', 'my-2', 'border', 'border-indigo-100');
-                        if (!link.querySelector('i')) {
-                            const icon = document.createElement('i');
-                            icon.className = 'fas fa-download';
-                            link.prepend(icon);
-                        }
-                        // Add download attribute
-                        link.setAttribute('download', '');
-                    }
                 });
             }
 
-            // Progress Logic
-            function updateStatus() {
+            function updateNavControls(currentFile) {
+                // We need to find position in navData
+                // Flatten navData first?
+                if (!window.navData) return;
+
+                const flatList = [];
+                const traverse = (items) => {
+                    items.forEach(item => {
+                        if (item.href && item.type === 'markdown_viewer') {
+                            flatList.push(item);
+                        }
+                        if (item.children) traverse(item.children);
+                    });
+                };
+                traverse(window.navData);
+
+                const idx = flatList.findIndex(item => item.href === currentFile);
+                const controls = document.getElementById('article-nav-controls');
+
+                if (idx !== -1) {
+                    // Prev
+                    if (idx > 0) {
+                        const prev = flatList[idx - 1];
+                        const btn = document.createElement('a');
+                        btn.href = `global_markdown_viewer.html?mdfile=${encodeURIComponent(prev.href)}`;
+                        btn.className = "flex flex-col p-4 border border-slate-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50 transition-all group text-right items-start";
+                        btn.innerHTML = `
+                            <span class="text-xs text-slate-400 font-medium uppercase tracking-wider mb-1 group-hover:text-indigo-500">Previous</span>
+                            <span class="text-sm font-semibold text-slate-700 group-hover:text-indigo-700 text-left">${prev.text}</span>
+                        `;
+                        controls.appendChild(btn);
+                    } else {
+                        controls.appendChild(document.createElement('div')); // Spacer
+                    }
+
+                    // Next
+                    if (idx < flatList.length - 1) {
+                        const next = flatList[idx + 1];
+                        const btn = document.createElement('a');
+                        btn.href = `global_markdown_viewer.html?mdfile=${encodeURIComponent(next.href)}`;
+                        btn.className = "flex flex-col p-4 border border-slate-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50 transition-all group items-end text-right";
+                        btn.innerHTML = `
+                            <span class="text-xs text-slate-400 font-medium uppercase tracking-wider mb-1 group-hover:text-indigo-500">Next</span>
+                            <span class="text-sm font-semibold text-slate-700 group-hover:text-indigo-700 text-right">${next.text}</span>
+                        `;
+                        controls.appendChild(btn);
+                    }
+                }
+            }
+
+            // Progress & Favorites
+             function updateStatus() {
                 if (window.progressManager) {
-                    // Read Status (matches raw MD file path)
                     const isComplete = window.progressManager.isCompleted(mdFile);
                     if (isComplete) {
                         fab.classList.remove('bg-white', 'text-slate-400');
-                        fab.classList.add('bg-green-600', 'text-white', 'border-green-600');
+                        fab.classList.add('bg-green-600', 'text-white');
                         banner.classList.remove('hidden');
                         fab.title = "Completed";
                     } else {
                         fab.classList.add('bg-white', 'text-slate-400');
-                        fab.classList.remove('bg-green-600', 'text-white', 'border-green-600');
+                        fab.classList.remove('bg-green-600', 'text-white');
                         banner.classList.add('hidden');
                         fab.title = "Mark as Read";
                     }
 
-                    // Favorite Status (matches viewer path)
                     const isFav = window.progressManager.isFavorite(viewerPath);
                     const starIcon = btnFavorite.querySelector('i');
                     if (isFav) {
@@ -239,7 +385,6 @@
                     const currentStatus = window.progressManager.isCompleted(mdFile);
                     window.progressManager.markAsComplete(mdFile, !currentStatus);
                     updateStatus();
-                    if (!currentStatus) confettiEffect();
                 }
             });
 
@@ -250,17 +395,9 @@
                 }
             });
 
-            // Check initial status
             updateStatus();
-
-            // Track as visited (Use viewer path so dashboard links open viewer)
             if (window.progressManager) {
                 window.progressManager.updateLastVisited(viewerPath, docTitle);
-            }
-
-            function confettiEffect() {
-                fab.style.transform = 'scale(1.2)';
-                setTimeout(() => fab.style.transform = 'scale(1)', 200);
             }
         });
     </script>
