@@ -3,731 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | CRAFT</title>
+    <title>CRAFT | Financial Learning Hub</title>
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind & Typography -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Marked.js -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <!-- Tailwind Config for Custom Colors -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            900: '#1e3a8a',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/global_nav.css">
     <style>
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-
-        /* Glassmorphism */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-        }
-
-        /* Sidebar Transitions */
-        .sidebar-transition {
-            transition: transform 0.3s ease-in-out;
-        }
-
-        /* Toast Notification */
-        #toast-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 50;
-        }
-        .toast {
-            transform: translateX(100%);
-            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-        .toast.show {
-            transform: translateX(0);
-        }
+        body { font-family: 'Inter', sans-serif; }
+        .serif { font-family: 'Merriweather', serif; }
         
-        /* Animation Utilities */
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
+        /* Hero Pattern */
+        .hero-bg {
+            background-color: #1e293b;
+            background-image: radial-gradient(#334155 1px, transparent 1px);
+            background-size: 24px 24px;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        /* Cards */
+        .hover-card {
+            transition: all 0.3s ease;
         }
-        
-        .submenu {
-            display: none;
-        }
-        .submenu.open {
-            display: block;
-        }
-        .rotate-180 {
-            transform: rotate(180deg);
+        .hover-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.15);
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 flex h-screen overflow-hidden">
+<body class="bg-slate-50 text-slate-900">
 
-    <!-- Mobile Overlay -->
-    <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-20 lg:hidden hidden" onclick="toggleMobileSidebar()"></div>
+    <!-- Global Nav -->
+    <div id="global-nav-placeholder"></div>
 
-    <!-- Sidebar Navigation -->
-    <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 z-30 w-72 bg-white border-r border-slate-200 transform -translate-x-full lg:translate-x-0 sidebar-transition flex flex-col h-full shadow-xl lg:shadow-none z-40">
-        <!-- Brand -->
-        <div class="p-6 border-b border-slate-100 flex items-center justify-between shrink-0">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
-                <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-md shadow-brand-200">
-                    C
-                </div>
-                <span class="font-bold text-lg tracking-tight text-slate-800">Craft Financial</span>
-            </div>
-            <button class="lg:hidden text-slate-400 hover:text-slate-600" onclick="toggleMobileSidebar()">
-                <i class="fas fa-times"></i>
+    <!-- Main Content -->
+    <main class="lg:pl-72 min-h-screen flex flex-col">
+
+        <!-- Header (Mobile Toggle + Search trigger) -->
+        <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-20 px-6 py-3 flex justify-between items-center lg:hidden">
+            <button id="mobile-nav-toggle" class="text-slate-600 p-2 -ml-2">
+                <i class="fas fa-bars text-xl"></i>
             </button>
-        </div>
-
-        <!-- Navigation Links -->
-        <div class="flex-1 overflow-y-auto p-4" id="nav-container">
-            <div class="flex justify-center items-center py-10 text-slate-400">
-                <i class="fas fa-circle-notch fa-spin mr-2"></i> Loading...
-            </div>
-        </div>
-
-        <!-- User Profile Stub -->
-        <div class="p-4 border-t border-slate-100 bg-slate-50 shrink-0">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-500 to-purple-500 flex items-center justify-center text-white font-semibold shadow-sm">
-                    GU
-                </div>
-                <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-slate-900 truncate">Guest User</p>
-                    <p class="text-xs text-slate-500 truncate">Analyst Track</p>
-                </div>
-                <button onclick="showToast('Settings functionality coming soon', 'info')" class="text-slate-400 hover:text-brand-600 transition-colors">
-                    <i class="fas fa-cog"></i>
-                </button>
-            </div>
-        </div>
-    </aside>
-
-    <!-- Main Content Area -->
-    <main class="flex-1 flex flex-col h-full relative w-full overflow-hidden">
-        
-        <!-- Top Bar -->
-        <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 p-4 flex justify-between items-center z-10 sticky top-0">
-            <div class="flex items-center gap-4">
-                <button class="lg:hidden p-2 text-slate-500 hover:bg-slate-100 rounded-lg" onclick="toggleMobileSidebar()">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <!-- Breadcrumbs -->
-                <nav class="hidden sm:flex items-center text-sm text-slate-500">
-                    <span class="hover:text-brand-600 cursor-pointer" onclick="window.location.href='index.html'"><i class="fas fa-home"></i></span>
-                    <span class="mx-2 text-slate-300">/</span>
-                    <span class="font-medium text-slate-800">Dashboard</span>
-                </nav>
-            </div>
-
-            <div class="flex items-center gap-3">
-                <div class="relative hidden md:block">
-                    <input type="text" id="nav-search-input" placeholder="Search curriculum..." class="pl-9 pr-4 py-2 bg-slate-100 border-none rounded-full text-sm focus:ring-2 focus:ring-brand-500 w-64 outline-none transition-all">
-                    <i class="fas fa-search absolute left-3 top-2.5 text-slate-400 text-xs"></i>
-                </div>
-                <button class="p-2 text-slate-400 hover:text-brand-600 transition-colors relative">
-                    <i class="fas fa-bell"></i>
-                    <span class="absolute top-1.5 right-2 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
-                </button>
-            </div>
+            <span class="font-bold text-slate-800">CRAFT</span>
+            <div class="w-8"></div> <!-- Spacer -->
         </header>
 
-        <!-- Scrollable Dashboard Content -->
-        <div class="flex-1 overflow-y-auto p-4 lg:p-8 scroll-smooth" id="main-scroll-area">
-            <div class="max-w-7xl mx-auto">
-
-                <!-- Welcome Header -->
-                <div class="mb-8 animate-fade-in">
-                    <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Command Center</h1>
-                    <p class="text-slate-500 mt-2 flex items-center gap-2">
-                        <span>Track your progress, pick up where you left off, and explore new horizons.</span>
-                    </p>
-                </div>
-
-                <!-- Dashboard Grid -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-                    <!-- Column 1 & 2: Main Content -->
-                    <div class="lg:col-span-2 space-y-6">
-
-                        <!-- Continue Learning Card (Dynamic) -->
-                        <div id="continue-learning-card" class="glass-card rounded-xl p-6 shadow-sm border-l-4 border-l-brand-500 relative overflow-hidden group hidden">
-                            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-brand-50 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
-                            
-                            <div class="relative z-10">
-                                <div class="flex items-start justify-between">
-                                    <div>
-                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold bg-brand-50 text-brand-700 rounded-md mb-3">
-                                            <span class="relative flex h-2 w-2">
-                                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                                              <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-                                            </span>
-                                            Jump back in
-                                        </span>
-                                        <h2 class="text-xl font-bold text-slate-800" id="continue-title">Loading...</h2>
-                                        <p class="text-sm text-slate-500 mt-1" id="continue-subtitle">You were reading this recently.</p>
-                                    </div>
-                                    <div class="bg-white shadow-md text-brand-600 w-12 h-12 flex items-center justify-center rounded-full border border-slate-100">
-                                        <i class="fas fa-play ml-1"></i>
-                                    </div>
-                                </div>
-                                <div class="mt-6">
-                                    <!-- 
-                                    <div class="flex justify-between text-xs text-slate-500 mb-2">
-                                        <span>Progress</span>
-                                        <span id="continue-percent">0%</span>
-                                    </div>
-                                    <div class="w-full bg-slate-100 rounded-full h-2 mb-4 overflow-hidden">
-                                        <div class="bg-brand-600 h-2 rounded-full" style="width: 0%" id="continue-bar"></div>
-                                    </div>
-                                    -->
-                                    <a href="#" id="continue-link" class="w-full md:w-auto inline-flex justify-center items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-medium py-2.5 px-6 rounded-lg transition-all shadow-lg shadow-brand-200 active:scale-95">
-                                        Continue Reading <i class="fas fa-arrow-right text-xs"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Quick Access / Favorites -->
-                        <div class="glass-card rounded-xl p-6 shadow-sm">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="font-bold text-lg text-slate-800"><i class="fas fa-star text-amber-400 mr-2"></i> Quick Access</h3>
-                                <button class="text-xs text-brand-600 hover:text-brand-800 font-medium bg-brand-50 px-2 py-1 rounded hover:bg-brand-100 transition-colors" onclick="showToast('Pin pages using the star icon in the content view.', 'info')">
-                                    <i class="fas fa-info-circle mr-1"></i>How to pin
-                                </button>
-                            </div>
-                            <div id="favorites-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div class="p-3 rounded-lg border border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-sm italic min-h-[80px]">
-                                    Loading favorites...
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- AI Concept Explainer -->
-                        <div class="glass-card rounded-xl p-6 shadow-sm border-t-4 border-t-indigo-500 bg-gradient-to-b from-white to-indigo-50/30">
-                            <div class="flex items-center gap-2 mb-2">
-                                <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center">
-                                    <i class="fas fa-robot"></i>
-                                </div>
-                                <h3 class="font-bold text-lg text-slate-800">Concept Copilot</h3>
-                            </div>
-                            <p class="text-sm text-slate-500 mb-4 ml-10">Stuck on a term? Ask for a quick definition or formula from the Global Glossary.</p>
-
-                            <div class="relative ml-0 md:ml-10">
-                                <input type="text" id="ai-input" placeholder="Try 'EBITDA', 'Convexity', or 'Gamma'..." 
-                                    class="w-full pl-4 pr-12 py-3 bg-white border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none shadow-sm transition-all">
-                                <button id="ai-submit" class="absolute right-2 top-2 bg-indigo-600 text-white w-8 h-8 flex items-center justify-center rounded-md hover:bg-indigo-700 transition-colors shadow-md">
-                                    <i class="fas fa-arrow-right text-xs"></i>
-                                </button>
-                            </div>
-
-                            <div id="ai-output" class="mt-4 ml-0 md:ml-10 p-4 bg-white rounded-lg text-sm text-slate-700 hidden border border-slate-200 shadow-inner transition-all max-h-60 overflow-y-auto">
-                                <!-- AI Response Content -->
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- Column 3: Stats & Learning Paths -->
-                    <div class="space-y-6">
-
-                        <!-- Overall Progress Widget -->
-                        <div class="glass-card rounded-xl p-6 shadow-sm">
-                            <h3 class="font-bold text-lg text-slate-800 mb-4">Current Status</h3>
-
-                            <div class="relative pt-1">
-                                <div class="flex mb-2 items-center justify-between">
-                                    <div>
-                                        <span class="text-xs font-bold inline-block py-1 px-2 uppercase rounded bg-brand-100 text-brand-600">
-                                            Knowledge Base
-                                        </span>
-                                    </div>
-                                    <div class="text-right">
-                                        <span id="progress-percent-text" class="text-xs font-semibold inline-block text-brand-600">
-                                            0%
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-brand-100">
-                                    <div id="progress-bar" style="width:0%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-brand-600 transition-all duration-1000 ease-out"></div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-4 mt-4">
-                                    <div class="bg-slate-50 p-3 rounded-lg text-center border border-slate-100">
-                                        <span class="block text-2xl font-bold text-slate-800" id="stat-completed">0</span>
-                                        <span class="text-xs text-slate-500 uppercase tracking-wide">Completed</span>
-                                    </div>
-                                    <div class="bg-slate-50 p-3 rounded-lg text-center border border-slate-100">
-                                        <span class="block text-2xl font-bold text-slate-800" id="stat-total">0</span>
-                                        <span class="text-xs text-slate-500 uppercase tracking-wide">Total</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Learning Paths Widget -->
-                        <div class="glass-card rounded-xl p-6 shadow-sm">
-                            <h3 class="font-bold text-lg text-slate-800 mb-4">Curriculum Paths</h3>
-                            <div class="space-y-3" id="learning-paths-list">
-                                <div class="text-center py-4 text-slate-400"><i class="fas fa-spinner fa-spin"></i></div>
-                            </div>
-                        </div>
-
-                        <!-- Gamification Widget -->
-                        <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-6 text-white shadow-lg relative overflow-hidden">
-                            <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl">
-                                <i class="fas fa-trophy"></i>
-                            </div>
-                            <h3 class="font-bold text-lg mb-2 relative z-10">Daily Streak</h3>
-                            <div class="flex items-end gap-2 mb-4 relative z-10">
-                                <span class="text-4xl font-bold text-yellow-400">1</span>
-                                <span class="text-sm text-slate-300 mb-1">day</span>
-                            </div>
-                            <p class="text-slate-300 text-xs mb-4 relative z-10">Keep learning to build your streak!</p>
-                            <button class="w-full py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-xs font-semibold transition-colors relative z-10" onclick="showToast('Badges module coming soon', 'info')">View Badges</button>
-                        </div>
-
-                    </div>
+        <!-- Hero Section -->
+        <section class="hero-bg text-white py-16 px-6 lg:px-12 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-indigo-900/50 to-transparent pointer-events-none"></div>
+            <div class="max-w-4xl relative z-10">
+                <span class="inline-block py-1 px-3 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold tracking-wider mb-4 uppercase">
+                    Credit Risk Analyst Foundations Training
+                </span>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6">
+                    Master the Art of <br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-300">Financial Analysis</span>
+                </h1>
+                <p class="text-lg text-slate-300 mb-8 max-w-2xl leading-relaxed">
+                    A comprehensive, open-source learning ecosystem designed for modern analysts.
+                    Bridge the gap between fundamental credit risk, financial modeling, and AI-driven workflows.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="modules/Credit_Analysis/README.md" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg shadow-lg shadow-indigo-900/20 transition-all transform hover:scale-105">
+                        Start Learning
+                    </a>
+                    <a href="Global_Financial_Glossary.md" class="px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/10 text-white font-semibold rounded-lg backdrop-blur-sm transition-all">
+                        Explore Glossary
+                    </a>
                 </div>
             </div>
-            
-            <!-- Footer -->
-            <footer class="mt-12 border-t border-slate-200 py-8 text-center text-slate-400 text-sm">
-                <p>&copy; 2025 Craft Financial Learning. Built for the modern analyst.</p>
-            </footer>
+        </section>
+
+        <!-- Dashboard Content -->
+        <div class="p-6 lg:p-12 max-w-7xl mx-auto w-full space-y-12">
+
+            <!-- Resume Learning (Dynamic) -->
+            <div id="resume-section" class="hidden animate-fade-in">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-slate-800">Pick Up Where You Left Off</h2>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden group">
+                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-500"></div>
+                    <div>
+                         <div class="flex items-center gap-2 text-xs font-semibold text-indigo-600 uppercase tracking-wider mb-1">
+                            <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+                            Last Visited
+                        </div>
+                        <h3 id="resume-title" class="text-lg font-bold text-slate-900 mb-1">Loading...</h3>
+                        <p class="text-sm text-slate-500">Continue your journey in the modules.</p>
+                    </div>
+                    <a id="resume-link" href="#" class="whitespace-nowrap px-5 py-2.5 bg-indigo-50 text-indigo-700 font-medium rounded-lg hover:bg-indigo-100 transition-colors flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                        Continue <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Access Grid -->
+            <section>
+                <h2 class="text-xl font-bold text-slate-800 mb-6">Quick Access</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                    <!-- Card 1 -->
+                    <a href="modules/Credit_Analysis/index.html" class="hover-card bg-white p-6 rounded-xl shadow-sm border border-slate-200 group block">
+                        <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-chart-line text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-2">Credit Analysis</h3>
+                        <p class="text-sm text-slate-500">Core modules on risk assessment, financial statements, and loan structuring.</p>
+                    </a>
+
+                    <!-- Card 2 -->
+                    <a href="Interactive_Notebooks/index.html" class="hover-card bg-white p-6 rounded-xl shadow-sm border border-slate-200 group block">
+                        <div class="w-12 h-12 bg-orange-50 rounded-lg flex items-center justify-center text-orange-600 mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fab fa-python text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-2">Notebooks</h3>
+                        <p class="text-sm text-slate-500">Interactive Python notebooks for financial modeling and data science.</p>
+                    </a>
+
+                    <!-- Card 3 -->
+                    <a href="modules/primers/index.html" class="hover-card bg-white p-6 rounded-xl shadow-sm border border-slate-200 group block">
+                        <div class="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center text-purple-600 mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-book-open text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-2">Industry Primers</h3>
+                        <p class="text-sm text-slate-500">Deep dives into specific sectors like Healthcare, Tech, and Energy.</p>
+                    </a>
+
+                     <!-- Card 4 -->
+                    <a href="Global_Financial_Glossary.md" class="hover-card bg-white p-6 rounded-xl shadow-sm border border-slate-200 group block">
+                        <div class="w-12 h-12 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600 mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-spell-check text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-2">Glossary</h3>
+                        <p class="text-sm text-slate-500">The master list of financial terms, definitions, and formulas.</p>
+                    </a>
+
+                </div>
+            </section>
+
+            <!-- Concept Copilot Preview -->
+            <section class="bg-gradient-to-br from-indigo-600 to-violet-700 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+
+                <div class="relative z-10 flex flex-col md:flex-row items-center gap-8">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="bg-white/20 p-2 rounded-lg"><i class="fas fa-robot"></i></span>
+                            <span class="font-semibold tracking-wide text-indigo-100">CREDIT COPILOT</span>
+                        </div>
+                        <h2 class="text-3xl font-bold mb-4">Instant Financial Intelligence</h2>
+                        <p class="text-indigo-100 mb-6 text-lg">
+                            Stuck on a term? Our AI-powered glossary engine is built into every reading view.
+                            Highlight text to get definitions instantly, or chat with the agent to explore concepts.
+                        </p>
+                        <button onclick="window.creditCopilot.toggleChat(true)" class="px-6 py-3 bg-white text-indigo-600 font-bold rounded-lg hover:bg-indigo-50 transition-colors shadow-md">
+                            Try Copilot Now
+                        </button>
+                    </div>
+                    <div class="w-full md:w-1/3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 shadow-inner">
+                        <div class="flex items-center gap-2 mb-3 border-b border-white/10 pb-2">
+                            <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                            <span class="text-xs font-mono text-indigo-100">COPILOT_AGENT_V1</span>
+                        </div>
+                        <div class="space-y-3 font-mono text-sm">
+                            <div class="bg-indigo-900/50 p-2 rounded text-indigo-200">
+                                > Define "EBITDA"
+                            </div>
+                             <div class="bg-white/10 p-2 rounded text-white">
+                                <strong>EBITDA:</strong> Earnings Before Interest, Taxes, Depreciation, and Amortization. A proxy for operating cash flow...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Learning Paths -->
+             <section>
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold text-slate-800">Curated Learning Paths</h2>
+                    <a href="Learning_Paths/index.html" class="text-indigo-600 hover:text-indigo-700 text-sm font-medium">View All <i class="fas fa-arrow-right ml-1"></i></a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                     <!-- Path 1 -->
+                    <div class="border border-slate-200 rounded-xl overflow-hidden bg-white">
+                        <div class="h-2 bg-blue-500"></div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-slate-900 mb-2">Credit Analyst Foundations</h3>
+                            <p class="text-sm text-slate-500 mb-4">The complete roadmap from novice to bank-ready analyst.</p>
+                            <div class="flex items-center gap-4 text-xs text-slate-400 mb-4">
+                                <span><i class="far fa-clock mr-1"></i> 2 Weeks</span>
+                                <span><i class="fas fa-signal mr-1"></i> Beginner</span>
+                            </div>
+                            <a href="Learning_Paths/Credit_Analyst_Foundational_Path.md" class="block text-center py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium rounded-lg transition-colors text-sm">Start Path</a>
+                        </div>
+                    </div>
+                     <!-- Path 2 -->
+                    <div class="border border-slate-200 rounded-xl overflow-hidden bg-white">
+                        <div class="h-2 bg-orange-500"></div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-slate-900 mb-2">CFA Level 1 Prep</h3>
+                            <p class="text-sm text-slate-500 mb-4">Targeted materials and quizzes for the CFA exam.</p>
+                            <div class="flex items-center gap-4 text-xs text-slate-400 mb-4">
+                                <span><i class="far fa-clock mr-1"></i> 4 Weeks</span>
+                                <span><i class="fas fa-signal mr-1"></i> Advanced</span>
+                            </div>
+                            <a href="Learning_Paths/CFA_Level_1_Prep_Focus_Areas.md" class="block text-center py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium rounded-lg transition-colors text-sm">Start Path</a>
+                        </div>
+                    </div>
+                     <!-- Path 3 -->
+                    <div class="border border-slate-200 rounded-xl overflow-hidden bg-white">
+                        <div class="h-2 bg-purple-500"></div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-slate-900 mb-2">GenAI for Finance</h3>
+                            <p class="text-sm text-slate-500 mb-4">Leverage LLMs to automate memos and analysis.</p>
+                            <div class="flex items-center gap-4 text-xs text-slate-400 mb-4">
+                                <span><i class="far fa-clock mr-1"></i> 1 Week</span>
+                                <span><i class="fas fa-signal mr-1"></i> Intermediate</span>
+                            </div>
+                            <a href="Learning_Paths/GenAI_for_Credit_Analysts_Path.md" class="block text-center py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium rounded-lg transition-colors text-sm">Start Path</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
         </div>
+
+        <footer class="mt-auto border-t border-slate-200 py-8 text-center text-slate-400 text-sm bg-white">
+            <p>&copy; 2025 Craft Financial Learning. Open Source Education.</p>
+        </footer>
     </main>
 
-    <!-- Toast Container -->
-    <div id="toast-container"></div>
-
-    <!-- Dependencies -->
+    <!-- Scripts -->
     <script src="js/nav_data.js"></script>
     <script src="js/progress_manager.js"></script>
-
-    <!-- SCRIPTS -->
+    <script src="js/global_nav.js"></script>
+    <script src="js/credit_copilot.js"></script>
     <script>
-        /* 
-         * DASHBOARD ENGINE
-         * Integrates UI with nav_data.js, progress_manager.js, and AI Glossary
-         */
-
-        // --- Global State ---
-        let glossaryData = {};
-        let glossaryLoaded = false;
-
-        // --- Initialization ---
+        // Dashboard Logic
         document.addEventListener('DOMContentLoaded', () => {
-            // Progress Manager Fallback
-            if (!window.progressManager) {
-                console.warn('ProgressManager not found, initializing mock');
-                window.progressManager = {
-                    getCompletionStats: () => ({ completed: 0, total: 0, percent: 0 }),
-                    getLastVisited: () => null,
-                    getFavorites: () => []
-                };
-            }
+            // Initialize Copilot
+            if (window.creditCopilot) window.creditCopilot.init();
 
-            // Search Input Listener (Header)
-            const headerSearch = document.getElementById('nav-search-input');
-            if (headerSearch) {
-                headerSearch.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' && e.target.value.trim()) {
-                        window.location.href = `search.html?q=${encodeURIComponent(e.target.value.trim())}`;
-                    }
-                });
+            // Resume Learning
+            if (window.progressManager) {
+                const last = window.progressManager.getLastVisited();
+                if (last) {
+                    document.getElementById('resume-title').textContent = last.title || 'Unknown Page';
+                    document.getElementById('resume-link').href = last.path;
+                    document.getElementById('resume-section').classList.remove('hidden');
+                }
             }
-
-            renderSidebar();
-            loadDashboardStats();
-            loadLearningPaths();
-            loadGlossary();
         });
-
-        // --- 1. Navigation Logic ---
-        function renderSidebar() {
-            const container = document.getElementById('nav-container');
-            if (!navData) {
-                container.innerHTML = '<p class="text-red-500 p-4">Error loading navigation.</p>';
-                return;
-            }
-            container.innerHTML = '';
-            
-            // Render Top Level Items
-            navData.forEach((item, index) => {
-                const sectionId = `nav-section-${index}`;
-                const hasChildren = item.children && item.children.length > 0;
-                const isCategory = item.type === 'category';
-                
-                // Determine Icon
-                const iconClass = getIconForText(item.text);
-
-                // Render
-                if (isCategory || hasChildren) {
-                    // Accordion
-                    const wrapper = document.createElement('div');
-                    wrapper.className = 'mb-1';
-                    
-                    const button = document.createElement('button');
-                    button.className = 'w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors group';
-                    button.onclick = () => toggleAccordion(sectionId);
-                    button.innerHTML = `
-                        <div class="flex items-center gap-3">
-                            <i class="${iconClass} w-5 text-center text-slate-400 group-hover:text-slate-600 transition-colors"></i>
-                            ${item.text}
-                        </div>
-                        <i class="fas fa-chevron-down text-xs text-slate-300 transition-transform duration-200" id="icon-${sectionId}"></i>
-                    `;
-                    
-                    const content = document.createElement('div');
-                    content.id = sectionId;
-                    content.className = 'hidden pl-11 pr-2 overflow-hidden transition-all duration-300 ease-in-out';
-                    
-                    // Recursive Render for Children
-                    renderChildren(item.children, content);
-
-                    wrapper.appendChild(button);
-                    wrapper.appendChild(content);
-                    container.appendChild(wrapper);
-                } else {
-                    // Top Level Link
-                    const link = document.createElement('a');
-                    link.href = resolveLink(item);
-                    link.className = `flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors mb-1 ${isCurrentPage(item.href) ? 'bg-brand-50 text-brand-700' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'}`;
-                    link.innerHTML = `<i class="${iconClass} w-5 text-center"></i> ${item.text}`;
-                    if (item.type === 'jupyter_guide' || item.type === 'file') link.target = "_blank";
-                    container.appendChild(link);
-                }
-            });
-        }
-
-        function renderChildren(items, container) {
-            items.forEach(child => {
-                const hasChildren = child.children && child.children.length > 0;
-                
-                if (hasChildren) {
-                    // Nested Submenu (Simplified as text header or indented block)
-                    // For deeper nesting, we can just indent more or use a label.
-                    // Let's use a label for the category
-                    const label = document.createElement('div');
-                    label.className = 'mt-2 mb-1 text-xs font-semibold text-slate-400 uppercase tracking-wider';
-                    label.textContent = child.text;
-                    container.appendChild(label);
-                    renderChildren(child.children, container);
-                } else {
-                    const link = document.createElement('a');
-                    link.href = resolveLink(child);
-                    link.className = 'block py-2 text-xs font-medium text-slate-500 hover:text-brand-600 border-l border-slate-200 pl-4 hover:border-brand-300 transition-all';
-                    link.textContent = child.text;
-                    if (child.type === 'jupyter_guide' || child.type === 'file') link.target = "_blank";
-                    container.appendChild(link);
-                }
-            });
-        }
-
-        function toggleAccordion(id) {
-            const content = document.getElementById(id);
-            const icon = document.getElementById(`icon-${id}`);
-            
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.classList.add('rotate-180');
-            } else {
-                content.classList.add('hidden');
-                icon.classList.remove('rotate-180');
-            }
-        }
-
-        function getIconForText(text) {
-            const t = text.toLowerCase();
-            if (t.includes('dashboard') || t.includes('home')) return 'fas fa-home';
-            if (t.includes('credit')) return 'fas fa-search-dollar';
-            if (t.includes('cfa')) return 'fas fa-graduation-cap';
-            if (t.includes('model')) return 'fas fa-laptop-code';
-            if (t.includes('ai') || t.includes('coding') || t.includes('data')) return 'fas fa-microchip';
-            if (t.includes('fintech')) return 'fas fa-mobile-alt';
-            if (t.includes('toolkit') || t.includes('checklist')) return 'fas fa-toolbox';
-            if (t.includes('behavioral')) return 'fas fa-brain';
-            if (t.includes('legal')) return 'fas fa-balance-scale';
-            if (t.includes('primer')) return 'fas fa-book-open';
-            if (t.includes('quest')) return 'fas fa-gamepad';
-            if (t.includes('risk')) return 'fas fa-shield-alt';
-            return 'fas fa-folder';
-        }
-
-        function resolveLink(item) {
-            if (item.type === 'markdown_viewer' && item.viewer === 'global') {
-                return `global_markdown_viewer.html?mdfile=${encodeURIComponent(item.href)}`;
-            } else if (item.type === 'learning_path_definition') {
-                 return `global_markdown_viewer.html?mdfile=${encodeURIComponent(item.href)}`;
-            }
-            return item.href || '#';
-        }
-
-        function isCurrentPage(href) {
-            if (!href) return false;
-            return window.location.pathname.endsWith(href);
-        }
-
-        function toggleMobileSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobile-overlay');
-            
-            if (sidebar.classList.contains('-translate-x-full')) {
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
-            }
-        }
-
-        // --- 2. Stats & Progress ---
-        function loadDashboardStats() {
-            // Stats
-            const stats = window.progressManager.getCompletionStats(navData);
-            
-            // Animate Progress Bar
-            setTimeout(() => {
-                const bar = document.getElementById('progress-bar');
-                const text = document.getElementById('progress-percent-text');
-                if (bar) bar.style.width = `${stats.percent}%`;
-                if (text) text.textContent = `${stats.percent}%`;
-            }, 300);
-
-            const statCompleted = document.getElementById('stat-completed');
-            const statTotal = document.getElementById('stat-total');
-            if (statCompleted) statCompleted.textContent = stats.completed;
-            if (statTotal) statTotal.textContent = stats.total;
-
-            // Last Visited
-            const last = window.progressManager.getLastVisited();
-            if (last) {
-                document.getElementById('continue-title').textContent = last.title;
-                // document.getElementById('continue-subtitle').textContent = '...'; // Optional
-                document.getElementById('continue-link').href = last.path;
-                document.getElementById('continue-learning-card').classList.remove('hidden');
-            }
-
-            // Favorites
-            const favs = window.progressManager.getFavorites();
-            const favContainer = document.getElementById('favorites-list');
-            if (favs && favs.length > 0) {
-                favContainer.innerHTML = '';
-                favs.forEach(fav => {
-                    const div = document.createElement('div');
-                    div.className = 'p-3 rounded-lg bg-slate-50 border border-slate-200 hover:border-brand-300 hover:shadow-md transition-all cursor-pointer group';
-                    div.innerHTML = `
-                        <div class="flex items-center justify-between mb-1">
-                            <div class="font-semibold text-slate-700 group-hover:text-brand-700 truncate w-4/5">${fav.title}</div>
-                            <i class="fas fa-arrow-right text-xs text-slate-300 group-hover:text-brand-400"></i>
-                        </div>
-                        <div class="text-xs text-slate-500">Quick Access</div>
-                    `;
-                    div.onclick = () => window.location.href = fav.path;
-                    favContainer.appendChild(div);
-                });
-            } else {
-                favContainer.innerHTML = '<div class="p-3 rounded-lg border border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-sm italic min-h-[80px]">No favorites yet.</div>';
-            }
-        }
-
-        function loadLearningPaths() {
-            const container = document.getElementById('learning-paths-list');
-            const paths = [];
-            const findPaths = (items) => {
-                items.forEach(item => {
-                    if (item.type === 'learning_path_definition') paths.push(item);
-                    if (item.children) findPaths(item.children);
-                });
-            };
-            findPaths(navData);
-            
-            const displayedPaths = paths.slice(0, 3);
-            
-            if (displayedPaths.length > 0) {
-                container.innerHTML = '';
-                displayedPaths.forEach(path => {
-                    let icon = 'fa-map-signs';
-                    let colorClass = 'bg-brand-100 text-brand-600';
-                    const t = path.text.toLowerCase();
-                    
-                    if (t.includes('cfa')) { icon = 'fa-certificate'; colorClass = 'bg-orange-100 text-orange-600'; }
-                    else if (t.includes('ai') || t.includes('coding')) { icon = 'fa-code'; colorClass = 'bg-purple-100 text-purple-600'; }
-                    else if (t.includes('credit')) { icon = 'fa-chart-line'; colorClass = 'bg-green-100 text-green-600'; }
-
-                    const a = document.createElement('a');
-                    a.href = resolveLink(path);
-                    a.className = 'flex items-center p-3 rounded-lg bg-white border border-slate-200 hover:border-brand-400 hover:shadow-md transition-all group';
-                    a.innerHTML = `
-                        <div class="w-10 h-10 rounded-full ${colorClass} flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
-                            <i class="fas ${icon}"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-medium text-slate-800 text-sm">${path.text}</h4>
-                            <p class="text-xs text-slate-500">Learning Path</p>
-                        </div>
-                        <i class="fas fa-chevron-right text-xs text-slate-300 group-hover:text-brand-500"></i>
-                    `;
-                    container.appendChild(a);
-                });
-            } else {
-                container.innerHTML = '<p class="text-center text-slate-400 py-4">No paths found.</p>';
-            }
-        }
-
-        // --- 3. AI Copilot ---
-        async function loadGlossary() {
-            try {
-                const response = await fetch('Global_Financial_Glossary.md');
-                if (response.ok) {
-                    const text = await response.text();
-                    parseGlossary(text);
-                }
-            } catch (e) {
-                console.error("Glossary load failed", e);
-            }
-        }
-
-        function parseGlossary(markdown) {
-            const lines = markdown.split('\n');
-            let currentTerm = null;
-            let currentDef = [];
-
-            lines.forEach(line => {
-                if (line.startsWith('## ') || line.startsWith('### ')) {
-                    if (currentTerm && currentDef.length > 0) {
-                        glossaryData[currentTerm.toLowerCase()] = { term: currentTerm, def: currentDef.join(' ') };
-                    }
-                    currentTerm = line.replace(/^#+\s+/, '').trim();
-                    currentDef = [];
-                } else if (line.trim().length > 0 && currentTerm) {
-                    currentDef.push(line.trim());
-                }
-            });
-             if (currentTerm && currentDef.length > 0) {
-                glossaryData[currentTerm.toLowerCase()] = { term: currentTerm, def: currentDef.join(' ') };
-            }
-            glossaryLoaded = true;
-        }
-
-        function handleAiQuery() {
-            const input = document.getElementById('ai-input');
-            const output = document.getElementById('ai-output');
-            const query = input.value.toLowerCase().trim();
-
-            if (!query) return;
-
-            output.classList.remove('hidden');
-            output.innerHTML = `
-                <div class="flex items-center gap-2 text-brand-600 animate-pulse">
-                    <i class="fas fa-circle-notch fa-spin"></i>
-                    <span>Thinking...</span>
-                </div>
-            `;
-
-            setTimeout(() => {
-                let response = null;
-                if (glossaryLoaded) {
-                    if (glossaryData[query]) response = glossaryData[query];
-                    else {
-                        const match = Object.keys(glossaryData).find(k => k.includes(query));
-                        if (match) response = glossaryData[match];
-                    }
-                }
-
-                if (response) {
-                    // Use marked to render if available
-                    const defHtml = (typeof marked !== 'undefined') ? marked.parse(response.def) : response.def;
-                    output.innerHTML = `
-                        <div class="animate-fade-in">
-                            <p class="font-bold text-slate-800 mb-1 capitalize">${response.term}</p>
-                            <div class="text-sm text-slate-600 prose prose-sm">${defHtml}</div>
-                            <p class="text-xs text-brand-500 mt-2 cursor-pointer" onclick="window.location.href='Global_Financial_Glossary.md'">Source: Global Glossary</p>
-                        </div>
-                    `;
-                } else {
-                    output.innerHTML = `
-                        <div class="text-slate-600">
-                            <p>I couldn't find "<strong>${input.value}</strong>" in the glossary.</p>
-                        </div>
-                    `;
-                }
-            }, 600);
-        }
-
-        document.getElementById('ai-submit').addEventListener('click', handleAiQuery);
-        document.getElementById('ai-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') handleAiQuery();
-        });
-
-        // --- 4. Toast ---
-        function showToast(message, type = 'info') {
-            const container = document.getElementById('toast-container');
-            let bgClass = 'bg-slate-800';
-            let iconClass = 'fa-info-circle';
-            if (type === 'success') { bgClass = 'bg-green-600'; iconClass = 'fa-check-circle'; }
-            if (type === 'error') { bgClass = 'bg-red-600'; iconClass = 'fa-exclamation-circle'; }
-
-            const toast = document.createElement('div');
-            toast.className = `toast flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg text-white mb-3 text-sm font-medium ${bgClass} min-w-[300px]`;
-            toast.innerHTML = `<i class="fas ${iconClass}"></i><span class="flex-1">${message}</span>`;
-            container.appendChild(toast);
-            requestAnimationFrame(() => toast.classList.add('show'));
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
     </script>
 </body>
 </html>
