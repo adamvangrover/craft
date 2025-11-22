@@ -93,7 +93,6 @@ The SNC ratings assigned to a bank's loan portfolio (or the internal ratings tha
 
 Understanding the SNC framework is therefore essential not only for compliance but also for effective credit risk management and for appreciating the broader regulatory context in which large corporate lending occurs.
 =======
-=======
 ## 7.1. Understanding the SNC Program
 The Shared National Credit (SNC) Program is a crucial component of the U.S. banking regulatory landscape, established in 1977 to ensure a consistent and efficient review of the largest and most complex loans held by multiple financial institutions. The program is governed by an interagency agreement among the three main federal bank regulators: the Board of Governors of the Federal Reserve System (FRS), the Federal Deposit Insurance Corporation (FDIC), and the Office of the Comptroller of the Currency (OCC).
 
