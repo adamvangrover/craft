@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Craft Financial Learning</title>
+    <title>Dashboard | CRAFT</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,626 +11,642 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Tailwind Config for Custom Colors -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            900: '#1e3a8a',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Phosphor Icons (Alternative/Supplementary) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Marked.js for Markdown Parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-
-        /* Glassmorphism */
+        /* Global Settings */
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Glassmorphism Utilities */
         .glass-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(226, 232, 240, 0.8);
         }
 
-        /* Sidebar Transitions */
-        .sidebar-transition {
-            transition: transform 0.3s ease-in-out;
+        /* Custom Scrollbar for Sidebar */
+        .scrollbar-thin::-webkit-scrollbar {
+            width: 6px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
         }
 
-        /* Toast Notification */
-        #toast-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 50;
+        /* Animation Utilities */
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
         }
-        .toast {
-            transform: translateX(100%);
-            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .toast.show {
-            transform: translateX(0);
+
+        /* Sidebar Active State Marker */
+        .nav-item.active {
+            background-color: #eff6ff; /* bg-indigo-50 */
+            color: #4338ca; /* text-indigo-700 */
+            border-right: 3px solid #4338ca;
+        }
+
+        /* Nested Menu Styles */
+        .submenu {
+            display: none; /* Hidden by default */
+            padding-left: 1rem;
+            margin-top: 0.25rem;
+            border-left: 1px solid #e2e8f0;
+            margin-left: 1rem;
+        }
+        .submenu.open {
+            display: block;
+        }
+        .rotate-180 {
+            transform: rotate(180deg);
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 flex h-screen overflow-hidden">
-
+<body class="bg-slate-50 text-slate-900 lg:flex h-screen overflow-hidden">
+    
     <!-- Mobile Overlay -->
-    <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-20 lg:hidden hidden" onclick="toggleMobileSidebar()"></div>
+    <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/50 z-40 hidden transition-opacity backdrop-blur-sm" onclick="toggleSidebar()"></div>
 
-    <!-- Sidebar Navigation -->
-    <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 z-30 w-72 bg-white border-r border-slate-200 transform -translate-x-full lg:translate-x-0 sidebar-transition flex flex-col h-full shadow-xl lg:shadow-none">
-        <!-- Brand -->
-        <div class="p-6 border-b border-slate-100 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-md shadow-brand-200">
-                    C
-                </div>
-                <span class="font-bold text-lg tracking-tight text-slate-800">Craft Financial</span>
+    <!-- Smart Sidebar -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-200 transform -translate-x-full lg:translate-x-0 lg:static transition-transform duration-300 ease-in-out flex flex-col h-full shadow-xl lg:shadow-none z-[60]">
+        <!-- Logo Area -->
+        <div class="h-16 flex items-center px-6 border-b border-slate-100 shrink-0">
+            <div class="text-xl font-bold text-indigo-700 tracking-tight flex items-center gap-2 cursor-pointer" onclick="window.location.reload()">
+                <i class="fas fa-cube text-indigo-600"></i>
+                <span>CRAFT</span>
             </div>
-            <button class="lg:hidden text-slate-400 hover:text-slate-600" onclick="toggleMobileSidebar()">
-                <i class="fas fa-times"></i>
-            </button>
+        </div>
+        
+        <!-- Nav Content (Generated by JS) -->
+        <div id="sidebar-content" class="flex-1 overflow-y-auto py-4 px-3 scrollbar-thin space-y-1">
+            <!-- Navigation will be injected here -->
+             <div class="flex justify-center items-center py-10 text-slate-400">
+                <i class="fas fa-circle-notch fa-spin mr-2"></i> Loading Navigation...
+             </div>
         </div>
 
-        <!-- Navigation Links -->
-        <div class="flex-1 overflow-y-auto p-4" id="nav-container">
-            <!-- Navigation will be injected here by JS -->
-        </div>
-
-        <!-- User Profile Stub -->
-        <div class="p-4 border-t border-slate-100 bg-slate-50">
+        <!-- User Profile Snippet (Bottom of Sidebar) -->
+        <div class="p-4 border-t border-slate-100 shrink-0 bg-slate-50/50">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-500 to-purple-500 flex items-center justify-center text-white font-semibold">
-                    AV
+                <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold shadow-sm">
+                    JD
                 </div>
-                <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-slate-900 truncate">Analyst User</p>
-                    <p class="text-xs text-slate-500 truncate">Pro Member</p>
+                <div>
+                    <p class="text-sm font-medium text-slate-700">Guest User</p>
+                    <p class="text-xs text-slate-500">Analyst Track</p>
                 </div>
-                <button onclick="showToast('Settings functionality coming soon', 'info')" class="text-slate-400 hover:text-brand-600 transition-colors">
-                    <i class="fas fa-cog"></i>
-                </button>
             </div>
         </div>
     </aside>
 
     <!-- Main Content Area -->
-    <main class="flex-1 flex flex-col h-full relative w-full overflow-hidden">
+    <main id="mainContent" class="flex-1 h-full overflow-y-auto relative w-full flex flex-col">
         
-        <!-- Top Bar -->
-        <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 p-4 flex justify-between items-center z-10 sticky top-0">
-            <div class="flex items-center gap-4">
-                <button class="lg:hidden p-2 text-slate-500 hover:bg-slate-100 rounded-lg" onclick="toggleMobileSidebar()">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <!-- Breadcrumbs -->
-                <nav class="hidden sm:flex items-center text-sm text-slate-500">
-                    <span class="hover:text-brand-600 cursor-pointer"><i class="fas fa-home"></i></span>
-                    <span class="mx-2 text-slate-300">/</span>
-                    <span class="font-medium text-slate-800">Dashboard</span>
-                </nav>
-            </div>
-
+        <!-- Mobile Header -->
+        <header class="lg:hidden bg-white border-b border-slate-200 p-4 sticky top-0 z-30 flex justify-between items-center glass-card">
             <div class="flex items-center gap-3">
-                <div class="relative hidden md:block">
-                    <input type="text" placeholder="Search curriculum..." class="pl-9 pr-4 py-2 bg-slate-100 border-none rounded-full text-sm focus:ring-2 focus:ring-brand-500 w-64 outline-none transition-all">
-                    <i class="fas fa-search absolute left-3 top-2.5 text-slate-400 text-xs"></i>
-                </div>
-                <button class="p-2 text-slate-400 hover:text-brand-600 transition-colors relative">
-                    <i class="fas fa-bell"></i>
-                    <span class="absolute top-1.5 right-2 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
+                <button onclick="toggleSidebar()" class="text-slate-600 hover:text-indigo-600 transition-colors">
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
+                <h1 class="font-bold text-xl text-indigo-900 tracking-tight">CRAFT</h1>
+            </div>
+            <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-xs font-bold">
+                JD
             </div>
         </header>
 
-        <!-- Scrollable Dashboard Content -->
-        <div class="flex-1 overflow-y-auto p-4 lg:p-8 scroll-smooth" id="main-scroll-area">
-            <div class="max-w-7xl mx-auto">
+        <div class="p-6 lg:p-10 max-w-7xl mx-auto w-full">
 
-                <!-- Welcome Header -->
-                <div class="mb-8 animate-fade-in">
-                    <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Command Center</h1>
-                    <p class="text-slate-500 mt-2 flex items-center gap-2">
-                        <span>Track your progress, pick up where you left off, and explore new horizons.</span>
-                    </p>
+            <!-- Breadcrumbs -->
+            <nav class="flex mb-6 text-sm text-slate-500" id="breadcrumbs">
+                <span class="hover:text-indigo-600 cursor-pointer" onclick="window.location.href='index.html'">Home</span>
+                <span class="mx-2">/</span>
+                <span class="font-medium text-slate-800">Dashboard</span>
+            </nav>
+
+            <!-- Header Section -->
+            <div class="mb-8 fade-in" style="animation-delay: 0.1s;">
+                <h1 class="text-3xl font-bold text-slate-900">Command Center</h1>
+                <p class="text-slate-500 mt-2">Track your progress, pick up where you left off, and explore new horizons.</p>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- Column 1 & 2: Main Content -->
+                <div class="lg:col-span-2 space-y-6">
+
+                    <!-- Continue Learning Card -->
+                    <div id="continue-learning-card" class="glass-card rounded-xl p-6 shadow-sm fade-in hidden" style="animation-delay: 0.2s;">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <span class="inline-block px-2 py-1 text-xs font-semibold bg-indigo-100 text-indigo-700 rounded-md mb-2">Jump back in</span>
+                                <h2 class="text-xl font-bold text-slate-800" id="continue-title">Loading...</h2>
+                                <p class="text-sm text-slate-500 mt-1">You were reading this recently.</p>
+                            </div>
+                            <div class="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg shadow-indigo-200 shrink-0">
+                                <i class="fas fa-play ml-1"></i>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <a id="continue-link" href="#" class="block w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all shadow-sm hover:shadow-md active:scale-[0.99]">
+                                Continue Reading
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Access / Favorites -->
+                    <div class="glass-card rounded-xl p-6 shadow-sm fade-in" style="animation-delay: 0.3s;">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                                <i class="fas fa-star text-yellow-400"></i> Quick Access
+                            </h3>
+                            <button class="text-xs text-indigo-600 hover:text-indigo-800 font-medium bg-indigo-50 px-2 py-1 rounded hover:bg-indigo-100 transition-colors" onclick="showToast('Pin pages using the star icon on content pages.')">
+                                How to pin?
+                            </button>
+                        </div>
+                        <div id="favorites-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Favorites injected via JS -->
+                            <p class="text-sm text-slate-400 italic col-span-2">Loading favorites...</p>
+                        </div>
+                    </div>
+
+                    <!-- AI Concept Explainer -->
+                    <div class="glass-card rounded-xl p-6 shadow-sm border-t-4 border-t-indigo-500 fade-in" style="animation-delay: 0.4s;">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="p-1.5 bg-indigo-100 rounded-md text-indigo-600">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-800">Concept Copilot</h3>
+                        </div>
+                        <p class="text-sm text-slate-500 mb-4">Stuck on a financial term? Ask for a quick definition from our Global Glossary.</p>
+
+                        <div class="relative group">
+                            <input type="text" id="ai-input" placeholder="e.g., EBITDA, Convexity, Greeks..."
+                                class="w-full pl-4 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all group-hover:bg-white">
+                            <button id="ai-submit" class="absolute right-2 top-2 bottom-2 bg-indigo-600 text-white px-3 rounded-md hover:bg-indigo-700 transition-colors shadow-sm">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <div id="ai-output" class="mt-4 p-4 bg-indigo-50/50 rounded-lg text-sm text-slate-700 hidden border border-indigo-100/50 max-h-60 overflow-y-auto">
+                            <!-- AI Response -->
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- Dashboard Grid -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Column 3: Stats & Progress -->
+                <div class="space-y-6">
 
-                    <!-- Column 1 & 2: Main Content -->
-                    <div class="lg:col-span-2 space-y-6">
+                    <!-- Overall Progress -->
+                    <div class="glass-card rounded-xl p-6 shadow-sm fade-in" style="animation-delay: 0.5s;">
+                        <h3 class="font-bold text-lg text-slate-800 mb-4">Your Progress</h3>
 
-                        <!-- Continue Learning Card (Dynamic) -->
-                        <div id="continue-learning-card" class="glass-card rounded-xl p-6 shadow-sm border-l-4 border-l-brand-500 relative overflow-hidden group">
-                            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-brand-50 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
-                            
-                            <div class="relative z-10">
-                                <div class="flex items-start justify-between">
-                                    <div>
-                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold bg-brand-50 text-brand-700 rounded-md mb-3">
-                                            <span class="relative flex h-2 w-2">
-                                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                                              <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-                                            </span>
-                                            Jump back in
-                                        </span>
-                                        <h2 class="text-xl font-bold text-slate-800" id="continue-title">Financial Statement Analysis</h2>
-                                        <p class="text-sm text-slate-500 mt-1" id="continue-subtitle">Module 3: The Analyst's Craft</p>
-                                    </div>
-                                    <div class="bg-white shadow-md text-brand-600 w-12 h-12 flex items-center justify-center rounded-full border border-slate-100">
-                                        <i class="fas fa-play ml-1"></i>
-                                    </div>
+                        <div class="relative pt-1">
+                            <div class="flex mb-2 items-center justify-between">
+                                <div>
+                                    <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-indigo-600 bg-indigo-100">
+                                        Knowledge Base
+                                    </span>
                                 </div>
-                                <div class="mt-6">
-                                    <div class="flex justify-between text-xs text-slate-500 mb-2">
-                                        <span>Progress</span>
-                                        <span id="continue-percent">65%</span>
-                                    </div>
-                                    <div class="w-full bg-slate-100 rounded-full h-2 mb-4 overflow-hidden">
-                                        <div class="bg-brand-600 h-2 rounded-full" style="width: 65%"></div>
-                                    </div>
-                                    <button onclick="continueLearning()" class="w-full md:w-auto inline-flex justify-center items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-medium py-2.5 px-6 rounded-lg transition-all shadow-lg shadow-brand-200 active:scale-95">
-                                        Continue Reading <i class="fas fa-arrow-right text-xs"></i>
-                                    </button>
+                                <div class="text-right">
+                                    <span id="progress-percent" class="text-xs font-bold inline-block text-indigo-600">
+                                        0%
+                                    </span>
                                 </div>
+                            </div>
+                            <div class="overflow-hidden h-2.5 mb-4 text-xs flex rounded-full bg-slate-100 border border-slate-200/60">
+                                <div id="progress-bar" style="width:0%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-1000 ease-out rounded-full"></div>
+                            </div>
+                            <div class="text-xs text-slate-500 flex justify-between font-medium">
+                                <span id="progress-count">0 completed</span>
+                                <span id="total-count">0 total</span>
                             </div>
                         </div>
-
-                        <!-- Quick Access / Favorites -->
-                        <div class="glass-card rounded-xl p-6 shadow-sm">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="font-bold text-lg text-slate-800"><i class="fas fa-star text-amber-400 mr-2"></i> Quick Access</h3>
-                                <button class="text-xs text-brand-600 hover:text-brand-800 font-medium bg-brand-50 px-2 py-1 rounded hover:bg-brand-100 transition-colors" onclick="showToast('Pin pages using the star icon in the content view.', 'info')">
-                                    <i class="fas fa-info-circle mr-1"></i>How to pin
-                                </button>
-                            </div>
-                            <div id="favorites-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <!-- Simulated Favorite -->
-                                <div onclick="showToast('Navigating to DCF Models...', 'success')" class="p-3 rounded-lg bg-slate-50 border border-slate-200 hover:border-brand-300 hover:shadow-md transition-all cursor-pointer group">
-                                    <div class="flex items-center justify-between mb-1">
-                                        <div class="font-semibold text-slate-700 group-hover:text-brand-700">DCF Modeling</div>
-                                        <i class="fas fa-external-link-alt text-xs text-slate-300 group-hover:text-brand-400"></i>
-                                    </div>
-                                    <div class="text-xs text-slate-500">Financial Modeling > Valuation</div>
-                                </div>
-                                
-                                <!-- Empty State Placeholder -->
-                                <div class="p-3 rounded-lg border border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-sm italic min-h-[80px]">
-                                    Add more pins to see them here
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- AI Concept Explainer -->
-                        <div class="glass-card rounded-xl p-6 shadow-sm border-t-4 border-t-indigo-500 bg-gradient-to-b from-white to-indigo-50/30">
-                            <div class="flex items-center gap-2 mb-2">
-                                <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center">
-                                    <i class="fas fa-robot"></i>
-                                </div>
-                                <h3 class="font-bold text-lg text-slate-800">Concept Copilot</h3>
-                            </div>
-                            <p class="text-sm text-slate-500 mb-4 ml-10">Stuck on a term? Ask for a quick definition or formula.</p>
-
-                            <div class="relative ml-0 md:ml-10">
-                                <input type="text" id="ai-input" placeholder="Try 'EBITDA', 'Convexity', or 'Gamma'..." 
-                                    class="w-full pl-4 pr-12 py-3 bg-white border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none shadow-sm transition-all">
-                                <button id="ai-submit" class="absolute right-2 top-2 bg-indigo-600 text-white w-8 h-8 flex items-center justify-center rounded-md hover:bg-indigo-700 transition-colors shadow-md">
-                                    <i class="fas fa-arrow-right text-xs"></i>
-                                </button>
-                            </div>
-
-                            <div id="ai-output" class="mt-4 ml-0 md:ml-10 p-4 bg-white rounded-lg text-sm text-slate-700 hidden border border-slate-200 shadow-inner transition-all">
-                                <!-- AI Response Content -->
-                            </div>
-                        </div>
-
                     </div>
 
-                    <!-- Column 3: Stats & Learning Paths -->
-                    <div class="space-y-6">
-
-                        <!-- Overall Progress Widget -->
-                        <div class="glass-card rounded-xl p-6 shadow-sm">
-                            <h3 class="font-bold text-lg text-slate-800 mb-4">Current Status</h3>
-
-                            <div class="relative pt-1">
-                                <div class="flex mb-2 items-center justify-between">
-                                    <div>
-                                        <span class="text-xs font-bold inline-block py-1 px-2 uppercase rounded bg-brand-100 text-brand-600">
-                                            Analyst Level I
-                                        </span>
-                                    </div>
-                                    <div class="text-right">
-                                        <span id="progress-percent-text" class="text-xs font-semibold inline-block text-brand-600">
-                                            12%
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-brand-100">
-                                    <div id="progress-bar" style="width:12%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-brand-600 transition-all duration-1000 ease-out"></div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-4 mt-4">
-                                    <div class="bg-slate-50 p-3 rounded-lg text-center border border-slate-100">
-                                        <span class="block text-2xl font-bold text-slate-800" id="stat-completed">4</span>
-                                        <span class="text-xs text-slate-500 uppercase tracking-wide">Modules Done</span>
-                                    </div>
-                                    <div class="bg-slate-50 p-3 rounded-lg text-center border border-slate-100">
-                                        <span class="block text-2xl font-bold text-slate-800">32</span>
-                                        <span class="text-xs text-slate-500 uppercase tracking-wide">Remaining</span>
-                                    </div>
-                                </div>
-                            </div>
+                    <!-- Key Learning Paths -->
+                    <div class="glass-card rounded-xl p-6 shadow-sm fade-in" style="animation-delay: 0.6s;">
+                        <h3 class="font-bold text-lg text-slate-800 mb-4">Featured Learning Paths</h3>
+                        <div class="space-y-3" id="learning-paths-list">
+                            <!-- Injected via JS -->
+                            <div class="flex justify-center py-4"><i class="fas fa-spinner fa-spin text-indigo-500"></i></div>
                         </div>
-
-                        <!-- Learning Paths Widget -->
-                        <div class="glass-card rounded-xl p-6 shadow-sm">
-                            <h3 class="font-bold text-lg text-slate-800 mb-4">Curriculum Paths</h3>
-                            <div class="space-y-3">
-                                <!-- Path 1 -->
-                                <a href="#" onclick="showToast('Opening Credit Analyst Path...', 'success')" class="flex items-center p-3 rounded-lg bg-white border border-slate-200 hover:border-brand-400 hover:shadow-md transition-all group">
-                                    <div class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
-                                        <i class="fas fa-chart-line"></i>
-                                    </div>
-                                    <div class="flex-1">
-                                        <h4 class="font-medium text-slate-800 text-sm">Credit Analyst</h4>
-                                        <p class="text-xs text-slate-500">Foundations & Risk</p>
-                                    </div>
-                                    <i class="fas fa-chevron-right text-xs text-slate-300 group-hover:text-brand-500"></i>
-                                </a>
-
-                                <!-- Path 2 -->
-                                <a href="#" onclick="showToast('Opening CFA Preparation...', 'success')" class="flex items-center p-3 rounded-lg bg-white border border-slate-200 hover:border-brand-400 hover:shadow-md transition-all group">
-                                    <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
-                                        <i class="fas fa-certificate"></i>
-                                    </div>
-                                    <div class="flex-1">
-                                        <h4 class="font-medium text-slate-800 text-sm">CFA® Prep</h4>
-                                        <p class="text-xs text-slate-500">Level 1, 2 & 3</p>
-                                    </div>
-                                    <i class="fas fa-chevron-right text-xs text-slate-300 group-hover:text-brand-500"></i>
-                                </a>
-
-                                <!-- Path 3 -->
-                                <a href="#" onclick="showToast('Opening AI & Coding...', 'success')" class="flex items-center p-3 rounded-lg bg-white border border-slate-200 hover:border-brand-400 hover:shadow-md transition-all group">
-                                    <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
-                                        <i class="fas fa-code"></i>
-                                    </div>
-                                    <div class="flex-1">
-                                        <h4 class="font-medium text-slate-800 text-sm">AI & Python</h4>
-                                        <p class="text-xs text-slate-500">Modern Finance Tools</p>
-                                    </div>
-                                    <i class="fas fa-chevron-right text-xs text-slate-300 group-hover:text-brand-500"></i>
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Gamification Widget -->
-                        <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-6 text-white shadow-lg relative overflow-hidden">
-                            <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl">
-                                <i class="fas fa-trophy"></i>
-                            </div>
-                            <h3 class="font-bold text-lg mb-2 relative z-10">Daily Streak</h3>
-                            <div class="flex items-end gap-2 mb-4 relative z-10">
-                                <span class="text-4xl font-bold text-yellow-400">3</span>
-                                <span class="text-sm text-slate-300 mb-1">days</span>
-                            </div>
-                            <p class="text-slate-300 text-xs mb-4 relative z-10">Complete one more module today to keep the streak alive!</p>
-                            <button class="w-full py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-xs font-semibold transition-colors relative z-10">View Badges</button>
-                        </div>
-
                     </div>
+
+                    <!-- Status Widget -->
+                    <div class="bg-gradient-to-br from-indigo-600 to-violet-700 rounded-xl p-6 text-white shadow-lg fade-in relative overflow-hidden" style="animation-delay: 0.7s;">
+                        <!-- Decorative circles -->
+                        <div class="absolute top-0 right-0 -mr-8 -mt-8 w-24 h-24 rounded-full bg-white/10 blur-xl"></div>
+                        <div class="absolute bottom-0 left-0 -ml-8 -mb-8 w-20 h-20 rounded-full bg-white/10 blur-xl"></div>
+                        
+                        <h3 class="font-bold text-lg mb-2 relative z-10">Level Up</h3>
+                        <p class="text-indigo-100 text-sm mb-4 relative z-10">Complete more modules to earn badges.</p>
+                        <button onclick="showToast('Badges module coming soon!')" class="w-full py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-semibold transition-colors border border-white/10 relative z-10">View Badges</button>
+                    </div>
+
                 </div>
             </div>
-            
-            <!-- Footer -->
-            <footer class="mt-12 border-t border-slate-200 py-8 text-center text-slate-400 text-sm">
-                <p>&copy; 2025 Craft Financial Learning. Built for the modern analyst.</p>
-            </footer>
         </div>
     </main>
 
-    <!-- Toast Container -->
-    <div id="toast-container"></div>
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-slate-800 text-white px-4 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 z-[70] flex items-center gap-3">
+        <i class="fas fa-info-circle text-indigo-400"></i>
+        <span id="toast-message">Notification</span>
+    </div>
 
-    <!-- SCRIPTS -->
+    <!-- Scripts -->
+    <script src="js/nav_data.js"></script>
+    <script src="js/progress_manager.js"></script>
+    
     <script>
-        // --- 1. Navigation Data Structure ---
-        const navData = [
-            {
-                title: "Dashboard",
-                icon: "fas fa-home",
-                path: "index.html",
-                active: true
-            },
-            {
-                title: "Credit Analysis",
-                icon: "fas fa-search-dollar",
-                children: [
-                    { title: "Foundations", path: "#" },
-                    { title: "Risk Management", path: "#" },
-                    { title: "The Credit Lifecycle", path: "#" },
-                    { title: "Case Studies", path: "#" }
-                ]
-            },
-            {
-                title: "CFA® Preparation",
-                icon: "fas fa-graduation-cap",
-                children: [
-                    { title: "Level 1", path: "#" },
-                    { title: "Level 2", path: "#" },
-                    { title: "Level 3", path: "#" }
-                ]
-            },
-            {
-                title: "Financial Modeling",
-                icon: "fas fa-laptop-code",
-                children: [
-                    { title: "Excel Best Practices", path: "#" },
-                    { title: "3-Statement Models", path: "#" },
-                    { title: "Valuation (DCF)", path: "#" },
-                    { title: "LBO Modeling", path: "#" }
-                ]
-            },
-            {
-                title: "AI & Data Science",
-                icon: "fas fa-microchip",
-                children: [
-                    { title: "Python for Finance", path: "#" },
-                    { title: "Prompt Engineering", path: "#" },
-                    { title: "Automating Workflows", path: "#" }
-                ]
-            },
-            {
-                title: "Fintech",
-                icon: "fas fa-mobile-alt",
-                children: [
-                    { title: "Blockchain & Crypto", path: "#" },
-                    { title: "Payment Systems", path: "#" },
-                    { title: "RegTech", path: "#" }
-                ]
-            },
-            {
-                title: "Toolkits",
-                icon: "fas fa-toolbox",
-                path: "#"
-            }
-        ];
+        /* 
+         * DASHBOARD CONTROLLER 
+         * Manages UI, Sidebar, and Integration with Repo Data
+         */
+        
+        let glossaryData = {};
+        let glossaryLoaded = false;
 
-        // --- 2. Navigation Logic ---
-        function renderSidebar() {
-            const container = document.getElementById('nav-container');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Managers
+            if (!window.progressManager) {
+                console.warn('ProgressManager not loaded, creating fallback');
+                window.progressManager = {
+                    getCompletionStats: () => ({ completed: 0, total: 0 }),
+                    getLastVisited: () => null,
+                    getFavorites: () => []
+                };
+            }
+
+            // Initialize UI
+            renderSidebarFromData();
+            loadDashboardStats();
+            setupEventListeners();
+            loadGlossary();
+            loadLearningPaths();
+        });
+
+        /* --- SIDEBAR RENDERING --- */
+
+        function renderSidebarFromData() {
+            const container = document.getElementById('sidebar-content');
+            if (!navData) {
+                container.innerHTML = '<p class="text-red-500 p-4">Navigation data missing.</p>';
+                return;
+            }
+            container.innerHTML = ''; // Clear loading
+            container.appendChild(buildNavLevel(navData, 0));
+        }
+
+        function buildNavLevel(items, level) {
+            const ul = document.createElement('ul');
+            ul.className = level === 0 ? 'space-y-1' : 'submenu space-y-1';
             
-            navData.forEach((item, index) => {
-                const sectionId = `nav-section-${index}`;
+            items.forEach(item => {
+                // Skip specific internal files if needed, but generally show all
+                const li = document.createElement('li');
                 
-                // Single Link
-                if (!item.children) {
-                    const link = document.createElement('a');
-                    link.href = item.path;
-                    link.className = `flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors mb-1 ${item.active ? 'bg-brand-50 text-brand-700' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'}`;
-                    link.innerHTML = `<i class="${item.icon} w-5 text-center"></i> ${item.title}`;
-                    container.appendChild(link);
-                } 
-                // Accordion
-                else {
-                    const wrapper = document.createElement('div');
-                    wrapper.className = 'mb-1';
+                const hasChildren = item.children && item.children.length > 0;
+                const isCategory = item.type === 'category';
+
+                if (isCategory || hasChildren) {
+                    // Category Header
+                    const btn = document.createElement('button');
+                    btn.className = `w-full text-left flex items-center justify-between px-4 py-2.5 text-sm font-medium rounded-lg transition-colors text-slate-600 hover:bg-slate-50 hover:text-indigo-600 group`;
                     
-                    const button = document.createElement('button');
-                    button.className = 'w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors group';
-                    button.onclick = () => toggleAccordion(sectionId);
-                    button.innerHTML = `
-                        <div class="flex items-center gap-3">
-                            <i class="${item.icon} w-5 text-center text-slate-400 group-hover:text-slate-600 transition-colors"></i>
-                            ${item.title}
+                    // Determine icon based on text (simple heuristic) or default
+                    let iconClass = 'fas fa-folder';
+                    const lowerText = item.text.toLowerCase();
+                    if (lowerText.includes('dashboard') || lowerText.includes('home')) iconClass = 'fas fa-home';
+                    else if (lowerText.includes('cfa')) iconClass = 'fas fa-certificate';
+                    else if (lowerText.includes('ai') || lowerText.includes('coding')) iconClass = 'fas fa-code';
+                    else if (lowerText.includes('risk')) iconClass = 'fas fa-shield-alt';
+                    else if (lowerText.includes('model')) iconClass = 'fas fa-chart-bar';
+                    else if (lowerText.includes('legal')) iconClass = 'fas fa-balance-scale';
+
+                    // Only show icon at top level
+                    const iconHtml = level === 0 ? `<i class="${iconClass} w-6 text-center mr-2 text-slate-400 group-hover:text-indigo-500 transition-colors"></i>` : '';
+                    
+                    btn.innerHTML = `
+                        <div class="flex items-center">
+                            ${iconHtml}
+                            <span>${item.text}</span>
                         </div>
-                        <i class="fas fa-chevron-down text-xs text-slate-300 transition-transform duration-200" id="icon-${sectionId}"></i>
+                        <i class="fas fa-chevron-down text-xs text-slate-400 transition-transform duration-200"></i>
                     `;
                     
-                    const content = document.createElement('div');
-                    content.id = sectionId;
-                    content.className = 'hidden pl-11 pr-2 overflow-hidden transition-all duration-300 ease-in-out';
-                    
-                    item.children.forEach(child => {
-                        const childLink = document.createElement('a');
-                        childLink.href = child.path;
-                        childLink.onclick = (e) => { e.preventDefault(); showToast(`Simulating navigation to ${child.title}`, 'info'); }; // Mock nav
-                        childLink.className = 'block py-2 text-xs font-medium text-slate-500 hover:text-brand-600 border-l border-slate-200 pl-4 hover:border-brand-300 transition-all';
-                        childLink.textContent = child.title;
-                        content.appendChild(childLink);
-                    });
+                    btn.onclick = (e) => {
+                        e.stopPropagation();
+                        const submenu = li.querySelector('.submenu');
+                        const icon = btn.querySelector('.fa-chevron-down');
+                        if (submenu) {
+                            submenu.classList.toggle('open');
+                            icon.classList.toggle('rotate-180');
+                        }
+                    };
 
-                    wrapper.appendChild(button);
-                    wrapper.appendChild(content);
-                    container.appendChild(wrapper);
+                    li.appendChild(btn);
+                    if (hasChildren) {
+                        li.appendChild(buildNavLevel(item.children, level + 1));
+                    }
+
+                } else {
+                    // Leaf Node (Link)
+                    const link = document.createElement('a');
+                    link.href = resolveLink(item);
+                    if (item.type === 'jupyter_guide' || item.type === 'file') {
+                        link.target = '_blank';
+                    }
+                    link.className = `nav-item flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-colors text-slate-600 hover:bg-slate-50 hover:text-indigo-600 mb-0.5`;
+                    if(level > 0) link.classList.add('pl-8'); // Indent for nested links without icons
+
+                    // Icon for top level links
+                    let iconHtml = '';
+                    if (level === 0) {
+                         let iconClass = 'fas fa-file-alt';
+                         if (item.text === 'Dashboard' || item.text === 'Home') iconClass = 'fas fa-home';
+                         iconHtml = `<i class="${iconClass} w-6 text-center mr-2 text-slate-400"></i>`;
+                    } else {
+                        // Small dot or chevron for deeper levels? Or just text.
+                        // iconHtml = `<i class="fas fa-angle-right w-4 text-center mr-2 text-slate-300 text-xs"></i>`;
+                    }
+
+                    link.innerHTML = `${iconHtml}<span>${item.text}</span>`;
+                    
+                    // Active State Check (Simple)
+                    if (window.location.href.endsWith(item.href)) {
+                        link.classList.add('active');
+                    }
+
+                    // Click handling for mobile
+                    link.onclick = () => {
+                        if(window.innerWidth < 1024) toggleSidebar();
+                    };
+
+                    li.appendChild(link);
                 }
+                
+                ul.appendChild(li);
             });
+            
+            return ul;
         }
 
-        function toggleAccordion(id) {
-            const content = document.getElementById(id);
-            const icon = document.getElementById(`icon-${id}`);
+        function resolveLink(item) {
+             if (item.type === 'markdown_viewer' && item.viewer === 'global') {
+                return `global_markdown_viewer.html?mdfile=${encodeURIComponent(item.href)}`;
+            } else if (item.type === 'learning_path_definition') {
+                 return `global_markdown_viewer.html?mdfile=${encodeURIComponent(item.href)}`;
+            }
+            return item.href;
+        }
+
+        /* --- DASHBOARD STATS --- */
+
+        function loadDashboardStats() {
+            // Progress
+            const stats = window.progressManager.getCompletionStats(navData);
+            const percent = stats.percent;
             
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.classList.add('rotate-180');
+            setTimeout(() => {
+                const bar = document.getElementById('progress-bar');
+                const text = document.getElementById('progress-percent');
+                if (bar && text) {
+                    bar.style.width = `${percent}%`;
+                    text.textContent = `${percent}%`;
+                }
+            }, 300);
+            
+            document.getElementById('progress-count').textContent = `${stats.completed} completed`;
+            document.getElementById('total-count').textContent = `${stats.total} items`;
+
+            // Last Visited
+            const lastVisited = window.progressManager.getLastVisited();
+            if (lastVisited) {
+                document.getElementById('continue-title').textContent = lastVisited.title;
+                document.getElementById('continue-link').href = lastVisited.path;
+                document.getElementById('continue-learning-card').classList.remove('hidden');
+            }
+
+            // Favorites
+            const favs = window.progressManager.getFavorites();
+            const favContainer = document.getElementById('favorites-list');
+            if (favs && favs.length > 0) {
+                favContainer.innerHTML = '';
+                favs.forEach(fav => {
+                    const div = document.createElement('div');
+                    div.className = 'p-3 rounded-lg bg-amber-50 border border-amber-100 hover:shadow-md transition-all cursor-pointer group';
+                    div.innerHTML = `
+                        <div class="font-medium text-slate-800 truncate group-hover:text-indigo-700 transition-colors">${fav.title}</div>
+                        <div class="flex justify-between items-center mt-1">
+                            <span class="text-xs text-slate-500">Quick Access</span>
+                            <i class="fas fa-arrow-right text-xs text-slate-300 group-hover:text-amber-500 transition-colors"></i>
+                        </div>
+                    `;
+                    div.onclick = () => window.location.href = fav.path;
+                    favContainer.appendChild(div);
+                });
             } else {
-                content.classList.add('hidden');
-                icon.classList.remove('rotate-180');
+                favContainer.innerHTML = '<p class="text-sm text-slate-400 italic col-span-2">No pinned items yet. Star pages to add them here.</p>';
             }
         }
 
-        function toggleMobileSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobile-overlay');
+        function loadLearningPaths() {
+            const container = document.getElementById('learning-paths-list');
+            // Traverse navData to find learning_path_definition items
+            let paths = [];
+            const findPaths = (items) => {
+                items.forEach(item => {
+                    if (item.type === 'learning_path_definition') paths.push(item);
+                    if (item.children) findPaths(item.children);
+                });
+            };
+            findPaths(navData);
+
+            // Filter to top 3 or 4
+            const displayedPaths = paths.slice(0, 4);
+
+            if (displayedPaths.length > 0) {
+                container.innerHTML = '';
+                displayedPaths.forEach(path => {
+                    const a = document.createElement('a');
+                    a.href = resolveLink(path);
+                    a.className = 'block p-3 rounded-lg bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-200 transition-all group shadow-sm';
+                    
+                    // Icon Logic
+                    let icon = 'fa-map-signs';
+                    let colorClass = 'bg-indigo-100 text-indigo-600';
+                    if (path.text.includes('CFA')) { icon = 'fa-certificate'; colorClass = 'bg-amber-100 text-amber-600'; }
+                    if (path.text.includes('AI') || path.text.includes('GenAI')) { icon = 'fa-robot'; colorClass = 'bg-emerald-100 text-emerald-600'; }
+                    if (path.text.includes('Credit')) { icon = 'fa-chart-line'; colorClass = 'bg-blue-100 text-blue-600'; }
+
+                    a.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded ${colorClass} flex items-center justify-center text-xs">
+                                    <i class="fas ${icon}"></i>
+                                </div>
+                                <span class="font-medium text-slate-700 group-hover:text-indigo-700 text-sm">${path.text}</span>
+                            </div>
+                            <i class="fas fa-chevron-right text-xs text-slate-400 group-hover:text-indigo-500"></i>
+                        </div>
+                    `;
+                    container.appendChild(a);
+                });
+            } else {
+                container.innerHTML = '<p class="text-sm text-slate-400">No learning paths found.</p>';
+            }
+        }
+
+        /* --- AI COPILOT / GLOSSARY --- */
+
+        async function loadGlossary() {
+            try {
+                const response = await fetch('Global_Financial_Glossary.md');
+                if (!response.ok) throw new Error('Failed to fetch glossary');
+                const text = await response.text();
+                parseGlossary(text);
+            } catch (e) {
+                console.error("Glossary load failed", e);
+            }
+        }
+
+        function parseGlossary(markdown) {
+            // Simple parsing strategy: looking for "## Term" or "**Term**" followed by definition
+            // The format in AGENTS.MD suggests "## Term" or similar. Let's assume standard MD structure.
+            // We will try to split by headers or double newlines.
             
-            if (sidebar.classList.contains('-translate-x-full')) {
-                // Open
+            // RegEx for "## Term"
+            const regex = /^##\s+(.+)$/gm;
+            let match;
+            const terms = [];
+            
+            // First, let's try to identify the structure. 
+            // If the glossary uses H2 or H3 for terms.
+            
+            const lines = markdown.split('\n');
+            let currentTerm = null;
+            let currentDef = [];
+
+            lines.forEach(line => {
+                // Check for Header 2 or 3 or Bold start
+                if (line.startsWith('## ') || line.startsWith('### ')) {
+                    if (currentTerm && currentDef.length > 0) {
+                        glossaryData[currentTerm.toLowerCase()] = { term: currentTerm, def: currentDef.join(' ') };
+                    }
+                    currentTerm = line.replace(/^#+\s+/, '').trim();
+                    currentDef = [];
+                } else if (line.trim().length > 0 && currentTerm) {
+                    currentDef.push(line.trim());
+                }
+            });
+            
+            // Last one
+            if (currentTerm && currentDef.length > 0) {
+                glossaryData[currentTerm.toLowerCase()] = { term: currentTerm, def: currentDef.join(' ') };
+            }
+            
+            glossaryLoaded = true;
+        }
+
+        function setupEventListeners() {
+            // AI Logic
+            const aiInput = document.getElementById('ai-input');
+            const aiSubmit = document.getElementById('ai-submit');
+            const aiOutput = document.getElementById('ai-output');
+
+            const handleAiQuery = () => {
+                const query = aiInput.value.trim().toLowerCase();
+                if (!query) return;
+
+                aiOutput.classList.remove('hidden');
+                aiOutput.innerHTML = `<div class="flex items-center gap-2 text-indigo-600"><i class="fas fa-circle-notch fa-spin"></i> <span>Searching Knowledge Base...</span></div>`;
+
+                setTimeout(() => {
+                    const result = searchGlossary(query);
+                    
+                    if (result) {
+                         aiOutput.innerHTML = `
+                            <div class="font-semibold text-indigo-900 mb-1 capitalize">${result.term}</div>
+                            <div class="leading-relaxed prose prose-sm">${marked.parse(result.def)}</div>
+                            <div class="mt-2 pt-2 border-t border-indigo-100 text-xs text-slate-400 flex justify-between">
+                                <span>Source: Global Glossary</span>
+                                <a href="Global_Financial_Glossary.md" class="cursor-pointer hover:text-indigo-600">View Glossary <i class="fas fa-external-link-alt ml-1"></i></a>
+                            </div>
+                        `;
+                    } else {
+                         aiOutput.innerHTML = `
+                            <div class="text-slate-600">
+                                <p>I couldn't find a direct definition for "<strong>${query}</strong>" in the glossary.</p>
+                                <p class="text-xs mt-2">Try searching for related terms like "EBITDA", "Risk", "Credit".</p>
+                            </div>
+                        `;
+                    }
+                }, 600);
+            };
+
+            aiSubmit.addEventListener('click', handleAiQuery);
+            aiInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleAiQuery(); });
+        }
+
+        function searchGlossary(query) {
+            if (!glossaryLoaded) return null;
+            
+            // Exact match
+            if (glossaryData[query]) return glossaryData[query];
+            
+            // Partial match
+            const keys = Object.keys(glossaryData);
+            const match = keys.find(k => k.includes(query));
+            return match ? glossaryData[match] : null;
+        }
+
+        /* --- UTILS --- */
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+            
+            if (isClosed) {
                 sidebar.classList.remove('-translate-x-full');
                 overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
             } else {
-                // Close
                 sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
             }
         }
 
-        // --- 3. Toast Notification System (Replaces Alert) ---
-        function showToast(message, type = 'info') {
-            const container = document.getElementById('toast-container');
-            
-            // Colors based on type
-            let bgClass = 'bg-slate-800';
-            let iconClass = 'fa-info-circle';
-            
-            if (type === 'success') { bgClass = 'bg-green-600'; iconClass = 'fa-check-circle'; }
-            if (type === 'error') { bgClass = 'bg-red-600'; iconClass = 'fa-exclamation-circle'; }
-            if (type === 'warning') { bgClass = 'bg-amber-500'; iconClass = 'fa-exclamation-triangle'; }
-
-            const toast = document.createElement('div');
-            toast.className = `toast flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg text-white mb-3 text-sm font-medium ${bgClass} min-w-[300px]`;
-            toast.innerHTML = `
-                <i class="fas ${iconClass}"></i>
-                <span class="flex-1">${message}</span>
-            `;
-
-            container.appendChild(toast);
-
-            // Trigger animation
-            requestAnimationFrame(() => {
-                toast.classList.add('show');
-            });
-
-            // Remove after 3 seconds
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
             setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 300);
+                toast.classList.add('translate-y-20', 'opacity-0');
             }, 3000);
         }
-
-        // --- 4. AI Copilot Logic ---
-        const mockDictionary = {
-            'ebitda': {
-                def: 'Earnings Before Interest, Taxes, Depreciation, and Amortization.',
-                extra: 'Used as a proxy for operating cash flow.',
-                formula: 'EBITDA = Net Income + Interest + Taxes + D&A'
-            },
-            'dscr': {
-                def: 'Debt Service Coverage Ratio.',
-                extra: 'Measures available cash flow to pay current debt obligations.',
-                formula: 'DSCR = Net Operating Income / Total Debt Service'
-            },
-            'convexity': {
-                def: 'A measure of the curvature in the relationship between bond prices and bond yields.',
-                extra: 'Demonstrates how the duration of a bond changes as the interest rate changes.'
-            },
-            'gamma': {
-                def: 'The rate of change in an option\'s delta per 1-point move in the underlying asset\'s price.',
-                extra: 'Important for hedging risk.'
-            }
-        };
-
-        function handleAiQuery() {
-            const input = document.getElementById('ai-input');
-            const output = document.getElementById('ai-output');
-            const query = input.value.toLowerCase().trim();
-
-            if (!query) return;
-
-            // Loading State
-            output.classList.remove('hidden');
-            output.innerHTML = `
-                <div class="flex items-center gap-2 text-brand-600 animate-pulse">
-                    <i class="fas fa-circle-notch fa-spin"></i>
-                    <span>Thinking...</span>
-                </div>
-            `;
-
-            setTimeout(() => {
-                let response = mockDictionary[query];
-                
-                // Simple fuzzy match attempt
-                if (!response) {
-                    const keys = Object.keys(mockDictionary);
-                    const match = keys.find(k => query.includes(k));
-                    if (match) response = mockDictionary[match];
-                }
-
-                if (response) {
-                    output.innerHTML = `
-                        <div class="animate-fade-in">
-                            <p class="font-bold text-slate-800 mb-1 capitalize">${query}</p>
-                            <p class="mb-2">${response.def}</p>
-                            ${response.formula ? `<div class="bg-slate-100 p-2 rounded border border-slate-200 font-mono text-xs text-slate-600 mb-2">${response.formula}</div>` : ''}
-                            <p class="text-slate-500 text-xs italic">${response.extra}</p>
-                        </div>
-                    `;
-                } else {
-                    output.innerHTML = `
-                        <div class="text-slate-600">
-                            <p>I don't have a definition for "<strong>${input.value}</strong>" in my local demo database.</p>
-                            <p class="text-xs text-slate-400 mt-2">Try searching for "EBITDA" or "DSCR".</p>
-                        </div>
-                    `;
-                }
-            }, 600);
-        }
-
-        document.getElementById('ai-submit').addEventListener('click', handleAiQuery);
-        document.getElementById('ai-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') handleAiQuery();
-        });
-
-        // --- 5. Continue Learning Logic ---
-        function continueLearning() {
-            showToast('Resuming "Financial Statement Analysis"...', 'success');
-            // In a real app, this would window.location.href = ...
-        }
-
-        // --- Initialize ---
-        document.addEventListener('DOMContentLoaded', () => {
-            renderSidebar();
-            
-            // Simulate loading stored progress
-            setTimeout(() => {
-                // Update progress visuals if they were dynamic
-            }, 500);
-        });
 
     </script>
 </body>
