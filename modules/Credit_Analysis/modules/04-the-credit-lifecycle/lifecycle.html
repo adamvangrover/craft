@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Lifecycle & Risk Visualizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Chosen Palette: "Institutional Trust" - Deep Navy (#1e293b), Slate Grey (#64748b), Success Green (#10b981) for secured, Danger Red (#ef4444) for risk/equity. Backgrounds are clean white/off-white. -->
+    
+    <!-- Application Structure Plan: 
+         1. Dashboard Header: Context setting.
+         2. Section A: Interactive Deal Timeline (Chart.js Gantt). Users can toggle between phases.
+         3. Section B: The Waterfall of Payments (Interactive Vertical Flow). A clickable stack representing the capital structure. Clicking a tranche reveals its recovery priority logic.
+         4. Section C: The Credit Approval Process (Step-by-Step Horizontal Flow). A wizard-style stepper where users "walk" the deal through the bank's committee process.
+         This structure breaks the dense markdown content into three distinct interactive learning modules.
+    -->
+
+    <!-- Visualization & Content Choices:
+         - Timeline: Gantt Chart via Chart.js. Goal: Change/Time. Interaction: Hover for dates/details.
+         - Waterfall: CSS-styled Stacked Boxes. Goal: Organize/Hierarchy. Interaction: Click to expand details on specific debt tranches. NO SVG/Mermaid used; constructed with Tailwind Grid/Flex and CSS borders.
+         - Approval Process: Horizontal Stepper. Goal: Process Flow. Interaction: "Next/Prev" buttons to simulate the deal journey.
+    -->
+    
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        
+        /* Chart Container Styling Requirement */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 500px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+
+        /* Custom Flowchart Elements (Replacing SVG) */
+        .diamond-shape {
+            width: 60px;
+            height: 60px;
+            transform: rotate(45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border: 2px solid #cbd5e1;
+            background-color: white;
+            z-index: 10;
+            position: relative;
+        }
+        .diamond-inner {
+            transform: rotate(-45deg);
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            line-height: 1.1;
+        }
+        .connector-line-v {
+            width: 2px;
+            height: 24px;
+            background-color: #cbd5e1;
+            margin: 0 auto;
+        }
+        .waterfall-item {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .waterfall-item:hover, .waterfall-item.active {
+            transform: translateX(8px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+        
+        /* Process Stepper Styling */
+        .step-node {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 20;
+        }
+        .step-line {
+            flex-grow: 1;
+            height: 4px;
+            background-color: #e2e8f0;
+            margin: 0 4px;
+            transition: all 0.3s ease;
+        }
+        .step-active { background-color: #3b82f6; color: white; border-color: #3b82f6; }
+        .step-inactive { background-color: #f1f5f9; color: #94a3b8; border: 2px solid #cbd5e1; }
+        .line-active { background-color: #3b82f6; }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Main Layout Container -->
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        
+        <!-- Header -->
+        <header class="mb-10 text-center">
+            <span class="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-800 text-xs font-semibold tracking-wide uppercase mb-2">Credit Analysis Module</span>
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">The Syndicated Loan Lifecycle</h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">Interactive visualization of the deal timeline, enforcement priority waterfalls, and the credit committee approval process.</p>
+        </header>
+
+        <!-- TAB NAVIGATION -->
+        <div class="flex flex-wrap justify-center gap-2 mb-8 border-b border-slate-200 pb-1">
+            <button onclick="showSection('timeline')" id="btn-timeline" class="px-6 py-3 text-sm font-medium rounded-t-lg bg-white border-t border-l border-r border-slate-200 text-blue-600">
+                1. Deal Timeline (Gantt)
+            </button>
+            <button onclick="showSection('waterfall')" id="btn-waterfall" class="px-6 py-3 text-sm font-medium rounded-t-lg text-slate-500 hover:text-slate-700 hover:bg-slate-50">
+                2. Enforcement Waterfall
+            </button>
+            <button onclick="showSection('approval')" id="btn-approval" class="px-6 py-3 text-sm font-medium rounded-t-lg text-slate-500 hover:text-slate-700 hover:bg-slate-50">
+                3. Approval Process
+            </button>
+        </div>
+
+        <!-- SECTION 1: TIMELINE (Chart.js) -->
+        <section id="sec-timeline" class="block animate-fade-in">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-6">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">Deal Execution Timeline (6-8 Weeks)</h2>
+                        <p class="text-sm text-slate-500">Standard timeline for a Leveraged Loan Syndication</p>
+                    </div>
+                    <div class="text-right hidden md:block">
+                        <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded">Start: Jan 01</span>
+                        <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded">Fund: Feb 26</span>
+                    </div>
+                </div>
+                
+                <!-- Chart Container -->
+                <div class="chart-container">
+                    <canvas id="timelineChart"></canvas>
+                </div>
+
+                <!-- Key Milestones Legend -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-slate-100">
+                    <div class="p-3 bg-blue-50 rounded-lg border border-blue-100">
+                        <div class="text-blue-800 font-semibold text-sm mb-1">Mandate Awarded</div>
+                        <div class="text-slate-600 text-xs">Bank officially hired. Fee letter signed.</div>
+                    </div>
+                    <div class="p-3 bg-indigo-50 rounded-lg border border-indigo-100">
+                        <div class="text-indigo-800 font-semibold text-sm mb-1">Bank Meeting</div>
+                        <div class="text-slate-600 text-xs">Deal launch to institutional investors (Public Side).</div>
+                    </div>
+                    <div class="p-3 bg-purple-50 rounded-lg border border-purple-100">
+                        <div class="text-purple-800 font-semibold text-sm mb-1">Commitments Due</div>
+                        <div class="text-slate-600 text-xs">Investors submit orders. Allocations follow.</div>
+                    </div>
+                    <div class="p-3 bg-emerald-50 rounded-lg border border-emerald-100">
+                        <div class="text-emerald-800 font-semibold text-sm mb-1">Funding Day</div>
+                        <div class="text-slate-600 text-xs">Money changes hands. Deal is live.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: WATERFALL (Interactive HTML) -->
+        <section id="sec-waterfall" class="hidden animate-fade-in">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Visualization Column -->
+                <div class="lg:col-span-5 flex flex-col items-center">
+                    <h3 class="text-lg font-bold text-slate-800 mb-4">Liquidation Priority</h3>
+                    
+                    <!-- Start Node -->
+                    <div class="w-full max-w-xs p-4 bg-slate-800 text-white rounded-lg text-center font-semibold shadow-lg mb-1">
+                        Liquidation Event / Bankruptcy
+                    </div>
+                    <div class="connector-line-v"></div>
+                    
+                    <!-- Decision Node -->
+                    <div class="diamond-shape mb-1">
+                        <div class="diamond-inner text-xs">Assets<br>Sold</div>
+                    </div>
+                    <div class="connector-line-v"></div>
+
+                    <!-- Stack -->
+                    <div class="w-full max-w-xs space-y-2">
+                        <!-- Super Senior -->
+                        <div onclick="selectTranche('supersenior')" class="waterfall-item cursor-pointer p-3 bg-emerald-100 border-emerald-500 border-l-4 rounded shadow-sm hover:bg-emerald-200">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-emerald-900">1. Super-Senior Claims</span>
+                                <span class="text-xs bg-white px-2 py-0.5 rounded text-emerald-700">Admin / Taxes</span>
+                            </div>
+                        </div>
+                        
+                        <div class="connector-line-v h-4"></div>
+
+                        <!-- Secured Senior -->
+                        <div onclick="selectTranche('senior')" class="waterfall-item cursor-pointer p-3 bg-blue-100 border-blue-500 border-l-4 rounded shadow-sm hover:bg-blue-200">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-blue-900">2. Secured Senior Debt</span>
+                                <span class="text-xs bg-white px-2 py-0.5 rounded text-blue-700">1st Lien</span>
+                            </div>
+                        </div>
+
+                        <div class="connector-line-v h-4"></div>
+
+                        <!-- Junior Debt -->
+                        <div onclick="selectTranche('junior')" class="waterfall-item cursor-pointer p-3 bg-indigo-100 border-indigo-500 border-l-4 rounded shadow-sm hover:bg-indigo-200">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-indigo-900">3. Junior / 2nd Lien</span>
+                                <span class="text-xs bg-white px-2 py-0.5 rounded text-indigo-700">Subordinated</span>
+                            </div>
+                        </div>
+
+                        <div class="connector-line-v h-4"></div>
+
+                        <!-- Unsecured -->
+                        <div onclick="selectTranche('unsecured')" class="waterfall-item cursor-pointer p-3 bg-amber-100 border-amber-500 border-l-4 rounded shadow-sm hover:bg-amber-200">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-amber-900">4. Unsecured Debt</span>
+                                <span class="text-xs bg-white px-2 py-0.5 rounded text-amber-700">Bonds / Trade</span>
+                            </div>
+                        </div>
+
+                        <div class="connector-line-v h-4"></div>
+
+                        <!-- Equity -->
+                        <div onclick="selectTranche('equity')" class="waterfall-item cursor-pointer p-3 bg-red-100 border-red-500 border-l-4 rounded shadow-sm hover:bg-red-200 border-dashed">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-red-900">5. Equity Holders</span>
+                                <span class="text-xs bg-white px-2 py-0.5 rounded text-red-700">Residual</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Context/Details Column -->
+                <div class="lg:col-span-7">
+                    <div class="bg-white rounded-xl shadow-lg border border-slate-200 h-full overflow-hidden relative">
+                        <div class="bg-slate-50 p-4 border-b border-slate-200">
+                            <h3 class="font-bold text-slate-700 flex items-center gap-2">
+                                <span class="text-xl">ℹ️</span> Enforcement Details
+                            </h3>
+                        </div>
+                        <div id="waterfall-details" class="p-6">
+                            <div class="text-center text-slate-400 mt-10">
+                                <p class="text-4xl mb-4">👆</p>
+                                <p>Select a tranche on the left to understand its priority and risk profile.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: APPROVAL PROCESS (Interactive Stepper) -->
+        <section id="sec-approval" class="hidden animate-fade-in">
+            <div class="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden">
+                <div class="p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">The Credit Approval Journey</h3>
+                    <p class="text-slate-600 mb-8">Use the controls to step through the life of a deal from origination to funding.</p>
+
+                    <!-- Visual Stepper -->
+                    <div class="relative flex items-center justify-between mb-12 max-w-4xl mx-auto">
+                        <div class="step-node step-active" id="step-1">1</div>
+                        <div class="step-line" id="line-1"></div>
+                        <div class="step-node step-inactive" id="step-2">2</div>
+                        <div class="step-line" id="line-2"></div>
+                        <div class="step-node step-inactive" id="step-3">3</div>
+                        <div class="step-line" id="line-3"></div>
+                        <div class="step-node step-inactive" id="step-4">4</div>
+                        <div class="step-line" id="line-4"></div>
+                        <div class="step-node step-inactive" id="step-5">5</div>
+                    </div>
+
+                    <!-- Content Card -->
+                    <div class="bg-slate-50 rounded-xl p-6 md:p-8 min-h-[200px] transition-all duration-300 border border-slate-200" id="approval-content">
+                        <!-- Content injected via JS -->
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="flex justify-between mt-6 max-w-4xl mx-auto">
+                        <button onclick="changeStep(-1)" id="btn-prev" class="px-4 py-2 bg-white border border-slate-300 text-slate-600 rounded hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed">← Previous</button>
+                        <button onclick="changeStep(1)" id="btn-next" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">Next Step →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Logic Script -->
+    <script>
+        // --- TAB SWITCHING LOGIC ---
+        function showSection(id) {
+            // Hide all sections
+            ['timeline', 'waterfall', 'approval'].forEach(s => {
+                document.getElementById('sec-' + s).classList.add('hidden');
+                
+                // Reset Button Styles
+                const btn = document.getElementById('btn-' + s);
+                btn.classList.remove('bg-white', 'border-t', 'border-l', 'border-r', 'border-slate-200', 'text-blue-600');
+                btn.classList.add('text-slate-500');
+            });
+
+            // Show selected
+            document.getElementById('sec-' + id).classList.remove('hidden');
+            
+            // Active Button Style
+            const activeBtn = document.getElementById('btn-' + id);
+            activeBtn.classList.add('bg-white', 'border-t', 'border-l', 'border-r', 'border-slate-200', 'text-blue-600');
+            activeBtn.classList.remove('text-slate-500');
+        }
+
+        // --- CHART.JS TIMELINE LOGIC ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('timelineChart').getContext('2d');
+            
+            // Data from the Mermaid Gantt chart
+            const timelineData = {
+                labels: [
+                    'Pitch & Mandate', 
+                    'Term Sheet Negotiation', 
+                    'Due Diligence', 
+                    'Credit Committee', 
+                    'Bank Meeting (Launch)', 
+                    'Commitment Period', 
+                    'Allocation & Pricing', 
+                    'Legal Documentation', 
+                    'Funding Day',
+                    'Monitoring'
+                ],
+                datasets: [{
+                    label: 'Deal Phase',
+                    data: [
+                        { x: ['2024-01-01', '2024-01-15'], y: 'Pitch & Mandate' },
+                        { x: ['2024-01-15', '2024-01-22'], y: 'Term Sheet Negotiation' },
+                        { x: ['2024-01-22', '2024-02-05'], y: 'Due Diligence' },
+                        { x: ['2024-02-05', '2024-02-07'], y: 'Credit Committee' },
+                        { x: ['2024-02-07', '2024-02-08'], y: 'Bank Meeting (Launch)' },
+                        { x: ['2024-02-08', '2024-02-22'], y: 'Commitment Period' },
+                        { x: ['2024-02-22', '2024-02-25'], y: 'Allocation & Pricing' },
+                        { x: ['2024-02-07', '2024-02-28'], y: 'Legal Documentation' },
+                        { x: ['2024-02-25', '2024-02-26'], y: 'Funding Day' },
+                        { x: ['2024-02-26', '2024-05-26'], y: 'Monitoring' }
+                    ],
+                    backgroundColor: [
+                        '#94a3b8', '#94a3b8', // Origination (Grey)
+                        '#60a5fa', '#60a5fa', // Underwriting (Blue)
+                        '#818cf8', '#818cf8', '#818cf8', // Syndication (Indigo)
+                        '#34d399', '#10b981', // Closing (Green)
+                        '#fbbf24' // Monitoring (Amber)
+                    ],
+                    borderColor: 'transparent',
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    barPercentage: 0.6
+                }]
+            };
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: timelineData,
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: { unit: 'week' },
+                            min: '2024-01-01',
+                            max: '2024-03-15', // Zoom in on the active deal period
+                            grid: { color: '#f1f5f9' }
+                        },
+                        y: {
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const start = new Date(context.raw.x[0]).toLocaleDateString();
+                                    const end = new Date(context.raw.x[1]).toLocaleDateString();
+                                    return ` ${start} - ${end}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        // --- WATERFALL INTERACTION LOGIC ---
+        const waterfallData = {
+            'supersenior': {
+                title: 'Super-Senior Claims',
+                color: 'text-emerald-700',
+                content: 'These claims must be paid first before anyone else sees a penny. <br><br><strong>Includes:</strong><ul class="list-disc ml-5 mt-2"><li>Administrative Expenses (Lawyers, Accountants)</li><li>Unpaid Taxes</li><li>DIP (Debtor-in-Possession) Financing provided during bankruptcy</li></ul>'
+            },
+            'senior': {
+                title: 'Secured Senior Debt',
+                color: 'text-blue-700',
+                content: 'The primary lenders in a leveraged loan deal. They hold a "First Lien" on the company\'s assets.<br><br><strong>Includes:</strong><ul class="list-disc ml-5 mt-2"><li>Term Loan A & B</li><li>Revolving Credit Facility</li></ul><br><em>Low Risk, Lower Return (LGD is typically low).</em>'
+            },
+            'junior': {
+                title: 'Junior / Second Lien Debt',
+                color: 'text-indigo-700',
+                content: 'Debt that is secured by assets, but sits "behind" the First Lien lenders. They only get paid if there is value left after Senior Debt is fully satisfied.<br><br><strong>Includes:</strong><ul class="list-disc ml-5 mt-2"><li>Second Lien Term Loans</li><li>Mezzanine Debt</li></ul>'
+            },
+            'unsecured': {
+                title: 'Unsecured Senior Debt',
+                color: 'text-amber-700',
+                content: 'Debt backed only by the "full faith and credit" of the borrower, with no specific collateral attached.<br><br><strong>Includes:</strong><ul class="list-disc ml-5 mt-2"><li>High Yield Bonds</li><li>Trade Payables (Suppliers)</li><li>Judgment liens</li></ul>'
+            },
+            'equity': {
+                title: 'Equity Holders',
+                color: 'text-red-700',
+                content: 'The owners. In a bankruptcy/liquidation scenario, they are the last to be paid. Often, their value is wiped out completely.<br><br><strong>Includes:</strong><ul class="list-disc ml-5 mt-2"><li>Preferred Stock</li><li>Common Stock</li></ul>'
+            }
+        };
+
+        function selectTranche(key) {
+            const data = waterfallData[key];
+            const container = document.getElementById('waterfall-details');
+            
+            // Update visual state of list items
+            document.querySelectorAll('.waterfall-item').forEach(el => {
+                el.classList.remove('ring-2', 'ring-offset-2', 'ring-slate-400');
+                if(el.getAttribute('onclick').includes(key)) {
+                    el.classList.add('ring-2', 'ring-offset-2', 'ring-slate-400');
+                }
+            });
+
+            container.innerHTML = `
+                <h4 class="text-2xl font-bold ${data.color} mb-4">${data.title}</h4>
+                <div class="text-slate-700 leading-relaxed text-lg">${data.content}</div>
+            `;
+        }
+
+        // --- APPROVAL PROCESS STEPPER LOGIC ---
+        const steps = [
+            {
+                title: "1. Origination",
+                desc: "The Relationship Manager (RM) identifies an opportunity. A 'Pitch' is made to the client. If successful, a Term Sheet is signed outlining the basic structure.",
+                icon: "🤝"
+            },
+            {
+                title: "2. Credit Screening",
+                desc: "Initial sanity check. The deal is presented to a Screening Committee to ensure it fits the bank's risk appetite before spending resources on full underwriting.",
+                icon: "🔍"
+            },
+            {
+                title: "3. Underwriting & Due Diligence",
+                desc: "Deep dive. Analysts build financial models, stress tests, and write the detailed Credit Memorandum. Legal/Compliance checks are performed.",
+                icon: "📊"
+            },
+            {
+                title: "4. Credit Committee",
+                desc: "The 'Final Boss'. The Credit Memo is defended against senior risk officers. They vote to Approve, Decline, or Approve with Conditions.",
+                icon: "⚖️"
+            },
+            {
+                title: "5. Closing & Funding",
+                desc: "Legal documentation is drafted and signed. Conditions precedent are met. Money is wired to the borrower.",
+                icon: "💰"
+            }
+        ];
+
+        let currentStep = 0;
+
+        function updateStepView() {
+            const stepData = steps[currentStep];
+            const contentDiv = document.getElementById('approval-content');
+            
+            // Render Content
+            contentDiv.innerHTML = `
+                <div class="flex items-start gap-4 animate-fade-in">
+                    <div class="text-4xl">${stepData.icon}</div>
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-800 mb-2">${stepData.title}</h4>
+                        <p class="text-slate-600 text-lg">${stepData.desc}</p>
+                    </div>
+                </div>
+            `;
+
+            // Update Stepper Visuals
+            for (let i = 1; i <= 5; i++) {
+                const node = document.getElementById(`step-${i}`);
+                const line = document.getElementById(`line-${i-1}`); // Line before the node (if exists)
+                
+                if (i <= currentStep + 1) {
+                    node.classList.remove('step-inactive');
+                    node.classList.add('step-active');
+                    if (line) line.classList.add('bg-blue-500');
+                } else {
+                    node.classList.add('step-inactive');
+                    node.classList.remove('step-active');
+                    if (line) line.classList.remove('bg-blue-500');
+                }
+            }
+
+            // Button State
+            document.getElementById('btn-prev').disabled = currentStep === 0;
+            document.getElementById('btn-next').disabled = currentStep === steps.length - 1;
+        }
+
+        function changeStep(direction) {
+            currentStep += direction;
+            updateStepView();
+        }
+
+        // Initialize Step View
+        updateStepView();
+
+    </script>
+</body>
+</html>
