@@ -1,3 +1,5 @@
+> **Buy-Side Perspective:** For a credit investor, due diligence is not just a compliance exercise; it is the primary defense against capital impairment. We are not looking for reasons to say "yes"—that's the banker's job. We are looking for the one reason to say "no" that isn't immediately obvious. A missed lawsuit in the footnotes or a misunderstood covenant definition can be the difference between par recovery and a distressed exit.
+
 # 3.1 Due Diligence & Information Gathering
 
 This sub-module focuses on the systematic process of collecting and verifying the information necessary to conduct a thorough credit analysis. It covers primary documents, public filings, and the critical process of preparing for and engaging with company management.
@@ -17,6 +19,8 @@ For a lender, its purpose is to uncover any legal or financial risks that could 
 
 ### Creating a Due Diligence Checklist
 A systematic checklist ensures no crucial aspect is overlooked.84 The level of detail depends on the complexity of the transaction.84
+
+> **Pro Tip:** When reviewing a data room, pay more attention to what is *missing* than what is there. Management will always provide the "good" charts. If a standard schedule (like an aging of accounts receivable or a breakdown of cap-ex) is absent, assume the numbers are bad until proven otherwise.
 
 **Key Categories for a Credit Due Diligence Checklist 85:**
 - **Corporate & Legal:** Articles of incorporation, bylaws, organizational charts, shareholder lists, good standing certificates.87
@@ -60,3 +64,11 @@ Trainees are provided with the 10-K for a company and a blank due diligence chec
 ### Assessment Method
 
 Review of the completed due diligence checklist for completeness and accuracy. The quality of the management call questions will be assessed based on their relevance, specificity, and demonstrated understanding of the key credit issues facing the company as disclosed in the 10-K.
+
+<details>
+<summary><strong>Knowledge Check: Handling One-Time Gains</strong></summary>
+
+**Scenario:** You are reviewing a potential borrower's 10-K and notice that "Other Income" has increased significantly, boosting EBITDA. Upon digging into the notes, you find it relates to a one-time gain from a property sale. How should you treat this in your credit model?
+
+**Answer:** Exclude it. Credit analysis focuses on recurring, sustainable cash flow. One-time asset sales distort the true operating performance and debt service capacity of the business.
+</details>
