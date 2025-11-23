@@ -118,7 +118,10 @@ Despite its immense potential, the adoption of AI in credit risk is not without 
 
 **Conclusion: A Symbiotic Future**
 The future of credit risk management lies in a **symbiotic relationship** where AI and advanced data analytics provide powerful data-driven insights, automate routine tasks, and enhance predictive capabilities. Human analysts, augmented by these tools, will focus on applying critical thinking, contextual understanding, ethical judgment, and strategic decision-making to navigate the complexities of credit risk in an increasingly dynamic world. This requires a commitment to continuous learning and adaptation from both individuals and institutions.
+
 =======
+
+
 =======
 # Module 11: The Future of Risk Management & AI
 
