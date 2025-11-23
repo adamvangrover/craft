@@ -1861,6 +1861,23 @@ const navData = [
         ]
       },
       {
+        "text": "ESG Analysis",
+        "type": "category",
+        "children": [
+          {
+            "text": "README",
+            "href": "Interactive_Notebooks/ESG/README.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "ESG Score Analysis",
+            "href": "Interactive_Notebooks/ESG/ESG_Score_Analysis.ipynb",
+            "type": "jupyter_guide"
+          }
+        ]
+      },
+      {
         "text": "Cfa Quant Methods",
         "type": "category",
         "children": [
@@ -6149,6 +6166,12 @@ const navData = [
             "text": "Styles",
             "href": "modules/primers/styles.css",
             "type": "file"
+          },
+          {
+            "text": "Semiconductors",
+            "href": "modules/primers/semiconductors.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
           },
           {
             "text": "Technology",

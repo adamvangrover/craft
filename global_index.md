@@ -40,6 +40,7 @@ This file provides a comprehensive index of all the content in this repository.
 *   [Telecommunications](./modules/primers/telecommunications.md)
 *   [Utilities](./modules/primers/utilities.md)
 *   [Retail](./modules/primers/retail.md)
+*   [Semiconductors](./modules/primers/semiconductors.md)
 
 ### [Loan & Capital Market Terms](./modules/Loan_and_Capital_Market_Terms/index.html)
 
@@ -60,3 +61,9 @@ This file provides a comprehensive index of all the content in this repository.
 *   [Presentation Skills](./modules/Critical_Thinking/presentation_skills.html)
 *   [So What Element](./modules/Critical_Thinking/so_what_element.html)
 *   [Storytelling](./modules/Critical_Thinking/story.html)
+
+## Interactive Notebooks
+
+### [ESG Analysis](./Interactive_Notebooks/ESG/README.md)
+
+*   [ESG Score Analysis](./Interactive_Notebooks/ESG/ESG_Score_Analysis.ipynb)
