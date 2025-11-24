@@ -910,6 +910,12 @@ const navData = [
                 "href": "CFA/Level_2/Case_Studies/L2_Case_Pension_Analysis_Impact.md",
                 "type": "markdown_viewer",
                 "viewer": "global"
+              },
+              {
+                "text": "L2 Case Derivatives Strategies",
+                "href": "CFA/Level_2/Case_Studies/L2_Case_Derivatives_Strategies.md",
+                "type": "markdown_viewer",
+                "viewer": "global"
               }
             ]
           },
@@ -1874,6 +1880,17 @@ const navData = [
             "text": "ESG Score Analysis",
             "href": "Interactive_Notebooks/ESG/ESG_Score_Analysis.ipynb",
             "type": "jupyter_guide"
+          },
+          {
+            "text": "ESG Sentiment Analysis Guide",
+            "href": "Interactive_Notebooks/ESG/ESG_Sentiment_Guide.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "ESG Sentiment Analysis",
+            "href": "Interactive_Notebooks/ESG/ESG_Sentiment_Analysis.ipynb",
+            "type": "jupyter_guide"
           }
         ]
       },
@@ -2172,6 +2189,17 @@ const navData = [
           {
             "text": "Interactivewacccalculatornotebook",
             "href": "Interactive_Notebooks/Valuation_Components/InteractiveWACCCalculatorNotebook.ipynb",
+            "type": "jupyter_guide"
+          },
+          {
+            "text": "Black-Scholes Model Guide",
+            "href": "Interactive_Notebooks/Valuation_Components/BlackScholesModel_Guide.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "Black-Scholes Model",
+            "href": "Interactive_Notebooks/Valuation_Components/BlackScholesModel.ipynb",
             "type": "jupyter_guide"
           }
         ]
@@ -2531,6 +2559,41 @@ const navData = [
     ]
   },
   {
+    "text": "Sustainable Finance",
+    "type": "category",
+    "children": [
+      {
+        "text": "README",
+        "href": "Sustainable_Finance/README.md",
+        "type": "markdown_viewer",
+        "viewer": "global"
+      },
+      {
+        "text": "Index",
+        "href": "Sustainable_Finance/index.html",
+        "type": "html_hub"
+      },
+      {
+        "text": "Esg Investing",
+        "href": "Sustainable_Finance/ESG_Investing.md",
+        "type": "markdown_viewer",
+        "viewer": "global"
+      },
+      {
+        "text": "Green Bonds",
+        "href": "Sustainable_Finance/Green_Bonds.md",
+        "type": "markdown_viewer",
+        "viewer": "global"
+      },
+      {
+        "text": "Impact Investing",
+        "href": "Sustainable_Finance/Impact_Investing.md",
+        "type": "markdown_viewer",
+        "viewer": "global"
+      }
+    ]
+  },
+  {
     "text": "Toolkits And Checklists",
     "type": "category",
     "children": [
@@ -2593,6 +2656,41 @@ const navData = [
         "text": "Financial Ratios Guide",
         "href": "Toolkits_and_Checklists/financial_ratios_guide.html",
         "type": "html"
+      }
+    ]
+  },
+  {
+    "text": "Wealth Management",
+    "type": "category",
+    "children": [
+      {
+        "text": "README",
+        "href": "Wealth_Management/README.md",
+        "type": "markdown_viewer",
+        "viewer": "global"
+      },
+      {
+        "text": "Index",
+        "href": "Wealth_Management/index.html",
+        "type": "html_hub"
+      },
+      {
+        "text": "Estate Planning",
+        "href": "Wealth_Management/Estate_Planning.md",
+        "type": "markdown_viewer",
+        "viewer": "global"
+      },
+      {
+        "text": "Financial Planning",
+        "href": "Wealth_Management/Financial_Planning.md",
+        "type": "markdown_viewer",
+        "viewer": "global"
+      },
+      {
+        "text": "Investment Management",
+        "href": "Wealth_Management/Investment_Management.md",
+        "type": "markdown_viewer",
+        "viewer": "global"
       }
     ]
   },
