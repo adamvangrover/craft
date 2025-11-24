@@ -1851,6 +1851,18 @@ const navData = [
         "type": "html_hub"
       },
       {
+        "text": "Simulations",
+        "type": "category",
+        "children": [
+          {
+            "text": "Credit Committee Simulation",
+            "href": "Interactive_Notebooks/Simulations/Credit_Committee_Simulation_Guide.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
+      },
+      {
         "text": "Prompt Engineering",
         "type": "category",
         "children": [
@@ -2591,6 +2603,24 @@ const navData = [
         "type": "html_hub"
       },
       {
+        "text": "Deep Dives",
+        "type": "category",
+        "children": [
+          {
+            "text": "Green Bond Framework Analysis",
+            "href": "Sustainable_Finance/Deep_Dives/Green_Bond_Framework_Analysis.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "ESG Risk Integration",
+            "href": "Sustainable_Finance/Deep_Dives/ESG_Risk_Integration_in_Credit_Analysis.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
+      },
+      {
         "text": "Esg Investing",
         "href": "Sustainable_Finance/ESG_Investing.md",
         "type": "markdown_viewer",
@@ -2690,6 +2720,24 @@ const navData = [
         "text": "Index",
         "href": "Wealth_Management/index.html",
         "type": "html_hub"
+      },
+      {
+        "text": "Deep Dives",
+        "type": "category",
+        "children": [
+          {
+            "text": "IPS Construction",
+            "href": "Wealth_Management/Deep_Dives/Private_Wealth_IPS_Construction.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "Behavioral Biases",
+            "href": "Wealth_Management/Deep_Dives/Behavioral_Biases_in_Client_Portfolios.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
       },
       {
         "text": "Estate Planning",

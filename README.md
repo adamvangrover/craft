@@ -1,191 +1,62 @@
-# Financial Learning Hub & Credit Risk Analyst Development Program
+# Financial Learning Hub & Active Learning Ecosystem
 
 **Welcome to your central hub for comprehensive financial learning and professional development!**
 
-This repository is an integrated ecosystem of resources for students, aspiring analysts, and seasoned finance professionals. Our goal is to provide foundational knowledge, practical insights, advanced techniques, and continuous learning materials, with a special focus on developing top-tier credit risk analysts.
+This repository is an integrated **Active Learning Ecosystem** for students, aspiring analysts, and seasoned finance professionals. Unlike static textbooks, this hub encourages you to *do*, *decide*, and *simulate* as you learn. Our goal is to develop top-tier credit risk analysts through rigorous content and interactive experiences.
 
-**🚀 Quick Start: [Explore the Financial Learning Hub (home.html)](./home.html) 🚀**
+**🚀 Quick Start: [Explore the Dashboard (home.html)](./home.html) 🚀**
 
-The `home.html` page is your newly redesigned central gateway to all resources. It features:
-*   **Learning Paths:** Curated journeys for aspiring Credit Analysts, CFA® Candidates, and general Finance Explorers.
-*   **Key Learning Pillars:** Direct access to major content areas like CRAFT, CFA Prep, Financial Modeling, and more.
-*   **Tools & Resources:** Quick links to the Global Glossary, Interactive Notebooks, and other helpful aids.
-*   **Global Navigation Sidebar:** A comprehensive tree view of all content in the repository.
-*   An **AI Concept Explainer** to help you quickly understand financial terms.
+The `home.html` page is your command center. It features:
+*   **Personalized Learning Paths:** Tailored journeys for Credit Analysts, CFA® Candidates, and Wealth Managers.
+*   **Active Simulations:** "Choose Your Own Adventure" style scenarios where you make the call on real-world credit deals.
+*   **Deep Dives:** Advanced modules on Sustainable Finance, Wealth Management, and more.
+*   **Global Navigation Sidebar:** A comprehensive tree view of all content (`js/nav_data.js`).
+*   **AI Concept Explainer:** Instant, simple explanations for complex financial terms.
 
-## Understanding This Repository
+## What is "Active Learning"?
 
-This Hub is designed to be a comprehensive, self-paced learning environment. Below is an overview of its structure and how to make the most of its content.
+We believe finance is a trade, not just a theory.
+*   **Don't just read about Credit Risk...** [Run the "Distressed Retailer" Credit Committee Simulation](./Interactive_Notebooks/Simulations/Credit_Committee_Simulation_Guide.md).
+*   **Don't just memorize the Green Bond Principles...** [Analyze a Green Bond Framework](./Sustainable_Finance/Deep_Dives/Green_Bond_Framework_Analysis.md) and spot the greenwashing.
+*   **Don't just list behavioral biases...** [Diagnose a client panic](./Wealth_Management/Deep_Dives/Behavioral_Biases_in_Client_Portfolios.md) in the Wealth Management simulator.
 
-### Repository Structure & Hierarchy
+## Repository Structure
 
-The content is organized into thematic pillars, each housed in its own directory. Most main directories contain an `index.html` (for interactive viewing, especially when deployed on GitHub Pages) and a `README.md` that outlines the contents of that section.
+The content is organized into thematic pillars.
 
 *   **`/` (Root Directory):**
-    *   `README.md`: This file - your main guide.
-    *   `home.html`: Interactive dashboard and primary recommended entry point.
-    *   `index.html`: Alternative landing page, often similar to `home.html`.
-    *   `AGENTS.MD`: Instructions for AI agents working with this repository.
-    *   `example_initial_prompt.json`: The foundational prompt used to generate much of this repository's structure (details below).
-    *   `Global_Financial_Glossary.md`: A central glossary of financial terms.
-    *   `quiz_viewer.html`, `global_markdown_viewer.html`: Tools for viewing specific content types.
-    *   `assets/`, `css/`, `js/`: Supporting files for styling and interactivity.
-*   **Major Learning Pillars (Subdirectories):**
-    *   **`Behavioral_Finance/`**: ([README](./Behavioral_Finance/README.md) | [Index](./Behavioral_Finance/index.html))
-        *   Explores psychological influences on financial decisions. Includes key concepts and case studies.
-    *   **`CFA/`**: ([README](./CFA/README.md) | [Index](./CFA/index.html))
+    *   `home.html`: **Start Here.** The interactive dashboard.
+    *   `ARCHITECTURE.md`: High-level overview of the ecosystem's design.
+    *   `Global_Financial_Glossary.md`: A central glossary.
+
+*   **Major Learning Pillars:**
+    *   **`corporate-credit-risk-analyst-training/` (CRAFT Program)**:
+        *   The flagship modular training program for analysts.
+    *   **`Sustainable_Finance/`**:
+        *   **New:** Deep Dives into Green Bonds, ESG Risk Integration, and Impact Investing.
+    *   **`Wealth_Management/`**:
+        *   **New:** IPS Construction, Behavioral Finance coaching, and Estate Planning.
+    *   **`CFA/`**:
         *   Extensive study materials for all three CFA Program levels.
-        *   Organized by Level (e.g., `Level_1/`, `Level_2/`, `Level_3/`).
-        *   Each level contains: `Case_Studies/`, `Cheat_Sheets/`, `Practice_Exams/`, `Quizzes/`, `Topic_Deep_Dives/`.
-    *   **`corporate-credit-risk-analyst-training/` (CRAFT Program)**: ([README](./corporate-credit-risk-analyst-training/README.md) | [Index](./corporate-credit-risk-analyst-training/index.html))
-        *   A comprehensive, modular training program for corporate credit risk analysts.
-        *   `modules/`: Contains detailed learning modules (e.g., `01-foundations/`, `02-understanding-the-market/`, etc.).
-        *   `solutions/`: Guidance for case studies and quizzes.
-        *   `GLOSSARY.md`, `FUTURE_IDEAS.md`.
-    *   **`Financial_Modeling/`**: ([README](./Financial_Modeling/README.md) | [Index](./Financial_Modeling/index.html))
-        *   Best practices, model templates (e.g., 3-statement), forecasting techniques, and valuation applications.
-    *   **`Fintech/`**: ([README](./Fintech/README.md) | [Index](./Fintech/index.html))
-        *   Covers AI in Finance, Blockchain, Open Banking, Regtech, Cybersecurity, etc.
-    *   **`Interactive_Notebooks/`**: ([README](./Interactive_Notebooks/README.md) | [Index](./Interactive_Notebooks/index.html))
-        *   Jupyter notebooks (`.ipynb`) for hands-on learning in financial modeling, valuation, market analysis. Often include sample data in `data/` subdirectories.
-    *   **`Learning_Paths/`**: ([README](./Learning_Paths/README.md) | [Index](./Learning_Paths/index.html))
-        *   Curated guides to navigate repository content based on specific learning goals (e.g., "Credit Analyst Foundational Path").
-    *   **`Market_Analysis_Quick_Start/`**: ([README](./Market_Analysis_Quick_Start/README.md) | [Index](./Market_Analysis_Quick_Start/index.html))
-        *   Rapid introduction to market terms, products, trading, and valuation.
-    *   **`primers/`**: ([Index](./primers/index.html))
-        *   Industry-specific primers covering key credit considerations, risks, and analytical tips for over 15 sectors (e.g., `aerospace_defense.md`, `technology.md`). Viewable via `html/` versions.
-    *   **`Professional_Development/`**: ([README](./Professional_Development/README.md) | [Index](./Professional_Development/index.html))
-        *   Focuses on soft skills like critical thinking, communication, ethics, and presentation.
-    *   **`Risk_Management/`**: ([README](./Risk_Management/README.md) | [Index](./Risk_Management/index.html))
-        *   Covers general risk frameworks and specific risk types like Credit, Market, Liquidity, and Operational Risk.
-    *   **`Toolkits_and_Checklists/`**: ([README](./Toolkits_and_Checklists/README.md) | [Index](./Toolkits_and_Checklists/index.html))
-        *   Practical tools like financial ratio calculators and due diligence checklists.
+    *   **`Financial_Modeling/`**:
+        *   Best practices, model templates (3-statement, LBO, M&A), and Excel tips.
+    *   **`Interactive_Notebooks/`**:
+        *   Jupyter notebooks (`.ipynb`) and **Simulations** for hands-on application.
 
-### How to Navigate This Repository
+## How to Navigate
 
-1.  **Begin with `home.html`:** The [Financial Learning Hub (home.html)](./home.html) is your primary entry point.
-    *   Use its "Learning Paths" section for guided study if you have a specific role or goal in mind.
-    *   Explore the "Key Learning Pillars" for direct access to major subject areas.
-    *   Discover specific "Tools & Resources" like the glossary or interactive notebooks.
-    *   The "How to Use This Hub" section on `home.html` provides further tips.
-2.  **Utilize the Global Navigation Sidebar:** Accessible on `home.html` and other key hub pages, this sidebar provides a detailed tree structure for direct access to almost every file and section in the repository.
-3.  **Explore Section Hubs:** Many major pillars (like CFA, CRAFT, Financial_Modeling) have their own `index.html` pages that act as specialized dashboards or interactive viewers for that section's content. These are linked from `home.html` and the global navigation.
-4.  **Follow Specific Learning Path Documents:** For in-depth guidance, navigate to the [Learning Paths section](./Learning_Paths/index.html) where individual `.md` files outline steps for particular learning objectives.
-5.  **Use the Search Function (GitHub):** If you're looking for specific keywords or topics, GitHub's built-in search functionality for this repository can be very effective.
-6.  **Consult the `Global_Financial_Glossary.md`:** For definitions of common financial terms encountered throughout the repository.
+1.  **Use the Dashboard:** `home.html` is the best way to browse.
+2.  **Global Sidebar:** Use the expandable sidebar on the left of any page to jump between sections.
+3.  **Search:** Use the GitHub search bar or the browser's Find tool to locate specific topics.
 
-### Navigating the Hub: Terminal vs. Interactive Views
+## Contribution & Development
 
-There are two primary ways to explore the content in this repository:
+This ecosystem is living and breathing. It is built using a combination of human expertise and AI assistance.
 
-1.  **Interactive HTML Hubs (Recommended):** The best way to experience this learning hub is through the interactive `.html` pages. Start with the main [Financial Learning Hub (home.html)](./home.html). These pages provide a rich, user-friendly interface with navigation menus, search functionality, and a polished reading experience. We recommend this method for most users.
-
-2.  **Raw Markdown Files (The "Terminal" View):** If you are a developer or prefer to read the content in its raw format, you can navigate the repository like any other code repository and read the `.md` files directly. This is a more "bare-bones" experience.
-
-**A Note on "Coming Soon" Features:** You may come across sections or features within the interactive hubs that are marked as "Coming Soon" or are not yet fully implemented (like the "Agent Libraries"). This repository is under active development, and we are continuously working to bring these new features to life.
-
-### Understanding File Types (Helper Files Overview)
-
-*   **`.md` (Markdown Files):** The core content of the repository is written in Markdown. These files contain the textual information, explanations, case studies, and quiz questions.
-    *   Many `README.md` files act as introductory guides for their respective directories.
-    *   Specialized viewers like `global_markdown_viewer.html` and `quiz_viewer.html` are used to render these for a better user experience, especially for quizzes.
-*   **`.html` (HTML Files):**
-    *   `index.html` files in many directories serve as user-friendly landing pages or interactive dashboards for that section, often providing navigation trees or summaries.
-    *   `home.html` is the main interactive entry point for the entire repository.
-    *   Some content, like certain primers or specialized views (e.g., `copilot.html` in CRAFT), is directly presented in HTML.
-*   **`.ipynb` (Jupyter Notebooks):** Found in the `Interactive_Notebooks/` directory. These offer hands-on coding exercises and financial model examples, primarily using Python. They often come with associated `data/` folders containing CSV or JSON files.
-*   **`.json` (JSON Files):** Used for structured data, such as the `sample_credit_agreement_clauses.json` for notebook exercises or the `example_initial_prompt.json` which outlines the foundational AI prompt for this repo.
-*   **`AGENTS.MD`:** These files (note the uppercase) provide specific instructions or tips for AI agents (like me!) working with the codebase. They might contain coding conventions, organizational details, or testing instructions relevant to their directory and subdirectories.
-*   **Supporting Files:**
-    *   `assets/`, `css/`, `js/`: These folders contain images, stylesheets (for visual presentation), and JavaScript code (for interactivity and dynamic content loading in HTML pages).
-
-## Key Learning Areas (Summary)
-
-This repository offers deep dives into:
-
-*   **🏆 CFA® Program Study:** Comprehensive notes, cheat sheets, practice questions for all levels. ([Go to CFA Section](./CFA/index.html))
-*   **🛡️ Corporate Credit Risk Analyst Training (CRAFT):** A modular course covering accounting, financial analysis, capital markets, credit lifecycle, and more. ([Go to CRAFT Program](./corporate-credit-risk-analyst-training/index.html) | [CRAFT README](./corporate-credit-risk-analyst-training/README.md))
-*   **📊 Financial Modeling:** Best practices, 3-statement models, Excel tips. ([Go to Financial Modeling](./Financial_Modeling/README.md))
-*   **🧠 Behavioral Finance:** Psychological influences on financial decisions. ([Go to Behavioral Finance](./Behavioral_Finance/README.md))
-*   **💡 Fintech Innovations:** AI, Blockchain, Robo-Advisors, Open Banking. ([Go to Fintech](./Fintech/README.md))
-*   **🚀 Market Analysis Quick Start:** Key market terms, products, and valuation. ([Go to Market Analysis Quick Start](./Market_Analysis_Quick_Start/README.md))
-*   **🏭 Industry Primers:** Analysis for 15+ diverse industries. ([Go to Industry Primers](./primers/index.html))
-*   **🧭 Learning Paths:** Guided routes for specific learning objectives. ([Go to Learning Paths](./Learning_Paths/index.html))
-*   **🛠️ Interactive Notebooks:** Hands-on Jupyter Notebooks for practical application. ([Go to Interactive Notebooks](./Interactive_Notebooks/README.md))
-*   **📈 Risk Management:** Frameworks for Credit, Market, Liquidity, and Operational Risk. ([Go to Risk Management](./Risk_Management/README.md))
-*   **🧰 Toolkits & Checklists:** Practical aids for financial analysis. ([Go to Toolkits](./Toolkits_and_Checklists/README.md))
-*   **🌱 Professional Development:** Enhancing soft skills like critical thinking and communication. ([Go to Professional Development](./Professional_Development/README.md))
-
-## Supercharge Your Learning
-
-*   **Start Interactive:** Use `home.html` or the `index.html` files in each section.
-*   **Hands-On Practice:** Download and run the Jupyter Notebooks in `Interactive_Notebooks/` for practical experience.
-*   **Test Your Knowledge:** Engage with the quizzes provided in various sections (especially CFA and CRAFT).
-*   **Follow Learning Paths:** If you're unsure where to start or have a specific goal, the [Learning Paths](./Learning_Paths/index.html) provide structured guidance.
-*   **Cross-Reference:** Many topics are interconnected. Don't hesitate to jump between sections to build a holistic understanding. For example, concepts from Financial Modeling are applied in the CRAFT program.
-*   **Use the Glossary:** Refer to the [Global Financial Glossary](./Global_Financial_Glossary.md) for term definitions.
-
-## The Genesis of This Repository: An AI-Powered Approach
-
-This repository was significantly shaped by an initial, detailed prompt provided to an AI model. The aim was to create a comprehensive learning resource for credit analysis and related financial topics.
-
-You can view the (slightly abridged) foundational prompt that guided the AI in generating the initial structure and much of the content here:
-➡️ **[View the Example Initial Prompt](./example_initial_prompt.json)**
-
-This approach allowed for the rapid creation of a broad and deep set of learning materials. The AI was tasked with:
-*   Structuring the overall repository.
-*   Developing curriculum for programs like CRAFT.
-*   Generating content for modules, primers, and deep dives.
-*   Creating examples, case studies, and quiz questions.
-
-The ongoing development involves refining this AI-generated content, adding new materials, and ensuring accuracy and pedagogical effectiveness, often with the assistance of AI tools for specific tasks.
-
-## New Topics & Future Development
-
-This Financial Learning Hub is a dynamic project. We envision expanding its scope to include:
-
-*   **Advanced Financial Modeling:** Deeper dives into LBOs, M&A, project finance, and other complex model types.
-*   **Quantitative Finance:** More on derivatives pricing, risk modeling (VaR, CVaR), and algorithmic trading strategies.
-*   **Sustainable & ESG Investing:** Dedicated modules on Environmental, Social, and Governance factors in investment analysis.
-*   **Real Estate Finance:** Specific models and case studies for property valuation and investment.
-*   **Private Equity & Venture Capital:** Detailed exploration of these asset classes.
-*   **International Finance & Markets:** Content on currency markets, international trade finance, and global economic analysis.
-*   **Regulatory Environments:** Updates and analysis of evolving financial regulations across key jurisdictions.
-*   **More Interactive Tools:** Expanding the suite of Jupyter notebooks and potentially adding other interactive web-based tools.
-*   **Career Development Resources:** More focused content on interview preparation, networking, and career paths in finance.
-
-We welcome suggestions for new topics! Please raise an issue if you have ideas.
-
-## How This Repo is Being Built / How to Contribute
-
-This repository is a collaborative effort, significantly bootstrapped using AI tools (as detailed in the "Genesis" section) and continuously refined by human experts and community contributions.
-
-**Our Development Philosophy:**
-
-*   **AI-Assisted Content Creation:** Leveraging AI for drafting initial content, generating examples, and structuring information.
-*   **Human Oversight & Expertise:** Ensuring all AI-generated content is reviewed, edited, and validated by subject matter experts for accuracy, clarity, and pedagogical value.
-*   **Community-Driven Improvement:** Encouraging users to contribute by identifying errors, suggesting improvements, or adding new content.
-*   **Iterative Development:** Regularly updating and expanding the material based on feedback and evolving industry practices.
-
-**How You Can Contribute:**
-
-*   **Report Issues:** If you find errors, outdated information, or areas that are unclear, please [open an issue](https://github.com/username/repo/issues) (replace with actual link if available).
-*   **Suggest Enhancements:** Have an idea for a new topic, a better explanation, or a useful resource? Let us know via an issue!
-*   **Submit Pull Requests:** If you're comfortable with Git and GitHub, feel free to fork the repository, make your changes, and submit a pull request.
-    *   Please ensure your contributions align with the existing style and structure.
-    *   For new content, it's often best to discuss it in an issue first.
-*   **Improve Interactivity:** If you have skills in web development or Jupyter notebooks, help us make the learning experience even more engaging.
-*   **Share Feedback:** Let us know how this repository is helping you and what could make it better.
-
-We aim to make this a living resource that grows and adapts with the needs of the finance learning community.
+*   **Architecture:** See [`ARCHITECTURE.md`](./ARCHITECTURE.md) for design principles.
+*   **AI Agents:** See [`AGENTS.MD`](./AGENTS.MD) for instructions on how AI contributes to this repo.
+*   **Navigation:** The site structure is defined in `js/nav_data.js`.
 
 ---
-## References
 
-*   [Global Index](./global_index.md)
-*   [Global Financial Glossary](./Global_Financial_Glossary.md)
-*   [AGENTS.MD](./AGENTS.MD)
-
-*The very detailed excerpt from the CRAFT program (Module 1 & 2) has been moved to the `example_initial_prompt.json` file to keep this main README concise and focused on overall navigation and structure.*
-The "Works Cited" section previously at the end of this README was part of that excerpt and has also been moved.
-You can find the full, original detailed content within the [CRAFT program's modules](./modules/Credit_Analysis/modules/).
+**Ready to start? [Go to the Dashboard](./home.html)**

@@ -6,43 +6,75 @@
     <title>Wealth Management Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/global_nav.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
 <body class="bg-slate-50 flex">
     <div id="global-nav-placeholder" class="fixed top-0 left-0 h-full z-30"></div>
     <div class="flex-grow ml-0 md:ml-[280px] p-8">
-        <header class="mb-8">
-            <h1 class="text-4xl font-bold text-slate-900 mb-2">Wealth Management Hub</h1>
-            <p class="text-lg text-slate-600">Comprehensive financial services for high-net-worth individuals and families.</p>
+        <header class="mb-10 border-b border-slate-200 pb-8">
+            <h1 class="text-4xl font-bold text-slate-900 mb-4">Wealth Management Hub</h1>
+            <p class="text-xl text-slate-600 max-w-3xl">Comprehensive financial services for high-net-worth individuals and families. Moving beyond simple stock picking to holistic lifecycle planning.</p>
         </header>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Card 1 -->
-            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                <h3 class="text-xl font-bold text-slate-800 mb-2">
-                    <a href="../global_markdown_viewer.html?mdfile=Wealth_Management/Financial_Planning.md" class="hover:text-indigo-600">Financial Planning</a>
-                </h3>
-                <p class="text-slate-600 mb-4">The art and science of mapping out a client's financial future, including retirement, education, and tax planning.</p>
-                <a href="../global_markdown_viewer.html?mdfile=Wealth_Management/Financial_Planning.md" class="text-indigo-600 font-semibold hover:underline">Read Module &rarr;</a>
-            </div>
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 border-l-4 border-yellow-500 pl-4">Core Pillars</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">
+                        <a href="../global_markdown_viewer.html?mdfile=Wealth_Management/Financial_Planning.md" class="hover:text-indigo-600">Financial Planning</a>
+                    </h3>
+                    <p class="text-slate-600 mb-4 text-sm">The art and science of mapping out a client's financial future, including retirement, education, and tax planning.</p>
+                    <a href="../global_markdown_viewer.html?mdfile=Wealth_Management/Financial_Planning.md" class="text-indigo-600 font-semibold hover:underline text-sm uppercase tracking-wide">Start Module &rarr;</a>
+                </div>
 
-            <!-- Card 2 -->
-            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                <h3 class="text-xl font-bold text-slate-800 mb-2">
-                    <a href="../global_markdown_viewer.html?mdfile=Wealth_Management/Investment_Management.md" class="hover:text-indigo-600">Investment Management</a>
-                </h3>
-                <p class="text-slate-600 mb-4">Asset allocation, portfolio construction, and risk management strategies for wealth preservation and growth.</p>
-                <a href="../global_markdown_viewer.html?mdfile=Wealth_Management/Investment_Management.md" class="text-indigo-600 font-semibold hover:underline">Read Module &rarr;</a>
-            </div>
+                <!-- Card 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">
+                        <a href="../global_markdown_viewer.html?mdfile=Wealth_Management/Investment_Management.md" class="hover:text-indigo-600">Investment Management</a>
+                    </h3>
+                    <p class="text-slate-600 mb-4 text-sm">Asset allocation, portfolio construction, and risk management strategies for wealth preservation and growth.</p>
+                    <a href="../global_markdown_viewer.html?mdfile=Wealth_Management/Investment_Management.md" class="text-indigo-600 font-semibold hover:underline text-sm uppercase tracking-wide">Start Module &rarr;</a>
+                </div>
 
-            <!-- Card 3 -->
-            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                <h3 class="text-xl font-bold text-slate-800 mb-2">
-                    <a href="../global_markdown_viewer.html?mdfile=Wealth_Management/Estate_Planning.md" class="hover:text-indigo-600">Estate Planning</a>
-                </h3>
-                <p class="text-slate-600 mb-4">Structuring the transfer of wealth to future generations and philanthropic causes while minimizing tax liabilities.</p>
-                <a href="../global_markdown_viewer.html?mdfile=Wealth_Management/Estate_Planning.md" class="text-indigo-600 font-semibold hover:underline">Read Module &rarr;</a>
+                <!-- Card 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">
+                        <a href="../global_markdown_viewer.html?mdfile=Wealth_Management/Estate_Planning.md" class="hover:text-indigo-600">Estate Planning</a>
+                    </h3>
+                    <p class="text-slate-600 mb-4 text-sm">Structuring the transfer of wealth to future generations and philanthropic causes while minimizing tax liabilities.</p>
+                    <a href="../global_markdown_viewer.html?mdfile=Wealth_Management/Estate_Planning.md" class="text-indigo-600 font-semibold hover:underline text-sm uppercase tracking-wide">Start Module &rarr;</a>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 border-l-4 border-yellow-500 pl-4">Advisor's Toolkit: Deep Dives</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Deep Dive 1 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg border-t-4 border-yellow-500">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded mr-2">Essential</span>
+                        <h3 class="text-2xl font-bold text-slate-900">IPS Construction</h3>
+                    </div>
+                    <p class="text-slate-600 mb-6">The Investment Policy Statement is the blueprint of advice. Learn the RRTTLL framework to determine Risk Capacity vs. Willingness and construct legally defensible portfolios.</p>
+                    <a href="../global_markdown_viewer.html?mdfile=Wealth_Management/Deep_Dives/Private_Wealth_IPS_Construction.md" class="inline-block bg-yellow-600 text-white font-bold py-2 px-6 rounded hover:bg-yellow-700 transition">Build an IPS</a>
+                </div>
+
+                <!-- Deep Dive 2 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg border-t-4 border-yellow-500">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded mr-2">Psychology</span>
+                        <h3 class="text-2xl font-bold text-slate-900">Behavioral Biases</h3>
+                    </div>
+                    <p class="text-slate-600 mb-6">Diagnose and correct the cognitive errors and emotional biases that destroy client wealth. From Loss Aversion to Recency Bias, learn the behavioral coaching techniques used by top advisors.</p>
+                    <a href="../global_markdown_viewer.html?mdfile=Wealth_Management/Deep_Dives/Behavioral_Biases_in_Client_Portfolios.md" class="inline-block bg-yellow-600 text-white font-bold py-2 px-6 rounded hover:bg-yellow-700 transition">Master Psychology</a>
+                </div>
+            </div>
+        </section>
     </div>
 
     <script src="../js/nav_data.js"></script>
