@@ -22,6 +22,10 @@ This section currently plans for or includes the following notebook(s):
     *   **Notebook File:** [Bond_Math.ipynb](./Bond_Math.ipynb)
     *   **Description:** An interactive guide to core bond mathematics, including pricing, yield calculations, and duration/convexity concepts.
 
+*   **Bond Pricing with Credit Spreads:**
+    *   **Notebook File:** [Bond_Pricing_with_Credit_Spreads.ipynb](./Bond_Pricing_with_Credit_Spreads.ipynb)
+    *   **Description:** Explore how credit risk (spreads) impacts bond valuation, "Z-spread" calculations, and visualizes the discount/premium mechanics.
+
 *(This list will be updated as more notebooks for Fixed Income are developed.)*
 
 <!-- Machine-readable indexing comment -->
