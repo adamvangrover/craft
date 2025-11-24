@@ -1909,6 +1909,11 @@ const navData = [
             "text": "ESG Sentiment Analysis",
             "href": "Interactive_Notebooks/ESG/ESG_Sentiment_Analysis.ipynb",
             "type": "jupyter_guide"
+          },
+          {
+            "text": "Transition Risk Modeling",
+            "href": "Interactive_Notebooks/ESG/Transition_Risk_Modeling_Guide.md",
+            "type": "jupyter_guide"
           }
         ]
       },
@@ -2617,12 +2622,24 @@ const navData = [
             "href": "Sustainable_Finance/Deep_Dives/ESG_Risk_Integration_in_Credit_Analysis.md",
             "type": "markdown_viewer",
             "viewer": "global"
+          },
+          {
+            "text": "Carbon Credit Quality",
+            "href": "Sustainable_Finance/Deep_Dives/Carbon_Credit_Quality.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
           }
         ]
       },
       {
         "text": "Esg Investing",
         "href": "Sustainable_Finance/ESG_Investing.md",
+        "type": "markdown_viewer",
+        "viewer": "global"
+      },
+      {
+        "text": "Transition Finance",
+        "href": "Sustainable_Finance/Transition_Finance.md",
         "type": "markdown_viewer",
         "viewer": "global"
       },
@@ -2734,6 +2751,12 @@ const navData = [
           {
             "text": "Behavioral Biases",
             "href": "Wealth_Management/Deep_Dives/Behavioral_Biases_in_Client_Portfolios.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "Advanced Behavioral Coaching",
+            "href": "Wealth_Management/Deep_Dives/Advanced_Behavioral_Coaching.md",
             "type": "markdown_viewer",
             "viewer": "global"
           }
@@ -4747,6 +4770,12 @@ const navData = [
                   {
                     "text": "FSA for Creditors",
                     "href": "modules/Credit_Analysis/modules/01-foundations/03_Financial_Statement_Analysis_for_Creditors.md",
+                    "type": "markdown_viewer",
+                    "viewer": "global"
+                  },
+                  {
+                    "text": "Stress Testing & Scenario Analysis",
+                    "href": "modules/Credit_Analysis/modules/06-advanced-topics/04_Stress_Testing_and_Scenario_Analysis.md",
                     "type": "markdown_viewer",
                     "viewer": "global"
                   },
