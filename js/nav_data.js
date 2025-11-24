@@ -1126,6 +1126,12 @@ const navData = [
                 "href": "CFA/Level_2/Topic_Deep_Dives/L2_Fixed_Income_Analysis_Credit_Risk.md",
                 "type": "markdown_viewer",
                 "viewer": "global"
+              },
+              {
+                "text": "L2 Dd Pension Accounting Adjustments",
+                "href": "CFA/Level_2/Topic_Deep_Dives/L2_DD_Pension_Accounting_Adjustments.md",
+                "type": "markdown_viewer",
+                "viewer": "global"
               }
             ]
           },
@@ -2050,6 +2056,11 @@ const navData = [
             "text": "Bond Math",
             "href": "Interactive_Notebooks/Fixed_Income/Bond_Math.ipynb",
             "type": "jupyter_guide"
+          },
+          {
+            "text": "Bond Pricing With Credit Spreads",
+            "href": "Interactive_Notebooks/Fixed_Income/Bond_Pricing_with_Credit_Spreads.ipynb",
+            "type": "jupyter_guide"
           }
         ]
       },
@@ -2405,6 +2416,12 @@ const navData = [
           {
             "text": "Crm 03 Credit Scoring And Rating Models",
             "href": "Risk_Management/Credit_Risk/CRM_03_Credit_Scoring_and_Rating_Models.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "Case Study Distressed Debt Retail",
+            "href": "Risk_Management/Credit_Risk/Case_Study_Distressed_Debt_Retail.md",
             "type": "markdown_viewer",
             "viewer": "global"
           }
