@@ -13,9 +13,12 @@ The `home.html` page is your command center. It features:
 *   **Global Navigation Sidebar:** A comprehensive tree view of all content (`js/nav_data.js`).
 *   **AI Concept Explainer:** Instant, simple explanations for complex financial terms.
 
-## What is "Active Learning"?
+## Our Philosophy: The "Active Learning" Approach
 
-We believe finance is a trade, not just a theory.
+We believe finance is a trade, not just a theory. We treat you as a **Junior Analyst**, not a student.
+
+> **Read our full [Pedagogical Manifesto (PEDAGOGY.md)](./PEDAGOGY.md) to understand how this ecosystem is designed to build "Buy-Side" judgement.**
+
 *   **Don't just read about Credit Risk...** [Run the "Distressed Retailer" Credit Committee Simulation](./Interactive_Notebooks/Simulations/Credit_Committee_Simulation_Guide.md).
 *   **Don't just memorize the Green Bond Principles...** [Analyze a Green Bond Framework](./Sustainable_Finance/Deep_Dives/Green_Bond_Framework_Analysis.md) and spot the greenwashing.
 *   **Don't just list behavioral biases...** [Diagnose a client panic](./Wealth_Management/Deep_Dives/Behavioral_Biases_in_Client_Portfolios.md) in the Wealth Management simulator.
@@ -26,11 +29,12 @@ The content is organized into thematic pillars.
 
 *   **`/` (Root Directory):**
     *   `home.html`: **Start Here.** The interactive dashboard.
+    *   `PEDAGOGY.md`: The teaching philosophy and content guidelines.
     *   `ARCHITECTURE.md`: High-level overview of the ecosystem's design.
     *   `Global_Financial_Glossary.md`: A central glossary.
 
 *   **Major Learning Pillars:**
-    *   **`corporate-credit-risk-analyst-training/` (CRAFT Program)**:
+    *   **`modules/Credit_Analysis/` (CRAFT Program)**:
         *   The flagship modular training program for analysts.
     *   **`Sustainable_Finance/`**:
         *   **New:** Deep Dives into Green Bonds, ESG Risk Integration, and Impact Investing.

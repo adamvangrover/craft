@@ -3,387 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comprehensive Financial Training Hub - New</title>
+    <title>Financial Learning Hub & Active Learning Ecosystem</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/global_nav.css"> <!-- Assuming this path is correct from root -->
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #FDFBF7; /* Light warm beige from original home.html */
-            color: #3D352E; /* Dark brown text from original home.html */
+    <link rel="stylesheet" href="css/global_nav.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#1e293b', // Custom dark slate
+                        }
+                    }
+                }
+            }
         }
-        .hero-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        .section-title {
-            @apply text-4xl font-bold text-center mb-16 text-gray-800;
-        }
-        .card {
-            @apply bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl hover:border-indigo-500 border border-transparent;
-        }
-        .card-title {
-            @apply text-2xl font-bold mb-4 text-gray-800;
-        }
-        .card-description {
-            @apply text-gray-600 text-base mb-6 flex-grow;
-        }
-        .card-link {
-            @apply inline-block bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg;
-        }
-        .path-card-link {
-             @apply block w-full text-center bg-teal-500 text-white font-bold py-4 px-6 rounded-lg hover:bg-teal-600 transition-colors duration-300 mt-auto text-xl;
-        }
-        .pillar-card-link {
-            @apply inline-block bg-purple-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-purple-700 transition-colors duration-300 text-base mt-auto;
-        }
-    </style>
+    </script>
 </head>
-<body class="flex">
+<body class="bg-slate-50 text-slate-800 font-sans flex">
 
     <!-- Global Navigation Sidebar -->
     <div id="global-nav-placeholder" class="fixed top-0 left-0 h-full z-30">
         <!-- Global navigation will be injected here by js/global_nav.js -->
     </div>
 
+    <!-- Mobile Nav Toggle (Visible only on small screens) -->
+    <button id="mobile-nav-toggle" class="fixed top-4 left-4 z-50 lg:hidden bg-white p-2 rounded-md shadow-md text-slate-600">
+        <i class="fas fa-bars"></i>
+    </button>
+
     <!-- Main Content Area -->
-    <div id="main-content-wrapper" class="flex-grow overflow-y-auto ml-0 md:ml-[280px] transition-all duration-300 ease-in-out"> <!-- Adjust ml based on global-nav-placeholder width -->
+    <!-- ml-0 on mobile, ml-72 (18rem/288px) on desktop to match sidebar width -->
+    <div id="main-content-wrapper" class="flex-grow overflow-y-auto ml-0 lg:ml-72 transition-all duration-300 ease-in-out w-full">
 
         <!-- 1. Hero Section -->
-        <section id="hero" class="hero-gradient py-20 px-6 md:px-8 text-center text-white">
-            <div class="max-w-4xl mx-auto">
-                <h1 class="text-4xl md:text-5xl font-bold mb-6">Unlock Your Financial Expertise</h1>
-                <p class="text-xl md:text-2xl mb-10 opacity-90">
-                    Explore in-depth resources for CFA® preparation, credit risk analysis, financial modeling, and more. Start your journey to mastery today.
+        <section id="hero" class="bg-gradient-to-br from-indigo-600 to-purple-700 py-24 px-6 md:px-12 text-center text-white relative overflow-hidden">
+            <!-- Decorative overlay -->
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-20"></div>
+
+            <div class="max-w-4xl mx-auto relative z-10">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 tracking-tight">Unlock Your Financial Expertise</h1>
+                <p class="text-xl md:text-2xl mb-10 text-indigo-100 font-light">
+                    The Active Learning Ecosystem for Credit Risk Analysis, CFA® Prep, and Financial Modeling.
                 </p>
-                <a href="#learning-paths" class="bg-white text-blue-700 font-bold py-3 px-8 rounded-lg text-lg hover:bg-slate-100 transition-colors duration-200 shadow-md">
-                    Chart Your Course
-                </a>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#learning-paths" class="bg-white text-indigo-700 font-bold py-3 px-8 rounded-lg text-lg hover:bg-indigo-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        Start Learning
+                    </a>
+                    <a href="PEDAGOGY.md" class="bg-indigo-800/50 backdrop-blur-sm border border-indigo-400 text-white font-semibold py-3 px-8 rounded-lg text-lg hover:bg-indigo-800/70 transition-all">
+                        Read Our Philosophy
+                    </a>
+                </div>
             </div>
         </section>
 
         <!-- 2. "Get Started: Choose Your Path" Section -->
-        <section id="learning-paths" class="py-20 px-6 md:px-8 bg-gray-50">
-            <div class="max-w-6xl mx-auto">
-                <h2 class="section-title">Personalized Learning Journeys</h2>
-                <div class="grid md:grid-cols-3 gap-10">
+        <section id="learning-paths" class="py-20 px-6 md:px-12 bg-white">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Choose Your Path</h2>
+                    <p class="text-xl text-slate-500 max-w-2xl mx-auto">Select a specialized track tailored to your career goals.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
                     <!-- Path Card 1: Credit Analyst -->
-                    <div class="card flex flex-col p-8 text-center">
-                        <div class="text-center mb-6">
-                            <i class="fas fa-magnifying-glass-chart text-5xl text-teal-500"></i>
+                    <div class="group bg-slate-50 rounded-2xl p-8 border border-slate-200 hover:border-indigo-500 hover:shadow-xl transition-all duration-300 flex flex-col">
+                        <div class="w-14 h-14 bg-teal-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-magnifying-glass-chart text-2xl text-teal-600"></i>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4">Future Credit Analyst</h3>
-                        <p class="text-gray-600 mb-6 flex-grow">
-                            Dive into our comprehensive CRAFT program, from foundational principles to advanced credit analysis techniques.
+                        <h3 class="text-2xl font-bold mb-3 text-slate-900">Future Credit Analyst</h3>
+                        <p class="text-slate-600 mb-8 flex-grow leading-relaxed">
+                            Master the "Buy-Side" perspective. Our flagship CRAFT program covers accounting, credit memos, and risk assessment.
                         </p>
-                        <a href="modules/Credit_Analysis/index.html" class="path-card-link">Start CRAFT Program</a>
+                        <a href="modules/Credit_Analysis/index.html" class="block w-full text-center bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition-colors">
+                            Start CRAFT Program
+                        </a>
                     </div>
 
                     <!-- Path Card 2: CFA Candidate -->
-                    <div class="card flex flex-col p-8 text-center">
-                        <div class="text-center mb-6">
-                            <i class="fas fa-graduation-cap text-5xl text-teal-500"></i>
+                    <div class="group bg-slate-50 rounded-2xl p-8 border border-slate-200 hover:border-indigo-500 hover:shadow-xl transition-all duration-300 flex flex-col">
+                        <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-graduation-cap text-2xl text-purple-600"></i>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4">Aspiring CFA® Charterholder</h3>
-                        <p class="text-gray-600 mb-6 flex-grow">
-                            Access extensive study materials, practice exams, and deep dives for all three CFA® program levels.
+                        <h3 class="text-2xl font-bold mb-3 text-slate-900">CFA® Candidate</h3>
+                        <p class="text-slate-600 mb-8 flex-grow leading-relaxed">
+                            Accelerate your study with cheat sheets, deep dive topic reviews, and practice questions for Level I, II, and III.
                         </p>
-                        <a href="CFA/index.html" class="path-card-link">Go to CFA Hub</a>
+                        <a href="CFA/index.html" class="block w-full text-center bg-purple-600 text-white font-bold py-3 rounded-lg hover:bg-purple-700 transition-colors">
+                            Go to CFA Hub
+                        </a>
                     </div>
 
-                    <!-- Path Card 3: Finance Explorer -->
-                    <div class="card flex flex-col p-8 text-center">
-                        <div class="text-center mb-6">
-                            <i class="fas fa-compass text-5xl text-teal-500"></i>
+                    <!-- Path Card 3: Wealth Management -->
+                    <div class="group bg-slate-50 rounded-2xl p-8 border border-slate-200 hover:border-indigo-500 hover:shadow-xl transition-all duration-300 flex flex-col">
+                        <div class="w-14 h-14 bg-amber-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-landmark text-2xl text-amber-600"></i>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4">Finance Explorer & Skill Builder</h3>
-                        <p class="text-gray-600 mb-6 flex-grow">
-                            Browse diverse topics like financial modeling, fintech, market analysis, or specific industry primers at your own pace.
+                        <h3 class="text-2xl font-bold mb-3 text-slate-900">Wealth Management</h3>
+                        <p class="text-slate-600 mb-8 flex-grow leading-relaxed">
+                            <strong>New!</strong> Explore strategies for HNW clients, estate planning, and behavioral coaching.
                         </p>
-                        <a href="#key-pillars" class="path-card-link">Explore Topics</a>
+                        <a href="Wealth_Management/index.html" class="block w-full text-center bg-amber-600 text-white font-bold py-3 rounded-lg hover:bg-amber-700 transition-colors">
+                            Explore Wealth Mgmt
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Featured Content Section -->
-        <section id="featured-content" class="py-20 px-6 md:px-8 bg-white">
+        <section id="featured-content" class="py-20 px-6 md:px-12 bg-slate-50 border-t border-slate-200">
             <div class="max-w-7xl mx-auto">
-                <h2 class="section-title">Featured Content & New Additions</h2>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-                    <!-- Featured Card: GenAI Curriculum -->
-                    <div class="card flex flex-col p-8 text-center">
-                        <div class="mb-6 text-purple-500"><i class="fas fa-robot text-5xl"></i></div>
-                        <h3 class="text-2xl font-bold mb-4">New: GenAI for Analysts</h3>
-                        <p class="text-gray-600 mb-6 flex-grow">A new learning path to master Generative AI, from core concepts to workflow automation.</p>
-                        <a href="Learning_Paths/GenAI_for_Credit_Analysts_Path.md" class="pillar-card-link">Start Learning Path</a>
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                    <div>
+                        <h2 class="text-3xl font-bold text-slate-900 mb-2">Featured & New Content</h2>
+                        <p class="text-slate-500">Fresh additions to the ecosystem.</p>
+                    </div>
+                    <a href="#organizing-section" class="text-indigo-600 font-semibold hover:text-indigo-800 mt-4 md:mt-0">View All Modules <i class="fas fa-arrow-right ml-1"></i></a>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Card: ESG -->
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-100 hover:shadow-md hover:border-indigo-300 transition-all">
+                        <div class="text-xs font-bold text-green-600 uppercase tracking-wide mb-2">Sustainable Finance</div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-3"><a href="Sustainable_Finance/Deep_Dives/ESG_Data_Integration.md" class="hover:text-indigo-600">ESG Data Integration</a></h3>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-3">How to build ESG metrics directly into credit models, moving beyond simple scores.</p>
+                        <a href="Sustainable_Finance/Deep_Dives/ESG_Data_Integration.md" class="text-indigo-600 text-sm font-semibold hover:underline">Read Guide</a>
                     </div>
 
-                    <!-- Featured Card 1: M&A Modeling -->
-                    <div class="card flex flex-col p-8 text-center">
-                        <div class="mb-6 text-blue-500"><i class="fas fa-cogs text-5xl"></i></div>
-                        <h3 class="text-2xl font-bold mb-4">M&A Modeling</h3>
-                        <p class="text-gray-600 mb-6 flex-grow">Learn the essentials of merger and acquisition modeling, including accretion/dilution analysis.</p>
-                        <a href="Financial_Modeling/Advanced_Topics/merger_and_acquisition_modeling.md" class="pillar-card-link">Read the Guide</a>
+                    <!-- Card: Wealth Transfer -->
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-100 hover:shadow-md hover:border-indigo-300 transition-all">
+                        <div class="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">Wealth Management</div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-3"><a href="Wealth_Management/Deep_Dives/Wealth_Transfer_Strategies.md" class="hover:text-indigo-600">Wealth Transfer Strategies</a></h3>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-3">Navigating the "Great Wealth Transfer" with trusts, tax planning, and family governance.</p>
+                        <a href="Wealth_Management/Deep_Dives/Wealth_Transfer_Strategies.md" class="text-indigo-600 text-sm font-semibold hover:underline">Read Deep Dive</a>
                     </div>
 
-                    <!-- Featured Card 2: Renewable Energy Primer -->
-                    <div class="card flex flex-col p-8 text-center">
-                        <div class="mb-6 text-green-500"><i class="fas fa-leaf text-5xl"></i></div>
-                        <h3 class="text-2xl font-bold mb-4">Renewable Energy Primer</h3>
-                        <p class="text-gray-600 mb-6 flex-grow">An overview of the renewable energy sector, including key drivers, risks, and financial characteristics.</p>
-                        <a href="modules/primers/renewable_energy.md" class="pillar-card-link">Read the Primer</a>
+                    <!-- Card: Cloud Computing -->
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-100 hover:shadow-md hover:border-indigo-300 transition-all">
+                        <div class="text-xs font-bold text-blue-600 uppercase tracking-wide mb-2">Industry Primer</div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-3"><a href="modules/primers/cloud_computing.md" class="hover:text-indigo-600">Cloud Computing & SaaS</a></h3>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-3">Understanding ARR, NRR, and Churn in the subscription economy.</p>
+                        <a href="modules/primers/cloud_computing.md" class="text-indigo-600 text-sm font-semibold hover:underline">Read Primer</a>
                     </div>
 
-                    <!-- Featured Card 3: LME Case Study -->
-                    <div class="card flex flex-col p-8 text-center">
-                        <div class="mb-6 text-yellow-500"><i class="fas fa-balance-scale text-5xl"></i></div>
-                        <h3 class="text-2xl font-bold mb-4">LME Case Study</h3>
-                        <p class="text-gray-600 mb-6 flex-grow">A case study on a recent debt restructuring, highlighting key legal and financial issues.</p>
-                        <a href="legal_analysis/miscellaneous_credit_analysis_topics/lme_strategies_and_case_studies/acme_corp_restructuring_case_study.md" class="pillar-card-link">Read the Case Study</a>
-                    </div>
-
-                    <!-- Featured Card 4: Interactive M&A Model -->
-                    <div class="card flex flex-col p-8 text-center">
-                        <div class="mb-6 text-red-500"><i class="fas fa-mouse-pointer text-5xl"></i></div>
-                        <h3 class="text-2xl font-bold mb-4">Interactive M&A Model</h3>
-                        <p class="text-gray-600 mb-6 flex-grow">An interactive Jupyter Notebook to explore the mechanics of an M&A accretion/dilution model.</p>
-                        <a href="Interactive_Notebooks/Financial_Modeling/interactive_merger_model.ipynb" class="pillar-card-link">Open Notebook</a>
+                    <!-- Card: Active Learning -->
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-100 hover:shadow-md hover:border-indigo-300 transition-all">
+                        <div class="text-xs font-bold text-indigo-600 uppercase tracking-wide mb-2">Pedagogy</div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-3"><a href="PEDAGOGY.md" class="hover:text-indigo-600">The Active Learning Manifesto</a></h3>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-3">Why we prioritize "Buy-Side Perspective" and simulation over passive reading.</p>
+                        <a href="PEDAGOGY.md" class="text-indigo-600 text-sm font-semibold hover:underline">Read Philosophy</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 3. "Organizing Section" -->
-        <section id="organizing-section" class="py-20 px-6 md:px-8 bg-gray-100">
+        <!-- 3. Organizing Section (All Modules) -->
+        <section id="organizing-section" class="py-20 px-6 md:px-12 bg-white border-t border-slate-200">
             <div class="max-w-7xl mx-auto">
-                <h2 class="section-title">Organized Learning Modules</h2>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                    <!-- Module Card 1: Accounting -->
-                    <div class="card flex flex-col p-8 text-center">
-                        <div class="mb-6 text-blue-500"><i class="fas fa-calculator text-5xl"></i></div>
-                        <h3 class="text-2xl font-bold mb-4">Accounting</h3>
-                        <p class="text-gray-600 mb-6 flex-grow">Master the language of business with our in-depth accounting modules.</p>
-                        <a href="modules/Accounting/index.html" class="pillar-card-link">Explore Accounting</a>
-                    </div>
+                <h2 class="text-3xl font-bold text-slate-900 mb-12 text-center">Core Pillars of Knowledge</h2>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                    <!-- Module Card 2: Credit Analysis -->
-                    <div class="card flex flex-col p-8 text-center">
-                        <div class="mb-6 text-green-500"><i class="fas fa-credit-card text-5xl"></i></div>
-                        <h3 class="text-2xl font-bold mb-4">Credit Analysis</h3>
-                        <p class="text-gray-600 mb-6 flex-grow">Develop your skills in credit analysis with our comprehensive training program.</p>
-                        <a href="modules/Credit_Analysis/index.html" class="pillar-card-link">Explore Credit Analysis</a>
-                    </div>
-
-                    <!-- Module Card 3: Primers -->
-                    <div class="card flex flex-col p-8 text-center">
-                        <div class="mb-6 text-yellow-500"><i class="fas fa-book text-5xl"></i></div>
-                        <h3 class="text-2xl font-bold mb-4">Primers</h3>
-                        <p class="text-gray-600 mb-6 flex-grow">Get up to speed on key industries with our concise and informative primers.</p>
-                        <a href="modules/primers/index.html" class="pillar-card-link">Explore Primers</a>
-                    </div>
-
-                    <!-- Module Card 4: Loan and Capital Market Terms -->
-                    <div class="card flex flex-col p-8 text-center">
-                        <div class="mb-6 text-red-500"><i class="fas fa-chart-line text-5xl"></i></div>
-                        <h3 class="text-2xl font-bold mb-4">Loan & Capital Market Terms</h3>
-                        <p class="text-gray-600 mb-6 flex-grow">Master the terminology of the loan and capital markets with our comprehensive glossary.</p>
-                        <a href="modules/Loan_and_Capital_Market_Terms/index.html" class="pillar-card-link">Explore Terms</a>
-                    </div>
-
-                    <!-- Module Card: Sustainable Finance -->
-                    <div class="card flex flex-col p-8 text-center">
-                        <div class="mb-6 text-green-600"><i class="fas fa-leaf text-5xl"></i></div>
-                        <h3 class="text-2xl font-bold mb-4">Sustainable Finance</h3>
-                        <p class="text-gray-600 mb-6 flex-grow">ESG investing, green bonds, and impact investing strategies.</p>
-                        <a href="Sustainable_Finance/index.html" class="pillar-card-link">Explore ESG</a>
-                    </div>
-
-                    <!-- Module Card: Wealth Management -->
-                    <div class="card flex flex-col p-8 text-center">
-                        <div class="mb-6 text-yellow-600"><i class="fas fa-landmark text-5xl"></i></div>
-                        <h3 class="text-2xl font-bold mb-4">Wealth Management</h3>
-                        <p class="text-gray-600 mb-6 flex-grow">Financial planning, estate planning, and investment management.</p>
-                        <a href="Wealth_Management/index.html" class="pillar-card-link">Explore Wealth</a>
-                    </div>
-
-                    <!-- Module Card 5: Critical Thinking -->
-                    <div class="card flex flex-col p-8 text-center">
-                        <div class="mb-6 text-indigo-500"><i class="fas fa-lightbulb text-5xl"></i></div>
-                        <h3 class="text-2xl font-bold mb-4">Critical Thinking</h3>
-                        <p class="text-gray-600 mb-6 flex-grow">Develop your critical thinking skills with our guides and exercises.</p>
-                        <a href="modules/Critical_Thinking/index.html" class="pillar-card-link">Explore Critical Thinking</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. "Discover Our Tools & Resources" Section -->
-        <section id="tools-resources" class="py-20 px-6 md:px-8 bg-gray-50">
-            <div class="max-w-6xl mx-auto">
-                <h2 class="section-title">Discover Our Tools & Resources</h2>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-                    <div class="card p-8 text-center">
-                        <i class="fas fa-book-atlas text-5xl text-indigo-500 mb-6"></i>
-                        <h3 class="text-2xl font-bold mb-4">Global Financial Glossary</h3>
-                        <p class="text-gray-600 mb-6">Your comprehensive A-Z dictionary for key financial terms and concepts.</p>
-                        <a href="Global_Financial_Glossary.md" class="card-link">View Glossary</a>
-                    </div>
-                    <div class="card p-8 text-center">
-                        <i class="fas fa-check-double text-5xl text-indigo-500 mb-6"></i>
-                        <h3 class="text-2xl font-bold mb-4">Toolkits & Checklists</h3>
-                        <p class="text-gray-600 mb-6">Practical job aids, including due diligence checklists and financial ratio guides.</p>
-                        <a href="Toolkits_and_Checklists/index.html" class="card-link">Access Toolkits</a>
-                    </div>
-                    <div class="card p-8 text-center">
-                        <i class="fas fa-person-chalkboard text-5xl text-indigo-500 mb-6"></i>
-                        <h3 class="text-2xl font-bold mb-4">Site Overview Presentation</h3>
-                        <p class="text-gray-600 mb-6">A slide-based guided tour of this financial training repository and its diverse resources.</p>
-                        <a href="presentation.html" class="card-link">View Presentation</a>
-                    </div>
-                    <div class="card p-8 text-center">
-                        <i class="fas fa-question-circle text-5xl text-indigo-500 mb-6"></i>
-                        <h3 class="text-2xl font-bold mb-4">Quizzes & Practice</h3>
-                        <p class="text-gray-600 mb-6">Test your understanding with quizzes integrated into CFA prep and CRAFT program modules.</p>
-                        <a href="quiz_viewer.html" class="card-link">General Quiz Viewer</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- New Table of Contents Section -->
-        <section id="table-of-contents" class="py-20 px-6 md:px-8 bg-gray-100">
-            <div class="max-w-7xl mx-auto">
-                <h2 class="section-title">Table of Contents and Index</h2>
-                <div id="toc-container" class="prose max-w-none"></div>
-            </div>
-        </section>
-
-        <!-- 5. "About This Repository" Section -->
-        <section id="about-repo" class="py-20 px-6 md:px-8">
-            <div class="max-w-6xl mx-auto">
-                <h2 class="section-title">About This Repository</h2>
-                <div class="text-lg text-center text-gray-600 max-w-3xl mx-auto mb-16">
-                    <p>Welcome to the Financial Learning Hub & Credit Risk Analyst Development Program, a comprehensive, open-source repository designed for finance professionals, students, and enthusiasts. Our goal is to create an interconnected learning environment that combines foundational knowledge with practical, real-world applications, with a special focus on developing top-tier credit risk analysts.</p>
-                </div>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-                    <div class="text-center">
-                        <div class="bg-red-100 rounded-full p-6 mb-6 inline-block">
-                            <i class="fas fa-graduation-cap text-4xl text-red-600"></i>
+                    <a href="modules/Accounting/index.html" class="group block bg-slate-50 hover:bg-white rounded-xl p-6 border border-slate-200 hover:border-indigo-500 hover:shadow-lg transition-all">
+                        <div class="flex items-center mb-4">
+                            <div class="p-3 bg-blue-100 text-blue-600 rounded-lg mr-4 group-hover:scale-110 transition-transform"><i class="fas fa-calculator text-xl"></i></div>
+                            <h3 class="text-xl font-bold text-slate-800">Accounting</h3>
                         </div>
-                        <h3 class="font-bold text-xl mb-4 text-gray-800">CFA® Program Study</h3>
-                        <p class="text-gray-600">Comprehensive notes, cheat sheets, and practice questions for all levels.</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="bg-green-100 rounded-full p-6 mb-6 inline-block">
-                            <i class="fas fa-shield-alt text-4xl text-green-600"></i>
-                        </div>
-                        <h3 class="font-bold text-xl mb-4 text-gray-800">Credit Risk Analyst Training (CRAFT)</h3>
-                        <p class="text-gray-600">A modular course covering accounting, financial analysis, capital markets, and more.</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="bg-blue-100 rounded-full p-6 mb-6 inline-block">
-                            <i class="fas fa-table text-4xl text-blue-600"></i>
-                        </div>
-                        <h3 class="font-bold text-xl mb-4 text-gray-800">Financial Modeling</h3>
-                        <p class="text-gray-600">Best practices, 3-statement models, Excel tips, and valuation applications.</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="bg-yellow-100 rounded-full p-6 mb-6 inline-block">
-                            <i class="fas fa-lightbulb text-4xl text-yellow-600"></i>
-                        </div>
-                        <h3 class="font-bold text-xl mb-4 text-gray-800">Fintech Innovations</h3>
-                        <p class="text-gray-600">Covering AI in Finance, Blockchain, Robo-Advisors, and Open Banking.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+                        <p class="text-slate-600 text-sm">Master the language of business: 3-statement modeling, adjustments, and red flags.</p>
+                    </a>
 
-        <!-- 6. "How to Use This Hub" Section -->
-        <section id="how-to-use" class="py-20 px-6 md:px-8 bg-gray-50">
-            <div class="max-w-6xl mx-auto">
-                <h2 class="section-title">How to Use This Hub</h2>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 text-center">
-                    <div class="flex flex-col items-center">
-                        <div class="bg-indigo-100 rounded-full p-6 mb-6">
-                            <i class="fas fa-sitemap text-4xl text-indigo-600"></i>
+                    <a href="Financial_Modeling/index.html" class="group block bg-slate-50 hover:bg-white rounded-xl p-6 border border-slate-200 hover:border-indigo-500 hover:shadow-lg transition-all">
+                        <div class="flex items-center mb-4">
+                            <div class="p-3 bg-indigo-100 text-indigo-600 rounded-lg mr-4 group-hover:scale-110 transition-transform"><i class="fas fa-table text-xl"></i></div>
+                            <h3 class="text-xl font-bold text-slate-800">Financial Modeling</h3>
                         </div>
-                        <h3 class="font-bold text-xl mb-4 text-gray-800">Use the Global Navigation</h3>
-                        <p class="text-gray-600">The sidebar on the left provides a comprehensive tree of all available content. Use it to jump directly to any section or document.</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-teal-100 rounded-full p-6 mb-6">
-                            <i class="fas fa-shoe-prints text-4xl text-teal-600"></i>
+                        <p class="text-slate-600 text-sm">Best practices for LBO, M&A, and DCF models. Excel shortcuts and templates.</p>
+                    </a>
+
+                    <a href="Risk_Management/index.html" class="group block bg-slate-50 hover:bg-white rounded-xl p-6 border border-slate-200 hover:border-indigo-500 hover:shadow-lg transition-all">
+                        <div class="flex items-center mb-4">
+                            <div class="p-3 bg-red-100 text-red-600 rounded-lg mr-4 group-hover:scale-110 transition-transform"><i class="fas fa-shield-alt text-xl"></i></div>
+                            <h3 class="text-xl font-bold text-slate-800">Risk Management</h3>
                         </div>
-                        <h3 class="font-bold text-xl mb-4 text-gray-800">Follow a Learning Path</h3>
-                        <p class="text-gray-600">If you have a specific goal (like CFA prep or credit analysis), start with one of the curated learning paths.</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-purple-100 rounded-full p-6 mb-6">
-                            <i class="fas fa-mouse-pointer text-4xl text-purple-600"></i>
+                        <p class="text-slate-600 text-sm">Frameworks for Credit, Market, Liquidity, and Operational risk.</p>
+                    </a>
+
+                    <a href="Fintech/index.html" class="group block bg-slate-50 hover:bg-white rounded-xl p-6 border border-slate-200 hover:border-indigo-500 hover:shadow-lg transition-all">
+                        <div class="flex items-center mb-4">
+                            <div class="p-3 bg-cyan-100 text-cyan-600 rounded-lg mr-4 group-hover:scale-110 transition-transform"><i class="fas fa-microchip text-xl"></i></div>
+                            <h3 class="text-xl font-bold text-slate-800">Fintech & AI</h3>
                         </div>
-                        <h3 class="font-bold text-xl mb-4 text-gray-800">Engage with Interactive Content</h3>
-                        <p class="text-gray-600">Many sections feature interactive hubs (CFA, CRAFT), Jupyter Notebooks for hands-on practice, and quizzes to test your knowledge.</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-pink-100 rounded-full p-6 mb-6">
-                            <i class="fas fa-search text-4xl text-pink-600"></i>
+                        <p class="text-slate-600 text-sm">The future of finance: Blockchain, Robo-Advisors, and GenAI applications.</p>
+                    </a>
+
+                    <a href="modules/primers/index.html" class="group block bg-slate-50 hover:bg-white rounded-xl p-6 border border-slate-200 hover:border-indigo-500 hover:shadow-lg transition-all">
+                        <div class="flex items-center mb-4">
+                            <div class="p-3 bg-yellow-100 text-yellow-600 rounded-lg mr-4 group-hover:scale-110 transition-transform"><i class="fas fa-industry text-xl"></i></div>
+                            <h3 class="text-xl font-bold text-slate-800">Industry Primers</h3>
                         </div>
-                        <h3 class="font-bold text-xl mb-4 text-gray-800">Explore & Cross-Reference</h3>
-                        <p class="text-gray-600">Don't hesitate to explore. Use the Global Glossary for definitions and the repository's search features for specific terms.</p>
-                    </div>
+                        <p class="text-slate-600 text-sm">Deep dives into sectors like Healthcare, Energy, Tech, and more.</p>
+                    </a>
+
+                    <a href="Interactive_Notebooks/index.html" class="group block bg-slate-50 hover:bg-white rounded-xl p-6 border border-slate-200 hover:border-indigo-500 hover:shadow-lg transition-all">
+                        <div class="flex items-center mb-4">
+                            <div class="p-3 bg-orange-100 text-orange-600 rounded-lg mr-4 group-hover:scale-110 transition-transform"><i class="fas fa-code text-xl"></i></div>
+                            <h3 class="text-xl font-bold text-slate-800">Interactive Labs</h3>
+                        </div>
+                        <p class="text-slate-600 text-sm">Jupyter Notebooks and simulations for hands-on active learning.</p>
+                    </a>
+
                 </div>
             </div>
         </section>
 
         <!-- AI Concept Explainer Section -->
-        <section id="ai-explainer-section" class="py-20 px-6 md:px-8">
-            <div class="max-w-4xl mx-auto">
-                <h2 class="section-title">AI Financial Concept Explainer</h2>
-                <div class="card p-8">
-                    <p class="text-lg text-center text-gray-600 mb-8">
-                        Enter a financial term (e.g., "Quantitative Easing", "Derivatives", "WACC") to get a simplified explanation.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <input type="text" id="ai-prompt-input" placeholder="Enter a financial term..." class="w-full text-xl bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 py-4 px-6 shadow-inner">
-                        <button id="ai-explain-btn" class="bg-indigo-600 text-white font-bold px-8 py-4 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center shadow-lg whitespace-nowrap text-xl">
-                            <span id="ai-btn-text">Explain Concept</span>
-                            <div id="ai-btn-loader" class="loader hidden w-6 h-6 border-4 border-white border-top-color-transparent rounded-full animate-spin"></div>
+        <section id="ai-explainer-section" class="py-20 px-6 md:px-12 bg-slate-900 text-white">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="inline-block p-3 bg-indigo-600 rounded-full mb-6">
+                    <i class="fas fa-robot text-3xl"></i>
+                </div>
+                <h2 class="text-3xl font-bold mb-4">AI Financial Concept Explainer</h2>
+                <p class="text-slate-400 mb-8 max-w-2xl mx-auto">
+                    Stuck on a term? Get a "Explain Like I'm 5" definition instantly.
+                </p>
+
+                <div class="bg-slate-800 p-8 rounded-2xl shadow-2xl max-w-2xl mx-auto border border-slate-700">
+                    <div class="flex flex-col sm:flex-row gap-3 mb-6">
+                        <input type="text" id="ai-prompt-input" placeholder="e.g. WACC, EBITDA, Derivative..." class="flex-grow bg-slate-900 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                        <button id="ai-explain-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-lg transition-colors flex items-center justify-center min-w-[140px]">
+                            <span id="ai-btn-text">Explain</span>
+                            <div id="ai-btn-loader" class="hidden w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                         </button>
                     </div>
-                    <div id="ai-response-container" class="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200 min-h-[150px] text-gray-700 text-lg shadow-inner">
-                        AI-generated explanations will appear here...
+
+                    <div id="ai-response-container" class="text-left bg-slate-900/50 rounded-lg p-4 min-h-[100px] border border-slate-700/50 text-slate-300 text-sm leading-relaxed">
+                        <p class="italic opacity-50">Enter a term above to see the explanation here...</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Footer -->
-        <footer class="py-10 px-6 md:px-8 text-center text-sm text-slate-100 bg-slate-800">
-            <p>&copy; <span id="currentYear"></span> Financial Learning Hub. For educational purposes.</p>
-            <p class="mt-2">
-                <a href="https://github.com/adamvangrover/craft" target="_blank" rel="noopener noreferrer" class="hover:underline text-slate-300">View on GitHub</a>
-            </p>
+        <footer class="py-12 px-6 md:px-12 bg-white border-t border-slate-200 text-center">
+            <p class="text-slate-500 text-sm mb-4">&copy; <span id="currentYear"></span> Financial Learning Hub. Open Source Education.</p>
+            <div class="flex justify-center space-x-6 text-slate-400">
+                <a href="https://github.com/adamvangrover/craft" target="_blank" class="hover:text-indigo-600 transition-colors"><i class="fab fa-github text-xl"></i></a>
+                <a href="CONTRIBUTING.md" class="hover:text-indigo-600 transition-colors text-sm font-medium">Contribute</a>
+                <a href="LICENSE" class="hover:text-indigo-600 transition-colors text-sm font-medium">License</a>
+            </div>
         </footer>
 
     </div> <!-- End Main Content Wrapper -->
 
-    <button id="scroll-to-top" class="fixed bottom-8 right-8 bg-indigo-600 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-2xl opacity-0 transition-opacity duration-300">
+    <button id="scroll-to-top" class="fixed bottom-8 right-8 bg-indigo-600 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-xl opacity-0 transition-all duration-300 hover:bg-indigo-700 hover:scale-110 translate-y-20">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // Basic logic for sidebar interaction (if it's not always fixed open on larger screens)
-        const globalNav = document.getElementById('global-nav-placeholder');
-        const mainContentWrapper = document.getElementById('main-content-wrapper');
+        // Scroll to top
+        const scrollBtn = document.getElementById('scroll-to-top');
+        const mainWrapper = document.getElementById('main-content-wrapper');
 
-        // AI Concept Explainer JavaScript
+        mainWrapper.addEventListener('scroll', () => {
+            if (mainWrapper.scrollTop > 300) {
+                scrollBtn.classList.remove('opacity-0', 'translate-y-20');
+            } else {
+                scrollBtn.classList.add('opacity-0', 'translate-y-20');
+            }
+        });
+
+        scrollBtn.addEventListener('click', () => {
+            mainWrapper.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // AI Logic
         const aiPromptInput = document.getElementById('ai-prompt-input');
         const aiExplainBtn = document.getElementById('ai-explain-btn');
         const aiBtnText = document.getElementById('ai-btn-text');
@@ -404,19 +306,16 @@
         const handleAIExplain = async () => {
             const promptText = aiPromptInput.value.trim();
             if (!promptText) {
-                aiResponseContainer.innerHTML = '<p class="text-red-500">Please enter a financial term to explain.</p>';
+                aiResponseContainer.innerHTML = '<p class="text-red-400">Please enter a financial term.</p>';
                 return;
             }
 
             aiBtnText.classList.add('hidden');
             aiBtnLoader.classList.remove('hidden');
             aiExplainBtn.disabled = true;
-            aiResponseContainer.innerHTML = '<p class="text-slate-500">Generating explanation...</p>';
-
-            const GEMINI_API_KEY = "YOUR_API_KEY_HERE"; // IMPORTANT: Replace with your actual API key
             
-            if (GEMINI_API_KEY === "YOUR_API_KEY_HERE") {
-                 // Mock Mode
+            // Simulating API call
+            setTimeout(() => {
                  const lowerPrompt = promptText.toLowerCase();
                  let found = null;
                  for (const key in mockAIResponses) {
@@ -426,78 +325,20 @@
                      }
                  }
 
-                 // Simulate delay for realistic feel
-                 setTimeout(() => {
-                     if (found) {
-                         aiResponseContainer.innerHTML = `<p class="text-slate-700"><span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Mock Mode</span> ${found}</p>`;
-                     } else {
-                         aiResponseContainer.innerHTML = `<p class="text-orange-500"><span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Mock Mode</span> API Key not configured. Try terms like "WACC", "EBITDA", "Bond", or "Credit Risk" for a demo response.</p>`;
-                     }
-                     aiBtnText.classList.remove('hidden');
-                     aiBtnLoader.classList.add('hidden');
-                     aiExplainBtn.disabled = false;
-                 }, 800);
-                 return;
-            }
+                 if (found) {
+                     aiResponseContainer.innerHTML = `<p class="text-indigo-200 font-semibold mb-1">Concept:</p><p>${found}</p>`;
+                 } else {
+                     aiResponseContainer.innerHTML = `<p class="text-amber-400">Concept not found in demo database.</p><p class="mt-2 text-slate-400 text-xs">Try terms like: WACC, EBITDA, Bond, Credit Risk.</p>`;
+                 }
 
-            const prompt = `Explain the financial concept of "${promptText}" in simple terms, as if you were explaining it to a beginner. Keep it concise and clear. Focus on the core meaning and avoid jargon where possible, or explain it if necessary.`;
-            const payload = {
-              contents: [{ role: "user", parts: [{ text: prompt }] }],
-              // Optional: Add safetySettings if needed
-              // generationConfig: { temperature: 0.7, topK: 40, topP: 0.95 }
-            };
-
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
-
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload),
-                });
-
-                if (!response.ok) {
-                    const errorBody = await response.text();
-                    throw new Error(`API request failed with status ${response.status}: ${errorBody}`);
-                }
-
-                const result = await response.json();
-
-                if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
-                    let text = result.candidates[0].content.parts[0].text;
-                    // Basic formatting: replace newlines with <br> and bold markdown with <strong>
-                    text = text.replace(/\n/g, '<br>');
-                    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Bold
-                    text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');       // Italics
-                    aiResponseContainer.innerHTML = text;
-                } else if (result.promptFeedback && result.promptFeedback.blockReason) {
-                    aiResponseContainer.innerHTML = `<p class="text-red-500">Content generation blocked. Reason: ${result.promptFeedback.blockReason}. Please try a different term.</p>`;
-                }
-                else {
-                    console.error("Invalid response format from AI:", result);
-                    throw new Error("Invalid response format from AI.");
-                }
-            } catch (error) {
-                console.error("AI Generation Error:", error);
-                aiResponseContainer.innerHTML = `<p class="text-red-500">Sorry, an error occurred: ${error.message}. Please try again.</p>`;
-            } finally {
-                aiBtnText.classList.remove('hidden');
-                aiBtnLoader.classList.add('hidden');
-                aiExplainBtn.disabled = false;
-            }
+                 aiBtnText.classList.remove('hidden');
+                 aiBtnLoader.classList.add('hidden');
+                 aiExplainBtn.disabled = false;
+            }, 800);
         };
 
-        if (aiExplainBtn) {
-            aiExplainBtn.addEventListener('click', handleAIExplain);
-        }
-        if (aiPromptInput) {
-            aiPromptInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    handleAIExplain();
-                }
-            });
-        }
+        if (aiExplainBtn) aiExplainBtn.addEventListener('click', handleAIExplain);
+        if (aiPromptInput) aiPromptInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleAIExplain(); });
 
     </script>
     <script src="js/nav_data.js" defer></script>
