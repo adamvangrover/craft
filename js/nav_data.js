@@ -6,6 +6,12 @@ const navData = [
     "viewer": "global"
   },
   {
+    "text": "Pedagogy & Philosophy",
+    "href": "PEDAGOGY.md",
+    "type": "markdown_viewer",
+    "viewer": "global"
+  },
+  {
     "text": "Index",
     "href": "index.html",
     "type": "html_hub"
@@ -2612,6 +2618,12 @@ const navData = [
         "type": "category",
         "children": [
           {
+            "text": "ESG Data Integration",
+            "href": "Sustainable_Finance/Deep_Dives/ESG_Data_Integration.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
             "text": "Green Bond Framework Analysis",
             "href": "Sustainable_Finance/Deep_Dives/Green_Bond_Framework_Analysis.md",
             "type": "markdown_viewer",
@@ -2742,6 +2754,12 @@ const navData = [
         "text": "Deep Dives",
         "type": "category",
         "children": [
+          {
+            "text": "Wealth Transfer Strategies",
+            "href": "Wealth_Management/Deep_Dives/Wealth_Transfer_Strategies.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
           {
             "text": "IPS Construction",
             "href": "Wealth_Management/Deep_Dives/Private_Wealth_IPS_Construction.md",
@@ -6101,6 +6119,12 @@ const navData = [
           {
             "text": "README",
             "href": "modules/primers/README.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "Cloud Computing & SaaS",
+            "href": "modules/primers/cloud_computing.md",
             "type": "markdown_viewer",
             "viewer": "global"
           },

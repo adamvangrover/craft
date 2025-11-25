@@ -36,6 +36,7 @@ This document provides guidelines to help ensure consistency, quality, and maint
 1.  **Familiarize Yourself with the Structure:**
     *   Explore the repository to understand how content is organized into main thematic directories (e.g., `CFA/`, `Financial_Modeling/`, `Risk_Management/`, `Primers/`, `Interactive_Notebooks/`).
     *   Review the main `README.MD` and `home.html` for an overview.
+    *   **Read `PEDAGOGY.md`**: This is essential. It explains our "Active Learning" philosophy. Your content should align with these principles (e.g., using "Buy-Side Perspective" blocks).
     *   Check the `AGENTS.MD` file in the root directory and in the specific section you're interested in. While targeted at AI, they provide deep insights into the intended structure, scope, and technical considerations for each area.
 
 2.  **Choose What to Contribute:**
