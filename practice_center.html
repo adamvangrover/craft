@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyst's Workbench | Financial Learning Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global_nav.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: { 850: '#1e293b' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar for canvas */
+        #workbench-canvas::-webkit-scrollbar { width: 8px; }
+        #workbench-canvas::-webkit-scrollbar-track { background: #f1f5f9; }
+        #workbench-canvas::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        #workbench-canvas::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .nav-item-active { border-right: 4px solid #4f46e5; background-color: #eef2ff; color: #4f46e5; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans flex h-screen overflow-hidden">
+
+    <!-- Main Workspace -->
+    <div class="flex-grow flex flex-col h-full transition-all duration-300 w-full">
+
+        <!-- Workbench Header -->
+        <header class="bg-white border-b border-slate-200 px-6 py-3 flex justify-between items-center z-20 shadow-sm h-16">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-indigo-200">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg text-slate-800 leading-tight">Analyst's Workbench</h1>
+                    <p class="text-xs text-slate-500 font-medium">Integrated CRAFT Environment</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="home.html" class="text-sm text-slate-500 hover:text-indigo-600 font-medium">Exit to Hub</a>
+            </div>
+        </header>
+
+        <!-- Workbench Content (Flex Row: Sidebar + Main) -->
+        <div class="flex flex-grow overflow-hidden relative">
+
+             <!-- Workbench Sidebar -->
+             <aside class="w-64 bg-white border-r border-slate-200 flex flex-col z-10 overflow-y-auto">
+                <div class="p-4 space-y-1">
+                    <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-dashboard">
+                        <i class="fas fa-home w-5 text-center"></i> Mission Control
+                    </button>
+                    <div class="pt-4 pb-2 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Learning</div>
+                    <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-simulations">
+                        <i class="fas fa-laptop-code w-5 text-center"></i> Simulation Lab
+                    </button>
+                    <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-quizzes">
+                        <i class="fas fa-graduation-cap w-5 text-center"></i> Knowledge Base
+                    </button>
+
+                    <div class="pt-4 pb-2 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Tools</div>
+                    <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-toolkit">
+                        <i class="fas fa-tools w-5 text-center"></i> Analyst Toolkit
+                    </button>
+                    <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-synthesis">
+                        <i class="fas fa-file-contract w-5 text-center"></i> Synthesis Engine
+                    </button>
+
+                    <div class="pt-4 pb-2 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Intelligence</div>
+                    <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-ai">
+                        <i class="fas fa-brain w-5 text-center"></i> AI Command Center
+                    </button>
+                </div>
+             </aside>
+
+             <!-- Workbench Canvas -->
+             <main class="flex-grow overflow-y-auto bg-slate-50/50 p-8" id="workbench-canvas">
+
+                <!-- Section: Dashboard -->
+                <div id="wb-dashboard" class="wb-section max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-bold text-slate-900">Welcome back, Analyst.</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="text-slate-500 text-sm font-medium mb-1">Learning Progress</div>
+                            <div class="text-3xl font-bold text-indigo-600">Active</div>
+                            <div class="mt-4 h-2 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-indigo-500 w-2/3"></div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="text-slate-500 text-sm font-medium mb-1">Simulations Run</div>
+                            <div class="text-3xl font-bold text-emerald-600">12</div>
+                            <p class="text-xs text-slate-400 mt-2">Last: LBO Modeling Basics</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="text-slate-500 text-sm font-medium mb-1">Tools Accessed</div>
+                            <div class="text-3xl font-bold text-blue-600">8</div>
+                            <p class="text-xs text-slate-400 mt-2">Most used: Ratio Calculator</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <button onclick="document.querySelector('[data-target=wb-toolkit]').click()" class="p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-500 hover:shadow-md transition-all text-center group">
+                            <div class="w-10 h-10 mx-auto bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform"><i class="fas fa-calculator"></i></div>
+                            <span class="font-bold text-slate-700 text-sm">Quick Ratios</span>
+                        </button>
+                        <button onclick="document.querySelector('[data-target=wb-synthesis]').click()" class="p-4 bg-white border border-slate-200 rounded-xl hover:border-emerald-500 hover:shadow-md transition-all text-center group">
+                            <div class="w-10 h-10 mx-auto bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform"><i class="fas fa-pen-fancy"></i></div>
+                            <span class="font-bold text-slate-700 text-sm">Draft Memo</span>
+                        </button>
+                        <button onclick="document.querySelector('[data-target=wb-ai]').click()" class="p-4 bg-white border border-slate-200 rounded-xl hover:border-purple-500 hover:shadow-md transition-all text-center group">
+                            <div class="w-10 h-10 mx-auto bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform"><i class="fas fa-robot"></i></div>
+                            <span class="font-bold text-slate-700 text-sm">Prompt Library</span>
+                        </button>
+                        <button onclick="document.querySelector('[data-target=wb-simulations]').click()" class="p-4 bg-white border border-slate-200 rounded-xl hover:border-orange-500 hover:shadow-md transition-all text-center group">
+                            <div class="w-10 h-10 mx-auto bg-orange-50 text-orange-600 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform"><i class="fas fa-code"></i></div>
+                            <span class="font-bold text-slate-700 text-sm">Simulations</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Section: Simulations -->
+                <div id="wb-simulations" class="wb-section hidden max-w-6xl mx-auto">
+                    <div class="flex justify-between items-center mb-8">
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-900">Simulation Lab</h2>
+                            <p class="text-slate-500">Interactive notebooks and scenarios for hands-on practice.</p>
+                        </div>
+                        <input type="text" id="notebook-search" placeholder="Search simulations..." class="border border-slate-300 rounded-lg px-4 py-2 w-64 focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                    <div id="notebook-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Section: Knowledge Base -->
+                <div id="wb-quizzes" class="wb-section hidden max-w-6xl mx-auto">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">Knowledge Base & Verification</h2>
+
+                    <div class="mb-12">
+                        <h3 class="text-lg font-bold text-slate-700 mb-4 border-b border-slate-200 pb-2">Active Quizzes</h3>
+                        <div id="quiz-grid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Toolkit -->
+                <div id="wb-toolkit" class="wb-section hidden max-w-5xl mx-auto space-y-12">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-2">Analyst Toolkit</h2>
+                        <p class="text-slate-500">Calculators, generators, and reference tools.</p>
+                    </div>
+
+                    <!-- Ratio Calculator -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+                        <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-calculator text-indigo-600"></i> Quick Ratio Calculator</h3>
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <div class="col-span-1 space-y-4">
+                                <input type="number" id="calc-ca" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="Current Assets">
+                                <input type="number" id="calc-cl" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="Current Liabilities">
+                                <input type="number" id="calc-inv" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="Inventory">
+                                <button id="calc-btn" class="w-full bg-indigo-600 text-white font-bold py-2 rounded hover:bg-indigo-700">Calculate</button>
+                            </div>
+                            <div class="col-span-2 bg-slate-50 rounded-lg p-6 border border-slate-200">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="bg-white p-4 rounded shadow-sm">
+                                        <div class="text-xs text-slate-500 uppercase">Current Ratio</div>
+                                        <div id="res-current" class="text-2xl font-bold text-slate-900">-</div>
+                                    </div>
+                                    <div class="bg-white p-4 rounded shadow-sm">
+                                        <div class="text-xs text-slate-500 uppercase">Quick Ratio</div>
+                                        <div id="res-quick" class="text-2xl font-bold text-slate-900">-</div>
+                                    </div>
+                                </div>
+                                <div id="calc-feedback" class="mt-4 text-sm text-slate-600 italic">Enter values to see analysis.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Covenant Builder -->
+                    <div id="covenant-builder" class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+                        <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-gavel text-indigo-600"></i> Covenant Clause Builder</h3>
+                        <div class="flex flex-col gap-4">
+                            <select id="cov-clause-select" class="w-full border-slate-300 rounded-md px-3 py-2 border">
+                                <option value="">Select a standard clause...</option>
+                                <!-- Populated by JS -->
+                            </select>
+                            <button id="cov-add-btn" class="bg-indigo-100 text-indigo-700 font-bold py-2 px-4 rounded hover:bg-indigo-200 self-start">Add to Draft</button>
+                            <textarea id="cov-output" class="w-full h-48 border-slate-300 rounded-md bg-slate-50 font-mono text-sm p-4 border" placeholder="Clause text will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Checklist Generator -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+                        <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-tasks text-indigo-600"></i> Checklist Generator</h3>
+                        <div class="flex gap-4">
+                            <select id="checklist-select" class="flex-grow border-slate-300 rounded-md px-3 py-2 border">
+                                <option value="">Choose checklist...</option>
+                                <option value="credit-memo">Credit Memo Review</option>
+                                <option value="lbo-screen">LBO Initial Screen</option>
+                                <option value="earnings-call">Earnings Call Prep</option>
+                            </select>
+                            <button id="generate-checklist-btn" class="bg-teal-600 text-white font-bold py-2 px-6 rounded hover:bg-teal-700">Generate</button>
+                        </div>
+                        <textarea id="checklist-output" class="w-full h-64 mt-4 border-slate-300 rounded-md bg-slate-50 font-mono text-sm p-4 border" readonly></textarea>
+                    </div>
+                </div>
+
+                <!-- Section: AI Command Center -->
+                <div id="wb-ai" class="wb-section hidden max-w-6xl mx-auto">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">AI Command Center</h2>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Prompts -->
+                        <div class="lg:col-span-2">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-bold text-slate-700">Prompt Library</h3>
+                                <input type="text" id="prompt-search" placeholder="Filter prompts..." class="text-sm border border-slate-300 rounded px-2 py-1">
+                            </div>
+                            <div id="prompt-list" class="space-y-4">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Data & Assets -->
+                        <div>
+                            <h3 class="font-bold text-slate-700 mb-4">Data Room & Schemas</h3>
+                            <div id="data-list" class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Synthesis -->
+                <div id="wb-synthesis" class="wb-section hidden max-w-5xl mx-auto h-full flex flex-col">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-900">Synthesis Engine</h2>
+                            <p class="text-slate-500">Draft your credit memo or analysis.</p>
+                        </div>
+                        <button id="cm-export-btn" class="bg-emerald-600 text-white font-bold py-2 px-6 rounded hover:bg-emerald-700 shadow-sm"><i class="fas fa-download mr-2"></i> Export Markdown</button>
+                    </div>
+
+                    <textarea id="cm-editor" class="flex-grow w-full border border-slate-200 rounded-xl p-8 font-mono text-sm bg-white shadow-inner resize-none focus:ring-2 focus:ring-indigo-500 outline-none leading-relaxed" placeholder="# Credit Memorandum
+
+## Executive Summary
+[Enter summary here...]
+
+## Business Overview
+[Enter details...]
+
+## Financial Analysis
+[Enter analysis...]
+
+## Key Risks & Mitigants
+- Risk: ...
+  Mitigant: ...
+
+## Recommendation
+[Approve/Deny]"></textarea>
+                </div>
+
+             </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Mock progress manager for stats -->
+    <script>
+        window.progressManager = {
+            getLastVisited: () => null,
+            getCompletionStats: () => ({ completed: 0, total: 100 })
+        };
+    </script>
+    <script src="js/workbench_data.js"></script>
+    <script src="js/analyst_workbench.js"></script>
+    <!-- Inline Logic for Calculator/Checklist reused/adapted -->
+    <script>
+        // Ratio Calculator Re-bind
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('calc-btn');
+            if(btn) {
+                btn.addEventListener('click', () => {
+                    const ca = parseFloat(document.getElementById('calc-ca').value) || 0;
+                    const cl = parseFloat(document.getElementById('calc-cl').value) || 0;
+                    const inv = parseFloat(document.getElementById('calc-inv').value) || 0;
+                    if (cl === 0) return;
+                    document.getElementById('res-current').textContent = (ca / cl).toFixed(2);
+                    document.getElementById('res-quick').textContent = ((ca - inv) / cl).toFixed(2);
+                    document.getElementById('calc-feedback').textContent = "Calculation complete.";
+                });
+            }
+
+            // Checklist Re-bind
+            const checklists = {
+                "credit-memo": "## Credit Memo Review Checklist\n\n- [ ] **Executive Summary**: Clear recommendation?\n- [ ] **Borrower**: Business model clear?\n- [ ] **Financials**: Historical trends analyzed?",
+                "lbo-screen": "## LBO Initial Screen\n\n- [ ] **Market Position**: Leading share?\n- [ ] **Cash Flow**: Stable?",
+                "earnings-call": "## Earnings Call Prep\n\n- [ ] **Review**: Last quarter transcript."
+            };
+            const chkBtn = document.getElementById('generate-checklist-btn');
+            if(chkBtn) {
+                chkBtn.addEventListener('click', () => {
+                    const key = document.getElementById('checklist-select').value;
+                    const out = document.getElementById('checklist-output');
+                    if(checklists[key]) out.value = checklists[key];
+                });
+            }
+        });
+    </script>
+</body>
+</html>

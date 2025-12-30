@@ -104,7 +104,7 @@
     },
     {
       "id": "dd-lr-003",
-      "category":. "Legal & Regulatory Due Diligence",
+      "category": "Legal & Regulatory Due Diligence",
       "objective": "To identify any legal or significant regulatory issues.",
       "prompt_text": "Investigate any pending or threatened litigation and assess its potential impact on the company."
     },

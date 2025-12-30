@@ -87,7 +87,7 @@
     {
       "id": "cm-fa-004",
       "category": "Financial Analysis",
-.      "objective": "To present a clear and insightful analysis of the borrower's financial performance and condition.",
+      "objective": "To present a clear and insightful analysis of the borrower's financial performance and condition.",
       "prompt_text": "Analyze the borrower's cash flow and its ability to service the proposed debt."
     },
     {
