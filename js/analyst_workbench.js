@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
         loadPrompts();
         loadDatasets();
         loadQuizzes();
+        loadLearningPaths();
+        loadPrimers();
+        initGlossarySearch();
         initCovenantBuilder();
     } else {
         console.error("workbenchData not loaded");
@@ -70,10 +73,81 @@ function loadNotebooks() {
                 <h4 class="font-bold text-slate-800 mb-2 group-hover:text-indigo-600">${nb.title}</h4>
                 <div class="mt-auto pt-4 flex gap-2">
                      <a href="${nb.path}" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded hover:bg-indigo-100">View Guide</a>
-                     <!-- In a real app, this might link to Colab -->
                 </div>
             `;
             grid.appendChild(card);
+        });
+    });
+}
+
+// --- Learning Paths ---
+function loadLearningPaths() {
+    const grid = document.getElementById('paths-grid');
+    if (!grid) return;
+
+    workbenchData.learning_paths.forEach(lp => {
+        const card = document.createElement('div');
+        card.className = "bg-white p-6 rounded-xl border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-all";
+        card.innerHTML = `
+            <h3 class="font-bold text-lg text-slate-800 mb-2">${lp.title}</h3>
+            <p class="text-sm text-slate-500 mb-4">Structured curriculum for mastery.</p>
+            <a href="global_markdown_viewer.html?mdfile=${lp.path}" class="inline-block text-indigo-600 font-bold text-sm hover:underline">Start Path &rarr;</a>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+// --- Primers ---
+function loadPrimers() {
+    const grid = document.getElementById('primers-grid');
+    if (!grid) return;
+
+    workbenchData.primers.forEach(p => {
+        const card = document.createElement('div');
+        card.className = "bg-white p-4 rounded-lg border border-slate-200 hover:border-slate-300 transition-all";
+        card.innerHTML = `
+            <div class="flex items-center gap-2 mb-2">
+                <i class="fas fa-book-open text-slate-400"></i>
+                <span class="text-xs font-bold text-slate-500 uppercase">Primer</span>
+            </div>
+            <h4 class="font-bold text-slate-800 mb-3">${p.title}</h4>
+            <a href="global_markdown_viewer.html?mdfile=${p.path}" class="text-xs font-semibold text-slate-600 bg-slate-100 px-3 py-2 rounded hover:bg-slate-200 block text-center">Read Guide</a>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+// --- Glossary Search ---
+function initGlossarySearch() {
+    const input = document.getElementById('glossary-search');
+    const results = document.getElementById('glossary-results');
+    if (!input || !results) return;
+
+    input.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        results.innerHTML = '';
+
+        if (term.length < 2) return;
+
+        const matches = workbenchData.glossary.filter(g => g.term.toLowerCase().includes(term) || g.definition.toLowerCase().includes(term));
+
+        if (matches.length === 0) {
+            results.innerHTML = '<div class="text-slate-400 text-center py-4">No terms found.</div>';
+            return;
+        }
+
+        matches.forEach(m => {
+            const item = document.createElement('div');
+            item.className = "bg-white p-4 rounded-lg border border-slate-200 shadow-sm";
+            // Highlight term
+            const regex = new RegExp(`(${term})`, 'gi');
+            const highlightedDef = m.definition.replace(regex, '<span class="bg-yellow-100 font-bold">$1</span>');
+
+            item.innerHTML = `
+                <div class="font-bold text-indigo-700 text-lg mb-1">${m.term}</div>
+                <div class="text-slate-600 leading-relaxed">${highlightedDef}</div>
+            `;
+            results.appendChild(item);
         });
     });
 }
@@ -92,12 +166,12 @@ function loadPrompts() {
                 <button class="text-slate-400 hover:text-indigo-600 copy-btn" title="Copy Prompt"><i class="fas fa-copy"></i></button>
             </div>
             <p class="text-slate-800 font-medium mb-2 text-sm">${p.objective || 'Objective'}</p>
-            <div class="bg-white p-3 rounded border border-slate-200 text-slate-600 text-sm font-mono whitespace-pre-wrap">${p.prompt_text}</div>
+            <div class="bg-white p-3 rounded border border-slate-200 text-slate-600 text-sm font-mono whitespace-pre-wrap">${p.prompt_text || p.prompt}</div>
         `;
 
         // Copy Logic
         card.querySelector('.copy-btn').addEventListener('click', () => {
-            navigator.clipboard.writeText(p.prompt_text);
+            navigator.clipboard.writeText(p.prompt_text || p.prompt);
             alert("Prompt copied to clipboard!");
         });
 
@@ -151,25 +225,16 @@ async function initCovenantBuilder() {
     const builderSection = document.getElementById('covenant-builder');
     if (!builderSection) return;
 
-    // Find the clauses file
     const clausesFile = workbenchData.datasets.find(d => d.title === "Sample Covenant Clauses" || d.path.includes("sample_credit_agreement_clauses.json"));
 
     if (clausesFile) {
         try {
             const response = await fetch(clausesFile.path);
             const data = await response.json();
-            const clauses = data.clauses || []; // Adjust based on actual structure
+            const clauses = data.clauses || [];
 
             const select = document.getElementById('cov-clause-select');
             const output = document.getElementById('cov-output');
-
-            // Populate select
-            // Assuming structure is like { "Financial Covenants": [...], ... } or list
-            // If list of objects with category/text
-
-            // Inspecting memory of json files... assume array or object keys
-            // If it's the file I read earlier? No, I read decision tree.
-            // Let's assume standard object iteration.
 
             if (Array.isArray(clauses)) {
                  clauses.forEach(c => {
@@ -181,15 +246,17 @@ async function initCovenantBuilder() {
             } else {
                  // Object keys
                  for (const cat in data) {
-                     const group = document.createElement('optgroup');
-                     group.label = cat;
-                     data[cat].forEach(c => {
-                         const opt = document.createElement('option');
-                         opt.value = c.standard_clause || c.text;
-                         opt.textContent = c.title || c.name;
-                         group.appendChild(opt);
-                     });
-                     select.appendChild(group);
+                     if (Array.isArray(data[cat])) {
+                         const group = document.createElement('optgroup');
+                         group.label = cat;
+                         data[cat].forEach(c => {
+                             const opt = document.createElement('option');
+                             opt.value = c.standard_clause || c.text;
+                             opt.textContent = c.title || c.name;
+                             group.appendChild(opt);
+                         });
+                         select.appendChild(group);
+                     }
                  }
             }
 
@@ -209,16 +276,18 @@ async function initCovenantBuilder() {
 
 // --- Synthesis (Credit Memo) ---
 function initCreditMemo() {
-    // Simple logic to clear/export
-    document.getElementById('cm-export-btn').addEventListener('click', () => {
-        const text = document.getElementById('cm-editor').value;
-        const blob = new Blob([text], { type: 'text/markdown' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'credit_memo_draft.md';
-        a.click();
-    });
+    const btn = document.getElementById('cm-export-btn');
+    if(btn) {
+        btn.addEventListener('click', () => {
+            const text = document.getElementById('cm-editor').value;
+            const blob = new Blob([text], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'credit_memo_draft.md';
+            a.click();
+        });
+    }
 }
 if(document.getElementById('cm-export-btn')) initCreditMemo();
 

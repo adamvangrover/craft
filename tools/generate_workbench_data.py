@@ -1,6 +1,7 @@
 import os
 import json
 import glob
+import re
 
 OUTPUT_FILE = "js/workbench_data.js"
 
@@ -9,11 +10,15 @@ workbench_data = {
     "datasets": [],
     "prompts": [],
     "decision_trees": [],
-    "quizzes": []
+    "quizzes": [],
+    "learning_paths": [],
+    "primers": [],
+    "glossary": []
 }
 
 def get_relative_path(path):
-    return path.replace("./", "")
+    # Normalize path separators
+    return path.replace("\\", "/").replace("./", "")
 
 # 1. Notebooks
 for root, dirs, files in os.walk("."):
@@ -40,22 +45,23 @@ for root, dirs, files in os.walk("."):
 # 2. Datasets
 for root, dirs, files in os.walk("."):
     for file in files:
+        path = os.path.join(root, file)
+        # Skip hidden folders or node_modules if any
+        if ".git" in path or "node_modules" in path: continue
+
         if file.endswith(".csv"):
-            path = os.path.join(root, file)
             workbench_data["datasets"].append({
                 "title": file,
                 "path": get_relative_path(path),
                 "type": "CSV"
             })
         elif file.endswith("api_schema.json"):
-             path = os.path.join(root, file)
              workbench_data["datasets"].append({
                 "title": file.replace("_", " "),
                 "path": get_relative_path(path),
                 "type": "JSON Schema"
             })
         elif file == "sample_credit_agreement_clauses.json":
-             path = os.path.join(root, file)
              workbench_data["datasets"].append({
                 "title": "Sample Covenant Clauses",
                 "path": get_relative_path(path),
@@ -63,16 +69,13 @@ for root, dirs, files in os.walk("."):
             })
 
 # 3. Prompts
-# Specifically target prompt_engine_library and credit_analysis_knowledge_base
 prompt_files = glob.glob("prompt_engine_library/**/*.json", recursive=True) + \
                glob.glob("credit_analysis_knowledge_base/prompts.json")
 
 for p_file in prompt_files:
     try:
-        with open(p_file, 'r') as f:
+        with open(p_file, 'r', encoding='utf-8') as f:
             data = json.load(f)
-            # Assume strict structure or list of prompts
-            # If it has "prompts" key
             if "prompts" in data:
                 for p in data["prompts"]:
                     p["source_file"] = get_relative_path(p_file)
@@ -88,7 +91,7 @@ for p_file in prompt_files:
 dt_files = glob.glob("kb/decision_trees/*.json")
 for dt_file in dt_files:
     try:
-        with open(dt_file, 'r') as f:
+        with open(dt_file, 'r', encoding='utf-8') as f:
             data = json.load(f)
             workbench_data["decision_trees"].append({
                 "title": data.get("title", os.path.basename(dt_file)),
@@ -102,7 +105,7 @@ for dt_file in dt_files:
 q_files = glob.glob("quizzes/*.json")
 for q_file in q_files:
      try:
-        with open(q_file, 'r') as f:
+        with open(q_file, 'r', encoding='utf-8') as f:
             data = json.load(f)
             workbench_data["quizzes"].append({
                 "id": os.path.basename(q_file).replace(".json", ""),
@@ -112,8 +115,47 @@ for q_file in q_files:
      except:
          pass
 
+# 6. Learning Paths
+lp_files = glob.glob("Learning_Paths/*.md")
+for lp_file in lp_files:
+    if "README.md" in lp_file: continue
+    workbench_data["learning_paths"].append({
+        "title": os.path.basename(lp_file).replace(".md", "").replace("_", " "),
+        "path": get_relative_path(lp_file),
+        "type": "Markdown"
+    })
+
+# 7. Primers
+primer_files = glob.glob("Primers/*.md") + glob.glob("modules/primers/*.md")
+for p_file in primer_files:
+    if "README.md" in p_file: continue
+    workbench_data["primers"].append({
+        "title": os.path.basename(p_file).replace(".md", "").replace("_", " "),
+        "path": get_relative_path(p_file),
+        "category": "Industry & Product"
+    })
+
+# 8. Glossary
+glossary_file = "Global_Financial_Glossary.md"
+if os.path.exists(glossary_file):
+    try:
+        with open(glossary_file, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+            for line in lines:
+                # Regex to capture * **Term:** Definition
+                match = re.match(r"^\*\s*\*\*(.*?):\*\*\s*(.*)", line.strip())
+                if match:
+                    term = match.group(1)
+                    definition = match.group(2)
+                    workbench_data["glossary"].append({
+                        "term": term,
+                        "definition": definition
+                    })
+    except Exception as e:
+        print(f"Error parsing glossary: {e}")
+
 # Write to JS
-with open(OUTPUT_FILE, "w") as f:
+with open(OUTPUT_FILE, "w", encoding='utf-8') as f:
     f.write(f"const workbenchData = {json.dumps(workbench_data, indent=2)};")
 
 print(f"Generated {OUTPUT_FILE}")
