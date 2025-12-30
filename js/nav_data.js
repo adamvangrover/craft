@@ -17,6 +17,11 @@ const navData = [
     "type": "html_hub"
   },
   {
+    "text": "Analyst Practice Center",
+    "href": "practice_center.html",
+    "type": "html"
+  },
+  {
     "text": "Ai And Coding",
     "type": "category",
     "children": [
