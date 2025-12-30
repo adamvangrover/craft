@@ -66,11 +66,17 @@
                         <i class="fas fa-home w-5 text-center"></i> Mission Control
                     </button>
                     <div class="pt-4 pb-2 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Learning</div>
+                    <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-paths">
+                        <i class="fas fa-map-signs w-5 text-center"></i> Learning Paths
+                    </button>
                     <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-simulations">
                         <i class="fas fa-laptop-code w-5 text-center"></i> Simulation Lab
                     </button>
                     <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-quizzes">
                         <i class="fas fa-graduation-cap w-5 text-center"></i> Knowledge Base
+                    </button>
+                     <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-primers">
+                        <i class="fas fa-book w-5 text-center"></i> Reference Library
                     </button>
 
                     <div class="pt-4 pb-2 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Tools</div>
@@ -80,6 +86,10 @@
                     <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-synthesis">
                         <i class="fas fa-file-contract w-5 text-center"></i> Synthesis Engine
                     </button>
+                     <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-glossary">
+                        <i class="fas fa-spell-check w-5 text-center"></i> Glossary Lookup
+                    </button>
+
 
                     <div class="pt-4 pb-2 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Intelligence</div>
                     <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-ai">
@@ -136,6 +146,24 @@
                     </div>
                 </div>
 
+                <!-- Section: Learning Paths -->
+                <div id="wb-paths" class="wb-section hidden max-w-6xl mx-auto">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">Learning Paths</h2>
+                    <p class="text-slate-500 mb-6">Structured curriculums to master specific skills.</p>
+                    <div id="paths-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                 <!-- Section: Primers -->
+                <div id="wb-primers" class="wb-section hidden max-w-6xl mx-auto">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">Reference Library</h2>
+                    <p class="text-slate-500 mb-6">Industry primers and deep dives.</p>
+                    <div id="primers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
                 <!-- Section: Simulations -->
                 <div id="wb-simulations" class="wb-section hidden max-w-6xl mx-auto">
                     <div class="flex justify-between items-center mb-8">
@@ -159,6 +187,18 @@
                         <div id="quiz-grid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                             <!-- Populated by JS -->
                         </div>
+                    </div>
+                </div>
+
+                <!-- Section: Glossary -->
+                 <div id="wb-glossary" class="wb-section hidden max-w-4xl mx-auto">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">Glossary Lookup</h2>
+                    <div class="relative mb-8">
+                        <input type="text" id="glossary-search" placeholder="Search for terms (e.g. EBITDA, Covenant, WACC)..." class="w-full border-2 border-slate-200 rounded-xl px-6 py-4 text-lg focus:border-indigo-500 outline-none shadow-sm">
+                        <i class="fas fa-search absolute right-6 top-5 text-slate-400"></i>
+                    </div>
+                    <div id="glossary-results" class="space-y-4">
+                        <!-- Populated by JS -->
                     </div>
                 </div>
 
@@ -195,6 +235,33 @@
                         </div>
                     </div>
 
+                    <!-- DCF Calculator (New) -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+                        <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-chart-line text-teal-600"></i> Simplified DCF Valuator</h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Year 1 FCF ($)</label>
+                                    <input type="number" id="dcf-fcf" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 100">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Growth Rate (%)</label>
+                                    <input type="number" id="dcf-growth" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 5">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">WACC (%)</label>
+                                    <input type="number" id="dcf-wacc" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 10">
+                                </div>
+                                <button id="dcf-calc-btn" class="w-full bg-teal-600 text-white font-bold py-2 rounded hover:bg-teal-700">Estimate Value</button>
+                            </div>
+                            <div class="bg-slate-50 rounded-lg p-6 border border-slate-200 flex flex-col justify-center items-center text-center">
+                                <div class="text-xs text-slate-500 uppercase mb-2">Estimated Enterprise Value</div>
+                                <div id="dcf-result" class="text-4xl font-bold text-slate-900">$0.00</div>
+                                <p class="text-xs text-slate-400 mt-2 italic">Based on 5-year projection + Terminal Value (Gordon Growth)</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Covenant Builder -->
                     <div id="covenant-builder" class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
                         <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-gavel text-indigo-600"></i> Covenant Clause Builder</h3>
@@ -217,6 +284,7 @@
                                 <option value="credit-memo">Credit Memo Review</option>
                                 <option value="lbo-screen">LBO Initial Screen</option>
                                 <option value="earnings-call">Earnings Call Prep</option>
+                                <option value="term-sheet">Term Sheet Template</option>
                             </select>
                             <button id="generate-checklist-btn" class="bg-teal-600 text-white font-bold py-2 px-6 rounded hover:bg-teal-700">Generate</button>
                         </div>
@@ -284,19 +352,12 @@
     </div>
 
     <!-- Scripts -->
-    <!-- Mock progress manager for stats -->
-    <script>
-        window.progressManager = {
-            getLastVisited: () => null,
-            getCompletionStats: () => ({ completed: 0, total: 100 })
-        };
-    </script>
     <script src="js/workbench_data.js"></script>
     <script src="js/analyst_workbench.js"></script>
     <!-- Inline Logic for Calculator/Checklist reused/adapted -->
     <script>
-        // Ratio Calculator Re-bind
         document.addEventListener('DOMContentLoaded', () => {
+            // Ratio Calculator
             const btn = document.getElementById('calc-btn');
             if(btn) {
                 btn.addEventListener('click', () => {
@@ -310,11 +371,44 @@
                 });
             }
 
+            // DCF Calculator
+            const dcfBtn = document.getElementById('dcf-calc-btn');
+            if(dcfBtn) {
+                dcfBtn.addEventListener('click', () => {
+                    const fcf1 = parseFloat(document.getElementById('dcf-fcf').value) || 0;
+                    const growth = (parseFloat(document.getElementById('dcf-growth').value) || 0) / 100;
+                    const wacc = (parseFloat(document.getElementById('dcf-wacc').value) || 0) / 100;
+
+                    if (wacc <= growth) {
+                        alert("WACC must be greater than growth rate for simplified Terminal Value calculation.");
+                        return;
+                    }
+
+                    // 5 Year Projection
+                    let totalPV = 0;
+                    let currentFCF = fcf1; // Year 1
+                    totalPV += currentFCF / Math.pow(1 + wacc, 1);
+
+                    for(let i=2; i<=5; i++) {
+                        currentFCF = currentFCF * (1 + growth);
+                        totalPV += currentFCF / Math.pow(1 + wacc, i);
+                    }
+
+                    // Terminal Value (Gordon Growth) at Year 5
+                    const tv = (currentFCF * (1 + growth)) / (wacc - growth);
+                    const tvPV = tv / Math.pow(1 + wacc, 5);
+
+                    const ev = totalPV + tvPV;
+                    document.getElementById('dcf-result').textContent = '$' + ev.toFixed(2);
+                });
+            }
+
             // Checklist Re-bind
             const checklists = {
                 "credit-memo": "## Credit Memo Review Checklist\n\n- [ ] **Executive Summary**: Clear recommendation?\n- [ ] **Borrower**: Business model clear?\n- [ ] **Financials**: Historical trends analyzed?",
-                "lbo-screen": "## LBO Initial Screen\n\n- [ ] **Market Position**: Leading share?\n- [ ] **Cash Flow**: Stable?",
-                "earnings-call": "## Earnings Call Prep\n\n- [ ] **Review**: Last quarter transcript."
+                "lbo-screen": "## LBO Initial Screen\n\n- [ ] **Market Position**: Leading share?\n- [ ] **Cash Flow**: Stable?\n- [ ] **Capex**: Low maintenance capex?",
+                "earnings-call": "## Earnings Call Prep\n\n- [ ] **Review**: Last quarter transcript.\n- [ ] **Guidance**: Compare vs Consensus.\n- [ ] **Q&A**: Check analyst tone.",
+                "term-sheet": "# Term Sheet Template\n\n**Borrower:** [Name]\n**Facility:** Senior Secured Term Loan\n**Amount:** $[Amount]\n**Maturity:** [Date]\n**Interest Rate:** SOFR + [Spread]%\n**Amortization:** [X]% per annum\n**Financial Covenants:**\n- Max Leverage: [X]x\n- Min Interest Coverage: [X]x"
             };
             const chkBtn = document.getElementById('generate-checklist-btn');
             if(chkBtn) {
