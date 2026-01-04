@@ -13,7 +13,10 @@ workbench_data = {
     "quizzes": [],
     "learning_paths": [],
     "primers": [],
-    "glossary": []
+    "glossary": [],
+    "checklists": {},
+    "deals": [],
+    "scoring_model": {}
 }
 
 def get_relative_path(path):
@@ -153,6 +156,33 @@ if os.path.exists(glossary_file):
                     })
     except Exception as e:
         print(f"Error parsing glossary: {e}")
+
+# 9. Checklists
+checklist_file = "Toolkits_and_Checklists/checklists_registry.json"
+if os.path.exists(checklist_file):
+    try:
+        with open(checklist_file, 'r', encoding='utf-8') as f:
+            workbench_data["checklists"] = json.load(f)
+    except Exception as e:
+        print(f"Error parsing checklists: {e}")
+
+# 10. Mock Deals
+deals_file = "modules/Credit_Analysis/datasets/mock_deals.json"
+if os.path.exists(deals_file):
+    try:
+        with open(deals_file, 'r', encoding='utf-8') as f:
+            workbench_data["deals"] = json.load(f)
+    except Exception as e:
+         print(f"Error parsing mock deals: {e}")
+
+# 11. Scoring Model
+scoring_file = "modules/Credit_Analysis/datasets/credit_scoring_model.json"
+if os.path.exists(scoring_file):
+    try:
+        with open(scoring_file, 'r', encoding='utf-8') as f:
+            workbench_data["scoring_model"] = json.load(f)
+    except Exception as e:
+         print(f"Error parsing scoring model: {e}")
 
 # Write to JS
 with open(OUTPUT_FILE, "w", encoding='utf-8') as f:

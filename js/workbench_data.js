@@ -8975,5 +8975,401 @@ const workbenchData = {
       "term": "Z-Spread (Zero-Volatility Spread)",
       "definition": "(Fixed Income/Valuation) The constant spread that must be added to the spot rate curve (zero-coupon yield curve) to make the present value of a bond's cash flows equal to its market price. A more accurate measure of credit spread than the nominal spread (yield difference). *See: `Interactive_Notebooks/Fixed_Income/Bond_Pricing_with_Credit_Spreads.ipynb`*"
     }
-  ]
+  ],
+  "checklists": {
+    "credit-memo": {
+      "title": "Credit Memo Review",
+      "content": "## Credit Memo Review Checklist\n\n- [ ] **Executive Summary**: Clear recommendation and key investment thesis?\n- [ ] **Borrower Overview**: Business model, history, and ownership structure clearly defined?\n- [ ] **Industry Analysis**: Market position, competition, and cyclicality addressed?\n- [ ] **Financial Analysis**: Historical trends (3-5 years) analyzed with commentary on variances?\n- [ ] **Projections**: Are assumptions realistic and sensitivity analysis performed?\n- [ ] **Capital Structure**: Pro-forma capitalization table accurate?\n- [ ] **Risks & Mitigants**: Key risks identified with tangible mitigants?\n- [ ] **Collateral**: Security package and valuation coverage described?\n- [ ] **Conclusion**: Does the recommendation logically follow from the analysis?"
+    },
+    "lbo-screen": {
+      "title": "LBO Initial Screen",
+      "content": "## LBO Initial Screen\n\n- [ ] **Market Position**: Leading market share in a defensive niche?\n- [ ] **Cash Flow**: Stable, predictable free cash flow generation?\n- [ ] **Capex**: Low maintenance capex requirements?\n- [ ] **Margins**: High and stable EBITDA margins (>15%)?\n- [ ] **Growth**: Multiple avenues for growth (organic or M&A)?\n- [ ] **Management**: Strong, experienced management team?\n- [ ] **Exit**: Clear exit opportunities (Strategic sale, IPO) within 3-5 years?\n- [ ] **Resilience**: Performance during previous economic downturns?"
+    },
+    "earnings-call": {
+      "title": "Earnings Call Prep",
+      "content": "## Earnings Call Prep\n\n- [ ] **Review**: Read last quarter's transcript and press release.\n- [ ] **Guidance**: Compare actuals vs. previous guidance and consensus estimates.\n- [ ] **KPIs**: Check key performance indicators (e.g., volume, price, churn).\n- [ ] **Margins**: Analyze gross and operating margin trends.\n- [ ] **Cash Flow**: Review working capital changes and free cash flow conversion.\n- [ ] **Debt**: Check leverage ratios and liquidity position.\n- [ ] **Q&A**: Note analyst tone and management's responsiveness in previous calls.\n- [ ] **Question List**: Prepare 3-5 key questions for management."
+    },
+    "term-sheet": {
+      "title": "Term Sheet Template",
+      "content": "# Term Sheet Template\n\n**Borrower:** [Name]\n**Facility:** Senior Secured Term Loan\n**Amount:** $[Amount]\n**Maturity:** [Date]\n**Interest Rate:** SOFR + [Spread]%\n**Amortization:** [X]% per annum, payable quarterly\n**Mandatory Prepayments:**\n- Excess Cash Flow: [X]%\n- Asset Sales: 100% (subject to reinvestment rights)\n- Debt Issuance: 100%\n**Financial Covenants:**\n- Max Net Leverage Ratio: [X]x step-down to [Y]x\n- Min Interest Coverage Ratio: [X]x\n**Security:** First priority lien on substantially all assets.\n**Guarantors:** All material domestic subsidiaries."
+    },
+    "distressed-analysis": {
+      "title": "Distressed Debt Analysis",
+      "content": "## Distressed Debt Analysis\n\n- [ ] **Liquidity**: Immediate liquidity runway (Cash burn vs. Cash balance)?\n- [ ] **Maturity Wall**: When is the next significant debt maturity?\n- [ ] **Covenants**: Approaching or actual covenant breaches?\n- [ ] **Capital Structure**: Identify position in the waterfall (Senior, Junior, Unsecured).\n- [ ] **Intercreditor**: Review Intercreditor Agreements (1L/2L rights).\n- [ ] **Collateral Valuation**: Liquidation value of assets vs. debt claims.\n- [ ] **Turnaround Plan**: Viability of operational restructuring.\n- [ ] **Legal**: Pending litigation or regulatory issues?"
+    },
+    "esg-screening": {
+      "title": "ESG Risk Screening",
+      "content": "## ESG Risk Screening\n\n**Environmental**\n- [ ] Carbon footprint and transition risk?\n- [ ] Waste management and pollution controls?\n- [ ] Resource usage (water, energy) efficiency?\n\n**Social**\n- [ ] Labor practices and supply chain standards?\n- [ ] Employee health and safety record?\n- [ ] Product safety and quality?\n\n**Governance**\n- [ ] Board independence and diversity?\n- [ ] Executive compensation alignment?\n- [ ] Shareholder rights and transparency?"
+    },
+    "management-interview": {
+      "title": "Management Interview Guide",
+      "content": "## Management Interview Guide\n\n- [ ] **Strategy**: What is the 3-5 year strategic vision?\n- [ ] **Competitive Advantage**: How do you maintain your moat?\n- [ ] **Growth**: What are the key drivers of the projected growth?\n- [ ] **Risks**: What keeps you up at night?\n- [ ] **Capital Allocation**: Priorities for excess cash (M&A, Dividends, Capex)?\n- [ ] **Industry**: View on current industry trends and consolidation?\n- [ ] **Succession**: Plan for key executive departures?"
+    },
+    "project-finance": {
+      "title": "Project Finance Due Diligence",
+      "content": "## Project Finance Due Diligence\n\n- [ ] **Sponsor**: Experience and financial strength of the sponsor?\n- [ ] **EPC Contract**: Fixed-price, date-certain turnkey contract?\n- [ ] **Offtake Agreement**: Long-term, creditworthy off-taker (PPA, etc.)?\n- [ ] **Supply**: Secure supply of feedstock/fuel?\n- [ ] **Technology**: Proven technology or first-of-kind risk?\n- [ ] **Permits**: All environmental and construction permits in place?\n- [ ] **Financial Model**: DSCR > 1.3x (P99 scenario)?"
+    },
+    "re-analysis": {
+      "title": "Real Estate Credit Analysis",
+      "content": "## Real Estate Credit Analysis\n\n- [ ] **Location**: Market fundamentals (vacancy, absorption, rent growth)?\n- [ ] **Property Type**: Class A/B/C, Office, Retail, Industrial, Multi-family?\n- [ ] **Tenants**: Tenant credit quality and lease diversity?\n- [ ] **Lease Terms**: WALT (Weighted Average Lease Term) vs. Loan Term?\n- [ ] **Cash Flow**: NOI (Net Operating Income) sustainability?\n- [ ] **Valuation**: Cap rate assumptions vs. market comps?\n- [ ] **LTV/DSCR**: Loan-to-Value and Debt Service Coverage Ratio buffers?"
+    }
+  },
+  "deals": [
+    {
+      "id": "deal_001",
+      "name": "TechFlow Solutions",
+      "sector": "Technology",
+      "sub_sector": "SaaS",
+      "revenue": 150.0,
+      "ebitda": 45.0,
+      "ebitda_margin": 30.0,
+      "asking_price": 675.0,
+      "net_debt": 50.0,
+      "leverage": 1.1,
+      "growth_rate": 12.0,
+      "capex_percent": 3.0,
+      "description": "B2B Workflow Automation Software. High retention, low capex.",
+      "rating": "B+"
+    },
+    {
+      "id": "deal_002",
+      "name": "Apex Logistics",
+      "sector": "Industrials",
+      "sub_sector": "Transportation",
+      "revenue": 500.0,
+      "ebitda": 80.0,
+      "ebitda_margin": 16.0,
+      "asking_price": 640.0,
+      "net_debt": 200.0,
+      "leverage": 2.5,
+      "growth_rate": 4.5,
+      "capex_percent": 8.0,
+      "description": "Regional logistics provider with owned fleet. Cyclical exposure.",
+      "rating": "BB-"
+    },
+    {
+      "id": "deal_003",
+      "name": "GreenLeaf Foods",
+      "sector": "Consumer",
+      "sub_sector": "Food & Bev",
+      "revenue": 220.0,
+      "ebitda": 35.0,
+      "ebitda_margin": 15.9,
+      "asking_price": 350.0,
+      "net_debt": 120.0,
+      "leverage": 3.4,
+      "growth_rate": 6.0,
+      "capex_percent": 5.0,
+      "description": "Organic packaged foods. Strong brand, input cost pressure.",
+      "rating": "B"
+    },
+    {
+      "id": "deal_004",
+      "name": "MediCare Plus",
+      "sector": "Healthcare",
+      "sub_sector": "Services",
+      "revenue": 800.0,
+      "ebitda": 120.0,
+      "ebitda_margin": 15.0,
+      "asking_price": 1440.0,
+      "net_debt": 360.0,
+      "leverage": 3.0,
+      "growth_rate": 3.0,
+      "capex_percent": 4.0,
+      "description": "Network of outpatient clinics. Regulatory risk high.",
+      "rating": "BB"
+    },
+    {
+      "id": "deal_005",
+      "name": "BuildIt Materials",
+      "sector": "Industrials",
+      "sub_sector": "Construction",
+      "revenue": 300.0,
+      "ebitda": 40.0,
+      "ebitda_margin": 13.3,
+      "asking_price": 280.0,
+      "net_debt": 150.0,
+      "leverage": 3.75,
+      "growth_rate": 2.0,
+      "capex_percent": 10.0,
+      "description": "Construction supply distributor. High cyclicality.",
+      "rating": "CCC+"
+    },
+    {
+      "id": "deal_006",
+      "name": "CloudNine Data",
+      "sector": "Technology",
+      "sub_sector": "Infrastructure",
+      "revenue": 400.0,
+      "ebitda": 100.0,
+      "ebitda_margin": 25.0,
+      "asking_price": 1500.0,
+      "net_debt": 600.0,
+      "leverage": 6.0,
+      "growth_rate": 15.0,
+      "capex_percent": 20.0,
+      "description": "Data center operator. High asset intensity, strong contracts.",
+      "rating": "B-"
+    },
+    {
+      "id": "deal_007",
+      "name": "Stellar Energy",
+      "sector": "Energy",
+      "sub_sector": "Oil & Gas",
+      "revenue": 1200.0,
+      "ebitda": 300.0,
+      "ebitda_margin": 25.0,
+      "asking_price": 1500.0,
+      "net_debt": 500.0,
+      "leverage": 1.6,
+      "growth_rate": -2.0,
+      "capex_percent": 15.0,
+      "description": "E&P company. Commodity price exposure.",
+      "rating": "BB+"
+    },
+    {
+      "id": "deal_008",
+      "name": "PureWater Utility",
+      "sector": "Utilities",
+      "sub_sector": "Water",
+      "revenue": 100.0,
+      "ebitda": 60.0,
+      "ebitda_margin": 60.0,
+      "asking_price": 900.0,
+      "net_debt": 400.0,
+      "leverage": 6.6,
+      "growth_rate": 2.0,
+      "capex_percent": 25.0,
+      "description": "Regulated water utility. Stable cash flows.",
+      "rating": "A-"
+    },
+    {
+      "id": "deal_009",
+      "name": "FashionForward",
+      "sector": "Consumer",
+      "sub_sector": "Retail",
+      "revenue": 200.0,
+      "ebitda": 20.0,
+      "ebitda_margin": 10.0,
+      "asking_price": 120.0,
+      "net_debt": 80.0,
+      "leverage": 4.0,
+      "growth_rate": -5.0,
+      "capex_percent": 4.0,
+      "description": "Apparel retailer. Declining mall traffic exposure.",
+      "rating": "CCC"
+    },
+    {
+      "id": "deal_010",
+      "name": "CyberShield",
+      "sector": "Technology",
+      "sub_sector": "Cybersecurity",
+      "revenue": 50.0,
+      "ebitda": -5.0,
+      "ebitda_margin": -10.0,
+      "asking_price": 400.0,
+      "net_debt": 0.0,
+      "leverage": 0.0,
+      "growth_rate": 40.0,
+      "capex_percent": 1.0,
+      "description": "High growth cybersecurity. Burning cash.",
+      "rating": "N/A"
+    }
+  ],
+  "scoring_model": {
+    "financial_risk_profile": {
+      "weight": 0.6,
+      "metrics": [
+        {
+          "id": "debt_to_ebitda",
+          "name": "Debt / EBITDA",
+          "weight": 0.5,
+          "thresholds": [
+            {
+              "max": 1.5,
+              "score": 5,
+              "label": "Minimal"
+            },
+            {
+              "max": 2.5,
+              "score": 4,
+              "label": "Modest"
+            },
+            {
+              "max": 3.5,
+              "score": 3,
+              "label": "Intermediate"
+            },
+            {
+              "max": 5.0,
+              "score": 2,
+              "label": "Aggressive"
+            },
+            {
+              "max": 999,
+              "score": 1,
+              "label": "Highly Leveraged"
+            }
+          ]
+        },
+        {
+          "id": "interest_coverage",
+          "name": "EBITDA / Interest",
+          "weight": 0.3,
+          "thresholds": [
+            {
+              "min": 10.0,
+              "score": 5,
+              "label": "Minimal"
+            },
+            {
+              "min": 6.0,
+              "score": 4,
+              "label": "Modest"
+            },
+            {
+              "min": 4.0,
+              "score": 3,
+              "label": "Intermediate"
+            },
+            {
+              "min": 2.5,
+              "score": 2,
+              "label": "Aggressive"
+            },
+            {
+              "min": 0.0,
+              "score": 1,
+              "label": "Highly Leveraged"
+            }
+          ]
+        },
+        {
+          "id": "fcf_debt",
+          "name": "FCF / Debt",
+          "weight": 0.2,
+          "thresholds": [
+            {
+              "min": 0.3,
+              "score": 5,
+              "label": "Minimal"
+            },
+            {
+              "min": 0.2,
+              "score": 4,
+              "label": "Modest"
+            },
+            {
+              "min": 0.1,
+              "score": 3,
+              "label": "Intermediate"
+            },
+            {
+              "min": 0.05,
+              "score": 2,
+              "label": "Aggressive"
+            },
+            {
+              "min": -999,
+              "score": 1,
+              "label": "Highly Leveraged"
+            }
+          ]
+        }
+      ]
+    },
+    "business_risk_profile": {
+      "weight": 0.4,
+      "questions": [
+        {
+          "id": "scale",
+          "text": "How does the company's scale compare to industry leaders?",
+          "options": [
+            {
+              "value": 5,
+              "text": "Market Leader / Large Scale"
+            },
+            {
+              "value": 3,
+              "text": "Mid-Market / Regional Player"
+            },
+            {
+              "value": 1,
+              "text": "Small / Niche Player"
+            }
+          ]
+        },
+        {
+          "id": "margins",
+          "text": "How stable are the operating margins?",
+          "options": [
+            {
+              "value": 5,
+              "text": "Highly Stable / Recurring Revenue"
+            },
+            {
+              "value": 3,
+              "text": "Average Volatility"
+            },
+            {
+              "value": 1,
+              "text": "Volatile / Commodity Exposed"
+            }
+          ]
+        },
+        {
+          "id": "growth",
+          "text": "What is the long-term growth outlook?",
+          "options": [
+            {
+              "value": 5,
+              "text": "Above GDP / Secular Tailwinds"
+            },
+            {
+              "value": 3,
+              "text": "In-line with GDP"
+            },
+            {
+              "value": 1,
+              "text": "Declining / Secular Headwinds"
+            }
+          ]
+        }
+      ]
+    },
+    "rating_scale": [
+      {
+        "min_score": 4.5,
+        "rating": "AAA"
+      },
+      {
+        "min_score": 4.0,
+        "rating": "AA"
+      },
+      {
+        "min_score": 3.5,
+        "rating": "A"
+      },
+      {
+        "min_score": 3.0,
+        "rating": "BBB"
+      },
+      {
+        "min_score": 2.5,
+        "rating": "BB"
+      },
+      {
+        "min_score": 2.0,
+        "rating": "B"
+      },
+      {
+        "min_score": 1.0,
+        "rating": "CCC"
+      },
+      {
+        "min_score": 0.0,
+        "rating": "D"
+      }
+    ]
+  }
 };

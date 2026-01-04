@@ -1,0 +1,38 @@
+{
+  "credit-memo": {
+    "title": "Credit Memo Review",
+    "content": "## Credit Memo Review Checklist\n\n- [ ] **Executive Summary**: Clear recommendation and key investment thesis?\n- [ ] **Borrower Overview**: Business model, history, and ownership structure clearly defined?\n- [ ] **Industry Analysis**: Market position, competition, and cyclicality addressed?\n- [ ] **Financial Analysis**: Historical trends (3-5 years) analyzed with commentary on variances?\n- [ ] **Projections**: Are assumptions realistic and sensitivity analysis performed?\n- [ ] **Capital Structure**: Pro-forma capitalization table accurate?\n- [ ] **Risks & Mitigants**: Key risks identified with tangible mitigants?\n- [ ] **Collateral**: Security package and valuation coverage described?\n- [ ] **Conclusion**: Does the recommendation logically follow from the analysis?"
+  },
+  "lbo-screen": {
+    "title": "LBO Initial Screen",
+    "content": "## LBO Initial Screen\n\n- [ ] **Market Position**: Leading market share in a defensive niche?\n- [ ] **Cash Flow**: Stable, predictable free cash flow generation?\n- [ ] **Capex**: Low maintenance capex requirements?\n- [ ] **Margins**: High and stable EBITDA margins (>15%)?\n- [ ] **Growth**: Multiple avenues for growth (organic or M&A)?\n- [ ] **Management**: Strong, experienced management team?\n- [ ] **Exit**: Clear exit opportunities (Strategic sale, IPO) within 3-5 years?\n- [ ] **Resilience**: Performance during previous economic downturns?"
+  },
+  "earnings-call": {
+    "title": "Earnings Call Prep",
+    "content": "## Earnings Call Prep\n\n- [ ] **Review**: Read last quarter's transcript and press release.\n- [ ] **Guidance**: Compare actuals vs. previous guidance and consensus estimates.\n- [ ] **KPIs**: Check key performance indicators (e.g., volume, price, churn).\n- [ ] **Margins**: Analyze gross and operating margin trends.\n- [ ] **Cash Flow**: Review working capital changes and free cash flow conversion.\n- [ ] **Debt**: Check leverage ratios and liquidity position.\n- [ ] **Q&A**: Note analyst tone and management's responsiveness in previous calls.\n- [ ] **Question List**: Prepare 3-5 key questions for management."
+  },
+  "term-sheet": {
+    "title": "Term Sheet Template",
+    "content": "# Term Sheet Template\n\n**Borrower:** [Name]\n**Facility:** Senior Secured Term Loan\n**Amount:** $[Amount]\n**Maturity:** [Date]\n**Interest Rate:** SOFR + [Spread]%\n**Amortization:** [X]% per annum, payable quarterly\n**Mandatory Prepayments:**\n- Excess Cash Flow: [X]%\n- Asset Sales: 100% (subject to reinvestment rights)\n- Debt Issuance: 100%\n**Financial Covenants:**\n- Max Net Leverage Ratio: [X]x step-down to [Y]x\n- Min Interest Coverage Ratio: [X]x\n**Security:** First priority lien on substantially all assets.\n**Guarantors:** All material domestic subsidiaries."
+  },
+  "distressed-analysis": {
+    "title": "Distressed Debt Analysis",
+    "content": "## Distressed Debt Analysis\n\n- [ ] **Liquidity**: Immediate liquidity runway (Cash burn vs. Cash balance)?\n- [ ] **Maturity Wall**: When is the next significant debt maturity?\n- [ ] **Covenants**: Approaching or actual covenant breaches?\n- [ ] **Capital Structure**: Identify position in the waterfall (Senior, Junior, Unsecured).\n- [ ] **Intercreditor**: Review Intercreditor Agreements (1L/2L rights).\n- [ ] **Collateral Valuation**: Liquidation value of assets vs. debt claims.\n- [ ] **Turnaround Plan**: Viability of operational restructuring.\n- [ ] **Legal**: Pending litigation or regulatory issues?"
+  },
+  "esg-screening": {
+    "title": "ESG Risk Screening",
+    "content": "## ESG Risk Screening\n\n**Environmental**\n- [ ] Carbon footprint and transition risk?\n- [ ] Waste management and pollution controls?\n- [ ] Resource usage (water, energy) efficiency?\n\n**Social**\n- [ ] Labor practices and supply chain standards?\n- [ ] Employee health and safety record?\n- [ ] Product safety and quality?\n\n**Governance**\n- [ ] Board independence and diversity?\n- [ ] Executive compensation alignment?\n- [ ] Shareholder rights and transparency?"
+  },
+  "management-interview": {
+    "title": "Management Interview Guide",
+    "content": "## Management Interview Guide\n\n- [ ] **Strategy**: What is the 3-5 year strategic vision?\n- [ ] **Competitive Advantage**: How do you maintain your moat?\n- [ ] **Growth**: What are the key drivers of the projected growth?\n- [ ] **Risks**: What keeps you up at night?\n- [ ] **Capital Allocation**: Priorities for excess cash (M&A, Dividends, Capex)?\n- [ ] **Industry**: View on current industry trends and consolidation?\n- [ ] **Succession**: Plan for key executive departures?"
+  },
+  "project-finance": {
+    "title": "Project Finance Due Diligence",
+    "content": "## Project Finance Due Diligence\n\n- [ ] **Sponsor**: Experience and financial strength of the sponsor?\n- [ ] **EPC Contract**: Fixed-price, date-certain turnkey contract?\n- [ ] **Offtake Agreement**: Long-term, creditworthy off-taker (PPA, etc.)?\n- [ ] **Supply**: Secure supply of feedstock/fuel?\n- [ ] **Technology**: Proven technology or first-of-kind risk?\n- [ ] **Permits**: All environmental and construction permits in place?\n- [ ] **Financial Model**: DSCR > 1.3x (P99 scenario)?"
+  },
+  "re-analysis": {
+    "title": "Real Estate Credit Analysis",
+    "content": "## Real Estate Credit Analysis\n\n- [ ] **Location**: Market fundamentals (vacancy, absorption, rent growth)?\n- [ ] **Property Type**: Class A/B/C, Office, Retail, Industrial, Multi-family?\n- [ ] **Tenants**: Tenant credit quality and lease diversity?\n- [ ] **Lease Terms**: WALT (Weighted Average Lease Term) vs. Loan Term?\n- [ ] **Cash Flow**: NOI (Net Operating Income) sustainability?\n- [ ] **Valuation**: Cap rate assumptions vs. market comps?\n- [ ] **LTV/DSCR**: Loan-to-Value and Debt Service Coverage Ratio buffers?"
+  }
+}

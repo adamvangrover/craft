@@ -35,7 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
         loadLearningPaths();
         loadPrimers();
         initGlossarySearch();
+        initFlashcards();
         initCovenantBuilder();
+        initDealScreener();
+        initCreditScorer();
+        loadChecklists();
     } else {
         console.error("workbenchData not loaded");
     }
@@ -43,6 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Search Logic ---
     setupSearch('notebook-search', 'notebook-grid', '.notebook-card');
     setupSearch('prompt-search', 'prompt-list', '.prompt-card');
+
+    // --- Maturity Visualizer ---
+    initMaturityVisualizer();
 });
 
 // --- Notebooks ---
@@ -117,7 +124,7 @@ function loadPrimers() {
     });
 }
 
-// --- Glossary Search ---
+// --- Glossary Search & Flashcards ---
 function initGlossarySearch() {
     const input = document.getElementById('glossary-search');
     const results = document.getElementById('glossary-results');
@@ -151,6 +158,329 @@ function initGlossarySearch() {
         });
     });
 }
+
+function initFlashcards() {
+    const toggleBtn = document.getElementById('fc-toggle-btn');
+    const ui = document.getElementById('flashcard-ui');
+    const results = document.getElementById('glossary-results');
+    const search = document.getElementById('glossary-search');
+
+    if(!toggleBtn || !ui) return;
+
+    let currentIndex = 0;
+    let isFlipped = false;
+    // Shuffle glossary for randomness
+    const deck = [...workbenchData.glossary].sort(() => 0.5 - Math.random());
+
+    const front = document.getElementById('fc-content-front');
+    const back = document.getElementById('fc-content-back');
+    const termEl = document.getElementById('fc-term');
+    const defEl = document.getElementById('fc-def');
+
+    function updateCard() {
+        if(deck.length === 0) return;
+        const card = deck[currentIndex];
+        termEl.textContent = card.term;
+        defEl.textContent = card.definition;
+
+        // Reset flip
+        isFlipped = false;
+        front.style.opacity = '1';
+        back.style.opacity = '0';
+    }
+
+    function flip() {
+        isFlipped = !isFlipped;
+        if(isFlipped) {
+            front.style.opacity = '0';
+            back.style.opacity = '1';
+        } else {
+            front.style.opacity = '1';
+            back.style.opacity = '0';
+        }
+    }
+
+    toggleBtn.addEventListener('click', () => {
+        if(ui.classList.contains('hidden')) {
+            ui.classList.remove('hidden');
+            results.classList.add('hidden');
+            search.parentElement.classList.add('hidden'); // Hide search bar container
+            toggleBtn.textContent = "Exit Flashcards";
+            updateCard();
+        } else {
+            ui.classList.add('hidden');
+            results.classList.remove('hidden');
+            search.parentElement.classList.remove('hidden');
+            toggleBtn.innerHTML = '<i class="fas fa-layer-group mr-2"></i> Flashcards';
+        }
+    });
+
+    document.getElementById('fc-card').addEventListener('click', flip);
+    document.getElementById('fc-flip').addEventListener('click', flip);
+
+    document.getElementById('fc-next').addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % deck.length;
+        updateCard();
+    });
+
+    document.getElementById('fc-prev').addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + deck.length) % deck.length;
+        updateCard();
+    });
+}
+
+// --- Deal Screener ---
+function initDealScreener() {
+    if(!workbenchData.deals) return;
+
+    const tableBody = document.getElementById('ds-table-body');
+    const countEl = document.getElementById('ds-count');
+    const sectorSel = document.getElementById('ds-sector');
+
+    if(!tableBody) return;
+
+    // Populate Sector Dropdown
+    const sectors = [...new Set(workbenchData.deals.map(d => d.sector))];
+    sectors.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s;
+        opt.textContent = s;
+        sectorSel.appendChild(opt);
+    });
+
+    function renderTable(deals) {
+        tableBody.innerHTML = '';
+        countEl.textContent = `${deals.length} Deals Found`;
+
+        if(deals.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-slate-400">No deals match your criteria.</td></tr>';
+            return;
+        }
+
+        deals.forEach(d => {
+            const tr = document.createElement('tr');
+            tr.className = "hover:bg-indigo-50 transition-colors cursor-pointer group";
+            tr.innerHTML = `
+                <td class="p-4">
+                    <div class="font-bold text-slate-800 group-hover:text-indigo-600">${d.name}</div>
+                    <div class="text-xs text-slate-400">${d.description}</div>
+                </td>
+                <td class="p-4 text-slate-600">${d.sector} <span class="text-xs text-slate-400 block">${d.sub_sector}</span></td>
+                <td class="p-4 text-right font-mono text-slate-600">$${d.revenue}</td>
+                <td class="p-4 text-right font-mono text-slate-600">$${d.ebitda} <span class="text-xs text-emerald-500 block">(${d.ebitda_margin}%)</span></td>
+                <td class="p-4 text-right font-bold ${d.leverage > 4 ? 'text-orange-500' : 'text-slate-600'}">${d.leverage}x</td>
+                <td class="p-4 text-center"><span class="bg-slate-100 text-slate-600 font-bold px-2 py-1 rounded text-xs border border-slate-200">${d.rating || 'NR'}</span></td>
+            `;
+            tableBody.appendChild(tr);
+        });
+    }
+
+    // Initial Render
+    renderTable(workbenchData.deals);
+
+    // Filter Logic
+    document.getElementById('ds-apply-btn').addEventListener('click', () => {
+        const sec = sectorSel.value;
+        const minRev = parseFloat(document.getElementById('ds-min-rev').value) || 0;
+        const maxLev = parseFloat(document.getElementById('ds-max-lev').value) || 999;
+        const minMar = parseFloat(document.getElementById('ds-min-margin').value) || -999;
+
+        const filtered = workbenchData.deals.filter(d => {
+            if(sec !== 'all' && d.sector !== sec) return false;
+            if(d.revenue < minRev) return false;
+            if(d.leverage > maxLev) return false;
+            if(d.ebitda_margin < minMar) return false;
+            return true;
+        });
+
+        renderTable(filtered);
+    });
+}
+
+// --- Credit Scorer ---
+function initCreditScorer() {
+    if(!workbenchData.scoring_model) return;
+    const model = workbenchData.scoring_model;
+    const finContainer = document.getElementById('cs-fin-inputs');
+    const bizContainer = document.getElementById('cs-biz-inputs');
+
+    if(!finContainer || !bizContainer) return;
+
+    // Render Financial Inputs
+    model.financial_risk_profile.metrics.forEach(m => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+            <label class="block text-sm font-medium text-slate-700 mb-1">${m.name}</label>
+            <input type="number" id="cs-in-${m.id}" class="w-full border-slate-300 rounded px-3 py-2 border text-sm" placeholder="Enter value...">
+        `;
+        finContainer.appendChild(div);
+    });
+
+    // Render Business Inputs
+    model.business_risk_profile.questions.forEach(q => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+            <label class="block text-sm font-medium text-slate-700 mb-1">${q.text}</label>
+            <select id="cs-sel-${q.id}" class="w-full border-slate-300 rounded px-3 py-2 border text-sm">
+                ${q.options.map(o => `<option value="${o.value}">${o.text}</option>`).join('')}
+            </select>
+        `;
+        bizContainer.appendChild(div);
+    });
+
+    // Calculation Logic
+    document.getElementById('cs-calc-btn').addEventListener('click', () => {
+        let totalScore = 0;
+
+        // Financial Score
+        let finScore = 0;
+        model.financial_risk_profile.metrics.forEach(m => {
+            const val = parseFloat(document.getElementById(`cs-in-${m.id}`).value);
+            if(isNaN(val)) return; // Skip or handle error
+
+            // Find matching threshold
+            let score = 1;
+            if(m.thresholds[0].max !== undefined) {
+                 // Ascending logic (Lower is better e.g. Leverage)
+                 const match = m.thresholds.find(t => val <= t.max);
+                 if(match) score = match.score;
+            } else {
+                 // Descending logic (Higher is better e.g. Coverage)
+                 const match = m.thresholds.find(t => val >= t.min);
+                 if(match) score = match.score;
+            }
+            finScore += score * m.weight;
+        });
+
+        // Business Score
+        let bizScore = 0;
+        model.business_risk_profile.questions.forEach(q => {
+             const val = parseInt(document.getElementById(`cs-sel-${q.id}`).value);
+             bizScore += val; // Simple sum then average?
+             // Wait, the JSON structure didn't specify weights per question. Let's assume equal weight or sum.
+             // Let's normalize to 1-5 scale.
+        });
+        bizScore = bizScore / model.business_risk_profile.questions.length;
+
+        // Total
+        totalScore = (finScore * model.financial_risk_profile.weight) + (bizScore * model.business_risk_profile.weight);
+
+        // Map to Rating
+        const ratingObj = model.rating_scale.find(r => totalScore >= r.min_score);
+        const rating = ratingObj ? ratingObj.rating : "D";
+
+        document.getElementById('cs-result-score').textContent = `Score: ${totalScore.toFixed(2)}`;
+        document.getElementById('cs-result-rating').textContent = rating;
+
+        // Color code
+        const rEl = document.getElementById('cs-result-rating');
+        if(['AAA','AA','A'].includes(rating)) rEl.className = "text-6xl font-black mb-2 text-emerald-400";
+        else if(['BBB','BB'].includes(rating)) rEl.className = "text-6xl font-black mb-2 text-yellow-400";
+        else rEl.className = "text-6xl font-black mb-2 text-red-400";
+    });
+}
+
+
+// --- Maturity Visualizer ---
+function initMaturityVisualizer() {
+    const btn = document.getElementById('mat-visualize-btn');
+    const addBtn = document.querySelector('.mat-add-btn');
+    const inputsContainer = document.getElementById('maturity-inputs');
+    const chart = document.getElementById('maturity-chart');
+
+    if(!btn) return;
+
+    addBtn.addEventListener('click', () => {
+        const div = document.createElement('div');
+        div.className = "flex gap-2";
+        div.innerHTML = `
+            <input type="number" class="mat-year w-1/3 border-slate-300 rounded px-2 py-1 text-sm border" placeholder="Year">
+            <input type="number" class="mat-amount w-1/3 border-slate-300 rounded px-2 py-1 text-sm border" placeholder="Amount">
+            <button class="text-red-500 hover:text-red-700 px-2" onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+        `;
+        inputsContainer.appendChild(div);
+    });
+
+    btn.addEventListener('click', () => {
+        const years = [];
+        const amounts = [];
+
+        document.querySelectorAll('.mat-year').forEach((el, i) => {
+            const yr = parseInt(el.value);
+            const amt = parseFloat(document.querySelectorAll('.mat-amount')[i].value);
+            if(!isNaN(yr) && !isNaN(amt)) {
+                years.push(yr);
+                amounts.push(amt);
+            }
+        });
+
+        if(amounts.length === 0) return;
+
+        // Render Bars
+        chart.innerHTML = '';
+        const maxAmt = Math.max(...amounts);
+
+        // Sort by year
+        const data = years.map((y, i) => ({ y, a: amounts[i] })).sort((a,b) => a.y - b.y);
+
+        data.forEach(d => {
+            const heightPct = (d.a / maxAmt) * 100;
+            const bar = document.createElement('div');
+            bar.className = "flex flex-col items-center group relative w-12";
+            bar.innerHTML = `
+                <div class="w-full bg-orange-400 rounded-t hover:bg-orange-500 transition-all relative" style="height: ${heightPct*0.8}%;">
+                     <div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">$${d.a}M</div>
+                </div>
+                <div class="text-xs text-slate-500 mt-1 font-bold">${d.y}</div>
+            `;
+            // Fixed height wrapper for bar to use percentage
+            const wrapper = document.createElement('div');
+            wrapper.className = "h-full flex flex-col justify-end items-center w-12";
+            wrapper.appendChild(bar);
+
+            // Adjust bar logic: wrapper is h-full, bar height is % of wrapper? No, use pixel or just % of container.
+            // Let's make the colored div have the height.
+            bar.style.height = "100%"; // Bar container full height
+            bar.innerHTML = `
+                  <div class="w-full bg-orange-400 rounded-t hover:bg-orange-500 transition-all relative" style="height: ${heightPct}%;">
+                     <div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">$${d.a}M</div>
+                  </div>
+                  <div class="text-xs text-slate-500 mt-1 font-bold h-4">${d.y}</div>
+            `;
+
+            chart.appendChild(bar);
+        });
+    });
+}
+
+// --- Checklists ---
+function loadChecklists() {
+    const select = document.getElementById('checklist-select');
+    const output = document.getElementById('checklist-output');
+    const btn = document.getElementById('generate-checklist-btn');
+
+    if(!select || !workbenchData.checklists) return;
+
+    // Clear existing options except first
+    select.innerHTML = '<option value="">Choose checklist...</option>';
+
+    // Populate
+    Object.keys(workbenchData.checklists).forEach(key => {
+        const item = workbenchData.checklists[key];
+        const opt = document.createElement('option');
+        opt.value = key;
+        opt.textContent = item.title;
+        select.appendChild(opt);
+    });
+
+    btn.addEventListener('click', () => {
+        const key = select.value;
+        if(workbenchData.checklists[key]) {
+            output.value = workbenchData.checklists[key].content;
+        }
+    });
+}
+
 
 // --- Prompts ---
 function loadPrompts() {

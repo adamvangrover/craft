@@ -83,6 +83,12 @@
                     <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-toolkit">
                         <i class="fas fa-tools w-5 text-center"></i> Analyst Toolkit
                     </button>
+                    <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-dealscreener">
+                        <i class="fas fa-filter w-5 text-center"></i> Deal Screener
+                    </button>
+                    <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-creditscorer">
+                        <i class="fas fa-star-half-alt w-5 text-center"></i> Credit Scorer
+                    </button>
                     <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-synthesis">
                         <i class="fas fa-file-contract w-5 text-center"></i> Synthesis Engine
                     </button>
@@ -146,6 +152,100 @@
                     </div>
                 </div>
 
+                <!-- Section: Deal Screener -->
+                <div id="wb-dealscreener" class="wb-section hidden max-w-6xl mx-auto h-full flex flex-col">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">LBO Deal Screener</h2>
+                    <div class="flex gap-6 h-full">
+                        <!-- Filters -->
+                        <div class="w-64 bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-fit">
+                            <h3 class="text-sm font-bold text-slate-500 uppercase mb-4">Filters</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Sector</label>
+                                    <select id="ds-sector" class="w-full text-sm border-slate-300 rounded px-2 py-1 border">
+                                        <option value="all">All Sectors</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Min Revenue ($M)</label>
+                                    <input type="number" id="ds-min-rev" class="w-full text-sm border-slate-300 rounded px-2 py-1 border" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Max Leverage (x)</label>
+                                    <input type="number" id="ds-max-lev" class="w-full text-sm border-slate-300 rounded px-2 py-1 border" placeholder="e.g. 4.0">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Min EBITDA Margin (%)</label>
+                                    <input type="number" id="ds-min-margin" class="w-full text-sm border-slate-300 rounded px-2 py-1 border" placeholder="e.g. 15">
+                                </div>
+                                <button id="ds-apply-btn" class="w-full bg-indigo-600 text-white font-bold text-xs py-2 rounded hover:bg-indigo-700 mt-2">Apply Filters</button>
+                            </div>
+                        </div>
+
+                        <!-- Results -->
+                        <div class="flex-grow bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+                            <div class="p-4 border-b border-slate-200 bg-slate-50 flex justify-between items-center">
+                                <span class="text-sm font-bold text-slate-700" id="ds-count">0 Deals Found</span>
+                            </div>
+                            <div class="overflow-auto flex-grow">
+                                <table class="w-full text-sm text-left">
+                                    <thead class="bg-slate-100 text-slate-500 font-bold">
+                                        <tr>
+                                            <th class="p-4">Company</th>
+                                            <th class="p-4">Sector</th>
+                                            <th class="p-4 text-right">Rev ($M)</th>
+                                            <th class="p-4 text-right">EBITDA ($M)</th>
+                                            <th class="p-4 text-right">Lev (x)</th>
+                                            <th class="p-4">Rating</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ds-table-body" class="divide-y divide-slate-100">
+                                        <!-- Rows populated by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Credit Scorer -->
+                <div id="wb-creditscorer" class="wb-section hidden max-w-4xl mx-auto">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">Credit Rating Scorer</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="md:col-span-2 space-y-6">
+                            <!-- Financial Risk -->
+                            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                                <h3 class="text-lg font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2">Financial Risk Profile (60%)</h3>
+                                <div class="space-y-4" id="cs-fin-inputs">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+
+                            <!-- Business Risk -->
+                            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                                <h3 class="text-lg font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2">Business Risk Profile (40%)</h3>
+                                <div class="space-y-4" id="cs-biz-inputs">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+
+                            <button id="cs-calc-btn" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 shadow-md">Calculate Rating</button>
+                        </div>
+
+                        <!-- Result Card -->
+                        <div>
+                            <div class="bg-slate-900 text-white p-8 rounded-xl shadow-lg sticky top-6">
+                                <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Indicative Rating</div>
+                                <div id="cs-result-rating" class="text-6xl font-black mb-2 text-indigo-400">---</div>
+                                <div id="cs-result-score" class="text-xl font-medium text-slate-300 mb-6">Score: 0.0</div>
+                                <div class="text-xs text-slate-500 italic">
+                                    *This tool provides an indicative synthetic rating based on simplified methodology. Not an official credit rating.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Section: Learning Paths -->
                 <div id="wb-paths" class="wb-section hidden max-w-6xl mx-auto">
                     <h2 class="text-2xl font-bold text-slate-900 mb-6">Learning Paths</h2>
@@ -193,10 +293,36 @@
                 <!-- Section: Glossary -->
                  <div id="wb-glossary" class="wb-section hidden max-w-4xl mx-auto">
                     <h2 class="text-2xl font-bold text-slate-900 mb-6">Glossary Lookup</h2>
-                    <div class="relative mb-8">
-                        <input type="text" id="glossary-search" placeholder="Search for terms (e.g. EBITDA, Covenant, WACC)..." class="w-full border-2 border-slate-200 rounded-xl px-6 py-4 text-lg focus:border-indigo-500 outline-none shadow-sm">
-                        <i class="fas fa-search absolute right-6 top-5 text-slate-400"></i>
+
+                    <div class="flex justify-between items-center mb-8">
+                         <div class="relative flex-grow mr-4">
+                            <input type="text" id="glossary-search" placeholder="Search for terms (e.g. EBITDA, Covenant, WACC)..." class="w-full border-2 border-slate-200 rounded-xl px-6 py-4 text-lg focus:border-indigo-500 outline-none shadow-sm pl-12">
+                            <i class="fas fa-search absolute left-4 top-5 text-slate-400"></i>
+                        </div>
+                        <button id="fc-toggle-btn" class="flex-shrink-0 bg-indigo-100 text-indigo-700 font-bold px-4 py-3 rounded-xl hover:bg-indigo-200 transition-colors">
+                            <i class="fas fa-layer-group mr-2"></i> Flashcards
+                        </button>
                     </div>
+
+                    <!-- Flashcard UI (Hidden by default) -->
+                    <div id="flashcard-ui" class="hidden mb-12">
+                        <div class="bg-white border-2 border-slate-200 rounded-2xl p-12 text-center shadow-lg h-64 flex flex-col items-center justify-center cursor-pointer transition-all hover:border-indigo-300 relative group" id="fc-card">
+                            <div id="fc-content-front" class="absolute inset-0 flex items-center justify-center p-8 transition-opacity duration-300">
+                                <h3 class="text-3xl font-bold text-slate-800" id="fc-term">Term</h3>
+                                <p class="absolute bottom-4 text-slate-400 text-xs uppercase tracking-widest">Click to Flip</p>
+                            </div>
+                            <div id="fc-content-back" class="absolute inset-0 flex items-center justify-center p-8 bg-indigo-50 rounded-xl opacity-0 transition-opacity duration-300">
+                                <p class="text-lg font-medium text-slate-700 leading-relaxed" id="fc-def">Definition</p>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center gap-4 mt-6">
+                            <button id="fc-prev" class="bg-white border border-slate-300 hover:bg-slate-50 text-slate-600 px-6 py-2 rounded-full font-bold shadow-sm"><i class="fas fa-arrow-left mr-2"></i> Prev</button>
+                            <button id="fc-flip" class="bg-indigo-600 text-white px-8 py-2 rounded-full font-bold shadow-md hover:bg-indigo-700">Flip Card</button>
+                            <button id="fc-next" class="bg-white border border-slate-300 hover:bg-slate-50 text-slate-600 px-6 py-2 rounded-full font-bold shadow-sm">Next <i class="fas fa-arrow-right ml-2"></i></button>
+                        </div>
+                    </div>
+
                     <div id="glossary-results" class="space-y-4">
                         <!-- Populated by JS -->
                     </div>
@@ -262,6 +388,26 @@
                         </div>
                     </div>
 
+                    <!-- Debt Maturity Visualizer (New) -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+                        <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-chart-bar text-orange-600"></i> Debt Maturity Profiler</h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <div id="maturity-inputs" class="space-y-2 mb-4">
+                                    <div class="flex gap-2">
+                                        <input type="number" class="mat-year w-1/3 border-slate-300 rounded px-2 py-1 text-sm border" placeholder="Year (e.g. 2025)">
+                                        <input type="number" class="mat-amount w-1/3 border-slate-300 rounded px-2 py-1 text-sm border" placeholder="Amount ($M)">
+                                        <button class="mat-add-btn text-indigo-600 hover:bg-indigo-50 px-2 rounded"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                </div>
+                                <button id="mat-visualize-btn" class="bg-orange-600 text-white font-bold py-2 px-4 rounded hover:bg-orange-700 text-sm">Visualize Profile</button>
+                            </div>
+                            <div class="h-48 border-l border-b border-slate-200 relative flex items-end gap-4 px-4 pb-0" id="maturity-chart">
+                                <!-- Bars -->
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Covenant Builder -->
                     <div id="covenant-builder" class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
                         <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-gavel text-indigo-600"></i> Covenant Clause Builder</h3>
@@ -281,10 +427,7 @@
                         <div class="flex gap-4">
                             <select id="checklist-select" class="flex-grow border-slate-300 rounded-md px-3 py-2 border">
                                 <option value="">Choose checklist...</option>
-                                <option value="credit-memo">Credit Memo Review</option>
-                                <option value="lbo-screen">LBO Initial Screen</option>
-                                <option value="earnings-call">Earnings Call Prep</option>
-                                <option value="term-sheet">Term Sheet Template</option>
+                                <!-- Populated by JS -->
                             </select>
                             <button id="generate-checklist-btn" class="bg-teal-600 text-white font-bold py-2 px-6 rounded hover:bg-teal-700">Generate</button>
                         </div>

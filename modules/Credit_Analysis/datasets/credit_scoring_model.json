@@ -1,0 +1,85 @@
+{
+  "financial_risk_profile": {
+    "weight": 0.60,
+    "metrics": [
+      {
+        "id": "debt_to_ebitda",
+        "name": "Debt / EBITDA",
+        "weight": 0.50,
+        "thresholds": [
+          { "max": 1.5, "score": 5, "label": "Minimal" },
+          { "max": 2.5, "score": 4, "label": "Modest" },
+          { "max": 3.5, "score": 3, "label": "Intermediate" },
+          { "max": 5.0, "score": 2, "label": "Aggressive" },
+          { "max": 999, "score": 1, "label": "Highly Leveraged" }
+        ]
+      },
+      {
+        "id": "interest_coverage",
+        "name": "EBITDA / Interest",
+        "weight": 0.30,
+        "thresholds": [
+          { "min": 10.0, "score": 5, "label": "Minimal" },
+          { "min": 6.0, "score": 4, "label": "Modest" },
+          { "min": 4.0, "score": 3, "label": "Intermediate" },
+          { "min": 2.5, "score": 2, "label": "Aggressive" },
+          { "min": 0.0, "score": 1, "label": "Highly Leveraged" }
+        ]
+      },
+      {
+        "id": "fcf_debt",
+        "name": "FCF / Debt",
+        "weight": 0.20,
+        "thresholds": [
+          { "min": 0.30, "score": 5, "label": "Minimal" },
+          { "min": 0.20, "score": 4, "label": "Modest" },
+          { "min": 0.10, "score": 3, "label": "Intermediate" },
+          { "min": 0.05, "score": 2, "label": "Aggressive" },
+          { "min": -999, "score": 1, "label": "Highly Leveraged" }
+        ]
+      }
+    ]
+  },
+  "business_risk_profile": {
+    "weight": 0.40,
+    "questions": [
+        {
+            "id": "scale",
+            "text": "How does the company's scale compare to industry leaders?",
+            "options": [
+                { "value": 5, "text": "Market Leader / Large Scale" },
+                { "value": 3, "text": "Mid-Market / Regional Player" },
+                { "value": 1, "text": "Small / Niche Player" }
+            ]
+        },
+        {
+            "id": "margins",
+            "text": "How stable are the operating margins?",
+            "options": [
+                { "value": 5, "text": "Highly Stable / Recurring Revenue" },
+                { "value": 3, "text": "Average Volatility" },
+                { "value": 1, "text": "Volatile / Commodity Exposed" }
+            ]
+        },
+        {
+            "id": "growth",
+            "text": "What is the long-term growth outlook?",
+            "options": [
+                { "value": 5, "text": "Above GDP / Secular Tailwinds" },
+                { "value": 3, "text": "In-line with GDP" },
+                { "value": 1, "text": "Declining / Secular Headwinds" }
+            ]
+        }
+    ]
+  },
+  "rating_scale": [
+      { "min_score": 4.5, "rating": "AAA" },
+      { "min_score": 4.0, "rating": "AA" },
+      { "min_score": 3.5, "rating": "A" },
+      { "min_score": 3.0, "rating": "BBB" },
+      { "min_score": 2.5, "rating": "BB" },
+      { "min_score": 2.0, "rating": "B" },
+      { "min_score": 1.0, "rating": "CCC" },
+      { "min_score": 0.0, "rating": "D" }
+  ]
+}
