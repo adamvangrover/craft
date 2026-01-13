@@ -1,0 +1,361 @@
+{
+  "credit-memo": {
+    "id": "credit-memo",
+    "title": "Credit Memo Review",
+    "root": {
+      "id": "start",
+      "label": "Start Analysis",
+      "next": "Executive Summary"
+    },
+    "nodes": {
+      "Executive Summary": {
+        "question": "Clear recommendation and key investment thesis?",
+        "category": "General",
+        "next": "Borrower Overview"
+      },
+      "Borrower Overview": {
+        "question": "Business model, history, and ownership structure clearly defined?",
+        "category": "General",
+        "next": "Industry Analysis"
+      },
+      "Industry Analysis": {
+        "question": "Market position, competition, and cyclicality addressed?",
+        "category": "General",
+        "next": "Financial Analysis"
+      },
+      "Financial Analysis": {
+        "question": "Historical trends (3-5 years) analyzed with commentary on variances?",
+        "category": "General",
+        "next": "Projections"
+      },
+      "Projections": {
+        "question": "Are assumptions realistic and sensitivity analysis performed?",
+        "category": "General",
+        "next": "Capital Structure"
+      },
+      "Capital Structure": {
+        "question": "Pro-forma capitalization table accurate?",
+        "category": "General",
+        "next": "Risks & Mitigants"
+      },
+      "Risks & Mitigants": {
+        "question": "Key risks identified with tangible mitigants?",
+        "category": "General",
+        "next": "Collateral"
+      },
+      "Collateral": {
+        "question": "Security package and valuation coverage described?",
+        "category": "General",
+        "next": "Conclusion"
+      },
+      "Conclusion": {
+        "question": "Does the recommendation logically follow from the analysis?",
+        "category": "General",
+        "next": "Conclusion"
+      }
+    }
+  },
+  "lbo-screen": {
+    "id": "lbo-screen",
+    "title": "LBO Initial Screen",
+    "root": {
+      "id": "start",
+      "label": "Start Analysis",
+      "next": "Market Position"
+    },
+    "nodes": {
+      "Market Position": {
+        "question": "Leading market share in a defensive niche?",
+        "category": "General",
+        "next": "Cash Flow"
+      },
+      "Cash Flow": {
+        "question": "Stable, predictable free cash flow generation?",
+        "category": "General",
+        "next": "Capex"
+      },
+      "Capex": {
+        "question": "Low maintenance capex requirements?",
+        "category": "General",
+        "next": "Margins"
+      },
+      "Margins": {
+        "question": "High and stable EBITDA margins (>15%)?",
+        "category": "General",
+        "next": "Growth"
+      },
+      "Growth": {
+        "question": "Multiple avenues for growth (organic or M&A)?",
+        "category": "General",
+        "next": "Management"
+      },
+      "Management": {
+        "question": "Strong, experienced management team?",
+        "category": "General",
+        "next": "Exit"
+      },
+      "Exit": {
+        "question": "Clear exit opportunities (Strategic sale, IPO) within 3-5 years?",
+        "category": "General",
+        "next": "Resilience"
+      },
+      "Resilience": {
+        "question": "Performance during previous economic downturns?",
+        "category": "General",
+        "next": "Conclusion"
+      }
+    }
+  },
+  "earnings-call": {
+    "id": "earnings-call",
+    "title": "Earnings Call Prep",
+    "root": {
+      "id": "start",
+      "label": "Start Analysis",
+      "next": "Review"
+    },
+    "nodes": {
+      "Review": {
+        "question": "Read last quarter's transcript and press release.",
+        "category": "General",
+        "next": "Guidance"
+      },
+      "Guidance": {
+        "question": "Compare actuals vs. previous guidance and consensus estimates.",
+        "category": "General",
+        "next": "KPIs"
+      },
+      "KPIs": {
+        "question": "Check key performance indicators (e.g., volume, price, churn).",
+        "category": "General",
+        "next": "Margins"
+      },
+      "Margins": {
+        "question": "Analyze gross and operating margin trends.",
+        "category": "General",
+        "next": "Cash Flow"
+      },
+      "Cash Flow": {
+        "question": "Review working capital changes and free cash flow conversion.",
+        "category": "General",
+        "next": "Debt"
+      },
+      "Debt": {
+        "question": "Check leverage ratios and liquidity position.",
+        "category": "General",
+        "next": "Q&A"
+      },
+      "Q&A": {
+        "question": "Note analyst tone and management's responsiveness in previous calls.",
+        "category": "General",
+        "next": "Question List"
+      },
+      "Question List": {
+        "question": "Prepare 3-5 key questions for management.",
+        "category": "General",
+        "next": "Conclusion"
+      }
+    }
+  },
+  "term-sheet": {
+    "id": "term-sheet",
+    "title": "Term Sheet Template",
+    "root": null,
+    "nodes": {}
+  },
+  "distressed-analysis": {
+    "id": "distressed-analysis",
+    "title": "Distressed Debt Analysis",
+    "root": {
+      "id": "start",
+      "label": "Start Analysis",
+      "next": "Liquidity"
+    },
+    "nodes": {
+      "Liquidity": {
+        "question": "Immediate liquidity runway (Cash burn vs. Cash balance)?",
+        "category": "General",
+        "next": "Maturity Wall"
+      },
+      "Maturity Wall": {
+        "question": "When is the next significant debt maturity?",
+        "category": "General",
+        "next": "Covenants"
+      },
+      "Covenants": {
+        "question": "Approaching or actual covenant breaches?",
+        "category": "General",
+        "next": "Capital Structure"
+      },
+      "Capital Structure": {
+        "question": "Identify position in the waterfall (Senior, Junior, Unsecured).",
+        "category": "General",
+        "next": "Intercreditor"
+      },
+      "Intercreditor": {
+        "question": "Review Intercreditor Agreements (1L/2L rights).",
+        "category": "General",
+        "next": "Collateral Valuation"
+      },
+      "Collateral Valuation": {
+        "question": "Liquidation value of assets vs. debt claims.",
+        "category": "General",
+        "next": "Turnaround Plan"
+      },
+      "Turnaround Plan": {
+        "question": "Viability of operational restructuring.",
+        "category": "General",
+        "next": "Legal"
+      },
+      "Legal": {
+        "question": "Pending litigation or regulatory issues?",
+        "category": "General",
+        "next": "Conclusion"
+      }
+    }
+  },
+  "esg-screening": {
+    "id": "esg-screening",
+    "title": "ESG Risk Screening",
+    "root": null,
+    "nodes": {}
+  },
+  "management-interview": {
+    "id": "management-interview",
+    "title": "Management Interview Guide",
+    "root": {
+      "id": "start",
+      "label": "Start Analysis",
+      "next": "Strategy"
+    },
+    "nodes": {
+      "Strategy": {
+        "question": "What is the 3-5 year strategic vision?",
+        "category": "General",
+        "next": "Competitive Advantage"
+      },
+      "Competitive Advantage": {
+        "question": "How do you maintain your moat?",
+        "category": "General",
+        "next": "Growth"
+      },
+      "Growth": {
+        "question": "What are the key drivers of the projected growth?",
+        "category": "General",
+        "next": "Risks"
+      },
+      "Risks": {
+        "question": "What keeps you up at night?",
+        "category": "General",
+        "next": "Capital Allocation"
+      },
+      "Capital Allocation": {
+        "question": "Priorities for excess cash (M&A, Dividends, Capex)?",
+        "category": "General",
+        "next": "Industry"
+      },
+      "Industry": {
+        "question": "View on current industry trends and consolidation?",
+        "category": "General",
+        "next": "Succession"
+      },
+      "Succession": {
+        "question": "Plan for key executive departures?",
+        "category": "General",
+        "next": "Conclusion"
+      }
+    }
+  },
+  "project-finance": {
+    "id": "project-finance",
+    "title": "Project Finance Due Diligence",
+    "root": {
+      "id": "start",
+      "label": "Start Analysis",
+      "next": "Sponsor"
+    },
+    "nodes": {
+      "Sponsor": {
+        "question": "Experience and financial strength of the sponsor?",
+        "category": "General",
+        "next": "EPC Contract"
+      },
+      "EPC Contract": {
+        "question": "Fixed-price, date-certain turnkey contract?",
+        "category": "General",
+        "next": "Offtake Agreement"
+      },
+      "Offtake Agreement": {
+        "question": "Long-term, creditworthy off-taker (PPA, etc.)?",
+        "category": "General",
+        "next": "Supply"
+      },
+      "Supply": {
+        "question": "Secure supply of feedstock/fuel?",
+        "category": "General",
+        "next": "Technology"
+      },
+      "Technology": {
+        "question": "Proven technology or first-of-kind risk?",
+        "category": "General",
+        "next": "Permits"
+      },
+      "Permits": {
+        "question": "All environmental and construction permits in place?",
+        "category": "General",
+        "next": "Financial Model"
+      },
+      "Financial Model": {
+        "question": "DSCR > 1.3x (P99 scenario)?",
+        "category": "General",
+        "next": "Conclusion"
+      }
+    }
+  },
+  "re-analysis": {
+    "id": "re-analysis",
+    "title": "Real Estate Credit Analysis",
+    "root": {
+      "id": "start",
+      "label": "Start Analysis",
+      "next": "Location"
+    },
+    "nodes": {
+      "Location": {
+        "question": "Market fundamentals (vacancy, absorption, rent growth)?",
+        "category": "General",
+        "next": "Property Type"
+      },
+      "Property Type": {
+        "question": "Class A/B/C, Office, Retail, Industrial, Multi-family?",
+        "category": "General",
+        "next": "Tenants"
+      },
+      "Tenants": {
+        "question": "Tenant credit quality and lease diversity?",
+        "category": "General",
+        "next": "Lease Terms"
+      },
+      "Lease Terms": {
+        "question": "WALT (Weighted Average Lease Term) vs. Loan Term?",
+        "category": "General",
+        "next": "Cash Flow"
+      },
+      "Cash Flow": {
+        "question": "NOI (Net Operating Income) sustainability?",
+        "category": "General",
+        "next": "Valuation"
+      },
+      "Valuation": {
+        "question": "Cap rate assumptions vs. market comps?",
+        "category": "General",
+        "next": "LTV/DSCR"
+      },
+      "LTV/DSCR": {
+        "question": "Loan-to-Value and Debt Service Coverage Ratio buffers?",
+        "category": "General",
+        "next": "Conclusion"
+      }
+    }
+  }
+}
