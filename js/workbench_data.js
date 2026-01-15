@@ -163,6 +163,11 @@ const workbenchData = {
   ],
   "datasets": [
     {
+      "title": "Sample Covenant Clauses",
+      "path": "modules/Loan_and_Capital_Market_Terms/legal_clauses.json",
+      "type": "JSON Data"
+    },
+    {
       "title": "financials.csv",
       "path": "modules/Credit_Analysis/modules/11-capstone/assets/financials.csv",
       "type": "CSV"
