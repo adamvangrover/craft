@@ -64,7 +64,7 @@ for root, dirs, files in os.walk("."):
                 "path": get_relative_path(path),
                 "type": "JSON Schema"
             })
-        elif file == "sample_credit_agreement_clauses.json":
+        elif file == "sample_credit_agreement_clauses.json" or file == "legal_clauses.json":
              workbench_data["datasets"].append({
                 "title": "Sample Covenant Clauses",
                 "path": get_relative_path(path),

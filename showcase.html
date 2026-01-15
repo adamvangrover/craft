@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Knowledge Showcase | Financial Learning Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.23.0/dist/cytoscape.min.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        #cy { width: 100%; height: 600px; background: #f8fafc; border-radius: 0.75rem; border: 1px solid #e2e8f0; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 px-8 py-4 flex justify-between items-center shadow-sm">
+        <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-pink-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-pink-200">
+                <i class="fas fa-network-wired"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-xl text-slate-800">AI Knowledge Showcase</h1>
+                <p class="text-xs text-slate-500 font-medium">Machine-Readable Assets & Ontology</p>
+            </div>
+        </div>
+        <div>
+            <a href="practice_center.html" class="text-sm font-bold text-slate-500 hover:text-indigo-600 mr-4">Analyst Workbench</a>
+            <a href="home.html" class="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-slate-800 transition-colors">Exit to Hub</a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-8 py-12 space-y-12">
+
+        <!-- Intro -->
+        <section class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Bridging Human & Machine Intelligence</h2>
+                <p class="text-slate-600 leading-relaxed mb-6">
+                    This repository is architected to be consumed by both human analysts and AI agents.
+                    We have extracted the entire content library into structured JSONL, built a semantic knowledge graph, and formalized decision logic into traversable trees.
+                </p>
+                <div class="flex gap-4">
+                    <a href="comprehensive_knowledge_base/knowledge_base.jsonl" download class="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg font-bold text-sm hover:bg-indigo-100 border border-indigo-200">
+                        <i class="fas fa-file-code"></i> Download JSONL
+                    </a>
+                    <a href="comprehensive_knowledge_base/knowledge_graph.json" download class="flex items-center gap-2 px-4 py-2 bg-pink-50 text-pink-700 rounded-lg font-bold text-sm hover:bg-pink-100 border border-pink-200">
+                        <i class="fas fa-project-diagram"></i> Download Graph
+                    </a>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <h3 class="text-sm font-bold text-slate-500 uppercase mb-4">Repository Stats</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 bg-slate-50 rounded-lg">
+                        <div class="text-2xl font-bold text-indigo-600" id="stat-chunks">---</div>
+                        <div class="text-xs text-slate-500 font-bold">Knowledge Chunks</div>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-lg">
+                        <div class="text-2xl font-bold text-pink-600" id="stat-nodes">---</div>
+                        <div class="text-xs text-slate-500 font-bold">Graph Nodes</div>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-lg">
+                        <div class="text-2xl font-bold text-teal-600" id="stat-trees">---</div>
+                        <div class="text-xs text-slate-500 font-bold">Decision Trees</div>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-lg">
+                        <div class="text-2xl font-bold text-orange-600" id="stat-terms">---</div>
+                        <div class="text-xs text-slate-500 font-bold">Ontology Terms</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Knowledge Graph Viz -->
+        <section>
+            <div class="flex justify-between items-end mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Semantic Knowledge Graph</h2>
+                    <p class="text-slate-500">Visualizing the connections between concepts, files, and modules.</p>
+                </div>
+                <div class="flex gap-2">
+                     <span class="flex items-center gap-1 text-xs font-bold text-slate-500"><span class="w-3 h-3 rounded-full bg-blue-500"></span> File</span>
+                     <span class="flex items-center gap-1 text-xs font-bold text-slate-500"><span class="w-3 h-3 rounded-full bg-green-500"></span> Concept</span>
+                     <span class="flex items-center gap-1 text-xs font-bold text-slate-500"><span class="w-3 h-3 rounded-full bg-slate-400"></span> Chunk</span>
+                </div>
+            </div>
+            <div id="cy"></div>
+        </section>
+
+        <!-- Decision Trees -->
+        <section>
+            <h2 class="text-2xl font-bold text-slate-900 mb-6">Logic & Decision Trees</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl border border-slate-200 h-96 overflow-y-auto">
+                    <h3 class="text-sm font-bold text-slate-500 uppercase mb-4">Available Logic Flows</h3>
+                    <div id="tree-list" class="space-y-2">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+                <div class="bg-slate-900 text-green-400 p-6 rounded-xl font-mono text-sm overflow-auto h-96 shadow-inner relative">
+                    <div class="absolute top-4 right-4 text-xs text-slate-500 uppercase font-bold">JSON Representation</div>
+                    <pre id="json-viewer" class="whitespace-pre-wrap">Select a tree to view structure...</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ontology -->
+        <section>
+            <h2 class="text-2xl font-bold text-slate-900 mb-6">System Ontology (TTL)</h2>
+            <div class="bg-white p-8 rounded-xl border border-slate-200 font-mono text-sm text-slate-600 whitespace-pre overflow-x-auto shadow-sm">
+@prefix : &lt;http://credit-analysis.org/ontology/&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+
+:KnowledgeChunk a owl:Class ;
+    rdfs:label "Knowledge Chunk" ;
+    rdfs:comment "Atomic unit of information extracted from markdown." .
+
+:File a owl:Class ;
+    rdfs:label "File" .
+
+:Concept a owl:Class ;
+    rdfs:label "Concept" ;
+    rdfs:comment "Financial term or entity defined in the glossary." .
+
+:DecisionNode a owl:Class ;
+    rdfs:label "Decision Node" ;
+    rdfs:comment "A step in a checklist or logic flow." .
+
+:contains a owl:ObjectProperty ;
+    rdfs:domain :File ;
+    rdfs:range :KnowledgeChunk .
+
+:mentions a owl:ObjectProperty ;
+    rdfs:domain :KnowledgeChunk ;
+    rdfs:range :Concept .
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-8 text-center">
+            <p class="text-slate-400 text-sm">Generated by Jules for the Financial Learning Hub.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Load Knowledge Graph Data
+            try {
+                const response = await fetch('comprehensive_knowledge_base/knowledge_graph.json');
+                const data = await response.json();
+
+                // Update Stats
+                const fileNodes = data.nodes.filter(n => n.type === 'File').length;
+                const conceptNodes = data.nodes.filter(n => n.type === 'Concept').length;
+                const chunkNodes = data.nodes.filter(n => n.type === 'Chunk').length;
+
+                document.getElementById('stat-nodes').textContent = data.nodes.length;
+                document.getElementById('stat-chunks').textContent = chunkNodes;
+                document.getElementById('stat-terms').textContent = conceptNodes;
+
+                // Initialize Cytoscape
+                // Sample subset to avoid crashing browser if too large
+                const limit = 200;
+                const subsetNodes = data.nodes.slice(0, limit);
+                const subsetNodeIds = new Set(subsetNodes.map(n => n.id));
+                const subsetEdges = data.edges.filter(e => subsetNodeIds.has(e.source) && subsetNodeIds.has(e.target));
+
+                const cy = cytoscape({
+                    container: document.getElementById('cy'),
+                    elements: [
+                        ...subsetNodes.map(n => ({
+                            data: { id: n.id, label: n.label || '', type: n.type }
+                        })),
+                        ...subsetEdges.map(e => ({
+                            data: { source: e.source, target: e.target }
+                        }))
+                    ],
+                    style: [
+                        {
+                            selector: 'node',
+                            style: {
+                                'label': 'data(label)',
+                                'text-valign': 'center',
+                                'text-halign': 'center',
+                                'font-size': '10px',
+                                'width': 20,
+                                'height': 20
+                            }
+                        },
+                        {
+                            selector: 'node[type="File"]',
+                            style: { 'background-color': '#3b82f6', 'width': 40, 'height': 40 }
+                        },
+                         {
+                            selector: 'node[type="Concept"]',
+                            style: { 'background-color': '#22c55e', 'width': 30, 'height': 30 }
+                        },
+                         {
+                            selector: 'node[type="Chunk"]',
+                            style: { 'background-color': '#94a3b8', 'opacity': 0.5 }
+                        },
+                        {
+                            selector: 'edge',
+                            style: {
+                                'width': 1,
+                                'line-color': '#cbd5e1',
+                                'curve-style': 'bezier'
+                            }
+                        }
+                    ],
+                    layout: {
+                        name: 'cose',
+                        animate: false
+                    }
+                });
+
+            } catch (e) {
+                console.error("Failed to load KG", e);
+                document.getElementById('cy').innerHTML = '<div class="flex items-center justify-center h-full text-slate-400">Graph data not available. Ensure comprehensive_knowledge_base is generated.</div>';
+            }
+
+            // Load Decision Trees
+            try {
+                const response = await fetch('comprehensive_knowledge_base/decision_trees.json');
+                const trees = await response.json();
+                const list = document.getElementById('tree-list');
+                const viewer = document.getElementById('json-viewer');
+
+                document.getElementById('stat-trees').textContent = Object.keys(trees).length;
+
+                Object.values(trees).forEach(tree => {
+                    const btn = document.createElement('button');
+                    btn.className = "w-full text-left px-4 py-3 bg-slate-50 hover:bg-indigo-50 rounded-lg border border-slate-200 text-sm font-medium text-slate-700 transition-colors";
+                    btn.textContent = tree.title;
+                    btn.onclick = () => {
+                        viewer.textContent = JSON.stringify(tree, null, 2);
+                    };
+                    list.appendChild(btn);
+                });
+
+            } catch (e) {
+                 console.error("Failed to load Trees", e);
+            }
+        });
+    </script>
+</body>
+</html>

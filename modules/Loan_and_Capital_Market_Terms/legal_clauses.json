@@ -1,0 +1,94 @@
+[
+  {
+    "category": "Negative Covenants",
+    "clauses": [
+      {
+        "title": "Limitation on Indebtedness",
+        "description": "Restricts the borrower from incurring additional debt unless specific conditions (e.g., leverage ratios) are met.",
+        "standard_text": "The Borrower shall not, and shall not permit any Restricted Subsidiary to, directly or indirectly, Create, incur, assume or suffer to exist any Indebtedness, except: (a) Indebtedness created hereunder; (b) Indebtedness existing on the Closing Date...",
+        "negotiation_points": [
+          "Basket for general corporate purposes",
+          "Carve-out for purchase money debt and capital leases",
+          "Acquired debt from permitted acquisitions"
+        ]
+      },
+      {
+        "title": "Limitation on Liens",
+        "description": "Prevents the borrower from pledging assets as collateral to other creditors, protecting the lender's priority.",
+        "standard_text": "The Borrower will not, and will not permit any of its Subsidiaries to, create, incur, assume or suffer to exist any Lien upon any of its property, asset or revenues, whether now owned or hereafter acquired, other than Permitted Liens.",
+        "negotiation_points": [
+          "Liens incurred in the ordinary course of business",
+          "Liens securing Permitted Indebtedness",
+          "Judgment liens within a specific threshold"
+        ]
+      },
+      {
+        "title": "Restricted Payments",
+        "description": "Limits dividends, share buybacks, and other distributions to equity holders to preserve cash for debt service.",
+        "standard_text": "The Borrower will not, and will not permit any of its Subsidiaries to, declare or make, or agree to pay or make, directly or indirectly, any Restricted Payment, except...",
+        "negotiation_points": [
+          "Builder basket based on Retained Excess Cash Flow",
+          "Unlimited payments if pro forma leverage is below x.x level",
+          "Carve-out for tax distributions for pass-through entities"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Events of Default",
+    "clauses": [
+      {
+        "title": "Payment Default",
+        "description": "Triggered when the borrower fails to make principal or interest payments on time.",
+        "standard_text": "The Borrower shall fail to pay any principal of any Loan or any Reimbursement Obligation when and as the same shall become due and payable, whether at the due date thereof or at a date fixed for prepayment thereof or otherwise.",
+        "negotiation_points": [
+          "Grace period for administrative errors (usually 3-5 days)",
+          "Distinction between principal (no grace) and interest (grace period)"
+        ]
+      },
+      {
+        "title": "Cross-Default",
+        "description": "A default under another agreement triggers a default under this agreement.",
+        "standard_text": "The Borrower or any Subsidiary (i) fails to make any payment when due (whether by scheduled maturity, required prepayment, acceleration, demand, or otherwise) in respect of any Material Indebtedness...",
+        "negotiation_points": [
+          "Threshold amount for Material Indebtedness",
+          "Cross-Acceleration vs. Cross-Default (acceleration is more borrower-friendly)"
+        ]
+      },
+      {
+        "title": "Change of Control",
+        "description": "Allows the lender to exit if the ownership of the borrower changes significantly.",
+        "standard_text": "A Change of Control shall occur.",
+        "negotiation_points": [
+          "Definition of beneficial ownership percentage",
+          "Permitted holders (e.g., original sponsors/founders)",
+          "IPO exceptions"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Financial Covenants",
+    "clauses": [
+      {
+        "title": "Total Net Leverage Ratio",
+        "description": "The ratio of Consolidated Total Net Debt to Consolidated EBITDA.",
+        "standard_text": "The Borrower will not permit the Total Net Leverage Ratio as of the last day of any Fiscal Quarter to exceed [MAX_RATIO].",
+        "negotiation_points": [
+          "Step-downs over time",
+          "EBITDA add-backs (synergies, one-time costs)",
+          "Netting of unrestricted cash"
+        ]
+      },
+      {
+        "title": "Interest Coverage Ratio",
+        "description": "The ratio of Consolidated EBITDA to Consolidated Interest Expense.",
+        "standard_text": "The Borrower will not permit the Interest Coverage Ratio as of the last day of any Fiscal Quarter to be less than [MIN_RATIO].",
+        "negotiation_points": [
+          "Definition of Interest Expense (cash vs. PIK)",
+          "Minimum level logic based on cushion to projections"
+        ]
+      }
+    ]
+  }
+]
