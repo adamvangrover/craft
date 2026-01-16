@@ -40,6 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
         initDealScreener();
         initCreditScorer();
         loadChecklists();
+        initMemoBuilder();
+        initCalculators();
     } else {
         console.error("workbenchData not loaded");
     }
@@ -357,8 +359,6 @@ function initCreditScorer() {
         model.business_risk_profile.questions.forEach(q => {
              const val = parseInt(document.getElementById(`cs-sel-${q.id}`).value);
              bizScore += val; // Simple sum then average?
-             // Wait, the JSON structure didn't specify weights per question. Let's assume equal weight or sum.
-             // Let's normalize to 1-5 scale.
         });
         bizScore = bizScore / model.business_risk_profile.questions.length;
 
@@ -427,28 +427,46 @@ function initMaturityVisualizer() {
             const heightPct = (d.a / maxAmt) * 100;
             const bar = document.createElement('div');
             bar.className = "flex flex-col items-center group relative w-12";
-            bar.innerHTML = `
-                <div class="w-full bg-orange-400 rounded-t hover:bg-orange-500 transition-all relative" style="height: ${heightPct*0.8}%;">
-                     <div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">$${d.a}M</div>
-                </div>
-                <div class="text-xs text-slate-500 mt-1 font-bold">${d.y}</div>
-            `;
-            // Fixed height wrapper for bar to use percentage
+            // Bar visual
+            const barVisual = document.createElement('div');
+            barVisual.className = "w-full bg-orange-400 rounded-t hover:bg-orange-500 transition-all relative";
+            barVisual.style.height = `${heightPct}%`;
+            barVisual.innerHTML = `<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">$${d.a}M</div>`;
+
+            // Year label
+            const yearLabel = document.createElement('div');
+            yearLabel.className = "text-xs text-slate-500 mt-1 font-bold h-4";
+            yearLabel.textContent = d.y;
+
+            bar.appendChild(barVisual);
+            bar.appendChild(yearLabel);
+
+            // Container for proper alignment
             const wrapper = document.createElement('div');
             wrapper.className = "h-full flex flex-col justify-end items-center w-12";
-            wrapper.appendChild(bar);
+            wrapper.style.height = "100%";
+            wrapper.appendChild(barVisual);
+            wrapper.appendChild(yearLabel);
 
-            // Adjust bar logic: wrapper is h-full, bar height is % of wrapper? No, use pixel or just % of container.
-            // Let's make the colored div have the height.
-            bar.style.height = "100%"; // Bar container full height
-            bar.innerHTML = `
-                  <div class="w-full bg-orange-400 rounded-t hover:bg-orange-500 transition-all relative" style="height: ${heightPct}%;">
-                     <div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">$${d.a}M</div>
-                  </div>
-                  <div class="text-xs text-slate-500 mt-1 font-bold h-4">${d.y}</div>
-            `;
+            // Actually, the previous logic was appending bar directly to chart, which is a flex row.
+            // chart class: items-end gap-4
+            // So bar just needs to be h-full? No, bar height is %.
+            // Let's stick to simple structure.
+            const container = document.createElement('div');
+            container.className = "h-full flex flex-col justify-end items-center w-12 group";
 
-            chart.appendChild(bar);
+            const visual = document.createElement('div');
+            visual.className = "w-full bg-orange-400 rounded-t hover:bg-orange-500 transition-all relative";
+            visual.style.height = `${heightPct}%`;
+            visual.innerHTML = `<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">$${d.a}M</div>`;
+
+            const lbl = document.createElement('div');
+            lbl.className = "text-xs text-slate-500 mt-1 font-bold";
+            lbl.textContent = d.y;
+
+            container.appendChild(visual);
+            container.appendChild(lbl);
+            chart.appendChild(container);
         });
     });
 }
@@ -555,57 +573,126 @@ async function initCovenantBuilder() {
     const builderSection = document.getElementById('covenant-builder');
     if (!builderSection) return;
 
-    const clausesFile = workbenchData.datasets.find(d => d.title === "Sample Covenant Clauses" || d.path.includes("sample_credit_agreement_clauses.json"));
+    const select = document.getElementById('cov-clause-select');
+    const output = document.getElementById('cov-output');
 
-    if (clausesFile) {
-        try {
-            const response = await fetch(clausesFile.path);
-            const data = await response.json();
-            const clauses = data.clauses || [];
-
-            const select = document.getElementById('cov-clause-select');
-            const output = document.getElementById('cov-output');
-
-            if (Array.isArray(clauses)) {
-                 clauses.forEach(c => {
+    // Helper to populate select
+    function populate(clausesData) {
+        select.innerHTML = '<option value="">Select a standard clause...</option>';
+        if (Array.isArray(clausesData)) {
+            // Check if it's the categorized array style (from legal_clauses.json)
+            if(clausesData.length > 0 && clausesData[0].category) {
+                 clausesData.forEach(cat => {
+                     const group = document.createElement('optgroup');
+                     group.label = cat.category;
+                     if(cat.clauses) {
+                         cat.clauses.forEach(c => {
+                             const opt = document.createElement('option');
+                             opt.value = c.standard_text || c.standard_clause || c.text;
+                             opt.textContent = c.title || c.name;
+                             group.appendChild(opt);
+                         });
+                     }
+                     select.appendChild(group);
+                 });
+            } else {
+                 // Simple list
+                 clausesData.forEach(c => {
                     const opt = document.createElement('option');
                     opt.value = c.text || c.clause;
                     opt.textContent = c.title || c.name || "Clause";
                     select.appendChild(opt);
                  });
-            } else {
-                 // Object keys
-                 for (const cat in data) {
-                     if (Array.isArray(data[cat])) {
-                         const group = document.createElement('optgroup');
-                         group.label = cat;
-                         data[cat].forEach(c => {
-                             const opt = document.createElement('option');
-                             opt.value = c.standard_clause || c.text;
-                             opt.textContent = c.title || c.name;
-                             group.appendChild(opt);
-                         });
-                         select.appendChild(group);
-                     }
-                 }
             }
-
-            // Event Listener
-            document.getElementById('cov-add-btn').addEventListener('click', () => {
-                const text = select.value;
-                if(text) {
-                    output.value += text + "\n\n";
-                }
-            });
-
-        } catch (e) {
-            console.error("Error loading clauses", e);
         }
     }
+
+    // Try to load from embedded workbenchData first
+    if (workbenchData.clauses && workbenchData.clauses.length > 0) {
+        populate(workbenchData.clauses);
+    } else {
+        // Fallback to fetch
+        const clausesFile = workbenchData.datasets.find(d => d.title.includes("Clauses") || d.path.includes("clauses.json"));
+        if (clausesFile) {
+            try {
+                const response = await fetch(clausesFile.path);
+                const data = await response.json();
+                populate(data.clauses || data);
+            } catch (e) {
+                console.error("Error loading clauses", e);
+            }
+        }
+    }
+
+    // Event Listener
+    document.getElementById('cov-add-btn').addEventListener('click', () => {
+        const text = select.value;
+        if(text) {
+            output.value += text + "\n\n";
+        }
+    });
 }
 
-// --- Synthesis (Credit Memo) ---
-function initCreditMemo() {
+// --- Memo Builder ---
+function initMemoBuilder() {
+    const mbBtn = document.getElementById('mb-generate-btn');
+    const sectorSel = document.getElementById('mb-sector');
+
+    if(!mbBtn) return;
+
+    // Populate Sector Dropdown if data exists
+    if(workbenchData.memo_narratives) {
+        Object.keys(workbenchData.memo_narratives).forEach(sec => {
+            const opt = document.createElement('option');
+            opt.value = sec;
+            opt.textContent = sec;
+            sectorSel.appendChild(opt);
+        });
+
+        // Listener for auto-fill
+        sectorSel.addEventListener('change', () => {
+             const sec = sectorSel.value;
+             const data = workbenchData.memo_narratives[sec];
+             if(data) {
+                 document.getElementById('mb-thesis').value = "- " + data.thesis + "\n\n**Key Drivers:** " + data.drivers;
+                 document.getElementById('mb-risks').value = data.risks + "\n\n**Outlook:** " + data.outlook;
+             }
+        });
+    }
+
+    mbBtn.addEventListener('click', () => {
+        const b = document.getElementById('mb-borrower').value || "[Borrower]";
+        const f = document.getElementById('mb-facility').value || "[Facility]";
+        const a = document.getElementById('mb-amount').value || "[Amount]";
+        const p = document.getElementById('mb-pricing').value || "[Pricing]";
+        const t = document.getElementById('mb-thesis').value || "- [Enter Thesis]";
+        const r = document.getElementById('mb-risks').value || "- [Enter Risks]";
+        const date = new Date().toLocaleDateString();
+
+        const template = `# Credit Memorandum
+**Date:** ${date}
+**Borrower:** ${b}
+**Facility:** ${f} | **Amount:** ${a} | **Pricing:** ${p}
+
+## Executive Summary
+We recommend approval of the proposed ${f} for ${b}. The transaction supports...
+
+## Investment Thesis
+${t}
+
+## Key Risks & Mitigants
+${r}
+
+## Financial Analysis
+[Insert historical and projected financial tables here]
+
+## Recommendation
+**APPROVE**
+`;
+        document.getElementById('cm-editor').value = template;
+    });
+
+    // Credit Memo Export
     const btn = document.getElementById('cm-export-btn');
     if(btn) {
         btn.addEventListener('click', () => {
@@ -619,8 +706,69 @@ function initCreditMemo() {
         });
     }
 }
-if(document.getElementById('cm-export-btn')) initCreditMemo();
 
+// --- Calculators ---
+function initCalculators() {
+    // Ratio Calculator
+    const btn = document.getElementById('calc-btn');
+    if(btn) {
+        btn.addEventListener('click', () => {
+            const ca = parseFloat(document.getElementById('calc-ca').value) || 0;
+            const cl = parseFloat(document.getElementById('calc-cl').value) || 0;
+            const inv = parseFloat(document.getElementById('calc-inv').value) || 0;
+            if (cl === 0) return;
+            document.getElementById('res-current').textContent = (ca / cl).toFixed(2);
+            document.getElementById('res-quick').textContent = ((ca - inv) / cl).toFixed(2);
+            document.getElementById('calc-feedback').textContent = "Calculation complete.";
+        });
+    }
+
+    // DCF Calculator
+    const dcfBtn = document.getElementById('dcf-calc-btn');
+    if(dcfBtn) {
+        dcfBtn.addEventListener('click', () => {
+            const fcf1 = parseFloat(document.getElementById('dcf-fcf').value) || 0;
+            const growth = (parseFloat(document.getElementById('dcf-growth').value) || 0) / 100;
+            const wacc = (parseFloat(document.getElementById('dcf-wacc').value) || 0) / 100;
+
+            if (wacc <= growth) {
+                alert("WACC must be greater than growth rate for simplified Terminal Value calculation.");
+                return;
+            }
+
+            // 5 Year Projection
+            let totalPV = 0;
+            let currentFCF = fcf1; // Year 1
+            totalPV += currentFCF / Math.pow(1 + wacc, 1);
+
+            for(let i=2; i<=5; i++) {
+                currentFCF = currentFCF * (1 + growth);
+                totalPV += currentFCF / Math.pow(1 + wacc, i);
+            }
+
+            // Terminal Value (Gordon Growth) at Year 5
+            const tv = (currentFCF * (1 + growth)) / (wacc - growth);
+            const tvPV = tv / Math.pow(1 + wacc, 5);
+
+            const ev = totalPV + tvPV;
+            document.getElementById('dcf-result').textContent = '$' + ev.toFixed(2);
+        });
+    }
+
+    // EV Calculator
+    const evBtn = document.getElementById('ev-calc-btn');
+    if(evBtn) {
+        evBtn.addEventListener('click', () => {
+             const eq = parseFloat(document.getElementById('ev-equity').value) || 0;
+             const debt = parseFloat(document.getElementById('ev-debt').value) || 0;
+             const pref = parseFloat(document.getElementById('ev-pref').value) || 0;
+             const min = parseFloat(document.getElementById('ev-minority').value) || 0;
+             const cash = parseFloat(document.getElementById('ev-cash').value) || 0;
+             const res = eq + debt + pref + min - cash;
+             document.getElementById('ev-result').textContent = '$' + res.toLocaleString();
+        });
+    }
+}
 
 // --- Helper: Search ---
 function setupSearch(inputId, containerId, itemSelector) {

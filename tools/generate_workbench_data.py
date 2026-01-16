@@ -16,7 +16,9 @@ workbench_data = {
     "glossary": [],
     "checklists": {},
     "deals": [],
-    "scoring_model": {}
+    "scoring_model": {},
+    "memo_narratives": {},
+    "clauses": []
 }
 
 def get_relative_path(path):
@@ -66,7 +68,13 @@ for root, dirs, files in os.walk("."):
             })
         elif file == "sample_credit_agreement_clauses.json" or file == "legal_clauses.json":
              workbench_data["datasets"].append({
-                "title": "Sample Covenant Clauses",
+                "title": "Legal Clauses Database",
+                "path": get_relative_path(path),
+                "type": "JSON Data"
+            })
+        elif file == "memo_narratives.json":
+             workbench_data["datasets"].append({
+                "title": "Sector Memo Narratives",
                 "path": get_relative_path(path),
                 "type": "JSON Data"
             })
@@ -183,6 +191,24 @@ if os.path.exists(scoring_file):
             workbench_data["scoring_model"] = json.load(f)
     except Exception as e:
          print(f"Error parsing scoring model: {e}")
+
+# 12. Memo Narratives
+narratives_file = "modules/Credit_Analysis/datasets/memo_narratives.json"
+if os.path.exists(narratives_file):
+    try:
+        with open(narratives_file, 'r', encoding='utf-8') as f:
+            workbench_data["memo_narratives"] = json.load(f)
+    except Exception as e:
+        print(f"Error parsing narratives: {e}")
+
+# 13. Legal Clauses
+clauses_file = "modules/Loan_and_Capital_Market_Terms/legal_clauses.json"
+if os.path.exists(clauses_file):
+    try:
+        with open(clauses_file, 'r', encoding='utf-8') as f:
+            workbench_data["clauses"] = json.load(f)
+    except Exception as e:
+        print(f"Error parsing clauses: {e}")
 
 # Write to JS
 with open(OUTPUT_FILE, "w", encoding='utf-8') as f:
