@@ -163,7 +163,7 @@ const workbenchData = {
   ],
   "datasets": [
     {
-      "title": "Sample Covenant Clauses",
+      "title": "Legal Clauses Database",
       "path": "modules/Loan_and_Capital_Market_Terms/legal_clauses.json",
       "type": "JSON Data"
     },
@@ -173,12 +173,17 @@ const workbenchData = {
       "type": "CSV"
     },
     {
+      "title": "Sector Memo Narratives",
+      "path": "modules/Credit_Analysis/datasets/memo_narratives.json",
+      "type": "JSON Data"
+    },
+    {
       "title": "mega_cap_equity_data.csv",
       "path": "Interactive_Notebooks/Financial_Modeling/data/mega_cap_equity_data.csv",
       "type": "CSV"
     },
     {
-      "title": "Sample Covenant Clauses",
+      "title": "Legal Clauses Database",
       "path": "Interactive_Notebooks/Legal_Analysis/data/sample_credit_agreement_clauses.json",
       "type": "JSON Data"
     },
@@ -9376,5 +9381,264 @@ const workbenchData = {
         "rating": "D"
       }
     ]
-  }
+  },
+  "memo_narratives": {
+    "Software & SaaS": {
+      "thesis": "High recurring revenue model (ARR) provides strong visibility into future cash flows. Low capex requirements result in high free cash flow conversion. Strong retention rates (>90%) and upsell opportunities (Net Dollar Retention > 100%) support valuation premium.",
+      "risks": "- **Churn Risk:** Competition or lack of product adoption could increase churn.\n- **Technology Obsolescence:** Rapid pace of innovation requires constant R&D investment.\n- **Customer Concentration:** Reliance on a few large enterprise contracts.",
+      "drivers": "Key drivers include ARR growth, Customer Acquisition Cost (CAC) efficiency, and Lifetime Value (LTV) to CAC ratios. Margins are driven by operating leverage as the customer base scales.",
+      "outlook": "Positive. Digital transformation trends continue to drive adoption of cloud-based solutions."
+    },
+    "Healthcare Services": {
+      "thesis": "Defensive industry with recession-resistant demand. Favorable demographic trends (aging population) support long-term volume growth. Recurring reimbursement streams from government (Medicare/Medicaid) and commercial payers.",
+      "risks": "- **Reimbursement Risk:** Regulatory changes could cut Medicare/Medicaid rates.\n- **Labor Shortages:** Rising cost of clinical staff (nurses/physicians) impacts margins.\n- **Regulatory Scrutiny:** High compliance burden and risk of audits.",
+      "drivers": "Volume growth (patient visits), reimbursement rate stability, and ability to manage labor costs. M&A consolidation is a key growth lever.",
+      "outlook": "Stable to Positive. Demand remains robust, though labor cost pressures persist."
+    },
+    "Oil & Gas (E&P)": {
+      "thesis": "Significant asset value in proven reserves. Cash flow generation is highly correlated with commodity prices. Strategic importance of energy independence supports domestic production.",
+      "risks": "- **Commodity Price Volatility:** Revenue is directly tied to oil/gas prices.\n- **Regulatory/Environmental:** Risk of stricter regulations or carbon taxes.\n- **Depletion:** Constant need for capex to replace produced reserves.",
+      "drivers": "Commodity prices (WTI/Brent), production volumes (BOE/d), and finding & development (F&D) costs. Hedging strategy is critical to protect cash flows.",
+      "outlook": "Neutral. High prices support cash flow, but ESG pressures limit access to capital."
+    },
+    "Retail (Brick & Mortar)": {
+      "thesis": "Strong brand recognition and physical footprint allow for omni-channel strategy. Cash flow generation supports debt service and dividends.",
+      "risks": "- **E-commerce Competition:** Continued shift to online shopping erodes market share.\n- **Consumer Spending:** Cyclical exposure to economic downturns.\n- **Inventory Management:** Risk of obsolescence or markdowns impacting margins.",
+      "drivers": "Same-store sales (SSS) growth, gross margin trends, and inventory turnover. Ability to manage lease expenses is key.",
+      "outlook": "Negative to Neutral. Bifurcation between winners (omni-channel) and losers (legacy malls)."
+    },
+    "Industrials & Manufacturing": {
+      "thesis": "Essential role in the supply chain with high barriers to entry (capital intensity). Long-term contracts with blue-chip customers provide revenue stability.",
+      "risks": "- **Input Cost Inflation:** Rising raw material and energy costs.\n- **Cyclicality:** Exposure to industrial production and GDP growth.\n- **Supply Chain Disruption:** Dependency on global logistics.",
+      "drivers": "Industrial production indices, backlog strength, and capacity utilization. Operating efficiency (Lean/Six Sigma) drives margins.",
+      "outlook": "Neutral. Near-term headwinds from inflation and supply chain, but long-term demand remains.",
+      "key_ratios": "Fixed Charge Coverage, Debt/EBITDA, ROIC"
+    },
+    "Consumer Staples": {
+      "thesis": "Non-cyclical demand for essential products provides highly stable cash flows. Strong pricing power allows pass-through of inflationary costs.",
+      "risks": "- **Commodity Inflation:** Input costs (grain, sugar, packaging) can squeeze margins.\n- **Private Label Competition:** Consumers trading down to generic brands.\n- **Retailer Consolidation:** Pricing pressure from large retailers (Walmart/Amazon).",
+      "drivers": "Volume growth vs. Price mix. Brand equity and marketing efficiency.",
+      "outlook": "Positive (Defensive). Safe haven in volatile markets."
+    }
+  },
+  "clauses": [
+    {
+      "category": "Negative Covenants",
+      "description": "Restrictions on the borrower's actions to preserve credit quality.",
+      "clauses": [
+        {
+          "title": "Limitation on Indebtedness",
+          "description": "Restricts the borrower from incurring additional debt unless specific conditions (e.g., leverage ratios) are met.",
+          "standard_text": "The Borrower shall not, and shall not permit any Restricted Subsidiary to, directly or indirectly, Create, incur, assume or suffer to exist any Indebtedness, except: (a) Indebtedness created hereunder; (b) Indebtedness existing on the Closing Date; (c) Indebtedness incurred to finance the acquisition, construction or improvement of any fixed or capital assets (Capital Lease Obligations); (d) Indebtedness of any Person that becomes a Restricted Subsidiary after the Closing Date.",
+          "negotiation_points": [
+            "Basket for general corporate purposes (General Basket)",
+            "Ratio Debt Basket (unlimited debt if Leverage Ratio < X.X)",
+            "Acquired Debt Basket (debt of acquired companies not incurred in contemplation of deal)",
+            "Non-Guarantor Subsidiary Debt Cap"
+          ]
+        },
+        {
+          "title": "Limitation on Liens",
+          "description": "Prevents the borrower from pledging assets as collateral to other creditors, protecting the lender's priority.",
+          "standard_text": "The Borrower will not, and will not permit any of its Subsidiaries to, create, incur, assume or suffer to exist any Lien upon any of its property, asset or revenues, whether now owned or hereafter acquired, other than Permitted Liens.",
+          "negotiation_points": [
+            "Permitted Refinancing Liens",
+            "Liens incurred in the ordinary course of business (carriers, warehousemen, mechanics)",
+            "Judgment liens within a specific threshold not resulting in an Event of Default"
+          ]
+        },
+        {
+          "title": "Restricted Payments",
+          "description": "Limits dividends, share buybacks, and other distributions to equity holders to preserve cash for debt service.",
+          "standard_text": "The Borrower will not, and will not permit any of its Subsidiaries to, declare or make, or agree to pay or make, directly or indirectly, any Restricted Payment, except: (a) dividends payable solely in interests of common stock; (b) Restricted Payments made by any Subsidiary to the Borrower or to another Subsidiary.",
+          "negotiation_points": [
+            "Available Amount Basket (Builder Basket) based on 50% of Consolidated Net Income (CNI) or Retained Excess Cash Flow",
+            "Unlimited payments if pro forma Total Net Leverage is below x.x level",
+            "Tax distributions for pass-through entities (LLCs, S-Corps)"
+          ]
+        },
+        {
+          "title": "Limitation on Asset Sales",
+          "description": "Controls the sale of assets and dictates how proceeds must be used (e.g., mandatory prepayment).",
+          "standard_text": "The Borrower will not, and will not permit any of its Subsidiaries to, sell, transfer, lease or otherwise dispose of any asset, including any Equity Interest owned by it, unless: (a) such disposition is for fair market value; (b) at least 75% of the consideration comes in the form of Cash or Cash Equivalents.",
+          "negotiation_points": [
+            "Step-down in asset sale prepayment percentage based on leverage",
+            "Reinvestment rights (borrower can keep cash if reinvested in business within 12-18 months)",
+            "Designated Non-Cash Consideration treated as Cash (up to a cap)"
+          ]
+        },
+        {
+          "title": "Limitation on Investments",
+          "description": "Restricts the borrower's ability to lend money, buy stock, or make acquisitions.",
+          "standard_text": "The Borrower will not, and will not permit any of its Subsidiaries to, make or hold any Investments, except: (a) Cash and Cash Equivalents; (b) Investments in Subsidiaries; (c) Permitted Acquisitions.",
+          "negotiation_points": [
+            "General Investment Basket",
+            "Unlimited Investments if Leverage Ratio < X.X (Payment Conditions)",
+            "Investments in Unrestricted Subsidiaries (capped)"
+          ]
+        },
+        {
+          "title": "Limitation on Transactions with Affiliates",
+          "description": "Ensures transactions with related parties (e.g., the Sponsor) are on arm's-length terms.",
+          "standard_text": "The Borrower will not, and will not permit any of its Subsidiaries to, sell, lease or otherwise transfer any property or assets to, or purchase, lease or otherwise acquire any property or assets from, or otherwise engage in any other transactions with, any of its Affiliates, except transactions upon fair and reasonable terms no less favorable than could be obtained in a comparable arm's length transaction with a Person that is not an Affiliate.",
+          "negotiation_points": [
+            "Exception for reasonable Director fees and indemnities",
+            "Exception for Sponsor Management Fees (often capped or suspended during Default)"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Affirmative Covenants",
+      "description": "Actions the borrower must take to remain in compliance.",
+      "clauses": [
+        {
+          "title": "Financial Reporting",
+          "description": "Requirement to deliver financial statements.",
+          "standard_text": "The Borrower will furnish to the Administrative Agent: (a) within 90 days after the end of each fiscal year, its audited consolidated balance sheet and related statements of operations; (b) within 45 days after the end of each of the first three fiscal quarters, its unaudited consolidated balance sheet.",
+          "negotiation_points": [
+            "Extension of deadlines (120 days for year-end for private companies)",
+            "Deemed delivery if posted to SEC website (EDGAR)",
+            "Requirement for budget/projections delivery"
+          ]
+        },
+        {
+          "title": "Maintenance of Existence",
+          "description": "Borrower must keep its legal existence and good standing.",
+          "standard_text": "The Borrower will, and will cause each of its Subsidiaries to, do or cause to be done all things necessary to preserve, renew and keep in full force and effect its legal existence and the rights, licenses, permits, privileges and franchises material to the conduct of its business.",
+          "negotiation_points": [
+            "Exception for dissolution of immaterial subsidiaries",
+            "Exception where failure to maintain is not materially adverse"
+          ]
+        },
+        {
+          "title": "Payment of Taxes",
+          "description": "Borrower must pay taxes when due.",
+          "standard_text": "The Borrower will, and will cause each of its Subsidiaries to, pay its Tax liabilities, that, if not paid, could result in a material Lien on part of its property, before the same shall become delinquent or in default.",
+          "negotiation_points": [
+            "Good faith contest exception (borrower can withhold payment if contesting tax validity)"
+          ]
+        },
+        {
+          "title": "Inspection Rights",
+          "description": "Lender's right to visit borrower properties and audit books.",
+          "standard_text": "The Borrower will permit any representatives designated by the Administrative Agent, upon reasonable prior notice, to visit and inspect its properties, to examine and make extracts from its books and records, and to discuss its affairs, finances and condition with its officers and independent accountants.",
+          "negotiation_points": [
+            "Limit to once per year unless Event of Default exists",
+            "Lender pays for one visit, Borrower pays if Default exists"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Financial Covenants",
+      "description": "Metrics the borrower must maintain.",
+      "clauses": [
+        {
+          "title": "Total Net Leverage Ratio",
+          "description": "The ratio of Consolidated Total Net Debt to Consolidated EBITDA.",
+          "standard_text": "The Borrower will not permit the Total Net Leverage Ratio as of the last day of any Fiscal Quarter to exceed the correlative ratio indicated: [Table of Ratios per Quarter].",
+          "negotiation_points": [
+            "Step-downs over time",
+            "EBITDA add-backs (synergies, one-time costs, restructuring charges)",
+            "Netting of unrestricted cash (often capped)",
+            "Equity Cure Rights (Sponsor can inject cash to increase EBITDA)"
+          ]
+        },
+        {
+          "title": "Interest Coverage Ratio",
+          "description": "The ratio of Consolidated EBITDA to Consolidated Interest Expense.",
+          "standard_text": "The Borrower will not permit the Interest Coverage Ratio as of the last day of any Fiscal Quarter to be less than [MIN_RATIO].",
+          "negotiation_points": [
+            "Definition of Interest Expense (cash vs. PIK)",
+            "Minimum level logic based on cushion to projections (typically 20-30%)"
+          ]
+        },
+        {
+          "title": "Fixed Charge Coverage Ratio",
+          "description": "EBITDA - Capex - Taxes / (Interest + Principal Amortization).",
+          "standard_text": "The Borrower will not permit the Fixed Charge Coverage Ratio as of the last day of any Fiscal Quarter to be less than 1.00 to 1.00.",
+          "negotiation_points": [
+            "Deduction of Unfinanced Capex only",
+            "Springing Covenant (only tested if Revolver usage > X%)"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Events of Default",
+      "description": "Circumstances allowing the lender to accelerate the debt.",
+      "clauses": [
+        {
+          "title": "Payment Default",
+          "description": "Failure to pay principal, interest, or fees.",
+          "standard_text": "The Borrower shall fail to pay any principal of any Loan or any Reimbursement Obligation when and as the same shall become due and payable, whether at the due date thereof or at a date fixed for prepayment thereof or otherwise.",
+          "negotiation_points": [
+            "Grace period for interest and fees (3-5 business days)",
+            "No grace period for principal usually"
+          ]
+        },
+        {
+          "title": "Cross-Default / Cross-Acceleration",
+          "description": "Default in other agreements triggers default here.",
+          "standard_text": "The Borrower or any Subsidiary (i) fails to make any payment when due (whether by scheduled maturity, required prepayment, acceleration, demand, or otherwise) in respect of any Material Indebtedness...",
+          "negotiation_points": [
+            "Threshold amount for Material Indebtedness ($X Million)",
+            "Cross-Acceleration vs. Cross-Default (Cross-Acceleration requires the other lender to actually accelerate, which is better for borrower)"
+          ]
+        },
+        {
+          "title": "Change of Control",
+          "description": "Change in ownership structure.",
+          "standard_text": "A Change of Control shall occur.",
+          "negotiation_points": [
+            "Definition of beneficial ownership percentage (usually 35-50%)",
+            "Permitted holders (Original Sponsors, Management)",
+            "Qualifying IPO provisions"
+          ]
+        },
+        {
+          "title": "Bankruptcy / Insolvency",
+          "description": "Borrower files for bankruptcy or becomes insolvent.",
+          "standard_text": "The Borrower or any Material Subsidiary shall commence a voluntary case concerning itself under Title 11 of the United States Code...",
+          "negotiation_points": [
+            "Grace period for involuntary bankruptcy petitions (usually 60 days to dismiss)"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Mandatory Prepayments",
+      "description": "Events requiring the borrower to pay down debt early.",
+      "clauses": [
+        {
+          "title": "Excess Cash Flow Sweep",
+          "description": "Percentage of annual ECF used to pay down term loan.",
+          "standard_text": "The Borrower shall prepay an aggregate principal amount of Term Loans equal to the Applicable ECF Percentage of Excess Cash Flow for such Fiscal Year.",
+          "negotiation_points": [
+            "Step-downs: 50% if Leverage > X, 25% if Leverage > Y, 0% if Leverage < Z",
+            "Deductions for voluntary prepayments made during the year"
+          ]
+        },
+        {
+          "title": "Asset Sale Proceeds",
+          "description": "Proceeds from selling assets.",
+          "standard_text": "The Borrower shall prepay Term Loans in an amount equal to 100% of the Net Cash Proceeds received from any Asset Sale.",
+          "negotiation_points": [
+            "Reinvestment rights (12-18 months)",
+            "Step-downs based on leverage",
+            "Minimum threshold per transaction"
+          ]
+        },
+        {
+          "title": "Debt Issuance Proceeds",
+          "description": "Proceeds from incurring new debt (refinancing).",
+          "standard_text": "The Borrower shall prepay Term Loans in an amount equal to 100% of the Net Cash Proceeds received from the Incurrence of any Indebtedness (other than Permitted Indebtedness).",
+          "negotiation_points": [
+            "Usually 100% with no step-downs"
+          ]
+        }
+      ]
+    }
+  ]
 };

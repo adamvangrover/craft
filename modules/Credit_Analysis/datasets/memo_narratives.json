@@ -1,0 +1,39 @@
+{
+  "Software & SaaS": {
+    "thesis": "High recurring revenue model (ARR) provides strong visibility into future cash flows. Low capex requirements result in high free cash flow conversion. Strong retention rates (>90%) and upsell opportunities (Net Dollar Retention > 100%) support valuation premium.",
+    "risks": "- **Churn Risk:** Competition or lack of product adoption could increase churn.\n- **Technology Obsolescence:** Rapid pace of innovation requires constant R&D investment.\n- **Customer Concentration:** Reliance on a few large enterprise contracts.",
+    "drivers": "Key drivers include ARR growth, Customer Acquisition Cost (CAC) efficiency, and Lifetime Value (LTV) to CAC ratios. Margins are driven by operating leverage as the customer base scales.",
+    "outlook": "Positive. Digital transformation trends continue to drive adoption of cloud-based solutions."
+  },
+  "Healthcare Services": {
+    "thesis": "Defensive industry with recession-resistant demand. Favorable demographic trends (aging population) support long-term volume growth. Recurring reimbursement streams from government (Medicare/Medicaid) and commercial payers.",
+    "risks": "- **Reimbursement Risk:** Regulatory changes could cut Medicare/Medicaid rates.\n- **Labor Shortages:** Rising cost of clinical staff (nurses/physicians) impacts margins.\n- **Regulatory Scrutiny:** High compliance burden and risk of audits.",
+    "drivers": "Volume growth (patient visits), reimbursement rate stability, and ability to manage labor costs. M&A consolidation is a key growth lever.",
+    "outlook": "Stable to Positive. Demand remains robust, though labor cost pressures persist."
+  },
+  "Oil & Gas (E&P)": {
+    "thesis": "Significant asset value in proven reserves. Cash flow generation is highly correlated with commodity prices. Strategic importance of energy independence supports domestic production.",
+    "risks": "- **Commodity Price Volatility:** Revenue is directly tied to oil/gas prices.\n- **Regulatory/Environmental:** Risk of stricter regulations or carbon taxes.\n- **Depletion:** Constant need for capex to replace produced reserves.",
+    "drivers": "Commodity prices (WTI/Brent), production volumes (BOE/d), and finding & development (F&D) costs. Hedging strategy is critical to protect cash flows.",
+    "outlook": "Neutral. High prices support cash flow, but ESG pressures limit access to capital."
+  },
+  "Retail (Brick & Mortar)": {
+    "thesis": "Strong brand recognition and physical footprint allow for omni-channel strategy. Cash flow generation supports debt service and dividends.",
+    "risks": "- **E-commerce Competition:** Continued shift to online shopping erodes market share.\n- **Consumer Spending:** Cyclical exposure to economic downturns.\n- **Inventory Management:** Risk of obsolescence or markdowns impacting margins.",
+    "drivers": "Same-store sales (SSS) growth, gross margin trends, and inventory turnover. Ability to manage lease expenses is key.",
+    "outlook": "Negative to Neutral. Bifurcation between winners (omni-channel) and losers (legacy malls)."
+  },
+  "Industrials & Manufacturing": {
+    "thesis": "Essential role in the supply chain with high barriers to entry (capital intensity). Long-term contracts with blue-chip customers provide revenue stability.",
+    "risks": "- **Input Cost Inflation:** Rising raw material and energy costs.\n- **Cyclicality:** Exposure to industrial production and GDP growth.\n- **Supply Chain Disruption:** Dependency on global logistics.",
+    "drivers": "Industrial production indices, backlog strength, and capacity utilization. Operating efficiency (Lean/Six Sigma) drives margins.",
+    "outlook": "Neutral. Near-term headwinds from inflation and supply chain, but long-term demand remains.",
+    "key_ratios": "Fixed Charge Coverage, Debt/EBITDA, ROIC"
+  },
+  "Consumer Staples": {
+    "thesis": "Non-cyclical demand for essential products provides highly stable cash flows. Strong pricing power allows pass-through of inflationary costs.",
+    "risks": "- **Commodity Inflation:** Input costs (grain, sugar, packaging) can squeeze margins.\n- **Private Label Competition:** Consumers trading down to generic brands.\n- **Retailer Consolidation:** Pricing pressure from large retailers (Walmart/Amazon).",
+    "drivers": "Volume growth vs. Price mix. Brand equity and marketing efficiency.",
+    "outlook": "Positive (Defensive). Safe haven in volatile markets."
+  }
+}

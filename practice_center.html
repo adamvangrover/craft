@@ -498,6 +498,9 @@
                     <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 mb-4">
                         <h3 class="font-bold text-slate-700 mb-4">Memo Builder Wizard</h3>
                         <div class="grid grid-cols-2 gap-4 mb-4">
+                            <select id="mb-sector" class="border border-slate-300 rounded px-3 py-2 bg-white">
+                                <option value="">Select Sector (Auto-fill)...</option>
+                            </select>
                             <input type="text" id="mb-borrower" placeholder="Borrower Name" class="border border-slate-300 rounded px-3 py-2">
                             <input type="text" id="mb-facility" placeholder="Facility Type (e.g. Term Loan B)" class="border border-slate-300 rounded px-3 py-2">
                             <input type="text" id="mb-amount" placeholder="Amount ($M)" class="border border-slate-300 rounded px-3 py-2">
@@ -524,121 +527,5 @@
     <!-- Scripts -->
     <script src="js/workbench_data.js"></script>
     <script src="js/analyst_workbench.js"></script>
-    <!-- Inline Logic for Calculator/Checklist reused/adapted -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Ratio Calculator
-            const btn = document.getElementById('calc-btn');
-            if(btn) {
-                btn.addEventListener('click', () => {
-                    const ca = parseFloat(document.getElementById('calc-ca').value) || 0;
-                    const cl = parseFloat(document.getElementById('calc-cl').value) || 0;
-                    const inv = parseFloat(document.getElementById('calc-inv').value) || 0;
-                    if (cl === 0) return;
-                    document.getElementById('res-current').textContent = (ca / cl).toFixed(2);
-                    document.getElementById('res-quick').textContent = ((ca - inv) / cl).toFixed(2);
-                    document.getElementById('calc-feedback').textContent = "Calculation complete.";
-                });
-            }
-
-            // DCF Calculator
-            const dcfBtn = document.getElementById('dcf-calc-btn');
-            if(dcfBtn) {
-                dcfBtn.addEventListener('click', () => {
-                    const fcf1 = parseFloat(document.getElementById('dcf-fcf').value) || 0;
-                    const growth = (parseFloat(document.getElementById('dcf-growth').value) || 0) / 100;
-                    const wacc = (parseFloat(document.getElementById('dcf-wacc').value) || 0) / 100;
-
-                    if (wacc <= growth) {
-                        alert("WACC must be greater than growth rate for simplified Terminal Value calculation.");
-                        return;
-                    }
-
-                    // 5 Year Projection
-                    let totalPV = 0;
-                    let currentFCF = fcf1; // Year 1
-                    totalPV += currentFCF / Math.pow(1 + wacc, 1);
-
-                    for(let i=2; i<=5; i++) {
-                        currentFCF = currentFCF * (1 + growth);
-                        totalPV += currentFCF / Math.pow(1 + wacc, i);
-                    }
-
-                    // Terminal Value (Gordon Growth) at Year 5
-                    const tv = (currentFCF * (1 + growth)) / (wacc - growth);
-                    const tvPV = tv / Math.pow(1 + wacc, 5);
-
-                    const ev = totalPV + tvPV;
-                    document.getElementById('dcf-result').textContent = '$' + ev.toFixed(2);
-                });
-            }
-
-            // EV Calculator
-            const evBtn = document.getElementById('ev-calc-btn');
-            if(evBtn) {
-                evBtn.addEventListener('click', () => {
-                     const eq = parseFloat(document.getElementById('ev-equity').value) || 0;
-                     const debt = parseFloat(document.getElementById('ev-debt').value) || 0;
-                     const pref = parseFloat(document.getElementById('ev-pref').value) || 0;
-                     const min = parseFloat(document.getElementById('ev-minority').value) || 0;
-                     const cash = parseFloat(document.getElementById('ev-cash').value) || 0;
-                     const res = eq + debt + pref + min - cash;
-                     document.getElementById('ev-result').textContent = '$' + res.toLocaleString();
-                });
-            }
-
-            // Memo Builder
-            const mbBtn = document.getElementById('mb-generate-btn');
-            if(mbBtn) {
-                mbBtn.addEventListener('click', () => {
-                    const b = document.getElementById('mb-borrower').value || "[Borrower]";
-                    const f = document.getElementById('mb-facility').value || "[Facility]";
-                    const a = document.getElementById('mb-amount').value || "[Amount]";
-                    const p = document.getElementById('mb-pricing').value || "[Pricing]";
-                    const t = document.getElementById('mb-thesis').value || "- [Enter Thesis]";
-                    const r = document.getElementById('mb-risks').value || "- [Enter Risks]";
-                    const date = new Date().toLocaleDateString();
-
-                    const template = `# Credit Memorandum
-**Date:** ${date}
-**Borrower:** ${b}
-**Facility:** ${f} | **Amount:** ${a} | **Pricing:** ${p}
-
-## Executive Summary
-We recommend approval of the proposed ${f} for ${b}. The transaction supports...
-
-## Investment Thesis
-${t}
-
-## Key Risks & Mitigants
-${r}
-
-## Financial Analysis
-[Insert historical and projected financial tables here]
-
-## Recommendation
-**APPROVE**
-`;
-                    document.getElementById('cm-editor').value = template;
-                });
-            }
-
-            // Checklist Re-bind
-            const checklists = {
-                "credit-memo": "## Credit Memo Review Checklist\n\n- [ ] **Executive Summary**: Clear recommendation?\n- [ ] **Borrower**: Business model clear?\n- [ ] **Financials**: Historical trends analyzed?",
-                "lbo-screen": "## LBO Initial Screen\n\n- [ ] **Market Position**: Leading share?\n- [ ] **Cash Flow**: Stable?\n- [ ] **Capex**: Low maintenance capex?",
-                "earnings-call": "## Earnings Call Prep\n\n- [ ] **Review**: Last quarter transcript.\n- [ ] **Guidance**: Compare vs Consensus.\n- [ ] **Q&A**: Check analyst tone.",
-                "term-sheet": "# Term Sheet Template\n\n**Borrower:** [Name]\n**Facility:** Senior Secured Term Loan\n**Amount:** $[Amount]\n**Maturity:** [Date]\n**Interest Rate:** SOFR + [Spread]%\n**Amortization:** [X]% per annum\n**Financial Covenants:**\n- Max Leverage: [X]x\n- Min Interest Coverage: [X]x"
-            };
-            const chkBtn = document.getElementById('generate-checklist-btn');
-            if(chkBtn) {
-                chkBtn.addEventListener('click', () => {
-                    const key = document.getElementById('checklist-select').value;
-                    const out = document.getElementById('checklist-output');
-                    if(checklists[key]) out.value = checklists[key];
-                });
-            }
-        });
-    </script>
 </body>
 </html>
