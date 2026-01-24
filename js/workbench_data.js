@@ -163,8 +163,13 @@ const workbenchData = {
   ],
   "datasets": [
     {
-      "title": "Legal Clauses Database",
+      "title": "Legal Clauses Database (legal_clauses.json)",
       "path": "modules/Loan_and_Capital_Market_Terms/legal_clauses.json",
+      "type": "JSON Data"
+    },
+    {
+      "title": "Legal Clauses Database (broadly_syndicated_loan_clauses.json)",
+      "path": "modules/Loan_and_Capital_Market_Terms/broadly_syndicated_loan_clauses.json",
       "type": "JSON Data"
     },
     {
@@ -173,8 +178,13 @@ const workbenchData = {
       "type": "CSV"
     },
     {
-      "title": "Sector Memo Narratives",
+      "title": "Sector Memo Narratives (memo_narratives.json)",
       "path": "modules/Credit_Analysis/datasets/memo_narratives.json",
+      "type": "JSON Data"
+    },
+    {
+      "title": "Sector Memo Narratives (sector_narratives_expanded.json)",
+      "path": "modules/Credit_Analysis/datasets/sector_narratives_expanded.json",
       "type": "JSON Data"
     },
     {
@@ -183,7 +193,7 @@ const workbenchData = {
       "type": "CSV"
     },
     {
-      "title": "Legal Clauses Database",
+      "title": "Legal Clauses Database (sample_credit_agreement_clauses.json)",
       "path": "Interactive_Notebooks/Legal_Analysis/data/sample_credit_agreement_clauses.json",
       "type": "JSON Data"
     },
@@ -9419,6 +9429,48 @@ const workbenchData = {
       "risks": "- **Commodity Inflation:** Input costs (grain, sugar, packaging) can squeeze margins.\n- **Private Label Competition:** Consumers trading down to generic brands.\n- **Retailer Consolidation:** Pricing pressure from large retailers (Walmart/Amazon).",
       "drivers": "Volume growth vs. Price mix. Brand equity and marketing efficiency.",
       "outlook": "Positive (Defensive). Safe haven in volatile markets."
+    },
+    "Technology (Hardware)": {
+      "thesis": "Secular demand for computing power (data centers, AI) and connectivity (5G, IoT) drives long-term volume growth. High barriers to entry due to R&D intensity and intellectual property portfolios. Strong balance sheets and cash flow generation support R&D and capital returns.",
+      "risks": "- **Cyclicality:** Semiconductor industry is historically cyclical.\n- **Geopolitical Risk:** Supply chain dependence on Taiwan/Asia; trade restrictions.\n- **Technological Disruption:** Rapid innovation can render products obsolete.",
+      "drivers": "Global IT spending, cloud infrastructure expansion, smartphone cycles, and automotive electronification.",
+      "outlook": "Positive. AI boom driving unprecedented demand for GPUs and advanced chips.",
+      "key_ratios": "Gross Margin, R&D as % of Sales, Inventory Turnover"
+    },
+    "Pharmaceuticals": {
+      "thesis": "Inelastic demand for healthcare and aging population support stable revenue growth. High margins on patent-protected drugs. Strong M&A activity as large pharma acquires biotech innovation.",
+      "risks": "- **Patent Cliffs:** Loss of exclusivity leads to generic competition and revenue drop.\n- **Regulatory/Pricing:** Government pressure on drug pricing (e.g., IRA in US).\n- **Clinical Trial Failure:** High R&D risk with binary outcomes.",
+      "drivers": "New drug approvals (FDA), patent expirations, prescription volumes, and pricing power.",
+      "outlook": "Stable. Innovation in oncology and obesity (GLP-1) driving growth.",
+      "key_ratios": "R&D Productivity, Patent Life Remaining, Net Debt/EBITDA"
+    },
+    "Real Estate (REITs)": {
+      "thesis": "Hard asset ownership provides inflation hedge. High dividend yields attractive to income investors. Long-term leases provide cash flow visibility.",
+      "risks": "- **Interest Rates:** Rising rates increase cost of capital and compress cap rates (lower valuations).\n- **Occupancy:** Remote work impacts office demand; e-commerce impacts retail.\n- **Refinancing Risk:** Large debt maturities in a high-rate environment.",
+      "drivers": "Occupancy rates, rent growth, Net Operating Income (NOI), and Funds From Operations (FFO).",
+      "outlook": "Mixed. Industrial and Data Centers strong; Office and Retail challenged.",
+      "key_ratios": "FFO/Share, Debt/EBITDA, Interest Coverage"
+    },
+    "Transportation (Airlines)": {
+      "thesis": "Essential service for global connectivity. Consolidation in the US market has improved pricing discipline. Loyalty programs generate significant high-margin revenue.",
+      "risks": "- **Fuel Costs:** Jet fuel is a major volatile expense.\n- **Labor:** Highly unionized workforce with rising wage demands.\n- **Cyclicality:** Travel demand is highly correlated with GDP and consumer confidence.",
+      "drivers": "Passenger Load Factor, Revenue per Available Seat Mile (RASM), Cost per Available Seat Mile (CASM), and oil prices.",
+      "outlook": "Neutral. Strong demand post-COVID balanced by high costs and operational constraints.",
+      "key_ratios": "Fixed Charge Coverage, Liquidity (% of Revenue), CASM ex-fuel"
+    },
+    "Media & Telecom": {
+      "thesis": "Subscription-based models (Cable, Wireless, Streaming) offer recurring revenue. Content ownership is a strategic asset. 5G deployment enables new revenue streams.",
+      "risks": "- **Cord-Cutting:** Accelerating decline of linear TV ecosystem.\n- **Churn:** High competition in streaming leads to subscriber turnover.\n- **CapEx:** High investment required for network upgrades and content production.",
+      "drivers": "Subscriber growth (net adds), ARPU (Average Revenue Per User), Churn Rate, and Advertising trends.",
+      "outlook": "Neutral. Telecom utilities are stable; Media is undergoing structural disruption.",
+      "key_ratios": "Net Leverage, FCF Conversion, Churn"
+    },
+    "Chemicals": {
+      "thesis": "Diverse end-markets (auto, construction, packaging) provide broad economic exposure. Specialty chemicals offer higher margins and barriers to entry than commodities.",
+      "risks": "- **Feedstock Costs:** Natural gas and oil prices impact margins.\n- **Cyclicality:** Highly sensitive to global industrial production.\n- **Environmental:** Regulation on emissions and plastic waste.",
+      "drivers": "Industrial production, raw material spreads, and capacity utilization.",
+      "outlook": "Neutral to Negative. Weakness in Europe and China weighing on demand.",
+      "key_ratios": "EBITDA Margin, Return on Capital, Net Debt/EBITDA"
     }
   },
   "clauses": [
@@ -9485,6 +9537,48 @@ const workbenchData = {
             "Exception for reasonable Director fees and indemnities",
             "Exception for Sponsor Management Fees (often capped or suspended during Default)"
           ]
+        },
+        {
+          "title": "Restricted Payments (Dividends/Buybacks)",
+          "standard_text": "The Borrower shall not, and shall not permit any Restricted Subsidiary to, declare or make any Restricted Payment, except...",
+          "negotiation_points": [
+            "Builder Basket (Available Amount): Start date + 50% of Consolidated Net Income + Equity Issuances",
+            "Unlimited RP if Pro Forma Leverage <= Z.Z",
+            "General RP Basket"
+          ]
+        },
+        {
+          "title": "Transactions with Affiliates",
+          "standard_text": "The Borrower shall not, and shall not permit any Restricted Subsidiary to, enter into any transaction with any Affiliate, except upon fair and reasonable terms no less favorable than could be obtained in a comparable arm's-length transaction with a non-Affiliate.",
+          "negotiation_points": [
+            "Exceptions for management fees (up to a cap)",
+            "Transactions between Loan Parties",
+            "De Minimis transactions"
+          ]
+        },
+        {
+          "title": "Restrictive Agreements (Burdensome Agreements)",
+          "standard_text": "The Borrower shall not, and shall not permit any Restricted Subsidiary to, enter into any agreement that limits the ability of any Restricted Subsidiary to pay dividends or make distributions to the Borrower or to Grant Liens to the Lenders.",
+          "negotiation_points": [
+            "Customary restrictions in Joint Venture agreements",
+            "Restrictions in other Indebtedness (e.g., bonds)"
+          ]
+        },
+        {
+          "title": "Changes in Fiscal Year",
+          "standard_text": "The Borrower shall not change its fiscal year end.",
+          "negotiation_points": [
+            "Allowed if reasonably necessary for business purposes and notice given"
+          ]
+        },
+        {
+          "title": "Financial Covenants (Maintenance)",
+          "standard_text": "The Borrower shall not permit the Total Net Leverage Ratio as of the last day of any fiscal quarter to exceed [Maximum Ratio]. The Borrower shall not permit the Interest Coverage Ratio as of the last day of any fiscal quarter to be less than [Minimum Ratio].",
+          "negotiation_points": [
+            "Covenant Lite (no maintenance covenants for Term Loans, springing for Revolver)",
+            "Equity Cure rights (number of cures allowed, impact on EBITDA)",
+            "Netting of cash (capped vs uncapped)"
+          ]
         }
       ]
     },
@@ -9526,6 +9620,68 @@ const workbenchData = {
           "negotiation_points": [
             "Limit to once per year unless Event of Default exists",
             "Lender pays for one visit, Borrower pays if Default exists"
+          ]
+        },
+        {
+          "title": "Notices of Material Events",
+          "standard_text": "The Borrower shall furnish to the Administrative Agent prompt written notice of: (a) the occurrence of any Default or Event of Default; (b) the filing or commencement of any action, suit or proceeding by or before any arbitrator or Governmental Authority against the Borrower or any Subsidiary that could reasonably be expected to result in a Material Adverse Effect; (c) the occurrence of any ERISA Event.",
+          "negotiation_points": [
+            "Definition of 'Prompt' (e.g., within 3-5 business days)",
+            "Materiality thresholds for litigation"
+          ]
+        },
+        {
+          "title": "Existence; Conduct of Business",
+          "standard_text": "The Borrower will, and will cause each Restricted Subsidiary to, do or cause to be done all things necessary to preserve, renew and keep in full force and effect its legal existence and the rights, licenses, permits, privileges and franchises material to the conduct of its business.",
+          "negotiation_points": [
+            "Exception for dissolution of immaterial subsidiaries",
+            "Exception where failure to preserve is not materially adverse"
+          ]
+        },
+        {
+          "title": "Maintenance of Properties",
+          "standard_text": "The Borrower will, and will cause each Restricted Subsidiary to, keep and maintain all property material to the conduct of its business in good working order and condition, ordinary wear and tear excepted.",
+          "negotiation_points": [
+            "Casualty and condemnation events excepted"
+          ]
+        },
+        {
+          "title": "Insurance",
+          "standard_text": "The Borrower will, and will cause each Restricted Subsidiary to, maintain, with financially sound and reputable insurance companies, insurance in such amounts and against such risks as are customarily maintained by companies engaged in the same or similar businesses operating in the same or similar locations.",
+          "negotiation_points": [
+            "Self-insurance provisions",
+            "Lender named as additional insured/loss payee"
+          ]
+        },
+        {
+          "title": "Books and Records; Inspection Rights",
+          "standard_text": "The Borrower will, and will cause each Restricted Subsidiary to, keep proper books of record and account. The Borrower will permit any representatives designated by the Administrative Agent, upon reasonable prior notice, to visit and inspect its properties, to examine and make extracts from its books and records, and to discuss its affairs, finances and condition with its officers.",
+          "negotiation_points": [
+            "Limit on frequency of inspections (e.g., once per year) at Borrower's expense absent Event of Default",
+            "Confidentiality requirements"
+          ]
+        },
+        {
+          "title": "Use of Proceeds",
+          "standard_text": "The proceeds of the Loans will be used only for the purposes set forth in the Credit Agreement (e.g., refinancing existing debt, working capital, general corporate purposes). No part of the proceeds will be used in violation of Anti-Corruption Laws or Sanctions.",
+          "negotiation_points": [
+            "Broad vs. specific use of proceeds",
+            "Margin stock restrictions"
+          ]
+        },
+        {
+          "title": "Compliance with Laws",
+          "standard_text": "The Borrower will, and will cause each Restricted Subsidiary to, comply with all Laws, rules, regulations and orders of any Governmental Authority applicable to it or its property, except where the failure to do so, individually or in the aggregate, could not reasonably be expected to result in a Material Adverse Effect.",
+          "negotiation_points": [
+            "Specific focus on Environmental Laws, ERISA, Anti-Money Laundering"
+          ]
+        },
+        {
+          "title": "Additional Collateral; Further Assurances",
+          "standard_text": "Upon the formation or acquisition of any new Restricted Subsidiary, or the acquisition of any property by any Loan Party, the Borrower shall cause such Subsidiary or Loan Party to grant a security interest in such property to the Administrative Agent and take such actions as may be necessary to perfect such security interest.",
+          "negotiation_points": [
+            "Excluded assets (e.g., leasehold interests, vehicles)",
+            "Time period to perfect security (e.g., 60-90 days)"
           ]
         }
       ]
@@ -9604,6 +9760,38 @@ const workbenchData = {
           "negotiation_points": [
             "Grace period for involuntary bankruptcy petitions (usually 60 days to dismiss)"
           ]
+        },
+        {
+          "title": "Material Breach of Representations",
+          "standard_text": "Any representation or warranty proves to have been incorrect in any material respect when made.",
+          "negotiation_points": [
+            "Knowledge qualifiers",
+            "Materiality qualifiers"
+          ]
+        },
+        {
+          "title": "Covenant Default",
+          "standard_text": "Failure to perform or observe any other term, covenant or agreement (other than Payment or Financial Covenants) which continues unremedied for [Cure Period] days.",
+          "negotiation_points": [
+            "30 day cure period after notice"
+          ]
+        },
+        {
+          "title": "Judgments",
+          "standard_text": "One or more judgments for the payment of money in an aggregate amount exceeding [Threshold] not covered by insurance.",
+          "negotiation_points": [
+            "Enforcement stay period"
+          ]
+        },
+        {
+          "title": "ERISA",
+          "standard_text": "An ERISA Event that results in liability exceeding [Threshold].",
+          "negotiation_points": []
+        },
+        {
+          "title": "Invalidity of Loan Documents",
+          "standard_text": "Any material provision of the Loan Documents ceases to be valid or enforceable; or any Security Interest ceases to be a perfected first priority Lien.",
+          "negotiation_points": []
         }
       ]
     },
@@ -9636,6 +9824,29 @@ const workbenchData = {
           "standard_text": "The Borrower shall prepay Term Loans in an amount equal to 100% of the Net Cash Proceeds received from the Incurrence of any Indebtedness (other than Permitted Indebtedness).",
           "negotiation_points": [
             "Usually 100% with no step-downs"
+          ]
+        },
+        {
+          "title": "Excess Cash Flow (ECF) Sweep",
+          "standard_text": "Borrower shall prepay Term Loans in an amount equal to [Percentage]% of Excess Cash Flow for such fiscal year, minus voluntary prepayments.",
+          "negotiation_points": [
+            "Step-downs: 50% -> 25% -> 0% based on Leverage",
+            "Definition of ECF (deductions for capex, working capital, taxes)"
+          ]
+        },
+        {
+          "title": "Asset Sales",
+          "standard_text": "100% of Net Cash Proceeds from Asset Sales (subject to Reinvestment Rights).",
+          "negotiation_points": [
+            "Reinvestment period (12-18 months)",
+            "Step-downs based on leverage"
+          ]
+        },
+        {
+          "title": "Debt Issuance",
+          "standard_text": "100% of Net Cash Proceeds from the issuance of Indebtedness (other than Permitted Indebtedness).",
+          "negotiation_points": [
+            "No reinvestment right typically"
           ]
         }
       ]
