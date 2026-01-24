@@ -1,0 +1,44 @@
+{
+  "Technology (Hardware)": {
+    "thesis": "Secular demand for computing power (data centers, AI) and connectivity (5G, IoT) drives long-term volume growth. High barriers to entry due to R&D intensity and intellectual property portfolios. Strong balance sheets and cash flow generation support R&D and capital returns.",
+    "risks": "- **Cyclicality:** Semiconductor industry is historically cyclical.\n- **Geopolitical Risk:** Supply chain dependence on Taiwan/Asia; trade restrictions.\n- **Technological Disruption:** Rapid innovation can render products obsolete.",
+    "drivers": "Global IT spending, cloud infrastructure expansion, smartphone cycles, and automotive electronification.",
+    "outlook": "Positive. AI boom driving unprecedented demand for GPUs and advanced chips.",
+    "key_ratios": "Gross Margin, R&D as % of Sales, Inventory Turnover"
+  },
+  "Pharmaceuticals": {
+    "thesis": "Inelastic demand for healthcare and aging population support stable revenue growth. High margins on patent-protected drugs. Strong M&A activity as large pharma acquires biotech innovation.",
+    "risks": "- **Patent Cliffs:** Loss of exclusivity leads to generic competition and revenue drop.\n- **Regulatory/Pricing:** Government pressure on drug pricing (e.g., IRA in US).\n- **Clinical Trial Failure:** High R&D risk with binary outcomes.",
+    "drivers": "New drug approvals (FDA), patent expirations, prescription volumes, and pricing power.",
+    "outlook": "Stable. Innovation in oncology and obesity (GLP-1) driving growth.",
+    "key_ratios": "R&D Productivity, Patent Life Remaining, Net Debt/EBITDA"
+  },
+  "Real Estate (REITs)": {
+    "thesis": "Hard asset ownership provides inflation hedge. High dividend yields attractive to income investors. Long-term leases provide cash flow visibility.",
+    "risks": "- **Interest Rates:** Rising rates increase cost of capital and compress cap rates (lower valuations).\n- **Occupancy:** Remote work impacts office demand; e-commerce impacts retail.\n- **Refinancing Risk:** Large debt maturities in a high-rate environment.",
+    "drivers": "Occupancy rates, rent growth, Net Operating Income (NOI), and Funds From Operations (FFO).",
+    "outlook": "Mixed. Industrial and Data Centers strong; Office and Retail challenged.",
+    "key_ratios": "FFO/Share, Debt/EBITDA, Interest Coverage"
+  },
+  "Transportation (Airlines)": {
+    "thesis": "Essential service for global connectivity. Consolidation in the US market has improved pricing discipline. Loyalty programs generate significant high-margin revenue.",
+    "risks": "- **Fuel Costs:** Jet fuel is a major volatile expense.\n- **Labor:** Highly unionized workforce with rising wage demands.\n- **Cyclicality:** Travel demand is highly correlated with GDP and consumer confidence.",
+    "drivers": "Passenger Load Factor, Revenue per Available Seat Mile (RASM), Cost per Available Seat Mile (CASM), and oil prices.",
+    "outlook": "Neutral. Strong demand post-COVID balanced by high costs and operational constraints.",
+    "key_ratios": "Fixed Charge Coverage, Liquidity (% of Revenue), CASM ex-fuel"
+  },
+  "Media & Telecom": {
+    "thesis": "Subscription-based models (Cable, Wireless, Streaming) offer recurring revenue. Content ownership is a strategic asset. 5G deployment enables new revenue streams.",
+    "risks": "- **Cord-Cutting:** Accelerating decline of linear TV ecosystem.\n- **Churn:** High competition in streaming leads to subscriber turnover.\n- **CapEx:** High investment required for network upgrades and content production.",
+    "drivers": "Subscriber growth (net adds), ARPU (Average Revenue Per User), Churn Rate, and Advertising trends.",
+    "outlook": "Neutral. Telecom utilities are stable; Media is undergoing structural disruption.",
+    "key_ratios": "Net Leverage, FCF Conversion, Churn"
+  },
+  "Chemicals": {
+    "thesis": "Diverse end-markets (auto, construction, packaging) provide broad economic exposure. Specialty chemicals offer higher margins and barriers to entry than commodities.",
+    "risks": "- **Feedstock Costs:** Natural gas and oil prices impact margins.\n- **Cyclicality:** Highly sensitive to global industrial production.\n- **Environmental:** Regulation on emissions and plastic waste.",
+    "drivers": "Industrial production, raw material spreads, and capacity utilization.",
+    "outlook": "Neutral to Negative. Weakness in Europe and China weighing on demand.",
+    "key_ratios": "EBITDA Margin, Return on Capital, Net Debt/EBITDA"
+  }
+}

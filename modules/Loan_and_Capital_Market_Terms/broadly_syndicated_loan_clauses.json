@@ -1,0 +1,268 @@
+{
+  "clauses": [
+    {
+      "category": "Affirmative Covenants",
+      "clauses": [
+        {
+          "title": "Financial Reporting",
+          "standard_text": "The Borrower shall deliver to the Administrative Agent and each Lender: (a) within 90 days after the end of each fiscal year, audited consolidated financial statements; (b) within 45 days after the end of each of the first three fiscal quarters, unaudited consolidated financial statements; and (c) concurrently with the delivery of such financial statements, a Compliance Certificate signed by a Financial Officer.",
+          "negotiation_points": [
+            "Delivery timelines (90/45 vs 120/60 days)",
+            "Auditor qualifications (Big 4 vs recognized national firm)",
+            "Deemed delivery via SEC filing (EDGAR)"
+          ]
+        },
+        {
+          "title": "Notices of Material Events",
+          "standard_text": "The Borrower shall furnish to the Administrative Agent prompt written notice of: (a) the occurrence of any Default or Event of Default; (b) the filing or commencement of any action, suit or proceeding by or before any arbitrator or Governmental Authority against the Borrower or any Subsidiary that could reasonably be expected to result in a Material Adverse Effect; (c) the occurrence of any ERISA Event.",
+          "negotiation_points": [
+            "Definition of 'Prompt' (e.g., within 3-5 business days)",
+            "Materiality thresholds for litigation"
+          ]
+        },
+        {
+          "title": "Existence; Conduct of Business",
+          "standard_text": "The Borrower will, and will cause each Restricted Subsidiary to, do or cause to be done all things necessary to preserve, renew and keep in full force and effect its legal existence and the rights, licenses, permits, privileges and franchises material to the conduct of its business.",
+          "negotiation_points": [
+            "Exception for dissolution of immaterial subsidiaries",
+            "Exception where failure to preserve is not materially adverse"
+          ]
+        },
+        {
+          "title": "Payment of Taxes",
+          "standard_text": "The Borrower will, and will cause each Restricted Subsidiary to, pay its Tax liabilities before the same shall become delinquent or in default, except where (a) the validity or amount thereof is being contested in good faith by appropriate proceedings and (b) the Borrower or such Restricted Subsidiary has set aside on its books adequate reserves with respect thereto in accordance with GAAP.",
+          "negotiation_points": [
+            "Minimum threshold for unpaid taxes to trigger default"
+          ]
+        },
+        {
+          "title": "Maintenance of Properties",
+          "standard_text": "The Borrower will, and will cause each Restricted Subsidiary to, keep and maintain all property material to the conduct of its business in good working order and condition, ordinary wear and tear excepted.",
+          "negotiation_points": [
+            "Casualty and condemnation events excepted"
+          ]
+        },
+        {
+          "title": "Insurance",
+          "standard_text": "The Borrower will, and will cause each Restricted Subsidiary to, maintain, with financially sound and reputable insurance companies, insurance in such amounts and against such risks as are customarily maintained by companies engaged in the same or similar businesses operating in the same or similar locations.",
+          "negotiation_points": [
+            "Self-insurance provisions",
+            "Lender named as additional insured/loss payee"
+          ]
+        },
+        {
+          "title": "Books and Records; Inspection Rights",
+          "standard_text": "The Borrower will, and will cause each Restricted Subsidiary to, keep proper books of record and account. The Borrower will permit any representatives designated by the Administrative Agent, upon reasonable prior notice, to visit and inspect its properties, to examine and make extracts from its books and records, and to discuss its affairs, finances and condition with its officers.",
+          "negotiation_points": [
+            "Limit on frequency of inspections (e.g., once per year) at Borrower's expense absent Event of Default",
+            "Confidentiality requirements"
+          ]
+        },
+        {
+          "title": "Use of Proceeds",
+          "standard_text": "The proceeds of the Loans will be used only for the purposes set forth in the Credit Agreement (e.g., refinancing existing debt, working capital, general corporate purposes). No part of the proceeds will be used in violation of Anti-Corruption Laws or Sanctions.",
+          "negotiation_points": [
+            "Broad vs. specific use of proceeds",
+            "Margin stock restrictions"
+          ]
+        },
+        {
+          "title": "Compliance with Laws",
+          "standard_text": "The Borrower will, and will cause each Restricted Subsidiary to, comply with all Laws, rules, regulations and orders of any Governmental Authority applicable to it or its property, except where the failure to do so, individually or in the aggregate, could not reasonably be expected to result in a Material Adverse Effect.",
+          "negotiation_points": [
+            "Specific focus on Environmental Laws, ERISA, Anti-Money Laundering"
+          ]
+        },
+        {
+          "title": "Additional Collateral; Further Assurances",
+          "standard_text": "Upon the formation or acquisition of any new Restricted Subsidiary, or the acquisition of any property by any Loan Party, the Borrower shall cause such Subsidiary or Loan Party to grant a security interest in such property to the Administrative Agent and take such actions as may be necessary to perfect such security interest.",
+          "negotiation_points": [
+            "Excluded assets (e.g., leasehold interests, vehicles)",
+            "Time period to perfect security (e.g., 60-90 days)"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Negative Covenants",
+      "clauses": [
+        {
+          "title": "Limitation on Indebtedness",
+          "standard_text": "The Borrower shall not, and shall not permit any Restricted Subsidiary to, create, incur, assume or suffer to exist any Indebtedness, except Permitted Indebtedness.",
+          "negotiation_points": [
+            "Ratio Debt (Incurrence-based): Unlimited debt if Pro Forma Leverage Ratio <= X.X",
+            "General Basket: Fixed dollar amount",
+            "Non-Guarantor Subsidiary Debt Sub-limit",
+            "Acquired Debt (debt of acquired target not incurred in contemplation)"
+          ]
+        },
+        {
+          "title": "Limitation on Liens",
+          "standard_text": "The Borrower shall not, and shall not permit any Restricted Subsidiary to, create, incur, assume or suffer to exist any Lien upon any of its property, assets or revenues, except Permitted Liens.",
+          "negotiation_points": [
+            "Ratio Liens: Unlimited liens if Pro Forma Secured Leverage Ratio <= Y.Y",
+            "General Lien Basket",
+            "Refinancing Liens"
+          ]
+        },
+        {
+          "title": "Restricted Payments (Dividends/Buybacks)",
+          "standard_text": "The Borrower shall not, and shall not permit any Restricted Subsidiary to, declare or make any Restricted Payment, except...",
+          "negotiation_points": [
+            "Builder Basket (Available Amount): Start date + 50% of Consolidated Net Income + Equity Issuances",
+            "Unlimited RP if Pro Forma Leverage <= Z.Z",
+            "General RP Basket"
+          ]
+        },
+        {
+          "title": "Limitation on Asset Sales",
+          "standard_text": "The Borrower shall not, and shall not permit any Restricted Subsidiary to, sell, transfer, lease or otherwise dispose of any asset, unless: (a) Fair Market Value is received; (b) >= 75% Cash Consideration; (c) Proceeds applied to repay Term Loans or Reinvested.",
+          "negotiation_points": [
+            "De Minimis threshold",
+            "Designated Non-Cash Consideration treated as cash (capped)",
+            "Step-downs in prepayment requirement based on leverage"
+          ]
+        },
+        {
+          "title": "Limitation on Investments",
+          "standard_text": "The Borrower shall not, and shall not permit any Restricted Subsidiary to, make or hold any Investments, except Permitted Investments.",
+          "negotiation_points": [
+            "General Investment Basket",
+            "Unlimited Investments if Leverage <= A.A",
+            "Investments in Unrestricted Subsidiaries",
+            "Permitted Acquisitions definitions"
+          ]
+        },
+        {
+          "title": "Transactions with Affiliates",
+          "standard_text": "The Borrower shall not, and shall not permit any Restricted Subsidiary to, enter into any transaction with any Affiliate, except upon fair and reasonable terms no less favorable than could be obtained in a comparable arm's-length transaction with a non-Affiliate.",
+          "negotiation_points": [
+            "Exceptions for management fees (up to a cap)",
+            "Transactions between Loan Parties",
+            "De Minimis transactions"
+          ]
+        },
+        {
+          "title": "Restrictive Agreements (Burdensome Agreements)",
+          "standard_text": "The Borrower shall not, and shall not permit any Restricted Subsidiary to, enter into any agreement that limits the ability of any Restricted Subsidiary to pay dividends or make distributions to the Borrower or to Grant Liens to the Lenders.",
+          "negotiation_points": [
+            "Customary restrictions in Joint Venture agreements",
+            "Restrictions in other Indebtedness (e.g., bonds)"
+          ]
+        },
+        {
+          "title": "Changes in Fiscal Year",
+          "standard_text": "The Borrower shall not change its fiscal year end.",
+          "negotiation_points": [
+            "Allowed if reasonably necessary for business purposes and notice given"
+          ]
+        },
+        {
+          "title": "Financial Covenants (Maintenance)",
+          "standard_text": "The Borrower shall not permit the Total Net Leverage Ratio as of the last day of any fiscal quarter to exceed [Maximum Ratio]. The Borrower shall not permit the Interest Coverage Ratio as of the last day of any fiscal quarter to be less than [Minimum Ratio].",
+          "negotiation_points": [
+            "Covenant Lite (no maintenance covenants for Term Loans, springing for Revolver)",
+            "Equity Cure rights (number of cures allowed, impact on EBITDA)",
+            "Netting of cash (capped vs uncapped)"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Events of Default",
+      "clauses": [
+        {
+          "title": "Payment Default",
+          "standard_text": "Failure to pay principal when due, or interest/fees within [Grace Period] days.",
+          "negotiation_points": [
+            "3-5 business days grace for interest/fees",
+            "No grace for principal"
+          ]
+        },
+        {
+          "title": "Material Breach of Representations",
+          "standard_text": "Any representation or warranty proves to have been incorrect in any material respect when made.",
+          "negotiation_points": [
+            "Knowledge qualifiers",
+            "Materiality qualifiers"
+          ]
+        },
+        {
+          "title": "Covenant Default",
+          "standard_text": "Failure to perform or observe any other term, covenant or agreement (other than Payment or Financial Covenants) which continues unremedied for [Cure Period] days.",
+          "negotiation_points": [
+            "30 day cure period after notice"
+          ]
+        },
+        {
+          "title": "Cross-Default / Cross-Acceleration",
+          "standard_text": "Default under any other Material Indebtedness (Threshold Amount > $[Amount]) that results in acceleration (Cross-Acceleration) or permits acceleration (Cross-Default).",
+          "negotiation_points": [
+            "Threshold amount typically $15-50M depending on deal size",
+            "Preference for Cross-Acceleration in BSL"
+          ]
+        },
+        {
+          "title": "Bankruptcy / Insolvency",
+          "standard_text": "Commencement of voluntary or involuntary bankruptcy proceedings.",
+          "negotiation_points": [
+            "60 day grace period for dismissal of involuntary petitions"
+          ]
+        },
+        {
+          "title": "Change of Control",
+          "standard_text": "Acquisition of beneficial ownership of >35% of voting stock by a person/group (other than Permitted Holders).",
+          "negotiation_points": [
+            "Definition of Permitted Holders (Sponsors)",
+            "IPO provisions"
+          ]
+        },
+        {
+          "title": "Judgments",
+          "standard_text": "One or more judgments for the payment of money in an aggregate amount exceeding [Threshold] not covered by insurance.",
+          "negotiation_points": [
+            "Enforcement stay period"
+          ]
+        },
+        {
+          "title": "ERISA",
+          "standard_text": "An ERISA Event that results in liability exceeding [Threshold].",
+          "negotiation_points": []
+        },
+        {
+          "title": "Invalidity of Loan Documents",
+          "standard_text": "Any material provision of the Loan Documents ceases to be valid or enforceable; or any Security Interest ceases to be a perfected first priority Lien.",
+          "negotiation_points": []
+        }
+      ]
+    },
+    {
+      "category": "Mandatory Prepayments",
+      "clauses": [
+        {
+          "title": "Excess Cash Flow (ECF) Sweep",
+          "standard_text": "Borrower shall prepay Term Loans in an amount equal to [Percentage]% of Excess Cash Flow for such fiscal year, minus voluntary prepayments.",
+          "negotiation_points": [
+            "Step-downs: 50% -> 25% -> 0% based on Leverage",
+            "Definition of ECF (deductions for capex, working capital, taxes)"
+          ]
+        },
+        {
+          "title": "Asset Sales",
+          "standard_text": "100% of Net Cash Proceeds from Asset Sales (subject to Reinvestment Rights).",
+          "negotiation_points": [
+            "Reinvestment period (12-18 months)",
+            "Step-downs based on leverage"
+          ]
+        },
+        {
+          "title": "Debt Issuance",
+          "standard_text": "100% of Net Cash Proceeds from the issuance of Indebtedness (other than Permitted Indebtedness).",
+          "negotiation_points": [
+            "No reinvestment right typically"
+          ]
+        }
+      ]
+    }
+  ]
+}

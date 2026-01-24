@@ -22,6 +22,11 @@ const navData = [
     "type": "html"
   },
   {
+    "text": "AI Knowledge Showcase",
+    "href": "showcase.html",
+    "type": "html"
+  },
+  {
     "text": "Ai And Coding",
     "type": "category",
     "children": [

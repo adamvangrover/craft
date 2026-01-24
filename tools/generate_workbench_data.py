@@ -66,15 +66,15 @@ for root, dirs, files in os.walk("."):
                 "path": get_relative_path(path),
                 "type": "JSON Schema"
             })
-        elif file == "sample_credit_agreement_clauses.json" or file == "legal_clauses.json":
+        elif "clauses" in file and file.endswith(".json"):
              workbench_data["datasets"].append({
-                "title": "Legal Clauses Database",
+                "title": "Legal Clauses Database (" + file + ")",
                 "path": get_relative_path(path),
                 "type": "JSON Data"
             })
-        elif file == "memo_narratives.json":
+        elif "narratives" in file and file.endswith(".json"):
              workbench_data["datasets"].append({
-                "title": "Sector Memo Narratives",
+                "title": "Sector Memo Narratives (" + file + ")",
                 "path": get_relative_path(path),
                 "type": "JSON Data"
             })
@@ -193,6 +193,7 @@ if os.path.exists(scoring_file):
          print(f"Error parsing scoring model: {e}")
 
 # 12. Memo Narratives
+# Load base narratives
 narratives_file = "modules/Credit_Analysis/datasets/memo_narratives.json"
 if os.path.exists(narratives_file):
     try:
@@ -201,7 +202,19 @@ if os.path.exists(narratives_file):
     except Exception as e:
         print(f"Error parsing narratives: {e}")
 
+# Load expanded narratives
+narratives_expanded_file = "modules/Credit_Analysis/datasets/sector_narratives_expanded.json"
+if os.path.exists(narratives_expanded_file):
+    try:
+        with open(narratives_expanded_file, 'r', encoding='utf-8') as f:
+            extra_narratives = json.load(f)
+            workbench_data["memo_narratives"].update(extra_narratives)
+            print(f"Merged expanded narratives from {narratives_expanded_file}")
+    except Exception as e:
+        print(f"Error parsing expanded narratives: {e}")
+
 # 13. Legal Clauses
+# Load base clauses
 clauses_file = "modules/Loan_and_Capital_Market_Terms/legal_clauses.json"
 if os.path.exists(clauses_file):
     try:
@@ -209,6 +222,33 @@ if os.path.exists(clauses_file):
             workbench_data["clauses"] = json.load(f)
     except Exception as e:
         print(f"Error parsing clauses: {e}")
+
+# Load expanded clauses
+clauses_expanded_file = "modules/Loan_and_Capital_Market_Terms/broadly_syndicated_loan_clauses.json"
+if os.path.exists(clauses_expanded_file):
+    try:
+        with open(clauses_expanded_file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            # data has key "clauses" which is a list of categories
+            if "clauses" in data:
+                # Merge logic: Append categories, or merge if category exists?
+                # Simple append for now, but UI might show duplicates if categories same.
+                # Let's try to merge into existing categories if name matches.
+                for new_cat in data["clauses"]:
+                    existing_cat = next((c for c in workbench_data["clauses"] if c["category"] == new_cat["category"]), None)
+                    if existing_cat:
+                        # Append clauses to existing category
+                         # Avoid duplicates
+                        existing_titles = {c.get("title") for c in existing_cat["clauses"]}
+                        for clause in new_cat["clauses"]:
+                            if clause.get("title") not in existing_titles:
+                                existing_cat["clauses"].append(clause)
+                    else:
+                        workbench_data["clauses"].append(new_cat)
+                print(f"Merged expanded clauses from {clauses_expanded_file}")
+    except Exception as e:
+        print(f"Error parsing expanded clauses: {e}")
+
 
 # Write to JS
 with open(OUTPUT_FILE, "w", encoding='utf-8') as f:
