@@ -14,6 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let quizData = [];
     let userAnswers = {}; // To store user's answers for short answer questions
 
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
     // --- 1. Fetch and Parse Quiz Data ---
     async function loadQuiz() {
         const params = new URLSearchParams(window.location.search);
@@ -103,6 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             return { title: questionTitle, question: questionText, options: options, type: type };
         }).filter(q => q !== null);
+
+        // Shuffle questions by default
+        quizData = shuffleArray(quizData);
     }
 
     // --- 2. Render Quiz ---
@@ -205,6 +216,64 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             scoreElement.textContent = `No auto-gradable questions in this quiz. Please review answers.`;
         }
+
+        // Review Incorrect Answers Section
+        const incorrectReview = document.createElement('div');
+        incorrectReview.id = 'incorrect-review';
+        incorrectReview.style.marginTop = '20px';
+        incorrectReview.style.padding = '15px';
+        incorrectReview.style.backgroundColor = '#fff5f5';
+        incorrectReview.style.border = '1px solid #fc8181';
+        incorrectReview.style.borderRadius = '5px';
+
+        let incorrectHtml = '<h3 style="color: #c53030;">Review Incorrect Answers:</h3>';
+        let hasIncorrect = false;
+
+        quizData.forEach((qItem, qIndex) => {
+            if (qItem.type !== 'shortanswer') {
+                const questionInputType = qItem.options.filter(opt => opt.correct).length > 1 ? 'checkbox' : 'radio';
+                const selectedInputs = quizContainer.querySelectorAll(`input[name="question-${qIndex}"]:checked`);
+                let selectedOptionIndices = [];
+                selectedInputs.forEach(input => selectedOptionIndices.push(parseInt(input.value)));
+
+                let isQuestionCorrect = true;
+                if (selectedInputs.length === 0 && qItem.options.some(opt => opt.correct)) {
+                    isQuestionCorrect = false;
+                } else {
+                    for(let i=0; i < qItem.options.length; i++) {
+                        const optionIsCorrect = qItem.options[i].correct;
+                        const optionIsSelected = selectedOptionIndices.includes(i);
+                        if (optionIsCorrect !== optionIsSelected) {
+                            isQuestionCorrect = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (!isQuestionCorrect) {
+                    hasIncorrect = true;
+                    let correctText = qItem.options.filter(opt => opt.correct).map(opt => opt.text).join('; ');
+                    incorrectHtml += `
+                        <div style="margin-bottom: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+                            <p><strong>${qItem.title}:</strong> ${qItem.question}</p>
+                            <p style="color: #c53030;">Your Answer: Incorrect</p>
+                            <p style="color: #2f855a; font-weight: bold;">Correct Answer: ${correctText}</p>
+                        </div>
+                    `;
+                }
+            }
+        });
+
+        if (hasIncorrect) {
+            incorrectReview.innerHTML = incorrectHtml;
+            // Append to feedback container or results container
+            // Clearing previous reviews if any (though submit usually hides/shows)
+            const existingReview = document.getElementById('incorrect-review');
+            if (existingReview) existingReview.remove();
+
+            resultsContainer.appendChild(incorrectReview);
+        }
+
         resultsContainer.style.display = 'block';
         submitButton.style.display = 'none';
         window.scrollTo(0, resultsContainer.offsetTop);

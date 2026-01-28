@@ -2249,6 +2249,23 @@ const navData = [
         ]
       },
       {
+        "text": "Wealth Management",
+        "type": "category",
+        "children": [
+          {
+            "text": "Portfolio Construction Guide",
+            "href": "Interactive_Notebooks/Wealth_Management/Portfolio_Construction_Guide.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "Portfolio Construction Optimization",
+            "href": "Interactive_Notebooks/Wealth_Management/Portfolio_Construction_Optimization.ipynb",
+            "type": "jupyter_guide"
+          }
+        ]
+      },
+      {
         "text": "AGENTS.MD",
         "href": "Interactive_Notebooks/AGENTS.MD",
         "type": "file"
@@ -2624,6 +2641,18 @@ const navData = [
         "type": "html_hub"
       },
       {
+        "text": "Case Studies",
+        "type": "category",
+        "children": [
+          {
+            "text": "Greenwashing Risk Assessment",
+            "href": "Sustainable_Finance/Case_Studies/Greenwashing_Risk_Assessment.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
+      },
+      {
         "text": "Deep Dives",
         "type": "category",
         "children": [
@@ -2764,6 +2793,12 @@ const navData = [
         "text": "Deep Dives",
         "type": "category",
         "children": [
+          {
+            "text": "Family Office Structures",
+            "href": "Wealth_Management/Deep_Dives/Family_Office_Structures.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
           {
             "text": "Wealth Transfer Strategies",
             "href": "Wealth_Management/Deep_Dives/Wealth_Transfer_Strategies.md",
