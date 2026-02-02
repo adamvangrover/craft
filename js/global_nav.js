@@ -338,6 +338,17 @@ function initGlobalNav() {
     const footer = createElement('div', { class: 'p-4 border-t border-slate-200 text-xs text-center text-slate-400 bg-slate-50' }, ["© 2025 Craft Financial"]);
     placeholder.appendChild(footer);
 
+    // 4. Gamification Widget (Dynamic Load)
+    const script = document.createElement('script');
+    script.src = `${SITE_BASE_PATH}js/gamification.js`;
+    script.onload = () => {
+        if (window.Gamification) {
+            const widget = window.Gamification.renderWidget();
+            placeholder.insertBefore(widget, footer);
+        }
+    };
+    document.head.appendChild(script);
+
     // Post-render
     highlightActiveLink();
     generateBreadcrumbs();

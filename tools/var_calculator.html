@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Value at Risk (VaR) Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/global_nav.css">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <div class="max-w-4xl mx-auto px-4 py-8 lg:pl-72">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-slate-800">Value at Risk (VaR) Calculator</h1>
+            <p class="text-slate-600 mt-2">Parametric VaR (Variance-Covariance Method) for a single asset or portfolio.</p>
+        </header>
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+            <!-- Inputs -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 h-fit">
+                <h2 class="font-bold text-lg mb-4 border-b pb-2">Portfolio Parameters</h2>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Portfolio Value ($)</label>
+                        <input type="number" id="value" value="1000000" class="w-full border border-slate-300 rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Annual Volatility (%)</label>
+                        <input type="number" id="vol" value="15" class="w-full border border-slate-300 rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                        <p class="text-xs text-slate-400 mt-1">Standard deviation of annual returns.</p>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Confidence Level (%)</label>
+                        <select id="confidence" class="w-full border border-slate-300 rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                            <option value="1.645">95% (1.645 σ)</option>
+                            <option value="2.326" selected>99% (2.326 σ)</option>
+                            <option value="1.282">90% (1.282 σ)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Time Horizon (Days)</label>
+                        <input type="number" id="days" value="10" class="w-full border border-slate-300 rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+
+                    <button onclick="calculateVaR()" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition-colors">
+                        Calculate Risk
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div class="space-y-6">
+                <div class="bg-rose-50 p-6 rounded-xl border border-rose-100 shadow-sm">
+                    <h3 class="text-rose-800 font-bold text-lg mb-2">Estimated VaR</h3>
+                    <div class="text-4xl font-bold text-rose-700 mb-2" id="var-result">$0.00</div>
+                    <p class="text-sm text-rose-600">
+                        We are <span id="conf-text" class="font-bold">99%</span> confident that the portfolio will not lose more than this amount over the next <span id="days-text" class="font-bold">10</span> days.
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-sm text-slate-500 uppercase mb-4">Risk Visualization</h3>
+                    <div class="h-48">
+                        <canvas id="distChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="global-nav-placeholder"></div>
+    <script src="../js/nav_data.js"></script>
+    <script src="../js/global_nav.js"></script>
+
+    <script>
+        let chart = null;
+
+        function calculateVaR() {
+            const P = parseFloat(document.getElementById('value').value);
+            const annVol = parseFloat(document.getElementById('vol').value) / 100;
+            const z = parseFloat(document.getElementById('confidence').value);
+            const days = parseFloat(document.getElementById('days').value);
+
+            // Convert annual vol to period vol
+            // Assuming 252 trading days
+            const dailyVol = annVol / Math.sqrt(252);
+            const periodVol = dailyVol * Math.sqrt(days);
+
+            const VaR = P * periodVol * z;
+
+            // Formatter
+            const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+
+            document.getElementById('var-result').innerText = fmt.format(VaR);
+
+            // Update text
+            const confPercent = document.getElementById('confidence').options[document.getElementById('confidence').selectedIndex].text.split('%')[0];
+            document.getElementById('conf-text').innerText = confPercent + '%';
+            document.getElementById('days-text').innerText = days;
+
+            drawChart(P, VaR);
+        }
+
+        function drawChart(P, VaR) {
+            const ctx = document.getElementById('distChart').getContext('2d');
+
+            // Generate normal distribution curve
+            const points = [];
+            const labels = [];
+            const mean = 0;
+            // Just conceptual visualization
+            for (let i = -4; i <= 4; i += 0.1) {
+                const y = (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * i * i);
+                points.push(y);
+                labels.push('');
+            }
+
+            if (chart) chart.destroy();
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Return Distribution',
+                        data: points,
+                        borderColor: '#64748b',
+                        borderWidth: 2,
+                        fill: true,
+                        backgroundColor: (context) => {
+                            const ctx = context.chart.ctx;
+                            const gradient = ctx.createLinearGradient(0, 0, 300, 0);
+                            gradient.addColorStop(0, 'rgba(244, 63, 94, 0.5)'); // Tail
+                            gradient.addColorStop(0.2, 'rgba(244, 63, 94, 0.1)');
+                            gradient.addColorStop(1, 'rgba(99, 102, 241, 0.1)');
+                            return gradient;
+                        },
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { x: { display: false }, y: { display: false } }
+                }
+            });
+        }
+
+        calculateVaR();
+    </script>
+</body>
+</html>
