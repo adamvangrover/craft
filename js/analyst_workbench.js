@@ -42,6 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
         loadChecklists();
         initMemoBuilder();
         initCalculators();
+        initESGToolkit();
+        initCovenantChecker();
     } else {
         console.error("workbenchData not loaded");
     }
@@ -86,6 +88,94 @@ function loadNotebooks() {
             `;
             grid.appendChild(card);
         });
+    });
+}
+
+// --- ESG Toolkit ---
+function initESGToolkit() {
+    const inputs = ['esg-base-rating', 'esg-input-e', 'esg-input-s', 'esg-input-g'];
+    const container = document.getElementById('wb-esg');
+    if (!container) return;
+
+    function update() {
+        const base = parseInt(document.getElementById('esg-base-rating').value);
+        const e = parseFloat(document.getElementById('esg-input-e').value);
+        const s = parseFloat(document.getElementById('esg-input-s').value);
+        const g = parseFloat(document.getElementById('esg-input-g').value);
+
+        document.getElementById('esg-val-e').textContent = e;
+        document.getElementById('esg-val-s').textContent = s;
+        document.getElementById('esg-val-g').textContent = g;
+
+        // Simplified weighting
+        const weightedScore = (e * 0.4) + (s * 0.3) + (g * 0.3);
+
+        let notches = 0;
+        let desc = "Neutral Impact";
+        let color = "text-white";
+
+        if (weightedScore <= 2.0) {
+            notches = -1;
+            desc = "Positive Upgrade (+1)";
+            color = "text-emerald-400";
+        } else if (weightedScore >= 4.0) {
+            notches = 2;
+            desc = "Negative Downgrade (-2)";
+            color = "text-red-400";
+        } else if (weightedScore >= 3.5) {
+            notches = 1;
+            desc = "Negative Downgrade (-1)";
+            color = "text-orange-400";
+        }
+
+        const resEl = document.getElementById('esg-result-notch');
+        resEl.textContent = notches === 0 ? "0" : (notches < 0 ? `+${Math.abs(notches)}` : `-${notches}`);
+        resEl.className = `text-5xl font-black mb-4 ${color}`;
+        document.getElementById('esg-result-desc').textContent = desc;
+    }
+
+    inputs.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.addEventListener('input', update);
+    });
+}
+
+// --- Covenant Checker ---
+function initCovenantChecker() {
+    const btn = document.getElementById('cov-check-btn');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+        const ebitda = parseFloat(document.getElementById('cov-ebitda').value) || 0;
+        const debt = parseFloat(document.getElementById('cov-debt').value) || 0;
+        const interest = parseFloat(document.getElementById('cov-interest').value) || 0;
+        const maxLev = parseFloat(document.getElementById('cov-max-lev').value) || 0;
+        const minIcr = parseFloat(document.getElementById('cov-min-icr').value) || 0;
+
+        // Calc
+        const lev = ebitda > 0 ? (debt / ebitda).toFixed(2) : "N/A";
+        const icr = interest > 0 ? (ebitda / interest).toFixed(2) : "N/A";
+
+        // Display Lev
+        const levEl = document.getElementById('cov-res-lev');
+        if (lev !== "N/A") {
+            const isBreach = parseFloat(lev) > maxLev;
+            levEl.querySelector('.text-2xl').textContent = `${lev}x`;
+            levEl.className = `p-4 rounded-lg border ${isBreach ? 'bg-red-50 border-red-200' : 'bg-emerald-50 border-emerald-200'}`;
+            levEl.querySelector('.text-2xl').className = `text-2xl font-bold ${isBreach ? 'text-red-600' : 'text-emerald-600'}`;
+        }
+
+        // Display ICR
+        const icrEl = document.getElementById('cov-res-icr');
+        if (icr !== "N/A") {
+            const isBreach = parseFloat(icr) < minIcr;
+            icrEl.querySelector('.text-2xl').textContent = `${icr}x`;
+            icrEl.className = `p-4 rounded-lg border ${isBreach ? 'bg-red-50 border-red-200' : 'bg-emerald-50 border-emerald-200'}`;
+            icrEl.querySelector('.text-2xl').className = `text-2xl font-bold ${isBreach ? 'text-red-600' : 'text-emerald-600'}`;
+        }
+
+        // Gamification Hook
+        if(window.Gamification) window.Gamification.addXP(15, "Ran Covenant Check");
     });
 }
 

@@ -2626,6 +2626,45 @@ const navData = [
     ]
   },
   {
+    "text": "Quantitative Finance",
+    "type": "category",
+    "children": [
+      {
+        "text": "Index",
+        "href": "Quantitative_Finance/index.html",
+        "type": "html_hub"
+      },
+      {
+        "text": "Deep Dives",
+        "type": "category",
+        "children": [
+          {
+            "text": "Options Greeks",
+            "href": "Quantitative_Finance/Deep_Dives/Options_Greeks.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
+      },
+      {
+        "text": "Tools",
+        "type": "category",
+        "children": [
+          {
+            "text": "Option Pricer",
+            "href": "tools/option_pricer.html",
+            "type": "html"
+          },
+          {
+            "text": "VaR Calculator",
+            "href": "tools/var_calculator.html",
+            "type": "html"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "text": "Sustainable Finance",
     "type": "category",
     "children": [
@@ -2649,6 +2688,28 @@ const navData = [
             "href": "Sustainable_Finance/Case_Studies/Greenwashing_Risk_Assessment.md",
             "type": "markdown_viewer",
             "viewer": "global"
+          }
+        ]
+      },
+      {
+        "text": "Tools",
+        "type": "category",
+        "children": [
+          {
+            "text": "ESG Scorecard",
+            "href": "Sustainable_Finance/tools/esg_scorecard.html",
+            "type": "html"
+          }
+        ]
+      },
+      {
+        "text": "Tools",
+        "type": "category",
+        "children": [
+          {
+            "text": "Wealth Planner",
+            "href": "Wealth_Management/tools/wealth_planner.html",
+            "type": "html"
           }
         ]
       },

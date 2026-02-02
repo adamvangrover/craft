@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black-Scholes Option Pricer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/global_nav.css">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <div class="max-w-6xl mx-auto px-4 py-8 lg:pl-72">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-slate-800">Black-Scholes Option Pricer</h1>
+            <p class="text-slate-600 mt-2">Calculate Call/Put premiums and analyze Greeks.</p>
+        </header>
+
+        <div class="grid lg:grid-cols-3 gap-6">
+
+            <!-- Inputs -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="font-bold text-lg mb-4 border-b pb-2">Parameters</h2>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Stock Price (S)</label>
+                        <input type="number" id="s" value="100" class="w-full border border-slate-300 rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Strike Price (K)</label>
+                        <input type="number" id="k" value="100" class="w-full border border-slate-300 rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Time to Expiry (Years) (T)</label>
+                        <input type="number" id="t" value="1" step="0.1" class="w-full border border-slate-300 rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Risk-Free Rate (%) (r)</label>
+                        <input type="number" id="r" value="5" step="0.1" class="w-full border border-slate-300 rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Volatility (%) (σ)</label>
+                        <input type="number" id="v" value="20" step="1" class="w-full border border-slate-300 rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+
+                    <button onclick="calculate()" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition-colors">
+                        Calculate
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 lg:col-span-2">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <!-- Call -->
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-100">
+                        <h3 class="text-green-800 font-bold text-lg mb-2">Call Option</h3>
+                        <div class="text-3xl font-bold text-green-700 mb-4" id="call-price">--</div>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div class="flex justify-between"><span>Delta:</span> <span id="c-delta" class="font-mono font-bold">--</span></div>
+                            <div class="flex justify-between"><span>Gamma:</span> <span id="c-gamma" class="font-mono font-bold">--</span></div>
+                            <div class="flex justify-between"><span>Theta:</span> <span id="c-theta" class="font-mono font-bold">--</span></div>
+                            <div class="flex justify-between"><span>Vega:</span> <span id="c-vega" class="font-mono font-bold">--</span></div>
+                        </div>
+                    </div>
+                    <!-- Put -->
+                    <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                        <h3 class="text-red-800 font-bold text-lg mb-2">Put Option</h3>
+                        <div class="text-3xl font-bold text-red-700 mb-4" id="put-price">--</div>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div class="flex justify-between"><span>Delta:</span> <span id="p-delta" class="font-mono font-bold">--</span></div>
+                            <div class="flex justify-between"><span>Gamma:</span> <span id="p-gamma" class="font-mono font-bold">--</span></div>
+                            <div class="flex justify-between"><span>Theta:</span> <span id="p-theta" class="font-mono font-bold">--</span></div>
+                            <div class="flex justify-between"><span>Vega:</span> <span id="p-vega" class="font-mono font-bold">--</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="h-64">
+                    <canvas id="pnlChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="global-nav-placeholder"></div>
+    <script src="../js/nav_data.js"></script>
+    <script src="../js/global_nav.js"></script>
+
+    <script>
+        // Gaussian distribution function
+        function cdf(x) {
+            var mean = 0.0;
+            var std = 1.0;
+            var x = (x - mean) / std;
+            var t = 1.0 / (1.0 + 0.2316419 * Math.abs(x));
+            var b1 = 0.319381530;
+            var b2 = -0.356563782;
+            var b3 = 1.781477937;
+            var b4 = -1.821255978;
+            var b5 = 1.330274429;
+            var p = 1.0 - (1.0 / (Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * x * x) * (b1 * t + b2 * t * t + b3 * t * t * t + b4 * t * t * t * t + b5 * t * t * t * t * t);
+            if (x < 0) return 1.0 - p;
+            return p;
+        }
+
+        function pdf(x) {
+            return (1.0 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * x * x);
+        }
+
+        let chart = null;
+
+        function calculate() {
+            const S = parseFloat(document.getElementById('s').value);
+            const K = parseFloat(document.getElementById('k').value);
+            const T = parseFloat(document.getElementById('t').value);
+            const r = parseFloat(document.getElementById('r').value) / 100;
+            const v = parseFloat(document.getElementById('v').value) / 100;
+
+            const d1 = (Math.log(S / K) + (r + (v * v) / 2) * T) / (v * Math.sqrt(T));
+            const d2 = d1 - v * Math.sqrt(T);
+
+            // Prices
+            const call = S * cdf(d1) - K * Math.exp(-r * T) * cdf(d2);
+            const put = K * Math.exp(-r * T) * cdf(-d2) - S * cdf(-d1);
+
+            // Greeks
+            const nd1 = pdf(d1);
+            const deltaCall = cdf(d1);
+            const deltaPut = deltaCall - 1;
+            const gamma = nd1 / (S * v * Math.sqrt(T));
+            const vega = S * nd1 * Math.sqrt(T) / 100; // Divide by 100 for % change
+            const thetaCall = (- (S * nd1 * v) / (2 * Math.sqrt(T)) - r * K * Math.exp(-r * T) * cdf(d2)) / 365;
+            const thetaPut = (- (S * nd1 * v) / (2 * Math.sqrt(T)) + r * K * Math.exp(-r * T) * cdf(-d2)) / 365;
+
+            // Update UI
+            document.getElementById('call-price').innerText = call.toFixed(2);
+            document.getElementById('put-price').innerText = put.toFixed(2);
+
+            document.getElementById('c-delta').innerText = deltaCall.toFixed(3);
+            document.getElementById('c-gamma').innerText = gamma.toFixed(4);
+            document.getElementById('c-theta').innerText = thetaCall.toFixed(3);
+            document.getElementById('c-vega').innerText = vega.toFixed(3);
+
+            document.getElementById('p-delta').innerText = deltaPut.toFixed(3);
+            document.getElementById('p-gamma').innerText = gamma.toFixed(4);
+            document.getElementById('p-theta').innerText = thetaPut.toFixed(3);
+            document.getElementById('p-vega').innerText = vega.toFixed(3);
+
+            updateChart(S, K, call, put);
+        }
+
+        function updateChart(S, K, callPrem, putPrem) {
+            const ctx = document.getElementById('pnlChart').getContext('2d');
+            const range = S * 0.5;
+            const prices = [];
+            const callPnl = [];
+            const putPnl = [];
+
+            for (let p = Math.max(0, S - range); p <= S + range; p += range / 20) {
+                prices.push(p.toFixed(0));
+                callPnl.push(Math.max(0, p - K) - callPrem);
+                putPnl.push(Math.max(0, K - p) - putPrem);
+            }
+
+            if (chart) chart.destroy();
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: prices,
+                    datasets: [
+                        { label: 'Long Call P&L', data: callPnl, borderColor: '#10b981', tension: 0.1, borderDash: [5, 5] },
+                        { label: 'Long Put P&L', data: putPnl, borderColor: '#ef4444', tension: 0.1, borderDash: [5, 5] }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: { display: true, text: 'Payoff Diagram at Expiration (vs Current Premium)' }
+                    },
+                    scales: {
+                        y: { title: { display: true, text: 'Profit / Loss' } },
+                        x: { title: { display: true, text: 'Stock Price at Expiry' } }
+                    }
+                }
+            });
+        }
+
+        // Init
+        calculate();
+    </script>
+</body>
+</html>
