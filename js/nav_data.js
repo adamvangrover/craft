@@ -540,6 +540,41 @@ const navData = [
     ]
   },
   {
+    "text": "Private Equity",
+    "type": "category",
+    "children": [
+      {
+        "text": "README",
+        "href": "Private_Equity/README.md",
+        "type": "markdown_viewer",
+        "viewer": "global"
+      },
+      {
+        "text": "Index",
+        "href": "Private_Equity/index.html",
+        "type": "html_hub"
+      },
+      {
+        "text": "Deep Dives",
+        "type": "category",
+        "children": [
+          {
+            "text": "LBO Mechanics",
+            "href": "Private_Equity/Deep_Dives/LBO_Mechanics.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "PE Fund Structure",
+            "href": "Private_Equity/Deep_Dives/PE_Fund_Structure.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "text": "Cfa",
     "type": "category",
     "children": [
@@ -1875,6 +1910,11 @@ const navData = [
             "href": "Interactive_Notebooks/Simulations/Credit_Committee_Simulation_Guide.md",
             "type": "markdown_viewer",
             "viewer": "global"
+          },
+          {
+            "text": "Restructuring Negotiation",
+            "href": "Interactive_Notebooks/Restructuring/Restructuring_Negotiation_Sim.ipynb",
+            "type": "jupyter_guide"
           }
         ]
       },

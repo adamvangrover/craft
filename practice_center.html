@@ -548,6 +548,85 @@
                         </div>
                         <textarea id="checklist-output" class="w-full h-64 mt-4 border-slate-300 rounded-md bg-slate-50 font-mono text-sm p-4 border" readonly></textarea>
                     </div>
+
+                    <!-- Quick LBO Modeler (New) -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+                        <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-money-bill-wave text-green-600"></i> Quick LBO Modeler</h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Entry EBITDA ($M)</label>
+                                    <input type="number" id="lbo-ebitda" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 100">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Entry Multiple (x)</label>
+                                    <input type="number" id="lbo-entry-mult" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 10">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Debt Financing (%)</label>
+                                    <input type="number" id="lbo-debt-pct" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 60">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Exit Multiple (x)</label>
+                                    <input type="number" id="lbo-exit-mult" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 10">
+                                </div>
+                                <button id="lbo-calc-btn" class="w-full bg-green-600 text-white font-bold py-2 rounded hover:bg-green-700">Calculate Returns</button>
+                            </div>
+                            <div class="bg-slate-50 rounded-lg p-6 border border-slate-200 flex flex-col justify-center gap-6">
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 uppercase mb-1">IRR</div>
+                                    <div id="lbo-irr" class="text-4xl font-bold text-slate-900">-%</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 uppercase mb-1">MOIC</div>
+                                    <div id="lbo-moic" class="text-4xl font-bold text-slate-900">-x</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- M&A Merger Model (New) -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+                        <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-handshake text-purple-600"></i> M&A Accretion/Dilution</h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Acquirer P/E</label>
+                                        <input type="number" id="ma-acq-pe" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 15">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Target P/E</label>
+                                        <input type="number" id="ma-target-pe" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 10">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Premium Paid (%)</label>
+                                    <input type="number" id="ma-premium" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 20">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Synergies ($M)</label>
+                                    <input type="number" id="ma-synergies" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 50">
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">% Cash</label>
+                                        <input type="number" id="ma-cash-pct" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 50">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">% Stock</label>
+                                        <input type="number" id="ma-stock-pct" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 50">
+                                    </div>
+                                </div>
+                                <button id="ma-calc-btn" class="w-full bg-purple-600 text-white font-bold py-2 rounded hover:bg-purple-700">Analyze Deal</button>
+                            </div>
+                            <div class="bg-slate-50 rounded-lg p-6 border border-slate-200 flex flex-col justify-center items-center text-center">
+                                <div class="text-xs text-slate-500 uppercase mb-2">EPS Impact</div>
+                                <div id="ma-result" class="text-3xl font-bold text-slate-900">---</div>
+                                <p id="ma-desc" class="text-xs text-slate-400 mt-2 italic">Calculates whether the deal increases or decreases Acquirer's EPS.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Section: AI Command Center -->
