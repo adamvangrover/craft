@@ -4,6 +4,15 @@
 
 This glossary provides definitions for key terms used throughout this financial learning repository, covering topics from Credit Risk Analysis, CFA Program material, Financial Modeling, Fintech, Risk Management, Market Analysis, and Behavioral Finance. It aims to be a comprehensive and easily navigable reference.
 
+### How to Use This Glossary
+
+This tutorial guide will help you get the most out of this resource:
+
+1.  **Context Tags:** Each definition starts with a tag (e.g., `(Credit Risk)`, `(Fintech)`). Use these to understand the primary domain of the term. Many terms have different nuances in different fields (e.g., "Equity" in Real Estate vs. Corporate Finance).
+2.  **Cross-References:** Look for "See also" or direct links (e.g., *See: `Risk_Management/Credit_Risk/CRM_01...`*) to dive deeper into the concept within the learning modules.
+3.  **Search:** Use `Ctrl+F` (or `Cmd+F` on Mac) to quickly find specific terms.
+4.  **Practice:** Visit the **Analyst Practice Center** to use the "Glossary Lookup" tool, which includes a Flashcard mode for active recall testing.
+
 ## A
 *   **Accretion/Dilution Analysis:** (M&A/Financial Modeling) An analysis to determine the impact of a merger or acquisition on the acquirer's earnings per share (EPS). An accretive transaction increases EPS, while a dilutive transaction decreases EPS. *See: `Financial_Modeling/Advanced_Topics/merger_and_acquisition_modeling.md`*
 

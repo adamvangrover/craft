@@ -73,7 +73,8 @@ const workbenchData = {
     {
       "title": "InteractiveWACCCalculator",
       "path": "Interactive_Notebooks/Valuation_Components/InteractiveWACCCalculator.ipynb",
-      "category": "General"
+      "category": "General",
+      "snippet": "# WACC Calculation Snippet\n\ndef calculate_wacc(E, D, rE, rD, t):\n    \"\"\"\n    E: Market value of equity\n    D: Market value of debt\n    rE: Cost of equity\n    rD: Cost of debt\n    t: Tax rate\n    \"\"\"\n    V = E + D\n    return (E/V * rE) + (D/V * rD * (1-t))\n\n# Example\nwacc = calculate_wacc(100, 50, 0.10, 0.05, 0.21)\nprint(f\"WACC: {wacc:.2%}\")"
     },
     {
       "title": "InteractiveWACCCalculatorNotebook",
@@ -83,7 +84,8 @@ const workbenchData = {
     {
       "title": "BlackScholesModel",
       "path": "Interactive_Notebooks/Valuation_Components/BlackScholesModel.ipynb",
-      "category": "General"
+      "category": "General",
+      "snippet": "# Black-Scholes Snippet\nimport math\n\ndef black_scholes(S, K, T, r, sigma, type='call'):\n    d1 = (math.log(S/K) + (r + 0.5 * sigma**2) * T) / (sigma * math.sqrt(T))\n    d2 = d1 - sigma * math.sqrt(T)\n    # Note: Norm.dist requires scipy, using placeholder\n    return f\"Option Price ({type}): [Calculated]\""
     },
     {
       "title": "Transition Risk Modeling",
@@ -1020,6 +1022,167 @@ const workbenchData = {
       "name": "Generate a checklist for a task",
       "prompt": "Generate a checklist for conducting a basic financial model review, based on the information in the knowledge base.",
       "source_file": "credit_analysis_knowledge_base/prompts.json"
+    },
+    {
+      "id": "py-001",
+      "category": "Python for Finance",
+      "objective": "Calculate WACC using Python",
+      "prompt_text": "Write a Python function to calculate the Weighted Average Cost of Capital (WACC). The function should accept cost of equity, cost of debt, market value of equity, market value of debt, and corporate tax rate as inputs.",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "py-002",
+      "category": "Python for Finance",
+      "objective": "Monte Carlo Simulation for Portfolio Risk",
+      "prompt_text": "Create a Python script using pandas and numpy to run a Monte Carlo simulation for a portfolio of 5 stocks. Fetch historical data using yfinance (mock code), calculate daily returns, and simulate 1000 portfolio paths over 1 year.",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "leg-001",
+      "category": "Legal Analysis",
+      "objective": "Review Security Interest Perfection",
+      "prompt_text": "Analyze the 'Grant of Security Interest' section. Does it cover all material assets including intellectual property and future-acquired assets? Are there any exclusions that weaken the lender's position?",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "val-001",
+      "category": "Valuation",
+      "objective": "Build a Waterfall Analysis Model",
+      "prompt_text": "Outline the steps to build a distribution waterfall model for a Private Equity fund. Include tiers for Return of Capital, Preferred Return, Catch-up, and Carried Interest.",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "pf-001",
+      "category": "Project Finance",
+      "objective": "Review DSCR Calculation",
+      "prompt_text": "Review the Debt Service Coverage Ratio (DSCR) formula in the project finance model. Ensure it correctly excludes non-cash items and uses Cash Flow Available for Debt Service (CFADS).",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "dd-001",
+      "category": "Distressed Debt",
+      "objective": "Identify Fulcrum Security",
+      "prompt_text": "Based on the provided capital structure and estimated Enterprise Value, identify the Fulcrum Security. Explain which class of creditors is likely to convert to equity.",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "re-001",
+      "category": "Real Estate",
+      "objective": "Calculate REIT NAV",
+      "prompt_text": "List the steps to calculate the Net Asset Value (NAV) of a REIT. Include adjustments for NOI, Cap Rates, and mark-to-market debt.",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "vc-001",
+      "category": "Venture Capital",
+      "objective": "Explain Liquidation Preferences",
+      "prompt_text": "Explain the difference between a 1x Non-Participating and a 1x Participating Liquidation Preference. Provide a simple example of the payout difference in a $100M exit.",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "esg-001",
+      "category": "ESG Analysis",
+      "objective": "Carbon Footprint Assessment",
+      "prompt_text": "Based on the Greenhouse Gas Protocol, list the key data points required to calculate Scope 1, Scope 2, and Scope 3 emissions for a logistics company. Identify common emission factors.",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "esg-002",
+      "category": "ESG Analysis",
+      "objective": "Governance Scoring Framework",
+      "prompt_text": "Develop a scorecard for assessing corporate governance in emerging market equities. Include metrics for board independence, shareholder rights, and audit quality.",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "forensic-001",
+      "category": "Forensic Accounting",
+      "objective": "Detecting Revenue Recognition Red Flags",
+      "prompt_text": "List 5 common red flags in revenue recognition for a SaaS company. How would channel stuffing or extended payment terms appear in the Days Sales Outstanding (DSO) and Deferred Revenue metrics?",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "forensic-002",
+      "category": "Forensic Accounting",
+      "objective": "Footnote Analysis Strategy",
+      "prompt_text": "Act as a forensic accountant. What specific keywords should I search for in the footnotes of a 10-K to uncover off-balance sheet liabilities or aggressive accounting estimates?",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "macro-001",
+      "category": "Macroeconomic Analysis",
+      "objective": "Interest Rate Sensitivity",
+      "prompt_text": "Explain how to model the impact of a 100bps parallel shift in the yield curve on a bank's Net Interest Margin (NIM) and Economic Value of Equity (EVE).",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "macro-002",
+      "category": "Macroeconomic Analysis",
+      "objective": "FX Impact on Multinationals",
+      "prompt_text": "A US-based company has significant operations in Europe and Japan. The USD strengthens by 10%. Explain the translational and transactional impact on EBITDA, assuming no hedging.",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "crypto-001",
+      "category": "Fintech & Crypto",
+      "objective": "DeFi Protocol Risk Assessment",
+      "prompt_text": "Create a due diligence checklist for assessing the smart contract risk and economic sustainability of a DeFi lending protocol. Include factors like Total Value Locked (TVL) stickiness and audit history.",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "crypto-002",
+      "category": "Fintech & Crypto",
+      "objective": "Stablecoin Collateral Analysis",
+      "prompt_text": "Compare the risk profiles of fiat-backed (e.g., USDC), crypto-backed (e.g., DAI), and algorithmic stablecoins. Which model is most susceptible to a 'death spiral' and why?",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "ma-001",
+      "category": "Mergers & Acquisitions",
+      "objective": "Synergy Estimation",
+      "prompt_text": "Outline a bottom-up approach to estimating cost synergies in a merger between two manufacturing companies. Consider SG&A overlap, procurement savings, and plant consolidation.",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "ma-002",
+      "category": "Mergers & Acquisitions",
+      "objective": "Accretion/Dilution Modeling",
+      "prompt_text": "Explain the mechanics of an accretion/dilution analysis. Why might a deal be accretive to EPS but destructive to ROIC? Provide a numerical example.",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "re-002",
+      "category": "Real Estate",
+      "objective": "Hotel Valuation (RevPAR)",
+      "prompt_text": "Explain how Revenue Per Available Room (RevPAR) is calculated and how it differs from ADR (Average Daily Rate). How should an analyst adjust RevPAR for seasonality in a DCF model?",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "infra-001",
+      "category": "Infrastructure",
+      "objective": "Availability Payment Model",
+      "prompt_text": "Describe the 'Availability Payment' model in Public-Private Partnerships (P3). How does the risk transfer differ from a demand-risk (toll road) model?",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "quant-001",
+      "category": "Quantitative Finance",
+      "objective": "Factor Investing",
+      "prompt_text": "Define the 'Value' and 'Momentum' factors. How would you construct a long-short portfolio to capture the value premium while neutralizing market beta?",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "quant-002",
+      "category": "Quantitative Finance",
+      "objective": "Backtesting Best Practices",
+      "prompt_text": "What are the common pitfalls in backtesting trading strategies (e.g., look-ahead bias, survivorship bias)? How can 'out-of-sample' testing mitigate overfitting?",
+      "source_file": "Analyst_Workbench"
+    },
+    {
+      "id": "credit-003",
+      "category": "Credit Analysis",
+      "objective": "Distressed Exchange Analysis",
+      "prompt_text": "Analyze a hypothetical Distressed Debt Exchange (DDE). If bondholders exchange existing unsecured notes for new secured notes with a lower face value, how does this impact the company's leverage and the creditor's priority?",
+      "source_file": "Analyst_Workbench"
     }
   ],
   "decision_trees": [
@@ -9027,11 +9190,23 @@ const workbenchData = {
     },
     "project-finance": {
       "title": "Project Finance Due Diligence",
-      "content": "## Project Finance Due Diligence\n\n- [ ] **Sponsor**: Experience and financial strength of the sponsor?\n- [ ] **EPC Contract**: Fixed-price, date-certain turnkey contract?\n- [ ] **Offtake Agreement**: Long-term, creditworthy off-taker (PPA, etc.)?\n- [ ] **Supply**: Secure supply of feedstock/fuel?\n- [ ] **Technology**: Proven technology or first-of-kind risk?\n- [ ] **Permits**: All environmental and construction permits in place?\n- [ ] **Financial Model**: DSCR > 1.3x (P99 scenario)?"
+      "content": "## Project Finance Due Diligence\n\n- [ ] **Sponsors**: Experience and financial strength of the sponsors?\n- [ ] **Construction Risk**: Fixed-price, date-certain EPC contract? Liquidated damages?\n- [ ] **Revenue Risk**: Offtake agreement (PPA) term vs. Loan tenor? Creditworthiness of offtaker?\n- [ ] **Supply Risk**: Feedstock availability and price certainty?\n- [ ] **Operations**: O&M contractor experience and budget?\n- [ ] **Financial Model**: Minimum DSCR > 1.3x? Reserve accounts (DSRA, MRA) funded?"
     },
     "re-analysis": {
       "title": "Real Estate Credit Analysis",
       "content": "## Real Estate Credit Analysis\n\n- [ ] **Location**: Market fundamentals (vacancy, absorption, rent growth)?\n- [ ] **Property Type**: Class A/B/C, Office, Retail, Industrial, Multi-family?\n- [ ] **Tenants**: Tenant credit quality and lease diversity?\n- [ ] **Lease Terms**: WALT (Weighted Average Lease Term) vs. Loan Term?\n- [ ] **Cash Flow**: NOI (Net Operating Income) sustainability?\n- [ ] **Valuation**: Cap rate assumptions vs. market comps?\n- [ ] **LTV/DSCR**: Loan-to-Value and Debt Service Coverage Ratio buffers?"
+    },
+    "vc-dd": {
+      "title": "Venture Capital Due Diligence",
+      "content": "## Venture Capital Due Diligence\n\n- [ ] **Team**: Founder background, technical expertise, ability to recruit?\n- [ ] **Market**: TAM (Total Addressable Market) size and growth rate?\n- [ ] **Product**: Competitive advantage (moat)? IP protection?\n- [ ] **Traction**: ARR growth, Churn, Net Dollar Retention?\n- [ ] **Unit Economics**: LTV/CAC > 3x? Payback period < 12 months?\n- [ ] **Deal Terms**: Valuation, Liquidation Preference, Board Control?"
+    },
+    "ipo-readiness": {
+      "title": "IPO Readiness Checklist",
+      "content": "## IPO Readiness Checklist\n\n- [ ] **Financial Reporting**: 3 years of audited financials (PCAOB standards)?\n- [ ] **Forecasting**: Ability to predict quarterly earnings with <5% variance?\n- [ ] **Governance**: Independent Board of Directors established? Audit Committee chair selected?\n- [ ] **Legal/Compliance**: Resolved all material litigation? FCPA/GDPR compliance programs robust?\n- [ ] **Management**: Full C-Suite (CFO, General Counsel) in place for at least 12 months?\n- [ ] **Systems**: ERP and CRM systems scalable for public reporting timelines (e.g., 10-Q within 40-45 days)?"
+    },
+    "cre-dd": {
+      "title": "Commercial Real Estate Due Diligence",
+      "content": "## CRE Due Diligence\n\n- [ ] **Rent Roll**: Verify lease terms, expirations, and tenant credit quality.\n- [ ] **Financials**: 3 years of historical P&L (T-12 most critical).\n- [ ] **Physical**: Property Condition Report (PCR) - check roof, HVAC, structural.\n- [ ] **Environmental**: Phase I Environmental Site Assessment (ESA).\n- [ ] **Market**: Comparable rents and vacancy rates in the submarket.\n- [ ] **Legal**: Title search, zoning compliance, survey (ALTA)."
     }
   },
   "deals": [
@@ -9194,6 +9369,166 @@ const workbenchData = {
       "capex_percent": 1.0,
       "description": "High growth cybersecurity. Burning cash.",
       "rating": "N/A"
+    },
+    {
+      "id": "deal_011",
+      "name": "BioGenX",
+      "sector": "Healthcare",
+      "sub_sector": "Biotechnology",
+      "revenue": 80.0,
+      "ebitda": -20.0,
+      "ebitda_margin": -25.0,
+      "asking_price": 500.0,
+      "net_debt": 50.0,
+      "leverage": 0.0,
+      "growth_rate": 20.0,
+      "capex_percent": 15.0,
+      "description": "Clinical stage biotech. High R&D cash burn.",
+      "rating": "CCC"
+    },
+    {
+      "id": "deal_012",
+      "name": "SolarArray Co",
+      "sector": "Energy",
+      "sub_sector": "Renewables",
+      "revenue": 120.0,
+      "ebitda": 90.0,
+      "ebitda_margin": 75.0,
+      "asking_price": 1000.0,
+      "net_debt": 600.0,
+      "leverage": 6.7,
+      "growth_rate": 5.0,
+      "capex_percent": 10.0,
+      "description": "Solar farm operator. High leverage supported by PPA.",
+      "rating": "BB"
+    },
+    {
+      "id": "deal_013",
+      "name": "CryptoCustody",
+      "sector": "Fintech",
+      "sub_sector": "Digital Assets",
+      "revenue": 40.0,
+      "ebitda": 15.0,
+      "ebitda_margin": 37.5,
+      "asking_price": 300.0,
+      "net_debt": 0.0,
+      "leverage": 0.0,
+      "growth_rate": 50.0,
+      "capex_percent": 5.0,
+      "description": "Institutional crypto custody. Regulatory risk high.",
+      "rating": "B-"
+    },
+    {
+      "id": "deal_014",
+      "name": "SteelWorks Inc",
+      "sector": "Industrials",
+      "sub_sector": "Manufacturing",
+      "revenue": 1500.0,
+      "ebitda": 200.0,
+      "ebitda_margin": 13.3,
+      "asking_price": 1000.0,
+      "net_debt": 400.0,
+      "leverage": 2.0,
+      "growth_rate": 2.0,
+      "capex_percent": 12.0,
+      "description": "Legacy steel manufacturer. High fixed costs.",
+      "rating": "BB-"
+    },
+    {
+      "id": "deal_015",
+      "name": "EduTech Online",
+      "sector": "Technology",
+      "sub_sector": "EdTech",
+      "revenue": 90.0,
+      "ebitda": 10.0,
+      "ebitda_margin": 11.1,
+      "asking_price": 450.0,
+      "net_debt": 20.0,
+      "leverage": 2.0,
+      "growth_rate": 18.0,
+      "capex_percent": 2.0,
+      "description": "Online learning platform. Competitive market.",
+      "rating": "B"
+    },
+    {
+      "id": "deal_016",
+      "name": "Luxury Auto Group",
+      "sector": "Consumer",
+      "sub_sector": "Automotive",
+      "revenue": 2000.0,
+      "ebitda": 150.0,
+      "ebitda_margin": 7.5,
+      "asking_price": 900.0,
+      "net_debt": 300.0,
+      "leverage": 2.0,
+      "growth_rate": 3.0,
+      "capex_percent": 3.0,
+      "description": "Dealership network. Low margin, high volume.",
+      "rating": "BB"
+    },
+    {
+      "id": "deal_017",
+      "name": "FiberNet",
+      "sector": "Telecommunications",
+      "sub_sector": "Infrastructure",
+      "revenue": 300.0,
+      "ebitda": 150.0,
+      "ebitda_margin": 50.0,
+      "asking_price": 1800.0,
+      "net_debt": 1000.0,
+      "leverage": 6.6,
+      "growth_rate": 8.0,
+      "capex_percent": 30.0,
+      "description": "Regional fiber operator. High capex, recurring revenue.",
+      "rating": "B"
+    },
+    {
+      "id": "deal_018",
+      "name": "Global Shipping",
+      "sector": "Industrials",
+      "sub_sector": "Transportation",
+      "revenue": 3000.0,
+      "ebitda": 600.0,
+      "ebitda_margin": 20.0,
+      "asking_price": 2400.0,
+      "net_debt": 1200.0,
+      "leverage": 2.0,
+      "growth_rate": 1.0,
+      "capex_percent": 15.0,
+      "description": "Container shipping. Extremely cyclical.",
+      "rating": "BB"
+    },
+    {
+      "id": "deal_019",
+      "name": "AgriCorp",
+      "sector": "Consumer",
+      "sub_sector": "Agriculture",
+      "revenue": 800.0,
+      "ebitda": 80.0,
+      "ebitda_margin": 10.0,
+      "asking_price": 600.0,
+      "net_debt": 200.0,
+      "leverage": 2.5,
+      "growth_rate": 3.0,
+      "capex_percent": 8.0,
+      "description": "Fertilizer producer. Commodity risk.",
+      "rating": "B+"
+    },
+    {
+      "id": "deal_020",
+      "name": "SpaceXplore",
+      "sector": "Industrials",
+      "sub_sector": "Aerospace",
+      "revenue": 50.0,
+      "ebitda": -10.0,
+      "ebitda_margin": -20.0,
+      "asking_price": 1000.0,
+      "net_debt": 0.0,
+      "leverage": 0.0,
+      "growth_rate": 100.0,
+      "capex_percent": 50.0,
+      "description": "Satellite launch provider. High risk/reward.",
+      "rating": "CCC"
     }
   ],
   "scoring_model": {
@@ -9471,6 +9806,20 @@ const workbenchData = {
       "drivers": "Industrial production, raw material spreads, and capacity utilization.",
       "outlook": "Neutral to Negative. Weakness in Europe and China weighing on demand.",
       "key_ratios": "EBITDA Margin, Return on Capital, Net Debt/EBITDA"
+    },
+    "Biotechnology": {
+      "thesis": "High risk, high reward profile. Value is driven by clinical trial success and potential for M&A exit. Strong IP protection is critical.",
+      "risks": "- **Binary Outcomes:** Clinical trial failures can lead to near-total loss of value.\n- **Cash Burn:** High R&D spend without revenue for years.\n- **Regulatory:** FDA approval uncertainty.",
+      "drivers": "Clinical data readouts, partnership milestones, and cash runway.",
+      "outlook": "Volatile. Interest rates impact funding availability.",
+      "key_ratios": "Cash Burn Rate, Cash Runway (Months), Enterprise Value/Cash"
+    },
+    "Semiconductors": {
+      "thesis": "Foundational technology for the modern economy (AI, Auto, Cloud). High barriers to entry due to capital intensity and technical complexity.",
+      "risks": "- **Cyclicality:** Prone to boom-bust inventory cycles.\n- **Geopolitical:** Supply chain concentration in East Asia.\n- **CapEx Intensity:** Keeping up with Moore's Law requires massive investment.",
+      "drivers": "Book-to-Bill ratio, wafer capacity utilization, and AI server demand.",
+      "outlook": "Positive long-term, but subject to short-term inventory corrections.",
+      "key_ratios": "Gross Margin, Inventory Days, ROIC"
     }
   },
   "clauses": [
@@ -9848,6 +10197,168 @@ const workbenchData = {
           "negotiation_points": [
             "No reinvestment right typically"
           ]
+        }
+      ]
+    },
+    {
+      "category": "Security Agreements",
+      "description": "Clauses related to collateral and security interests.",
+      "clauses": [
+        {
+          "title": "Grant of Security Interest",
+          "description": "The borrower pledges assets to secure the loan.",
+          "standard_text": "As security for the prompt and complete payment and performance when due of all the Obligations, each Grantor hereby grants to the Administrative Agent, for the benefit of the Secured Parties, a continuing security interest in all of its right, title and interest in, to and under all of the following Personal Property...",
+          "negotiation_points": ["Excluded Assets (e.g., vehicles, margin stock)", "Thresholds for perfection actions"]
+        },
+        {
+          "title": "Perfection of Security Interest",
+          "description": "Requirements to make the security interest legally enforceable against third parties.",
+          "standard_text": "Each Grantor agrees that from time to time, at the expense of such Grantor, it will promptly execute and deliver all further instruments and documents... necessary or desirable... to perfect, protect or enforce the Security Interest.",
+          "negotiation_points": ["Control Agreements for Deposit Accounts", "Timeframes for filing UCC financing statements"]
+        },
+        {
+          "title": "Remedies upon Default",
+          "description": "Lender's rights to seize and sell collateral.",
+          "standard_text": "If an Event of Default shall occur and be continuing, the Administrative Agent may exercise... all the rights and remedies of a secured party on default under the UCC... including the right to sell the Collateral.",
+          "negotiation_points": ["Notice periods for public/private sales", "Commercially reasonable manner requirement"]
+        },
+        {
+          "title": "Pledge of Securities",
+          "description": "Granting a security interest in equity interests of subsidiaries.",
+          "standard_text": "Each Pledgor hereby pledges to the Administrative Agent... all the Equity Interests... of each Subsidiary... and delivers to the Administrative Agent the certificates representing such Equity Interests.",
+          "negotiation_points": ["Delivery of certificates vs. uncertificated securities", "Voting rights before/after Default"]
+        },
+        {
+          "title": "Intellectual Property Security",
+          "description": "Specific provisions for trademarks, patents, and copyrights.",
+          "standard_text": "Each Grantor grants a security interest in all of its Intellectual Property... and agrees to file Short Form IP Security Agreements with the USPTO and Copyright Office.",
+          "negotiation_points": ["After-acquired IP filings", "License back to Grantor"]
+        }
+      ]
+    },
+    {
+      "category": "Lease Agreements",
+      "description": "Standard clauses for commercial leases.",
+      "clauses": [
+        {
+          "title": "Payment of Rent",
+          "description": "Obligation to pay base rent and additional rent.",
+          "standard_text": "Tenant shall pay to Landlord Base Rent in the amount of $[Amount] per month, without deduction, offset, or abatement, on the first day of each calendar month.",
+          "negotiation_points": ["Rent abatement periods", "Caps on Operating Expense (CAM) increases"]
+        },
+        {
+          "title": "Use of Premises",
+          "description": "Restrictions on how the property can be used.",
+          "standard_text": "Tenant shall use the Premises solely for [Permitted Use] and for no other purpose without Landlord's prior written consent.",
+          "negotiation_points": ["Broad 'general office use' vs. specific use", "Exclusive use rights"]
+        },
+        {
+          "title": "Assignment and Subletting",
+          "description": "Tenant's right to transfer the lease.",
+          "standard_text": "Tenant shall not assign this Lease or sublet the Premises without Landlord's prior written consent, which consent shall not be unreasonably withheld, conditioned or delayed.",
+          "negotiation_points": ["Permitted Transfers (to affiliates/acquirers) without consent", "Profit sharing on sublease rent"]
+        },
+        {
+          "title": "Operating Expenses (CAM)",
+          "description": "Pass-through of building operating costs to tenant.",
+          "standard_text": "Tenant shall pay its Pro Rata Share of all Operating Expenses, including taxes, insurance, and maintenance costs.",
+          "negotiation_points": ["Caps on controllable expenses (e.g., 5% annual cap)", "Exclusion of capital expenditures"]
+        },
+        {
+          "title": "Tenant Improvements (TI) Allowance",
+          "description": "Landlord contribution to build-out costs.",
+          "standard_text": "Landlord shall provide a TI Allowance of $[Amount] per square foot. Any cost in excess of the TI Allowance shall be paid by Tenant.",
+          "negotiation_points": ["Landlord management fees", "Application to soft costs (design/permits)"]
+        },
+        {
+          "title": "Subordination, Non-Disturbance (SNDA)",
+          "description": "Protects tenant if landlord defaults on mortgage.",
+          "standard_text": "This Lease shall be subordinate to any future mortgage... provided that Lender agrees not to disturb Tenant's possession so long as Tenant is not in default.",
+          "negotiation_points": ["Requirement for SNDA from future lenders", "Self-help rights"]
+        }
+      ]
+    },
+    {
+      "category": "Intercreditor Agreements",
+      "description": "Agreements between creditors regarding priority.",
+      "clauses": [
+        {
+          "title": "Payment Subordination",
+          "description": "Junior debt cannot be paid until Senior debt is satisfied.",
+          "standard_text": "No payment on account of the Subordinated Obligations shall be made by any Loan Party... until the Senior Obligations have been paid in full in cash.",
+          "negotiation_points": ["Permitted Payments (interest/scheduled principal) absent Default", "Payment Blockage Periods"]
+        },
+        {
+          "title": "Lien Subordination",
+          "description": "Junior liens are secondary to Senior liens.",
+          "standard_text": "Any Lien on the Common Collateral securing the Second Lien Obligations... shall be junior and subordinate in all respects to any Lien on the Common Collateral securing the First Lien Obligations.",
+          "negotiation_points": ["Standstill periods for remedies", "Buy-out option for Junior Lenders"]
+        },
+        {
+          "title": "Standstill Provisions",
+          "description": "Limits Junior Lender's ability to enforce remedies.",
+          "standard_text": "Until the Discharge of Senior Obligations, the Second Lien Agent will not exercise or seek to exercise any rights or remedies with respect to any Common Collateral...",
+          "negotiation_points": ["Standstill Period length (e.g., 180 days)", "Rights to vote in bankruptcy"]
+        },
+        {
+          "title": "Turnover Provision",
+          "description": "Requires Junior Lender to hand over payments received in violation of priority.",
+          "standard_text": "If any payment or distribution is received by the Second Lien Agent in contravention of this Agreement, such payment shall be held in trust for the benefit of, and paid over to, the First Lien Agent.",
+          "negotiation_points": ["Turnover of non-cash proceeds", "Exceptions for reorganization securities"]
+        },
+        {
+          "title": "DIP Financing Consent",
+          "description": "Junior Lender agrees not to object to Senior Lender's DIP financing.",
+          "standard_text": "The Second Lien Agent agrees that it will not object to any DIP Financing provided by the First Lien Lenders... provided that the Second Lien Lenders retain a junior lien on the same collateral.",
+          "negotiation_points": ["Cap on DIP amount", "Adequate protection terms"]
+        },
+        {
+          "title": "Purchase Option",
+          "description": "Junior Lender's right to buy out Senior Debt.",
+          "standard_text": "Upon the occurrence of an Event of Default or Acceleration, the Second Lien Lenders shall have the option to purchase all (but not less than all) of the First Lien Obligations at par plus accrued interest.",
+          "negotiation_points": ["Inclusion of prepayment penalties", "Time window to exercise option"]
+        }
+      ]
+    },
+    {
+      "category": "Credit Agreement - Advanced (LBO)",
+      "description": "Specialized clauses for leveraged finance.",
+      "clauses": [
+        {
+          "title": "Accordion Feature (Incremental Facilities)",
+          "description": "Allows borrower to increase the facility size without full lender consent.",
+          "standard_text": "The Borrower may request the establishment of one or more new term loan commitments... in an aggregate amount not to exceed the Free and Clear Basket plus the General Debt Basket...",
+          "negotiation_points": ["MFN (Most Favored Nation) pricing protection", "Ratio-based incremental capacity"]
+        },
+        {
+          "title": "Yank-a-Bank",
+          "description": "Right to replace a non-consenting lender.",
+          "standard_text": "If any Lender does not consent to a proposed amendment... the Borrower may, at its expense, require such Lender to assign its Loans to an assignee.",
+          "negotiation_points": ["Required vote threshold (e.g., >50% must already consent)", "Payment of breakage costs"]
+        }
+      ]
+    },
+    {
+      "category": "ISDA Master Agreement (Derivatives)",
+      "description": "Standard terms for OTC derivatives transactions.",
+      "clauses": [
+        {
+          "title": "Failure to Pay or Deliver",
+          "description": "Event of default if a party fails to make a required payment.",
+          "standard_text": "Failure by the party to make, when due, any payment under this Agreement or delivery under Section 2(a)(i) or 2(e) required to be made by it if such failure is not remedied on or before the third Local Business Day after notice of such failure is given to the party.",
+          "negotiation_points": ["Grace period length", "Threshold amounts"]
+        },
+        {
+          "title": "Credit Event Upon Merger",
+          "description": "Termination event triggered if a merger weakens a party's creditworthiness.",
+          "standard_text": "The party... merges with another entity... and the resulting entity is materially weaker from a credit perspective.",
+          "negotiation_points": ["Definition of 'materially weaker'", "Exclusion of internal reorganizations"]
+        },
+        {
+          "title": "Close-out Netting",
+          "description": "Process of terminating and netting all transactions upon default.",
+          "standard_text": "Upon the designation of an Early Termination Date... the determining party shall calculate the Close-out Amount... and net all obligations into a single payment.",
+          "negotiation_points": ["Valuation methodology (Market Quotation vs. Loss)", "Bankruptcy enforceability"]
         }
       ]
     }

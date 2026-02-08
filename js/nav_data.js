@@ -4562,6 +4562,78 @@ const navData = [
     "type": "category",
     "children": [
       {
+        "text": "Project Finance",
+        "type": "category",
+        "children": [
+          {
+            "text": "README",
+            "href": "modules/Project_Finance/README.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "Cash Flow Waterfall",
+            "href": "modules/Project_Finance/cash_flow_waterfall.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
+      },
+      {
+        "text": "Distressed Debt",
+        "type": "category",
+        "children": [
+          {
+            "text": "README",
+            "href": "modules/Distressed_Debt/README.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "Restructuring Basics",
+            "href": "modules/Distressed_Debt/restructuring_basics.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
+      },
+      {
+        "text": "Real Estate",
+        "type": "category",
+        "children": [
+          {
+            "text": "README",
+            "href": "modules/Real_Estate/README.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "Reit Analysis",
+            "href": "modules/Real_Estate/reit_analysis.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
+      },
+      {
+        "text": "Venture Capital",
+        "type": "category",
+        "children": [
+          {
+            "text": "README",
+            "href": "modules/Venture_Capital/README.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "Term Sheet Analysis",
+            "href": "modules/Venture_Capital/term_sheet_analysis.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
+      },
+      {
         "text": "Accounting",
         "type": "category",
         "children": [

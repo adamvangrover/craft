@@ -36,12 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
         loadPrimers();
         initGlossarySearch();
         initFlashcards();
-        initCovenantBuilder();
+        initLegalLibrary();
         initDealScreener();
         initCreditScorer();
         loadChecklists();
         initMemoBuilder();
-        initCalculators();
+        initValuationConsole();
+        initCodingLab();
     } else {
         console.error("workbenchData not loaded");
     }
@@ -131,6 +132,14 @@ function initGlossarySearch() {
     const input = document.getElementById('glossary-search');
     const results = document.getElementById('glossary-results');
     if (!input || !results) return;
+
+    // Tutorial Button Logic
+    const tutBtn = document.getElementById('glossary-tutorial-btn');
+    if(tutBtn) {
+        tutBtn.addEventListener('click', () => {
+            alert("Glossary Tutorial:\n\n1. Type in the search bar to find financial terms.\n2. Use the 'Flashcards' button to switch to study mode.\n3. In Flashcard mode, click the card to flip it and use Prev/Next to navigate.\n\nTip: You can search for abbreviations like 'EBITDA' or full terms.");
+        });
+    }
 
     input.addEventListener('input', (e) => {
         const term = e.target.value.toLowerCase();
@@ -330,6 +339,19 @@ function initCreditScorer() {
         bizContainer.appendChild(div);
     });
 
+    // Reset Logic
+    const resetBtn = document.getElementById('cs-reset-btn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            document.querySelectorAll('#wb-creditscorer input').forEach(i => i.value = '');
+            document.querySelectorAll('#wb-creditscorer select').forEach(s => s.selectedIndex = 0);
+            document.getElementById('cs-result-score').textContent = 'Score: 0.0';
+            const rEl = document.getElementById('cs-result-rating');
+            rEl.textContent = '---';
+            rEl.className = "text-6xl font-black mb-2 text-indigo-400";
+        });
+    }
+
     // Calculation Logic
     document.getElementById('cs-calc-btn').addEventListener('click', () => {
         let totalScore = 0;
@@ -503,28 +525,81 @@ function loadChecklists() {
 // --- Prompts ---
 function loadPrompts() {
     const list = document.getElementById('prompt-list');
+    const catSelect = document.getElementById('prompt-filter-category');
+    const sortSelect = document.getElementById('prompt-sort');
     if (!list) return;
 
-    workbenchData.prompts.forEach(p => {
-        const card = document.createElement('div');
-        card.className = "prompt-card bg-slate-50 p-4 rounded-lg border border-slate-200 mb-4 hover:border-indigo-300 transition-all";
-        card.innerHTML = `
-            <div class="flex justify-between items-start mb-2">
-                <span class="text-xs font-bold text-indigo-500 uppercase bg-white px-2 py-1 rounded border border-indigo-100">${p.category || 'General'}</span>
-                <button class="text-slate-400 hover:text-indigo-600 copy-btn" title="Copy Prompt"><i class="fas fa-copy"></i></button>
-            </div>
-            <p class="text-slate-800 font-medium mb-2 text-sm">${p.objective || 'Objective'}</p>
-            <div class="bg-white p-3 rounded border border-slate-200 text-slate-600 text-sm font-mono whitespace-pre-wrap">${p.prompt_text || p.prompt}</div>
-        `;
-
-        // Copy Logic
-        card.querySelector('.copy-btn').addEventListener('click', () => {
-            navigator.clipboard.writeText(p.prompt_text || p.prompt);
-            alert("Prompt copied to clipboard!");
+    // Populate Category Dropdown
+    if(catSelect) {
+        const categories = [...new Set(workbenchData.prompts.map(p => p.category || 'General'))].sort();
+        categories.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c;
+            opt.textContent = c;
+            catSelect.appendChild(opt);
         });
 
-        list.appendChild(card);
-    });
+        catSelect.addEventListener('change', renderFilteredPrompts);
+    }
+
+    if(sortSelect) {
+        sortSelect.addEventListener('change', renderFilteredPrompts);
+    }
+
+    // Connect Search Input
+    const searchInput = document.getElementById('prompt-search');
+    if(searchInput) {
+        searchInput.addEventListener('input', renderFilteredPrompts);
+    }
+
+    // Initial Render
+    renderFilteredPrompts();
+
+    function renderFilteredPrompts() {
+        list.innerHTML = '';
+        const category = catSelect ? catSelect.value : 'all';
+        const searchText = searchInput ? searchInput.value.toLowerCase() : '';
+        const sortMode = sortSelect ? sortSelect.value : 'default';
+
+        let filtered = workbenchData.prompts.filter(p => {
+            const catMatch = category === 'all' || (p.category || 'General') === category;
+            const text = (p.objective + ' ' + (p.prompt_text || p.prompt)).toLowerCase();
+            const textMatch = text.includes(searchText);
+            return catMatch && textMatch;
+        });
+
+        // Sort
+        if (sortMode === 'az') {
+            filtered.sort((a, b) => (a.objective || '').localeCompare(b.objective || ''));
+        } else if (sortMode === 'za') {
+            filtered.sort((a, b) => (b.objective || '').localeCompare(a.objective || ''));
+        }
+
+        filtered.forEach(p => {
+            const card = document.createElement('div');
+            card.className = "prompt-card bg-slate-50 p-4 rounded-lg border border-slate-200 mb-4 hover:border-indigo-300 transition-all";
+            card.innerHTML = `
+                <div class="flex justify-between items-start mb-2">
+                    <span class="text-xs font-bold text-indigo-500 uppercase bg-white px-2 py-1 rounded border border-indigo-100">${p.category || 'General'}</span>
+                    <button class="text-slate-400 hover:text-indigo-600 copy-btn" title="Copy Prompt"><i class="fas fa-copy"></i></button>
+                </div>
+                <p class="text-slate-800 font-medium mb-2 text-sm">${p.objective || 'Objective'}</p>
+                <div class="bg-white p-3 rounded border border-slate-200 text-slate-600 text-sm font-mono whitespace-pre-wrap">${p.prompt_text || p.prompt}</div>
+            `;
+
+            // Copy Logic
+            card.querySelector('.copy-btn').addEventListener('click', () => {
+                navigator.clipboard.writeText(p.prompt_text || p.prompt);
+                alert("Prompt copied to clipboard!");
+            });
+
+            list.appendChild(card);
+        });
+
+        if(filtered.length === 0) {
+            list.innerHTML = '<div class="text-slate-400 text-center py-4">No prompts found matching your criteria.</div>';
+        }
+    }
 }
 
 // --- Datasets ---
@@ -568,67 +643,92 @@ function loadQuizzes() {
     });
 }
 
-// --- Covenant Builder ---
-async function initCovenantBuilder() {
-    const builderSection = document.getElementById('covenant-builder');
-    if (!builderSection) return;
+// --- Legal Library ---
+async function initLegalLibrary() {
+    const catSelect = document.getElementById('legal-cat-select');
+    const clauseSelect = document.getElementById('legal-clause-select');
+    const desc = document.getElementById('legal-clause-desc');
+    const editor = document.getElementById('legal-editor');
+    const btn = document.getElementById('legal-add-btn');
 
-    const select = document.getElementById('cov-clause-select');
-    const output = document.getElementById('cov-output');
+    if (!catSelect) return;
 
-    // Helper to populate select
-    function populate(clausesData) {
-        select.innerHTML = '<option value="">Select a standard clause...</option>';
-        if (Array.isArray(clausesData)) {
-            // Check if it's the categorized array style (from legal_clauses.json)
-            if(clausesData.length > 0 && clausesData[0].category) {
-                 clausesData.forEach(cat => {
-                     const group = document.createElement('optgroup');
-                     group.label = cat.category;
-                     if(cat.clauses) {
-                         cat.clauses.forEach(c => {
-                             const opt = document.createElement('option');
-                             opt.value = c.standard_text || c.standard_clause || c.text;
-                             opt.textContent = c.title || c.name;
-                             group.appendChild(opt);
-                         });
-                     }
-                     select.appendChild(group);
-                 });
-            } else {
-                 // Simple list
-                 clausesData.forEach(c => {
-                    const opt = document.createElement('option');
-                    opt.value = c.text || c.clause;
-                    opt.textContent = c.title || c.name || "Clause";
-                    select.appendChild(opt);
-                 });
-            }
-        }
-    }
+    let clausesData = [];
 
-    // Try to load from embedded workbenchData first
+    // Load Data
     if (workbenchData.clauses && workbenchData.clauses.length > 0) {
-        populate(workbenchData.clauses);
+        clausesData = workbenchData.clauses;
     } else {
-        // Fallback to fetch
-        const clausesFile = workbenchData.datasets.find(d => d.title.includes("Clauses") || d.path.includes("clauses.json"));
+        // Fallback to fetch (legacy support)
+         const clausesFile = workbenchData.datasets.find(d => d.title.includes("Clauses") || d.path.includes("clauses.json"));
         if (clausesFile) {
             try {
                 const response = await fetch(clausesFile.path);
                 const data = await response.json();
-                populate(data.clauses || data);
+                clausesData = data.clauses || data;
             } catch (e) {
                 console.error("Error loading clauses", e);
             }
         }
     }
 
-    // Event Listener
-    document.getElementById('cov-add-btn').addEventListener('click', () => {
-        const text = select.value;
-        if(text) {
-            output.value += text + "\n\n";
+    // Populate Categories
+    if(clausesData.length > 0) {
+        clausesData.forEach((cat, index) => {
+             // Handle if cat is just an object in a flat list or a category object
+             if(cat.category) {
+                 const opt = document.createElement('option');
+                 opt.value = index;
+                 opt.textContent = cat.category;
+                 catSelect.appendChild(opt);
+             }
+        });
+    }
+
+    // Category Change Listener
+    catSelect.addEventListener('change', () => {
+        clauseSelect.innerHTML = '<option value="">Select Clause...</option>';
+        clauseSelect.disabled = true;
+        desc.textContent = "Select a clause to view details.";
+
+        const catIndex = catSelect.value;
+        if(catIndex === "") return;
+
+        const category = clausesData[catIndex];
+        if(category && category.clauses) {
+            category.clauses.forEach((c, i) => {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = c.title || c.name;
+                clauseSelect.appendChild(opt);
+            });
+            clauseSelect.disabled = false;
+        }
+    });
+
+    // Clause Change Listener
+    clauseSelect.addEventListener('change', () => {
+        const catIndex = catSelect.value;
+        const clauseIndex = clauseSelect.value;
+        if(catIndex === "" || clauseIndex === "") {
+             desc.textContent = "Select a clause to view details.";
+             return;
+        }
+
+        const clause = clausesData[catIndex].clauses[clauseIndex];
+        desc.innerHTML = `<strong class="block text-slate-800 mb-1">${clause.title}</strong>${clause.description || ''}<div class="mt-2 text-xs bg-indigo-50 p-2 rounded text-indigo-700"><strong>Negotiation Points:</strong><br>${(clause.negotiation_points || []).join('<br>- ')}</div>`;
+    });
+
+    // Add Button
+    btn.addEventListener('click', () => {
+        const catIndex = catSelect.value;
+        const clauseIndex = clauseSelect.value;
+        if(catIndex !== "" && clauseIndex !== "") {
+             const clause = clausesData[catIndex].clauses[clauseIndex];
+             const text = clause.standard_text || clause.standard_clause || clause.text;
+             editor.value += `[${clause.title}]\n${text}\n\n`;
+             // Scroll to bottom
+             editor.scrollTop = editor.scrollHeight;
         }
     });
 }
@@ -707,9 +807,9 @@ ${r}
     }
 }
 
-// --- Calculators ---
-function initCalculators() {
-    // Ratio Calculator
+// --- Valuation Console (Calculators) ---
+function initValuationConsole() {
+    // Ratio Calculator (Still in Toolkit)
     const btn = document.getElementById('calc-btn');
     if(btn) {
         btn.addEventListener('click', () => {
@@ -725,6 +825,8 @@ function initCalculators() {
 
     // DCF Calculator
     const dcfBtn = document.getElementById('dcf-calc-btn');
+    const dcfLinkBtn = document.getElementById('dcf-to-waterfall-btn');
+
     if(dcfBtn) {
         dcfBtn.addEventListener('click', () => {
             const fcf1 = parseFloat(document.getElementById('dcf-fcf').value) || 0;
@@ -752,11 +854,28 @@ function initCalculators() {
 
             const ev = totalPV + tvPV;
             document.getElementById('dcf-result').textContent = '$' + ev.toFixed(2);
+
+            // Show Link Button
+            if(dcfLinkBtn) dcfLinkBtn.classList.remove('hidden');
+        });
+    }
+
+    if(dcfLinkBtn) {
+        dcfLinkBtn.addEventListener('click', () => {
+            const valStr = document.getElementById('dcf-result').textContent.replace('$','').replace(/,/g,'');
+            const val = parseFloat(valStr);
+            if(!isNaN(val)) {
+                document.getElementById('wf-ev').value = val;
+                // Highlight waterfall
+                document.getElementById('wf-ev').focus();
+            }
         });
     }
 
     // EV Calculator
     const evBtn = document.getElementById('ev-calc-btn');
+    const evLinkBtn = document.getElementById('ev-to-waterfall-btn');
+
     if(evBtn) {
         evBtn.addEventListener('click', () => {
              const eq = parseFloat(document.getElementById('ev-equity').value) || 0;
@@ -766,6 +885,172 @@ function initCalculators() {
              const cash = parseFloat(document.getElementById('ev-cash').value) || 0;
              const res = eq + debt + pref + min - cash;
              document.getElementById('ev-result').textContent = '$' + res.toLocaleString();
+
+             // Show Link Button
+             if(evLinkBtn) evLinkBtn.classList.remove('hidden');
+        });
+    }
+
+    if(evLinkBtn) {
+        evLinkBtn.addEventListener('click', () => {
+            const valStr = document.getElementById('ev-result').textContent.replace('$','').replace(/,/g,'');
+            const val = parseFloat(valStr);
+            if(!isNaN(val)) {
+                document.getElementById('wf-ev').value = val;
+                document.getElementById('wf-ev').focus();
+            }
+        });
+    }
+
+    // Waterfall Tool
+    initWaterfallTool();
+}
+
+function initWaterfallTool() {
+    const btn = document.getElementById('wf-calc-btn');
+    if(!btn) return;
+
+    btn.addEventListener('click', () => {
+        const ev = parseFloat(document.getElementById('wf-ev').value) || 0;
+        const senior = parseFloat(document.getElementById('wf-senior').value) || 0;
+        const mezz = parseFloat(document.getElementById('wf-mezz').value) || 0;
+        const equity = parseFloat(document.getElementById('wf-equity').value) || 0; // Pref Equity
+
+        let remaining = ev;
+        let seniorPay = Math.min(remaining, senior);
+        remaining -= seniorPay;
+        let mezzPay = Math.min(remaining, mezz);
+        remaining -= mezzPay;
+        let equityPay = Math.min(remaining, equity);
+        remaining -= equityPay;
+        let commonPay = Math.max(0, remaining);
+
+        const res = document.getElementById('wf-results');
+        res.innerHTML = `
+            <div class="space-y-4">
+                <div class="space-y-1">
+                    <div class="flex justify-between text-sm"><span class="font-bold text-slate-700">Senior Debt</span> <span class="font-mono">$${seniorPay.toFixed(1)} / $${senior} (${senior > 0 ? ((seniorPay/senior)*100).toFixed(0) : 0}%)</span></div>
+                    <div class="w-full bg-slate-100 rounded-full h-2"><div class="bg-indigo-600 h-2 rounded-full transition-all duration-500" style="width: ${senior > 0 ? Math.min(100, (seniorPay/senior)*100) : 0}%"></div></div>
+                </div>
+
+                <div class="space-y-1">
+                    <div class="flex justify-between text-sm"><span class="font-bold text-slate-700">Mezzanine Debt</span> <span class="font-mono">$${mezzPay.toFixed(1)} / $${mezz} (${mezz > 0 ? ((mezzPay/mezz)*100).toFixed(0) : 0}%)</span></div>
+                    <div class="w-full bg-slate-100 rounded-full h-2"><div class="bg-blue-500 h-2 rounded-full transition-all duration-500" style="width: ${mezz > 0 ? Math.min(100, (mezzPay/mezz)*100) : 0}%"></div></div>
+                </div>
+
+                <div class="space-y-1">
+                    <div class="flex justify-between text-sm"><span class="font-bold text-slate-700">Preferred Equity</span> <span class="font-mono">$${equityPay.toFixed(1)} / $${equity} (${equity > 0 ? ((equityPay/equity)*100).toFixed(0) : 0}%)</span></div>
+                    <div class="w-full bg-slate-100 rounded-full h-2"><div class="bg-teal-400 h-2 rounded-full transition-all duration-500" style="width: ${equity > 0 ? Math.min(100, (equityPay/equity)*100) : 0}%"></div></div>
+                </div>
+
+                 <div class="flex justify-between text-sm mt-4 p-3 bg-green-50 rounded border border-green-200">
+                    <span class="font-bold text-slate-900">Common Equity Proceeds</span>
+                    <span class="font-bold text-green-700 font-mono text-lg">$${commonPay.toFixed(1)}</span>
+                 </div>
+            </div>
+        `;
+    });
+}
+
+// --- Coding Lab ---
+function initCodingLab() {
+    const runBtn = document.getElementById('run-code-btn');
+    const clearBtn = document.getElementById('clear-code-btn');
+    const output = document.getElementById('code-output');
+    const library = document.getElementById('coding-library');
+    const langSelect = document.getElementById('code-lang-select');
+
+    if(!library) return;
+
+    // Populate Library (Snippets + Notebooks)
+    if(workbenchData.notebooks) {
+        workbenchData.notebooks.forEach(nb => {
+             const div = document.createElement('div');
+             div.className = "p-3 bg-slate-50 border border-slate-200 rounded text-sm hover:border-indigo-400 cursor-pointer transition-colors group mb-2";
+             div.innerHTML = `<div class="font-bold text-slate-700 group-hover:text-indigo-600"><i class="fab fa-python mr-2 text-slate-400"></i>${nb.title}</div><div class="text-xs text-slate-400 mt-1">${nb.category}</div>`;
+             div.addEventListener('click', () => {
+                 const editor = document.getElementById('code-editor');
+                 if(nb.snippet) {
+                     editor.value = nb.snippet;
+                     output.innerHTML += `\n> Loaded snippet: "${nb.title}"`;
+                 } else {
+                     editor.value += `\n# Reference: ${nb.path}\n# Loading notebook content...`;
+                     output.innerHTML += `\n> Loaded reference: "${nb.title}"`;
+                 }
+                 output.scrollTop = output.scrollHeight;
+             });
+             library.appendChild(div);
+        });
+    }
+
+    if(clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            output.innerHTML = '<div class="absolute top-2 right-2 text-slate-600 text-[10px]">OUTPUT</div>> Ready to execute...';
+        });
+    }
+
+    if(runBtn && output) {
+        runBtn.addEventListener('click', () => {
+            const code = document.getElementById('code-editor').value;
+            const lang = langSelect ? langSelect.value : 'python';
+
+            output.innerHTML += `\n> Executing (${lang})...`;
+
+            // Simulation
+            setTimeout(() => {
+                 if (lang === 'javascript') {
+                     try {
+                         // Safe-ish eval for JS practice (client-side only sandbox)
+                         // Redirect console.log
+                         const logs = [];
+                         const originalLog = console.log;
+                         console.log = (...args) => logs.push(args.join(' '));
+
+                         // Eval
+                         try {
+                             const result = eval(code);
+                             if (result !== undefined) logs.push(result);
+                         } catch (e) {
+                             logs.push("Error: " + e.message);
+                         }
+
+                         console.log = originalLog; // Restore
+
+                         if(logs.length > 0) {
+                             output.innerHTML += `\n${logs.join('\n')}`;
+                         } else {
+                             output.innerHTML += `\n> Done (No output)`;
+                         }
+
+                     } catch (e) {
+                         output.innerHTML += `\n> System Error: ${e.message}`;
+                     }
+                 } else {
+                     // Python Mock
+                     if(code.includes("print")) {
+                         // Very naive extraction of print
+                         const match = code.match(/print\(f?"(.*?)\{(.*?)\}(.*?)"\)/);
+                         if(match) {
+                              // Mock WACC eval
+                              if(code.includes("wacc")) {
+                                  output.innerHTML += `\n> WACC: 7.80% [MOCK OUTPUT]`;
+                              } else {
+                                  output.innerHTML += `\n> ${match[1]} [VAL] ${match[3]}`;
+                              }
+                         } else {
+                             const simpleMatch = code.match(/print\("(.*?)"\)/);
+                             if(simpleMatch) {
+                                 output.innerHTML += `\n> ${simpleMatch[1]}`;
+                             } else {
+                                 output.innerHTML += `\n> Execution complete. (Python runtime not available - Simulated)`;
+                             }
+                         }
+                     } else {
+                         output.innerHTML += `\n> Done.`;
+                     }
+                 }
+                 output.scrollTop = output.scrollHeight;
+            }, 600);
         });
     }
 }
