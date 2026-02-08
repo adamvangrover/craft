@@ -494,6 +494,52 @@ const navData = [
     ]
   },
   {
+    "text": "Venture Capital",
+    "type": "category",
+    "children": [
+      {
+        "text": "README",
+        "href": "Venture_Capital/README.md",
+        "type": "markdown_viewer",
+        "viewer": "global"
+      },
+      {
+        "text": "Index",
+        "href": "Venture_Capital/index.html",
+        "type": "html_hub"
+      },
+      {
+        "text": "Deep Dives",
+        "type": "category",
+        "children": [
+          {
+            "text": "Term Sheet Negotiation",
+            "href": "Venture_Capital/Deep_Dives/Term_Sheet_Negotiation.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "Startup Valuation Methods",
+            "href": "Venture_Capital/Deep_Dives/Startup_Valuation_Methods.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
+      },
+      {
+        "text": "Tools",
+        "type": "category",
+        "children": [
+          {
+            "text": "Cap Table Builder",
+            "href": "Venture_Capital/tools/cap_table.html",
+            "type": "html"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "text": "Behavioral Finance",
     "type": "category",
     "children": [
@@ -536,6 +582,81 @@ const navData = [
         "href": "Behavioral_Finance/Key_Concepts.md",
         "type": "markdown_viewer",
         "viewer": "global"
+      }
+    ]
+  },
+  {
+    "text": "Real Estate",
+    "type": "category",
+    "children": [
+      {
+        "text": "README",
+        "href": "Real_Estate/README.md",
+        "type": "markdown_viewer",
+        "viewer": "global"
+      },
+      {
+        "text": "Index",
+        "href": "Real_Estate/index.html",
+        "type": "html_hub"
+      },
+      {
+        "text": "Deep Dives",
+        "type": "category",
+        "children": [
+          {
+            "text": "REIT Analysis",
+            "href": "Real_Estate/Deep_Dives/REIT_Analysis.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
+      },
+      {
+        "text": "Tools",
+        "type": "category",
+        "children": [
+          {
+            "text": "Mortgage Calculator",
+            "href": "Real_Estate/tools/mortgage_calculator.html",
+            "type": "html"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Private Equity",
+    "type": "category",
+    "children": [
+      {
+        "text": "README",
+        "href": "Private_Equity/README.md",
+        "type": "markdown_viewer",
+        "viewer": "global"
+      },
+      {
+        "text": "Index",
+        "href": "Private_Equity/index.html",
+        "type": "html_hub"
+      },
+      {
+        "text": "Deep Dives",
+        "type": "category",
+        "children": [
+          {
+            "text": "LBO Mechanics",
+            "href": "Private_Equity/Deep_Dives/LBO_Mechanics.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "PE Fund Structure",
+            "href": "Private_Equity/Deep_Dives/PE_Fund_Structure.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
       }
     ]
   },
@@ -1875,6 +1996,17 @@ const navData = [
             "href": "Interactive_Notebooks/Simulations/Credit_Committee_Simulation_Guide.md",
             "type": "markdown_viewer",
             "viewer": "global"
+            },
+              {
+                "text": "Restructuring Simulation Guide",
+                "href": "Interactive_Notebooks/Restructuring/README.md",
+                "type": "markdown_viewer",
+                "viewer": "global"
+              },
+              {
+                "text": "Restructuring Negotiation Sim",
+                "href": "Interactive_Notebooks/Restructuring/Restructuring_Negotiation_Sim.ipynb",
+                "type": "jupyter_guide"
           }
         ]
       },
@@ -2190,6 +2322,17 @@ const navData = [
           {
             "text": "Var Calculation Notebook",
             "href": "Interactive_Notebooks/Risk_Management/VaR_Calculation_Notebook.ipynb",
+            "type": "jupyter_guide"
+          },
+          {
+            "text": "Credit Default Prediction Guide",
+            "href": "Interactive_Notebooks/Risk_Management/Credit_Default_Prediction_Guide.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "Credit Default Prediction Notebook",
+            "href": "Interactive_Notebooks/Risk_Management/Credit_Default_Prediction.ipynb",
             "type": "jupyter_guide"
           }
         ]
@@ -2547,6 +2690,18 @@ const navData = [
             "href": "Risk_Management/Market_Risk/MRM_01_Introduction_to_Market_Risk.md",
             "type": "markdown_viewer",
             "viewer": "global"
+          },
+          {
+            "text": "Deep Dives",
+            "type": "category",
+            "children": [
+              {
+                "text": "Advanced Derivatives",
+                "href": "Risk_Management/Market_Risk/Deep_Dives/Advanced_Derivatives.md",
+                "type": "markdown_viewer",
+                "viewer": "global"
+              }
+            ]
           }
         ]
       },
@@ -2626,6 +2781,45 @@ const navData = [
     ]
   },
   {
+    "text": "Quantitative Finance",
+    "type": "category",
+    "children": [
+      {
+        "text": "Index",
+        "href": "Quantitative_Finance/index.html",
+        "type": "html_hub"
+      },
+      {
+        "text": "Deep Dives",
+        "type": "category",
+        "children": [
+          {
+            "text": "Options Greeks",
+            "href": "Quantitative_Finance/Deep_Dives/Options_Greeks.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
+      },
+      {
+        "text": "Tools",
+        "type": "category",
+        "children": [
+          {
+            "text": "Option Pricer",
+            "href": "tools/option_pricer.html",
+            "type": "html"
+          },
+          {
+            "text": "VaR Calculator",
+            "href": "tools/var_calculator.html",
+            "type": "html"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "text": "Sustainable Finance",
     "type": "category",
     "children": [
@@ -2649,6 +2843,28 @@ const navData = [
             "href": "Sustainable_Finance/Case_Studies/Greenwashing_Risk_Assessment.md",
             "type": "markdown_viewer",
             "viewer": "global"
+          }
+        ]
+      },
+      {
+        "text": "Tools",
+        "type": "category",
+        "children": [
+          {
+            "text": "ESG Scorecard",
+            "href": "Sustainable_Finance/tools/esg_scorecard.html",
+            "type": "html"
+          }
+        ]
+      },
+      {
+        "text": "Tools",
+        "type": "category",
+        "children": [
+          {
+            "text": "Wealth Planner",
+            "href": "Wealth_Management/tools/wealth_planner.html",
+            "type": "html"
           }
         ]
       },
@@ -2770,6 +2986,16 @@ const navData = [
       {
         "text": "Financial Ratios Guide",
         "href": "Toolkits_and_Checklists/financial_ratios_guide.html",
+        "type": "html"
+      },
+      {
+        "text": "WACC Calculator",
+        "href": "tools/wacc_calculator.html",
+        "type": "html"
+      },
+      {
+        "text": "ESG Credit Scorecard",
+        "href": "tools/esg_scorecard.html",
         "type": "html"
       }
     ]

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortgage Calculator - Real Estate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global_nav.css">
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <div class="max-w-6xl mx-auto px-4 py-8 lg:pl-72">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-slate-800">Mortgage Calculator</h1>
+            <p class="text-slate-600 mt-2">Analyze monthly payments and amortization schedules.</p>
+        </header>
+
+        <div class="grid lg:grid-cols-3 gap-6">
+
+            <!-- Inputs -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-6">
+                <h2 class="font-bold text-lg mb-4 border-b pb-2 text-amber-700">Loan Details</h2>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Loan Amount ($)</label>
+                    <input type="number" id="loan-amount" value="500000" class="w-full border border-slate-300 rounded p-2 text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Interest Rate (%)</label>
+                    <input type="number" id="interest-rate" value="6.5" step="0.125" class="w-full border border-slate-300 rounded p-2 text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Loan Term (Years)</label>
+                    <input type="number" id="loan-term" value="30" class="w-full border border-slate-300 rounded p-2 text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                </div>
+
+                <button onclick="calculateMortgage()" class="w-full bg-amber-600 text-white font-bold py-3 rounded-lg hover:bg-amber-700 transition-colors shadow-md">
+                    Calculate Payments
+                </button>
+            </div>
+
+            <!-- Results -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 lg:col-span-2 flex flex-col">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-amber-50 p-6 rounded-lg border border-amber-100 text-center">
+                        <div class="text-xs font-bold text-amber-800 uppercase mb-2">Monthly Payment</div>
+                        <div class="text-4xl font-black text-amber-700" id="monthly-payment">$0.00</div>
+                        <div class="text-xs text-amber-600 mt-2">(Principal & Interest)</div>
+                    </div>
+                    <div class="space-y-2 text-sm text-slate-600">
+                        <div class="flex justify-between border-b pb-2">
+                            <span>Total Interest Paid</span>
+                            <span class="font-mono font-bold text-slate-800" id="total-interest">$0.00</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-2">
+                            <span>Total Cost of Loan</span>
+                            <span class="font-mono font-bold text-slate-800" id="total-cost">$0.00</span>
+                        </div>
+                         <div class="flex justify-between pt-2">
+                            <span>Payoff Date</span>
+                            <span class="font-mono font-bold text-slate-800" id="payoff-date">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart -->
+                <div class="h-64 relative flex-grow">
+                    <canvas id="amortizationChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Amortization Table (Collapsed by default) -->
+        <div class="mt-8 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+            <details>
+                <summary class="font-bold text-lg text-slate-700 cursor-pointer hover:text-amber-600">View Amortization Schedule</summary>
+                <div class="mt-4 overflow-x-auto max-h-96">
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-slate-100 text-slate-500 font-bold sticky top-0">
+                            <tr>
+                                <th class="p-3">Month</th>
+                                <th class="p-3 text-right">Payment</th>
+                                <th class="p-3 text-right">Principal</th>
+                                <th class="p-3 text-right">Interest</th>
+                                <th class="p-3 text-right">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="schedule-body" class="divide-y divide-slate-100 font-mono text-slate-700">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+        </div>
+
+    </div>
+
+    <div id="global-nav-placeholder"></div>
+    <script src="../../js/nav_data.js"></script>
+    <script src="../../js/global_nav.js"></script>
+
+    <script>
+        let chart = null;
+
+        function calculateMortgage() {
+            const P = parseFloat(document.getElementById('loan-amount').value);
+            const r = parseFloat(document.getElementById('interest-rate').value) / 100 / 12; // Monthly rate
+            const n = parseFloat(document.getElementById('loan-term').value) * 12; // Months
+
+            if (P <= 0 || r <= 0 || n <= 0) return;
+
+            // Monthly Payment Formula: M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1 ]
+            const M = P * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+
+            document.getElementById('monthly-payment').innerText = '$' + M.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+            // Amortization Schedule
+            let balance = P;
+            let totalInterest = 0;
+            const scheduleBody = document.getElementById('schedule-body');
+            scheduleBody.innerHTML = '';
+
+            const balances = [];
+            const principalPaid = [];
+            const interestPaid = [];
+            const labels = [];
+
+            // Generate Payoff Date
+            const today = new Date();
+            today.setMonth(today.getMonth() + n);
+            const options = { year: 'numeric', month: 'long' };
+            document.getElementById('payoff-date').innerText = today.toLocaleDateString(undefined, options);
+
+            for (let i = 1; i <= n; i++) {
+                const interest = balance * r;
+                const principal = M - interest;
+                balance -= principal;
+                totalInterest += interest;
+
+                // Add to chart data (every 12 months for cleanliness)
+                if (i % 12 === 0 || i === 1 || i === n) {
+                    labels.push('Year ' + (i / 12).toFixed(0));
+                    balances.push(balance > 0 ? balance : 0);
+                }
+
+                // Add to table (limit to first 60 rows for perf unless needed, but details handles collapse)
+                // Let's optimize: only add rows to table if requested?
+                // Just add all, browser can handle 360 rows.
+                const row = `<tr>
+                    <td class="p-3">${i}</td>
+                    <td class="p-3 text-right">$${M.toFixed(2)}</td>
+                    <td class="p-3 text-right text-emerald-600">$${principal.toFixed(2)}</td>
+                    <td class="p-3 text-right text-amber-600">$${interest.toFixed(2)}</td>
+                    <td class="p-3 text-right">$${Math.max(0, balance).toFixed(2)}</td>
+                </tr>`;
+                scheduleBody.insertAdjacentHTML('beforeend', row);
+            }
+
+            document.getElementById('total-interest').innerText = '$' + totalInterest.toLocaleString(undefined, {maximumFractionDigits: 0});
+            document.getElementById('total-cost').innerText = '$' + (P + totalInterest).toLocaleString(undefined, {maximumFractionDigits: 0});
+
+            updateChart(labels, balances);
+
+            // Gamification Hook
+            if(window.Gamification) window.Gamification.checkPageVisit('tools');
+        }
+
+        function updateChart(labels, balances) {
+            const ctx = document.getElementById('amortizationChart').getContext('2d');
+
+            if (chart) chart.destroy();
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Loan Balance',
+                        data: balances,
+                        borderColor: '#d97706',
+                        backgroundColor: 'rgba(251, 191, 36, 0.2)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { mode: 'index', intersect: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, ticks: { callback: function(value) { return '$' + value/1000 + 'k'; } } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        // Init
+        calculateMortgage();
+    </script>
+</body>
+</html>
