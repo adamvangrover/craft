@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WACC Calculator | Analyst's Toolkit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
+
+    <div class="max-w-4xl mx-auto w-full p-6 mt-10">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-2xl font-bold text-slate-800 flex items-center gap-3">
+                <div class="w-10 h-10 bg-indigo-600 text-white rounded-lg flex items-center justify-center shadow-lg"><i class="fas fa-percent"></i></div>
+                WACC Calculator
+            </h1>
+            <a href="../practice_center.html" class="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">
+                &larr; Back to Workbench
+            </a>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+            <!-- Inputs -->
+            <div class="bg-white p-8 rounded-xl border border-slate-200 shadow-sm space-y-6">
+                <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Inputs</h2>
+
+                <!-- Cost of Equity -->
+                <div class="space-y-3">
+                    <h3 class="font-semibold text-slate-700 text-sm">Cost of Equity (Ke)</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs text-slate-500 mb-1">Risk-Free Rate (%)</label>
+                            <input type="number" id="rf" class="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" value="4.0">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-500 mb-1">Beta</label>
+                            <input type="number" id="beta" class="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" value="1.2">
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-xs text-slate-500 mb-1">Market Risk Premium (%)</label>
+                            <input type="number" id="mrp" class="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" value="5.5">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cost of Debt -->
+                <div class="space-y-3">
+                    <h3 class="font-semibold text-slate-700 text-sm">Cost of Debt (Kd)</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs text-slate-500 mb-1">Pre-Tax Cost of Debt (%)</label>
+                            <input type="number" id="kd" class="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" value="6.5">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-500 mb-1">Tax Rate (%)</label>
+                            <input type="number" id="tax" class="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" value="21.0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Capital Structure -->
+                <div class="space-y-3">
+                    <h3 class="font-semibold text-slate-700 text-sm">Capital Structure Weights</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs text-slate-500 mb-1">Equity Weight (%)</label>
+                            <input type="number" id="we" class="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" value="60">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-500 mb-1">Debt Weight (%)</label>
+                            <input type="number" id="wd" class="w-full border-slate-300 rounded px-3 py-2 text-sm bg-slate-50 text-slate-400 cursor-not-allowed" value="40" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="calculate-btn" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition-colors shadow-md">Calculate WACC</button>
+            </div>
+
+            <!-- Results -->
+            <div class="space-y-6">
+                <!-- Main Result -->
+                <div class="bg-slate-900 text-white p-8 rounded-xl shadow-xl flex flex-col items-center justify-center text-center h-48">
+                    <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Weighted Average Cost of Capital</div>
+                    <div id="result-wacc" class="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-300">---%</div>
+                </div>
+
+                <!-- Breakdown -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+                        <div class="text-xs text-slate-500 uppercase font-bold mb-1">Cost of Equity (Ke)</div>
+                        <div id="result-ke" class="text-xl font-bold text-indigo-600">---%</div>
+                        <p class="text-[10px] text-slate-400 mt-1">CAPM Model</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+                        <div class="text-xs text-slate-500 uppercase font-bold mb-1">After-Tax Cost of Debt</div>
+                        <div id="result-kd-net" class="text-xl font-bold text-emerald-600">---%</div>
+                        <p class="text-[10px] text-slate-400 mt-1">Kd * (1 - t)</p>
+                    </div>
+                </div>
+
+                <!-- Explanation -->
+                <div class="bg-blue-50 border border-blue-100 p-4 rounded-xl text-sm text-blue-800 leading-relaxed">
+                    <strong>Buy-Side Note:</strong> Use market values for Debt and Equity weights, not book values. The calculated WACC represents the hurdle rate for new investments. If ROIC > WACC, the company is creating value.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const inputs = ['rf', 'beta', 'mrp', 'kd', 'tax', 'we'];
+
+        // Auto-update debt weight
+        document.getElementById('we').addEventListener('input', (e) => {
+            let val = parseFloat(e.target.value);
+            if (val > 100) val = 100;
+            if (val < 0) val = 0;
+            document.getElementById('wd').value = (100 - val).toFixed(1);
+        });
+
+        document.getElementById('calculate-btn').addEventListener('click', () => {
+            const vals = {};
+            inputs.forEach(id => vals[id] = parseFloat(document.getElementById(id).value));
+
+            // CAPM: Ke = Rf + Beta * MRP
+            const ke = vals.rf + (vals.beta * vals.mrp);
+
+            // After-tax Kd
+            const kdNet = vals.kd * (1 - (vals.tax / 100));
+
+            // WACC
+            const wacc = (ke * (vals.we / 100)) + (kdNet * ((100 - vals.we) / 100));
+
+            // Render
+            document.getElementById('result-wacc').textContent = wacc.toFixed(2) + '%';
+            document.getElementById('result-ke').textContent = ke.toFixed(2) + '%';
+            document.getElementById('result-kd-net').textContent = kdNet.toFixed(2) + '%';
+        });
+    </script>
+</body>
+</html>

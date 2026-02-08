@@ -1875,6 +1875,17 @@ const navData = [
             "href": "Interactive_Notebooks/Simulations/Credit_Committee_Simulation_Guide.md",
             "type": "markdown_viewer",
             "viewer": "global"
+              },
+              {
+                "text": "Restructuring Simulation",
+                "href": "Interactive_Notebooks/Restructuring/README.md",
+                "type": "markdown_viewer",
+                "viewer": "global"
+              },
+              {
+                "text": "Restructuring Notebook",
+                "href": "Interactive_Notebooks/Restructuring/Restructuring_Negotiation_Simulation.ipynb",
+                "type": "jupyter_guide"
           }
         ]
       },
@@ -2190,6 +2201,17 @@ const navData = [
           {
             "text": "Var Calculation Notebook",
             "href": "Interactive_Notebooks/Risk_Management/VaR_Calculation_Notebook.ipynb",
+            "type": "jupyter_guide"
+          },
+          {
+            "text": "Credit Default Prediction Guide",
+            "href": "Interactive_Notebooks/Risk_Management/Credit_Default_Prediction_Guide.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "Credit Default Prediction Notebook",
+            "href": "Interactive_Notebooks/Risk_Management/Credit_Default_Prediction.ipynb",
             "type": "jupyter_guide"
           }
         ]
@@ -2547,6 +2569,18 @@ const navData = [
             "href": "Risk_Management/Market_Risk/MRM_01_Introduction_to_Market_Risk.md",
             "type": "markdown_viewer",
             "viewer": "global"
+          },
+          {
+            "text": "Deep Dives",
+            "type": "category",
+            "children": [
+              {
+                "text": "Advanced Derivatives",
+                "href": "Risk_Management/Market_Risk/Deep_Dives/Advanced_Derivatives.md",
+                "type": "markdown_viewer",
+                "viewer": "global"
+              }
+            ]
           }
         ]
       },
@@ -2770,6 +2804,16 @@ const navData = [
       {
         "text": "Financial Ratios Guide",
         "href": "Toolkits_and_Checklists/financial_ratios_guide.html",
+        "type": "html"
+      },
+      {
+        "text": "WACC Calculator",
+        "href": "tools/wacc_calculator.html",
+        "type": "html"
+      },
+      {
+        "text": "ESG Credit Scorecard",
+        "href": "tools/esg_scorecard.html",
         "type": "html"
       }
     ]
