@@ -1,23 +1,30 @@
-# ESG Score Analysis and Financial Performance
+> **Buy-Side Perspective:** In the age of "Greenwashing," glossy PDF sustainability reports are useless. The real alpha lies in unstructured data. By analyzing the sentiment and semantic density of earnings call transcripts, analysts can detect when management is pivoting *away* from ESG commitments before it hits the capex guidance. This notebook demonstrates how to build a basic NLP detector for such signals.
+
+# ESG Sentiment Analysis & Greenwashing Detection
 
 ## Overview
-This interactive notebook explores the relationship between Environmental, Social, and Governance (ESG) scores and key financial performance metrics for a sample of S&P 500 companies.
 
-## Learning Objectives
-- **Data Ingestion:** Load ESG data and financial metrics from CSV files.
-- **Exploratory Data Analysis (EDA):** Visualize the distribution of ESG scores across different sectors.
-- **Correlation Analysis:** Investigate if companies with higher ESG scores exhibit better financial performance (e.g., higher ROE, lower volatility).
-- **Visualization:** Create scatter plots and heatmaps to communicate findings.
+This notebook provides a Python framework for scraping, processing, and analyzing financial texts for ESG signals.
+
+**Learning Objectives:**
+1.  **Text Preprocessing:** Cleaning financial text (removing stopwords, lemmatization).
+2.  **Keyword Density:** Measuring the frequency of "E", "S", and "G" terms.
+3.  **Sentiment Analysis:** Using `TextBlob` or `VADER` to determine if the context around ESG terms is positive (committal) or vague (evasive).
+4.  **Greenwashing Flag:** Identifying high frequency of buzzwords with low specificity or neutral sentiment.
 
 ## Key Sections
-1.  **Loading Data:** Importing `esg_data.csv` and `financials.csv`.
-2.  **Sector Analysis:** Box plots of ESG scores by GICS Sector.
-3.  **Financial Correlation:** Calculating the correlation coefficient between 'Total ESG Score' and 'Return on Equity (ROE)'.
-4.  **Risk Analysis:** Analyzing the relationship between 'Governance Score' and 'Beta' (stock volatility).
 
-## How to Use
-1.  Download the [ESG_Score_Analysis.ipynb](./ESG_Score_Analysis.ipynb) file.
-2.  Ensure you have `pandas`, `matplotlib`, and `seaborn` installed.
-3.  Run the cells sequentially to reproduce the analysis.
+### 1. The Dictionary
+We define specific lexicons for Environmental, Social, and Governance topics to filter the noise.
+*   *Environment:* "Carbon", "Scope 3", "Net Zero", "Renewable", "Biodiversity".
+*   *Social:* "Diversity", "Labor", "Safety", "Community", "Human Rights".
+*   *Governance:* "Board", "Executive Pay", "Audit", "Compliance", "Shareholder".
 
-> **Buy-Side Perspective:** ESG is no longer just a "nice to have." For credit investors, Governance (G) is a proxy for management quality and risk controls. Environmental (E) factors are critical for assessing transition risk in energy and utility sectors. This notebook helps quantify those "soft" factors.
+### 2. The Analysis Logic
+We compare "General Sentiment" (entire call) vs. "ESG Sentiment" (sentences containing keywords).
+*   **Hypothesis:** If a company is greenwashing, they might have high *frequency* of ESG terms but widely divergent *sentiment* or low *complexity* (simple, repetitive slogans).
+
+## Usage
+Download the `.ipynb` file linked below to run the code locally. You will need `pandas`, `matplotlib`, and `nltk`.
+
+[Download Notebook](./ESG_Sentiment_Analysis.ipynb)
