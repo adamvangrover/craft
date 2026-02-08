@@ -494,6 +494,52 @@ const navData = [
     ]
   },
   {
+    "text": "Venture Capital",
+    "type": "category",
+    "children": [
+      {
+        "text": "README",
+        "href": "Venture_Capital/README.md",
+        "type": "markdown_viewer",
+        "viewer": "global"
+      },
+      {
+        "text": "Index",
+        "href": "Venture_Capital/index.html",
+        "type": "html_hub"
+      },
+      {
+        "text": "Deep Dives",
+        "type": "category",
+        "children": [
+          {
+            "text": "Term Sheet Negotiation",
+            "href": "Venture_Capital/Deep_Dives/Term_Sheet_Negotiation.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "Startup Valuation Methods",
+            "href": "Venture_Capital/Deep_Dives/Startup_Valuation_Methods.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
+      },
+      {
+        "text": "Tools",
+        "type": "category",
+        "children": [
+          {
+            "text": "Cap Table Builder",
+            "href": "Venture_Capital/tools/cap_table.html",
+            "type": "html"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "text": "Behavioral Finance",
     "type": "category",
     "children": [
@@ -536,6 +582,46 @@ const navData = [
         "href": "Behavioral_Finance/Key_Concepts.md",
         "type": "markdown_viewer",
         "viewer": "global"
+      }
+    ]
+  },
+  {
+    "text": "Real Estate",
+    "type": "category",
+    "children": [
+      {
+        "text": "README",
+        "href": "Real_Estate/README.md",
+        "type": "markdown_viewer",
+        "viewer": "global"
+      },
+      {
+        "text": "Index",
+        "href": "Real_Estate/index.html",
+        "type": "html_hub"
+      },
+      {
+        "text": "Deep Dives",
+        "type": "category",
+        "children": [
+          {
+            "text": "REIT Analysis",
+            "href": "Real_Estate/Deep_Dives/REIT_Analysis.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
+      },
+      {
+        "text": "Tools",
+        "type": "category",
+        "children": [
+          {
+            "text": "Mortgage Calculator",
+            "href": "Real_Estate/tools/mortgage_calculator.html",
+            "type": "html"
+          }
+        ]
       }
     ]
   },

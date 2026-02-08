@@ -3,7 +3,7 @@
 
 const GAMIFICATION_KEY = 'craft_user_progress';
 
-// Defined Levels with specific titles (from UI/UX branch)
+// Defined Levels with specific titles
 const LEVELS = [
     { level: 1, xp: 0, title: "Analyst I" },
     { level: 2, xp: 100, title: "Analyst II" },
@@ -12,7 +12,7 @@ const LEVELS = [
     { level: 5, xp: 1000, title: "Managing Director" }
 ];
 
-// Merged Badge Definitions
+// Unified Badge Definitions (Merged from all sources)
 const BADGES = {
     'first_step': { title: 'First Step', icon: 'fa-shoe-prints', desc: 'Started your journey.' },
     'scholar': { title: 'Scholar', icon: 'fa-book-reader', desc: 'Read 5 Deep Dives.' },
@@ -22,6 +22,8 @@ const BADGES = {
     'esg_pioneer': { title: 'ESG Pioneer', icon: 'fa-leaf', desc: 'Explored Sustainable Finance.' },
     'wealth_architect': { title: 'Wealth Architect', icon: 'fa-city', desc: 'Explored Wealth Management.' },
     'risk_manager': { title: 'Risk Manager', icon: 'fa-shield-alt', desc: 'Explored Risk Management.' },
+    'vc_associate': { title: 'VC Associate', icon: 'fa-rocket', desc: 'Explored Venture Capital.' },
+    'property_tycoon': { title: 'Property Tycoon', icon: 'fa-building', desc: 'Explored Real Estate.' },
     'level_5': { title: 'High Flyer', icon: 'fa-crown', desc: 'Reached Level 5.' }
 };
 
@@ -124,10 +126,13 @@ class GamificationManager {
 
         // Determine category based on path
         let category = null;
+        
         if (path.includes('Quantitative_Finance') || path.includes('Data_Science')) category = 'quantitative_finance';
         else if (path.includes('Risk_Management')) category = 'risk_management';
         else if (path.includes('Sustainable_Finance') || path.includes('ESG')) category = 'sustainable_finance';
         else if (path.includes('Wealth_Management')) category = 'wealth_management';
+        else if (path.includes('Venture_Capital') || path.includes('Private_Equity')) category = 'venture_capital';
+        else if (path.includes('Real_Estate')) category = 'real_estate';
         else if (path.includes('tools/')) category = 'tools';
 
         if (category) {
@@ -145,6 +150,8 @@ class GamificationManager {
         if (category === 'risk_management' && !this.hasBadge('risk_manager')) this.unlockBadge('risk_manager');
         if (category === 'sustainable_finance' && !this.hasBadge('esg_pioneer')) this.unlockBadge('esg_pioneer');
         if (category === 'wealth_management' && !this.hasBadge('wealth_architect')) this.unlockBadge('wealth_architect');
+        if (category === 'venture_capital' && !this.hasBadge('vc_associate')) this.unlockBadge('vc_associate');
+        if (category === 'real_estate' && !this.hasBadge('property_tycoon')) this.unlockBadge('property_tycoon');
         
         // Toolmaster Logic
         if (category === 'tools' && this.state.visits['tools'] >= 3 && !this.hasBadge('toolmaster')) {
