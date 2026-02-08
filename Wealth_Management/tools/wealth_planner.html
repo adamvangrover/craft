@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wealth Planner | Wealth Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="flex items-center justify-between mb-8">
+            <div>
+                <a href="../index.html" class="text-indigo-600 font-bold text-sm mb-2 block">&larr; Back to Hub</a>
+                <h1 class="text-3xl font-bold text-slate-900">Retirement Projection Tool</h1>
+                <p class="text-slate-500">Simulate wealth accumulation and drawdown scenarios.</p>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Inputs -->
+            <div class="lg:col-span-1 space-y-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h2 class="font-bold text-lg text-slate-800 mb-4">Client Profile</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Current Age</label>
+                            <input type="number" id="current-age" class="w-full border border-slate-300 rounded px-3 py-2" value="35">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Retirement Age</label>
+                            <input type="number" id="retire-age" class="w-full border border-slate-300 rounded px-3 py-2" value="65">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Current Portfolio ($)</label>
+                            <input type="number" id="current-savings" class="w-full border border-slate-300 rounded px-3 py-2" value="100000">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Annual Savings ($)</label>
+                            <input type="number" id="annual-savings" class="w-full border border-slate-300 rounded px-3 py-2" value="20000">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h2 class="font-bold text-lg text-slate-800 mb-4">Assumptions</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Pre-Retirement Return (%)</label>
+                            <input type="number" id="pre-ret-return" class="w-full border border-slate-300 rounded px-3 py-2" value="7.0" step="0.1">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Post-Retirement Return (%)</label>
+                            <input type="number" id="post-ret-return" class="w-full border border-slate-300 rounded px-3 py-2" value="4.0" step="0.1">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Annual Spending Goal ($)</label>
+                            <input type="number" id="annual-spend" class="w-full border border-slate-300 rounded px-3 py-2" value="80000">
+                        </div>
+                    </div>
+                    <button id="calc-btn" class="w-full mt-6 bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition shadow-md">Run Simulation</button>
+                </div>
+            </div>
+
+            <!-- Visualization -->
+            <div class="lg:col-span-2 flex flex-col gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex-grow">
+                    <h2 class="font-bold text-lg text-slate-800 mb-4">Wealth Trajectory</h2>
+                    <div class="relative h-80 w-full">
+                        <canvas id="wealthChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-slate-900 text-white p-6 rounded-xl shadow-md">
+                        <div class="text-slate-400 text-xs uppercase tracking-widest mb-1">Peak Wealth</div>
+                        <div id="res-peak" class="text-3xl font-bold text-emerald-400">$0</div>
+                        <div class="text-slate-500 text-xs mt-2">At Retirement Age</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <div class="text-slate-500 text-xs uppercase tracking-widest mb-1">Plan Status</div>
+                        <div id="res-status" class="text-3xl font-bold text-slate-800">---</div>
+                        <div id="res-msg" class="text-slate-500 text-xs mt-2 italic">Run simulation to see results.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let chartInstance = null;
+
+        function formatCurrency(num) {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
+        }
+
+        function runSimulation() {
+            const currentAge = parseInt(document.getElementById('current-age').value);
+            const retireAge = parseInt(document.getElementById('retire-age').value);
+            let portfolio = parseFloat(document.getElementById('current-savings').value);
+            const savings = parseFloat(document.getElementById('annual-savings').value);
+            const preRate = parseFloat(document.getElementById('pre-ret-return').value) / 100;
+            const postRate = parseFloat(document.getElementById('post-ret-return').value) / 100;
+            const spend = parseFloat(document.getElementById('annual-spend').value);
+
+            const labels = [];
+            const dataPoints = [];
+            const endAge = 95;
+            let peakWealth = 0;
+            let success = true;
+            let failAge = 0;
+
+            for (let age = currentAge; age <= endAge; age++) {
+                labels.push(age);
+                dataPoints.push(portfolio);
+
+                if (age < retireAge) {
+                    // Accumulation Phase
+                    portfolio = portfolio * (1 + preRate) + savings;
+                } else {
+                    // Decumulation Phase
+                    if (age === retireAge) peakWealth = portfolio;
+                    portfolio = portfolio * (1 + postRate) - spend;
+                }
+
+                if (portfolio < 0) {
+                    portfolio = 0;
+                    if(success) {
+                        success = false;
+                        failAge = age;
+                    }
+                }
+            }
+
+            // Update UI
+            document.getElementById('res-peak').textContent = formatCurrency(peakWealth);
+            const statusEl = document.getElementById('res-status');
+            const msgEl = document.getElementById('res-msg');
+
+            if (success) {
+                statusEl.textContent = "Funded";
+                statusEl.className = "text-3xl font-bold text-emerald-600";
+                msgEl.textContent = `Portfolio sustains spending until age ${endAge}.`;
+            } else {
+                statusEl.textContent = "Shortfall";
+                statusEl.className = "text-3xl font-bold text-red-600";
+                msgEl.textContent = `Portfolio depleted by age ${failAge}. Consider saving more or spending less.`;
+            }
+
+            // Render Chart
+            const ctx = document.getElementById('wealthChart').getContext('2d');
+
+            if (chartInstance) chartInstance.destroy();
+
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Portfolio Value',
+                        data: dataPoints,
+                        borderColor: '#4f46e5',
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return formatCurrency(context.parsed.y);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: {
+                                callback: function(value) { return '$' + value / 1000 + 'k'; }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        document.getElementById('calc-btn').addEventListener('click', runSimulation);
+
+        // Initial run
+        runSimulation();
+
+        // Gamification Hook
+        if(window.parent && window.parent.Gamification) {
+             // window.parent.Gamification.addXP(10, "Ran Wealth Projection");
+        }
+    </script>
+</body>
+</html>

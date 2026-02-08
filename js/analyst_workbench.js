@@ -42,6 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
         loadChecklists();
         initMemoBuilder();
         initCalculators();
+        initESGToolkit();
+        initCovenantChecker();
+        initLBOModeler();
+        initMergerModel();
     } else {
         console.error("workbenchData not loaded");
     }
@@ -86,6 +90,94 @@ function loadNotebooks() {
             `;
             grid.appendChild(card);
         });
+    });
+}
+
+// --- ESG Toolkit ---
+function initESGToolkit() {
+    const inputs = ['esg-base-rating', 'esg-input-e', 'esg-input-s', 'esg-input-g'];
+    const container = document.getElementById('wb-esg');
+    if (!container) return;
+
+    function update() {
+        const base = parseInt(document.getElementById('esg-base-rating').value);
+        const e = parseFloat(document.getElementById('esg-input-e').value);
+        const s = parseFloat(document.getElementById('esg-input-s').value);
+        const g = parseFloat(document.getElementById('esg-input-g').value);
+
+        document.getElementById('esg-val-e').textContent = e;
+        document.getElementById('esg-val-s').textContent = s;
+        document.getElementById('esg-val-g').textContent = g;
+
+        // Simplified weighting
+        const weightedScore = (e * 0.4) + (s * 0.3) + (g * 0.3);
+
+        let notches = 0;
+        let desc = "Neutral Impact";
+        let color = "text-white";
+
+        if (weightedScore <= 2.0) {
+            notches = -1;
+            desc = "Positive Upgrade (+1)";
+            color = "text-emerald-400";
+        } else if (weightedScore >= 4.0) {
+            notches = 2;
+            desc = "Negative Downgrade (-2)";
+            color = "text-red-400";
+        } else if (weightedScore >= 3.5) {
+            notches = 1;
+            desc = "Negative Downgrade (-1)";
+            color = "text-orange-400";
+        }
+
+        const resEl = document.getElementById('esg-result-notch');
+        resEl.textContent = notches === 0 ? "0" : (notches < 0 ? `+${Math.abs(notches)}` : `-${notches}`);
+        resEl.className = `text-5xl font-black mb-4 ${color}`;
+        document.getElementById('esg-result-desc').textContent = desc;
+    }
+
+    inputs.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.addEventListener('input', update);
+    });
+}
+
+// --- Covenant Checker ---
+function initCovenantChecker() {
+    const btn = document.getElementById('cov-check-btn');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+        const ebitda = parseFloat(document.getElementById('cov-ebitda').value) || 0;
+        const debt = parseFloat(document.getElementById('cov-debt').value) || 0;
+        const interest = parseFloat(document.getElementById('cov-interest').value) || 0;
+        const maxLev = parseFloat(document.getElementById('cov-max-lev').value) || 0;
+        const minIcr = parseFloat(document.getElementById('cov-min-icr').value) || 0;
+
+        // Calc
+        const lev = ebitda > 0 ? (debt / ebitda).toFixed(2) : "N/A";
+        const icr = interest > 0 ? (ebitda / interest).toFixed(2) : "N/A";
+
+        // Display Lev
+        const levEl = document.getElementById('cov-res-lev');
+        if (lev !== "N/A") {
+            const isBreach = parseFloat(lev) > maxLev;
+            levEl.querySelector('.text-2xl').textContent = `${lev}x`;
+            levEl.className = `p-4 rounded-lg border ${isBreach ? 'bg-red-50 border-red-200' : 'bg-emerald-50 border-emerald-200'}`;
+            levEl.querySelector('.text-2xl').className = `text-2xl font-bold ${isBreach ? 'text-red-600' : 'text-emerald-600'}`;
+        }
+
+        // Display ICR
+        const icrEl = document.getElementById('cov-res-icr');
+        if (icr !== "N/A") {
+            const isBreach = parseFloat(icr) < minIcr;
+            icrEl.querySelector('.text-2xl').textContent = `${icr}x`;
+            icrEl.className = `p-4 rounded-lg border ${isBreach ? 'bg-red-50 border-red-200' : 'bg-emerald-50 border-emerald-200'}`;
+            icrEl.querySelector('.text-2xl').className = `text-2xl font-bold ${isBreach ? 'text-red-600' : 'text-emerald-600'}`;
+        }
+
+        // Gamification Hook
+        if(window.Gamification) window.Gamification.addXP(15, "Ran Covenant Check");
     });
 }
 
@@ -705,6 +797,100 @@ ${r}
             a.click();
         });
     }
+}
+
+// --- LBO Modeler ---
+function initLBOModeler() {
+    const btn = document.getElementById('lbo-calc-btn');
+    if(!btn) return;
+
+    btn.addEventListener('click', () => {
+        const ebitda = parseFloat(document.getElementById('lbo-ebitda').value) || 0;
+        const entryMult = parseFloat(document.getElementById('lbo-entry-mult').value) || 0;
+        const debtPct = (parseFloat(document.getElementById('lbo-debt-pct').value) || 0) / 100;
+        const exitMult = parseFloat(document.getElementById('lbo-exit-mult').value) || 0;
+
+        if(ebitda === 0 || entryMult === 0) return;
+
+        // Simplified 5-year LBO
+        const purchasePrice = ebitda * entryMult;
+        const initialDebt = purchasePrice * debtPct;
+        const initialEquity = purchasePrice * (1 - debtPct);
+
+        // Assume 50% debt paydown over 5 years (very simplified)
+        const endingDebt = initialDebt * 0.5;
+
+        // Assume Exit EBITDA grows by 20% over 5 years
+        const exitEbitda = ebitda * 1.2;
+        const exitEnterpriseValue = exitEbitda * exitMult;
+
+        const exitEquity = exitEnterpriseValue - endingDebt;
+
+        const moic = exitEquity / initialEquity;
+        // IRR = (MOIC)^(1/5) - 1
+        const irr = (Math.pow(moic, 1/5) - 1) * 100;
+
+        document.getElementById('lbo-irr').textContent = irr.toFixed(1) + '%';
+        document.getElementById('lbo-moic').textContent = moic.toFixed(2) + 'x';
+
+        // Gamification Hook
+        if(window.Gamification) window.Gamification.addXP(25, "Built LBO Model");
+    });
+}
+
+// --- Merger Model ---
+function initMergerModel() {
+    const btn = document.getElementById('ma-calc-btn');
+    if(!btn) return;
+
+    btn.addEventListener('click', () => {
+        const acqPE = parseFloat(document.getElementById('ma-acq-pe').value) || 0;
+        const targetPE = parseFloat(document.getElementById('ma-target-pe').value) || 0;
+        const premium = (parseFloat(document.getElementById('ma-premium').value) || 0) / 100;
+        const synergies = parseFloat(document.getElementById('ma-synergies').value) || 0;
+        const cashPct = (parseFloat(document.getElementById('ma-cash-pct').value) || 0) / 100;
+        const stockPct = (parseFloat(document.getElementById('ma-stock-pct').value) || 0) / 100;
+
+        // Heuristic: Cost of Stock = 1/PE
+        // Cost of Cash = Interest Rate * (1-Tax Rate) -> simplified to 3% after tax
+        const costOfCash = 0.03;
+        const costOfStock = 1 / acqPE;
+
+        const purchasePE = targetPE * (1 + premium);
+        const costOfAcquisition = (cashPct * costOfCash) + (stockPct * costOfStock);
+        const yieldOfTarget = 1 / purchasePE; // E/P yield
+
+        // If Yield of Target > Cost of Acquisition -> Accretive
+        let isAccretive = yieldOfTarget > costOfAcquisition;
+
+        // Synergies boost accretion
+        // Very simplified check
+
+        const resultEl = document.getElementById('ma-result');
+        const descEl = document.getElementById('ma-desc');
+
+        if (isAccretive) {
+            resultEl.textContent = "Accretive";
+            resultEl.className = "text-3xl font-bold text-emerald-600";
+            descEl.textContent = "Deal likely increases EPS.";
+        } else {
+            // Check if synergies flip it
+             // (Synergies / Deal Value) roughly adds to yield
+             const approxSynergyYield = 0.02; // Dummy add
+             if (yieldOfTarget + approxSynergyYield > costOfAcquisition) {
+                  resultEl.textContent = "Neutral/Accretive w/ Synergies";
+                  resultEl.className = "text-3xl font-bold text-yellow-600";
+                  descEl.textContent = "Relies on synergies to work.";
+             } else {
+                 resultEl.textContent = "Dilutive";
+                 resultEl.className = "text-3xl font-bold text-red-600";
+                 descEl.textContent = "Deal likely decreases EPS.";
+             }
+        }
+
+         // Gamification Hook
+        if(window.Gamification) window.Gamification.addXP(25, "Ran Merger Model");
+    });
 }
 
 // --- Calculators ---

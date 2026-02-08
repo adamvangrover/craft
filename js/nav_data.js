@@ -540,6 +540,41 @@ const navData = [
     ]
   },
   {
+    "text": "Private Equity",
+    "type": "category",
+    "children": [
+      {
+        "text": "README",
+        "href": "Private_Equity/README.md",
+        "type": "markdown_viewer",
+        "viewer": "global"
+      },
+      {
+        "text": "Index",
+        "href": "Private_Equity/index.html",
+        "type": "html_hub"
+      },
+      {
+        "text": "Deep Dives",
+        "type": "category",
+        "children": [
+          {
+            "text": "LBO Mechanics",
+            "href": "Private_Equity/Deep_Dives/LBO_Mechanics.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "PE Fund Structure",
+            "href": "Private_Equity/Deep_Dives/PE_Fund_Structure.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "text": "Cfa",
     "type": "category",
     "children": [
@@ -1875,16 +1910,16 @@ const navData = [
             "href": "Interactive_Notebooks/Simulations/Credit_Committee_Simulation_Guide.md",
             "type": "markdown_viewer",
             "viewer": "global"
-              },
+            },
               {
-                "text": "Restructuring Simulation",
+                "text": "Restructuring Simulation Guide",
                 "href": "Interactive_Notebooks/Restructuring/README.md",
                 "type": "markdown_viewer",
                 "viewer": "global"
               },
               {
-                "text": "Restructuring Notebook",
-                "href": "Interactive_Notebooks/Restructuring/Restructuring_Negotiation_Simulation.ipynb",
+                "text": "Restructuring Negotiation Sim",
+                "href": "Interactive_Notebooks/Restructuring/Restructuring_Negotiation_Sim.ipynb",
                 "type": "jupyter_guide"
           }
         ]
@@ -2660,6 +2695,45 @@ const navData = [
     ]
   },
   {
+    "text": "Quantitative Finance",
+    "type": "category",
+    "children": [
+      {
+        "text": "Index",
+        "href": "Quantitative_Finance/index.html",
+        "type": "html_hub"
+      },
+      {
+        "text": "Deep Dives",
+        "type": "category",
+        "children": [
+          {
+            "text": "Options Greeks",
+            "href": "Quantitative_Finance/Deep_Dives/Options_Greeks.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          }
+        ]
+      },
+      {
+        "text": "Tools",
+        "type": "category",
+        "children": [
+          {
+            "text": "Option Pricer",
+            "href": "tools/option_pricer.html",
+            "type": "html"
+          },
+          {
+            "text": "VaR Calculator",
+            "href": "tools/var_calculator.html",
+            "type": "html"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "text": "Sustainable Finance",
     "type": "category",
     "children": [
@@ -2683,6 +2757,28 @@ const navData = [
             "href": "Sustainable_Finance/Case_Studies/Greenwashing_Risk_Assessment.md",
             "type": "markdown_viewer",
             "viewer": "global"
+          }
+        ]
+      },
+      {
+        "text": "Tools",
+        "type": "category",
+        "children": [
+          {
+            "text": "ESG Scorecard",
+            "href": "Sustainable_Finance/tools/esg_scorecard.html",
+            "type": "html"
+          }
+        ]
+      },
+      {
+        "text": "Tools",
+        "type": "category",
+        "children": [
+          {
+            "text": "Wealth Planner",
+            "href": "Wealth_Management/tools/wealth_planner.html",
+            "type": "html"
           }
         ]
       },

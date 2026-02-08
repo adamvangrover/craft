@@ -83,6 +83,12 @@
                     <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-toolkit">
                         <i class="fas fa-tools w-5 text-center"></i> Analyst Toolkit
                     </button>
+                    <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-esg">
+                        <i class="fas fa-leaf w-5 text-center"></i> ESG Toolkit
+                    </button>
+                    <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-covchecker">
+                        <i class="fas fa-balance-scale w-5 text-center"></i> Covenant Checker
+                    </button>
                     <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-dealscreener">
                         <i class="fas fa-filter w-5 text-center"></i> Deal Screener
                     </button>
@@ -153,6 +159,91 @@
                             <div class="w-10 h-10 mx-auto bg-pink-50 text-pink-600 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform"><i class="fas fa-network-wired"></i></div>
                             <span class="font-bold text-slate-700 text-sm">AI Showcase</span>
                         </button>
+                    </div>
+                </div>
+
+                <!-- Section: ESG Toolkit -->
+                <div id="wb-esg" class="wb-section hidden max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">ESG Adjusted Credit Scorecard</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-6">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Baseline Rating</label>
+                                <select id="esg-base-rating" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                                    <option value="9">BBB</option>
+                                    <option value="12">BB</option>
+                                    <option value="15">B</option>
+                                    <!-- Simplified options -->
+                                </select>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="flex justify-between text-sm font-bold text-emerald-700"><span>Environmental</span> <span id="esg-val-e">3</span></label>
+                                    <input type="range" id="esg-input-e" min="1" max="5" step="0.5" value="3" class="w-full accent-emerald-600">
+                                </div>
+                                <div>
+                                    <label class="flex justify-between text-sm font-bold text-blue-700"><span>Social</span> <span id="esg-val-s">3</span></label>
+                                    <input type="range" id="esg-input-s" min="1" max="5" step="0.5" value="3" class="w-full accent-blue-600">
+                                </div>
+                                <div>
+                                    <label class="flex justify-between text-sm font-bold text-purple-700"><span>Governance</span> <span id="esg-val-g">3</span></label>
+                                    <input type="range" id="esg-input-g" min="1" max="5" step="0.5" value="3" class="w-full accent-purple-600">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-slate-900 text-white p-8 rounded-xl shadow-lg flex flex-col justify-center items-center text-center">
+                            <div class="text-slate-400 text-sm uppercase tracking-widest mb-2">Adjusted Notch Impact</div>
+                            <div id="esg-result-notch" class="text-5xl font-black mb-4 text-white">0</div>
+                            <div id="esg-result-desc" class="text-sm text-slate-400">Neutral Impact</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Covenant Checker -->
+                <div id="wb-covchecker" class="wb-section hidden max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">Covenant Compliance Checker</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                            <h3 class="font-bold text-slate-700 border-b pb-2 mb-4">Financials & Thresholds</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">LTM EBITDA</label>
+                                    <input type="number" id="cov-ebitda" class="w-full border-slate-300 rounded px-2 py-1" placeholder="$M">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Total Debt</label>
+                                    <input type="number" id="cov-debt" class="w-full border-slate-300 rounded px-2 py-1" placeholder="$M">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Interest Exp</label>
+                                    <input type="number" id="cov-interest" class="w-full border-slate-300 rounded px-2 py-1" placeholder="$M">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Capex</label>
+                                    <input type="number" id="cov-capex" class="w-full border-slate-300 rounded px-2 py-1" placeholder="$M">
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-slate-100">
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Max Leverage (x)</label>
+                                <input type="number" id="cov-max-lev" class="w-full border-slate-300 rounded px-2 py-1" value="4.5">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Min Interest Coverage (x)</label>
+                                <input type="number" id="cov-min-icr" class="w-full border-slate-300 rounded px-2 py-1" value="3.0">
+                            </div>
+                            <button id="cov-check-btn" class="w-full bg-indigo-600 text-white font-bold py-2 rounded hover:bg-indigo-700 mt-4">Check Compliance</button>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div id="cov-res-lev" class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                                <div class="text-xs text-slate-500 uppercase">Leverage Ratio</div>
+                                <div class="text-2xl font-bold text-slate-300">---</div>
+                            </div>
+                            <div id="cov-res-icr" class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                                <div class="text-xs text-slate-500 uppercase">Interest Coverage</div>
+                                <div class="text-2xl font-bold text-slate-300">---</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -456,6 +547,85 @@
                             <button id="generate-checklist-btn" class="bg-teal-600 text-white font-bold py-2 px-6 rounded hover:bg-teal-700">Generate</button>
                         </div>
                         <textarea id="checklist-output" class="w-full h-64 mt-4 border-slate-300 rounded-md bg-slate-50 font-mono text-sm p-4 border" readonly></textarea>
+                    </div>
+
+                    <!-- Quick LBO Modeler (New) -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+                        <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-money-bill-wave text-green-600"></i> Quick LBO Modeler</h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Entry EBITDA ($M)</label>
+                                    <input type="number" id="lbo-ebitda" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 100">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Entry Multiple (x)</label>
+                                    <input type="number" id="lbo-entry-mult" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 10">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Debt Financing (%)</label>
+                                    <input type="number" id="lbo-debt-pct" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 60">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Exit Multiple (x)</label>
+                                    <input type="number" id="lbo-exit-mult" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 10">
+                                </div>
+                                <button id="lbo-calc-btn" class="w-full bg-green-600 text-white font-bold py-2 rounded hover:bg-green-700">Calculate Returns</button>
+                            </div>
+                            <div class="bg-slate-50 rounded-lg p-6 border border-slate-200 flex flex-col justify-center gap-6">
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 uppercase mb-1">IRR</div>
+                                    <div id="lbo-irr" class="text-4xl font-bold text-slate-900">-%</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 uppercase mb-1">MOIC</div>
+                                    <div id="lbo-moic" class="text-4xl font-bold text-slate-900">-x</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- M&A Merger Model (New) -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+                        <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-handshake text-purple-600"></i> M&A Accretion/Dilution</h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Acquirer P/E</label>
+                                        <input type="number" id="ma-acq-pe" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 15">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Target P/E</label>
+                                        <input type="number" id="ma-target-pe" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 10">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Premium Paid (%)</label>
+                                    <input type="number" id="ma-premium" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 20">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Synergies ($M)</label>
+                                    <input type="number" id="ma-synergies" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 50">
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">% Cash</label>
+                                        <input type="number" id="ma-cash-pct" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 50">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">% Stock</label>
+                                        <input type="number" id="ma-stock-pct" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 50">
+                                    </div>
+                                </div>
+                                <button id="ma-calc-btn" class="w-full bg-purple-600 text-white font-bold py-2 rounded hover:bg-purple-700">Analyze Deal</button>
+                            </div>
+                            <div class="bg-slate-50 rounded-lg p-6 border border-slate-200 flex flex-col justify-center items-center text-center">
+                                <div class="text-xs text-slate-500 uppercase mb-2">EPS Impact</div>
+                                <div id="ma-result" class="text-3xl font-bold text-slate-900">---</div>
+                                <p id="ma-desc" class="text-xs text-slate-400 mt-2 italic">Calculates whether the deal increases or decreases Acquirer's EPS.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
