@@ -72,6 +72,9 @@
                     <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-simulations">
                         <i class="fas fa-laptop-code w-5 text-center"></i> Simulation Lab
                     </button>
+                    <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-coding">
+                        <i class="fas fa-terminal w-5 text-center"></i> Coding Lab
+                    </button>
                     <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-quizzes">
                         <i class="fas fa-graduation-cap w-5 text-center"></i> Knowledge Base
                     </button>
@@ -83,6 +86,11 @@
                     <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-toolkit">
                         <i class="fas fa-tools w-5 text-center"></i> Analyst Toolkit
                     </button>
+                    <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-valuation">
+                        <i class="fas fa-chart-line w-5 text-center"></i> Valuation Console
+                    </button>
+                     <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-legal">
+                        <i class="fas fa-balance-scale w-5 text-center"></i> Legal Library
                     <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-esg">
                         <i class="fas fa-leaf w-5 text-center"></i> ESG Toolkit
                     </button>
@@ -134,6 +142,36 @@
                             <div class="text-slate-500 text-sm font-medium mb-1">Tools Accessed</div>
                             <div class="text-3xl font-bold text-blue-600">8</div>
                             <p class="text-xs text-slate-400 mt-2">Most used: Ratio Calculator</p>
+                        </div>
+                    </div>
+
+                    <!-- Active Projects & Alerts -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <h3 class="font-bold text-slate-700 mb-4">Active Projects</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-slate-600">Project Alpha (LBO)</span>
+                                    <span class="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded text-xs">In Progress</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-slate-600">TechFlow Credit Memo</span>
+                                    <span class="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded text-xs">Review</span>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <h3 class="font-bold text-slate-700 mb-4">Recent Alerts</h3>
+                             <div class="space-y-3">
+                                <div class="flex items-center gap-2 text-sm text-slate-600">
+                                    <i class="fas fa-exclamation-circle text-red-500"></i>
+                                    <span>TechFlow covenant breach risk (Lev > 4x)</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-slate-600">
+                                    <i class="fas fa-info-circle text-blue-500"></i>
+                                    <span>New "Legal Analysis" module available</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -305,7 +343,14 @@
 
                 <!-- Section: Credit Scorer -->
                 <div id="wb-creditscorer" class="wb-section hidden max-w-4xl mx-auto">
-                    <h2 class="text-2xl font-bold text-slate-900 mb-6">Credit Rating Scorer</h2>
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-bold text-slate-900">Credit Rating Console</h2>
+                        <div class="flex bg-white rounded-lg border border-slate-200 p-1">
+                            <button class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded text-xs font-bold">Standard Model</button>
+                            <button class="px-3 py-1 text-slate-500 hover:bg-slate-50 rounded text-xs font-medium" title="Coming Soon">S&P Adjusted</button>
+                            <button class="px-3 py-1 text-slate-500 hover:bg-slate-50 rounded text-xs font-medium" title="Coming Soon">Moody's Adjusted</button>
+                        </div>
+                    </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div class="md:col-span-2 space-y-6">
                             <!-- Financial Risk -->
@@ -324,7 +369,10 @@
                                 </div>
                             </div>
 
-                            <button id="cs-calc-btn" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 shadow-md">Calculate Rating</button>
+                            <div class="flex gap-4">
+                                <button id="cs-reset-btn" class="w-1/3 bg-white border border-slate-300 text-slate-600 font-bold py-3 rounded-lg hover:bg-slate-50">Reset</button>
+                                <button id="cs-calc-btn" class="flex-grow bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 shadow-md">Calculate Rating</button>
+                            </div>
                         </div>
 
                         <!-- Result Card -->
@@ -394,9 +442,14 @@
                             <input type="text" id="glossary-search" placeholder="Search for terms (e.g. EBITDA, Covenant, WACC)..." class="w-full border-2 border-slate-200 rounded-xl px-6 py-4 text-lg focus:border-indigo-500 outline-none shadow-sm pl-12">
                             <i class="fas fa-search absolute left-4 top-5 text-slate-400"></i>
                         </div>
-                        <button id="fc-toggle-btn" class="flex-shrink-0 bg-indigo-100 text-indigo-700 font-bold px-4 py-3 rounded-xl hover:bg-indigo-200 transition-colors">
-                            <i class="fas fa-layer-group mr-2"></i> Flashcards
-                        </button>
+                        <div class="flex gap-2">
+                             <button id="glossary-tutorial-btn" class="flex-shrink-0 bg-slate-100 text-slate-600 font-bold px-4 py-3 rounded-xl hover:bg-slate-200 transition-colors" title="How to use">
+                                <i class="fas fa-question-circle"></i>
+                            </button>
+                            <button id="fc-toggle-btn" class="flex-shrink-0 bg-indigo-100 text-indigo-700 font-bold px-4 py-3 rounded-xl hover:bg-indigo-200 transition-colors">
+                                <i class="fas fa-layer-group mr-2"></i> Flashcards
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Flashcard UI (Hidden by default) -->
@@ -456,84 +509,8 @@
                         </div>
                     </div>
 
-                    <!-- DCF Calculator (New) -->
-                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-                        <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-chart-line text-teal-600"></i> Simplified DCF Valuator</h3>
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Year 1 FCF ($)</label>
-                                    <input type="number" id="dcf-fcf" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 100">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Growth Rate (%)</label>
-                                    <input type="number" id="dcf-growth" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 5">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">WACC (%)</label>
-                                    <input type="number" id="dcf-wacc" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 10">
-                                </div>
-                                <button id="dcf-calc-btn" class="w-full bg-teal-600 text-white font-bold py-2 rounded hover:bg-teal-700">Estimate Value</button>
-                            </div>
-                            <div class="bg-slate-50 rounded-lg p-6 border border-slate-200 flex flex-col justify-center items-center text-center">
-                                <div class="text-xs text-slate-500 uppercase mb-2">Estimated Enterprise Value</div>
-                                <div id="dcf-result" class="text-4xl font-bold text-slate-900">$0.00</div>
-                                <p class="text-xs text-slate-400 mt-2 italic">Based on 5-year projection + Terminal Value (Gordon Growth)</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Debt Maturity Visualizer (New) -->
-                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-                        <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-chart-bar text-orange-600"></i> Debt Maturity Profiler</h3>
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div>
-                                <div id="maturity-inputs" class="space-y-2 mb-4">
-                                    <div class="flex gap-2">
-                                        <input type="number" class="mat-year w-1/3 border-slate-300 rounded px-2 py-1 text-sm border" placeholder="Year (e.g. 2025)">
-                                        <input type="number" class="mat-amount w-1/3 border-slate-300 rounded px-2 py-1 text-sm border" placeholder="Amount ($M)">
-                                        <button class="mat-add-btn text-indigo-600 hover:bg-indigo-50 px-2 rounded"><i class="fas fa-plus"></i></button>
-                                    </div>
-                                </div>
-                                <button id="mat-visualize-btn" class="bg-orange-600 text-white font-bold py-2 px-4 rounded hover:bg-orange-700 text-sm">Visualize Profile</button>
-                            </div>
-                            <div class="h-48 border-l border-b border-slate-200 relative flex items-end gap-4 px-4 pb-0" id="maturity-chart">
-                                <!-- Bars -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Covenant Builder -->
-                    <div id="covenant-builder" class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-                        <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-gavel text-indigo-600"></i> Covenant Clause Builder</h3>
-                        <div class="flex flex-col gap-4">
-                            <select id="cov-clause-select" class="w-full border-slate-300 rounded-md px-3 py-2 border">
-                                <option value="">Select a standard clause...</option>
-                                <!-- Populated by JS -->
-                            </select>
-                            <button id="cov-add-btn" class="bg-indigo-100 text-indigo-700 font-bold py-2 px-4 rounded hover:bg-indigo-200 self-start">Add to Draft</button>
-                            <textarea id="cov-output" class="w-full h-48 border-slate-300 rounded-md bg-slate-50 font-mono text-sm p-4 border" placeholder="Clause text will appear here..."></textarea>
-                        </div>
-                    </div>
-
-                    <!-- EV Bridge (New) -->
-                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-                        <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-bridge text-blue-600"></i> Equity to Enterprise Value Bridge</h3>
-                        <div class="grid md:grid-cols-2 gap-8">
-                             <div class="space-y-3">
-                                <input type="number" id="ev-equity" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="Equity Value (Market Cap)">
-                                <input type="number" id="ev-debt" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="Total Debt">
-                                <input type="number" id="ev-pref" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="Preferred Stock">
-                                <input type="number" id="ev-minority" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="Minority Interest">
-                                <input type="number" id="ev-cash" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="Cash & Equivalents">
-                                <button id="ev-calc-btn" class="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700">Calculate EV</button>
-                            </div>
-                             <div class="bg-slate-50 rounded-lg p-6 border border-slate-200 flex flex-col justify-center items-center text-center">
-                                <div class="text-xs text-slate-500 uppercase mb-2">Enterprise Value</div>
-                                <div id="ev-result" class="text-4xl font-bold text-slate-900">$0.00</div>
-                                <p class="text-xs text-slate-400 mt-2 italic">EV = Equity + Debt + Pref + Minority - Cash</p>
-                            </div>
-                        </div>
+                    <div class="bg-blue-50 p-4 rounded-lg text-blue-800 text-sm">
+                        <i class="fas fa-info-circle mr-2"></i> Specialized tools like DCF, EV Bridge, and Legal Builders have been moved to their own dedicated consoles.
                     </div>
 
                     <!-- Checklist Generator -->
@@ -636,9 +613,20 @@
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <!-- Prompts -->
                         <div class="lg:col-span-2">
-                            <div class="flex justify-between items-center mb-4">
+                             <div class="flex justify-between items-center mb-4">
                                 <h3 class="font-bold text-slate-700">Prompt Library</h3>
-                                <input type="text" id="prompt-search" placeholder="Filter prompts..." class="text-sm border border-slate-300 rounded px-2 py-1">
+                                <div class="flex gap-2">
+                                     <select id="prompt-sort" class="text-sm border border-slate-300 rounded px-2 py-1">
+                                        <option value="default">Default</option>
+                                        <option value="az">A-Z</option>
+                                        <option value="za">Z-A</option>
+                                    </select>
+                                     <select id="prompt-filter-category" class="text-sm border border-slate-300 rounded px-2 py-1">
+                                        <option value="all">All Categories</option>
+                                        <!-- JS will populate -->
+                                    </select>
+                                    <input type="text" id="prompt-search" placeholder="Filter prompts..." class="text-sm border border-slate-300 rounded px-2 py-1 w-48">
+                                </div>
                             </div>
                             <div id="prompt-list" class="space-y-4">
                                 <!-- Populated by JS -->
@@ -688,6 +676,158 @@
                     </div>
 
                     <textarea id="cm-editor" class="flex-grow w-full border border-slate-200 rounded-xl p-8 font-mono text-sm bg-white shadow-inner resize-none focus:ring-2 focus:ring-indigo-500 outline-none leading-relaxed" placeholder="Generated memo will appear here..."></textarea>
+                </div>
+
+                <!-- Section: Coding Lab -->
+                <div id="wb-coding" class="wb-section hidden max-w-6xl mx-auto flex flex-col h-full">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">Coding Lab (Python/JS)</h2>
+                    <div class="flex-grow grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
+                         <!-- Notebooks / Snippets List -->
+                        <div class="bg-white rounded-xl border border-slate-200 flex flex-col overflow-hidden">
+                            <div class="bg-slate-50 p-4 border-b border-slate-200 font-bold text-slate-700">Snippets & Notebooks</div>
+                            <div class="p-4 overflow-y-auto flex-grow space-y-2" id="coding-library">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                        <!-- Editor -->
+                        <div class="lg:col-span-2 flex flex-col gap-4">
+                            <div class="bg-slate-900 rounded-xl flex-grow flex flex-col overflow-hidden shadow-lg">
+                                <div class="bg-slate-800 p-2 flex justify-between items-center px-4 border-b border-slate-700">
+                                    <div class="flex items-center gap-2">
+                                        <select id="code-lang-select" class="bg-slate-700 text-slate-200 text-xs rounded border-none py-1 px-2 focus:ring-0">
+                                            <option value="python">Python</option>
+                                            <option value="javascript">JavaScript</option>
+                                        </select>
+                                        <span class="text-slate-500 text-xs">main</span>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <button id="clear-code-btn" class="text-slate-400 hover:text-white text-xs font-bold px-2"><i class="fas fa-eraser"></i> Clear</button>
+                                        <button id="run-code-btn" class="bg-green-600 hover:bg-green-500 text-white text-xs font-bold px-3 py-1 rounded"><i class="fas fa-play mr-1"></i> RUN</button>
+                                    </div>
+                                </div>
+                                <textarea id="code-editor" class="flex-grow bg-slate-900 text-slate-200 font-mono p-4 text-sm outline-none resize-none" spellcheck="false"># Calculate WACC
+cost_of_equity = 0.12
+cost_of_debt = 0.05
+tax_rate = 0.21
+equity_weight = 0.60
+debt_weight = 0.40
+
+wacc = (equity_weight * cost_of_equity) + (debt_weight * cost_of_debt * (1 - tax_rate))
+print(f"WACC: {wacc:.2%}")</textarea>
+                            </div>
+                            <div class="bg-black rounded-xl h-32 p-4 font-mono text-xs text-green-500 overflow-y-auto border border-slate-700 relative" id="code-output">
+                                <div class="absolute top-2 right-2 text-slate-600 text-[10px]">OUTPUT</div>
+                                > Ready to execute...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Valuation Console -->
+                <div id="wb-valuation" class="wb-section hidden max-w-6xl mx-auto space-y-8">
+                    <h2 class="text-2xl font-bold text-slate-900">Valuation Console</h2>
+
+                    <!-- Waterfall Tool -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+                        <h3 class="text-lg font-bold text-slate-800 mb-6"><i class="fas fa-water text-blue-500"></i> Distribution Waterfall</h3>
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <div class="space-y-4">
+                                <input type="number" id="wf-ev" class="w-full border-slate-300 rounded px-3 py-2 border" placeholder="Exit Enterprise Value ($M)">
+                                <input type="number" id="wf-senior" class="w-full border-slate-300 rounded px-3 py-2 border" placeholder="Senior Debt Claim ($M)">
+                                <input type="number" id="wf-mezz" class="w-full border-slate-300 rounded px-3 py-2 border" placeholder="Mezzanine Debt Claim ($M)">
+                                <input type="number" id="wf-equity" class="w-full border-slate-300 rounded px-3 py-2 border" placeholder="Pref Equity Claim ($M)">
+                                <button id="wf-calc-btn" class="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700">Run Waterfall</button>
+                            </div>
+                            <div class="col-span-2 space-y-4" id="wf-results">
+                                <div class="text-slate-400 text-center italic mt-10">Enter values to see distribution...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Simplified DCF (Moved) -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+                        <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-chart-line text-teal-600"></i> Simplified DCF Valuator</h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Year 1 FCF ($)</label>
+                                    <input type="number" id="dcf-fcf" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 100">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Growth Rate (%)</label>
+                                    <input type="number" id="dcf-growth" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 5">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">WACC (%)</label>
+                                    <input type="number" id="dcf-wacc" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 10">
+                                </div>
+                                <button id="dcf-calc-btn" class="w-full bg-teal-600 text-white font-bold py-2 rounded hover:bg-teal-700">Estimate Value</button>
+                            </div>
+                            <div class="bg-slate-50 rounded-lg p-6 border border-slate-200 flex flex-col justify-center items-center text-center">
+                                <div class="text-xs text-slate-500 uppercase mb-2">Estimated Enterprise Value</div>
+                                <div id="dcf-result" class="text-4xl font-bold text-slate-900">$0.00</div>
+                                <button id="dcf-to-waterfall-btn" class="mt-3 text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded hover:bg-indigo-200 hidden"><i class="fas fa-arrow-right mr-1"></i> Send to Waterfall</button>
+                                <p class="text-xs text-slate-400 mt-2 italic">Based on 5-year projection + Terminal Value (Gordon Growth)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- EV Bridge (Moved) -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+                        <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="fas fa-bridge text-blue-600"></i> Equity to Enterprise Value Bridge</h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                             <div class="space-y-3">
+                                <input type="number" id="ev-equity" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="Equity Value (Market Cap)">
+                                <input type="number" id="ev-debt" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="Total Debt">
+                                <input type="number" id="ev-pref" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="Preferred Stock">
+                                <input type="number" id="ev-minority" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="Minority Interest">
+                                <input type="number" id="ev-cash" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="Cash & Equivalents">
+                                <button id="ev-calc-btn" class="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700">Calculate EV</button>
+                            </div>
+                             <div class="bg-slate-50 rounded-lg p-6 border border-slate-200 flex flex-col justify-center items-center text-center">
+                                <div class="text-xs text-slate-500 uppercase mb-2">Enterprise Value</div>
+                                <div id="ev-result" class="text-4xl font-bold text-slate-900">$0.00</div>
+                                <button id="ev-to-waterfall-btn" class="mt-3 text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded hover:bg-indigo-200 hidden"><i class="fas fa-arrow-right mr-1"></i> Send to Waterfall</button>
+                                <p class="text-xs text-slate-400 mt-2 italic">EV = Equity + Debt + Pref + Minority - Cash</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Legal Library -->
+                <div id="wb-legal" class="wb-section hidden max-w-6xl mx-auto flex flex-col h-full">
+                     <h2 class="text-2xl font-bold text-slate-900 mb-6">Legal Library & Covenant Builder</h2>
+                     <div class="flex-grow flex gap-6 overflow-hidden">
+                        <!-- Controls -->
+                        <div class="w-1/3 bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col gap-4 overflow-y-auto">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Agreement Type / Category</label>
+                                <select id="legal-cat-select" class="w-full border-slate-300 rounded px-3 py-2 border">
+                                    <option value="">Select Category...</option>
+                                    <!-- Populated by JS -->
+                                </select>
+                            </div>
+                             <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Clause</label>
+                                <select id="legal-clause-select" class="w-full border-slate-300 rounded px-3 py-2 border" disabled>
+                                    <option value="">Select Clause...</option>
+                                    <!-- Populated by JS -->
+                                </select>
+                            </div>
+                            <div id="legal-clause-desc" class="text-sm text-slate-600 italic bg-slate-50 p-3 rounded">
+                                Select a clause to view details.
+                            </div>
+                            <button id="legal-add-btn" class="w-full bg-indigo-600 text-white font-bold py-2 rounded hover:bg-indigo-700 mt-auto">Insert into Document</button>
+                        </div>
+
+                        <!-- Editor/Viewer -->
+                        <div class="w-2/3 flex flex-col gap-4">
+                             <div class="bg-white rounded-xl border border-slate-200 shadow-sm flex-grow flex flex-col overflow-hidden">
+                                <div class="bg-slate-100 px-4 py-2 border-b border-slate-200 font-bold text-slate-600 text-sm">Working Document</div>
+                                <textarea id="legal-editor" class="flex-grow p-6 outline-none font-mono text-sm resize-none" placeholder="Build your term sheet or agreement here..."></textarea>
+                             </div>
+                        </div>
+                     </div>
                 </div>
 
              </main>
