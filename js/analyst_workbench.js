@@ -44,6 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
         initCalculators();
         initESGToolkit();
         initCovenantChecker();
+        initLBOModeler();
+        initMergerModel();
     } else {
         console.error("workbenchData not loaded");
     }
@@ -795,6 +797,100 @@ ${r}
             a.click();
         });
     }
+}
+
+// --- LBO Modeler ---
+function initLBOModeler() {
+    const btn = document.getElementById('lbo-calc-btn');
+    if(!btn) return;
+
+    btn.addEventListener('click', () => {
+        const ebitda = parseFloat(document.getElementById('lbo-ebitda').value) || 0;
+        const entryMult = parseFloat(document.getElementById('lbo-entry-mult').value) || 0;
+        const debtPct = (parseFloat(document.getElementById('lbo-debt-pct').value) || 0) / 100;
+        const exitMult = parseFloat(document.getElementById('lbo-exit-mult').value) || 0;
+
+        if(ebitda === 0 || entryMult === 0) return;
+
+        // Simplified 5-year LBO
+        const purchasePrice = ebitda * entryMult;
+        const initialDebt = purchasePrice * debtPct;
+        const initialEquity = purchasePrice * (1 - debtPct);
+
+        // Assume 50% debt paydown over 5 years (very simplified)
+        const endingDebt = initialDebt * 0.5;
+
+        // Assume Exit EBITDA grows by 20% over 5 years
+        const exitEbitda = ebitda * 1.2;
+        const exitEnterpriseValue = exitEbitda * exitMult;
+
+        const exitEquity = exitEnterpriseValue - endingDebt;
+
+        const moic = exitEquity / initialEquity;
+        // IRR = (MOIC)^(1/5) - 1
+        const irr = (Math.pow(moic, 1/5) - 1) * 100;
+
+        document.getElementById('lbo-irr').textContent = irr.toFixed(1) + '%';
+        document.getElementById('lbo-moic').textContent = moic.toFixed(2) + 'x';
+
+        // Gamification Hook
+        if(window.Gamification) window.Gamification.addXP(25, "Built LBO Model");
+    });
+}
+
+// --- Merger Model ---
+function initMergerModel() {
+    const btn = document.getElementById('ma-calc-btn');
+    if(!btn) return;
+
+    btn.addEventListener('click', () => {
+        const acqPE = parseFloat(document.getElementById('ma-acq-pe').value) || 0;
+        const targetPE = parseFloat(document.getElementById('ma-target-pe').value) || 0;
+        const premium = (parseFloat(document.getElementById('ma-premium').value) || 0) / 100;
+        const synergies = parseFloat(document.getElementById('ma-synergies').value) || 0;
+        const cashPct = (parseFloat(document.getElementById('ma-cash-pct').value) || 0) / 100;
+        const stockPct = (parseFloat(document.getElementById('ma-stock-pct').value) || 0) / 100;
+
+        // Heuristic: Cost of Stock = 1/PE
+        // Cost of Cash = Interest Rate * (1-Tax Rate) -> simplified to 3% after tax
+        const costOfCash = 0.03;
+        const costOfStock = 1 / acqPE;
+
+        const purchasePE = targetPE * (1 + premium);
+        const costOfAcquisition = (cashPct * costOfCash) + (stockPct * costOfStock);
+        const yieldOfTarget = 1 / purchasePE; // E/P yield
+
+        // If Yield of Target > Cost of Acquisition -> Accretive
+        let isAccretive = yieldOfTarget > costOfAcquisition;
+
+        // Synergies boost accretion
+        // Very simplified check
+
+        const resultEl = document.getElementById('ma-result');
+        const descEl = document.getElementById('ma-desc');
+
+        if (isAccretive) {
+            resultEl.textContent = "Accretive";
+            resultEl.className = "text-3xl font-bold text-emerald-600";
+            descEl.textContent = "Deal likely increases EPS.";
+        } else {
+            // Check if synergies flip it
+             // (Synergies / Deal Value) roughly adds to yield
+             const approxSynergyYield = 0.02; // Dummy add
+             if (yieldOfTarget + approxSynergyYield > costOfAcquisition) {
+                  resultEl.textContent = "Neutral/Accretive w/ Synergies";
+                  resultEl.className = "text-3xl font-bold text-yellow-600";
+                  descEl.textContent = "Relies on synergies to work.";
+             } else {
+                 resultEl.textContent = "Dilutive";
+                 resultEl.className = "text-3xl font-bold text-red-600";
+                 descEl.textContent = "Deal likely decreases EPS.";
+             }
+        }
+
+         // Gamification Hook
+        if(window.Gamification) window.Gamification.addXP(25, "Ran Merger Model");
+    });
 }
 
 // --- Calculators ---
