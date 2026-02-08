@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cap Table Modeler - Venture Capital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global_nav.css">
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <div class="max-w-6xl mx-auto px-4 py-8 lg:pl-72">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-slate-800">Cap Table Modeler</h1>
+            <p class="text-slate-600 mt-2">Simulate dilution across Seed and Series A funding rounds.</p>
+        </header>
+
+        <div class="grid lg:grid-cols-3 gap-6">
+
+            <!-- Inputs -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-8">
+
+                <!-- Founders -->
+                <div>
+                    <h2 class="font-bold text-lg mb-4 text-indigo-700 border-b pb-2">Founding Stage</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Founder Shares</label>
+                            <input type="number" id="founder-shares" value="4000000" class="w-full border border-slate-300 rounded p-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Option Pool (Pre-Seed)</label>
+                            <input type="number" id="pool-shares" value="500000" class="w-full border border-slate-300 rounded p-2 text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seed Round -->
+                <div>
+                    <h2 class="font-bold text-lg mb-4 text-emerald-700 border-b pb-2">Seed Round</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Investment Amount ($)</label>
+                            <input type="number" id="seed-invest" value="2000000" class="w-full border border-slate-300 rounded p-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Pre-Money Valuation ($)</label>
+                            <input type="number" id="seed-pre" value="8000000" class="w-full border border-slate-300 rounded p-2 text-sm">
+                        </div>
+                        <div class="flex items-center gap-2">
+                             <input type="checkbox" id="seed-pool-increase" class="rounded text-indigo-600">
+                             <label class="text-sm text-slate-600">Increase Option Pool (10% Post-Money)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Series A -->
+                <div>
+                    <h2 class="font-bold text-lg mb-4 text-purple-700 border-b pb-2">Series A Round</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Investment Amount ($)</label>
+                            <input type="number" id="series-a-invest" value="10000000" class="w-full border border-slate-300 rounded p-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Pre-Money Valuation ($)</label>
+                            <input type="number" id="series-a-pre" value="30000000" class="w-full border border-slate-300 rounded p-2 text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="calculateCapTable()" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition-colors shadow-md">
+                    Update Cap Table
+                </button>
+            </div>
+
+            <!-- Results Table -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 lg:col-span-2 flex flex-col">
+                <h2 class="font-bold text-lg mb-4 text-slate-800">Ownership Summary</h2>
+
+                <div class="overflow-x-auto flex-grow">
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-slate-100 text-slate-600 font-bold uppercase text-xs">
+                            <tr>
+                                <th class="p-3">Shareholder</th>
+                                <th class="p-3 text-right">Shares</th>
+                                <th class="p-3 text-right">Ownership %</th>
+                                <th class="p-3 text-right">Value ($)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cap-table-body" class="divide-y divide-slate-100 text-slate-700">
+                            <!-- Populated via JS -->
+                        </tbody>
+                        <tfoot class="bg-slate-50 font-bold border-t-2 border-slate-200">
+                            <tr>
+                                <td class="p-3">Total (Fully Diluted)</td>
+                                <td class="p-3 text-right" id="total-shares">0</td>
+                                <td class="p-3 text-right">100%</td>
+                                <td class="p-3 text-right" id="total-val">$0</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="mt-8 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+                    <h3 class="font-bold text-indigo-800 mb-2">Deal Economics</h3>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <span class="block text-slate-500 text-xs uppercase">Seed PPS</span>
+                            <span class="font-mono font-bold text-slate-900" id="seed-pps">$0.00</span>
+                        </div>
+                        <div>
+                            <span class="block text-slate-500 text-xs uppercase">Series A PPS</span>
+                            <span class="font-mono font-bold text-slate-900" id="series-a-pps">$0.00</span>
+                        </div>
+                         <div>
+                            <span class="block text-slate-500 text-xs uppercase">Founder Dilution</span>
+                            <span class="font-mono font-bold text-red-600" id="founder-dilution">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="global-nav-placeholder"></div>
+    <script src="../../js/nav_data.js"></script>
+    <script src="../../js/global_nav.js"></script>
+
+    <script>
+        function calculateCapTable() {
+            // Inputs
+            let fShares = parseInt(document.getElementById('founder-shares').value) || 0;
+            let poolShares = parseInt(document.getElementById('pool-shares').value) || 0;
+
+            const seedInvest = parseInt(document.getElementById('seed-invest').value) || 0;
+            const seedPre = parseInt(document.getElementById('seed-pre').value) || 0;
+            const seedPoolInc = document.getElementById('seed-pool-increase').checked;
+
+            const serAInvest = parseInt(document.getElementById('series-a-invest').value) || 0;
+            const serAPre = parseInt(document.getElementById('series-a-pre').value) || 0;
+
+            // 1. Founding Stage
+            let currentTotalShares = fShares + poolShares;
+
+            // 2. Seed Round
+            // PPS = Pre-Money / Fully Diluted Shares (Pre)
+            // If Seed Pool Increase: We need to solve for Pool size such that Post-Money Pool is X%.
+            // Simplified: Just calculate normally first.
+
+            let seedPPS = seedPre / currentTotalShares;
+            let seedSharesIssued = Math.floor(seedInvest / seedPPS);
+
+            if(seedPoolInc) {
+                // Option Pool Shuffle: New Pool = 10% of Post-Money Shares
+                // This is iterative or algebraic. Let's do simple: Add shares to pool to reach target before pricing.
+                // Target Post Pool % = 10%.
+                // PostShares = Existing + NewPool + NewInvestors
+                // NewInvestors = Invest / PPS. PPS = Pre / (Existing + NewPool).
+                // This gets complex. Let's simplify: Just add 10% of existing shares to pool pre-money.
+                const addedPool = Math.floor(currentTotalShares * 0.1);
+                poolShares += addedPool;
+                currentTotalShares += addedPool;
+                // Recalculate PPS
+                seedPPS = seedPre / currentTotalShares;
+                seedSharesIssued = Math.floor(seedInvest / seedPPS);
+            }
+
+            let postSeedTotal = currentTotalShares + seedSharesIssued;
+
+            // 3. Series A
+            let serAPPS = serAPre / postSeedTotal;
+            let serASharesIssued = Math.floor(serAInvest / serAPPS);
+            let finalTotal = postSeedTotal + serASharesIssued;
+
+            // Values
+            const finalPPS = serAPPS; // Latest valuation price
+
+            const fVal = fShares * finalPPS;
+            const pVal = poolShares * finalPPS;
+            const sVal = seedSharesIssued * finalPPS;
+            const aVal = serASharesIssued * finalPPS;
+            const totalVal = finalTotal * finalPPS;
+
+            // Percentages
+            const fPct = (fShares / finalTotal * 100).toFixed(2);
+            const pPct = (poolShares / finalTotal * 100).toFixed(2);
+            const sPct = (seedSharesIssued / finalTotal * 100).toFixed(2);
+            const aPct = (serASharesIssued / finalTotal * 100).toFixed(2);
+
+            // Founder Dilution from 100% (of founder+pool base)
+            const initialFounderPct = (fShares / (fShares + (poolShares - (seedPoolInc ? Math.floor((fShares+poolShares)*0.1) : 0))) * 100);
+            // Approximation for display
+
+            document.getElementById('seed-pps').innerText = '$' + seedPPS.toFixed(2);
+            document.getElementById('series-a-pps').innerText = '$' + serAPPS.toFixed(2);
+
+            // Render Table
+            const tbody = document.getElementById('cap-table-body');
+            tbody.innerHTML = `
+                <tr>
+                    <td class="p-3 font-medium">Founders</td>
+                    <td class="p-3 text-right font-mono">${fShares.toLocaleString()}</td>
+                    <td class="p-3 text-right font-mono">${fPct}%</td>
+                    <td class="p-3 text-right font-mono">$${fVal.toLocaleString(undefined, {maximumFractionDigits:0})}</td>
+                </tr>
+                <tr>
+                    <td class="p-3 font-medium">Option Pool</td>
+                    <td class="p-3 text-right font-mono">${poolShares.toLocaleString()}</td>
+                    <td class="p-3 text-right font-mono">${pPct}%</td>
+                    <td class="p-3 text-right font-mono">$${pVal.toLocaleString(undefined, {maximumFractionDigits:0})}</td>
+                </tr>
+                <tr class="bg-emerald-50">
+                    <td class="p-3 font-medium text-emerald-800">Seed Investors</td>
+                    <td class="p-3 text-right font-mono text-emerald-800">${seedSharesIssued.toLocaleString()}</td>
+                    <td class="p-3 text-right font-mono text-emerald-800">${sPct}%</td>
+                    <td class="p-3 text-right font-mono text-emerald-800">$${sVal.toLocaleString(undefined, {maximumFractionDigits:0})}</td>
+                </tr>
+                <tr class="bg-purple-50">
+                    <td class="p-3 font-medium text-purple-800">Series A Investors</td>
+                    <td class="p-3 text-right font-mono text-purple-800">${serASharesIssued.toLocaleString()}</td>
+                    <td class="p-3 text-right font-mono text-purple-800">${aPct}%</td>
+                    <td class="p-3 text-right font-mono text-purple-800">$${aVal.toLocaleString(undefined, {maximumFractionDigits:0})}</td>
+                </tr>
+            `;
+
+            document.getElementById('total-shares').innerText = finalTotal.toLocaleString();
+            document.getElementById('total-val').innerText = '$' + totalVal.toLocaleString(undefined, {maximumFractionDigits:0});
+
+            // Calculate Dilution
+            // Founder started with ~88% (4m / 4.5m). Now has fPct.
+            // Just show current ownership vs start.
+            document.getElementById('founder-dilution').innerText = (100 - fPct).toFixed(1) + '% (Effective Dilution)';
+
+            // Gamification Hook
+            if(window.Gamification) window.Gamification.checkPageVisit('tools');
+        }
+
+        // Init
+        calculateCapTable();
+    </script>
+</body>
+</html>

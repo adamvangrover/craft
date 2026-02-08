@@ -12,6 +12,8 @@ class GamificationManager {
             'wealth_architect': { title: 'Wealth Architect', icon: 'fa-city', desc: 'Explored Wealth Management.' },
             'quant_initiate': { title: 'Quant Initiate', icon: 'fa-calculator', desc: 'Explored Quantitative Finance.' },
             'risk_manager': { title: 'Risk Manager', icon: 'fa-shield-alt', desc: 'Explored Risk Management.' },
+            'vc_associate': { title: 'VC Associate', icon: 'fa-rocket', desc: 'Explored Venture Capital.' },
+            'property_tycoon': { title: 'Property Tycoon', icon: 'fa-building', desc: 'Explored Real Estate.' },
             'level_5': { title: 'High Flyer', icon: 'fa-crown', desc: 'Reached Level 5.' }
         };
 
@@ -69,6 +71,12 @@ class GamificationManager {
         }
         if (category === 'wealth_management' && !this.hasBadge('wealth_architect')) {
             this.unlockBadge('wealth_architect');
+        }
+        if (category === 'venture_capital' && !this.hasBadge('vc_associate')) {
+            this.unlockBadge('vc_associate');
+        }
+        if (category === 'real_estate' && !this.hasBadge('property_tycoon')) {
+            this.unlockBadge('property_tycoon');
         }
 
         // Generic counters
