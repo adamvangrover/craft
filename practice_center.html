@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/global_nav.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -115,6 +116,11 @@
                     <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-ai">
                         <i class="fas fa-brain w-5 text-center"></i> AI Command Center
                     </button>
+
+                    <div class="pt-4 pb-2 px-4 text-xs font-bold text-slate-400 uppercase tracking-wider">System</div>
+                    <button class="wb-nav-item w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3 font-medium text-sm" data-target="wb-settings">
+                        <i class="fas fa-cog w-5 text-center"></i> Control Panel
+                    </button>
                 </div>
              </aside>
 
@@ -170,6 +176,40 @@
                                 <div class="flex items-center gap-2 text-sm text-slate-600">
                                     <i class="fas fa-info-circle text-blue-500"></i>
                                     <span>New "Legal Analysis" module available</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Activity Feed -->
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-slate-700 mb-4">Activity Feed</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center flex-shrink-0 mt-1">
+                                    <i class="fas fa-calculator text-xs"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-slate-800">Ran LBO Model <span class="text-slate-500 font-normal">for Project Alpha</span></p>
+                                    <p class="text-xs text-slate-400">2 hours ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-1">
+                                    <i class="fas fa-balance-scale text-xs"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-slate-800">Checked Covenants <span class="text-slate-500 font-normal">for TechFlow</span></p>
+                                    <p class="text-xs text-slate-400">5 hours ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0 mt-1">
+                                    <i class="fas fa-robot text-xs"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-slate-800">Used Prompt <span class="text-slate-500 font-normal">"Review Security Interest Perfection"</span></p>
+                                    <p class="text-xs text-slate-400">Yesterday</p>
                                 </div>
                             </div>
                         </div>
@@ -625,6 +665,10 @@
                                         <option value="all">All Categories</option>
                                         <!-- JS will populate -->
                                     </select>
+                                    <select id="prompt-tag-filter" class="text-sm border border-slate-300 rounded px-2 py-1">
+                                        <option value="all">All Tags</option>
+                                        <!-- JS will populate -->
+                                    </select>
                                     <input type="text" id="prompt-search" placeholder="Filter prompts..." class="text-sm border border-slate-300 rounded px-2 py-1 w-48">
                                 </div>
                             </div>
@@ -732,10 +776,26 @@ print(f"WACC: {wacc:.2%}")</textarea>
                         <h3 class="text-lg font-bold text-slate-800 mb-6"><i class="fas fa-water text-blue-500"></i> Distribution Waterfall</h3>
                         <div class="grid md:grid-cols-3 gap-8">
                             <div class="space-y-4">
-                                <input type="number" id="wf-ev" class="w-full border-slate-300 rounded px-3 py-2 border" placeholder="Exit Enterprise Value ($M)">
-                                <input type="number" id="wf-senior" class="w-full border-slate-300 rounded px-3 py-2 border" placeholder="Senior Debt Claim ($M)">
-                                <input type="number" id="wf-mezz" class="w-full border-slate-300 rounded px-3 py-2 border" placeholder="Mezzanine Debt Claim ($M)">
-                                <input type="number" id="wf-equity" class="w-full border-slate-300 rounded px-3 py-2 border" placeholder="Pref Equity Claim ($M)">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Exit Enterprise Value ($M)</label>
+                                    <input type="number" id="wf-ev" class="w-full border-slate-300 rounded px-3 py-2 border" placeholder="e.g. 500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Senior Debt Claim ($M)</label>
+                                    <input type="number" id="wf-senior" class="w-full border-slate-300 rounded px-3 py-2 border" placeholder="e.g. 200">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Mezzanine Debt Claim ($M)</label>
+                                    <input type="number" id="wf-mezz" class="w-full border-slate-300 rounded px-3 py-2 border" placeholder="e.g. 100">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Preferred Equity Claim ($M)</label>
+                                    <input type="number" id="wf-equity" class="w-full border-slate-300 rounded px-3 py-2 border" placeholder="e.g. 50">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Management Incentive Plan (%)</label>
+                                    <input type="number" id="wf-mip" class="w-full border-slate-300 rounded px-3 py-2 border" placeholder="e.g. 10">
+                                </div>
                                 <button id="wf-calc-btn" class="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700">Run Waterfall</button>
                             </div>
                             <div class="col-span-2 space-y-4" id="wf-results">
@@ -760,6 +820,13 @@ print(f"WACC: {wacc:.2%}")</textarea>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-500 uppercase mb-1">WACC (%)</label>
                                     <input type="number" id="dcf-wacc" class="w-full border-slate-300 rounded-md px-3 py-2 border" placeholder="e.g. 10">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Growth Stage</label>
+                                    <select id="dcf-stage" class="w-full border-slate-300 rounded-md px-3 py-2 border">
+                                        <option value="5">5-Year Explicit Forecast</option>
+                                        <option value="10">10-Year Explicit Forecast</option>
+                                    </select>
                                 </div>
                                 <button id="dcf-calc-btn" class="w-full bg-teal-600 text-white font-bold py-2 rounded hover:bg-teal-700">Estimate Value</button>
                             </div>
@@ -830,7 +897,93 @@ print(f"WACC: {wacc:.2%}")</textarea>
                      </div>
                 </div>
 
+                <!-- Section: Control Panel -->
+                <div id="wb-settings" class="wb-section hidden max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6">Control Panel</h2>
+
+                    <div class="bg-white p-8 rounded-xl border border-slate-200 shadow-sm space-y-6">
+                        <h3 class="text-xl font-bold text-slate-800 border-b border-slate-100 pb-3">User Preferences</h3>
+
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="font-medium text-slate-700">Dark Mode</h4>
+                                <p class="text-sm text-slate-500">Enable dark theme across the workbench.</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                              <input type="checkbox" id="setting-dark-mode" value="" class="sr-only peer">
+                              <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                            </label>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="font-medium text-slate-700">Auto-save Notebooks</h4>
+                                <p class="text-sm text-slate-500">Automatically save progress in Coding Lab.</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                              <input type="checkbox" id="setting-autosave" value="" class="sr-only peer" checked>
+                              <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-xl border border-slate-200 shadow-sm space-y-6">
+                        <h3 class="text-xl font-bold text-slate-800 border-b border-slate-100 pb-3">Workspace Configurations</h3>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">OpenAI API Key (Mock)</label>
+                            <input type="password" id="setting-api-key" class="w-full border-slate-300 rounded-md px-3 py-2 border font-mono text-sm" placeholder="sk-...">
+                            <p class="text-xs text-slate-400 mt-1">Used for AI Command Center advanced features.</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Default Valuation WACC (%)</label>
+                            <input type="number" id="setting-wacc" class="w-1/3 border-slate-300 rounded-md px-3 py-2 border text-sm" value="10">
+                        </div>
+
+                        <button id="save-settings-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded hover:bg-indigo-700 mt-4">Save Configuration</button>
+                        <span id="save-settings-msg" class="text-sm text-emerald-600 font-bold ml-4 hidden">Settings Saved!</span>
+                    </div>
+                </div>
+
              </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Glossary Tutorial Modal -->
+    <div id="glossary-tutorial-modal" class="fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden transform transition-all">
+            <div class="bg-indigo-600 p-6 flex justify-between items-center text-white">
+                <h3 class="text-xl font-bold flex items-center gap-2"><i class="fas fa-spell-check"></i> Glossary Features</h3>
+                <button id="close-glossary-modal" class="text-white/70 hover:text-white transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-8 space-y-6 text-slate-600">
+                <p>Welcome to the enhanced Glossary tool. Here's how to use it:</p>
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 mb-1">Smart Search</h4>
+                        <p class="text-sm">Type any financial term, acronym, or concept into the search bar. Results update instantly and highlight your search terms.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 mb-1">Flashcard Mode</h4>
+                        <p class="text-sm">Click the <strong>Flashcards</strong> button to enter study mode. A random term will be presented—click the card to flip and reveal the definition. Use Prev/Next to cycle through.</p>
+                    </div>
+                </div>
+                <button id="dismiss-glossary-modal" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition-colors mt-4">
+                    Got it, let's go!
+                </button>
+            </div>
         </div>
     </div>
 

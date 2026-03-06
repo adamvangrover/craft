@@ -1182,7 +1182,32 @@ const workbenchData = {
       "category": "Credit Analysis",
       "objective": "Distressed Exchange Analysis",
       "prompt_text": "Analyze a hypothetical Distressed Debt Exchange (DDE). If bondholders exchange existing unsecured notes for new secured notes with a lower face value, how does this impact the company's leverage and the creditor's priority?",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": ["distressed", "restructuring"]
+    },
+    {
+      "id": "lbo-002",
+      "category": "Financial Modeling",
+      "objective": "LBO Screening and Target Selection",
+      "prompt_text": "Identify the top 5 characteristics that make a company an attractive LBO target. Provide examples of sectors that typically exhibit these characteristics and explain why stable cash flows are more critical than high growth for a traditional LBO.",
+      "source_file": "Analyst_Workbench",
+      "tags": ["modeling", "screening", "private equity"]
+    },
+    {
+      "id": "fa-003",
+      "category": "Forensic Accounting",
+      "objective": "Detecting Earnings Manipulation",
+      "prompt_text": "Explain the concept of 'channel stuffing' and how a credit analyst might detect it by analyzing a company's Days Sales Outstanding (DSO) and inventory turnover ratios over several consecutive quarters.",
+      "source_file": "Analyst_Workbench",
+      "tags": ["accounting", "fraud", "screening"]
+    },
+    {
+      "id": "leg-002",
+      "category": "Legal Analysis",
+      "objective": "Credit Agreement Covenant Risk",
+      "prompt_text": "Review the 'Restricted Payments' covenant in a standard high-yield indenture. How can an aggressive 'builder basket' based on cumulative EBITDA allow a sponsor to extract significant dividends even if the company's recent performance has deteriorated?",
+      "source_file": "Analyst_Workbench",
+      "tags": ["legal", "covenants", "high yield"]
     }
   ],
   "decision_trees": [
@@ -10233,6 +10258,12 @@ const workbenchData = {
           "description": "Specific provisions for trademarks, patents, and copyrights.",
           "standard_text": "Each Grantor grants a security interest in all of its Intellectual Property... and agrees to file Short Form IP Security Agreements with the USPTO and Copyright Office.",
           "negotiation_points": ["After-acquired IP filings", "License back to Grantor"]
+        },
+        {
+          "title": "After-Acquired Property Clause",
+          "description": "Automatically attaches the security interest to property acquired by the borrower after the agreement is signed.",
+          "standard_text": "The Security Interest shall attach to all after-acquired property of the Borrower that falls within the definition of Collateral, without the need for further action.",
+          "negotiation_points": ["Grace period for perfection", "Exclusion for certain asset types"]
         }
       ]
     },
@@ -10275,6 +10306,12 @@ const workbenchData = {
           "description": "Protects tenant if landlord defaults on mortgage.",
           "standard_text": "This Lease shall be subordinate to any future mortgage... provided that Lender agrees not to disturb Tenant's possession so long as Tenant is not in default.",
           "negotiation_points": ["Requirement for SNDA from future lenders", "Self-help rights"]
+        },
+        {
+          "title": "Estoppel Certificate Requirement",
+          "description": "Requires the tenant to verify the current status of the lease, usually for a prospective buyer or lender.",
+          "standard_text": "Tenant shall, within ten (10) days after written request from Landlord, execute and deliver an estoppel certificate certifying that this Lease is in full force and effect and unmodified.",
+          "negotiation_points": ["Reasonable time frame to respond", "Limitation on frequency of requests"]
         }
       ]
     },
@@ -10317,6 +10354,12 @@ const workbenchData = {
           "description": "Junior Lender's right to buy out Senior Debt.",
           "standard_text": "Upon the occurrence of an Event of Default or Acceleration, the Second Lien Lenders shall have the option to purchase all (but not less than all) of the First Lien Obligations at par plus accrued interest.",
           "negotiation_points": ["Inclusion of prepayment penalties", "Time window to exercise option"]
+        },
+        {
+          "title": "Release of Collateral",
+          "description": "Mechanism by which the Junior Lender agrees to release its lien when the Senior Lender does.",
+          "standard_text": "If the First Lien Agent releases any of its liens on any Common Collateral in connection with a permitted sale, the Second Lien Agent agrees to automatically release its corresponding liens.",
+          "negotiation_points": ["Exceptions for sales during bankruptcy", "Requirement that proceeds pay down Senior Debt"]
         }
       ]
     },

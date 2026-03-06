@@ -58,7 +58,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Maturity Visualizer ---
     initMaturityVisualizer();
+
+    // --- Settings / Control Panel ---
+    initSettings();
 });
+
+function applySettingsToTools() {
+    const settings = JSON.parse(localStorage.getItem('craft_wb_settings') || '{}');
+    if(settings.defaultWacc) {
+        const dcfWacc = document.getElementById('dcf-wacc');
+        if (dcfWacc) dcfWacc.value = settings.defaultWacc;
+    }
+}
+
+function initSettings() {
+    const saveBtn = document.getElementById('save-settings-btn');
+    const saveMsg = document.getElementById('save-settings-msg');
+
+    if(!saveBtn) return;
+
+    // Load existing settings if any
+    const settings = JSON.parse(localStorage.getItem('craft_wb_settings') || '{}');
+
+    if(settings.darkMode) document.getElementById('setting-dark-mode').checked = settings.darkMode;
+    if(settings.autoSave !== undefined) document.getElementById('setting-autosave').checked = settings.autoSave;
+    if(settings.apiKey) document.getElementById('setting-api-key').value = settings.apiKey;
+    if(settings.defaultWacc) {
+        document.getElementById('setting-wacc').value = settings.defaultWacc;
+    }
+
+    saveBtn.addEventListener('click', () => {
+        const newSettings = {
+            darkMode: document.getElementById('setting-dark-mode').checked,
+            autoSave: document.getElementById('setting-autosave').checked,
+            apiKey: document.getElementById('setting-api-key').value,
+            defaultWacc: document.getElementById('setting-wacc').value
+        };
+
+        localStorage.setItem('craft_wb_settings', JSON.stringify(newSettings));
+
+        // Show saved message briefly
+        saveMsg.classList.remove('hidden');
+        setTimeout(() => saveMsg.classList.add('hidden'), 2000);
+
+        applySettingsToTools();
+
+        // Apply dark mode right away (mock implementation for visual feedback)
+        if (newSettings.darkMode) {
+            document.body.classList.add('bg-slate-900', 'text-slate-200');
+            document.body.classList.remove('bg-slate-50', 'text-slate-900');
+        } else {
+             document.body.classList.remove('bg-slate-900', 'text-slate-200');
+             document.body.classList.add('bg-slate-50', 'text-slate-900');
+        }
+    });
+
+    // Apply dark mode on load if checked
+     if (settings.darkMode) {
+         document.body.classList.add('bg-slate-900', 'text-slate-200');
+         document.body.classList.remove('bg-slate-50', 'text-slate-900');
+     }
+}
 
 // --- Notebooks ---
 function loadNotebooks() {
@@ -228,9 +288,22 @@ function initGlossarySearch() {
 
     // Tutorial Button Logic
     const tutBtn = document.getElementById('glossary-tutorial-btn');
-    if(tutBtn) {
+    const modal = document.getElementById('glossary-tutorial-modal');
+    const closeBtn = document.getElementById('close-glossary-modal');
+    const dismissBtn = document.getElementById('dismiss-glossary-modal');
+
+    if(tutBtn && modal) {
         tutBtn.addEventListener('click', () => {
-            alert("Glossary Tutorial:\n\n1. Type in the search bar to find financial terms.\n2. Use the 'Flashcards' button to switch to study mode.\n3. In Flashcard mode, click the card to flip it and use Prev/Next to navigate.\n\nTip: You can search for abbreviations like 'EBITDA' or full terms.");
+            modal.classList.remove('hidden');
+        });
+
+        const closeModal = () => modal.classList.add('hidden');
+        if(closeBtn) closeBtn.addEventListener('click', closeModal);
+        if(dismissBtn) dismissBtn.addEventListener('click', closeModal);
+
+        // Close on background click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
         });
     }
 
@@ -619,6 +692,7 @@ function loadChecklists() {
 function loadPrompts() {
     const list = document.getElementById('prompt-list');
     const catSelect = document.getElementById('prompt-filter-category');
+    const tagSelect = document.getElementById('prompt-tag-filter');
     const sortSelect = document.getElementById('prompt-sort');
     if (!list) return;
 
@@ -633,6 +707,25 @@ function loadPrompts() {
         });
 
         catSelect.addEventListener('change', renderFilteredPrompts);
+    }
+
+    // Populate Tag Dropdown
+    if(tagSelect) {
+        const allTags = new Set();
+        workbenchData.prompts.forEach(p => {
+            if (p.tags && Array.isArray(p.tags)) {
+                p.tags.forEach(t => allTags.add(t));
+            }
+        });
+        const tags = [...allTags].sort();
+        tags.forEach(t => {
+            const opt = document.createElement('option');
+            opt.value = t;
+            opt.textContent = t;
+            tagSelect.appendChild(opt);
+        });
+
+        tagSelect.addEventListener('change', renderFilteredPrompts);
     }
 
     if(sortSelect) {
@@ -651,14 +744,16 @@ function loadPrompts() {
     function renderFilteredPrompts() {
         list.innerHTML = '';
         const category = catSelect ? catSelect.value : 'all';
+        const tag = tagSelect ? tagSelect.value : 'all';
         const searchText = searchInput ? searchInput.value.toLowerCase() : '';
         const sortMode = sortSelect ? sortSelect.value : 'default';
 
         let filtered = workbenchData.prompts.filter(p => {
             const catMatch = category === 'all' || (p.category || 'General') === category;
+            const tagMatch = tag === 'all' || (p.tags && p.tags.includes(tag));
             const text = (p.objective + ' ' + (p.prompt_text || p.prompt)).toLowerCase();
             const textMatch = text.includes(searchText);
-            return catMatch && textMatch;
+            return catMatch && tagMatch && textMatch;
         });
 
         // Sort
@@ -671,6 +766,12 @@ function loadPrompts() {
         filtered.forEach(p => {
             const card = document.createElement('div');
             card.className = "prompt-card bg-slate-50 p-4 rounded-lg border border-slate-200 mb-4 hover:border-indigo-300 transition-all";
+
+            let tagsHtml = '';
+            if (p.tags && p.tags.length > 0) {
+                tagsHtml = p.tags.map(t => `<span class="inline-block bg-slate-200 text-slate-600 text-[10px] px-2 py-0.5 rounded-full mr-1 mt-2">${t}</span>`).join('');
+            }
+
             card.innerHTML = `
                 <div class="flex justify-between items-start mb-2">
                     <span class="text-xs font-bold text-indigo-500 uppercase bg-white px-2 py-1 rounded border border-indigo-100">${p.category || 'General'}</span>
@@ -678,6 +779,7 @@ function loadPrompts() {
                 </div>
                 <p class="text-slate-800 font-medium mb-2 text-sm">${p.objective || 'Objective'}</p>
                 <div class="bg-white p-3 rounded border border-slate-200 text-slate-600 text-sm font-mono whitespace-pre-wrap">${p.prompt_text || p.prompt}</div>
+                ${tagsHtml ? `<div>${tagsHtml}</div>` : ''}
             `;
 
             // Copy Logic
@@ -996,6 +1098,7 @@ function initMergerModel() {
 
 // --- Calculators ---
 function initCalculators() {
+    applySettingsToTools();
     // Ratio Calculator
     const btn = document.getElementById('calc-btn');
     if(btn) {
@@ -1025,19 +1128,22 @@ function initCalculators() {
                 return;
             }
 
-            // 5 Year Projection
+            const stageElement = document.getElementById('dcf-stage');
+            const years = stageElement ? parseInt(stageElement.value) : 5;
+
+            // N Year Projection
             let totalPV = 0;
             let currentFCF = fcf1; // Year 1
             totalPV += currentFCF / Math.pow(1 + wacc, 1);
 
-            for(let i=2; i<=5; i++) {
+            for(let i=2; i<=years; i++) {
                 currentFCF = currentFCF * (1 + growth);
                 totalPV += currentFCF / Math.pow(1 + wacc, i);
             }
 
-            // Terminal Value (Gordon Growth) at Year 5
+            // Terminal Value (Gordon Growth) at Year N
             const tv = (currentFCF * (1 + growth)) / (wacc - growth);
-            const tvPV = tv / Math.pow(1 + wacc, 5);
+            const tvPV = tv / Math.pow(1 + wacc, years);
 
             const ev = totalPV + tvPV;
             document.getElementById('dcf-result').textContent = '$' + ev.toFixed(2);
@@ -1102,6 +1208,7 @@ function initWaterfallTool() {
         const senior = parseFloat(document.getElementById('wf-senior').value) || 0;
         const mezz = parseFloat(document.getElementById('wf-mezz').value) || 0;
         const equity = parseFloat(document.getElementById('wf-equity').value) || 0; // Pref Equity
+        const mipPercent = (parseFloat(document.getElementById('wf-mip').value) || 0) / 100;
 
         let remaining = ev;
         let seniorPay = Math.min(remaining, senior);
@@ -1110,6 +1217,10 @@ function initWaterfallTool() {
         remaining -= mezzPay;
         let equityPay = Math.min(remaining, equity);
         remaining -= equityPay;
+
+        let mipPay = remaining * mipPercent;
+        remaining -= mipPay;
+
         let commonPay = Math.max(0, remaining);
 
         const res = document.getElementById('wf-results');
@@ -1128,6 +1239,11 @@ function initWaterfallTool() {
                 <div class="space-y-1">
                     <div class="flex justify-between text-sm"><span class="font-bold text-slate-700">Preferred Equity</span> <span class="font-mono">$${equityPay.toFixed(1)} / $${equity} (${equity > 0 ? ((equityPay/equity)*100).toFixed(0) : 0}%)</span></div>
                     <div class="w-full bg-slate-100 rounded-full h-2"><div class="bg-teal-400 h-2 rounded-full transition-all duration-500" style="width: ${equity > 0 ? Math.min(100, (equityPay/equity)*100) : 0}%"></div></div>
+                </div>
+
+                 <div class="space-y-1">
+                    <div class="flex justify-between text-sm"><span class="font-bold text-slate-700">Management Incentive Plan (MIP)</span> <span class="font-mono">$${mipPay.toFixed(1)}</span></div>
+                    <div class="w-full bg-slate-100 rounded-full h-2"><div class="bg-yellow-400 h-2 rounded-full transition-all duration-500" style="width: ${mipPay > 0 ? 100 : 0}%"></div></div>
                 </div>
 
                  <div class="flex justify-between text-sm mt-4 p-3 bg-green-50 rounded border border-green-200">
@@ -1176,68 +1292,82 @@ function initCodingLab() {
         });
     }
 
+    let pyodideInstance = null;
+
     if(runBtn && output) {
-        runBtn.addEventListener('click', () => {
+        runBtn.addEventListener('click', async () => {
             const code = document.getElementById('code-editor').value;
             const lang = langSelect ? langSelect.value : 'python';
 
             output.innerHTML += `\n> Executing (${lang})...`;
+            output.scrollTop = output.scrollHeight;
 
-            // Simulation
-            setTimeout(() => {
-                 if (lang === 'javascript') {
-                     try {
-                         // Safe-ish eval for JS practice (client-side only sandbox)
-                         // Redirect console.log
-                         const logs = [];
-                         const originalLog = console.log;
-                         console.log = (...args) => logs.push(args.join(' '));
+            if (lang === 'javascript') {
+                try {
+                    // Safe-ish eval for JS practice (client-side only sandbox)
+                    // Redirect console.log
+                    const logs = [];
+                    const originalLog = console.log;
+                    console.log = (...args) => logs.push(args.join(' '));
 
-                         // Eval
-                         try {
-                             const result = eval(code);
-                             if (result !== undefined) logs.push(result);
-                         } catch (e) {
-                             logs.push("Error: " + e.message);
-                         }
+                    // Eval
+                    try {
+                        const result = eval(code);
+                        if (result !== undefined) logs.push(result);
+                    } catch (e) {
+                        logs.push("Error: " + e.message);
+                    }
 
-                         console.log = originalLog; // Restore
+                    console.log = originalLog; // Restore
 
-                         if(logs.length > 0) {
-                             output.innerHTML += `\n${logs.join('\n')}`;
-                         } else {
-                             output.innerHTML += `\n> Done (No output)`;
-                         }
+                    if(logs.length > 0) {
+                        output.innerHTML += `\n${logs.join('\n')}`;
+                    } else {
+                        output.innerHTML += `\n> Done (No output)`;
+                    }
 
-                     } catch (e) {
-                         output.innerHTML += `\n> System Error: ${e.message}`;
-                     }
-                 } else {
-                     // Python Mock
-                     if(code.includes("print")) {
-                         // Very naive extraction of print
-                         const match = code.match(/print\(f?"(.*?)\{(.*?)\}(.*?)"\)/);
-                         if(match) {
-                              // Mock WACC eval
-                              if(code.includes("wacc")) {
-                                  output.innerHTML += `\n> WACC: 7.80% [MOCK OUTPUT]`;
-                              } else {
-                                  output.innerHTML += `\n> ${match[1]} [VAL] ${match[3]}`;
-                              }
-                         } else {
-                             const simpleMatch = code.match(/print\("(.*?)"\)/);
-                             if(simpleMatch) {
-                                 output.innerHTML += `\n> ${simpleMatch[1]}`;
-                             } else {
-                                 output.innerHTML += `\n> Execution complete. (Python runtime not available - Simulated)`;
-                             }
-                         }
-                     } else {
-                         output.innerHTML += `\n> Done.`;
-                     }
-                 }
-                 output.scrollTop = output.scrollHeight;
-            }, 600);
+                } catch (e) {
+                    output.innerHTML += `\n> System Error: ${e.message}`;
+                }
+                output.scrollTop = output.scrollHeight;
+            } else {
+                // Real Python execution via Pyodide
+                if (typeof loadPyodide === 'undefined') {
+                     output.innerHTML += `\n> Error: Pyodide library not loaded. Check internet connection.`;
+                     output.scrollTop = output.scrollHeight;
+                     return;
+                }
+
+                try {
+                    if (!pyodideInstance) {
+                        output.innerHTML += `\n> Initializing Python environment (first run only, please wait)...`;
+                        output.scrollTop = output.scrollHeight;
+                        pyodideInstance = await loadPyodide();
+                    }
+
+                    // Redirect Python stdout to our output div
+                    pyodideInstance.runPython(`
+                        import sys
+                        import io
+                        sys.stdout = io.StringIO()
+                    `);
+
+                    // Run user code
+                    await pyodideInstance.runPythonAsync(code);
+
+                    // Get stdout
+                    const stdout = pyodideInstance.runPython("sys.stdout.getvalue()");
+
+                    if (stdout) {
+                        output.innerHTML += `\n${stdout}`;
+                    } else {
+                         output.innerHTML += `\n> Done (No output)`;
+                    }
+                } catch (err) {
+                    output.innerHTML += `\n> Python Error:\n${err}`;
+                }
+                output.scrollTop = output.scrollHeight;
+            }
         });
     }
 }
