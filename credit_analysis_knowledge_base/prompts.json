@@ -2,23 +2,148 @@
   "prompts": [
     {
       "name": "Summarize a topic",
-      "prompt": "Based on the provided knowledge base, summarize the key aspects of 'Financial Reporting and Analysis'."
+      "prompt": "Based on the provided knowledge base, summarize the key aspects of 'Financial Reporting and Analysis'.",
+      "tags": [
+        "general"
+      ]
     },
     {
       "name": "Answer a specific question",
-      "prompt": "What are the key items in a credit analysis due diligence checklist?"
+      "prompt": "What are the key items in a credit analysis due diligence checklist?",
+      "tags": [
+        "general"
+      ]
     },
     {
       "name": "Explain a concept",
-      "prompt": "Explain the concept of 'EBITDA' and its importance in credit analysis, using the provided knowledge base."
+      "prompt": "Explain the concept of 'EBITDA' and its importance in credit analysis, using the provided knowledge base.",
+      "tags": [
+        "general"
+      ]
     },
     {
       "name": "Find related concepts",
-      "prompt": "What are the concepts related to 'Covenant Analysis' in the knowledge base?"
+      "prompt": "What are the concepts related to 'Covenant Analysis' in the knowledge base?",
+      "tags": [
+        "general"
+      ]
     },
     {
       "name": "Generate a checklist for a task",
-      "prompt": "Generate a checklist for conducting a basic financial model review, based on the information in the knowledge base."
+      "prompt": "Generate a checklist for conducting a basic financial model review, based on the information in the knowledge base.",
+      "tags": [
+        "general"
+      ]
+    },
+    {
+      "id": "esg-003",
+      "category": "ESG Analysis",
+      "objective": "Supply Chain ESG Risk Assessment",
+      "prompt_text": "Analyze the potential ESG risks within the supply chain of a major consumer electronics manufacturer. Focus on labor rights, conflict minerals, and scope 3 carbon emissions.",
+      "tags": [
+        "esg",
+        "supply-chain",
+        "risk"
+      ]
+    },
+    {
+      "id": "dd-002",
+      "category": "Distressed Debt",
+      "objective": "Evaluate Pre-Packaged Bankruptcy Viability",
+      "prompt_text": "Describe the requirements for a successful pre-packaged bankruptcy (pre-pack). What are the typical voting thresholds needed from different creditor classes to bind holdouts?",
+      "tags": [
+        "distressed",
+        "bankruptcy",
+        "restructuring"
+      ]
+    },
+    {
+      "id": "ma-003",
+      "category": "Mergers & Acquisitions",
+      "objective": "Identify Anti-Trust Concerns",
+      "prompt_text": "Assume two of the top three players in the domestic telecommunications market announce a merger. What are the primary anti-trust hurdles they will face, and what remedies might regulators demand?",
+      "tags": [
+        "m&a",
+        "anti-trust",
+        "regulatory"
+      ]
+    },
+    {
+      "id": "lbo-003",
+      "category": "Financial Modeling",
+      "objective": "LBO Value Creation Attribution",
+      "prompt_text": "In a post-mortem analysis of an LBO, how do you attribute the total value created (or destroyed) between three main drivers: EBITDA growth, multiple expansion, and debt paydown (cash generation)?",
+      "tags": [
+        "modeling",
+        "lbo",
+        "private-equity"
+      ]
+    },
+    {
+      "id": "macro-003",
+      "category": "Macroeconomic Analysis",
+      "objective": "Impact of Yield Curve Inversion",
+      "prompt_text": "Explain why an inverted yield curve is often seen as a leading indicator of a recession. How does it specifically impact the net interest margin (NIM) of traditional commercial banks?",
+      "tags": [
+        "macro",
+        "fixed-income",
+        "banking"
+      ]
+    },
+    {
+      "id": "re-003",
+      "category": "Real Estate",
+      "objective": "Office Space Repurposing Assessment",
+      "prompt_text": "Evaluate the financial and structural challenges of converting vacant Class B/C commercial office space in a central business district into multi-family residential apartments.",
+      "tags": [
+        "real-estate",
+        "commercial",
+        "trends"
+      ]
+    },
+    {
+      "id": "credit-004",
+      "category": "Credit Analysis",
+      "objective": "Working Capital Seasonality Impact",
+      "prompt_text": "A retailer's peak season is Q4. Analyze how this seasonality impacts their working capital needs throughout the year, specifically focusing on inventory buildup in Q3 and the need for a seasonal revolving credit facility.",
+      "tags": [
+        "credit",
+        "working-capital",
+        "retail"
+      ]
+    },
+    {
+      "id": "leg-003",
+      "category": "Legal Analysis",
+      "objective": "Analyze Intercreditor Agreement Standstill",
+      "prompt_text": "In a first-lien/second-lien debt structure, explain the purpose of a standstill period in the intercreditor agreement. How does it restrict the second-lien lenders' ability to take enforcement actions?",
+      "tags": [
+        "legal",
+        "intercreditor",
+        "leveraged-finance"
+      ]
+    },
+    {
+      "id": "val-002",
+      "category": "Valuation",
+      "objective": "Terminal Value Method Selection",
+      "prompt_text": "Compare and contrast the Gordon Growth Method and the Exit Multiple Method for calculating terminal value in a DCF model. Under what circumstances is one preferred over the other?",
+      "tags": [
+        "valuation",
+        "dcf",
+        "modeling"
+      ]
+    },
+    {
+      "id": "esg-004",
+      "category": "ESG Analysis",
+      "objective": "Greenwashing Identification",
+      "prompt_text": "What are the common red flags that indicate a company might be engaging in 'greenwashing' in its sustainability reports? Focus on lack of measurable targets and vague language.",
+      "tags": [
+        "esg",
+        "reporting",
+        "risk"
+      ]
     }
   ]
 }

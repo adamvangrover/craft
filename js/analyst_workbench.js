@@ -23,6 +23,37 @@ document.addEventListener('DOMContentLoaded', () => {
         item.addEventListener('click', () => showSection(item.dataset.target));
     });
 
+    // --- Tracking Helpers ---
+    window.trackToolUsage = function(toolName) {
+        let used = JSON.parse(localStorage.getItem('craft_wb_tools_used') || '[]');
+        if (!used.includes(toolName)) {
+            used.push(toolName);
+            localStorage.setItem('craft_wb_tools_used', JSON.stringify(used));
+            updateDashboardStats();
+        }
+    };
+
+    window.trackSimulationRun = function() {
+        let runs = parseInt(localStorage.getItem('craft_wb_sims_run') || '0');
+        runs += 1;
+        localStorage.setItem('craft_wb_sims_run', runs.toString());
+        updateDashboardStats();
+    };
+
+    function updateDashboardStats() {
+        const toolsUsed = JSON.parse(localStorage.getItem('craft_wb_tools_used') || '[]');
+        const simsRun = parseInt(localStorage.getItem('craft_wb_sims_run') || '0');
+
+        const toolsStat = document.getElementById('stat-tools-used');
+        const simsStat = document.getElementById('stat-sims-run');
+
+        if (toolsStat) toolsStat.textContent = toolsUsed.length;
+        if (simsStat) simsStat.textContent = simsRun;
+    }
+
+    // Initialize stats
+    updateDashboardStats();
+
     // Default to Dashboard
     showSection('wb-dashboard');
 
@@ -113,6 +144,20 @@ function initSettings() {
         }
     });
 
+    const clearBtn = document.getElementById('clear-workspace-btn');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            if (confirm("Are you sure you want to clear all local workbench data? This will reset your stats and settings.")) {
+                localStorage.removeItem('craft_wb_settings');
+                localStorage.removeItem('craft_wb_tools_used');
+                localStorage.removeItem('craft_wb_sims_run');
+                if(window.updateDashboardStats) window.updateDashboardStats();
+                alert("Workspace data cleared.");
+                location.reload();
+            }
+        });
+    }
+
     // Apply dark mode on load if checked
      if (settings.darkMode) {
          document.body.classList.add('bg-slate-900', 'text-slate-200');
@@ -196,6 +241,8 @@ function initESGToolkit() {
         resEl.textContent = notches === 0 ? "0" : (notches < 0 ? `+${Math.abs(notches)}` : `-${notches}`);
         resEl.className = `text-5xl font-black mb-4 ${color}`;
         document.getElementById('esg-result-desc').textContent = desc;
+
+        if(window.trackToolUsage) window.trackToolUsage('ESG Scorecard');
     }
 
     inputs.forEach(id => {
@@ -237,6 +284,8 @@ function initCovenantChecker() {
             icrEl.className = `p-4 rounded-lg border ${isBreach ? 'bg-red-50 border-red-200' : 'bg-emerald-50 border-emerald-200'}`;
             icrEl.querySelector('.text-2xl').className = `text-2xl font-bold ${isBreach ? 'text-red-600' : 'text-emerald-600'}`;
         }
+
+        if(window.trackToolUsage) window.trackToolUsage('Covenant Checker');
 
         // Gamification Hook
         if(window.Gamification) window.Gamification.addXP(15, "Ran Covenant Check");
@@ -552,6 +601,8 @@ function initCreditScorer() {
 
         // Total
         totalScore = (finScore * model.financial_risk_profile.weight) + (bizScore * model.business_risk_profile.weight);
+
+        if(window.trackToolUsage) window.trackToolUsage('Credit Rating Console');
 
         // Map to Rating
         const ratingObj = model.rating_scale.find(r => totalScore >= r.min_score);
@@ -985,6 +1036,7 @@ ${r}
 **APPROVE**
 `;
         document.getElementById('cm-editor').value = template;
+        if(window.trackToolUsage) window.trackToolUsage('Synthesis Engine');
     });
 
     // Credit Memo Export
@@ -1035,6 +1087,8 @@ function initLBOModeler() {
 
         document.getElementById('lbo-irr').textContent = irr.toFixed(1) + '%';
         document.getElementById('lbo-moic').textContent = moic.toFixed(2) + 'x';
+
+        if(window.trackToolUsage) window.trackToolUsage('LBO Modeler');
 
         // Gamification Hook
         if(window.Gamification) window.Gamification.addXP(25, "Built LBO Model");
@@ -1091,6 +1145,8 @@ function initMergerModel() {
              }
         }
 
+        if(window.trackToolUsage) window.trackToolUsage('Merger Model');
+
          // Gamification Hook
         if(window.Gamification) window.Gamification.addXP(25, "Ran Merger Model");
     });
@@ -1110,6 +1166,7 @@ function initCalculators() {
             document.getElementById('res-current').textContent = (ca / cl).toFixed(2);
             document.getElementById('res-quick').textContent = ((ca - inv) / cl).toFixed(2);
             document.getElementById('calc-feedback').textContent = "Calculation complete.";
+            if(window.trackToolUsage) window.trackToolUsage('Ratio Calculator');
         });
     }
 
@@ -1148,6 +1205,8 @@ function initCalculators() {
             const ev = totalPV + tvPV;
             document.getElementById('dcf-result').textContent = '$' + ev.toFixed(2);
 
+            if(window.trackToolUsage) window.trackToolUsage('DCF Valuator');
+
             // Show Link Button
             if(dcfLinkBtn) dcfLinkBtn.classList.remove('hidden');
         });
@@ -1178,6 +1237,8 @@ function initCalculators() {
              const cash = parseFloat(document.getElementById('ev-cash').value) || 0;
              const res = eq + debt + pref + min - cash;
              document.getElementById('ev-result').textContent = '$' + res.toLocaleString();
+
+             if(window.trackToolUsage) window.trackToolUsage('EV Bridge');
 
              // Show Link Button
              if(evLinkBtn) evLinkBtn.classList.remove('hidden');
@@ -1252,6 +1313,8 @@ function initWaterfallTool() {
                  </div>
             </div>
         `;
+
+        if(window.trackToolUsage) window.trackToolUsage('Waterfall Tool');
     });
 }
 
@@ -1301,6 +1364,8 @@ function initCodingLab() {
 
             output.innerHTML += `\n> Executing (${lang})...`;
             output.scrollTop = output.scrollHeight;
+
+            if(window.trackSimulationRun) window.trackSimulationRun();
 
             if (lang === 'javascript') {
                 try {

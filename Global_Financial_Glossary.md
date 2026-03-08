@@ -6,12 +6,15 @@ This glossary provides definitions for key terms used throughout this financial 
 
 ### How to Use This Glossary
 
-This tutorial guide will help you get the most out of this resource:
+This tutorial guide will help you get the most out of this resource. The glossary is accessible both as a raw Markdown file and via the enhanced **Glossary Lookup** tool in the Analyst Practice Center (`practice_center.html`).
 
-1.  **Context Tags:** Each definition starts with a tag (e.g., `(Credit Risk)`, `(Fintech)`). Use these to understand the primary domain of the term. Many terms have different nuances in different fields (e.g., "Equity" in Real Estate vs. Corporate Finance).
-2.  **Cross-References:** Look for "See also" or direct links (e.g., *See: `Risk_Management/Credit_Risk/CRM_01...`*) to dive deeper into the concept within the learning modules.
-3.  **Search:** Use `Ctrl+F` (or `Cmd+F` on Mac) to quickly find specific terms.
-4.  **Practice:** Visit the **Analyst Practice Center** to use the "Glossary Lookup" tool, which includes a Flashcard mode for active recall testing.
+#### Features of the Glossary Lookup Tool:
+1.  **Smart Search:** Type any financial term, acronym, or concept into the search bar. The results update instantly and visually highlight your search terms within the definitions, saving you from manually parsing through long texts.
+2.  **Interactive Flashcards:** Click the **Flashcards** button to enter study mode. A random term will be presented—click the card to flip and reveal the definition. Use the Prev/Next buttons to cycle through the deck. This is highly recommended for active recall testing and interview preparation.
+
+#### Reading the Definitions:
+*   **Context Tags:** Each definition starts with a tag (e.g., `(Credit Risk)`, `(Fintech)`). Use these to understand the primary domain of the term. Many terms have different nuances in different fields (e.g., "Equity" in Real Estate vs. Corporate Finance).
+*   **Cross-References:** Look for "See also" or direct links (e.g., *See: `Risk_Management/Credit_Risk/CRM_01...`*) to dive deeper into the concept within the specific learning modules of the CRAFT ecosystem.
 
 ## A
 *   **Accretion/Dilution Analysis:** (M&A/Financial Modeling) An analysis to determine the impact of a merger or acquisition on the acquirer's earnings per share (EPS). An accretive transaction increases EPS, while a dilutive transaction decreases EPS. *See: `Financial_Modeling/Advanced_Topics/merger_and_acquisition_modeling.md`*
