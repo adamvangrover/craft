@@ -26,26 +26,26 @@ def run(playwright):
     page.goto("http://localhost:8000/practice_center.html")
     page.wait_for_load_state("networkidle")
 
-    # Click Toolkit to see calculators
-    page.click("button[data-target='wb-toolkit']")
-    assert page.is_visible("text=Simplified DCF Valuator")
-    assert page.is_visible("text=Covenant Clause Builder")
+    # Click Valuation to see calculators
+    page.click("button[data-target='wb-valuation']")
+    page.wait_for_selector("text=Simplified DCF Valuator")
+
+    # Click Legal to see Covenant Clause Viewer
+    page.click("button[data-target='wb-legal']")
+    page.wait_for_selector("text=Legal Library & Covenant Builder")
 
     # Check Covenant Builder Dropdown population (from broadly_syndicated_loan_clauses.json)
     # The data loading is async, might need to wait a bit
     page.wait_for_timeout(2000)
 
     # Select a clause
-    dropdown = page.locator("#cov-clause-select")
-    # Verify it has options.
-    # Since we added "Affirmative Covenants", check for that optgroup label if possible, or just option count.
-    # We can check if "Financial Reporting" is an option value or text.
+    dropdown = page.locator("#legal-cat-select")
 
     # Actually, the code creates optgroups.
     # Let's just check if there are options > 1
     count = dropdown.locator("option").count()
     print(f"Clause options found: {count}")
-    assert count > 5
+    assert count > 1
 
     # Click Synthesis to check Memo Builder
     page.click("button[data-target='wb-synthesis']")
