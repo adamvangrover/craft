@@ -226,956 +226,1370 @@ const workbenchData = {
       "category": "Model Structure & Formatting",
       "objective": "To ensure the model is well-organized, clear, and easy to understand.",
       "prompt_text": "Assess the overall structure and clarity of the financial model. Is there a clear separation of inputs, calculations, and outputs? Are the sheets logically named and organized?",
-      "source_file": "prompt_engine_library/financial_modeling/model_review.json"
+      "source_file": "prompt_engine_library/financial_modeling/model_review.json",
+      "tags": [
+        "model-structure-&-formatting"
+      ]
     },
     {
       "id": "mr-sf-002",
       "category": "Model Structure & Formatting",
       "objective": "To ensure the model is well-organized, clear, and easy to understand.",
       "prompt_text": "Review the formatting and readability of the model. Is the formatting consistent? Are units clearly stated? Are the formulas easy to read and understand?",
-      "source_file": "prompt_engine_library/financial_modeling/model_review.json"
+      "source_file": "prompt_engine_library/financial_modeling/model_review.json",
+      "tags": [
+        "model-structure-&-formatting"
+      ]
     },
     {
       "id": "mr-sf-003",
       "category": "Model Structure & Formatting",
       "objective": "To ensure the model is well-organized, clear, and easy to understand.",
       "prompt_text": "Check for hardcoded numbers in formulas. Are all assumptions and drivers located in input cells?",
-      "source_file": "prompt_engine_library/financial_modeling/model_review.json"
+      "source_file": "prompt_engine_library/financial_modeling/model_review.json",
+      "tags": [
+        "model-structure-&-formatting"
+      ]
     },
     {
       "id": "mr-ia-001",
       "category": "Inputs & Assumptions",
       "objective": "To verify the reasonableness and accuracy of the model's inputs and assumptions.",
       "prompt_text": "Evaluate the key assumptions of the model (e.g., growth rates, margins, discount rates). Are they well-documented, reasonable, and supported by evidence?",
-      "source_file": "prompt_engine_library/financial_modeling/model_review.json"
+      "source_file": "prompt_engine_library/financial_modeling/model_review.json",
+      "tags": [
+        "inputs-&-assumptions"
+      ]
     },
     {
       "id": "mr-ia-002",
       "category": "Inputs & Assumptions",
       "objective": "To verify the reasonableness and accuracy of the model's inputs and assumptions.",
       "prompt_text": "Check the accuracy of the historical data used in the model. Does it match the audited financial statements?",
-      "source_file": "prompt_engine_library/financial_modeling/model_review.json"
+      "source_file": "prompt_engine_library/financial_modeling/model_review.json",
+      "tags": [
+        "inputs-&-assumptions"
+      ]
     },
     {
       "id": "mr-ia-003",
       "category": "Inputs & Assumptions",
       "objective": "To verify the reasonableness and accuracy of the model's inputs and assumptions.",
       "prompt_text": "Assess the model's flexibility for scenario and sensitivity analysis. Can key assumptions be easily changed to test different scenarios?",
-      "source_file": "prompt_engine_library/financial_modeling/model_review.json"
+      "source_file": "prompt_engine_library/financial_modeling/model_review.json",
+      "tags": [
+        "inputs-&-assumptions"
+      ]
     },
     {
       "id": "mr-cl-001",
       "category": "Calculations & Logic",
       "objective": "To ensure the model's calculations are correct and its logic is sound.",
       "prompt_text": "Verify the integrity of the financial statements. Does the balance sheet balance? Does the cash flow statement correctly reconcile cash balances? Are the statements properly linked?",
-      "source_file": "prompt_engine_library/financial_modeling/model_review.json"
+      "source_file": "prompt_engine_library/financial_modeling/model_review.json",
+      "tags": [
+        "calculations-&-logic"
+      ]
     },
     {
       "id": "mr-cl-002",
       "category": "Calculations & Logic",
       "objective": "To ensure the model's calculations are correct and its logic is sound.",
       "prompt_text": "Spot-check key formulas for correctness and trace the precedents and dependents of critical calculations.",
-      "source_file": "prompt_engine_library/financial_modeling/model_review.json"
+      "source_file": "prompt_engine_library/financial_modeling/model_review.json",
+      "tags": [
+        "calculations-&-logic"
+      ]
     },
     {
       "id": "mr-cl-003",
       "category": "Calculations & Logic",
       "objective": "To ensure the model's calculations are correct and its logic is sound.",
       "prompt_text": "Check for circular references. If they are intentional, are they properly controlled?",
-      "source_file": "prompt_engine_library/financial_modeling/model_review.json"
+      "source_file": "prompt_engine_library/financial_modeling/model_review.json",
+      "tags": [
+        "calculations-&-logic"
+      ]
     },
     {
       "id": "mr-cl-004",
       "category": "Calculations & Logic",
       "objective": "To ensure the model's calculations are correct and its logic is sound.",
       "prompt_text": "Ensure that totals and subtotals are correctly calculated and that there is consistency across the model.",
-      "source_file": "prompt_engine_library/financial_modeling/model_review.json"
+      "source_file": "prompt_engine_library/financial_modeling/model_review.json",
+      "tags": [
+        "calculations-&-logic"
+      ]
     },
     {
       "id": "mr-op-001",
       "category": "Outputs & Presentation",
       "objective": "To ensure the model's outputs are clearly presented and effectively communicate the key results.",
       "prompt_text": "Evaluate the clarity and presentation of the model's key outputs (e.g., valuation, credit metrics, forecast financials). Is there a summary dashboard?",
-      "source_file": "prompt_engine_library/financial_modeling/model_review.json"
+      "source_file": "prompt_engine_library/financial_modeling/model_review.json",
+      "tags": [
+        "outputs-&-presentation"
+      ]
     },
     {
       "id": "mr-op-002",
       "category": "Outputs & Presentation",
       "objective": "To ensure the model's outputs are clearly presented and effectively communicate the key results.",
       "prompt_text": "Review the charts and tables used in the model. Are they clear, well-labeled, and do they update correctly?",
-      "source_file": "prompt_engine_library/financial_modeling/model_review.json"
+      "source_file": "prompt_engine_library/financial_modeling/model_review.json",
+      "tags": [
+        "outputs-&-presentation"
+      ]
     },
     {
       "id": "mr-op-003",
       "category": "Outputs & Presentation",
       "objective": "To ensure the model's outputs are clearly presented and effectively communicate the key results.",
       "prompt_text": "Assess the presentation of the scenario and sensitivity analysis results. Are they easy to compare and interpret?",
-      "source_file": "prompt_engine_library/financial_modeling/model_review.json"
+      "source_file": "prompt_engine_library/financial_modeling/model_review.json",
+      "tags": [
+        "outputs-&-presentation"
+      ]
     },
     {
       "id": "mr-er-001",
       "category": "Error Checks & Robustness",
       "objective": "To test the model's robustness and ensure it has adequate error checks.",
       "prompt_text": "Check for built-in error checks in the model (e.g., balance sheet check, cash flow check). Are they clearly visible?",
-      "source_file": "prompt_engine_library/financial_modeling/model_review.json"
+      "source_file": "prompt_engine_library/financial_modeling/model_review.json",
+      "tags": [
+        "error-checks-&-robustness"
+      ]
     },
     {
       "id": "mr-er-002",
       "category": "Error Checks & Robustness",
       "objective": "To test the model's robustness and ensure it has adequate error checks.",
       "prompt_text": "Stress-test the model by using extreme (but plausible) inputs. Does the model behave as expected?",
-      "source_file": "prompt_engine_library/financial_modeling/model_review.json"
+      "source_file": "prompt_engine_library/financial_modeling/model_review.json",
+      "tags": [
+        "error-checks-&-robustness"
+      ]
     },
     {
       "id": "mr-er-003",
       "category": "Error Checks & Robustness",
       "objective": "To test the model's robustness and ensure it has adequate error checks.",
       "prompt_text": "Assess the model's protection and version control. Are input cells unlocked and calculation cells locked? Is there a log of changes?",
-      "source_file": "prompt_engine_library/financial_modeling/model_review.json"
+      "source_file": "prompt_engine_library/financial_modeling/model_review.json",
+      "tags": [
+        "error-checks-&-robustness"
+      ]
     },
     {
       "id": "3sm-ms-001",
       "category": "Model Structure and Setup",
       "objective": "To set up a well-structured and organized financial model.",
       "prompt_text": "Create the basic structure for a 3-statement financial model. Include separate sheets for 'Assumptions', 'Income Statement', 'Balance Sheet', 'Cash Flow Statement', and 'Supporting Schedules'.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "model-structure-and-setup"
+      ]
     },
     {
       "id": "3sm-ms-002",
       "category": "Model Structure and Setup",
       "objective": "To set up a well-structured and organized financial model.",
       "prompt_text": "Set up the 'Assumptions' sheet with clear labels and input cells for key drivers such as growth rates, margins, interest rates, and tax rates.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "model-structure-and-setup"
+      ]
     },
     {
       "id": "3sm-ms-003",
       "category": "Model Structure and Setup",
       "objective": "To set up a well-structured and organized financial model.",
       "prompt_text": "Populate the 'Income Statement' sheet with standard line items from Revenue down to Net Income.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "model-structure-and-setup"
+      ]
     },
     {
       "id": "3sm-ms-004",
       "category": "Model Structure and Setup",
       "objective": "To set up a well-structured and organized financial model.",
       "prompt_text": "Populate the 'Balance Sheet' sheet with standard line items for Assets, Liabilities, and Equity.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "model-structure-and-setup"
+      ]
     },
     {
       "id": "3sm-ms-005",
       "category": "Model Structure and Setup",
       "objective": "To set up a well-structured and organized financial model.",
       "prompt_text": "Populate the 'Cash Flow Statement' sheet with the standard structure for Cash Flow from Operations, Investing, and Financing.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "model-structure-and-setup"
+      ]
     },
     {
       "id": "3sm-is-001",
       "category": "Income Statement Forecasting",
       "objective": "To forecast the company's income statement based on key assumptions.",
       "prompt_text": "Forecast Revenue based on a specified growth rate.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "income-statement-forecasting"
+      ]
     },
     {
       "id": "3sm-is-002",
       "category": "Income Statement Forecasting",
       "objective": "To forecast the company's income statement based on key assumptions.",
       "prompt_text": "Forecast Cost of Goods Sold (COGS) as a percentage of Revenue.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "income-statement-forecasting"
+      ]
     },
     {
       "id": "3sm-is-003",
       "category": "Income Statement Forecasting",
       "objective": "To forecast the company's income statement based on key assumptions.",
       "prompt_text": "Forecast Selling, General & Administrative (SG&A) expenses as a percentage of Revenue.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "income-statement-forecasting"
+      ]
     },
     {
       "id": "3sm-is-004",
       "category": "Income Statement Forecasting",
       "objective": "To forecast the company's income statement based on key assumptions.",
       "prompt_text": "Forecast Depreciation & Amortization based on a percentage of PP&E.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "income-statement-forecasting"
+      ]
     },
     {
       "id": "3sm-is-005",
       "category": "Income Statement Forecasting",
       "objective": "To forecast the company's income statement based on key assumptions.",
       "prompt_text": "Calculate Interest Expense based on the average debt balance from the Debt Schedule.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "income-statement-forecasting"
+      ]
     },
     {
       "id": "3sm-is-006",
       "category": "Income Statement Forecasting",
       "objective": "To forecast the company's income statement based on key assumptions.",
       "prompt_text": "Calculate Income Tax Expense based on the effective tax rate.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "income-statement-forecasting"
+      ]
     },
     {
       "id": "3sm-is-007",
       "category": "Income Statement Forecasting",
       "objective": "To forecast the company's income statement based on key assumptions.",
       "prompt_text": "Calculate Net Income.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "income-statement-forecasting"
+      ]
     },
     {
       "id": "3sm-bs-001",
       "category": "Balance Sheet Forecasting",
       "objective": "To forecast the company's balance sheet, ensuring it always balances.",
       "prompt_text": "Forecast Accounts Receivable (AR) based on Days Sales Outstanding (DSO).",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "balance-sheet-forecasting"
+      ]
     },
     {
       "id": "3sm-bs-002",
       "category": "Balance Sheet Forecasting",
       "objective": "To forecast the company's balance sheet, ensuring it always balances.",
       "prompt_text": "Forecast Inventory based on Days Inventory Held (DIH).",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "balance-sheet-forecasting"
+      ]
     },
     {
       "id": "3sm-bs-003",
       "category": "Balance Sheet Forecasting",
       "objective": "To forecast the company's balance sheet, ensuring it always balances.",
       "prompt_text": "Forecast Accounts Payable (AP) based on Days Payable Outstanding (DPO).",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "balance-sheet-forecasting"
+      ]
     },
     {
       "id": "3sm-bs-004",
       "category": "Balance Sheet Forecasting",
       "objective": "To forecast the company's balance sheet, ensuring it always balances.",
       "prompt_text": "Forecast Property, Plant & Equipment (PP&E) using a roll-forward schedule (Prior PP&E + CapEx - Depreciation).",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "balance-sheet-forecasting"
+      ]
     },
     {
       "id": "3sm-bs-005",
       "category": "Balance Sheet Forecasting",
       "objective": "To forecast the company's balance sheet, ensuring it always balances.",
       "prompt_text": "Forecast Retained Earnings based on the roll-forward formula (Prior Retained Earnings + Net Income - Dividends).",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "balance-sheet-forecasting"
+      ]
     },
     {
       "id": "3sm-bs-006",
       "category": "Balance Sheet Forecasting",
       "objective": "To forecast the company's balance sheet, ensuring it always balances.",
       "prompt_text": "Link the Ending Cash balance from the Cash Flow Statement to the Cash line item on the Balance Sheet.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "balance-sheet-forecasting"
+      ]
     },
     {
       "id": "3sm-bs-007",
       "category": "Balance Sheet Forecasting",
       "objective": "To forecast the company's balance sheet, ensuring it always balances.",
       "prompt_text": "Create a check to ensure that Total Assets equals Total Liabilities & Equity.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "balance-sheet-forecasting"
+      ]
     },
     {
       "id": "3sm-cfs-001",
       "category": "Cash Flow Statement Forecasting",
       "objective": "To forecast the company's cash flow statement, linking it to the income statement and balance sheet.",
       "prompt_text": "Start the Cash Flow from Operations (CFO) section with Net Income from the Income Statement.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "cash-flow-statement-forecasting"
+      ]
     },
     {
       "id": "3sm-cfs-002",
       "category": "Cash Flow Statement Forecasting",
       "objective": "To forecast the company's cash flow statement, linking it to the income statement and balance sheet.",
       "prompt_text": "Add back non-cash charges such as Depreciation & Amortization.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "cash-flow-statement-forecasting"
+      ]
     },
     {
       "id": "3sm-cfs-003",
       "category": "Cash Flow Statement Forecasting",
       "objective": "To forecast the company's cash flow statement, linking it to the income statement and balance sheet.",
       "prompt_text": "Adjust for changes in working capital accounts (AR, Inventory, AP, etc.).",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "cash-flow-statement-forecasting"
+      ]
     },
     {
       "id": "3sm-cfs-004",
       "category": "Cash Flow Statement Forecasting",
       "objective": "To forecast the company's cash flow statement, linking it to the income statement and balance sheet.",
       "prompt_text": "Forecast Capital Expenditures (CapEx) as a percentage of Revenue.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "cash-flow-statement-forecasting"
+      ]
     },
     {
       "id": "3sm-cfs-005",
       "category": "Cash Flow Statement Forecasting",
       "objective": "To forecast the company's cash flow statement, linking it to the income statement and balance sheet.",
       "prompt_text": "Forecast debt financing activities (new debt issuance and repayments) based on the Debt Schedule.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "cash-flow-statement-forecasting"
+      ]
     },
     {
       "id": "3sm-cfs-006",
       "category": "Cash Flow Statement Forecasting",
       "objective": "To forecast the company's cash flow statement, linking it to the income statement and balance sheet.",
       "prompt_text": "Forecast equity financing activities (stock issuance and repurchases) and dividend payments.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "cash-flow-statement-forecasting"
+      ]
     },
     {
       "id": "3sm-cfs-007",
       "category": "Cash Flow Statement Forecasting",
       "objective": "To forecast the company's cash flow statement, linking it to the income statement and balance sheet.",
       "prompt_text": "Calculate the Net Change in Cash and the Ending Cash Balance.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "cash-flow-statement-forecasting"
+      ]
     },
     {
       "id": "3sm-ss-001",
       "category": "Supporting Schedules",
       "objective": "To create detailed schedules for complex items like debt and fixed assets.",
       "prompt_text": "Create a Debt Schedule that tracks the beginning balance, new debt issuance, repayments, and ending balance for each debt tranche.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "supporting-schedules"
+      ]
     },
     {
       "id": "3sm-ss-002",
       "category": "Supporting Schedules",
       "objective": "To create detailed schedules for complex items like debt and fixed assets.",
       "prompt_text": "Create a Fixed Asset Schedule (PP&E roll-forward) that tracks the beginning balance, CapEx, depreciation, and ending balance.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "supporting-schedules"
+      ]
     },
     {
       "id": "3sm-ss-003",
       "category": "Supporting Schedules",
       "objective": "To create detailed schedules for complex items like debt and fixed assets.",
       "prompt_text": "Create a Working Capital Schedule that calculates the changes in key working capital accounts.",
-      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json"
+      "source_file": "prompt_engine_library/financial_modeling/three_statement_model.json",
+      "tags": [
+        "supporting-schedules"
+      ]
     },
     {
       "id": "dd-co-001",
       "category": "Company Overview & Business Profile",
       "objective": "To understand the company's core business, history, strategy, and operational footprint.",
       "prompt_text": "Provide a summary of the company's legal structure, jurisdiction of incorporation, and ownership structure. Include the date of establishment and the location of its headquarters and key operations.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "company-overview-&-business-profile"
+      ]
     },
     {
       "id": "dd-co-002",
       "category": "Company Overview & Business Profile",
       "objective": "To understand the company's core business, history, strategy, and operational footprint.",
       "prompt_text": "Describe the company's core business, including its main products and services, the business segments it operates in, and the key geographic markets it serves.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "company-overview-&-business-profile"
+      ]
     },
     {
       "id": "dd-co-003",
       "category": "Company Overview & Business Profile",
       "objective": "To understand the company's core business, history, strategy, and operational footprint.",
       "prompt_text": "Outline the company's history, highlighting key milestones and recent significant events such as mergers, acquisitions, or divestitures.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "company-overview-&-business-profile"
+      ]
     },
     {
       "id": "dd-co-004",
       "category": "Company Overview & Business Profile",
       "objective": "To understand the company's core business, history, strategy, and operational footprint.",
       "prompt_text": "Provide an overview of the company's management team, including their tenure and experience. Also, describe the company's organizational structure.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "company-overview-&-business-profile"
+      ]
     },
     {
       "id": "dd-im-001",
       "category": "Industry & Market Analysis",
       "objective": "To understand the competitive landscape, industry trends, and external factors affecting the company.",
       "prompt_text": "Analyze the industry in which the company operates. Include the industry's size, growth rate, key drivers, and stage in the lifecycle.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "industry-&-market-analysis"
+      ]
     },
     {
       "id": "dd-im-002",
       "category": "Industry & Market Analysis",
       "objective": "To understand the competitive landscape, industry trends, and external factors affecting the company.",
       "prompt_text": "Provide a competitive landscape analysis, identifying the company's key competitors, its market position, and its competitive advantages and disadvantages.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "industry-&-market-analysis"
+      ]
     },
     {
       "id": "dd-im-003",
       "category": "Industry & Market Analysis",
       "objective": "To understand the competitive landscape, industry trends, and external factors affecting the company.",
       "prompt_text": "Perform a Porter's Five Forces analysis for the company's industry.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "industry-&-market-analysis"
+      ]
     },
     {
       "id": "dd-im-004",
       "category": "Industry & Market Analysis",
       "objective": "To understand the competitive landscape, industry trends, and external factors affecting the company.",
       "prompt_text": "Analyze the company's customer base, including customer concentration risk and typical contract terms.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "industry-&-market-analysis"
+      ]
     },
     {
       "id": "dd-im-005",
       "category": "Industry & Market Analysis",
       "objective": "To understand the competitive landscape, industry trends, and external factors affecting the company.",
       "prompt_text": "Describe the regulatory environment and its potential impact on the company. Also, analyze the company's sensitivity to macroeconomic factors.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "industry-&-market-analysis"
+      ]
     },
     {
       "id": "dd-fa-001",
       "category": "Financial Analysis",
       "objective": "To assess the company's historical financial performance, current financial condition, and projected future performance.",
       "prompt_text": "Analyze the company's historical financial performance based on its income statements, balance sheets, and cash flow statements for the last 3-5 years.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "financial-analysis"
+      ]
     },
     {
       "id": "dd-fa-002",
       "category": "Financial Analysis",
       "objective": "To assess the company's historical financial performance, current financial condition, and projected future performance.",
       "prompt_text": "Calculate and analyze key financial ratios (liquidity, solvency, profitability, and efficiency) and benchmark them against industry peers.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "financial-analysis"
+      ]
     },
     {
       "id": "dd-fa-003",
       "category": "Financial Analysis",
       "objective": "To assess the company's historical financial performance, current financial condition, and projected future performance.",
       "prompt_text": "Assess the quality of the company's earnings, identifying any non-recurring items or aggressive accounting policies.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "financial-analysis"
+      ]
     },
     {
       "id": "dd-fa-004",
       "category": "Financial Analysis",
       "objective": "To assess the company's historical financial performance, current financial condition, and projected future performance.",
       "prompt_text": "Analyze the company's cash flow generation and its capital allocation strategy.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "financial-analysis"
+      ]
     },
     {
       "id": "dd-fa-005",
       "category": "Financial Analysis",
       "objective": "To assess the company's historical financial performance, current financial condition, and projected future performance.",
       "prompt_text": "Evaluate the company's debt structure, including existing debt, proposed new debt, and off-balance sheet financing.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "financial-analysis"
+      ]
     },
     {
       "id": "dd-fa-006",
       "category": "Financial Analysis",
       "objective": "To assess the company's historical financial performance, current financial condition, and projected future performance.",
       "prompt_text": "Create a financial forecast for the company for the next 3-5 years, including base case, upside, and downside scenarios.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "financial-analysis"
+      ]
     },
     {
       "id": "dd-lr-001",
       "category": "Legal & Regulatory Due Diligence",
       "objective": "To identify any legal or significant regulatory issues.",
       "prompt_text": "Review the company's corporate structure and verify its legal standing.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "legal-&-regulatory-due-diligence"
+      ]
     },
     {
       "id": "dd-lr-002",
       "category": "Legal & Regulatory Due Diligence",
       "objective": "To identify any legal or significant regulatory issues.",
       "prompt_text": "Summarize the key terms of the company's material contracts, including any change-of-control provisions or restrictive covenants.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "legal-&-regulatory-due-diligence"
+      ]
     },
     {
       "id": "dd-lr-003",
       "category": "Legal & Regulatory Due Diligence",
       "objective": "To identify any legal or significant regulatory issues.",
       "prompt_text": "Investigate any pending or threatened litigation and assess its potential impact on the company.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "legal-&-regulatory-due-diligence"
+      ]
     },
     {
       "id": "dd-lr-004",
       "category": "Legal & Regulatory Due Diligence",
       "objective": "To identify any legal or significant regulatory issues.",
       "prompt_text": "Assess the company's compliance with key regulations and its insurance coverage.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "legal-&-regulatory-due-diligence"
+      ]
     },
     {
       "id": "dd-ca-001",
       "category": "Collateral Analysis",
       "objective": "To assess the value, quality, and liquidity of assets pledged as collateral.",
       "prompt_text": "Analyze the company's accounts receivable, including an aging schedule and customer concentration.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "collateral-analysis"
+      ]
     },
     {
       "id": "dd-ca-002",
       "category": "Collateral Analysis",
       "objective": "To assess the value, quality, and liquidity of assets pledged as collateral.",
       "prompt_text": "Evaluate the company's inventory, including its composition, valuation method, and obsolescence risk.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "collateral-analysis"
+      ]
     },
     {
       "id": "dd-ca-003",
       "category": "Collateral Analysis",
       "objective": "To assess the value, quality, and liquidity of assets pledged as collateral.",
       "prompt_text": "Provide an analysis of the company's machinery and equipment, including their value and condition.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "collateral-analysis"
+      ]
     },
     {
       "id": "dd-ca-004",
       "category": "Collateral Analysis",
       "objective": "To assess the value, quality, and liquidity of assets pledged as collateral.",
       "prompt_text": "Assess the value of any real estate pledged as collateral, including a review of appraisals and environmental assessments.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "collateral-analysis"
+      ]
     },
     {
       "id": "dd-ra-001",
       "category": "Risk Assessment & Mitigants",
       "objective": "To synthesize findings to identify key credit risks and potential mitigants.",
       "prompt_text": "Identify the key business, financial, and structural risks associated with the company.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "risk-assessment-&-mitigants"
+      ]
     },
     {
       "id": "dd-ra-002",
       "category": "Risk Assessment & Mitigants",
       "objective": "To synthesize findings to identify key credit risks and potential mitigants.",
       "prompt_text": "Propose potential mitigants for the identified risks, such as collateral, guarantees, or covenants.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "risk-assessment-&-mitigants"
+      ]
     },
     {
       "id": "dd-ra-003",
       "category": "Risk Assessment & Mitigants",
       "objective": "To synthesize findings to identify key credit risks and potential mitigants.",
       "prompt_text": "Perform a SWOT analysis (Strengths, Weaknesses, Opportunities, Threats) from a credit perspective.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "risk-assessment-&-mitigants"
+      ]
     },
     {
       "id": "dd-ra-004",
       "category": "Risk Assessment & Mitigants",
       "objective": "To synthesize findings to identify key credit risks and potential mitigants.",
       "prompt_text": "Based on the comprehensive due diligence, provide a final credit recommendation and justify it with key findings.",
-      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json"
+      "source_file": "prompt_engine_library/credit_analysis/due_diligence.json",
+      "tags": [
+        "risk-assessment-&-mitigants"
+      ]
     },
     {
       "id": "cm-es-001",
       "category": "Executive Summary",
       "objective": "To create a concise and impactful executive summary that clearly states the loan request, the credit thesis, and the key risks.",
       "prompt_text": "Draft an executive summary for a credit memorandum. Include the loan request, the credit thesis, key strengths, key risks and mitigants, and a final recommendation.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "executive-summary"
+      ]
     },
     {
       "id": "cm-es-002",
       "category": "Executive Summary",
       "objective": "To create a concise and impactful executive summary that clearly states the loan request, the credit thesis, and the key risks.",
       "prompt_text": "Write a clear and concise loan request statement for a credit memorandum. Specify the borrower, the loan amount, and the purpose of the loan.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "executive-summary"
+      ]
     },
     {
       "id": "cm-es-003",
       "category": "Executive Summary",
       "objective": "To create a concise and impactful executive summary that clearly states the loan request, the credit thesis, and the key risks.",
       "prompt_text": "Formulate a compelling credit thesis (2-3 sentences) that explains the core reason why this is a good loan.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "executive-summary"
+      ]
     },
     {
       "id": "cm-es-004",
       "category": "Executive Summary",
       "objective": "To create a concise and impactful executive summary that clearly states the loan request, the credit thesis, and the key risks.",
       "prompt_text": "List the key strengths of the borrower and the transaction in bullet points.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "executive-summary"
+      ]
     },
     {
       "id": "cm-es-005",
       "category": "Executive Summary",
       "objective": "To create a concise and impactful executive summary that clearly states the loan request, the credit thesis, and the key risks.",
       "prompt_text": "Identify the primary risks and propose actionable mitigants for each risk. Present them in bullet points.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "executive-summary"
+      ]
     },
     {
       "id": "cm-bm-001",
       "category": "Borrower & Management Background",
       "objective": "To provide a clear overview of the borrower's business and the strength of its management team.",
       "prompt_text": "Provide a detailed description of the borrower's business, including its history, products or services, and market position.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "borrower-&-management-background"
+      ]
     },
     {
       "id": "cm-bm-002",
       "category": "Borrower & Management Background",
       "objective": "To provide a clear overview of the borrower's business and the strength of its management team.",
       "prompt_text": "Assess the strength and experience of the borrower's management team. Include their tenure, track record, and any relevant industry experience.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "borrower-&-management-background"
+      ]
     },
     {
       "id": "cm-bm-003",
       "category": "Borrower & Management Background",
       "objective": "To provide a clear overview of the borrower's business and the strength of its management team.",
       "prompt_text": "Analyze the ownership structure of the borrower and its implications for the credit.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "borrower-&-management-background"
+      ]
     },
     {
       "id": "cm-ls-001",
       "category": "Loan Structure & Purpose",
       "objective": "To clearly outline the terms of the proposed loan and the use of proceeds.",
       "prompt_text": "Describe the proposed loan structure, including the type of loan, amount, term, interest rate, and repayment schedule.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "loan-structure-&-purpose"
+      ]
     },
     {
       "id": "cm-ls-002",
       "category": "Loan Structure & Purpose",
       "objective": "To clearly outline the terms of the proposed loan and the use of proceeds.",
       "prompt_text": "Clearly state the purpose of the loan and how the proceeds will be used. Link the use of proceeds to the company's business strategy.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "loan-structure-&-purpose"
+      ]
     },
     {
       "id": "cm-ls-003",
       "category": "Loan Structure & Purpose",
       "objective": "To clearly outline the terms of the proposed loan and the use of proceeds.",
       "prompt_text": "Outline the proposed collateral and any guarantees for the loan.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "loan-structure-&-purpose"
+      ]
     },
     {
       "id": "cm-fa-001",
       "category": "Financial Analysis",
       "objective": "To present a clear and insightful analysis of the borrower's financial performance and condition.",
       "prompt_text": "Provide a summary of the borrower's historical financial performance, highlighting key trends in revenue, profitability, and cash flow.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "financial-analysis"
+      ]
     },
     {
       "id": "cm-fa-002",
       "category": "Financial Analysis",
       "objective": "To present a clear and insightful analysis of the borrower's financial performance and condition.",
       "prompt_text": "Analyze the borrower's financial projections and assess the reasonableness of the underlying assumptions.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "financial-analysis"
+      ]
     },
     {
       "id": "cm-fa-003",
       "category": "Financial Analysis",
       "objective": "To present a clear and insightful analysis of the borrower's financial performance and condition.",
       "prompt_text": "Present a detailed ratio analysis, including liquidity, leverage, coverage, and profitability ratios. Benchmark the ratios against industry peers.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "financial-analysis"
+      ]
     },
     {
       "id": "cm-fa-004",
       "category": "Financial Analysis",
       "objective": "To present a clear and insightful analysis of the borrower's financial performance and condition.",
       "prompt_text": "Analyze the borrower's cash flow and its ability to service the proposed debt.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "financial-analysis"
+      ]
     },
     {
       "id": "cm-rm-001",
       "category": "Risks & Mitigants",
       "objective": "To identify the key risks in the transaction and propose effective mitigants.",
       "prompt_text": "Identify and describe the 3-5 most critical risks in the transaction. These could be business, financial, or structural risks.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "risks-&-mitigants"
+      ]
     },
     {
       "id": "cm-rm-002",
       "category": "Risks & Mitigants",
       "objective": "To identify the key risks in the transaction and propose effective mitigants.",
       "prompt_text": "For each identified risk, propose a specific and actionable mitigant. Explain how the mitigant will reduce the likelihood or impact of the risk.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "risks-&-mitigants"
+      ]
     },
     {
       "id": "cm-rm-003",
       "category": "Risks & Mitigants",
       "objective": "To identify the key risks in the transaction and propose effective mitigants.",
       "prompt_text": "Create a risk-mitigant table that clearly presents the key risks and their corresponding mitigants.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "risks-&-mitigants"
+      ]
     },
     {
       "id": "cm-fr-001",
       "category": "Final Recommendation & Risk Rating",
       "objective": "To provide a clear and well-supported final recommendation and risk rating.",
       "prompt_text": "Based on the analysis, provide a final recommendation (approve, decline, or modify) for the loan request.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "final-recommendation-&-risk-rating"
+      ]
     },
     {
       "id": "cm-fr-002",
       "category": "Final Recommendation & Risk Rating",
       "objective": "To provide a clear and well-supported final recommendation and risk rating.",
       "prompt_text": "Justify the recommendation with a summary of the key supporting factors.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "final-recommendation-&-risk-rating"
+      ]
     },
     {
       "id": "cm-fr-003",
       "category": "Final Recommendation & Risk Rating",
       "objective": "To provide a clear and well-supported final recommendation and risk rating.",
       "prompt_text": "Assign a risk rating to the loan and explain the rationale behind the rating.",
-      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json"
+      "source_file": "prompt_engine_library/credit_analysis/credit_memorandum.json",
+      "tags": [
+        "final-recommendation-&-risk-rating"
+      ]
     },
     {
       "id": "caa-io-001",
       "category": "Initial Overview and Key Parties",
       "objective": "To understand the context of the loan and the key parties involved.",
       "prompt_text": "Provide a summary of the loan's purpose (e.g., LBO, M&A, refinancing) and the key parties involved (Borrower, Sponsors, Arrangers, Agents).",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "initial-overview-and-key-parties"
+      ]
     },
     {
       "id": "caa-io-002",
       "category": "Initial Overview and Key Parties",
       "objective": "To understand the context of the loan and the key parties involved.",
       "prompt_text": "Describe the overall debt structure, including the types of facilities (e.g., Term Loan A, Term Loan B, Revolver), whether the debt is secured or unsecured, and the syndication strategy.",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "initial-overview-and-key-parties"
+      ]
     },
     {
       "id": "caa-io-003",
       "category": "Initial Overview and Key Parties",
       "objective": "To understand the context of the loan and the key parties involved.",
       "prompt_text": "Identify and list all related legal documents that should be reviewed in conjunction with the credit agreement (e.g., Term Sheet, Intercreditor Agreement, Security Documents).",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "initial-overview-and-key-parties"
+      ]
     },
     {
       "id": "caa-ks-001",
       "category": "Deep Dive into Key Sections",
       "objective": "To analyze the critical sections of the credit agreement and understand their implications.",
       "prompt_text": "Analyze the 'Definitions' section of the credit agreement. Identify and explain the key negotiated definitions such as EBITDA, Indebtedness, and Change of Control.",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "deep-dive-into-key-sections"
+      ]
     },
     {
       "id": "caa-ks-002",
       "category": "Deep Dive into Key Sections",
       "objective": "To analyze the critical sections of the credit agreement and understand their implications.",
       "prompt_text": "Summarize the key terms of each facility, including loan amounts, currencies, interest rates, fees, and maturity dates.",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "deep-dive-into-key-sections"
+      ]
     },
     {
       "id": "caa-ks-003",
       "category": "Deep Dive into Key Sections",
       "objective": "To analyze the critical sections of the credit agreement and understand their implications.",
       "prompt_text": "Describe the prepayment provisions, including voluntary prepayment penalties and mandatory prepayment events (e.g., asset sales, excess cash flow).",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "deep-dive-into-key-sections"
+      ]
     },
     {
       "id": "caa-ks-004",
       "category": "Deep Dive into Key Sections",
       "objective": "To analyze the critical sections of the credit agreement and understand their implications.",
       "prompt_text": "List the key Representations and Warranties made by the borrower. Which of these are 'Repeating Representations'?",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "deep-dive-into-key-sections"
+      ]
     },
     {
       "id": "caa-ks-005",
       "category": "Deep Dive into Key Sections",
       "objective": "To analyze the critical sections of the credit agreement and understand their implications.",
       "prompt_text": "Analyze the covenant package, distinguishing between affirmative, negative, and financial covenants. Is the structure covenant-lite?",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "deep-dive-into-key-sections"
+      ]
     },
     {
       "id": "caa-ks-006",
       "category": "Deep Dive into Key Sections",
       "objective": "To analyze the critical sections of the credit agreement and understand their implications.",
       "prompt_text": "For the negative covenants, analyze the 'permitted baskets' for indebtedness, liens, investments, and restricted payments. How much flexibility does the borrower have?",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "deep-dive-into-key-sections"
+      ]
     },
     {
       "id": "caa-ks-007",
       "category": "Deep Dive into Key Sections",
       "objective": "To analyze the critical sections of the credit agreement and understand their implications.",
       "prompt_text": "For the financial covenants, identify the key ratios, their definitions, and whether they are maintenance or incurrence-based. Are there any equity cure rights?",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "deep-dive-into-key-sections"
+      ]
     },
     {
       "id": "caa-ks-008",
       "category": "Deep Dive into Key Sections",
       "objective": "To analyze the critical sections of the credit agreement and understand their implications.",
       "prompt_text": "List the Events of Default (EoDs) and their grace periods. What are the lender's remedies upon an EoD?",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "deep-dive-into-key-sections"
+      ]
     },
     {
       "id": "caa-ks-009",
       "category": "Deep Dive into Key Sections",
       "objective": "To analyze the critical sections of the credit agreement and understand their implications.",
       "prompt_text": "Describe the guarantee and security package. Which entities are guarantors, and what assets are pledged as collateral?",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "deep-dive-into-key-sections"
+      ]
     },
     {
       "id": "caa-ks-010",
       "category": "Deep Dive into Key Sections",
       "objective": "To analyze the critical sections of the credit agreement and understand their implications.",
       "prompt_text": "Explain the process for amendments and waivers. What are the voting thresholds for key changes?",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "deep-dive-into-key-sections"
+      ]
     },
     {
       "id": "caa-ra-001",
       "category": "Risk Identification and Analysis",
       "objective": "To identify and assess the key legal and structural risks in the credit agreement.",
       "prompt_text": "Based on the covenant analysis, what are the key risks related to potential value leakage (e.g., through dividends, investments in unrestricted subsidiaries)?",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "risk-identification-and-analysis"
+      ]
     },
     {
       "id": "caa-ra-002",
       "category": "Risk Identification and Analysis",
       "objective": "To identify and assess the key legal and structural risks in the credit agreement.",
       "prompt_text": "Analyze the potential for 'Lender-on-Lender violence' or LME (Liability Management Exercise). How do the covenants and amendment provisions permit or restrict such actions?",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "risk-identification-and-analysis"
+      ]
     },
     {
       "id": "caa-ra-003",
       "category": "Risk Identification and Analysis",
       "objective": "To identify and assess the key legal and structural risks in the credit agreement.",
       "prompt_text": "Assess the strength of the collateral package. Are there any significant assets excluded? How easily can collateral be released?",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "risk-identification-and-analysis"
+      ]
     },
     {
       "id": "caa-ra-004",
       "category": "Risk Identification and Analysis",
       "objective": "To identify and assess the key legal and structural risks in the credit agreement.",
       "prompt_text": "What are the key risks in a downturn scenario? How do the covenants and EoDs protect the lenders?",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "risk-identification-and-analysis"
+      ]
     },
     {
       "id": "caa-ra-005",
       "category": "Risk Identification and Analysis",
       "objective": "To identify and assess the key legal and structural risks in the credit agreement.",
       "prompt_text": "Identify any unusual or off-market terms in the credit agreement and explain their potential implications.",
-      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json"
+      "source_file": "prompt_engine_library/legal/credit_agreement_analysis.json",
+      "tags": [
+        "risk-identification-and-analysis"
+      ]
     },
     {
       "name": "Summarize a topic",
       "prompt": "Based on the provided knowledge base, summarize the key aspects of 'Financial Reporting and Analysis'.",
-      "source_file": "credit_analysis_knowledge_base/prompts.json"
+      "source_file": "credit_analysis_knowledge_base/prompts.json",
+      "tags": [
+        "general"
+      ]
     },
     {
       "name": "Answer a specific question",
       "prompt": "What are the key items in a credit analysis due diligence checklist?",
-      "source_file": "credit_analysis_knowledge_base/prompts.json"
+      "source_file": "credit_analysis_knowledge_base/prompts.json",
+      "tags": [
+        "general"
+      ]
     },
     {
       "name": "Explain a concept",
       "prompt": "Explain the concept of 'EBITDA' and its importance in credit analysis, using the provided knowledge base.",
-      "source_file": "credit_analysis_knowledge_base/prompts.json"
+      "source_file": "credit_analysis_knowledge_base/prompts.json",
+      "tags": [
+        "general"
+      ]
     },
     {
       "name": "Find related concepts",
       "prompt": "What are the concepts related to 'Covenant Analysis' in the knowledge base?",
-      "source_file": "credit_analysis_knowledge_base/prompts.json"
+      "source_file": "credit_analysis_knowledge_base/prompts.json",
+      "tags": [
+        "general"
+      ]
     },
     {
       "name": "Generate a checklist for a task",
       "prompt": "Generate a checklist for conducting a basic financial model review, based on the information in the knowledge base.",
-      "source_file": "credit_analysis_knowledge_base/prompts.json"
+      "source_file": "credit_analysis_knowledge_base/prompts.json",
+      "tags": [
+        "general"
+      ]
     },
     {
       "id": "py-001",
       "category": "Python for Finance",
       "objective": "Calculate WACC using Python",
       "prompt_text": "Write a Python function to calculate the Weighted Average Cost of Capital (WACC). The function should accept cost of equity, cost of debt, market value of equity, market value of debt, and corporate tax rate as inputs.",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "python-for-finance"
+      ]
     },
     {
       "id": "py-002",
       "category": "Python for Finance",
       "objective": "Monte Carlo Simulation for Portfolio Risk",
       "prompt_text": "Create a Python script using pandas and numpy to run a Monte Carlo simulation for a portfolio of 5 stocks. Fetch historical data using yfinance (mock code), calculate daily returns, and simulate 1000 portfolio paths over 1 year.",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "python-for-finance"
+      ]
     },
     {
       "id": "leg-001",
       "category": "Legal Analysis",
       "objective": "Review Security Interest Perfection",
       "prompt_text": "Analyze the 'Grant of Security Interest' section. Does it cover all material assets including intellectual property and future-acquired assets? Are there any exclusions that weaken the lender's position?",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "legal-analysis"
+      ]
     },
     {
       "id": "val-001",
       "category": "Valuation",
       "objective": "Build a Waterfall Analysis Model",
       "prompt_text": "Outline the steps to build a distribution waterfall model for a Private Equity fund. Include tiers for Return of Capital, Preferred Return, Catch-up, and Carried Interest.",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "valuation"
+      ]
     },
     {
       "id": "pf-001",
       "category": "Project Finance",
       "objective": "Review DSCR Calculation",
       "prompt_text": "Review the Debt Service Coverage Ratio (DSCR) formula in the project finance model. Ensure it correctly excludes non-cash items and uses Cash Flow Available for Debt Service (CFADS).",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "project-finance"
+      ]
     },
     {
       "id": "dd-001",
       "category": "Distressed Debt",
       "objective": "Identify Fulcrum Security",
       "prompt_text": "Based on the provided capital structure and estimated Enterprise Value, identify the Fulcrum Security. Explain which class of creditors is likely to convert to equity.",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "distressed-debt"
+      ]
     },
     {
       "id": "re-001",
       "category": "Real Estate",
       "objective": "Calculate REIT NAV",
       "prompt_text": "List the steps to calculate the Net Asset Value (NAV) of a REIT. Include adjustments for NOI, Cap Rates, and mark-to-market debt.",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "real-estate"
+      ]
     },
     {
       "id": "vc-001",
       "category": "Venture Capital",
       "objective": "Explain Liquidation Preferences",
       "prompt_text": "Explain the difference between a 1x Non-Participating and a 1x Participating Liquidation Preference. Provide a simple example of the payout difference in a $100M exit.",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "venture-capital"
+      ]
     },
     {
       "id": "esg-001",
       "category": "ESG Analysis",
       "objective": "Carbon Footprint Assessment",
       "prompt_text": "Based on the Greenhouse Gas Protocol, list the key data points required to calculate Scope 1, Scope 2, and Scope 3 emissions for a logistics company. Identify common emission factors.",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "esg-analysis"
+      ]
     },
     {
       "id": "esg-002",
       "category": "ESG Analysis",
       "objective": "Governance Scoring Framework",
       "prompt_text": "Develop a scorecard for assessing corporate governance in emerging market equities. Include metrics for board independence, shareholder rights, and audit quality.",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "esg-analysis"
+      ]
     },
     {
       "id": "forensic-001",
       "category": "Forensic Accounting",
       "objective": "Detecting Revenue Recognition Red Flags",
       "prompt_text": "List 5 common red flags in revenue recognition for a SaaS company. How would channel stuffing or extended payment terms appear in the Days Sales Outstanding (DSO) and Deferred Revenue metrics?",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "forensic-accounting"
+      ]
     },
     {
       "id": "forensic-002",
       "category": "Forensic Accounting",
       "objective": "Footnote Analysis Strategy",
       "prompt_text": "Act as a forensic accountant. What specific keywords should I search for in the footnotes of a 10-K to uncover off-balance sheet liabilities or aggressive accounting estimates?",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "forensic-accounting"
+      ]
     },
     {
       "id": "macro-001",
       "category": "Macroeconomic Analysis",
       "objective": "Interest Rate Sensitivity",
       "prompt_text": "Explain how to model the impact of a 100bps parallel shift in the yield curve on a bank's Net Interest Margin (NIM) and Economic Value of Equity (EVE).",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "macroeconomic-analysis"
+      ]
     },
     {
       "id": "macro-002",
       "category": "Macroeconomic Analysis",
       "objective": "FX Impact on Multinationals",
       "prompt_text": "A US-based company has significant operations in Europe and Japan. The USD strengthens by 10%. Explain the translational and transactional impact on EBITDA, assuming no hedging.",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "macroeconomic-analysis"
+      ]
     },
     {
       "id": "crypto-001",
       "category": "Fintech & Crypto",
       "objective": "DeFi Protocol Risk Assessment",
       "prompt_text": "Create a due diligence checklist for assessing the smart contract risk and economic sustainability of a DeFi lending protocol. Include factors like Total Value Locked (TVL) stickiness and audit history.",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "fintech-&-crypto"
+      ]
     },
     {
       "id": "crypto-002",
       "category": "Fintech & Crypto",
       "objective": "Stablecoin Collateral Analysis",
       "prompt_text": "Compare the risk profiles of fiat-backed (e.g., USDC), crypto-backed (e.g., DAI), and algorithmic stablecoins. Which model is most susceptible to a 'death spiral' and why?",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "fintech-&-crypto"
+      ]
     },
     {
       "id": "ma-001",
       "category": "Mergers & Acquisitions",
       "objective": "Synergy Estimation",
       "prompt_text": "Outline a bottom-up approach to estimating cost synergies in a merger between two manufacturing companies. Consider SG&A overlap, procurement savings, and plant consolidation.",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "mergers-&-acquisitions"
+      ]
     },
     {
       "id": "ma-002",
       "category": "Mergers & Acquisitions",
       "objective": "Accretion/Dilution Modeling",
       "prompt_text": "Explain the mechanics of an accretion/dilution analysis. Why might a deal be accretive to EPS but destructive to ROIC? Provide a numerical example.",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "mergers-&-acquisitions"
+      ]
     },
     {
       "id": "re-002",
       "category": "Real Estate",
       "objective": "Hotel Valuation (RevPAR)",
       "prompt_text": "Explain how Revenue Per Available Room (RevPAR) is calculated and how it differs from ADR (Average Daily Rate). How should an analyst adjust RevPAR for seasonality in a DCF model?",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "real-estate"
+      ]
     },
     {
       "id": "infra-001",
       "category": "Infrastructure",
       "objective": "Availability Payment Model",
       "prompt_text": "Describe the 'Availability Payment' model in Public-Private Partnerships (P3). How does the risk transfer differ from a demand-risk (toll road) model?",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "infrastructure"
+      ]
     },
     {
       "id": "quant-001",
       "category": "Quantitative Finance",
       "objective": "Factor Investing",
       "prompt_text": "Define the 'Value' and 'Momentum' factors. How would you construct a long-short portfolio to capture the value premium while neutralizing market beta?",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "quantitative-finance"
+      ]
     },
     {
       "id": "quant-002",
       "category": "Quantitative Finance",
       "objective": "Backtesting Best Practices",
       "prompt_text": "What are the common pitfalls in backtesting trading strategies (e.g., look-ahead bias, survivorship bias)? How can 'out-of-sample' testing mitigate overfitting?",
-      "source_file": "Analyst_Workbench"
+      "source_file": "Analyst_Workbench",
+      "tags": [
+        "quantitative-finance"
+      ]
     },
     {
       "id": "credit-003",
@@ -1183,7 +1597,10 @@ const workbenchData = {
       "objective": "Distressed Exchange Analysis",
       "prompt_text": "Analyze a hypothetical Distressed Debt Exchange (DDE). If bondholders exchange existing unsecured notes for new secured notes with a lower face value, how does this impact the company's leverage and the creditor's priority?",
       "source_file": "Analyst_Workbench",
-      "tags": ["distressed", "restructuring"]
+      "tags": [
+        "distressed",
+        "restructuring"
+      ]
     },
     {
       "id": "lbo-002",
@@ -1191,7 +1608,11 @@ const workbenchData = {
       "objective": "LBO Screening and Target Selection",
       "prompt_text": "Identify the top 5 characteristics that make a company an attractive LBO target. Provide examples of sectors that typically exhibit these characteristics and explain why stable cash flows are more critical than high growth for a traditional LBO.",
       "source_file": "Analyst_Workbench",
-      "tags": ["modeling", "screening", "private equity"]
+      "tags": [
+        "modeling",
+        "screening",
+        "private equity"
+      ]
     },
     {
       "id": "fa-003",
@@ -1199,7 +1620,11 @@ const workbenchData = {
       "objective": "Detecting Earnings Manipulation",
       "prompt_text": "Explain the concept of 'channel stuffing' and how a credit analyst might detect it by analyzing a company's Days Sales Outstanding (DSO) and inventory turnover ratios over several consecutive quarters.",
       "source_file": "Analyst_Workbench",
-      "tags": ["accounting", "fraud", "screening"]
+      "tags": [
+        "accounting",
+        "fraud",
+        "screening"
+      ]
     },
     {
       "id": "leg-002",
@@ -1207,7 +1632,131 @@ const workbenchData = {
       "objective": "Credit Agreement Covenant Risk",
       "prompt_text": "Review the 'Restricted Payments' covenant in a standard high-yield indenture. How can an aggressive 'builder basket' based on cumulative EBITDA allow a sponsor to extract significant dividends even if the company's recent performance has deteriorated?",
       "source_file": "Analyst_Workbench",
-      "tags": ["legal", "covenants", "high yield"]
+      "tags": [
+        "legal",
+        "covenants",
+        "high yield"
+      ]
+    },
+    {
+      "id": "esg-003",
+      "category": "ESG Analysis",
+      "objective": "Supply Chain ESG Risk Assessment",
+      "prompt_text": "Analyze the potential ESG risks within the supply chain of a major consumer electronics manufacturer. Focus on labor rights, conflict minerals, and scope 3 carbon emissions.",
+      "tags": [
+        "esg",
+        "supply-chain",
+        "risk"
+      ],
+      "source_file": "credit_analysis_knowledge_base/prompts.json"
+    },
+    {
+      "id": "dd-002",
+      "category": "Distressed Debt",
+      "objective": "Evaluate Pre-Packaged Bankruptcy Viability",
+      "prompt_text": "Describe the requirements for a successful pre-packaged bankruptcy (pre-pack). What are the typical voting thresholds needed from different creditor classes to bind holdouts?",
+      "tags": [
+        "distressed",
+        "bankruptcy",
+        "restructuring"
+      ],
+      "source_file": "credit_analysis_knowledge_base/prompts.json"
+    },
+    {
+      "id": "ma-003",
+      "category": "Mergers & Acquisitions",
+      "objective": "Identify Anti-Trust Concerns",
+      "prompt_text": "Assume two of the top three players in the domestic telecommunications market announce a merger. What are the primary anti-trust hurdles they will face, and what remedies might regulators demand?",
+      "tags": [
+        "m&a",
+        "anti-trust",
+        "regulatory"
+      ],
+      "source_file": "credit_analysis_knowledge_base/prompts.json"
+    },
+    {
+      "id": "lbo-003",
+      "category": "Financial Modeling",
+      "objective": "LBO Value Creation Attribution",
+      "prompt_text": "In a post-mortem analysis of an LBO, how do you attribute the total value created (or destroyed) between three main drivers: EBITDA growth, multiple expansion, and debt paydown (cash generation)?",
+      "tags": [
+        "modeling",
+        "lbo",
+        "private-equity"
+      ],
+      "source_file": "credit_analysis_knowledge_base/prompts.json"
+    },
+    {
+      "id": "macro-003",
+      "category": "Macroeconomic Analysis",
+      "objective": "Impact of Yield Curve Inversion",
+      "prompt_text": "Explain why an inverted yield curve is often seen as a leading indicator of a recession. How does it specifically impact the net interest margin (NIM) of traditional commercial banks?",
+      "tags": [
+        "macro",
+        "fixed-income",
+        "banking"
+      ],
+      "source_file": "credit_analysis_knowledge_base/prompts.json"
+    },
+    {
+      "id": "re-003",
+      "category": "Real Estate",
+      "objective": "Office Space Repurposing Assessment",
+      "prompt_text": "Evaluate the financial and structural challenges of converting vacant Class B/C commercial office space in a central business district into multi-family residential apartments.",
+      "tags": [
+        "real-estate",
+        "commercial",
+        "trends"
+      ],
+      "source_file": "credit_analysis_knowledge_base/prompts.json"
+    },
+    {
+      "id": "credit-004",
+      "category": "Credit Analysis",
+      "objective": "Working Capital Seasonality Impact",
+      "prompt_text": "A retailer's peak season is Q4. Analyze how this seasonality impacts their working capital needs throughout the year, specifically focusing on inventory buildup in Q3 and the need for a seasonal revolving credit facility.",
+      "tags": [
+        "credit",
+        "working-capital",
+        "retail"
+      ],
+      "source_file": "credit_analysis_knowledge_base/prompts.json"
+    },
+    {
+      "id": "leg-003",
+      "category": "Legal Analysis",
+      "objective": "Analyze Intercreditor Agreement Standstill",
+      "prompt_text": "In a first-lien/second-lien debt structure, explain the purpose of a standstill period in the intercreditor agreement. How does it restrict the second-lien lenders' ability to take enforcement actions?",
+      "tags": [
+        "legal",
+        "intercreditor",
+        "leveraged-finance"
+      ],
+      "source_file": "credit_analysis_knowledge_base/prompts.json"
+    },
+    {
+      "id": "val-002",
+      "category": "Valuation",
+      "objective": "Terminal Value Method Selection",
+      "prompt_text": "Compare and contrast the Gordon Growth Method and the Exit Multiple Method for calculating terminal value in a DCF model. Under what circumstances is one preferred over the other?",
+      "tags": [
+        "valuation",
+        "dcf",
+        "modeling"
+      ],
+      "source_file": "credit_analysis_knowledge_base/prompts.json"
+    },
+    {
+      "id": "esg-004",
+      "category": "ESG Analysis",
+      "objective": "Greenwashing Identification",
+      "prompt_text": "What are the common red flags that indicate a company might be engaging in 'greenwashing' in its sustainability reports? Focus on lack of measurable targets and vague language.",
+      "tags": [
+        "esg",
+        "reporting",
+        "risk"
+      ],
+      "source_file": "credit_analysis_knowledge_base/prompts.json"
     }
   ],
   "decision_trees": [
@@ -10233,37 +10782,55 @@ const workbenchData = {
           "title": "Grant of Security Interest",
           "description": "The borrower pledges assets to secure the loan.",
           "standard_text": "As security for the prompt and complete payment and performance when due of all the Obligations, each Grantor hereby grants to the Administrative Agent, for the benefit of the Secured Parties, a continuing security interest in all of its right, title and interest in, to and under all of the following Personal Property...",
-          "negotiation_points": ["Excluded Assets (e.g., vehicles, margin stock)", "Thresholds for perfection actions"]
+          "negotiation_points": [
+            "Excluded Assets (e.g., vehicles, margin stock)",
+            "Thresholds for perfection actions"
+          ]
         },
         {
           "title": "Perfection of Security Interest",
           "description": "Requirements to make the security interest legally enforceable against third parties.",
           "standard_text": "Each Grantor agrees that from time to time, at the expense of such Grantor, it will promptly execute and deliver all further instruments and documents... necessary or desirable... to perfect, protect or enforce the Security Interest.",
-          "negotiation_points": ["Control Agreements for Deposit Accounts", "Timeframes for filing UCC financing statements"]
+          "negotiation_points": [
+            "Control Agreements for Deposit Accounts",
+            "Timeframes for filing UCC financing statements"
+          ]
         },
         {
           "title": "Remedies upon Default",
           "description": "Lender's rights to seize and sell collateral.",
           "standard_text": "If an Event of Default shall occur and be continuing, the Administrative Agent may exercise... all the rights and remedies of a secured party on default under the UCC... including the right to sell the Collateral.",
-          "negotiation_points": ["Notice periods for public/private sales", "Commercially reasonable manner requirement"]
+          "negotiation_points": [
+            "Notice periods for public/private sales",
+            "Commercially reasonable manner requirement"
+          ]
         },
         {
           "title": "Pledge of Securities",
           "description": "Granting a security interest in equity interests of subsidiaries.",
           "standard_text": "Each Pledgor hereby pledges to the Administrative Agent... all the Equity Interests... of each Subsidiary... and delivers to the Administrative Agent the certificates representing such Equity Interests.",
-          "negotiation_points": ["Delivery of certificates vs. uncertificated securities", "Voting rights before/after Default"]
+          "negotiation_points": [
+            "Delivery of certificates vs. uncertificated securities",
+            "Voting rights before/after Default"
+          ]
         },
         {
           "title": "Intellectual Property Security",
           "description": "Specific provisions for trademarks, patents, and copyrights.",
           "standard_text": "Each Grantor grants a security interest in all of its Intellectual Property... and agrees to file Short Form IP Security Agreements with the USPTO and Copyright Office.",
-          "negotiation_points": ["After-acquired IP filings", "License back to Grantor"]
+          "negotiation_points": [
+            "After-acquired IP filings",
+            "License back to Grantor"
+          ]
         },
         {
           "title": "After-Acquired Property Clause",
           "description": "Automatically attaches the security interest to property acquired by the borrower after the agreement is signed.",
           "standard_text": "The Security Interest shall attach to all after-acquired property of the Borrower that falls within the definition of Collateral, without the need for further action.",
-          "negotiation_points": ["Grace period for perfection", "Exclusion for certain asset types"]
+          "negotiation_points": [
+            "Grace period for perfection",
+            "Exclusion for certain asset types"
+          ]
         }
       ]
     },
@@ -10275,43 +10842,64 @@ const workbenchData = {
           "title": "Payment of Rent",
           "description": "Obligation to pay base rent and additional rent.",
           "standard_text": "Tenant shall pay to Landlord Base Rent in the amount of $[Amount] per month, without deduction, offset, or abatement, on the first day of each calendar month.",
-          "negotiation_points": ["Rent abatement periods", "Caps on Operating Expense (CAM) increases"]
+          "negotiation_points": [
+            "Rent abatement periods",
+            "Caps on Operating Expense (CAM) increases"
+          ]
         },
         {
           "title": "Use of Premises",
           "description": "Restrictions on how the property can be used.",
           "standard_text": "Tenant shall use the Premises solely for [Permitted Use] and for no other purpose without Landlord's prior written consent.",
-          "negotiation_points": ["Broad 'general office use' vs. specific use", "Exclusive use rights"]
+          "negotiation_points": [
+            "Broad 'general office use' vs. specific use",
+            "Exclusive use rights"
+          ]
         },
         {
           "title": "Assignment and Subletting",
           "description": "Tenant's right to transfer the lease.",
           "standard_text": "Tenant shall not assign this Lease or sublet the Premises without Landlord's prior written consent, which consent shall not be unreasonably withheld, conditioned or delayed.",
-          "negotiation_points": ["Permitted Transfers (to affiliates/acquirers) without consent", "Profit sharing on sublease rent"]
+          "negotiation_points": [
+            "Permitted Transfers (to affiliates/acquirers) without consent",
+            "Profit sharing on sublease rent"
+          ]
         },
         {
           "title": "Operating Expenses (CAM)",
           "description": "Pass-through of building operating costs to tenant.",
           "standard_text": "Tenant shall pay its Pro Rata Share of all Operating Expenses, including taxes, insurance, and maintenance costs.",
-          "negotiation_points": ["Caps on controllable expenses (e.g., 5% annual cap)", "Exclusion of capital expenditures"]
+          "negotiation_points": [
+            "Caps on controllable expenses (e.g., 5% annual cap)",
+            "Exclusion of capital expenditures"
+          ]
         },
         {
           "title": "Tenant Improvements (TI) Allowance",
           "description": "Landlord contribution to build-out costs.",
           "standard_text": "Landlord shall provide a TI Allowance of $[Amount] per square foot. Any cost in excess of the TI Allowance shall be paid by Tenant.",
-          "negotiation_points": ["Landlord management fees", "Application to soft costs (design/permits)"]
+          "negotiation_points": [
+            "Landlord management fees",
+            "Application to soft costs (design/permits)"
+          ]
         },
         {
           "title": "Subordination, Non-Disturbance (SNDA)",
           "description": "Protects tenant if landlord defaults on mortgage.",
           "standard_text": "This Lease shall be subordinate to any future mortgage... provided that Lender agrees not to disturb Tenant's possession so long as Tenant is not in default.",
-          "negotiation_points": ["Requirement for SNDA from future lenders", "Self-help rights"]
+          "negotiation_points": [
+            "Requirement for SNDA from future lenders",
+            "Self-help rights"
+          ]
         },
         {
           "title": "Estoppel Certificate Requirement",
           "description": "Requires the tenant to verify the current status of the lease, usually for a prospective buyer or lender.",
           "standard_text": "Tenant shall, within ten (10) days after written request from Landlord, execute and deliver an estoppel certificate certifying that this Lease is in full force and effect and unmodified.",
-          "negotiation_points": ["Reasonable time frame to respond", "Limitation on frequency of requests"]
+          "negotiation_points": [
+            "Reasonable time frame to respond",
+            "Limitation on frequency of requests"
+          ]
         }
       ]
     },
@@ -10323,43 +10911,64 @@ const workbenchData = {
           "title": "Payment Subordination",
           "description": "Junior debt cannot be paid until Senior debt is satisfied.",
           "standard_text": "No payment on account of the Subordinated Obligations shall be made by any Loan Party... until the Senior Obligations have been paid in full in cash.",
-          "negotiation_points": ["Permitted Payments (interest/scheduled principal) absent Default", "Payment Blockage Periods"]
+          "negotiation_points": [
+            "Permitted Payments (interest/scheduled principal) absent Default",
+            "Payment Blockage Periods"
+          ]
         },
         {
           "title": "Lien Subordination",
           "description": "Junior liens are secondary to Senior liens.",
           "standard_text": "Any Lien on the Common Collateral securing the Second Lien Obligations... shall be junior and subordinate in all respects to any Lien on the Common Collateral securing the First Lien Obligations.",
-          "negotiation_points": ["Standstill periods for remedies", "Buy-out option for Junior Lenders"]
+          "negotiation_points": [
+            "Standstill periods for remedies",
+            "Buy-out option for Junior Lenders"
+          ]
         },
         {
           "title": "Standstill Provisions",
           "description": "Limits Junior Lender's ability to enforce remedies.",
           "standard_text": "Until the Discharge of Senior Obligations, the Second Lien Agent will not exercise or seek to exercise any rights or remedies with respect to any Common Collateral...",
-          "negotiation_points": ["Standstill Period length (e.g., 180 days)", "Rights to vote in bankruptcy"]
+          "negotiation_points": [
+            "Standstill Period length (e.g., 180 days)",
+            "Rights to vote in bankruptcy"
+          ]
         },
         {
           "title": "Turnover Provision",
           "description": "Requires Junior Lender to hand over payments received in violation of priority.",
           "standard_text": "If any payment or distribution is received by the Second Lien Agent in contravention of this Agreement, such payment shall be held in trust for the benefit of, and paid over to, the First Lien Agent.",
-          "negotiation_points": ["Turnover of non-cash proceeds", "Exceptions for reorganization securities"]
+          "negotiation_points": [
+            "Turnover of non-cash proceeds",
+            "Exceptions for reorganization securities"
+          ]
         },
         {
           "title": "DIP Financing Consent",
           "description": "Junior Lender agrees not to object to Senior Lender's DIP financing.",
           "standard_text": "The Second Lien Agent agrees that it will not object to any DIP Financing provided by the First Lien Lenders... provided that the Second Lien Lenders retain a junior lien on the same collateral.",
-          "negotiation_points": ["Cap on DIP amount", "Adequate protection terms"]
+          "negotiation_points": [
+            "Cap on DIP amount",
+            "Adequate protection terms"
+          ]
         },
         {
           "title": "Purchase Option",
           "description": "Junior Lender's right to buy out Senior Debt.",
           "standard_text": "Upon the occurrence of an Event of Default or Acceleration, the Second Lien Lenders shall have the option to purchase all (but not less than all) of the First Lien Obligations at par plus accrued interest.",
-          "negotiation_points": ["Inclusion of prepayment penalties", "Time window to exercise option"]
+          "negotiation_points": [
+            "Inclusion of prepayment penalties",
+            "Time window to exercise option"
+          ]
         },
         {
           "title": "Release of Collateral",
           "description": "Mechanism by which the Junior Lender agrees to release its lien when the Senior Lender does.",
           "standard_text": "If the First Lien Agent releases any of its liens on any Common Collateral in connection with a permitted sale, the Second Lien Agent agrees to automatically release its corresponding liens.",
-          "negotiation_points": ["Exceptions for sales during bankruptcy", "Requirement that proceeds pay down Senior Debt"]
+          "negotiation_points": [
+            "Exceptions for sales during bankruptcy",
+            "Requirement that proceeds pay down Senior Debt"
+          ]
         }
       ]
     },
@@ -10371,13 +10980,19 @@ const workbenchData = {
           "title": "Accordion Feature (Incremental Facilities)",
           "description": "Allows borrower to increase the facility size without full lender consent.",
           "standard_text": "The Borrower may request the establishment of one or more new term loan commitments... in an aggregate amount not to exceed the Free and Clear Basket plus the General Debt Basket...",
-          "negotiation_points": ["MFN (Most Favored Nation) pricing protection", "Ratio-based incremental capacity"]
+          "negotiation_points": [
+            "MFN (Most Favored Nation) pricing protection",
+            "Ratio-based incremental capacity"
+          ]
         },
         {
           "title": "Yank-a-Bank",
           "description": "Right to replace a non-consenting lender.",
           "standard_text": "If any Lender does not consent to a proposed amendment... the Borrower may, at its expense, require such Lender to assign its Loans to an assignee.",
-          "negotiation_points": ["Required vote threshold (e.g., >50% must already consent)", "Payment of breakage costs"]
+          "negotiation_points": [
+            "Required vote threshold (e.g., >50% must already consent)",
+            "Payment of breakage costs"
+          ]
         }
       ]
     },
@@ -10389,19 +11004,28 @@ const workbenchData = {
           "title": "Failure to Pay or Deliver",
           "description": "Event of default if a party fails to make a required payment.",
           "standard_text": "Failure by the party to make, when due, any payment under this Agreement or delivery under Section 2(a)(i) or 2(e) required to be made by it if such failure is not remedied on or before the third Local Business Day after notice of such failure is given to the party.",
-          "negotiation_points": ["Grace period length", "Threshold amounts"]
+          "negotiation_points": [
+            "Grace period length",
+            "Threshold amounts"
+          ]
         },
         {
           "title": "Credit Event Upon Merger",
           "description": "Termination event triggered if a merger weakens a party's creditworthiness.",
           "standard_text": "The party... merges with another entity... and the resulting entity is materially weaker from a credit perspective.",
-          "negotiation_points": ["Definition of 'materially weaker'", "Exclusion of internal reorganizations"]
+          "negotiation_points": [
+            "Definition of 'materially weaker'",
+            "Exclusion of internal reorganizations"
+          ]
         },
         {
           "title": "Close-out Netting",
           "description": "Process of terminating and netting all transactions upon default.",
           "standard_text": "Upon the designation of an Early Termination Date... the determining party shall calculate the Close-out Amount... and net all obligations into a single payment.",
-          "negotiation_points": ["Valuation methodology (Market Quotation vs. Loss)", "Bankruptcy enforceability"]
+          "negotiation_points": [
+            "Valuation methodology (Market Quotation vs. Loss)",
+            "Bankruptcy enforceability"
+          ]
         }
       ]
     }
