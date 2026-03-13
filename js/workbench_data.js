@@ -161,6 +161,26 @@ const workbenchData = {
       "title": "time series analysis",
       "path": "Data_Science/Notebooks/time_series_analysis.ipynb",
       "category": "Data Science"
+    },
+    {
+      "title": "Restructuring Negotiation Sim",
+      "path": "Interactive_Notebooks/Restructuring/Restructuring_Negotiation_Sim.ipynb",
+      "category": "General"
+    },
+    {
+      "title": "Restructuring Negotiation Simulation",
+      "path": "Interactive_Notebooks/Restructuring/Restructuring_Negotiation_Simulation.ipynb",
+      "category": "General"
+    },
+    {
+      "title": "Portfolio Construction Optimization",
+      "path": "Interactive_Notebooks/Wealth_Management/Portfolio_Construction_Optimization.ipynb",
+      "category": "General"
+    },
+    {
+      "title": "Credit Default Prediction",
+      "path": "Interactive_Notebooks/Risk_Management/Credit_Default_Prediction.ipynb",
+      "category": "Risk Management"
     }
   ],
   "datasets": [

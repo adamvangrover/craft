@@ -263,6 +263,261 @@
           ]
         }
       ]
+    },
+    {
+      "category": "Security Agreements",
+      "description": "Clauses related to collateral and security interests.",
+      "clauses": [
+        {
+          "title": "Grant of Security Interest",
+          "description": "The borrower pledges assets to secure the loan.",
+          "standard_text": "As security for the prompt and complete payment and performance when due of all the Obligations, each Grantor hereby grants to the Administrative Agent, for the benefit of the Secured Parties, a continuing security interest in all of its right, title and interest in, to and under all of the following Personal Property...",
+          "negotiation_points": [
+            "Excluded Assets (e.g., vehicles, margin stock)",
+            "Thresholds for perfection actions"
+          ]
+        },
+        {
+          "title": "Perfection of Security Interest",
+          "description": "Requirements to make the security interest legally enforceable against third parties.",
+          "standard_text": "Each Grantor agrees that from time to time, at the expense of such Grantor, it will promptly execute and deliver all further instruments and documents... necessary or desirable... to perfect, protect or enforce the Security Interest.",
+          "negotiation_points": [
+            "Control Agreements for Deposit Accounts",
+            "Timeframes for filing UCC financing statements"
+          ]
+        },
+        {
+          "title": "Remedies upon Default",
+          "description": "Lender's rights to seize and sell collateral.",
+          "standard_text": "If an Event of Default shall occur and be continuing, the Administrative Agent may exercise... all the rights and remedies of a secured party on default under the UCC... including the right to sell the Collateral.",
+          "negotiation_points": [
+            "Notice periods for public/private sales",
+            "Commercially reasonable manner requirement"
+          ]
+        },
+        {
+          "title": "Pledge of Securities",
+          "description": "Granting a security interest in equity interests of subsidiaries.",
+          "standard_text": "Each Pledgor hereby pledges to the Administrative Agent... all the Equity Interests... of each Subsidiary... and delivers to the Administrative Agent the certificates representing such Equity Interests.",
+          "negotiation_points": [
+            "Delivery of certificates vs. uncertificated securities",
+            "Voting rights before/after Default"
+          ]
+        },
+        {
+          "title": "Intellectual Property Security",
+          "description": "Specific provisions for trademarks, patents, and copyrights.",
+          "standard_text": "Each Grantor grants a security interest in all of its Intellectual Property... and agrees to file Short Form IP Security Agreements with the USPTO and Copyright Office.",
+          "negotiation_points": [
+            "After-acquired IP filings",
+            "License back to Grantor"
+          ]
+        },
+        {
+          "title": "After-Acquired Property Clause",
+          "description": "Automatically attaches the security interest to property acquired by the borrower after the agreement is signed.",
+          "standard_text": "The Security Interest shall attach to all after-acquired property of the Borrower that falls within the definition of Collateral, without the need for further action.",
+          "negotiation_points": [
+            "Grace period for perfection",
+            "Exclusion for certain asset types"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Lease Agreements",
+      "description": "Standard clauses for commercial leases.",
+      "clauses": [
+        {
+          "title": "Payment of Rent",
+          "description": "Obligation to pay base rent and additional rent.",
+          "standard_text": "Tenant shall pay to Landlord Base Rent in the amount of $[Amount] per month, without deduction, offset, or abatement, on the first day of each calendar month.",
+          "negotiation_points": [
+            "Rent abatement periods",
+            "Caps on Operating Expense (CAM) increases"
+          ]
+        },
+        {
+          "title": "Use of Premises",
+          "description": "Restrictions on how the property can be used.",
+          "standard_text": "Tenant shall use the Premises solely for [Permitted Use] and for no other purpose without Landlord's prior written consent.",
+          "negotiation_points": [
+            "Broad 'general office use' vs. specific use",
+            "Exclusive use rights"
+          ]
+        },
+        {
+          "title": "Assignment and Subletting",
+          "description": "Tenant's right to transfer the lease.",
+          "standard_text": "Tenant shall not assign this Lease or sublet the Premises without Landlord's prior written consent, which consent shall not be unreasonably withheld, conditioned or delayed.",
+          "negotiation_points": [
+            "Permitted Transfers (to affiliates/acquirers) without consent",
+            "Profit sharing on sublease rent"
+          ]
+        },
+        {
+          "title": "Operating Expenses (CAM)",
+          "description": "Pass-through of building operating costs to tenant.",
+          "standard_text": "Tenant shall pay its Pro Rata Share of all Operating Expenses, including taxes, insurance, and maintenance costs.",
+          "negotiation_points": [
+            "Caps on controllable expenses (e.g., 5% annual cap)",
+            "Exclusion of capital expenditures"
+          ]
+        },
+        {
+          "title": "Tenant Improvements (TI) Allowance",
+          "description": "Landlord contribution to build-out costs.",
+          "standard_text": "Landlord shall provide a TI Allowance of $[Amount] per square foot. Any cost in excess of the TI Allowance shall be paid by Tenant.",
+          "negotiation_points": [
+            "Landlord management fees",
+            "Application to soft costs (design/permits)"
+          ]
+        },
+        {
+          "title": "Subordination, Non-Disturbance (SNDA)",
+          "description": "Protects tenant if landlord defaults on mortgage.",
+          "standard_text": "This Lease shall be subordinate to any future mortgage... provided that Lender agrees not to disturb Tenant's possession so long as Tenant is not in default.",
+          "negotiation_points": [
+            "Requirement for SNDA from future lenders",
+            "Self-help rights"
+          ]
+        },
+        {
+          "title": "Estoppel Certificate Requirement",
+          "description": "Requires the tenant to verify the current status of the lease, usually for a prospective buyer or lender.",
+          "standard_text": "Tenant shall, within ten (10) days after written request from Landlord, execute and deliver an estoppel certificate certifying that this Lease is in full force and effect and unmodified.",
+          "negotiation_points": [
+            "Reasonable time frame to respond",
+            "Limitation on frequency of requests"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Intercreditor Agreements",
+      "description": "Agreements between creditors regarding priority.",
+      "clauses": [
+        {
+          "title": "Payment Subordination",
+          "description": "Junior debt cannot be paid until Senior debt is satisfied.",
+          "standard_text": "No payment on account of the Subordinated Obligations shall be made by any Loan Party... until the Senior Obligations have been paid in full in cash.",
+          "negotiation_points": [
+            "Permitted Payments (interest/scheduled principal) absent Default",
+            "Payment Blockage Periods"
+          ]
+        },
+        {
+          "title": "Lien Subordination",
+          "description": "Junior liens are secondary to Senior liens.",
+          "standard_text": "Any Lien on the Common Collateral securing the Second Lien Obligations... shall be junior and subordinate in all respects to any Lien on the Common Collateral securing the First Lien Obligations.",
+          "negotiation_points": [
+            "Standstill periods for remedies",
+            "Buy-out option for Junior Lenders"
+          ]
+        },
+        {
+          "title": "Standstill Provisions",
+          "description": "Limits Junior Lender's ability to enforce remedies.",
+          "standard_text": "Until the Discharge of Senior Obligations, the Second Lien Agent will not exercise or seek to exercise any rights or remedies with respect to any Common Collateral...",
+          "negotiation_points": [
+            "Standstill Period length (e.g., 180 days)",
+            "Rights to vote in bankruptcy"
+          ]
+        },
+        {
+          "title": "Turnover Provision",
+          "description": "Requires Junior Lender to hand over payments received in violation of priority.",
+          "standard_text": "If any payment or distribution is received by the Second Lien Agent in contravention of this Agreement, such payment shall be held in trust for the benefit of, and paid over to, the First Lien Agent.",
+          "negotiation_points": [
+            "Turnover of non-cash proceeds",
+            "Exceptions for reorganization securities"
+          ]
+        },
+        {
+          "title": "DIP Financing Consent",
+          "description": "Junior Lender agrees not to object to Senior Lender's DIP financing.",
+          "standard_text": "The Second Lien Agent agrees that it will not object to any DIP Financing provided by the First Lien Lenders... provided that the Second Lien Lenders retain a junior lien on the same collateral.",
+          "negotiation_points": [
+            "Cap on DIP amount",
+            "Adequate protection terms"
+          ]
+        },
+        {
+          "title": "Purchase Option",
+          "description": "Junior Lender's right to buy out Senior Debt.",
+          "standard_text": "Upon the occurrence of an Event of Default or Acceleration, the Second Lien Lenders shall have the option to purchase all (but not less than all) of the First Lien Obligations at par plus accrued interest.",
+          "negotiation_points": [
+            "Inclusion of prepayment penalties",
+            "Time window to exercise option"
+          ]
+        },
+        {
+          "title": "Release of Collateral",
+          "description": "Mechanism by which the Junior Lender agrees to release its lien when the Senior Lender does.",
+          "standard_text": "If the First Lien Agent releases any of its liens on any Common Collateral in connection with a permitted sale, the Second Lien Agent agrees to automatically release its corresponding liens.",
+          "negotiation_points": [
+            "Exceptions for sales during bankruptcy",
+            "Requirement that proceeds pay down Senior Debt"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Credit Agreement - Advanced (LBO)",
+      "description": "Specialized clauses for leveraged finance.",
+      "clauses": [
+        {
+          "title": "Accordion Feature (Incremental Facilities)",
+          "description": "Allows borrower to increase the facility size without full lender consent.",
+          "standard_text": "The Borrower may request the establishment of one or more new term loan commitments... in an aggregate amount not to exceed the Free and Clear Basket plus the General Debt Basket...",
+          "negotiation_points": [
+            "MFN (Most Favored Nation) pricing protection",
+            "Ratio-based incremental capacity"
+          ]
+        },
+        {
+          "title": "Yank-a-Bank",
+          "description": "Right to replace a non-consenting lender.",
+          "standard_text": "If any Lender does not consent to a proposed amendment... the Borrower may, at its expense, require such Lender to assign its Loans to an assignee.",
+          "negotiation_points": [
+            "Required vote threshold (e.g., >50% must already consent)",
+            "Payment of breakage costs"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "ISDA Master Agreement (Derivatives)",
+      "description": "Standard terms for OTC derivatives transactions.",
+      "clauses": [
+        {
+          "title": "Failure to Pay or Deliver",
+          "description": "Event of default if a party fails to make a required payment.",
+          "standard_text": "Failure by the party to make, when due, any payment under this Agreement or delivery under Section 2(a)(i) or 2(e) required to be made by it if such failure is not remedied on or before the third Local Business Day after notice of such failure is given to the party.",
+          "negotiation_points": [
+            "Grace period length",
+            "Threshold amounts"
+          ]
+        },
+        {
+          "title": "Credit Event Upon Merger",
+          "description": "Termination event triggered if a merger weakens a party's creditworthiness.",
+          "standard_text": "The party... merges with another entity... and the resulting entity is materially weaker from a credit perspective.",
+          "negotiation_points": [
+            "Definition of 'materially weaker'",
+            "Exclusion of internal reorganizations"
+          ]
+        },
+        {
+          "title": "Close-out Netting",
+          "description": "Process of terminating and netting all transactions upon default.",
+          "standard_text": "Upon the designation of an Early Termination Date... the determining party shall calculate the Close-out Amount... and net all obligations into a single payment.",
+          "negotiation_points": [
+            "Valuation methodology (Market Quotation vs. Loss)",
+            "Bankruptcy enforceability"
+          ]
+        }
+      ]
     }
   ]
 }
