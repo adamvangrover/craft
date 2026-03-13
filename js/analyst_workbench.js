@@ -809,9 +809,9 @@ function loadPrompts() {
 
         // Sort
         if (sortMode === 'az') {
-            filtered.sort((a, b) => (a.objective || '').localeCompare(b.objective || ''));
+            filtered.sort((a, b) => (a.objective || a.title || a.name || '').localeCompare(b.objective || b.title || b.name || ''));
         } else if (sortMode === 'za') {
-            filtered.sort((a, b) => (b.objective || '').localeCompare(a.objective || ''));
+            filtered.sort((a, b) => (b.objective || b.title || b.name || '').localeCompare(a.objective || a.title || a.name || ''));
         }
 
         filtered.forEach(p => {
@@ -828,7 +828,7 @@ function loadPrompts() {
                     <span class="text-xs font-bold text-indigo-500 uppercase bg-white px-2 py-1 rounded border border-indigo-100">${p.category || 'General'}</span>
                     <button class="text-slate-400 hover:text-indigo-600 copy-btn" title="Copy Prompt"><i class="fas fa-copy"></i></button>
                 </div>
-                <p class="text-slate-800 font-medium mb-2 text-sm">${p.objective || 'Objective'}</p>
+                <p class="text-slate-800 font-medium mb-2 text-sm">${p.objective || p.name || 'Objective'}</p>
                 <div class="bg-white p-3 rounded border border-slate-200 text-slate-600 text-sm font-mono whitespace-pre-wrap">${p.prompt_text || p.prompt}</div>
                 ${tagsHtml ? `<div>${tagsHtml}</div>` : ''}
             `;
@@ -1220,6 +1220,7 @@ function initCalculators() {
                 document.getElementById('wf-ev').value = val;
                 // Highlight waterfall
                 document.getElementById('wf-ev').focus();
+                document.getElementById('wf-ev').scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         });
     }
@@ -1252,6 +1253,7 @@ function initCalculators() {
             if(!isNaN(val)) {
                 document.getElementById('wf-ev').value = val;
                 document.getElementById('wf-ev').focus();
+                document.getElementById('wf-ev').scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         });
     }

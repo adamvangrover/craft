@@ -5,6 +5,13 @@ import re
 
 OUTPUT_FILE = "js/workbench_data.js"
 
+# Load existing workbench_data.js to preserve manual data
+existing_data_raw = ""
+if os.path.exists(OUTPUT_FILE):
+    with open(OUTPUT_FILE, 'r', encoding='utf-8') as f:
+        existing_data_raw = f.read()
+
+# Try to parse the existing JSON data from the JS file
 workbench_data = {
     "notebooks": [],
     "datasets": [],
@@ -21,10 +28,24 @@ workbench_data = {
     "clauses": []
 }
 
+if existing_data_raw:
+    # Extract the JSON part
+    match = re.search(r"const workbenchData = (\{.*\});", existing_data_raw, re.DOTALL)
+    if match:
+        try:
+            workbench_data = json.loads(match.group(1))
+            print("Successfully loaded existing workbench data to preserve manual additions.")
+        except json.JSONDecodeError as e:
+            print(f"Error parsing existing workbench data: {e}")
+
 def get_relative_path(path):
     # Normalize path separators
     return path.replace("\\", "/").replace("./", "")
 
+# We only APPEND items that aren't already there.
+# Use dicts to keep track of existing items by a unique key to prevent duplicates
+
+existing_notebooks = {n["title"]: n for n in workbench_data.get("notebooks", [])}
 # 1. Notebooks
 for root, dirs, files in os.walk("."):
     for file in files:
@@ -41,204 +62,100 @@ for root, dirs, files in os.walk("."):
             elif "fact" in path: category = "FACT Program"
             elif "copilot" in path: category = "AI & Copilot"
 
-            workbench_data["notebooks"].append({
-                "title": file.replace(".ipynb", "").replace("_", " "),
-                "path": get_relative_path(path),
-                "category": category
-            })
+            title = file.replace(".ipynb", "").replace("_", " ")
+            if title not in existing_notebooks:
+                workbench_data["notebooks"].append({
+                    "title": title,
+                    "path": get_relative_path(path),
+                    "category": category
+                })
 
 # 2. Datasets
+existing_datasets = {d["title"]: d for d in workbench_data.get("datasets", [])}
 for root, dirs, files in os.walk("."):
     for file in files:
         path = os.path.join(root, file)
-        # Skip hidden folders or node_modules if any
         if ".git" in path or "node_modules" in path: continue
 
+        title = None
+        dtype = None
         if file.endswith(".csv"):
-            workbench_data["datasets"].append({
-                "title": file,
-                "path": get_relative_path(path),
-                "type": "CSV"
-            })
+            title = file
+            dtype = "CSV"
         elif file.endswith("api_schema.json"):
-             workbench_data["datasets"].append({
-                "title": file.replace("_", " "),
-                "path": get_relative_path(path),
-                "type": "JSON Schema"
-            })
+             title = file.replace("_", " ")
+             dtype = "JSON Schema"
         elif "clauses" in file and file.endswith(".json"):
-             workbench_data["datasets"].append({
-                "title": "Legal Clauses Database (" + file + ")",
-                "path": get_relative_path(path),
-                "type": "JSON Data"
-            })
+             title = "Legal Clauses Database (" + file + ")"
+             dtype = "JSON Data"
         elif "narratives" in file and file.endswith(".json"):
-             workbench_data["datasets"].append({
-                "title": "Sector Memo Narratives (" + file + ")",
+             title = "Sector Memo Narratives (" + file + ")"
+             dtype = "JSON Data"
+
+        if title and title not in existing_datasets:
+            workbench_data["datasets"].append({
+                "title": title,
                 "path": get_relative_path(path),
-                "type": "JSON Data"
+                "type": dtype
             })
 
 # 3. Prompts
 prompt_files = glob.glob("prompt_engine_library/**/*.json", recursive=True) + \
                glob.glob("credit_analysis_knowledge_base/prompts.json")
 
+existing_prompts_texts = {p.get("prompt_text", p.get("prompt")): True for p in workbench_data.get("prompts", [])}
+
 for p_file in prompt_files:
     try:
         with open(p_file, 'r', encoding='utf-8') as f:
             data = json.load(f)
-            if "prompts" in data:
-                for p in data["prompts"]:
+            prompts_to_add = data.get("prompts", data) if isinstance(data, dict) else data
+
+            for p in prompts_to_add:
+                p_text = p.get("prompt_text", p.get("prompt"))
+                if p_text and p_text not in existing_prompts_texts:
                     p["source_file"] = get_relative_path(p_file)
                     workbench_data["prompts"].append(p)
-            elif isinstance(data, list):
-                 for p in data:
-                    p["source_file"] = get_relative_path(p_file)
-                    workbench_data["prompts"].append(p)
+                    existing_prompts_texts[p_text] = True
     except Exception as e:
         print(f"Error reading prompt file {p_file}: {e}")
 
-# 4. Decision Trees
-dt_files = glob.glob("kb/decision_trees/*.json")
-for dt_file in dt_files:
-    try:
-        with open(dt_file, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-            workbench_data["decision_trees"].append({
-                "title": data.get("title", os.path.basename(dt_file)),
-                "tree": data.get("tree", {}),
-                "source": data.get("source", "")
-            })
-    except:
-        pass
-
-# 5. Quizzes
-q_files = glob.glob("quizzes/*.json")
-for q_file in q_files:
-     try:
-        with open(q_file, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-            workbench_data["quizzes"].append({
-                "id": os.path.basename(q_file).replace(".json", ""),
-                "title": data.get("title", "Quiz"),
-                "path": get_relative_path(q_file)
-            })
-     except:
-         pass
-
-# 6. Learning Paths
-lp_files = glob.glob("Learning_Paths/*.md")
-for lp_file in lp_files:
-    if "README.md" in lp_file: continue
-    workbench_data["learning_paths"].append({
-        "title": os.path.basename(lp_file).replace(".md", "").replace("_", " "),
-        "path": get_relative_path(lp_file),
-        "type": "Markdown"
-    })
-
-# 7. Primers
-primer_files = glob.glob("Primers/*.md") + glob.glob("modules/primers/*.md")
-for p_file in primer_files:
-    if "README.md" in p_file: continue
-    workbench_data["primers"].append({
-        "title": os.path.basename(p_file).replace(".md", "").replace("_", " "),
-        "path": get_relative_path(p_file),
-        "category": "Industry & Product"
-    })
-
-# 8. Glossary
-glossary_file = "Global_Financial_Glossary.md"
-if os.path.exists(glossary_file):
-    try:
-        with open(glossary_file, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
-            for line in lines:
-                # Regex to capture * **Term:** Definition
-                match = re.match(r"^\*\s*\*\*(.*?):\*\*\s*(.*)", line.strip())
-                if match:
-                    term = match.group(1)
-                    definition = match.group(2)
-                    workbench_data["glossary"].append({
-                        "term": term,
-                        "definition": definition
-                    })
-    except Exception as e:
-        print(f"Error parsing glossary: {e}")
-
-# 9. Checklists
-checklist_file = "Toolkits_and_Checklists/checklists_registry.json"
-if os.path.exists(checklist_file):
-    try:
-        with open(checklist_file, 'r', encoding='utf-8') as f:
-            workbench_data["checklists"] = json.load(f)
-    except Exception as e:
-        print(f"Error parsing checklists: {e}")
-
-# 10. Mock Deals
-deals_file = "modules/Credit_Analysis/datasets/mock_deals.json"
-if os.path.exists(deals_file):
-    try:
-        with open(deals_file, 'r', encoding='utf-8') as f:
-            workbench_data["deals"] = json.load(f)
-    except Exception as e:
-         print(f"Error parsing mock deals: {e}")
-
-# 11. Scoring Model
-scoring_file = "modules/Credit_Analysis/datasets/credit_scoring_model.json"
-if os.path.exists(scoring_file):
-    try:
-        with open(scoring_file, 'r', encoding='utf-8') as f:
-            workbench_data["scoring_model"] = json.load(f)
-    except Exception as e:
-         print(f"Error parsing scoring model: {e}")
+# ... Add decision trees, quizzes, learning paths similarly if desired ...
+# For now, to be extremely safe, we won't try to automatically pull new ones of those
+# unless we explicitly need to, because existing_data already has them.
 
 # 12. Memo Narratives
-# Load base narratives
 narratives_file = "modules/Credit_Analysis/datasets/memo_narratives.json"
 if os.path.exists(narratives_file):
     try:
         with open(narratives_file, 'r', encoding='utf-8') as f:
-            workbench_data["memo_narratives"] = json.load(f)
+            for k, v in json.load(f).items():
+                if k not in workbench_data.get("memo_narratives", {}):
+                    workbench_data.setdefault("memo_narratives", {})[k] = v
     except Exception as e:
         print(f"Error parsing narratives: {e}")
 
-# Load expanded narratives
 narratives_expanded_file = "modules/Credit_Analysis/datasets/sector_narratives_expanded.json"
 if os.path.exists(narratives_expanded_file):
     try:
         with open(narratives_expanded_file, 'r', encoding='utf-8') as f:
             extra_narratives = json.load(f)
-            workbench_data["memo_narratives"].update(extra_narratives)
+            workbench_data.setdefault("memo_narratives", {}).update(extra_narratives)
             print(f"Merged expanded narratives from {narratives_expanded_file}")
     except Exception as e:
         print(f"Error parsing expanded narratives: {e}")
 
 # 13. Legal Clauses
-# Load base clauses
-clauses_file = "modules/Loan_and_Capital_Market_Terms/legal_clauses.json"
-if os.path.exists(clauses_file):
-    try:
-        with open(clauses_file, 'r', encoding='utf-8') as f:
-            workbench_data["clauses"] = json.load(f)
-    except Exception as e:
-        print(f"Error parsing clauses: {e}")
-
-# Load expanded clauses
+# Load expanded clauses and merge
 clauses_expanded_file = "modules/Loan_and_Capital_Market_Terms/broadly_syndicated_loan_clauses.json"
 if os.path.exists(clauses_expanded_file):
     try:
         with open(clauses_expanded_file, 'r', encoding='utf-8') as f:
             data = json.load(f)
-            # data has key "clauses" which is a list of categories
             if "clauses" in data:
-                # Merge logic: Append categories, or merge if category exists?
-                # Simple append for now, but UI might show duplicates if categories same.
-                # Let's try to merge into existing categories if name matches.
                 for new_cat in data["clauses"]:
-                    existing_cat = next((c for c in workbench_data["clauses"] if c["category"] == new_cat["category"]), None)
+                    existing_cat = next((c for c in workbench_data.setdefault("clauses", []) if c["category"] == new_cat["category"]), None)
                     if existing_cat:
-                        # Append clauses to existing category
-                         # Avoid duplicates
                         existing_titles = {c.get("title") for c in existing_cat["clauses"]}
                         for clause in new_cat["clauses"]:
                             if clause.get("title") not in existing_titles:
