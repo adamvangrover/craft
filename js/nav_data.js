@@ -1853,6 +1853,17 @@ const navData = [
         "text": "AGENTS.MD",
         "href": "Financial_Modeling/AGENTS.MD",
         "type": "file"
+      },
+      {
+        "text": "Tools",
+        "type": "category",
+        "children": [
+          {
+            "text": "ROIC Calculator",
+            "href": "tools/roic_calculator.html",
+            "type": "html"
+          }
+        ]
       }
     ]
   },
@@ -1996,17 +2007,17 @@ const navData = [
             "href": "Interactive_Notebooks/Simulations/Credit_Committee_Simulation_Guide.md",
             "type": "markdown_viewer",
             "viewer": "global"
-            },
-              {
-                "text": "Restructuring Simulation Guide",
-                "href": "Interactive_Notebooks/Restructuring/README.md",
-                "type": "markdown_viewer",
-                "viewer": "global"
-              },
-              {
-                "text": "Restructuring Negotiation Sim",
-                "href": "Interactive_Notebooks/Restructuring/Restructuring_Negotiation_Sim.ipynb",
-                "type": "jupyter_guide"
+          },
+          {
+            "text": "Restructuring Simulation Guide",
+            "href": "Interactive_Notebooks/Restructuring/README.md",
+            "type": "markdown_viewer",
+            "viewer": "global"
+          },
+          {
+            "text": "Restructuring Negotiation Sim",
+            "href": "Interactive_Notebooks/Restructuring/Restructuring_Negotiation_Sim.ipynb",
+            "type": "jupyter_guide"
           }
         ]
       },

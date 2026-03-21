@@ -218,11 +218,23 @@ function findCurrentNavPath(items, currentPath = []) {
     for (const item of items) {
         let match = false;
         if (item.href) {
-            if (mdFile && item.href === mdFile) match = true;
+            // Check markdown file param
+            if (mdFile && (item.href === mdFile || item.href.endsWith('/' + mdFile))) {
+                match = true;
+            }
+            // Check standard HTML path
             else if (!mdFile) {
+                // Ensure robust matching against pathname
                 if (pathname.endsWith(item.href)) match = true;
+
+                // Special case for root index.html
                 if ((item.href === 'index.html' || item.href === './index.html') &&
                     (pathname.endsWith('/') || pathname.endsWith('/index.html'))) match = true;
+
+                // Check if current path includes the href (useful for deep linking)
+                if (item.href !== 'index.html' && item.href !== './index.html' && pathname.includes(item.href)) {
+                     match = true;
+                }
             }
         }
 
@@ -261,12 +273,7 @@ function generateBreadcrumbs() {
             li.className = "font-semibold text-slate-800 truncate max-w-[150px] md:max-w-xs";
             li.textContent = item.text;
         } else {
-             // Only link if valid href and not just a category folder
-             // Most categories don't have valid landing pages in this structure unless type is html_hub
              if (item.href && item.type !== 'category') {
-                  // Need to construct link again... logic duplication.
-                  // Ideally resolveLink function shared.
-                  // For now, just text.
                   li.textContent = item.text;
              } else {
                   li.textContent = item.text;
@@ -278,36 +285,65 @@ function generateBreadcrumbs() {
 }
 
 function highlightActiveLink() {
-    if (!window.navData) return;
-    const path = findCurrentNavPath(window.navData);
-    if (!path) return;
-
-    const activeItem = path[path.length - 1];
     const nav = document.getElementById('global-nav-placeholder');
+    if (!nav) return;
 
-    // Find link by data-original-href
-    // CSS query might be complex with characters, so iterate
-    const links = nav.querySelectorAll('a.nav-link');
-    links.forEach(link => {
-        if (link.getAttribute('data-original-href') === activeItem.href) {
-            link.classList.add('bg-indigo-50', 'text-indigo-600', 'font-semibold', 'border-r-2', 'border-indigo-600');
+    // Remove existing highlights
+    const allLinks = nav.querySelectorAll('a.nav-link');
+    allLinks.forEach(l => l.classList.remove('bg-indigo-50', 'text-indigo-600', 'font-semibold', 'border-r-2', 'border-indigo-600', 'active-nav-link'));
 
-            // Expand parents
-            let parent = link.parentElement; // li
-            while(parent && parent.id !== 'global-nav-placeholder') {
-                if (parent.tagName === 'UL') {
-                    parent.style.display = 'block';
-                    // Flip chevron
-                    const prevBtn = parent.previousElementSibling;
-                    if (prevBtn && prevBtn.classList.contains('nav-category-title')) {
-                        prevBtn.setAttribute('aria-expanded', 'true');
-                        prevBtn.querySelector('.fa-chevron-down').classList.add('rotate-180');
-                    }
-                }
-                parent = parent.parentElement;
+    // Reconstruct exactly what we're looking for
+    const urlParams = new URLSearchParams(window.location.search);
+    const mdFile = urlParams.get('mdfile');
+    let currentPath = window.location.pathname.replace(/^\/?/, '');
+    if (currentPath === '') currentPath = 'index.html';
+
+    let matchedLink = null;
+
+    // Search through links
+    for (let i = 0; i < allLinks.length; i++) {
+        const link = allLinks[i];
+        const origHref = link.getAttribute('data-original-href');
+        if (!origHref) continue;
+
+        // If we are viewing a markdown file
+        if (mdFile) {
+            // Check if the original href ends with the exact markdown file path requested
+            // We use endsWith or direct match because origHref might have ./ prefixes
+            if (origHref === mdFile || origHref.endsWith(mdFile)) {
+                matchedLink = link;
+                break;
             }
         }
-    });
+        // If we are viewing a regular HTML page
+        else {
+            // Prevent index.html from matching everything
+            if (origHref === currentPath || (currentPath !== 'index.html' && origHref.endsWith(currentPath))) {
+                matchedLink = link;
+                break;
+            }
+        }
+    }
+
+    // Apply styling and expand parents
+    if (matchedLink) {
+        matchedLink.classList.add('bg-indigo-50', 'text-indigo-600', 'font-semibold', 'border-r-2', 'border-indigo-600', 'active-nav-link');
+
+        let parent = matchedLink.parentElement; // Start at the <li>
+        while (parent && parent.id !== 'global-nav-placeholder') {
+            if (parent.tagName === 'UL') {
+                parent.style.display = 'block'; // Expand this list
+
+                const prevBtn = parent.previousElementSibling;
+                if (prevBtn && prevBtn.classList.contains('nav-category-title')) {
+                    prevBtn.setAttribute('aria-expanded', 'true');
+                    const chevron = prevBtn.querySelector('.fa-chevron-down');
+                    if (chevron) chevron.classList.add('rotate-180');
+                }
+            }
+            parent = parent.parentElement;
+        }
+    }
 }
 
 /**
