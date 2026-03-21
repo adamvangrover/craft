@@ -41,6 +41,8 @@ def verify_workbench(page: Page):
     """
     print(f"\n[2/3] Verifying Workbench Features at {BASE_URL}/practice_center.html...")
     page.goto(f"{BASE_URL}/practice_center.html")
+    page.evaluate("localStorage.setItem('craft_wb_glossary_tutorial_seen', 'true')")
+    page.reload()
 
     # 1. Test ESG Tab Integration
     print("  ...Clicking ESG Tab")

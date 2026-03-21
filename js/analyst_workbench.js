@@ -342,6 +342,12 @@ function initGlossarySearch() {
     const dismissBtn = document.getElementById('dismiss-glossary-modal');
 
     if(tutBtn && modal) {
+        // Show on first visit
+        if (!localStorage.getItem('craft_wb_glossary_tutorial_seen')) {
+            modal.classList.remove('hidden');
+            localStorage.setItem('craft_wb_glossary_tutorial_seen', 'true');
+        }
+
         tutBtn.addEventListener('click', () => {
             modal.classList.remove('hidden');
         });
@@ -812,6 +818,10 @@ function loadPrompts() {
             filtered.sort((a, b) => (a.objective || a.title || a.name || '').localeCompare(b.objective || b.title || b.name || ''));
         } else if (sortMode === 'za') {
             filtered.sort((a, b) => (b.objective || b.title || b.name || '').localeCompare(a.objective || a.title || a.name || ''));
+        } else if (sortMode === 'latest') {
+            filtered.sort((a, b) => new Date(b.date_added || 0) - new Date(a.date_added || 0));
+        } else if (sortMode === 'popular') {
+            filtered.sort((a, b) => (b.usage_count || 0) - (a.usage_count || 0));
         }
 
         filtered.forEach(p => {

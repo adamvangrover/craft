@@ -77,6 +77,18 @@ const workbenchData = {
       "snippet": "# WACC Calculation Snippet\n\ndef calculate_wacc(E, D, rE, rD, t):\n    \"\"\"\n    E: Market value of equity\n    D: Market value of debt\n    rE: Cost of equity\n    rD: Cost of debt\n    t: Tax rate\n    \"\"\"\n    V = E + D\n    return (E/V * rE) + (D/V * rD * (1-t))\n\n# Example\nwacc = calculate_wacc(100, 50, 0.10, 0.05, 0.21)\nprint(f\"WACC: {wacc:.2%}\")"
     },
     {
+      "title": "Levered Beta Calculation",
+      "path": "Interactive_Notebooks/Valuation_Components/LeveredBeta.ipynb",
+      "category": "Financial Modeling",
+      "snippet": "# Levered Beta Calculation Snippet\n\ndef calculate_levered_beta(unlevered_beta, tax_rate, debt, equity):\n    \"\"\"\n    unlevered_beta: Beta of the company without debt\n    tax_rate: Corporate tax rate\n    debt: Market value of debt\n    equity: Market value of equity\n    \"\"\"\n    return unlevered_beta * (1 + ((1 - tax_rate) * (debt / equity)))\n\n# Example\nbeta = calculate_levered_beta(0.8, 0.21, 50, 100)\nprint(f\"Levered Beta: {beta:.2f}\")"
+    },
+    {
+      "title": "Interest Coverage Ratio JS",
+      "path": "Interactive_Notebooks/Financial_Analysis/InterestCoverage.js",
+      "category": "Financial Analysis",
+      "snippet": "// Interest Coverage Ratio JS Snippet\n\nfunction calculateICR(ebitda, interestExpense) {\n  if (interestExpense === 0) return 'N/A';\n  return (ebitda / interestExpense).toFixed(2);\n}\n\n// Example\nconst ebitda = 1500000;\nconst interest = 300000;\nconsole.log(`Interest Coverage Ratio: ${calculateICR(ebitda, interest)}x`);"
+    },
+    {
       "title": "InteractiveWACCCalculatorNotebook",
       "path": "Interactive_Notebooks/Valuation_Components/InteractiveWACCCalculatorNotebook.ipynb",
       "category": "General"
@@ -241,6 +253,36 @@ const workbenchData = {
     }
   ],
   "prompts": [
+    {
+      "id": "new-001",
+      "category": "Financial Analysis",
+      "objective": "Cash Conversion Cycle Review",
+      "prompt_text": "Analyze the company's working capital metrics over the last 3 years. Calculate the Cash Conversion Cycle (CCC) and identify any significant trends in Days Sales Outstanding (DSO), Days Inventory Outstanding (DIO), and Days Payable Outstanding (DPO). Explain the potential impact on liquidity.",
+      "source_file": "Analyst_Workbench",
+      "tags": ["financial-analysis", "working-capital"],
+      "date_added": "2024-10-25",
+      "usage_count": 8
+    },
+    {
+      "id": "new-002",
+      "category": "ESG Analysis",
+      "objective": "Greenwashing Flag Identification",
+      "prompt_text": "Review the latest sustainability report and identify any potential 'greenwashing' flags. Specifically, look for commitments without concrete timelines, reliance on unverified offsets rather than operational changes, and inconsistencies between stated goals and capital expenditure plans.",
+      "source_file": "Analyst_Workbench",
+      "tags": ["esg", "risk", "reporting"],
+      "date_added": "2024-10-26",
+      "usage_count": 15
+    },
+    {
+      "id": "new-003",
+      "category": "Macroeconomic Analysis",
+      "objective": "Inflation Impact Assessment",
+      "prompt_text": "Assess the potential impact of sustained 4%+ inflation on this company's margin profile. Consider their pricing power, the typical structure of their supply contracts, and the elasticity of demand for their core products. How easily can they pass costs to consumers?",
+      "source_file": "Analyst_Workbench",
+      "tags": ["macro", "inflation", "margins"],
+      "date_added": "2024-10-27",
+      "usage_count": 3
+    },
     {
       "id": "mr-sf-001",
       "category": "Model Structure & Formatting",
@@ -10919,6 +10961,24 @@ const workbenchData = {
           "negotiation_points": [
             "Reasonable time frame to respond",
             "Limitation on frequency of requests"
+          ]
+        },
+        {
+          "title": "Alterations and Improvements",
+          "description": "Governs the tenant's ability to make changes to the premises.",
+          "standard_text": "Tenant shall not make any material alterations, additions, or improvements to the Premises without Landlord's prior written consent, which consent shall not be unreasonably withheld.",
+          "negotiation_points": [
+            "Threshold amount for consent",
+            "Restoration requirements at end of lease"
+          ]
+        },
+        {
+          "title": "Casualty and Condemnation",
+          "description": "Outlines rights and obligations if the property is damaged or taken by eminent domain.",
+          "standard_text": "If the Premises are materially damaged by fire or other casualty, Landlord shall have the option to terminate this Lease or repair the damage within 180 days.",
+          "negotiation_points": [
+            "Tenant's termination rights if repairs are delayed",
+            "Rent abatement during repair period"
           ]
         }
       ]
