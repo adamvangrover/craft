@@ -987,6 +987,21 @@ async function initLegalLibrary() {
              editor.scrollTop = editor.scrollHeight;
         }
     });
+
+    // Legal Document Export
+    const exportBtn = document.getElementById('legal-export-btn');
+    if (exportBtn) {
+        exportBtn.addEventListener('click', () => {
+            const text = editor.value;
+            if(!text) return;
+            const blob = new Blob([text], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'legal_document_draft.md';
+            a.click();
+        });
+    }
 }
 
 // --- Memo Builder ---
@@ -1180,6 +1195,9 @@ function initCalculators() {
         });
     }
 
+}
+
+function initValuationConsole() {
     // DCF Calculator
     const dcfBtn = document.getElementById('dcf-calc-btn');
     const dcfLinkBtn = document.getElementById('dcf-to-waterfall-btn');

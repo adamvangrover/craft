@@ -3,153 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESG Scorecard | Analyst's Toolkit</title>
+    <title>ESG Credit Scorecard | Sustainable Finance</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .score-input { transition: all 0.2s; }
         .score-input:focus { transform: scale(1.02); }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
+<body class="bg-slate-50 text-slate-900 min-h-screen p-8">
 
-    <div class="max-w-5xl mx-auto w-full p-6 mt-10">
-        <!-- Header -->
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-2xl font-bold text-slate-800 flex items-center gap-3">
-                <div class="w-10 h-10 bg-emerald-600 text-white rounded-lg flex items-center justify-center shadow-lg"><i class="fas fa-leaf"></i></div>
-                ESG Credit Scorecard
-            </h1>
-            <a href="../practice_center.html" class="text-sm font-medium text-slate-500 hover:text-emerald-600 transition-colors">
-                &larr; Back to Workbench
-            </a>
-        </div>
+    <div class="max-w-4xl mx-auto">
+        <header class="flex items-center justify-between mb-8">
+            <div>
+                <a href="../index.html" class="text-indigo-600 font-bold text-sm mb-2 block">&larr; Back to Hub</a>
+                <h1 class="text-3xl font-bold text-slate-900">ESG Adjusted Credit Scorecard</h1>
+                <p class="text-slate-500">Quantify Environmental, Social, and Governance risks into a credit notch adjustment.</p>
+            </div>
+            <div class="text-right">
+                <button onclick="window.print()" class="bg-white border border-slate-300 text-slate-600 px-4 py-2 rounded-lg hover:bg-slate-50 transition"><i class="fas fa-print mr-2"></i> Print Report</button>
+            </div>
+        </header>
 
-        <div class="grid md:grid-cols-3 gap-8">
-
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Inputs -->
             <div class="md:col-span-2 space-y-6">
 
-                <!-- Environmental -->
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <h2 class="text-emerald-700 font-bold mb-4 flex items-center gap-2"><i class="fas fa-tree"></i> Environmental (40%)</h2>
-                    <div class="space-y-4">
+                <!-- Baseline -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h2 class="font-bold text-lg text-slate-800 mb-4 flex items-center gap-2"><i class="fas fa-chart-bar text-slate-400"></i> Baseline Credit Profile</h2>
+                    <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Carbon Intensity Trend (1-10)</label>
-                            <input type="range" id="e1" min="1" max="10" value="5" class="w-full accent-emerald-600" oninput="updateVal('e1', 'e1-val')">
-                            <div class="flex justify-between text-xs text-slate-400"><span>Rising (Bad)</span><span id="e1-val" class="font-bold text-emerald-600">5</span><span>Falling (Good)</span></div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Baseline Rating</label>
+                            <select id="base-rating" class="w-full border border-slate-300 rounded-lg px-3 py-2 bg-slate-50">
+                                <option value="1">AAA</option>
+                                <option value="2">AA+</option>
+                                <option value="3">AA</option>
+                                <option value="4">AA-</option>
+                                <option value="5">A+</option>
+                                <option value="6">A</option>
+                                <option value="7">A-</option>
+                                <option value="8">BBB+</option>
+                                <option value="9" selected>BBB</option>
+                                <option value="10">BBB-</option>
+                                <option value="11">BB+</option>
+                                <option value="12">BB</option>
+                                <option value="13">BB-</option>
+                                <option value="14">B+</option>
+                                <option value="15">B</option>
+                                <option value="16">B-</option>
+                                <option value="17">CCC</option>
+                            </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Physical/Climate Risk Exposure (1-10)</label>
-                            <input type="range" id="e2" min="1" max="10" value="5" class="w-full accent-emerald-600" oninput="updateVal('e2', 'e2-val')">
-                            <div class="flex justify-between text-xs text-slate-400"><span>High Risk</span><span id="e2-val" class="font-bold text-emerald-600">5</span><span>Low Risk</span></div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Industry Sensitivity</label>
+                            <select id="sensitivity" class="w-full border border-slate-300 rounded-lg px-3 py-2 bg-slate-50">
+                                <option value="1.5">High (Oil & Gas, Mining, Utils)</option>
+                                <option value="1.0" selected>Medium (Manufacturing, Transport)</option>
+                                <option value="0.5">Low (Tech, Services, Media)</option>
+                            </select>
                         </div>
                     </div>
                 </div>
 
-                <!-- Social -->
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <h2 class="text-blue-700 font-bold mb-4 flex items-center gap-2"><i class="fas fa-users"></i> Social (30%)</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Labor Relations & Safety (1-10)</label>
-                            <input type="range" id="s1" min="1" max="10" value="5" class="w-full accent-blue-600" oninput="updateVal('s1', 's1-val')">
-                            <div class="flex justify-between text-xs text-slate-400"><span>Strikes/Injuries</span><span id="s1-val" class="font-bold text-blue-600">5</span><span>Best in Class</span></div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Product Liability / Data Privacy (1-10)</label>
-                            <input type="range" id="s2" min="1" max="10" value="5" class="w-full accent-blue-600" oninput="updateVal('s2', 's2-val')">
-                            <div class="flex justify-between text-xs text-slate-400"><span>High Liability</span><span id="s2-val" class="font-bold text-blue-600">5</span><span>Secure</span></div>
-                        </div>
-                    </div>
-                </div>
+                <!-- E S G Scores -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h2 class="font-bold text-lg text-slate-800 mb-4 flex items-center gap-2"><i class="fas fa-sliders-h text-slate-400"></i> ESG Factors (1-5 Scale)</h2>
+                    <p class="text-xs text-slate-400 mb-4">1 = Best-in-class (Positive), 3 = Neutral, 5 = Severe Laggard (Negative)</p>
 
-                <!-- Governance -->
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <h2 class="text-purple-700 font-bold mb-4 flex items-center gap-2"><i class="fas fa-gavel"></i> Governance (30%)</h2>
                     <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Board Independence & Oversight (1-10)</label>
-                            <input type="range" id="g1" min="1" max="10" value="5" class="w-full accent-purple-600" oninput="updateVal('g1', 'g1-val')">
-                            <div class="flex justify-between text-xs text-slate-400"><span>Insiders</span><span id="g1-val" class="font-bold text-purple-600">5</span><span>Independent</span></div>
+                        <!-- Environmental -->
+                        <div class="p-4 bg-emerald-50 rounded-lg border border-emerald-100">
+                            <label class="flex justify-between font-bold text-emerald-800 mb-2">
+                                <span><i class="fas fa-leaf mr-2"></i> Environmental Risk</span>
+                                <span id="val-e" class="bg-white px-2 rounded">3</span>
+                            </label>
+                            <input type="range" id="input-e" min="1" max="5" step="0.5" value="3" class="w-full accent-emerald-600">
+                            <div class="flex justify-between text-xs text-emerald-600 mt-1">
+                                <span>Leader</span>
+                                <span>Neutral</span>
+                                <span>Laggard</span>
+                            </div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Financial Transparency (1-10)</label>
-                            <input type="range" id="g2" min="1" max="10" value="5" class="w-full accent-purple-600" oninput="updateVal('g2', 'g2-val')">
-                            <div class="flex justify-between text-xs text-slate-400"><span>Opaque</span><span id="g2-val" class="font-bold text-purple-600">5</span><span>Transparent</span></div>
+
+                        <!-- Social -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-100">
+                            <label class="flex justify-between font-bold text-blue-800 mb-2">
+                                <span><i class="fas fa-users mr-2"></i> Social Capital</span>
+                                <span id="val-s" class="bg-white px-2 rounded">3</span>
+                            </label>
+                            <input type="range" id="input-s" min="1" max="5" step="0.5" value="3" class="w-full accent-blue-600">
+                        </div>
+
+                        <!-- Governance -->
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-100">
+                            <label class="flex justify-between font-bold text-purple-800 mb-2">
+                                <span><i class="fas fa-gavel mr-2"></i> Governance Structure</span>
+                                <span id="val-g" class="bg-white px-2 rounded">3</span>
+                            </label>
+                            <input type="range" id="input-g" min="1" max="5" step="0.5" value="3" class="w-full accent-purple-600">
+                            <div class="mt-2 flex items-start gap-2 text-xs text-purple-700">
+                                <input type="checkbox" id="gov-override" class="mt-1">
+                                <span><strong>Governance Override:</strong> Check if severe controversy exists (caps final score).</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
             </div>
 
-            <!-- Result Panel -->
-            <div class="space-y-6">
-                <div class="bg-slate-900 text-white p-8 rounded-xl shadow-xl flex flex-col items-center justify-center text-center sticky top-6">
-                    <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Composite ESG Score</div>
-                    <div id="final-score" class="text-6xl font-black text-emerald-400 mb-2">5.0</div>
-                    <div id="final-rating" class="text-xl font-bold text-white px-4 py-1 rounded bg-slate-700">Neutral</div>
-                    <button onclick="calculate()" class="mt-8 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 px-6 rounded-lg transition-colors w-full">Update Score</button>
-                </div>
+            <!-- Output -->
+            <div class="md:col-span-1">
+                <div class="bg-slate-900 text-white p-8 rounded-xl shadow-lg sticky top-8">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Final Assessment</h3>
 
-                <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl text-sm text-indigo-800">
-                    <strong>Interpretation:</strong>
-                    <ul class="list-disc ml-4 mt-2 space-y-1 text-xs">
-                        <li><strong>0-3:</strong> High Risk. Possible cost of capital premium (+50bps).</li>
-                        <li><strong>4-6:</strong> Neutral. Industry standard.</li>
-                        <li><strong>7-10:</strong> Leader. Possible "Greenium" benefit (-10bps).</li>
-                    </ul>
+                    <div class="mb-6">
+                        <div class="text-slate-400 text-sm">Adjusted Rating</div>
+                        <div id="final-rating" class="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">BBB</div>
+                    </div>
+
+                    <div class="space-y-4 border-t border-slate-700 pt-4">
+                        <div class="flex justify-between">
+                            <span class="text-slate-400 text-sm">Base Rating</span>
+                            <span id="disp-base" class="font-bold">BBB</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400 text-sm">ESG Notch Impact</span>
+                            <span id="notch-impact" class="font-bold text-yellow-400">0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400 text-sm">Weighted ESG Score</span>
+                            <span id="weighted-score" class="font-mono">3.00</span>
+                        </div>
+                    </div>
+
+                    <div id="alert-box" class="mt-6 bg-red-500/20 border border-red-500 text-red-200 p-3 rounded text-sm hidden">
+                        <i class="fas fa-exclamation-triangle mr-1"></i> Governance Cap Applied
+                    </div>
+
+                    <button id="reset-btn" class="w-full mt-8 bg-slate-700 hover:bg-slate-600 text-white py-2 rounded text-sm font-bold transition">Reset Inputs</button>
                 </div>
             </div>
-
         </div>
+
+        <div class="mt-12 bg-white p-8 rounded-xl border border-slate-200">
+            <h3 class="font-bold text-lg mb-4">Methodology Note</h3>
+            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                This tool applies a weighted notching approach. High sensitivity industries carry a heavier Environmental weight (50%) vs Social (20%) and Governance (30%). Low sensitivity industries weight Governance higher (50%).
+            </p>
+            <p class="text-slate-600 text-sm leading-relaxed">
+                <strong>Scoring Key:</strong> <3.0 implies positive ESG momentum (+1 notch potential), >3.5 implies material risk (-1 to -3 notches).
+            </p>
+        </div>
+
     </div>
 
     <script>
-        function updateVal(inputId, displayId) {
-            document.getElementById(displayId).innerText = document.getElementById(inputId).value;
-            calculate(); // Real-time update
+        const ratings = [
+            "AAA", "AA+", "AA", "AA-", "A+", "A", "A-",
+            "BBB+", "BBB", "BBB-", "BB+", "BB", "BB-",
+            "B+", "B", "B-", "CCC"
+        ];
+
+        function getRating(index) {
+            if (index < 1) return "AAA";
+            if (index > 17) return "D";
+            return ratings[index - 1];
         }
 
         function calculate() {
-            // Get values
-            const e1 = parseInt(document.getElementById('e1').value);
-            const e2 = parseInt(document.getElementById('e2').value);
-            const s1 = parseInt(document.getElementById('s1').value);
-            const s2 = parseInt(document.getElementById('s2').value);
-            const g1 = parseInt(document.getElementById('g1').value);
-            const g2 = parseInt(document.getElementById('g2').value);
+            const base = parseInt(document.getElementById('base-rating').value);
+            const sensitivity = parseFloat(document.getElementById('sensitivity').value);
 
-            // Averages
-            const eAvg = (e1 + e2) / 2;
-            const sAvg = (s1 + s2) / 2;
-            const gAvg = (g1 + g2) / 2;
+            const e = parseFloat(document.getElementById('input-e').value);
+            const s = parseFloat(document.getElementById('input-s').value);
+            const g = parseFloat(document.getElementById('input-g').value);
+            const govOverride = document.getElementById('gov-override').checked;
 
-            // Weighted Score (40/30/30)
-            const score = (eAvg * 0.4) + (sAvg * 0.3) + (gAvg * 0.3);
+            document.getElementById('val-e').textContent = e;
+            document.getElementById('val-s').textContent = s;
+            document.getElementById('val-g').textContent = g;
+            document.getElementById('disp-base').textContent = getRating(base);
 
-            // Render
-            const scoreEl = document.getElementById('final-score');
-            const ratingEl = document.getElementById('final-rating');
+            // Weights based on sensitivity
+            let wE, wS, wG;
+            if (sensitivity === 1.5) { wE = 0.5; wS = 0.2; wG = 0.3; } // High Env
+            else if (sensitivity === 0.5) { wE = 0.2; wS = 0.3; wG = 0.5; } // Low Env (High Gov)
+            else { wE = 0.33; wS = 0.33; wG = 0.34; } // Medium
 
-            scoreEl.innerText = score.toFixed(1);
+            const weightedScore = (e * wE) + (s * wS) + (g * wG);
+            document.getElementById('weighted-score').textContent = weightedScore.toFixed(2);
 
-            // Color coding
-            if (score < 4) {
-                scoreEl.className = "text-6xl font-black text-red-400 mb-2";
-                ratingEl.innerText = "Laggard (High Risk)";
-                ratingEl.className = "text-xl font-bold text-white px-4 py-1 rounded bg-red-600";
-            } else if (score < 7) {
-                scoreEl.className = "text-6xl font-black text-yellow-400 mb-2";
-                ratingEl.innerText = "Average";
-                ratingEl.className = "text-xl font-bold text-slate-900 px-4 py-1 rounded bg-yellow-400";
+            // Notch Calculation (Simple Linear Model)
+            // 3.0 is neutral.
+            // < 2.0 = +1 notch
+            // > 3.5 = -1 notch
+            // > 4.0 = -2 notches
+            // > 4.5 = -3 notches
+
+            let notches = 0;
+            if (weightedScore <= 2.0) notches = -1; // Negative index improves rating (moves up array)
+            else if (weightedScore >= 4.5) notches = 3;
+            else if (weightedScore >= 4.0) notches = 2;
+            else if (weightedScore >= 3.5) notches = 1;
+
+            // Apply sensitivity multiplier to notches?
+            // If high sensitivity and bad score, maybe punish harder.
+            // Simplified: The weights already handle sensitivity.
+
+            if (govOverride) {
+                notches = Math.max(notches, 3); // At least -3 notches (downgrade)
+                document.getElementById('alert-box').classList.remove('hidden');
             } else {
-                scoreEl.className = "text-6xl font-black text-emerald-400 mb-2";
-                ratingEl.innerText = "Leader";
-                ratingEl.className = "text-xl font-bold text-white px-4 py-1 rounded bg-emerald-600";
+                document.getElementById('alert-box').classList.add('hidden');
             }
+
+            // Display Notch Impact
+            const impactEl = document.getElementById('notch-impact');
+            if (notches === 0) {
+                impactEl.textContent = "Neutral (0)";
+                impactEl.className = "font-bold text-slate-400";
+            } else if (notches < 0) { // Upgrade
+                impactEl.textContent = `Positive (+${Math.abs(notches)})`;
+                impactEl.className = "font-bold text-emerald-400";
+            } else { // Downgrade
+                impactEl.textContent = `Negative (-${notches})`;
+                impactEl.className = "font-bold text-red-400";
+            }
+
+            // Final Rating
+            // Base index is 1-17. Notches adds to index (downgrade) or subtracts (upgrade).
+            const finalIndex = base + notches;
+            const finalTxt = getRating(finalIndex);
+
+            document.getElementById('final-rating').textContent = finalTxt;
+        }
+
+        // Listeners
+        document.querySelectorAll('input, select').forEach(el => {
+            el.addEventListener('input', calculate);
+        });
+
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            document.getElementById('input-e').value = 3;
+            document.getElementById('input-s').value = 3;
+            document.getElementById('input-g').value = 3;
+            document.getElementById('gov-override').checked = false;
+            calculate();
+        });
+
+        // Init
+        calculate();
+
+        // Gamification Hook (if available)
+        if(window.parent && window.parent.Gamification) {
+             // Maybe award XP for using tool
+             // window.parent.Gamification.addXP(10, "Used ESG Scorecard");
         }
     </script>
 </body>

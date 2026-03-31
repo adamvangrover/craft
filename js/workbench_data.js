@@ -259,7 +259,10 @@ const workbenchData = {
       "objective": "Cash Conversion Cycle Review",
       "prompt_text": "Analyze the company's working capital metrics over the last 3 years. Calculate the Cash Conversion Cycle (CCC) and identify any significant trends in Days Sales Outstanding (DSO), Days Inventory Outstanding (DIO), and Days Payable Outstanding (DPO). Explain the potential impact on liquidity.",
       "source_file": "Analyst_Workbench",
-      "tags": ["financial-analysis", "working-capital"],
+      "tags": [
+        "financial-analysis",
+        "working-capital"
+      ],
       "date_added": "2024-10-25",
       "usage_count": 8
     },
@@ -269,7 +272,11 @@ const workbenchData = {
       "objective": "Greenwashing Flag Identification",
       "prompt_text": "Review the latest sustainability report and identify any potential 'greenwashing' flags. Specifically, look for commitments without concrete timelines, reliance on unverified offsets rather than operational changes, and inconsistencies between stated goals and capital expenditure plans.",
       "source_file": "Analyst_Workbench",
-      "tags": ["esg", "risk", "reporting"],
+      "tags": [
+        "esg",
+        "risk",
+        "reporting"
+      ],
       "date_added": "2024-10-26",
       "usage_count": 15
     },
@@ -279,7 +286,11 @@ const workbenchData = {
       "objective": "Inflation Impact Assessment",
       "prompt_text": "Assess the potential impact of sustained 4%+ inflation on this company's margin profile. Consider their pricing power, the typical structure of their supply contracts, and the elasticity of demand for their core products. How easily can they pass costs to consumers?",
       "source_file": "Analyst_Workbench",
-      "tags": ["macro", "inflation", "margins"],
+      "tags": [
+        "macro",
+        "inflation",
+        "margins"
+      ],
       "date_added": "2024-10-27",
       "usage_count": 3
     },
