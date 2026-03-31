@@ -9,7 +9,7 @@ async def run():
         page = await browser.new_page()
 
         # Base URL - assuming running on localhost:3000 as per previous context
-        base_url = "http://localhost:3000"
+        base_url = "http://localhost:8000"
 
         print("Capturing Quantitative Finance Hub...")
         await page.goto(f"{base_url}/Quantitative_Finance/index.html")

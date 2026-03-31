@@ -24,7 +24,17 @@ def run(playwright):
     # 2. Verify Analyst Workbench
     print("Verifying Analyst Workbench...")
     page.goto("http://localhost:8000/practice_center.html")
+    page.evaluate("localStorage.setItem('craft_wb_glossary_tutorial_seen', 'true')")
+    page.reload()
     page.wait_for_load_state("networkidle")
+
+    # Dismiss glossary tutorial modal if present
+    try:
+        dismiss_btn = page.locator('#dismiss-glossary-modal')
+        if dismiss_btn.is_visible(timeout=2000):
+            dismiss_btn.click()
+    except Exception:
+        pass
 
     # Click Valuation to see calculators
     page.click("button[data-target='wb-valuation']")

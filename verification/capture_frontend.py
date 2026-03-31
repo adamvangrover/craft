@@ -8,7 +8,7 @@ def capture_screenshots():
 
         # 1. Home - Gamification
         print("Capturing Home...")
-        page.goto("http://localhost:3000/home.html")
+        page.goto("http://localhost:8000/home.html")
         try:
             page.wait_for_selector("#gamification-widget", timeout=5000)
         except:
@@ -17,7 +17,16 @@ def capture_screenshots():
 
         # 2. Workbench - ESG
         print("Capturing Workbench ESG...")
-        page.goto("http://localhost:3000/practice_center.html")
+        page.goto("http://localhost:8000/practice_center.html")
+
+        # Dismiss glossary tutorial modal if present
+        try:
+            dismiss_btn = page.locator('#dismiss-glossary-modal')
+            if dismiss_btn.is_visible(timeout=2000):
+                dismiss_btn.click()
+        except Exception:
+            pass
+
         page.click("button[data-target='wb-esg']")
         page.wait_for_timeout(500)
         page.screenshot(path="verification/workbench_esg.png")
@@ -30,12 +39,12 @@ def capture_screenshots():
 
         # 4. Sustainable Hub
         print("Capturing Sustainable Hub...")
-        page.goto("http://localhost:3000/Sustainable_Finance/index.html")
+        page.goto("http://localhost:8000/Sustainable_Finance/index.html")
         page.screenshot(path="verification/sustainable_hub.png")
 
         # 5. Wealth Hub
         print("Capturing Wealth Hub...")
-        page.goto("http://localhost:3000/Wealth_Management/index.html")
+        page.goto("http://localhost:8000/Wealth_Management/index.html")
         page.screenshot(path="verification/wealth_hub.png")
 
         browser.close()
