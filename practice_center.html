@@ -935,7 +935,10 @@ print(f"WACC: {wacc:.2%}")</textarea>
                         <!-- Editor/Viewer -->
                         <div class="w-2/3 flex flex-col gap-4">
                              <div class="bg-white rounded-xl border border-slate-200 shadow-sm flex-grow flex flex-col overflow-hidden">
-                                <div class="bg-slate-100 px-4 py-2 border-b border-slate-200 font-bold text-slate-600 text-sm">Working Document</div>
+                                <div class="bg-slate-100 px-4 py-2 border-b border-slate-200 font-bold text-slate-600 text-sm flex justify-between items-center">
+                                    <span>Working Document</span>
+                                    <button id="legal-export-btn" class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded text-xs hover:bg-indigo-200 transition-colors"><i class="fas fa-download mr-1"></i> Export</button>
+                                </div>
                                 <textarea id="legal-editor" class="flex-grow p-6 outline-none font-mono text-sm resize-none" placeholder="Build your term sheet or agreement here..."></textarea>
                              </div>
                         </div>

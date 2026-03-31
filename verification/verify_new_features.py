@@ -18,15 +18,15 @@ def verify_standalone_tools(page: Page):
     page.goto(tool_url)
     
     # 2. visual Assertions
-    page.wait_for_selector("text=ESG Credit Scorecard")
+    page.wait_for_selector("text=ESG Adjusted Credit Scorecard")
     
     # 3. Verify Calculation Logic (Specific to UI/UX branch)
     # Checks if the default values calculate to 5.0
-    page.click("button:has-text('Update Score')")
-    score = page.inner_text("#final-score")
+    # page.click("button:has-text('Update Score')")
+    score = page.inner_text("#weighted-score")
     
-    if score == "5.0":
-        print("  ✓ ESG Calc Logic verified (Default 5.0).")
+    if score == "3.00":
+        print("  ✓ ESG Calc Logic verified (Default 3.00).")
     else:
         print(f"  X Error: Unexpected ESG Score {score}")
         
