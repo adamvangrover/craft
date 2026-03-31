@@ -22,8 +22,13 @@ def run(playwright):
     print("Verifying Markdown Viewer & Nav...")
     page.goto("http://localhost:8000/global_markdown_viewer.html?mdfile=Risk_Management/Market_Risk/Deep_Dives/Advanced_Derivatives.md")
     page.wait_for_selector("#markdown-content")
+
+    # Wait a bit for JS execution
+    page.wait_for_timeout(2000)
+
     # Wait for the sidebar to populate active link
-    page.wait_for_selector(".active-nav-link")
+    page.wait_for_selector(".active-nav-link", timeout=5000)
+
     page.screenshot(path="verification/viewer_new.png")
     print("Viewer verified.")
 

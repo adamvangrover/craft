@@ -10,24 +10,32 @@ def verify_changes():
         page.evaluate("localStorage.setItem('craft_wb_glossary_tutorial_seen', 'true')")
         page.reload()
 
+        # Also try dismissing modal directly to be safe
+        try:
+            dismiss_btn = page.locator('#dismiss-glossary-modal')
+            if dismiss_btn.is_visible(timeout=2000):
+                dismiss_btn.click()
+        except Exception:
+            pass
+
         # Go to Valuation
         page.click("button[data-target='wb-valuation']")
-        page.wait_for_selector("#wb-valuation")
+        page.wait_for_selector("#wb-valuation", state="visible")
         page.screenshot(path="verification/valuation_console.png")
 
         # Go to Coding
         page.click("button[data-target='wb-coding']")
-        page.wait_for_selector("#wb-coding")
+        page.wait_for_selector("#wb-coding", state="visible")
         page.screenshot(path="verification/coding_lab.png")
 
         # Go to Credit Scorer
         page.click("button[data-target='wb-creditscorer']")
-        page.wait_for_selector("#wb-creditscorer")
+        page.wait_for_selector("#wb-creditscorer", state="visible")
         page.screenshot(path="verification/credit_scorer.png")
 
         # Go to AI command center (Prompt Library)
         page.click("button[data-target='wb-ai']")
-        page.wait_for_selector("#wb-ai")
+        page.wait_for_selector("#wb-ai", state="visible")
         # Change prompt sort to latest
         page.select_option("#prompt-sort", "latest")
         page.screenshot(path="verification/prompt_library.png")

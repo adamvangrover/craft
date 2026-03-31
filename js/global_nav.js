@@ -218,9 +218,17 @@ function findCurrentNavPath(items, currentPath = []) {
     for (const item of items) {
         let match = false;
         if (item.href) {
-            if (mdFile && item.href === mdFile) match = true;
+            // Check original and decoded href
+            const decodedHref = decodeURIComponent(item.href);
+
+            // First check if mdFile query param matches item href directly or item href matches pathname
+            if (mdFile && (item.href === mdFile || decodedHref === mdFile ||
+                item.href.endsWith('/' + mdFile) || decodedHref.endsWith('/' + mdFile) ||
+                mdFile.endsWith('/' + item.href) || mdFile.endsWith('/' + decodedHref))) {
+                match = true;
+            }
             else if (!mdFile) {
-                if (pathname.endsWith(item.href)) match = true;
+                if (pathname.endsWith(item.href) || pathname.endsWith(decodedHref)) match = true;
                 if ((item.href === 'index.html' || item.href === './index.html') &&
                     (pathname.endsWith('/') || pathname.endsWith('/index.html'))) match = true;
             }
@@ -280,34 +288,95 @@ function generateBreadcrumbs() {
 function highlightActiveLink() {
     if (!window.navData) return;
     const path = findCurrentNavPath(window.navData);
-    if (!path) return;
 
-    const activeItem = path[path.length - 1];
+    // We should allow for a case where path is empty but we're on a global markdown viewer
+    const params = new URLSearchParams(window.location.search);
+    const mdFile = params.get('mdfile');
+
+    if (!path && !mdFile) return;
+
+    // Use path if found, else use mdFile
+    const activeItem = (path && path.length > 0) ? path[path.length - 1] : {href: mdFile};
     const nav = document.getElementById('global-nav-placeholder');
+    if (!nav) return;
 
     // Find link by data-original-href
     // CSS query might be complex with characters, so iterate
     const links = nav.querySelectorAll('a.nav-link');
-    links.forEach(link => {
-        if (link.getAttribute('data-original-href') === activeItem.href) {
-            link.classList.add('bg-indigo-50', 'text-indigo-600', 'font-semibold', 'border-r-2', 'border-indigo-600');
 
-            // Expand parents
-            let parent = link.parentElement; // li
-            while(parent && parent.id !== 'global-nav-placeholder') {
-                if (parent.tagName === 'UL') {
-                    parent.style.display = 'block';
-                    // Flip chevron
-                    const prevBtn = parent.previousElementSibling;
-                    if (prevBtn && prevBtn.classList.contains('nav-category-title')) {
-                        prevBtn.setAttribute('aria-expanded', 'true');
-                        prevBtn.querySelector('.fa-chevron-down').classList.add('rotate-180');
-                    }
-                }
-                parent = parent.parentElement;
-            }
+    // We might have query string mismatch or missing data-original-href
+    // Check for exact active item match first, fallback to checking if href ends with it
+    let matchedLink = null;
+
+    // First try exact match
+    links.forEach(link => {
+        const linkOriginalHref = link.getAttribute('data-original-href');
+        if (linkOriginalHref && activeItem.href && (linkOriginalHref === activeItem.href || linkOriginalHref.endsWith(activeItem.href) || activeItem.href.endsWith(linkOriginalHref))) {
+            matchedLink = link;
         }
     });
+
+    // Fallback to partial match if no exact match found
+    if (!matchedLink) {
+        links.forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref && linkHref.includes(activeItem.href)) {
+                matchedLink = link;
+            }
+        });
+    }
+
+    // Fallback to searching activeItem.href in decoded url
+    if (!matchedLink) {
+        links.forEach(link => {
+            const linkHref = decodeURIComponent(link.getAttribute('href') || '');
+            if (linkHref && activeItem.href && linkHref.includes(activeItem.href)) {
+                matchedLink = link;
+            }
+        });
+    }
+
+    if (!matchedLink) {
+        links.forEach(link => {
+            const originalHref = link.getAttribute('data-original-href');
+            if (originalHref && mdFile && (originalHref === mdFile || originalHref.endsWith('/' + mdFile))) {
+                matchedLink = link;
+            }
+        });
+    }
+
+    // final fallback to raw URL check
+    if (!matchedLink && mdFile) {
+        const decodedMdFile = decodeURIComponent(mdFile);
+        links.forEach(link => {
+            const linkHref = link.getAttribute('href') || '';
+            const linkOrigHref = link.getAttribute('data-original-href') || '';
+
+            if (linkOrigHref.includes(mdFile) || linkOrigHref.includes(decodedMdFile) ||
+                linkHref.includes(mdFile) || linkHref.includes(decodedMdFile)) {
+                matchedLink = link;
+            }
+        });
+    }
+
+    if (matchedLink) {
+        matchedLink.classList.add('active-nav-link', 'bg-indigo-50', 'text-indigo-600', 'font-semibold', 'border-r-2', 'border-indigo-600');
+
+        // Expand parents
+        let parent = matchedLink.parentElement; // li
+        while(parent && parent.id !== 'global-nav-placeholder') {
+            if (parent.tagName === 'UL') {
+                parent.style.display = 'block';
+                // Flip chevron
+                const prevBtn = parent.previousElementSibling;
+                if (prevBtn && prevBtn.classList.contains('nav-category-title')) {
+                    prevBtn.setAttribute('aria-expanded', 'true');
+                    prevBtn.querySelector('.fa-chevron-down').classList.add('rotate-180');
+                }
+            }
+            parent = parent.parentElement;
+        }
+    }
 }
 
 /**

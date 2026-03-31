@@ -14,6 +14,15 @@ def verify_dashboard_features():
             page.wait_for_selector('h1:has-text("Analyst\'s Workbench")')
 
             print("Verifying Settings Control Panel logic...")
+
+            # Dismiss glossary tutorial modal if present
+            try:
+                dismiss_btn = page.locator('#dismiss-glossary-modal')
+                if dismiss_btn.is_visible(timeout=2000):
+                    dismiss_btn.click()
+            except Exception:
+                pass
+
             # Click Control Panel in sidebar
             page.locator('button[data-target="wb-settings"]').click()
             time.sleep(0.5)
