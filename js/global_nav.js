@@ -245,8 +245,9 @@ function findCurrentNavPath(items, currentPath = []) {
 }
 
 function generateBreadcrumbs() {
-    if (!window.navData) return;
-    const path = findCurrentNavPath(window.navData);
+    const data = window.navData || (typeof navData !== 'undefined' ? navData : null);
+    if (!data) return;
+    const path = findCurrentNavPath(data);
     const container = document.getElementById('breadcrumb-container');
     if (!container || !path) return;
 
@@ -286,8 +287,9 @@ function generateBreadcrumbs() {
 }
 
 function highlightActiveLink() {
-    if (!window.navData) return;
-    const path = findCurrentNavPath(window.navData);
+    const data = window.navData || (typeof navData !== 'undefined' ? navData : null);
+    if (!data) return;
+    const path = findCurrentNavPath(data);
 
     // We should allow for a case where path is empty but we're on a global markdown viewer
     const params = new URLSearchParams(window.location.search);
