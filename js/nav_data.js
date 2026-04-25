@@ -6932,3 +6932,4 @@ const navData = [
     "type": "html"
   }
 ];
+window.navData = navData;
